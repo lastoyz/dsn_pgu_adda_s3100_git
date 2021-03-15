@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_dac_pattern_gen_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_dac_pattern_gen" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="155244625719fs"></ZoomStartTime>
+      <ZoomEndTime time="258659932822fs"></ZoomEndTime>
+      <Cursor1Time time="202950000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="230"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="49" />
+   <wave_markers>
+      <marker time="18891250000" label="" />
+      <marker time="18926250000" label="" />
+      <marker time="18856250000" label="" />
+      <marker time="18961250000" label="" />
+      <marker time="16753750000" label="" />
+      <marker time="16953750000" label="" />
+      <marker time="17013750000" label="" />
+      <marker time="50853750000" label="" />
+      <marker time="38353750000" label="" />
+      <marker time="21957500000" label="" />
+      <marker time="22757500000" label="" />
+      <marker time="23157500000" label="" />
+      <marker time="22357500000" label="" />
+      <marker time="21557500000" label="" />
+      <marker time="226657500000" label="" />
+      <marker time="251357500000" label="" />
+      <marker time="201357500000" label="" />
+   </wave_markers>
+   <wvobject fp_name="/tb_dac_pattern_gen/clk_10M" type="logic">
+      <obj_property name="ElementShortName">clk_10M</obj_property>
+      <obj_property name="ObjectShortName">clk_10M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/reset_n" type="logic">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/clk_bus" type="logic">
+      <obj_property name="ElementShortName">clk_bus</obj_property>
+      <obj_property name="ObjectShortName">clk_bus</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/clk_400M" type="logic">
+      <obj_property name="ElementShortName">clk_400M</obj_property>
+      <obj_property name="ObjectShortName">clk_400M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/test_reset" type="logic">
+      <obj_property name="ElementShortName">test_reset</obj_property>
+      <obj_property name="ObjectShortName">test_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/r_trig_dacx_ctrl" type="array">
+      <obj_property name="ElementShortName">r_trig_dacx_ctrl[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_trig_dacx_ctrl[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/r_wire_dacx_data" type="array">
+      <obj_property name="ElementShortName">r_wire_dacx_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_wire_dacx_data[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_trig_dacx_ctrl" type="array">
+      <obj_property name="ElementShortName">i_trig_dacx_ctrl[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_trig_dacx_ctrl[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_wire_dacx_data" type="array">
+      <obj_property name="ElementShortName">o_wire_dacx_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_wire_dacx_data[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_fdcs_data_dac0" type="array">
+      <obj_property name="ElementShortName">w_fdcs_data_dac0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_fdcs_data_dac0[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_data_dac0" type="array">
+      <obj_property name="ElementShortName">r_fdcs_data_dac0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_fdcs_data_dac0[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_data_pin" type="array">
+      <obj_property name="ElementShortName">o_dac0_data_pin[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_dac0_data_pin[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_data_pin" type="array">
+      <obj_property name="ElementShortName">o_dac1_data_pin[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_dac1_data_pin[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_active_dco" type="logic">
+      <obj_property name="ElementShortName">o_dac0_active_dco</obj_property>
+      <obj_property name="ObjectShortName">o_dac0_active_dco</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_active_dco" type="logic">
+      <obj_property name="ElementShortName">o_dac1_active_dco</obj_property>
+      <obj_property name="ObjectShortName">o_dac1_active_dco</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_run_dac0" type="logic">
+      <obj_property name="ElementShortName">flag_fdcs_run_dac0</obj_property>
+      <obj_property name="ObjectShortName">flag_fdcs_run_dac0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_run_dac1" type="logic">
+      <obj_property name="ElementShortName">flag_fdcs_run_dac1</obj_property>
+      <obj_property name="ObjectShortName">flag_fdcs_run_dac1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_active_dac0" type="logic">
+      <obj_property name="ElementShortName">flag_fdcs_active_dac0</obj_property>
+      <obj_property name="ObjectShortName">flag_fdcs_active_dac0</obj_property>
+      <obj_property name="CustomSignalColor">#A52A2A</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_active_dac1" type="logic">
+      <obj_property name="ElementShortName">flag_fdcs_active_dac1</obj_property>
+      <obj_property name="ObjectShortName">flag_fdcs_active_dac1</obj_property>
+      <obj_property name="CustomSignalColor">#A52A2A</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_active_dac0" type="logic">
+      <obj_property name="ElementShortName">r_fdcs_active_dac0</obj_property>
+      <obj_property name="ObjectShortName">r_fdcs_active_dac0</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_active_dac1" type="logic">
+      <obj_property name="ElementShortName">r_fdcs_active_dac1</obj_property>
+      <obj_property name="ObjectShortName">r_fdcs_active_dac1</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_repeat_dac0" type="array">
+      <obj_property name="ElementShortName">r_fdcs_repeat_dac0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_fdcs_repeat_dac0[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_cnt_repeat_dac0" type="array">
+      <obj_property name="ElementShortName">r_fdcs_cnt_repeat_dac0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_fdcs_cnt_repeat_dac0[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_empty" type="logic">
+      <obj_property name="ElementShortName">i_dac0_fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">i_dac0_fifo_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac0_fifo_empty" type="logic">
+      <obj_property name="ElementShortName">r_dac0_fifo_empty</obj_property>
+      <obj_property name="ObjectShortName">r_dac0_fifo_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload1_empty" type="logic">
+      <obj_property name="ElementShortName">i_dac0_fifo_reload1_empty</obj_property>
+      <obj_property name="ObjectShortName">i_dac0_fifo_reload1_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac0_fifo_reload1_empty" type="logic">
+      <obj_property name="ElementShortName">r_dac0_fifo_reload1_empty</obj_property>
+      <obj_property name="ObjectShortName">r_dac0_fifo_reload1_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload2_empty" type="logic">
+      <obj_property name="ElementShortName">i_dac0_fifo_reload2_empty</obj_property>
+      <obj_property name="ObjectShortName">i_dac0_fifo_reload2_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac0_fifo_reload2_empty" type="logic">
+      <obj_property name="ElementShortName">r_dac0_fifo_reload2_empty</obj_property>
+      <obj_property name="ObjectShortName">r_dac0_fifo_reload2_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_read_status" type="logic">
+      <obj_property name="ElementShortName">w_read_status</obj_property>
+      <obj_property name="ObjectShortName">w_read_status</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_write_repeat_period" type="logic">
+      <obj_property name="ElementShortName">w_write_repeat_period</obj_property>
+      <obj_property name="ObjectShortName">w_write_repeat_period</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_read_repeat_period" type="logic">
+      <obj_property name="ElementShortName">w_read_repeat_period</obj_property>
+      <obj_property name="ObjectShortName">w_read_repeat_period</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac0_hold_pulse" type="logic">
+      <obj_property name="ElementShortName">r_dac0_hold_pulse</obj_property>
+      <obj_property name="ObjectShortName">r_dac0_hold_pulse</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac1_hold_pulse" type="logic">
+      <obj_property name="ElementShortName">r_dac1_hold_pulse</obj_property>
+      <obj_property name="ObjectShortName">r_dac1_hold_pulse</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac0_active_clk" type="logic">
+      <obj_property name="ElementShortName">r_dac0_active_clk</obj_property>
+      <obj_property name="ObjectShortName">r_dac0_active_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac1_active_clk" type="logic">
+      <obj_property name="ElementShortName">r_dac1_active_clk</obj_property>
+      <obj_property name="ObjectShortName">r_dac1_active_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_subpulse_idx_dac0" type="array">
+      <obj_property name="ElementShortName">r_fdcs_subpulse_idx_dac0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_fdcs_subpulse_idx_dac0[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_subpulse_idx_dac1" type="array">
+      <obj_property name="ElementShortName">r_fdcs_subpulse_idx_dac1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_fdcs_subpulse_idx_dac1[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_repeat_period" type="array">
+      <obj_property name="ElementShortName">r_repeat_period[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_repeat_period[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_st_dac0_fifo_sel" type="array">
+      <obj_property name="ElementShortName">r_st_dac0_fifo_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">r_st_dac0_fifo_sel[1:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_data_pin" type="array">
+      <obj_property name="ElementShortName">o_dac0_data_pin[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_dac0_data_pin[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">120</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="AnalogYRangeMin">12.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">12.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_st_dac1_fifo_sel" type="array">
+      <obj_property name="ElementShortName">r_st_dac1_fifo_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">r_st_dac1_fifo_sel[1:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_data_pin" type="array">
+      <obj_property name="ElementShortName">o_dac1_data_pin[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_dac1_data_pin[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">120</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">12.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">12.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject fp_name="group57" type="group">
+      <obj_property name="label">dcs test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_run" type="logic">
+         <obj_property name="ElementShortName">r_dcs_run</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_run</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_dcs_run_dac0" type="logic">
+         <obj_property name="ElementShortName">flag_dcs_run_dac0</obj_property>
+         <obj_property name="ObjectShortName">flag_dcs_run_dac0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_dcs_run_dac1" type="logic">
+         <obj_property name="ElementShortName">flag_dcs_run_dac1</obj_property>
+         <obj_property name="ObjectShortName">flag_dcs_run_dac1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_dcs_active_dac0" type="logic">
+         <obj_property name="ElementShortName">flag_dcs_active_dac0</obj_property>
+         <obj_property name="ObjectShortName">flag_dcs_active_dac0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_dcs_active_dac1" type="logic">
+         <obj_property name="ElementShortName">flag_dcs_active_dac1</obj_property>
+         <obj_property name="ObjectShortName">flag_dcs_active_dac1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_repeat_dac0" type="array">
+         <obj_property name="ElementShortName">r_dcs_repeat_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_repeat_dac0[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_repeat_dac1" type="array">
+         <obj_property name="ElementShortName">r_dcs_repeat_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_repeat_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_cnt_repeat_dac0" type="array">
+         <obj_property name="ElementShortName">r_dcs_cnt_repeat_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_cnt_repeat_dac0[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_cnt_repeat_dac1" type="array">
+         <obj_property name="ElementShortName">r_dcs_cnt_repeat_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_cnt_repeat_dac1[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_cnt_duration_dac0" type="array">
+         <obj_property name="ElementShortName">r_dcs_cnt_duration_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_cnt_duration_dac0[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_cnt_duration_dac1" type="array">
+         <obj_property name="ElementShortName">r_dcs_cnt_duration_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_cnt_duration_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_cnt_adrs_dac0" type="array">
+         <obj_property name="ElementShortName">r_dcs_cnt_adrs_dac0[2:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_cnt_adrs_dac0[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_cnt_adrs_dac1" type="array">
+         <obj_property name="ElementShortName">r_dcs_cnt_adrs_dac1[2:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_cnt_adrs_dac1[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dacx_adrs" type="array">
+         <obj_property name="ElementShortName">r_dcs_dacx_adrs[2:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dacx_adrs[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_0" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_0[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_1" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_1[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_2" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_2[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_3" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_3[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_4" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_4[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_4[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_5" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_5[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_5[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_6" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_6[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_6[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac0_data_seq_7" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac0_data_seq_7[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac0_data_seq_7[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_0" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_0[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_1" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_1[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_2" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_2[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_3" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_3[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_4" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_4[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_4[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_5" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_5[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_5[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_6" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_6[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_6[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dcs_dac1_data_seq_7" type="array">
+         <obj_property name="ElementShortName">r_dcs_dac1_data_seq_7[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_dcs_dac1_data_seq_7[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group66" type="group">
+      <obj_property name="label">fdcs test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_run" type="logic">
+         <obj_property name="ElementShortName">r_fdcs_run</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_run</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload1_din" type="array">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload1_din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload1_din[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload1_wr_en" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload1_wr_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload1_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_dac0_fifo_reload1_wr_en" type="logic">
+         <obj_property name="ElementShortName">w_dac0_fifo_reload1_wr_en</obj_property>
+         <obj_property name="ObjectShortName">w_dac0_fifo_reload1_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_st_dac0_fifo_sel" type="array">
+         <obj_property name="ElementShortName">w_st_dac0_fifo_sel[1:0]</obj_property>
+         <obj_property name="ObjectShortName">w_st_dac0_fifo_sel[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_rd_en" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_rd_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload1_rd_en" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload1_rd_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload1_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload2_rd_en" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload2_rd_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload2_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload2_din" type="array">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload2_din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload2_din[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload2_wr_en" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload2_wr_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload2_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_repeat_dac1" type="array">
+         <obj_property name="ElementShortName">r_fdcs_repeat_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_repeat_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_cnt_repeat_dac1" type="array">
+         <obj_property name="ElementShortName">r_fdcs_cnt_repeat_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_cnt_repeat_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac1_fifo_empty" type="logic">
+         <obj_property name="ElementShortName">i_dac1_fifo_empty</obj_property>
+         <obj_property name="ObjectShortName">i_dac1_fifo_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac1_fifo_reload1_empty" type="logic">
+         <obj_property name="ElementShortName">i_dac1_fifo_reload1_empty</obj_property>
+         <obj_property name="ObjectShortName">i_dac1_fifo_reload1_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac1_fifo_reload2_empty" type="logic">
+         <obj_property name="ElementShortName">i_dac1_fifo_reload2_empty</obj_property>
+         <obj_property name="ObjectShortName">i_dac1_fifo_reload2_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_fifo_reload1_din" type="array">
+         <obj_property name="ElementShortName">o_dac1_fifo_reload1_din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_dac1_fifo_reload1_din[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_fifo_reload1_wr_en" type="logic">
+         <obj_property name="ElementShortName">o_dac1_fifo_reload1_wr_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac1_fifo_reload1_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_fifo_reload2_din" type="array">
+         <obj_property name="ElementShortName">o_dac1_fifo_reload2_din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">o_dac1_fifo_reload2_din[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_fifo_reload2_wr_en" type="logic">
+         <obj_property name="ElementShortName">o_dac1_fifo_reload2_wr_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac1_fifo_reload2_wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/last_pulse_run_dac0" type="logic">
+         <obj_property name="ElementShortName">last_pulse_run_dac0</obj_property>
+         <obj_property name="ObjectShortName">last_pulse_run_dac0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_smp_flag_fdcs_run_dac0" type="logic">
+         <obj_property name="ElementShortName">r_smp_flag_fdcs_run_dac0</obj_property>
+         <obj_property name="ObjectShortName">r_smp_flag_fdcs_run_dac0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload1_rst" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload1_rst</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload1_rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload2_rst" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_reload2_rst</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_reload2_rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_fdcs_dac0_stop_cond" type="logic">
+         <obj_property name="ElementShortName">w_fdcs_dac0_stop_cond</obj_property>
+         <obj_property name="ObjectShortName">w_fdcs_dac0_stop_cond</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_flag_trans_st_dac0_fifo_sel" type="logic">
+         <obj_property name="ElementShortName">w_flag_trans_st_dac0_fifo_sel</obj_property>
+         <obj_property name="ObjectShortName">w_flag_trans_st_dac0_fifo_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_active_dac0" type="logic">
+         <obj_property name="ElementShortName">flag_fdcs_active_dac0</obj_property>
+         <obj_property name="ObjectShortName">flag_fdcs_active_dac0</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_active_dac1" type="logic">
+         <obj_property name="ElementShortName">flag_fdcs_active_dac1</obj_property>
+         <obj_property name="ObjectShortName">flag_fdcs_active_dac1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_run_dac1" type="logic">
+         <obj_property name="ElementShortName">flag_fdcs_run_dac1</obj_property>
+         <obj_property name="ObjectShortName">flag_fdcs_run_dac1</obj_property>
+         <obj_property name="CustomSignalColor">#D2691E</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_run_dac0" type="logic">
+         <obj_property name="ElementShortName">flag_fdcs_run_dac0</obj_property>
+         <obj_property name="ObjectShortName">flag_fdcs_run_dac0</obj_property>
+         <obj_property name="CustomSignalColor">#D2691E</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_rdy_dac0" type="logic">
+         <obj_property name="ElementShortName">flag_fdcs_rdy_dac0</obj_property>
+         <obj_property name="ObjectShortName">flag_fdcs_rdy_dac0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_rdy_dac1" type="logic">
+         <obj_property name="ElementShortName">flag_fdcs_rdy_dac1</obj_property>
+         <obj_property name="ObjectShortName">flag_fdcs_rdy_dac1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_repeat_dac0" type="array">
+         <obj_property name="ElementShortName">r_fdcs_repeat_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_repeat_dac0[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_repeat_dac1" type="array">
+         <obj_property name="ElementShortName">r_fdcs_repeat_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_repeat_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_cnt_repeat_dac0" type="array">
+         <obj_property name="ElementShortName">r_fdcs_cnt_repeat_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_cnt_repeat_dac0[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_cnt_repeat_dac1" type="array">
+         <obj_property name="ElementShortName">r_fdcs_cnt_repeat_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_cnt_repeat_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_fdcs_dac0_stop_cond" type="logic">
+         <obj_property name="ElementShortName">w_fdcs_dac0_stop_cond</obj_property>
+         <obj_property name="ObjectShortName">w_fdcs_dac0_stop_cond</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_fdcs_dac1_stop_cond" type="logic">
+         <obj_property name="ElementShortName">w_fdcs_dac1_stop_cond</obj_property>
+         <obj_property name="ObjectShortName">w_fdcs_dac1_stop_cond</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac0_fifo_rd_en" type="logic">
+         <obj_property name="ElementShortName">r_dac0_fifo_rd_en</obj_property>
+         <obj_property name="ObjectShortName">r_dac0_fifo_rd_en</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac1_fifo_rd_en" type="logic">
+         <obj_property name="ElementShortName">r_dac1_fifo_rd_en</obj_property>
+         <obj_property name="ObjectShortName">r_dac1_fifo_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_rd_en" type="logic">
+         <obj_property name="ElementShortName">o_dac0_fifo_rd_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac0_fifo_rd_en</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac1_fifo_rd_en" type="logic">
+         <obj_property name="ElementShortName">o_dac1_fifo_rd_en</obj_property>
+         <obj_property name="ObjectShortName">o_dac1_fifo_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_st_dac0_fifo_sel" type="array">
+         <obj_property name="ElementShortName">r_st_dac0_fifo_sel[1:0]</obj_property>
+         <obj_property name="ObjectShortName">r_st_dac0_fifo_sel[1:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_fdcs_run_dac0" type="logic">
+         <obj_property name="ElementShortName">flag_fdcs_run_dac0</obj_property>
+         <obj_property name="ObjectShortName">flag_fdcs_run_dac0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_dac0_fifo_dout" type="array">
+         <obj_property name="ElementShortName">w_dac0_fifo_dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_dac0_fifo_dout[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_dac0_fifo_rd_en" type="logic">
+         <obj_property name="ElementShortName">w_dac0_fifo_rd_en</obj_property>
+         <obj_property name="ObjectShortName">w_dac0_fifo_rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="group134" type="group">
+         <obj_property name="label">dac0_fifo</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_dout" type="array">
+            <obj_property name="ElementShortName">i_dac0_fifo_dout[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_dout[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_rd_en" type="logic">
+            <obj_property name="ElementShortName">o_dac0_fifo_rd_en</obj_property>
+            <obj_property name="ObjectShortName">o_dac0_fifo_rd_en</obj_property>
+            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_empty" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_empty</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_empty</obj_property>
+            <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_valid" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_valid</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_valid</obj_property>
+            <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group135" type="group">
+         <obj_property name="label">dac0_fifo_reload1</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload1_dout" type="array">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload1_dout[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload1_dout[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload1_rd_en" type="logic">
+            <obj_property name="ElementShortName">o_dac0_fifo_reload1_rd_en</obj_property>
+            <obj_property name="ObjectShortName">o_dac0_fifo_reload1_rd_en</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload1_empty" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload1_empty</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload1_empty</obj_property>
+            <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload1_valid" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload1_valid</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload1_valid</obj_property>
+            <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload1_din" type="array">
+            <obj_property name="ElementShortName">o_dac0_fifo_reload1_din[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_dac0_fifo_reload1_din[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload1_wr_en" type="logic">
+            <obj_property name="ElementShortName">o_dac0_fifo_reload1_wr_en</obj_property>
+            <obj_property name="ObjectShortName">o_dac0_fifo_reload1_wr_en</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload1_wr_ack" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload1_wr_ack</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload1_wr_ack</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group136" type="group">
+         <obj_property name="label">dac0_fifo_reload2</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload2_dout" type="array">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload2_dout[31:0]</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload2_dout[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload2_rd_en" type="logic">
+            <obj_property name="ElementShortName">o_dac0_fifo_reload2_rd_en</obj_property>
+            <obj_property name="ObjectShortName">o_dac0_fifo_reload2_rd_en</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload2_empty" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload2_empty</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload2_empty</obj_property>
+            <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload2_valid" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload2_valid</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload2_valid</obj_property>
+            <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload2_din" type="array">
+            <obj_property name="ElementShortName">o_dac0_fifo_reload2_din[31:0]</obj_property>
+            <obj_property name="ObjectShortName">o_dac0_fifo_reload2_din[31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/o_dac0_fifo_reload2_wr_en" type="logic">
+            <obj_property name="ElementShortName">o_dac0_fifo_reload2_wr_en</obj_property>
+            <obj_property name="ObjectShortName">o_dac0_fifo_reload2_wr_en</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_reload2_wr_ack" type="logic">
+            <obj_property name="ElementShortName">i_dac0_fifo_reload2_wr_ack</obj_property>
+            <obj_property name="ObjectShortName">i_dac0_fifo_reload2_wr_ack</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac0_fifo_empty" type="logic">
+         <obj_property name="ElementShortName">r_dac0_fifo_empty</obj_property>
+         <obj_property name="ObjectShortName">r_dac0_fifo_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_dac1_fifo_empty" type="logic">
+         <obj_property name="ElementShortName">r_dac1_fifo_empty</obj_property>
+         <obj_property name="ObjectShortName">r_dac1_fifo_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac0_fifo_valid" type="logic">
+         <obj_property name="ElementShortName">i_dac0_fifo_valid</obj_property>
+         <obj_property name="ObjectShortName">i_dac0_fifo_valid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/i_dac1_fifo_valid" type="logic">
+         <obj_property name="ElementShortName">i_dac1_fifo_valid</obj_property>
+         <obj_property name="ObjectShortName">i_dac1_fifo_valid</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/dout" type="array">
+         <obj_property name="ElementShortName">dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/dout" type="array">
+         <obj_property name="ElementShortName">dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[31:0]</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_data_dac0" type="array">
+         <obj_property name="ElementShortName">r_fdcs_data_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_data_dac0[15:0]</obj_property>
+         <obj_property name="CustomSignalColor">#808000</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_data_dac1" type="array">
+         <obj_property name="ElementShortName">r_fdcs_data_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_data_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_cnt_duration_dac0" type="array">
+         <obj_property name="ElementShortName">r_fdcs_cnt_duration_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_cnt_duration_dac0[15:0]</obj_property>
+         <obj_property name="CustomSignalColor">#808000</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_fdcs_cnt_duration_dac1" type="array">
+         <obj_property name="ElementShortName">r_fdcs_cnt_duration_dac1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">r_fdcs_cnt_duration_dac1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/w_fdcs_cnt_duration_dac0" type="array">
+         <obj_property name="ElementShortName">w_fdcs_cnt_duration_dac0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">w_fdcs_cnt_duration_dac0[15:0]</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/empty" type="logic">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject type="divider" fp_name="divider102">
+         <obj_property name="label">fifo reload</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group50" type="group">
+      <obj_property name="label">fifo_0</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/din" type="array">
+         <obj_property name="ElementShortName">din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">din[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/wr_en" type="logic">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/dout" type="array">
+         <obj_property name="ElementShortName">dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/rd_en" type="logic">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/full" type="logic">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/wr_ack" type="logic">
+         <obj_property name="ElementShortName">wr_ack</obj_property>
+         <obj_property name="ObjectShortName">wr_ack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/empty" type="logic">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac0_inst/valid" type="logic">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group51" type="group">
+      <obj_property name="label">fifo_1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/din" type="array">
+         <obj_property name="ElementShortName">din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">din[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/wr_en" type="logic">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/dout" type="array">
+         <obj_property name="ElementShortName">dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/rd_en" type="logic">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/full" type="logic">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/wr_ack" type="logic">
+         <obj_property name="ElementShortName">wr_ack</obj_property>
+         <obj_property name="ObjectShortName">wr_ack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/empty" type="logic">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/fifo_dac1_inst/valid" type="logic">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group56" type="group">
+      <obj_property name="label">mls test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/flag_mls_run" type="logic">
+         <obj_property name="ElementShortName">flag_mls_run</obj_property>
+         <obj_property name="ObjectShortName">flag_mls_run</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_adrs" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_adrs[2:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_adrs[2:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_0" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_0[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_1" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_1[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_2" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_2[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_3" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_3[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_4" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_4[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_4[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_5" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_5[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_5[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_6" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_6[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_6[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dac_pattern_gen/dac_pattern_gen_inst/r_mls_dacx_data_seq_7" type="array">
+         <obj_property name="ElementShortName">r_mls_dacx_data_seq_7[31:0]</obj_property>
+         <obj_property name="ObjectShortName">r_mls_dacx_data_seq_7[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
