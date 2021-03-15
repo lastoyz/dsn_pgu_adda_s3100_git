@@ -1,0 +1,11 @@
+=== S3100 project ===
+* project file
+txem7310_pll.xpr
+
+* master side design top
+txem7310_pll__s3100_ms__top.v
+txem7310_pll__s3100_ms__top.xdc
+
+* slave side design top
+txem7310_pll__s3100_sv__top.v
+txem7310_pll__s3100_sv__top.xdc
