@@ -48,3 +48,7 @@ Thumbs.db
 *.mov
 *.wmv
 
+txem7310_pll__PGU_S3100/txem7310_pll.cache/
+txem7310_pll__PGU_S3100/txem7310_pll.hw/
+txem7310_pll__PGU_S3100/txem7310_pll.sim/
+

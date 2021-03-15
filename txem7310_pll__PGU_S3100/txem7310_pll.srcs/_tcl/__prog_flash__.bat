@@ -1,0 +1,1 @@
+program_flash -f download.bit -flash_type mt25qu128-spi-x1_x2_x4 -blank_check -verify -cable type xilinx_tcf url tcp:localhost:3121
