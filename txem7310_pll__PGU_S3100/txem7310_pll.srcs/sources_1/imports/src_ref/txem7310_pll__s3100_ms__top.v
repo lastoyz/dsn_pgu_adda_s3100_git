@@ -1,11 +1,8 @@
 // # this           : txem7310_pll__s3100_ms__top.v
 // # top xdc        : txem7310_pll__s3100_ms__top.xdc
 //
-// # FPGA board     : TXEM7310-FPGA-CORE (XEM7310-A200 compatible) or similar
-// # FPGA boardsch  : PGU_CPU_F5500__R190929__4M.pdf
-//
-// # base board     : NA or CPU-BASE
-// # base board sch : NA
+// # board          : CPU-BASE-S3100
+// # board sch      : NA
 //
 // # note: artix-7 top design for S3100 PGU master side
 
@@ -16,12 +13,7 @@
 /* top module integration */
 module txem7310_pll__s3100_ms__top ( 
 
-	// OK interface //{
-	input  wire [4:0]   okUH,
-	output wire [2:0]   okHU,
-	inout  wire [31:0]  okUHU,
-	inout  wire         okAA,
-	//}
+
 	
 	// external clock ports //{
 	input  wire         sys_clkp, 
