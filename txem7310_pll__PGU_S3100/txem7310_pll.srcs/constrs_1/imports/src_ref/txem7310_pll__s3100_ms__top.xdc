@@ -7,7 +7,7 @@
 # this           : txem7310_pll__s3100_ms__top.xdc
 # top verilog    : txem7310_pll__s3100_ms__top.v
 #
-# board          : CPU-BASE-S3100
+# board          : S3100-CPU-BASE
 # board sch      : NA
 # 
 #
