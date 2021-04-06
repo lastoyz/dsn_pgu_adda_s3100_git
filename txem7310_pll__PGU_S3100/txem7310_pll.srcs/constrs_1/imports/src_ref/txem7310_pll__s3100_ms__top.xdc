@@ -1,15 +1,15 @@
 ############################################################################
 # XEM7310 - Xilinx constraints file
-#   XC7A200T-1FBG484
+#   XC7A200T-1FBG484 or XC7A200T-2FBG484
 #   https://www.xilinx.com/support/packagefiles/a7packages/xc7a200tfbg484pkg.txt
-# Pin mappings for the XEM7310.
+# Pin mappings for the TXEM7310
 #
-# this           : xem7310__pgu_cpu__top.xdc
-# top verilog    : xem7310__pgu_cpu__top.v
-# FPGA board     : XEM7310-A200 # (not yet) TXEM7310-FPGA-CORE 
-# FPGA boardsch  : NA           # (not yet) PGU_CPU_F5500__R190929__4M.pdf
-# base board     : PGU-CPU-F5500-REVA 19-10-24
-# base board sch : PGU-CPU-F5500-REVA__DEBUG_1206.pdf
+# this           : txem7310_pll__s3100_ms__top.xdc
+# top verilog    : txem7310_pll__s3100_ms__top.v
+#
+# board          : CPU-BASE-S3100
+# board sch      : NA
+# 
 #
 ############################################################################
 
@@ -20,103 +20,426 @@ set_property CONFIG_VOLTAGE 1.8 [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS True [current_design]
 
 #### TODO: XDC command for SPIx4 config mode  
-## set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 4 [current_design]
-## set_property CONFIG_MODE SPIx4 [current_design]
+set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 4 [current_design]
+set_property CONFIG_MODE SPIx4 [current_design]
 
 ############################################################################
+## bank usage
+############################################################################
+# B13 : CPU_SPI, CPU_QSPI, CPU_ETH// (prev. MC1/MC2) // 3.3V
+# B14 : CONF, LED, MTH control, CPU_GPIO// 1.8V
+# B15 : TP, LAN_SPI // 3.3V
+# B16 : BUS_BA, BUS_BD // 3.3V
+# B34 : MTH M0_SPI, MTH M1_SPI (prev. MC1) // 3.3V
+# B35 : MTH M2_SPI (prev. MC2) // 3.3V
+# 216 : not used
+
+############################################################################
+## TODO: PACKAGE_PIN assignment
+############################################################################
+
+
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## N9    DXN_0                         NA                 0     CONFIG    
+## K10   VCCADC_0                      NA                 0     CONFIG    
+## K9    GNDADC_0                      NA                 0     CONFIG    
+## N10   DXP_0                         NA                 0     CONFIG    
+## L9    VREFN_0                       NA                 0     CONFIG    
+## M10   VREFP_0                       NA                 0     CONFIG    
+## L10   VP_0                          NA                 0     CONFIG    
+## M9    VN_0                          NA                 0     CONFIG    
+## E12   VCCBATT_0                     NA                 0     CONFIG    
+## L12   CCLK_0                        NA                 0     CONFIG    
+## V12   TCK_0                         NA                 0     CONFIG    
+## T13   TMS_0                         NA                 0     CONFIG    
+## U13   TDO_0                         NA                 0     CONFIG    
+## R13   TDI_0                         NA                 0     CONFIG    
+## U12   INIT_B_0                      NA                 0     CONFIG    
+## N12   PROGRAM_B_0                   NA                 0     CONFIG    
+## U8    CFGBVS_0                      NA                 0     CONFIG    
+## G11   DONE_0                        NA                 0     CONFIG    
+## U9    M2_0                          NA                 0     CONFIG    
+## U11   M0_0                          NA                 0     CONFIG    
+## U10   M1_0                          NA                 0     CONFIG    
+
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## Y17   IO_0_13                       NA                 13    HR        
+## Y16   IO_L1P_T0_13                  0                  13    HR        
+## AA16  IO_L1N_T0_13                  0                  13    HR        
+## AB16  IO_L2P_T0_13                  0                  13    HR        
+## AB17  IO_L2N_T0_13                  0                  13    HR        
+## AA13  IO_L3P_T0_DQS_13              0                  13    HR        
+## AB13  IO_L3N_T0_DQS_13              0                  13    HR        
+## AA15  IO_L4P_T0_13                  0                  13    HR        
+## AB15  IO_L4N_T0_13                  0                  13    HR        
+## Y13   IO_L5P_T0_13                  0                  13    HR        
+## AA14  IO_L5N_T0_13                  0                  13    HR        
+## W14   IO_L6P_T0_13                  0                  13    HR        
+## Y14   IO_L6N_T0_VREF_13             0                  13    HR        
+## AB11  IO_L7P_T1_13                  1                  13    HR        
+## AB12  IO_L7N_T1_13                  1                  13    HR        
+## AA9   IO_L8P_T1_13                  1                  13    HR        
+## AB10  IO_L8N_T1_13                  1                  13    HR        
+## AA10  IO_L9P_T1_DQS_13              1                  13    HR        
+## AA11  IO_L9N_T1_DQS_13              1                  13    HR        
+## V10   IO_L10P_T1_13                 1                  13    HR        
+## W10   IO_L10N_T1_13                 1                  13    HR        
+## Y11   IO_L11P_T1_SRCC_13            1                  13    HR        
+## Y12   IO_L11N_T1_SRCC_13            1                  13    HR        
+## W11   IO_L12P_T1_MRCC_13            1                  13    HR        
+## W12   IO_L12N_T1_MRCC_13            1                  13    HR        
+## V13   IO_L13P_T2_MRCC_13            2                  13    HR        
+## V14   IO_L13N_T2_MRCC_13            2                  13    HR        
+## U15   IO_L14P_T2_SRCC_13            2                  13    HR        
+## V15   IO_L14N_T2_SRCC_13            2                  13    HR        
+## T14   IO_L15P_T2_DQS_13             2                  13    HR        
+## T15   IO_L15N_T2_DQS_13             2                  13    HR        
+## W15   IO_L16P_T2_13                 2                  13    HR        
+## W16   IO_L16N_T2_13                 2                  13    HR        
+## T16   IO_L17P_T2_13                 2                  13    HR        
+## U16   IO_L17N_T2_13                 2                  13    HR        
+
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## P20   IO_0_14                       NA                 14    HR        
+## P22   IO_L1P_T0_D00_MOSI_14         0                  14    HR        
+## R22   IO_L1N_T0_D01_DIN_14          0                  14    HR        
+## P21   IO_L2P_T0_D02_14              0                  14    HR        
+## R21   IO_L2N_T0_D03_14              0                  14    HR        
+## U22   IO_L3P_T0_DQS_PUDC_B_14       0                  14    HR        
+## V22   IO_L3N_T0_DQS_EMCCLK_14       0                  14    HR        
+## T21   IO_L4P_T0_D04_14              0                  14    HR        
+## U21   IO_L4N_T0_D05_14              0                  14    HR        
+## P19   IO_L5P_T0_D06_14              0                  14    HR        
+## R19   IO_L5N_T0_D07_14              0                  14    HR        
+## T19   IO_L6P_T0_FCS_B_14            0                  14    HR        
+## T20   IO_L6N_T0_D08_VREF_14         0                  14    HR        
+## W21   IO_L7P_T1_D09_14              1                  14    HR        
+## W22   IO_L7N_T1_D10_14              1                  14    HR        
+## AA20  IO_L8P_T1_D11_14              1                  14    HR        
+## AA21  IO_L8N_T1_D12_14              1                  14    HR        
+## Y21   IO_L9P_T1_DQS_14              1                  14    HR        
+## Y22   IO_L9N_T1_DQS_D13_14          1                  14    HR        
+## AB21  IO_L10P_T1_D14_14             1                  14    HR        
+## AB22  IO_L10N_T1_D15_14             1                  14    HR        
+## U20   IO_L11P_T1_SRCC_14            1                  14    HR        
+## V20   IO_L11N_T1_SRCC_14            1                  14    HR        
+## W19   IO_L12P_T1_MRCC_14            1                  14    HR        
+## W20   IO_L12N_T1_MRCC_14            1                  14    HR        
+## Y18   IO_L13P_T2_MRCC_14            2                  14    HR        
+## Y19   IO_L13N_T2_MRCC_14            2                  14    HR        
+## V18   IO_L14P_T2_SRCC_14            2                  14    HR        
+## V19   IO_L14N_T2_SRCC_14            2                  14    HR        
+## AA19  IO_L15P_T2_DQS_RDWR_B_14      2                  14    HR        
+## AB20  IO_L15N_T2_DQS_DOUT_CSO_B_14  2                  14    HR        
+## V17   IO_L16P_T2_CSI_B_14           2                  14    HR        
+## W17   IO_L16N_T2_A15_D31_14         2                  14    HR        
+## AA18  IO_L17P_T2_A14_D30_14         2                  14    HR        
+## AB18  IO_L17N_T2_A13_D29_14         2                  14    HR        
+## U17   IO_L18P_T2_A12_D28_14         2                  14    HR        
+## U18   IO_L18N_T2_A11_D27_14         2                  14    HR        
+## P14   IO_L19P_T3_A10_D26_14         3                  14    HR        
+## R14   IO_L19N_T3_A09_D25_VREF_14    3                  14    HR        
+## R18   IO_L20P_T3_A08_D24_14         3                  14    HR        
+## T18   IO_L20N_T3_A07_D23_14         3                  14    HR        
+## N17   IO_L21P_T3_DQS_14             3                  14    HR        
+## P17   IO_L21N_T3_DQS_A06_D22_14     3                  14    HR        
+## P15   IO_L22P_T3_A05_D21_14         3                  14    HR        
+## R16   IO_L22N_T3_A04_D20_14         3                  14    HR        
+## N13   IO_L23P_T3_A03_D19_14         3                  14    HR        
+## N14   IO_L23N_T3_A02_D18_14         3                  14    HR        
+## P16   IO_L24P_T3_A01_D17_14         3                  14    HR        
+## R17   IO_L24N_T3_A00_D16_14         3                  14    HR        
+## N15   IO_25_14                      NA                 14    HR      
+  
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## J16   IO_0_15                       NA                 15    HR        
+## H13   IO_L1P_T0_AD0P_15             0                  15    HR        
+## G13   IO_L1N_T0_AD0N_15             0                  15    HR        
+## G15   IO_L2P_T0_AD8P_15             0                  15    HR        
+## G16   IO_L2N_T0_AD8N_15             0                  15    HR        
+## J14   IO_L3P_T0_DQS_AD1P_15         0                  15    HR        
+## H14   IO_L3N_T0_DQS_AD1N_15         0                  15    HR        
+## G17   IO_L4P_T0_15                  0                  15    HR        
+## G18   IO_L4N_T0_15                  0                  15    HR        
+## J15   IO_L5P_T0_AD9P_15             0                  15    HR        
+## H15   IO_L5N_T0_AD9N_15             0                  15    HR        
+## H17   IO_L6P_T0_15                  0                  15    HR        
+## H18   IO_L6N_T0_VREF_15             0                  15    HR        
+## J22   IO_L7P_T1_AD2P_15             1                  15    HR        
+## H22   IO_L7N_T1_AD2N_15             1                  15    HR        
+## H20   IO_L8P_T1_AD10P_15            1                  15    HR        
+## G20   IO_L8N_T1_AD10N_15            1                  15    HR        
+## K21   IO_L9P_T1_DQS_AD3P_15         1                  15    HR        
+## K22   IO_L9N_T1_DQS_AD3N_15         1                  15    HR        
+## M21   IO_L10P_T1_AD11P_15           1                  15    HR        
+## L21   IO_L10N_T1_AD11N_15           1                  15    HR        
+## J20   IO_L11P_T1_SRCC_15            1                  15    HR        
+## J21   IO_L11N_T1_SRCC_15            1                  15    HR        
+## J19   IO_L12P_T1_MRCC_15            1                  15    HR        
+## H19   IO_L12N_T1_MRCC_15            1                  15    HR        
+## K18   IO_L13P_T2_MRCC_15            2                  15    HR        
+## K19   IO_L13N_T2_MRCC_15            2                  15    HR        
+## L19   IO_L14P_T2_SRCC_15            2                  15    HR        
+## L20   IO_L14N_T2_SRCC_15            2                  15    HR        
+## N22   IO_L15P_T2_DQS_15             2                  15    HR        
+## M22   IO_L15N_T2_DQS_ADV_B_15       2                  15    HR        
+## M18   IO_L16P_T2_A28_15             2                  15    HR        
+## L18   IO_L16N_T2_A27_15             2                  15    HR        
+## N18   IO_L17P_T2_A26_15             2                  15    HR        
+## N19   IO_L17N_T2_A25_15             2                  15    HR        
+## N20   IO_L18P_T2_A24_15             2                  15    HR        
+## M20   IO_L18N_T2_A23_15             2                  15    HR        
+## K13   IO_L19P_T3_A22_15             3                  15    HR        
+## K14   IO_L19N_T3_A21_VREF_15        3                  15    HR        
+## M13   IO_L20P_T3_A20_15             3                  15    HR        
+## L13   IO_L20N_T3_A19_15             3                  15    HR        
+## K17   IO_L21P_T3_DQS_15             3                  15    HR        
+## J17   IO_L21N_T3_DQS_A18_15         3                  15    HR        
+## L14   IO_L22P_T3_A17_15             3                  15    HR        
+## L15   IO_L22N_T3_A16_15             3                  15    HR        
+## L16   IO_L23P_T3_FOE_B_15           3                  15    HR        
+## K16   IO_L23N_T3_FWE_B_15           3                  15    HR        
+## M15   IO_L24P_T3_RS1_15             3                  15    HR        
+## M16   IO_L24N_T3_RS0_15             3                  15    HR        
+## M17   IO_25_15                      NA                 15    HR        
+
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## F15   IO_0_16                       NA                 16    HR        
+## F13   IO_L1P_T0_16                  0                  16    HR        
+## F14   IO_L1N_T0_16                  0                  16    HR        
+## F16   IO_L2P_T0_16                  0                  16    HR        
+## E17   IO_L2N_T0_16                  0                  16    HR        
+## C14   IO_L3P_T0_DQS_16              0                  16    HR        
+## C15   IO_L3N_T0_DQS_16              0                  16    HR        
+## E13   IO_L4P_T0_16                  0                  16    HR        
+## E14   IO_L4N_T0_16                  0                  16    HR        
+## E16   IO_L5P_T0_16                  0                  16    HR        
+## D16   IO_L5N_T0_16                  0                  16    HR        
+## D14   IO_L6P_T0_16                  0                  16    HR        
+## D15   IO_L6N_T0_VREF_16             0                  16    HR        
+## B15   IO_L7P_T1_16                  1                  16    HR        
+## B16   IO_L7N_T1_16                  1                  16    HR        
+## C13   IO_L8P_T1_16                  1                  16    HR        
+## B13   IO_L8N_T1_16                  1                  16    HR        
+## A15   IO_L9P_T1_DQS_16              1                  16    HR        
+## A16   IO_L9N_T1_DQS_16              1                  16    HR        
+## A13   IO_L10P_T1_16                 1                  16    HR        
+## A14   IO_L10N_T1_16                 1                  16    HR        
+## B17   IO_L11P_T1_SRCC_16            1                  16    HR        
+## B18   IO_L11N_T1_SRCC_16            1                  16    HR        
+## D17   IO_L12P_T1_MRCC_16            1                  16    HR        
+## C17   IO_L12N_T1_MRCC_16            1                  16    HR        
+## C18   IO_L13P_T2_MRCC_16            2                  16    HR        
+## C19   IO_L13N_T2_MRCC_16            2                  16    HR        
+## E19   IO_L14P_T2_SRCC_16            2                  16    HR        
+## D19   IO_L14N_T2_SRCC_16            2                  16    HR        
+## F18   IO_L15P_T2_DQS_16             2                  16    HR        
+## E18   IO_L15N_T2_DQS_16             2                  16    HR        
+## B20   IO_L16P_T2_16                 2                  16    HR        
+## A20   IO_L16N_T2_16                 2                  16    HR        
+## A18   IO_L17P_T2_16                 2                  16    HR        
+## A19   IO_L17N_T2_16                 2                  16    HR        
+## F19   IO_L18P_T2_16                 2                  16    HR        
+## F20   IO_L18N_T2_16                 2                  16    HR        
+## D20   IO_L19P_T3_16                 3                  16    HR        
+## C20   IO_L19N_T3_VREF_16            3                  16    HR        
+## C22   IO_L20P_T3_16                 3                  16    HR        
+## B22   IO_L20N_T3_16                 3                  16    HR        
+## B21   IO_L21P_T3_DQS_16             3                  16    HR        
+## A21   IO_L21N_T3_DQS_16             3                  16    HR        
+## E22   IO_L22P_T3_16                 3                  16    HR        
+## D22   IO_L22N_T3_16                 3                  16    HR        
+## E21   IO_L23P_T3_16                 3                  16    HR        
+## D21   IO_L23N_T3_16                 3                  16    HR        
+## G21   IO_L24P_T3_16                 3                  16    HR        
+## G22   IO_L24N_T3_16                 3                  16    HR        
+## F21   IO_25_16                      NA                 16    HR        
+
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## T3    IO_0_34                       NA                 34    HR        
+## T1    IO_L1P_T0_34                  0                  34    HR        
+## U1    IO_L1N_T0_34                  0                  34    HR        
+## U2    IO_L2P_T0_34                  0                  34    HR        
+## V2    IO_L2N_T0_34                  0                  34    HR        
+## R3    IO_L3P_T0_DQS_34              0                  34    HR        
+## R2    IO_L3N_T0_DQS_34              0                  34    HR        
+## W2    IO_L4P_T0_34                  0                  34    HR        
+## Y2    IO_L4N_T0_34                  0                  34    HR        
+## W1    IO_L5P_T0_34                  0                  34    HR        
+## Y1    IO_L5N_T0_34                  0                  34    HR        
+## U3    IO_L6P_T0_34                  0                  34    HR        
+## V3    IO_L6N_T0_VREF_34             0                  34    HR        
+## AA1   IO_L7P_T1_34                  1                  34    HR        
+## AB1   IO_L7N_T1_34                  1                  34    HR        
+## AB3   IO_L8P_T1_34                  1                  34    HR        
+## AB2   IO_L8N_T1_34                  1                  34    HR        
+## Y3    IO_L9P_T1_DQS_34              1                  34    HR        
+## AA3   IO_L9N_T1_DQS_34              1                  34    HR        
+## AA5   IO_L10P_T1_34                 1                  34    HR        
+## AB5   IO_L10N_T1_34                 1                  34    HR        
+## Y4    IO_L11P_T1_SRCC_34            1                  34    HR        
+## AA4   IO_L11N_T1_SRCC_34            1                  34    HR        
+## V4    IO_L12P_T1_MRCC_34            1                  34    HR        
+## W4    IO_L12N_T1_MRCC_34            1                  34    HR        
+## R4    IO_L13P_T2_MRCC_34            2                  34    HR        
+## T4    IO_L13N_T2_MRCC_34            2                  34    HR        
+## T5    IO_L14P_T2_SRCC_34            2                  34    HR        
+## U5    IO_L14N_T2_SRCC_34            2                  34    HR        
+## W6    IO_L15P_T2_DQS_34             2                  34    HR        
+## W5    IO_L15N_T2_DQS_34             2                  34    HR        
+## U6    IO_L16P_T2_34                 2                  34    HR        
+## V5    IO_L16N_T2_34                 2                  34    HR        
+## R6    IO_L17P_T2_34                 2                  34    HR        
+## T6    IO_L17N_T2_34                 2                  34    HR        
+## Y6    IO_L18P_T2_34                 2                  34    HR        
+## AA6   IO_L18N_T2_34                 2                  34    HR        
+## V7    IO_L19P_T3_34                 3                  34    HR        
+## W7    IO_L19N_T3_VREF_34            3                  34    HR        
+## AB7   IO_L20P_T3_34                 3                  34    HR        
+## AB6   IO_L20N_T3_34                 3                  34    HR        
+## V9    IO_L21P_T3_DQS_34             3                  34    HR        
+## V8    IO_L21N_T3_DQS_34             3                  34    HR        
+## AA8   IO_L22P_T3_34                 3                  34    HR        
+## AB8   IO_L22N_T3_34                 3                  34    HR        
+## Y8    IO_L23P_T3_34                 3                  34    HR        
+## Y7    IO_L23N_T3_34                 3                  34    HR        
+## W9    IO_L24P_T3_34                 3                  34    HR        
+## Y9    IO_L24N_T3_34                 3                  34    HR        
+## U7    IO_25_34                      NA                 34    HR        
+
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## F4    IO_0_35                       NA                 35    HR        
+## B1    IO_L1P_T0_AD4P_35             0                  35    HR        
+## A1    IO_L1N_T0_AD4N_35             0                  35    HR        
+## C2    IO_L2P_T0_AD12P_35            0                  35    HR        
+## B2    IO_L2N_T0_AD12N_35            0                  35    HR        
+## E1    IO_L3P_T0_DQS_AD5P_35         0                  35    HR        
+## D1    IO_L3N_T0_DQS_AD5N_35         0                  35    HR        
+## E2    IO_L4P_T0_35                  0                  35    HR        
+## D2    IO_L4N_T0_35                  0                  35    HR        
+## G1    IO_L5P_T0_AD13P_35            0                  35    HR        
+## F1    IO_L5N_T0_AD13N_35            0                  35    HR        
+## F3    IO_L6P_T0_35                  0                  35    HR        
+## E3    IO_L6N_T0_VREF_35             0                  35    HR        
+## K1    IO_L7P_T1_AD6P_35             1                  35    HR        
+## J1    IO_L7N_T1_AD6N_35             1                  35    HR        
+## H2    IO_L8P_T1_AD14P_35            1                  35    HR        
+## G2    IO_L8N_T1_AD14N_35            1                  35    HR        
+## K2    IO_L9P_T1_DQS_AD7P_35         1                  35    HR        
+## J2    IO_L9N_T1_DQS_AD7N_35         1                  35    HR        
+## J5    IO_L10P_T1_AD15P_35           1                  35    HR        
+## H5    IO_L10N_T1_AD15N_35           1                  35    HR        
+## H3    IO_L11P_T1_SRCC_35            1                  35    HR        
+## G3    IO_L11N_T1_SRCC_35            1                  35    HR        
+## H4    IO_L12P_T1_MRCC_35            1                  35    HR        
+## G4    IO_L12N_T1_MRCC_35            1                  35    HR        
+## K4    IO_L13P_T2_MRCC_35            2                  35    HR        
+## J4    IO_L13N_T2_MRCC_35            2                  35    HR        
+## L3    IO_L14P_T2_SRCC_35            2                  35    HR        
+## K3    IO_L14N_T2_SRCC_35            2                  35    HR        
+## M1    IO_L15P_T2_DQS_35             2                  35    HR        
+## L1    IO_L15N_T2_DQS_35             2                  35    HR        
+## M3    IO_L16P_T2_35                 2                  35    HR        
+## M2    IO_L16N_T2_35                 2                  35    HR        
+## K6    IO_L17P_T2_35                 2                  35    HR        
+## J6    IO_L17N_T2_35                 2                  35    HR        
+## L5    IO_L18P_T2_35                 2                  35    HR        
+## L4    IO_L18N_T2_35                 2                  35    HR        
+## N4    IO_L19P_T3_35                 3                  35    HR        
+## N3    IO_L19N_T3_VREF_35            3                  35    HR        
+## R1    IO_L20P_T3_35                 3                  35    HR        
+## P1    IO_L20N_T3_35                 3                  35    HR        
+## P5    IO_L21P_T3_DQS_35             3                  35    HR        
+## P4    IO_L21N_T3_DQS_35             3                  35    HR        
+## P2    IO_L22P_T3_35                 3                  35    HR        
+## N2    IO_L22N_T3_35                 3                  35    HR        
+## M6    IO_L23P_T3_35                 3                  35    HR        
+## M5    IO_L23N_T3_35                 3                  35    HR        
+## P6    IO_L24P_T3_35                 3                  35    HR        
+## N5    IO_L24N_T3_35                 3                  35    HR        
+## L6    IO_25_35                      NA                 35    HR        
+
+## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  
+## D7    MGTPTXP3_216                  NA                 216   GTP       
+## D9    MGTPRXP3_216                  NA                 216   GTP       
+## C7    MGTPTXN3_216                  NA                 216   GTP       
+## C9    MGTPRXN3_216                  NA                 216   GTP       
+## B6    MGTPTXP2_216                  NA                 216   GTP       
+## B10   MGTPRXP2_216                  NA                 216   GTP       
+## A6    MGTPTXN2_216                  NA                 216   GTP       
+## A10   MGTPRXN2_216                  NA                 216   GTP       
+## E6    MGTREFCLK0N_216               NA                 216   GTP       
+## F6    MGTREFCLK0P_216               NA                 216   GTP       
+## F8    MGTRREF_216                   NA                 216   GTP       
+## F10   MGTREFCLK1P_216               NA                 216   GTP       
+## E10   MGTREFCLK1N_216               NA                 216   GTP       
+## D5    MGTPTXP1_216                  NA                 216   GTP       
+## D11   MGTPRXP1_216                  NA                 216   GTP       
+## C5    MGTPTXN1_216                  NA                 216   GTP       
+## C11   MGTPRXN1_216                  NA                 216   GTP       
+## B4    MGTPTXP0_216                  NA                 216   GTP       
+## B8    MGTPRXP0_216                  NA                 216   GTP       
+## A4    MGTPTXN0_216                  NA                 216   GTP       
+## A8    MGTPRXN0_216                  NA                 216   GTP       
+
+
 
 
 ############################################################################
 ## TODO: FrontPanel Host Interface
 ############################################################################
 ##$$ bank 14
-set_property PACKAGE_PIN Y19 [get_ports {okHU[0]}]
-set_property PACKAGE_PIN R18 [get_ports {okHU[1]}]
-set_property PACKAGE_PIN R16 [get_ports {okHU[2]}]
-set_property SLEW FAST [get_ports {okHU[*]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {okHU[*]}]
+##  set_property PACKAGE_PIN Y19 [get_ports {okHU[0]}]
+##  set_property PACKAGE_PIN R18 [get_ports {okHU[1]}]
+##  set_property PACKAGE_PIN R16 [get_ports {okHU[2]}]
+##  set_property SLEW FAST [get_ports {okHU[*]}]
+##  set_property IOSTANDARD LVCMOS18 [get_ports {okHU[*]}]
+##  
+##  set_property PACKAGE_PIN W19 [get_ports {okUH[0]}]
+##  set_property PACKAGE_PIN V18 [get_ports {okUH[1]}]
+##  set_property PACKAGE_PIN U17 [get_ports {okUH[2]}]
+##  set_property PACKAGE_PIN W17 [get_ports {okUH[3]}]
+##  set_property PACKAGE_PIN T19 [get_ports {okUH[4]}]
+##  set_property IOSTANDARD LVCMOS18 [get_ports {okUH[*]}]
+##  
+##  set_property PACKAGE_PIN AB22 [get_ports {okUHU[0]}]
+##  set_property PACKAGE_PIN AB21 [get_ports {okUHU[1]}]
+##  set_property PACKAGE_PIN Y22 [get_ports {okUHU[2]}]
+##  set_property PACKAGE_PIN AA21 [get_ports {okUHU[3]}]
+##  set_property PACKAGE_PIN AA20 [get_ports {okUHU[4]}]
+##  set_property PACKAGE_PIN W22 [get_ports {okUHU[5]}]
+##  set_property PACKAGE_PIN W21 [get_ports {okUHU[6]}]
+##  set_property PACKAGE_PIN T20 [get_ports {okUHU[7]}]
+##  set_property PACKAGE_PIN R19 [get_ports {okUHU[8]}]
+##  set_property PACKAGE_PIN P19 [get_ports {okUHU[9]}]
+##  set_property PACKAGE_PIN U21 [get_ports {okUHU[10]}]
+##  set_property PACKAGE_PIN T21 [get_ports {okUHU[11]}]
+##  set_property PACKAGE_PIN R21 [get_ports {okUHU[12]}]
+##  set_property PACKAGE_PIN P21 [get_ports {okUHU[13]}]
+##  set_property PACKAGE_PIN R22 [get_ports {okUHU[14]}]
+##  set_property PACKAGE_PIN P22 [get_ports {okUHU[15]}]
+##  set_property PACKAGE_PIN R14 [get_ports {okUHU[16]}]
+##  set_property PACKAGE_PIN W20 [get_ports {okUHU[17]}]
+##  set_property PACKAGE_PIN Y21 [get_ports {okUHU[18]}]
+##  set_property PACKAGE_PIN P17 [get_ports {okUHU[19]}]
+##  set_property PACKAGE_PIN U20 [get_ports {okUHU[20]}]
+##  set_property PACKAGE_PIN N17 [get_ports {okUHU[21]}]
+##  set_property PACKAGE_PIN N14 [get_ports {okUHU[22]}]
+##  set_property PACKAGE_PIN V20 [get_ports {okUHU[23]}]
+##  set_property PACKAGE_PIN P16 [get_ports {okUHU[24]}]
+##  set_property PACKAGE_PIN T18 [get_ports {okUHU[25]}]
+##  set_property PACKAGE_PIN V19 [get_ports {okUHU[26]}]
+##  set_property PACKAGE_PIN AB20 [get_ports {okUHU[27]}]
+##  set_property PACKAGE_PIN P15 [get_ports {okUHU[28]}]
+##  set_property PACKAGE_PIN V22 [get_ports {okUHU[29]}]
+##  set_property PACKAGE_PIN U18 [get_ports {okUHU[30]}]
+##  set_property PACKAGE_PIN AB18 [get_ports {okUHU[31]}]
+##  set_property SLEW FAST [get_ports {okUHU[*]}]
+##  set_property IOSTANDARD LVCMOS18 [get_ports {okUHU[*]}]
+##  
+##  set_property PACKAGE_PIN N13 [get_ports okAA]
+##  set_property IOSTANDARD LVCMOS18 [get_ports okAA]
 
-set_property PACKAGE_PIN W19 [get_ports {okUH[0]}]
-set_property PACKAGE_PIN V18 [get_ports {okUH[1]}]
-set_property PACKAGE_PIN U17 [get_ports {okUH[2]}]
-set_property PACKAGE_PIN W17 [get_ports {okUH[3]}]
-set_property PACKAGE_PIN T19 [get_ports {okUH[4]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {okUH[*]}]
-
-set_property PACKAGE_PIN AB22 [get_ports {okUHU[0]}]
-set_property PACKAGE_PIN AB21 [get_ports {okUHU[1]}]
-set_property PACKAGE_PIN Y22 [get_ports {okUHU[2]}]
-set_property PACKAGE_PIN AA21 [get_ports {okUHU[3]}]
-set_property PACKAGE_PIN AA20 [get_ports {okUHU[4]}]
-set_property PACKAGE_PIN W22 [get_ports {okUHU[5]}]
-set_property PACKAGE_PIN W21 [get_ports {okUHU[6]}]
-set_property PACKAGE_PIN T20 [get_ports {okUHU[7]}]
-set_property PACKAGE_PIN R19 [get_ports {okUHU[8]}]
-set_property PACKAGE_PIN P19 [get_ports {okUHU[9]}]
-set_property PACKAGE_PIN U21 [get_ports {okUHU[10]}]
-set_property PACKAGE_PIN T21 [get_ports {okUHU[11]}]
-set_property PACKAGE_PIN R21 [get_ports {okUHU[12]}]
-set_property PACKAGE_PIN P21 [get_ports {okUHU[13]}]
-set_property PACKAGE_PIN R22 [get_ports {okUHU[14]}]
-set_property PACKAGE_PIN P22 [get_ports {okUHU[15]}]
-set_property PACKAGE_PIN R14 [get_ports {okUHU[16]}]
-set_property PACKAGE_PIN W20 [get_ports {okUHU[17]}]
-set_property PACKAGE_PIN Y21 [get_ports {okUHU[18]}]
-set_property PACKAGE_PIN P17 [get_ports {okUHU[19]}]
-set_property PACKAGE_PIN U20 [get_ports {okUHU[20]}]
-set_property PACKAGE_PIN N17 [get_ports {okUHU[21]}]
-set_property PACKAGE_PIN N14 [get_ports {okUHU[22]}]
-set_property PACKAGE_PIN V20 [get_ports {okUHU[23]}]
-set_property PACKAGE_PIN P16 [get_ports {okUHU[24]}]
-set_property PACKAGE_PIN T18 [get_ports {okUHU[25]}]
-set_property PACKAGE_PIN V19 [get_ports {okUHU[26]}]
-set_property PACKAGE_PIN AB20 [get_ports {okUHU[27]}]
-set_property PACKAGE_PIN P15 [get_ports {okUHU[28]}]
-set_property PACKAGE_PIN V22 [get_ports {okUHU[29]}]
-set_property PACKAGE_PIN U18 [get_ports {okUHU[30]}]
-set_property PACKAGE_PIN AB18 [get_ports {okUHU[31]}]
-set_property SLEW FAST [get_ports {okUHU[*]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {okUHU[*]}]
-
-set_property PACKAGE_PIN N13 [get_ports okAA]
-set_property IOSTANDARD LVCMOS18 [get_ports okAA]
-
-## TODO: okUH0
-create_clock -period 9.920 -name okUH0 [get_ports {okUH[0]}]
-
-set_input_delay -clock [get_clocks okUH0] -max -add_delay 8.000 [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}]
-set_input_delay -clock [get_clocks okUH0] -min -add_delay 10.000 [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}]
-set_multicycle_path -setup -from [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}] 2
-
-set_input_delay -clock [get_clocks okUH0] -max -add_delay 8.000 [get_ports {okUHU[*]}]
-set_input_delay -clock [get_clocks okUH0] -min -add_delay 2.000 [get_ports {okUHU[*]}]
-set_multicycle_path -setup -from [get_ports {okUHU[*]}] 2
-
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okHU[*]}]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okHU[*]}]
-
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okUHU[*]}]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okUHU[*]}]
-
-# for okAA
-set_input_delay -clock [get_clocks okUH0] -max -add_delay 7.000 [get_ports okAA]
-set_input_delay -clock [get_clocks okUH0] -min -add_delay 2.000 [get_ports okAA]
-set_multicycle_path -setup -from [get_ports okAA] 2
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports okAA]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports okAA]
-
-## TODO: define clock - okDnaClk   for ok_endpoint_wrapper_inst/okHI/core0/core0/a0
-create_generated_clock -name okDnaClk -source [get_pins ok_endpoint_wrapper_inst/okHI/mmcm0/CLKOUT0] -divide_by 32 [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/d0/lc4da648cb12eeeb24e4d199c1195ed93_reg[4]/Q}]
-set_false_path -to [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/pm0/ram_1k_generate.v6.kcpsm6_rom/DIBDI[*]}]
-set_false_path -to [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/pm0/ram_1k_generate.v6.kcpsm6_rom/DIPBDIP[*]}]
-
-## TODO: define clock - okHI_clk // replace mmcm0_clk0
-create_generated_clock  -name okHI_clk        [get_pins  ok_endpoint_wrapper_inst/okHI/mmcm0/CLKOUT0]
-
-# asynchronous
-set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks okDnaClk]
-
-############################################################################
 
 
 ############################################################################
@@ -128,8 +451,8 @@ set_property PACKAGE_PIN W11 [get_ports sys_clkp]
 set_property IOSTANDARD LVDS_25 [get_ports sys_clkp]
 set_property IOSTANDARD LVDS_25 [get_ports sys_clkn]
 
-##$$ 200MHz 5ns // without pll
-##$$create_clock -period 5.000 -name sys_clk [get_ports sys_clkp]
+##$$ 200MHz 5ns // clock-in
+create_clock -period 5.000 -name sys_clk [get_ports sys_clkp]
 
 
 ## TODO: define clock - sys_clk // from pll // clk_out3_10M_clk_wiz_0
@@ -152,14 +475,10 @@ create_generated_clock  -name lan_clk         [get_pins  clk_wiz_0_3_1_inst/inst
 create_generated_clock  -name mcs_eeprom_fifo_clk      [get_pins  clk_wiz_0_3_1_inst/inst/plle2_adv_inst/CLKOUT3]
 
 ## TODO: define clock - ref_clk // replace clk_out1_200M_clk_wiz_0
-create_generated_clock  -name ref_clk        [get_pins  clk_wiz_0_inst/inst/plle2_adv_inst/CLKOUT0]
+# create_generated_clock  -name ref_clk        [get_pins  clk_wiz_0_inst/inst/plle2_adv_inst/CLKOUT0]
 
 ####
-set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks {okHI_clk okUH0}]
 set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks okHI_clk]
-set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks sys_clk]
 
 
 ## for MCS
@@ -168,13 +487,8 @@ set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_
 # lan_io_clk # not yet
 set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks lan_clk]
 set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks {okHI_clk okUH0}]
-set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks {okHI_clk okUH0}]
 set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks {okHI_clk okUH0}]
 set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks mcs_clk]
-#set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks lan_io_clk]
-#set_clock_groups -asynchronous -group [get_clocks lan_io_clk] -group [get_clocks lan_clk]
 
 
 
@@ -200,24 +514,6 @@ set_input_delay -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports i_B
 set_input_delay -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports i_B13*]
 
 
-## LAN control
-#set_output_delay -clock [get_clocks lan_io_clk] 0.000 [get_ports o_B35*]
-#set_max_delay   -to [get_ports o_B35_L21N] 20.0
-#set_max_delay   -to [get_ports o_B35_IO0 ] 10.7
-#set_max_delay   -to [get_ports o_B35_IO25] 10.7
-#set_max_delay   -to [get_ports o_B35_L24P] 10.7
-#set_max_delay   -to [get_ports o_B35_L24N] 10.7
-#set_output_delay -clock [get_clocks lan_clk] 0.0 [get_ports o_B35_L21N]
-#set_output_delay -clock [get_clocks lan_clk] 0.0 [get_ports o_B35_IO0 ]
-#set_output_delay -clock [get_clocks lan_clk] 0.0 [get_ports o_B35_IO25]
-#set_output_delay -clock [get_clocks lan_clk] 0.0 [get_ports o_B35_L24P]
-#set_output_delay -clock [get_clocks lan_clk] 0.0 [get_ports o_B35_L24N]
-#
-#set_input_delay  -clock [get_clocks lan_clk] 3.5 [get_ports i_B35_L21P]            
-
-
-## TEMP sensor 
-#set_input_delay  -clock [get_clocks lan_io_clk] 0.0 [get_ports i_B35_L6P]            
 
 
 # LEDs #####################################################################
@@ -568,6 +864,8 @@ set_property PACKAGE_PIN Y14 [get_ports o_B13_L6N]
 set_property PACKAGE_PIN Y12 [get_ports o_B13_L11N_SRCC]
 #
 
+
+
 ##$$ IO property
 #
 ##set_property SLEW FAST [get_ports io_B0_*]
@@ -651,398 +949,16 @@ set_property INTERNAL_VREF 0.9 [get_iobanks 35]
 ##
 
 
-## TODO: DAC clock 
-
-##$$ 400MHz 2.5ns for dac_clk        // CLK_COUT_P ## used for dac clocks
-##$$ 400MHz 2.5ns for dac0_dco_clk   // DAC0_DCO_P # unused
-##$$ 400MHz 2.5ns for dac1_dco_clk   // DAC1_DCO_P # unused
-
-#create_clock -period 2.500 -name dac_clk      [get_ports c_B13D_L13P_MRCC]
-#create_clock -period 2.500 -name dac0_dco_clk [get_ports c_B34D_L14P_SRCC]
-#create_clock -period 2.500 -name dac1_dco_clk [get_ports c_B35D_L14N_SRCC]
-
-
-## TODO: downclocking 400MHz 2.5ns ----////
-# --> 200MHz 5ns --> 175.01MHz 5.714ns --> 174.06MHz 5.745ns --> 169.49MHz 5.9ns  --> 166.67MHz 6.0ns 
-# --> 161.29MHz 6.2ns --> 158.73MHz 6.3ns --> 156.25MHz 6.4ns --> 152.91MHz 6.54ns
-create_clock -period 5.000 -name dac_clk      [get_ports c_B13D_L13P_MRCC]
-create_clock -period 5.000 -name dac0_dco_clk [get_ports c_B34D_L14P_SRCC]
-create_clock -period 5.000 -name dac1_dco_clk [get_ports c_B35D_L14N_SRCC]
-
-
-## setup diff termination for clock in ## LVDS_25 with LVCMOS25
-set_property DIFF_TERM TRUE [get_ports {c_B13D_L13P_MRCC}]
-set_property DIFF_TERM TRUE [get_ports {c_B13D_L13N_MRCC}]
-
-#set_property DIFF_TERM TRUE [get_ports {c_B34D_L14P_SRCC}]
-#set_property DIFF_TERM TRUE [get_ports {c_B34D_L14N_SRCC}]
-#set_property DIFF_TERM TRUE [get_ports {c_B35D_L14N_SRCC}]
-#set_property DIFF_TERM TRUE [get_ports {c_B35D_L14P_SRCC}]
-## in-chip term with DIFF_SSTL18_I DIFF_SSTL18_II DIFF_HSTL_I_18 DIFF_HSTL_II_18 # UNTUNED_SPLIT_60 UNTUNED_SPLIT_50 UNTUNED_SPLIT_40
-#set_property IN_TERM UNTUNED_SPLIT_50 [get_ports {c_B13D_L13P_MRCC}]
-#set_property IN_TERM UNTUNED_SPLIT_50 [get_ports {c_B13D_L13N_MRCC}]
-#set_property IN_TERM UNTUNED_SPLIT_50 [get_ports {c_B34D_L14P_SRCC}]
-#set_property IN_TERM UNTUNED_SPLIT_50 [get_ports {c_B34D_L14N_SRCC}]
-#set_property IN_TERM UNTUNED_SPLIT_50 [get_ports {c_B35D_L14N_SRCC}]
-#set_property IN_TERM UNTUNED_SPLIT_50 [get_ports {c_B35D_L14P_SRCC}]
-## pull/keeper option for clock inputs with DIFF_HSTL_I_18
-#set_property PULLUP   true [get_ports c_B13D_L13P_MRCC]
-#set_property PULLDOWN true [get_ports c_B13D_L13N_MRCC]
-#set_property PULLUP   true [get_ports c_B34D_L14P_SRCC]
-#set_property PULLDOWN true [get_ports c_B34D_L14N_SRCC]
-#set_property PULLUP   true [get_ports c_B35D_L14N_SRCC]
-#set_property PULLDOWN true [get_ports c_B35D_L14P_SRCC]
-
-
-## TODO: dac clock group 
-#clk_wiz_1_3_inst
-#clk_wiz_1_3_0_inst
-#clk_wiz_1_3_1_inst
-
-## TODO: define clock - dac0_clk // replace clk_out1_400M_clk_wiz_1_0
-create_generated_clock  -name dac0_clk        [get_pins  clk_wiz_1_2_0_inst/inst/plle2_adv_inst/CLKOUT0]
-
-## TODO: define clock - dac0_clk_180 // replace clk_out5_400M_clk_wiz_1_0
-create_generated_clock  -name dac0_clk_180    [get_pins  clk_wiz_1_2_0_inst/inst/plle2_adv_inst/CLKOUT1]
-
-## TODO: define clock - dac1_clk // replace clk_out1_400M_clk_wiz_1_1
-create_generated_clock  -name dac1_clk        [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT2]
-
-## TODO: define clock - dac1_clk_180 // replace clk_out5_400M_clk_wiz_1_1
-create_generated_clock  -name dac1_clk_180    [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT0]
-
-
-set_clock_groups -asynchronous -group [get_clocks {dac0_clk dac0_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_clk_180}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {sys_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks {dac1_clk dac1_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_clk_180}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {sys_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks dac1_clk]
-#
-
-## DAC0 data out : 400MHz case
-#
-#o_B34D_L15P      // DAC0_DAT15
-#o_B34D_L23P      // DAC0_DAT14
-#o_B34D_L19P      // DAC0_DAT13
-#o_B34D_L21P      // DAC0_DAT12
-#o_B34D_L13P_MRCC // DAC0_DAT11
-#o_B34D_L17P      // DAC0_DAT10
-#o_B34D_L24P      // DAC0_DAT9_
-#o_B34D_L16P      // DAC0_DAT8_
-#o_B34D_L20P      // DAC0_DAT7_
-#o_B34D_L3P       // DAC0_DAT6_
-#o_B34D_L9P       // DAC0_DAT5_
-#o_B34D_L2P       // DAC0_DAT4_
-#o_B34D_L4P       // DAC0_DAT3_
-#o_B34D_L1P       // DAC0_DAT2_
-#o_B34D_L7P       // DAC0_DAT1_
-#o_B34D_L12P_MRCC // DAC0_DAT0_
-#
-##set_multicycle_path -setup -to [get_ports o_B34D_L15P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L23P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L19P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L21P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L13P_MRCC ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L17P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L24P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L16P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L20P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L3P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L9P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L2P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L4P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L1P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L7P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B34D_L12P_MRCC ] 2
-#
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.900 [get_ports o_B34D_L15P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.900 [get_ports o_B34D_L23P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.900 [get_ports o_B34D_L19P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.900 [get_ports o_B34D_L21P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.900 [get_ports o_B34D_L13P_MRCC ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.900 [get_ports o_B34D_L17P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L24P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L16P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L20P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L3P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L9P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L2P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L4P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L1P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L7P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay -2.500 [get_ports o_B34D_L12P_MRCC ]
-##
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L15P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L23P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L19P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L21P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L13P_MRCC ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L17P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L24P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L16P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L20P      ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L3P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L9P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L2P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L4P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L1P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L7P       ]
-#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay  0.700 [get_ports o_B34D_L12P_MRCC ]
-#
-set_max_delay   -to [get_ports o_B34D_L15P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L23P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L19P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L21P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L13P_MRCC ] 14.960
-set_max_delay   -to [get_ports o_B34D_L17P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L24P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L16P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L20P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L3P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L9P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L2P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L4P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L1P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L7P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L12P_MRCC ] 14.960
-#
-
-## DAC1 data out : 400MHz case
-#
-#o_B35D_L12P_MRCC // DAC1_DAT15
-#o_B35D_L13P_MRCC // DAC1_DAT14
-#o_B35D_L1P       // DAC1_DAT13
-#o_B35D_L2P       // DAC1_DAT12
-#o_B35D_L3P       // DAC1_DAT11
-#o_B35D_L5P       // DAC1_DAT10
-#o_B35D_L8P       // DAC1_DAT9_
-#o_B35D_L10P      // DAC1_DAT8_
-#o_B35D_L24P      // DAC1_DAT7_
-#o_B35D_L22P      // DAC1_DAT6_
-#o_B35D_L20P      // DAC1_DAT5_
-#o_B35D_L16P      // DAC1_DAT4_
-#o_B35D_L21P      // DAC1_DAT3_
-#o_B35D_L19P      // DAC1_DAT2_
-#o_B35D_L18P      // DAC1_DAT1_
-#o_B35D_L23P      // DAC1_DAT0_
-#
-##set_multicycle_path -setup -to [get_ports o_B35D_L12P_MRCC ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L13P_MRCC ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L1P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L2P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L3P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L5P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L8P       ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L10P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L24P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L22P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L20P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L16P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L21P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L19P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L18P      ] 2
-##set_multicycle_path -setup -to [get_ports o_B35D_L23P      ] 2
-#
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.900 [get_ports o_B35D_L12P_MRCC ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.900 [get_ports o_B35D_L13P_MRCC ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.900 [get_ports o_B35D_L1P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.900 [get_ports o_B35D_L2P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.900 [get_ports o_B35D_L3P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.900 [get_ports o_B35D_L5P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L8P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L10P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L24P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L22P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L20P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L16P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L21P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L19P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L18P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -max -add_delay -2.500 [get_ports o_B35D_L23P      ]
-##
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L12P_MRCC ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L13P_MRCC ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L1P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L2P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L3P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L5P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L8P       ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L10P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L24P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L22P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L20P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L16P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L21P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L19P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L18P      ]
-#set_output_delay -clock [get_clocks dac1_clk] -min -add_delay  0.700 [get_ports o_B35D_L23P      ]
-#
-## 14.380 --> 14.910
-set_max_delay   -to [get_ports o_B35D_L12P_MRCC ] 14.910
-set_max_delay   -to [get_ports o_B35D_L13P_MRCC ] 14.910
-set_max_delay   -to [get_ports o_B35D_L1P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L2P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L3P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L5P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L8P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L10P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L24P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L22P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L20P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L16P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L21P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L19P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L18P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L23P      ] 14.910
-#
-
-
-## DCI out: 400MHz case
-# dac0 dci
-## set_multicycle_path -setup -to [get_ports o_B34D_L10P ] 2
-## #set_multicycle_path -hold  -to [get_ports o_B34D_L10P ] 1
-## set_output_delay -clock [get_clocks dac0_clk_180] -max -add_delay -1.250 [get_ports {o_B34D_L10P}]
-## set_output_delay -clock [get_clocks dac0_clk_180] -max -add_delay -1.500 [get_ports {o_B34D_L10P}] -clock_fall
-## set_output_delay -clock [get_clocks dac0_clk_180] -min -add_delay  0.950 [get_ports {o_B34D_L10P}]
-## set_output_delay -clock [get_clocks dac0_clk_180] -min -add_delay  0.940 [get_ports {o_B34D_L10P}] -clock_fall
-#
-## 8.000 --> 14.960
-set_max_delay   -to [get_ports o_B34D_L10P ] 14.960
-#
-# dac1 dci
-## set_multicycle_path -setup -to [get_ports o_B35D_L17P ] 2
-## #set_multicycle_path -hold  -to [get_ports o_B35D_L17P ] 1
-## set_output_delay -clock [get_clocks dac1_clk_180] -max -add_delay -1.350 [get_ports {o_B35D_L17P}]
-## set_output_delay -clock [get_clocks dac1_clk_180] -max -add_delay -1.450 [get_ports {o_B35D_L17P}] -clock_fall
-## set_output_delay -clock [get_clocks dac1_clk_180] -min -add_delay  0.960 [get_ports {o_B35D_L17P}]
-## set_output_delay -clock [get_clocks dac1_clk_180] -min -add_delay  0.950 [get_ports {o_B35D_L17P}] -clock_fall
-#
-## 8.000 --> 14.910
-set_max_delay   -to [get_ports o_B35D_L17P ] 14.910
-#
-
-## false path for fifo reset
-# wire w_rst_dac0_fifo              = r_cid_reg_ctrl[6]; //$$ false path try
-# wire w_rst_dac1_fifo              = r_cid_reg_ctrl[7]; //$$ false path try
-set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[6]/C}] 
-set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[7]/C}] 
-
-
-## TRIG
-# TRIG_OUT
-# 200MHz clock out case
-#set_output_delay -clock [get_clocks clk_out2_200M_clk_wiz_1] -max -add_delay -2.500 [get_ports {o_B13D_L15P}]
-#set_output_delay -clock [get_clocks clk_out2_200M_clk_wiz_1] -min -add_delay -1.500 [get_ports {o_B13D_L15P}]
-#
-# 400MHz clock out case
-#set_multicycle_path -setup -to [get_ports o_B13D_L15P ] 2
-#
-#set_output_delay -clock [get_clocks clk_out1_400M_clk_wiz_1]  -max -add_delay -1.200 [get_ports {o_B13D_L15P}]
-#set_output_delay -clock [get_clocks clk_out1_400M_clk_wiz_1]  -max -add_delay -1.250 [get_ports {o_B13D_L15P}] -clock_fall
-#set_output_delay -clock [get_clocks clk_out1_400M_clk_wiz_1]  -min -add_delay  1.000 [get_ports {o_B13D_L15P}]
-#set_output_delay -clock [get_clocks clk_out1_400M_clk_wiz_1]  -min -add_delay  0.950 [get_ports {o_B13D_L15P}] -clock_fall
-#
-#set_max_delay   -to [get_ports o_B13D_L15P ] 8.200
-set_max_delay   -to [get_ports o_B13_L15P ] 9.200
-set_max_delay   -to [get_ports o_B13_L15N ] 9.200
-#
-
-
-## SPIO
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L2P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L2N ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L4P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L1P ]
-#
-# ignore wire in from ep07wire
-set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi07/ep_dataout_reg[*]/C}] 
-
-
-## CLKD
-# CLKD_SCLK     
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B35_L4P ]
-# CLKD_CS_B
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B35_L4N ]
-# CLKD_SDIO
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports io_B35_L6N ]
-set_input_delay  -clock [get_clocks sys_clk] 0.000 [get_ports io_B35_L6N ]
-
-# CLKD_RST_B
-#set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B35_IO0 ]
-set_false_path   -from [get_pins master_spi_ad9516_inst/r_LNG_RSTn_reg/C]
-set_max_delay    -to [get_ports o_B35_IO0] 20.0
-
-#
-
-
-# ignore wire in from ep06wire
-set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi06/ep_dataout_reg[*]/C}] 
 
 
 
-## pull up for SDIO SDO in bidir mode
-# CLKD_SDIO
-set_property PULLUP true [get_ports io_B35_L6N]
-# CLKD_SDO
-set_property PULLUP true [get_ports  i_B35_L6P]
 
 
-## DACX
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L16P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L3P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L5N ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L5P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_SYS_CLK_MC1 ]
-#
-# ignore wire in from ep05wire
-set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi05/ep_dataout_reg[*]/C}] 
-# ignore wire in from ep04wire --> ep08wire
-#set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi04/ep_dataout_reg[*]/C}] 
-set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi08/ep_dataout_reg[*]/C}] 
-#
+## TODO: LAN control ----////
 
-## TODO: LAN control 
+## on FPGA module // use
 
-## on BASE
-# IBUF ibuf_LAN_MISO_inst (.I(i_B13_L17P      ), .O(LAN_MISO ) ); //
-# IBUF ibuf_LAN_INTn_inst (.I(i_B13_L11P_SRCC ), .O(LAN_INTn ) ); //
-# OBUF obuf_LAN_RSTn_inst (.O(o_B13_L17N      ), .I(LAN_RSTn ) ); // 
-# OBUF obuf_LAN_SSNn_inst (.O(o_B13_L6P       ), .I(LAN_SSNn ) ); // 
-# OBUF obuf_LAN_SCLK_inst (.O(o_B13_L6N       ), .I(LAN_SCLK ) ); // 
-# OBUF obuf_LAN_MOSI_inst (.O(o_B13_L11N_SRCC ), .I(LAN_MOSI ) ); // 
-#
-# for LAN_RSTn
-#set_false_path -from [get_pins master_spi_wz850_inst/r_LAN_RSTn_reg/C]
-#set_max_delay    -to [get_ports o_B13_L17N] 20.0
-set_max_delay    -to [get_ports o_B13_L17N] 18.0
-
-# for w_FIFO_reset
-#set_false_path -from [get_pins {mcs_io_bridge_inst0/r_port_wi_00_reg[0]*/C}] 
-# 
-# for LAN_MISO
-#set_input_delay  -clock [get_clocks lan_clk] 3.5 [get_ports i_B13_L17P] 
-set_input_delay -clock [get_clocks lan_clk] -max -add_delay 3.400 [get_ports i_B13_L17P] 
-set_input_delay -clock [get_clocks lan_clk] -min -add_delay 1.000 [get_ports i_B13_L17P] 
-
-# for LAN_SSNn LAN_SCLK LAN_MOSI
-#set_max_delay   -to [get_ports o_B13_L6P      ] 10.7
-#set_max_delay   -to [get_ports o_B13_L6N      ] 10.7
-#set_max_delay   -to [get_ports o_B13_L11N_SRCC] 10.7
-set_max_delay   -to [get_ports o_B13_L6P      ] 7.1
-set_max_delay   -to [get_ports o_B13_L6N      ] 7.1
-set_max_delay   -to [get_ports o_B13_L11N_SRCC] 7.1
-
-# for LAN_INTn
-set_max_delay  18.000  -from [get_ports i_B13_L11P_SRCC] 
-set_min_delay   0.000  -from [get_ports i_B13_L11P_SRCC] 
-
-
-## on FPGA module : alternative
-
+# bank 15
 set_property PACKAGE_PIN  H17  [get_ports  o_B15_L6P ] 
 set_property PACKAGE_PIN  J22  [get_ports  o_B15_L7P ] 
 set_property PACKAGE_PIN  H22  [get_ports  o_B15_L7N ] 

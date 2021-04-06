@@ -2,10 +2,10 @@
 // # top xdc        : txem7310_pll__s3100_sv__top.xdc
 //
 // # FPGA board     : TXEM7310-FPGA-CORE (XEM7310-A200 compatible) or similar
-// # FPGA boardsch  : PGU_CPU_F5500__R190929__4M.pdf
+// # FPGA board_sch : FPGA_MODULE_V11_20200812-4M.pdf
 //
-// # base board     : NA or CPU-BASE
-// # base board sch : NA
+// # base board     : PGU-CPU-S3100 to be 
+// # base board sch : to be 
 //
 // # note: artix-7 top design for S3100 PGU slave side
 
