@@ -1,55 +1,223 @@
 // # this           : txem7310_pll__s3100_ms__top.v
 // # top xdc        : txem7310_pll__s3100_ms__top.xdc
 //
-// # board          : CPU-BASE-S3100
+// # board          : S3100-CPU-BASE
 // # board sch      : NA
 //
 // # note: artix-7 top design for S3100 PGU master side
 
 
-// unused
-//`default_nettype none
-
 /* top module integration */
 module txem7310_pll__s3100_ms__top ( 
 
 
-	
-	// external clock ports //{
-	input  wire         sys_clkp, 
-	input  wire         sys_clkn,
+	// external clock ports in B13 //{
+	input  wire  sys_clkp,  // # i_B13_L12P_MRCC  # W11 
+	input  wire  sys_clkn,  // # i_B13_L12N_MRCC  # W12 
 	//}
 	
-	// TXEM7310 interface //{
 	
-	// ## LAN for END-POINTS 
-	output wire  o_B15_L6P , // # H17    EP_LAN_PWDN 
-	output wire  o_B15_L7P , // # J22    EP_LAN_MOSI
-	output wire  o_B15_L7N , // # H22    EP_LAN_SCLK
-	output wire  o_B15_L8P , // # H20    EP_LAN_CS_B
-	input  wire  i_B15_L8N , // # G20    EP_LAN_INT_B
-	output wire  o_B15_L9P , // # K21    EP_LAN_RST_B
-	input  wire  i_B15_L9N , // # K22    EP_LAN_MISO
+	//// BANK B15 //{
 	
-	//  // ## TP
-	//  inout  wire  io_B15_L1P , // # H13    TP0 // test for eeprom : VCC_3.3V
-	//  inout  wire  io_B15_L1N , // # G13    TP1 // test for eeprom : VSS_GND
-	//  inout  wire  io_B15_L2P , // # G15    TP2 // test for eeprom : SCIO
-	//  inout  wire  io_B15_L2N , // # G16    TP3 // test for        : NA
-	//  inout  wire  io_B15_L3P , // # J14    TP4 // test for        : NA
-	//  inout  wire  io_B15_L3N , // # H14    TP5 // test for        : NA
-	//  inout  wire  io_B15_L5P , // # J15    TP6 // test for        : NA
-	//  inout  wire  io_B15_L5N , // # H15    TP7 // test for        : NA
+	// ## TPs and EXT_I2C
+	inout  wire  io_B15_L1P_AD0P ,  // # H13   # F_TP0 
+	inout  wire  io_B15_L1N_AD0N ,  // # G13   # F_TP1 
+	inout  wire  io_B15_L2P_AD8P ,  // # G15   # F_TP2 
+	inout  wire  io_B15_L2N_AD8N ,  // # G16   # F_TP3 
+	inout  wire  io_B15_L3P_AD1P ,  // # J14   # F_TP4 
+	inout  wire  io_B15_L3N_AD1N ,  // # H14   # F_TP5 
+	//                                         
+	output wire   o_B15_L4P ,       // # G17   # EXT_I2C_4_SCL
+	inout  wire  io_B15_L4N ,       // # G18   # EXT_I2C_4_SDA
+	//                                         
+	inout  wire  io_B15_L5P_AD9P ,  // # J15   # F_TP6 
+	inout  wire  io_B15_L5N_AD9N ,  // # H15   # F_TP7 
+								   
+	// ## LAN for END-POINTS       
+	output wire   o_B15_L6P ,       // # H17  # LAN_PWDN 
+	//input  wire i_B15_L6N_VREF,   // # H18  # NA
+	output wire   o_B15_L7P ,       // # J22  # LAN_MOSI
+	output wire   o_B15_L7N ,       // # H22  # LAN_SCLK
+	output wire   o_B15_L8P ,       // # H20  # LAN_SSN_B
+	input  wire   i_B15_L8N ,       // # G20  # LAN_INT_B
+	output wire   o_B15_L9P ,       // # K21  # LAN_RST_B
+	input  wire   i_B15_L9N ,       // # K22  # LAN_MISO
 	
-	//  // ## ADC
-	//  input  wire  i_B15_L10P, // # H20    AUX_AD11P
-	//  input  wire  i_B15_L10N, // # G20    AUX_AD11N
+	// ## ADC
+	//input  wire i_B15_L10P_AD11P, // # H20  # AUX_AD11P
+	//input  wire i_B15_L10N_AD11N, // # G20  # AUX_AD11N
 
-	//}	
+	//input  wire i_B15_L11P_SRCC,  // # J20  # NA
+	//input  wire i_B15_L11N_SRCC,  // # J21  # NA
+
+	input  wire i_B15_L12P_MRCC ,   // # J19  # GPIB_IRQ      
+	output wire o_B15_L12N_MRCC ,   // # H19  # GPIB_nCS      
+	output wire o_B15_L13P_MRCC ,   // # K18  # GPIB_nRESET   
+	output wire o_B15_L13N_MRCC ,   // # K19  # GPIB_SW_nOE   
+	input  wire i_B15_L14P_SRCC ,   // # L19  # GPIB_REM      
+	input  wire i_B15_L14N_SRCC ,   // # L20  # GPIB_TADCS    
+	input  wire i_B15_L15P      ,   // # N22  # GPIB_LADCS    
+	input  wire i_B15_L15N      ,   // # M22  # GPIB_DCAS     
+	input  wire i_B15_L16P      ,   // # M18  # GPIB_TRIG     
+	output wire o_B15_L16N      ,   // # L18  # GPIB_DATA_DIR 
+	output wire o_B15_L17P      ,   // # N18  # GPIB_DATA_nOE 
+
+	//input  wire i_B15_L17N,       // # N19  # NA
+							        
+	input  wire i_B15_L18P ,        // # N20  # BA25
+	input  wire i_B15_L18N ,        // # M20  # BA24
+	input  wire i_B15_L19P ,        // # K13  # BA23
+	input  wire i_B15_L19N ,        // # K14  # BA22
+	input  wire i_B15_L20P ,        // # M13  # BA21
+	input  wire i_B15_L20N ,        // # L13  # BA20
+	input  wire i_B15_L21P ,        // # K17  # BA19
+	input  wire i_B15_L21N ,        // # J17  # BA18
+	input  wire i_B15_L22P ,        // # L14  # BA7
+	input  wire i_B15_L22N ,        // # L15  # BA6
+	input  wire i_B15_L23P ,        // # L16  # BA5
+	input  wire i_B15_L23N ,        // # K16  # BA4
+	input  wire i_B15_L24P ,        // # M15  # BA3
+	input  wire i_B15_L24N ,        // # M16  # BA2
+
+	//}
 
 
+////
+////IO_L1P_T0_13
+////Y16
+////IO_L1N_T0_13
+////AA16
+////IO_L2P_T0_13
+////AB16
+////IO_L2N_T0_13
+////AB17
+////IO_L3P_T0_DQS_13
+////AA13
+////IO_L3N_T0_DQS_13
+////AB13
+////IO_L4P_T0_13
+////AA15
+////IO_L4N_T0_13
+////AB15
+////IO_L5P_T0_13
+////Y13
+////IO_L5N_T0_13
+////AA14
+////IO_L6P_T0_13
+////W14
+////IO_L6N_T0_VREF_13
+////Y14
+////IO_L7P_T1_13
+////AB11
+////IO_L7N_T1_13
+////AB12
+////IO_L8P_T1_13
+////AA9
+////IO_L8N_T1_13
+////AB10
+////IO_L9P_T1_DQS_13
+////AA10
+////IO_L9N_T1_DQS_13
+////AA11
+////IO_L10P_T1_13
+////V10
+////IO_L10N_T1_13
+////W10
+////IO_L11P_T1_SRCC_13
+////Y11
+////IO_L11N_T1_SRCC_13
+////Y12
+////IO_L12P_T1_MRCC_13
+////W11
+////IO_L12N_T1_MRCC_13
+////W12
+////IO_L13P_T2_MRCC_13
+////V13
+////IO_L13N_T2_MRCC_13
+////V14
+////IO_L14P_T2_SRCC_13
+////U15
+////IO_L14N_T2_SRCC_13
+////V15
+////IO_L15P_T2_DQS_13
+////T14
+////IO_L15N_T2_DQS_13
+////T15
+////IO_L16P_T2_13
+////W15
+////IO_L16N_T2_13
+////W16
+////IO_L17P_T2_13
+////T16
+////IO_L17N_T2_13
+////U16
+////
+////
+////SPI_#1_SCLK [3]
+////SPI_#1_MISO [3]
+////SPI_#1_nCS [3]
+////SPI_#1_MOSI [3]
+////GPIO_PB5 [3]
+////GPIO_PC4 [3]
+////GPIO_PC5 [3]
+////GPIO_PH6 [3]
+////GPIO_PH4 [3]
+////GPIO_PC9 [3]
+////GPIO_PC10 [3]
+////GPIO_PC11 [3]
+////GPIO_PC12 [3]
+////GPIO_PI8_RUN_LED [3]
+////GPIO_PD2 [3]
+////TIM#1_CH1 [3]
+////TIM#2_CH4 [3]
+////IO_LED[0:5] [15]
+////MBD_RS_422_SPI_EN [15]
+////MBD_RS_422_TRIG_EN [15]
+////M0_SPI_TX_EN [14]
+////M1_SPI_TX_EN [14]
+////M2_SPI_TX_EN [14]
+////TRIG_TX_EN [14]
+////SPI_#2_SCLK [3]
+////SPI_#2_MISO [3]
+////SPI_#2_nCS [3]
+////SPI_#2_MOSI [3]
+////QSPI_BK1_NCS [3]
+////QSPI_CLK [3]
+////QSPI_BK1_IO0 [3]
+////QSPI_BK1_IO1 [3]
+////QSPI_BK1_IO2 [3]
+////QSPI_BK1_IO3 [3]
+////
+////ETH_nIRQ [11]
+////ETH_nRESET [11]
+////ETH_nCS [11]
+////ETH_nTXLED [11]
+////ETH_nRXLED [11]
+////ETH_nLINKLED [11]
+////
+////200MHz_LVDS-
+////200MHz_LVDS+
+////
+////SYNC_10MHz [12]
+////EXT_TRIG_IN_CW [12]
+////
+////FPGA_FAN_SENS#0 [13]
+////FPGA_FAN_SENS#1 [13]
+////FPGA_FAN_SENS#2 [13]
+////FPGA_FAN_SENS#3 [13]
+////FPGA_FAN_SENS#4 [13]
+////FPGA_FAN_SENS#5 [13]
+////FPGA_FAN_SENS#6 [13]
+////FPGA_FAN_SENS#7 [13]
+
+
+
+
+	//// BANK 14 16 signals // NOT compatible with TXEM7310 connectors
 	
-	//// BANK 13 34 35 signals in connectors
+	
+	
+	//// BANK 13 34 35 signals // compatible with TXEM7310 connectors
 	
 	// MC1 - odd //{
 										   // # MC1-1   # VDC_IN
