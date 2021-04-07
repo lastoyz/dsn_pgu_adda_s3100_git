@@ -9,16 +9,13 @@
 
 /* top module integration */
 module txem7310_pll__s3100_ms__top ( 
-
-
-	// external clock ports in B13 //{
-	input  wire  sys_clkp,  // # i_B13_L12P_MRCC  # W11 
-	input  wire  sys_clkn,  // # i_B13_L12N_MRCC  # W12 
-	//}
 	
+	//// BANK 14 15 16  signals // NOT compatible with TXEM7310 connectors
 	
 	//// BANK B15 //{
 	
+	output wire  o_B15_0_        ,  // # J16  # F_RDY
+
 	// ## TPs and EXT_I2C
 	inout  wire  io_B15_L1P_AD0P ,  // # H13   # F_TP0 
 	inout  wire  io_B15_L1N_AD0N ,  // # G13   # F_TP1 
@@ -79,6 +76,141 @@ module txem7310_pll__s3100_ms__top (
 	input  wire i_B15_L24P ,        // # M15  # BA3
 	input  wire i_B15_L24N ,        // # M16  # BA2
 
+	input  wire  i_B15_25        ,  // # M17  # BUF_FMC_CLK
+
+	//}
+
+
+	//// BANK B16 //{
+	
+	// # F15   # O_0_16                    # BASE_F_LED_ERR 
+											
+	// # F13   # O_L1P_T0_16               # RUN_FPGA_LED 
+	// # F14   # IO_L1N_T0_16               #
+	// # F16   # IO_L2P_T0_16               #
+	// # E17   # IO_L2N_T0_16               #
+	// # C14   # IO_L3P_T0_DQS_16           #
+	// # C15   # IO_L3N_T0_DQS_16           #
+	// # E13   # IO_L4P_T0_16               #
+	// # E14   # IO_L4N_T0_16               #
+	// # E16   # IO_L5P_T0_16               #
+	// # D16   # IO_L5N_T0_16               #
+	// # D14   # IO_L6P_T0_16               #
+	// # D15   # IO_L6N_T0_VREF_16          #
+	// # B15   # IO_L7P_T1_16               #
+	// # B16   # IO_L7N_T1_16               #
+	// # C13   # IO_L8P_T1_16               #
+	// # B13   # IO_L8N_T1_16               #
+	// # A15   # IO_L9P_T1_DQS_16           #
+	// # A16   # IO_L9N_T1_DQS_16           #
+	// # A13   # IO_L10P_T1_16              #
+	// # A14   # IO_L10N_T1_16              #
+	// # B17   # IO_L11P_T1_SRCC_16         #
+	// # B18   # IO_L11N_T1_SRCC_16         #
+	// # D17   # IO_L12P_T1_MRCC_16         #
+	// # C17   # IO_L12N_T1_MRCC_16         #
+	// # C18   # IO_L13P_T2_MRCC_16         #
+	// # C19   # IO_L13N_T2_MRCC_16         #
+	// # E19   # IO_L14P_T2_SRCC_16         #
+	// # D19   # IO_L14N_T2_SRCC_16         #
+	// # F18   # IO_L15P_T2_DQS_16          #
+	// # E18   # IO_L15N_T2_DQS_16          #
+	// # B20   # IO_L16P_T2_16              #
+	// # A20   # IO_L16N_T2_16              #
+	
+	// # A18   # IO_L17P_T2_16              # NA
+	
+	// # A19   # IO_L17N_T2_16              #
+	// # F19   # IO_L18P_T2_16              #
+	
+	// # F20   # IO_L18N_T2_16              # NA
+	
+	// # D20   # IO_L19P_T3_16              #
+	// # C20   # IO_L19N_T3_VREF_16         #
+	// # C22   # IO_L20P_T3_16              #
+	
+	// # B22   # IO_L20N_T3_16              # NA
+	
+	// # B21   # IO_L21P_T3_DQS_16          #
+	// # A21   # IO_L21N_T3_DQS_16          #
+	// # E22   # IO_L22P_T3_16              #
+	// # D22   # IO_L22N_T3_16              #
+	// # E21   # IO_L23P_T3_16              #
+	// # D21   # IO_L23N_T3_16              #
+	
+	// # G21   # IO_L24P_T3_16              # NA
+	
+	// # G22   # IO_L24N_T3_16              #
+											
+	// # F21   # IO_25_16                  	#
+	
+	//}
+	
+
+	//// BANK B14 //{
+	
+	// # P20    # IO_0_14                       # NA
+	
+	// # P22    # IO_L1P_T0_D00_MOSI_14         # 
+	// # R22    # IO_L1N_T0_D01_DIN_14          # 
+	// # P21    # IO_L2P_T0_D02_14              # 
+	// # R21    # IO_L2N_T0_D03_14              # 
+
+	// # U22    # IO_L3P_T0_DQS_PUDC_B_14       # 
+
+	// # V22    # IO_L3N_T0_DQS_EMCCLK_14       # 
+
+	// # T21    # IO_L4P_T0_D04_14              # 
+	// # U21    # IO_L4N_T0_D05_14              # 
+	// # P19    # IO_L5P_T0_D06_14              # 
+	// # R19    # IO_L5N_T0_D07_14              # 
+
+	// # T19    # IO_L6P_T0_FCS_B_14            # 
+
+	// # T20    # IO_L6N_T0_D08_VREF_14         # 
+	// # W21    # IO_L7P_T1_D09_14              # 
+	// # W22    # IO_L7N_T1_D10_14              # 
+	// # AA20   # IO_L8P_T1_D11_14              # 
+	// # AA21   # IO_L8N_T1_D12_14              # 
+	// # Y21    # IO_L9P_T1_DQS_14              # 
+	// # Y22    # IO_L9N_T1_DQS_D13_14          # 
+	// # AB21   # IO_L10P_T1_D14_14             # 
+
+	// # AB22   # IO_L10N_T1_D15_14             # 
+
+	// # U20    # IO_L11P_T1_SRCC_14            # 
+	// # V20    # IO_L11N_T1_SRCC_14            # 
+	// # W19    # IO_L12P_T1_MRCC_14            # 
+	// # W20    # IO_L12N_T1_MRCC_14            # 
+	// # Y18    # IO_L13P_T2_MRCC_14            # 
+	// # Y19    # IO_L13N_T2_MRCC_14            # 
+	// # V18    # IO_L14P_T2_SRCC_14            # 
+	// # V19    # IO_L14N_T2_SRCC_14            # 
+												
+	// # AA19   # IO_L15P_T2_DQS_RDWR_B_14      # 
+	// # AB20   # IO_L15N_T2_DQS_DOUT_CSO_B_14  # 
+	// # V17    # IO_L16P_T2_CSI_B_14           # 
+
+	// # W17    # IO_L16N_T2_A15_D31_14         # 
+	// # AA18   # IO_L17P_T2_A14_D30_14         # 
+	// # AB18   # IO_L17N_T2_A13_D29_14         # 
+	// # U17    # IO_L18P_T2_A12_D28_14         # 
+	// # U18    # IO_L18N_T2_A11_D27_14         # 
+	// # P14    # IO_L19P_T3_A10_D26_14         # 
+	// # R14    # IO_L19N_T3_A09_D25_VREF_14    # 
+	// # R18    # IO_L20P_T3_A08_D24_14         # 
+	// # T18    # IO_L20N_T3_A07_D23_14         # 
+	// # N17    # IO_L21P_T3_DQS_14             # 
+	// # P17    # IO_L21N_T3_DQS_A06_D22_14     # 
+	// # P15    # IO_L22P_T3_A05_D21_14         # 
+	// # R16    # IO_L22N_T3_A04_D20_14         # 
+	// # N13    # IO_L23P_T3_A03_D19_14         # 
+	// # N14    # IO_L23N_T3_A02_D18_14         # 
+	// # P16    # IO_L24P_T3_A01_D17_14         # 
+	// # R17    # IO_L24N_T3_A00_D16_14         # 
+
+	// # N15    # IO_25_14                      # NA
+	
 	//}
 
 
@@ -211,13 +343,55 @@ module txem7310_pll__s3100_ms__top (
 ////FPGA_FAN_SENS#7 [13]
 
 
+	//// BANK 13 some signals NOT compatible with TXEM7310 connectors //{
+	
+	// # Y17    # IO_0_13             #
+	
+	// # Y16    # IO_L1P_T0_13        #
+	// # AA16   # IO_L1N_T0_13        #
+	// # AB16   # IO_L2P_T0_13        #
+	// # AB17   # IO_L2N_T0_13        #
+	// # AA13   # IO_L3P_T0_DQS_13    #
+	// # AB13   # IO_L3N_T0_DQS_13    #
+	// # AA15   # IO_L4P_T0_13        #
+	// # AB15   # IO_L4N_T0_13        #
+	// # Y13    # IO_L5P_T0_13        #
+	// # AA14   # IO_L5N_T0_13        #
+	// # W14    # IO_L6P_T0_13        #
+	// # Y14    # IO_L6N_T0_VREF_13   #
+	// # AB11   # IO_L7P_T1_13        #
+	// # AB12   # IO_L7N_T1_13        #
+	
+	// # AA9    # IO_L8P_T1_13        #
+	
+	// # AB10   # IO_L8N_T1_13        #
+	// # AA10   # IO_L9P_T1_DQS_13    #
+	// # AA11   # IO_L9N_T1_DQS_13    #
+	// # V10    # IO_L10P_T1_13       #
+	// # W10    # IO_L10N_T1_13       #
+	// # Y11    # IO_L11P_T1_SRCC_13  #
+	
+	// # Y12    # IO_L11N_T1_SRCC_13  #
+	
+	// # W11    # IO_L12P_T1_MRCC_13  # clocks
+	// # W12    # IO_L12N_T1_MRCC_13  # clocks
+	
+	// # V13    # IO_L13P_T2_MRCC_13  #
+	// # V14    # IO_L13N_T2_MRCC_13  #
+	
+	// # U15    # IO_L14P_T2_SRCC_13  #
+	// # V15    # IO_L14N_T2_SRCC_13  #
+	// # T14    # IO_L15P_T2_DQS_13   #
+	// # T15    # IO_L15N_T2_DQS_13   #
+	// # W15    # IO_L16P_T2_13       #
+	// # W16    # IO_L16N_T2_13       #
+	// # T16    # IO_L17P_T2_13       #
+	// # U16    # IO_L17N_T2_13       #
 
-
-	//// BANK 14 16 signals // NOT compatible with TXEM7310 connectors
+	//}
 	
 	
-	
-	//// BANK 13 34 35 signals // compatible with TXEM7310 connectors
+	//// BANK 13 34 35 signals // compatible with TXEM7310 connectors //{
 	
 	// MC1 - odd //{
 										   // # MC1-1   # VDC_IN
@@ -393,49 +567,27 @@ module txem7310_pll__s3100_ms__top (
 	                                       // # MC2-80  # GND
 	//}
 
-	// LED on XEM7310 //{
-	output wire [7:0]   led
 	//}
+
+
+	//// external clock ports on B13 //{
+	input  wire  sys_clkp,  // # i_B13_L12P_MRCC  # W11 
+	input  wire  sys_clkn   // # i_B13_L12N_MRCC  # W12 
+	//}
+
+	//// LED on XEM7310 on B16 // compatible with TXEM7310 //{
+	//$$ output wire [7:0]   led // moved in S3100-CPU-BASE
+	//}
+	
 	);
 
 
 /*parameter common */  //{
 	
 // TODO: FPGA_IMAGE_ID = h_BD_21_0310   //{
-//parameter FPGA_IMAGE_ID = 32'h_B0_19_10DD; // PGU-CPU-F5500 // pin map setup
-//parameter FPGA_IMAGE_ID = 32'h_B0_19_1008; // PGU-CPU-F5500 // pll setup
-//parameter FPGA_IMAGE_ID = 32'h_B1_19_1013; // PGU-CPU-F5500 // dac1 pin swap
-//parameter FPGA_IMAGE_ID = 32'h_B1_19_1016; // PGU-CPU-F5500 // dac partial pin swap
-//parameter FPGA_IMAGE_ID = 32'h_B1_19_1017; // PGU-CPU-F5500 // spio partial pin swap
-//parameter FPGA_IMAGE_ID = 32'h_B2_19_1109; // PGU-CPU-F5500 // spio pin test / other outputs zero
-//parameter FPGA_IMAGE_ID = 32'h_B2_19_1112; // PGU-CPU-F5500 // spio ext ic (MCP23S17) test / other outputs zero
-//parameter FPGA_IMAGE_ID = 32'h_B3_19_1114; // PGU-CPU-F5500 // clock distribution ic (AD9516-1) test / other outputs zero
-//parameter FPGA_IMAGE_ID = 32'h_B4_19_1118; // PGU-CPU-F5500 // dac (AD9783) io test / spi check
-//parameter FPGA_IMAGE_ID = 32'h_B4_19_1122; // PGU-CPU-F5500 // dac (AD9783) io test / spi check + trig style 
-//parameter FPGA_IMAGE_ID = 32'h_B5_19_1125; // PGU-CPU-F5500 // DAC AMP path test + multi-level test of 8 sequence
-//parameter FPGA_IMAGE_ID = 32'h_B5_19_1127; // PGU-CPU-F5500 // DAC AMP path test + pll_bw_hi__jt_50ps
-//parameter FPGA_IMAGE_ID = 32'h_B7_19_1129; // PGU-CPU-F5500 // DAC-FPGA sync test / duration controlled sequence test
-//parameter FPGA_IMAGE_ID = 32'h_B7_19_1206; // PGU-CPU-F5500 // DAC FIFO test / global time index in debugger
-//parameter FPGA_IMAGE_ID = 32'h_B8_19_1211; // PGU-CPU-F5500 // soft CPU setup
-//parameter FPGA_IMAGE_ID = 32'h_B9_19_1216; // PGU-CPU-F5500 // lan wiz850 setup
-//parameter FPGA_IMAGE_ID = 32'h_BA_19_1218; // PGU-CPU-F5500 // mcs end-points, dac control by soft-cpu
-//parameter FPGA_IMAGE_ID = 32'h_BA_20_0201; // PGU-CPU-F5500 // mcs end-points, dac control by soft-cpu, FIFO reset revision // FIFO-512
-//parameter FPGA_IMAGE_ID = 32'h_BB_20_0206; // PGU-CPU-F5500 // release test // FIFO-1K // pll reset signals and dac freq count to come
-//parameter FPGA_IMAGE_ID = 32'h_BB_20_0208; // PGU-CPU-F5500 // release test // FIFO-1K // CLKD serial clock down 100kHz
-//parameter FPGA_IMAGE_ID = 32'h_BC_20_0309; // PGU-CPU-F5500 // release test // FIFO-1K // pulse rev: output status, period setting.
-//parameter FPGA_IMAGE_ID = 32'h_BD_20_1216; // PGU-CPU-F5500 // EEPROM test // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_20_1230; // PGU-CPU-F5500 // update top-dsn for new LAN test // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_21_0107; // PGU-CPU-F5500 // setup DAC debugger // pll rev for dac clock enable // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_21_0108; // PGU-CPU-F5500 // dac timing test 6ns-->5ns // fifo 400MHz // XC7A200T_FBG484-2 up // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_21_0109; // PGU-CPU-F5500 // dac timing test 6ns back // fifo 400MHz // XC7A200T_FBG484-1 back // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_21_0112; // PGU-CPU-F5500 // dac pattern gen wrapper design // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_21_0119; // PGU-CPU-F5500 // dac pattern gen : Code-Inc-Dur 8-seq test // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_21_0124; // PGU-CPU-F5500 // dac pattern gen : Code-Inc-Dur fifo test // with XEM7310
-//parameter FPGA_IMAGE_ID = 32'h_BD_21_0205; // PGU-CPU-F5500 // dac pattern gen : FCID fifo reload test // with XEM7310
-parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
+parameter FPGA_IMAGE_ID = 32'h_A0_21_0407;   // S3100-CPU-BASE // pin map setup
+//parameter FPGA_IMAGE_ID = 32'h_B0_XX_1008; // S3100-CPU-BASE // pll setup
 
-// to support dac timing 2.5ns after re-forming FIFO struct
-// to support TXEM7310-FPGA-CORE to come
 
 //}
 
