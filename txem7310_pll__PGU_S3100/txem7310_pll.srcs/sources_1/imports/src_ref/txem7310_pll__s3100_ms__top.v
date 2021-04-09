@@ -2835,213 +2835,950 @@ assign MEM_SIO_tri = ~w_SCIO_OE ; // dedicated port
 // Pipe In 		0x80 - 0x9F
 // Pipe Out 	0xA0 - 0xBF
 //
-ok_endpoint_wrapper  ok_endpoint_wrapper_inst (
-	.okUH (okUH ), //input  wire [4:0]   okUH, // external pins
-	.okHU (okHU ), //output wire [2:0]   okHU, // external pins
-	.okUHU(okUHU), //inout  wire [31:0]  okUHU, // external pins
-	.okAA (okAA ), //inout  wire         okAA, // external pin
-	// Wire In 		0x00 - 0x1F
-	.ep00wire(ep00wire), // output wire [31:0]
-	.ep01wire(ep01wire), // output wire [31:0]
-	.ep02wire(ep02wire), // output wire [31:0]
-	.ep03wire(ep03wire), // output wire [31:0]
-	.ep04wire(ep04wire), // output wire [31:0]
-	.ep05wire(ep05wire), // output wire [31:0]
-	.ep06wire(ep06wire), // output wire [31:0]
-	.ep07wire(ep07wire), // output wire [31:0]
-	.ep08wire(ep08wire), // output wire [31:0]
-	.ep09wire(ep09wire), // output wire [31:0]
-	.ep0Awire(ep0Awire), // output wire [31:0]
-	.ep0Bwire(ep0Bwire), // output wire [31:0]
-	.ep0Cwire(ep0Cwire), // output wire [31:0]
-	.ep0Dwire(ep0Dwire), // output wire [31:0]
-	.ep0Ewire(ep0Ewire), // output wire [31:0]
-	.ep0Fwire(ep0Fwire), // output wire [31:0]
-	.ep10wire(ep10wire), // output wire [31:0]
-	.ep11wire(ep11wire), // output wire [31:0]
-	.ep12wire(ep12wire), // output wire [31:0]
-	.ep13wire(ep13wire), // output wire [31:0]
-	.ep14wire(ep14wire), // output wire [31:0]
-	.ep15wire(ep15wire), // output wire [31:0]
-	.ep16wire(ep16wire), // output wire [31:0]
-	.ep17wire(ep17wire), // output wire [31:0]
-	.ep18wire(ep18wire), // output wire [31:0]
-	.ep19wire(ep19wire), // output wire [31:0]
-	.ep1Awire(ep1Awire), // output wire [31:0]
-	.ep1Bwire(ep1Bwire), // output wire [31:0]
-	.ep1Cwire(ep1Cwire), // output wire [31:0]
-	.ep1Dwire(ep1Dwire), // output wire [31:0]
-	.ep1Ewire(ep1Ewire), // output wire [31:0]
-	.ep1Fwire(ep1Fwire), // output wire [31:0]
-	// Wire Out 	0x20 - 0x3F
-	.ep20wire(ep20wire), // input wire [31:0]
-	.ep21wire(ep21wire), // input wire [31:0]
-	.ep22wire(ep22wire), // input wire [31:0]
-	.ep23wire(ep23wire), // input wire [31:0]
-	.ep24wire(ep24wire), // input wire [31:0]
-	.ep25wire(ep25wire), // input wire [31:0]
-	.ep26wire(ep26wire), // input wire [31:0]
-	.ep27wire(ep27wire), // input wire [31:0]
-	.ep28wire(ep28wire), // input wire [31:0]
-	.ep29wire(ep29wire), // input wire [31:0]
-	.ep2Awire(ep2Awire), // input wire [31:0]
-	.ep2Bwire(ep2Bwire), // input wire [31:0]
-	.ep2Cwire(ep2Cwire), // input wire [31:0]
-	.ep2Dwire(ep2Dwire), // input wire [31:0]
-	.ep2Ewire(ep2Ewire), // input wire [31:0]
-	.ep2Fwire(ep2Fwire), // input wire [31:0]
-	.ep30wire(ep30wire), // input wire [31:0]
-	.ep31wire(ep31wire), // input wire [31:0]
-	.ep32wire(ep32wire), // input wire [31:0]
-	.ep33wire(ep33wire), // input wire [31:0]
-	.ep34wire(ep34wire), // input wire [31:0]
-	.ep35wire(ep35wire), // input wire [31:0]
-	.ep36wire(ep36wire), // input wire [31:0]
-	.ep37wire(ep37wire), // input wire [31:0]
-	.ep38wire(ep38wire), // input wire [31:0]
-	.ep39wire(ep39wire), // input wire [31:0]
-	.ep3Awire(ep3Awire), // input wire [31:0]
-	.ep3Bwire(ep3Bwire), // input wire [31:0]
-	.ep3Cwire(ep3Cwire), // input wire [31:0]
-	.ep3Dwire(ep3Dwire), // input wire [31:0]
-	.ep3Ewire(ep3Ewire), // input wire [31:0]
-	.ep3Fwire(ep3Fwire), // input wire [31:0]
-	// Trigger In 	0x40 - 0x5F
-	.ep40ck(ep40ck), .ep40trig(ep40trig), // input wire, output wire [31:0],
-	.ep41ck(ep41ck), .ep41trig(ep41trig), // input wire, output wire [31:0],
-	.ep42ck(ep42ck), .ep42trig(ep42trig), // input wire, output wire [31:0],
-	.ep43ck(ep43ck), .ep43trig(ep43trig), // input wire, output wire [31:0],
-	.ep44ck(ep44ck), .ep44trig(ep44trig), // input wire, output wire [31:0],
-	.ep45ck(ep45ck), .ep45trig(ep45trig), // input wire, output wire [31:0],
-	.ep46ck(ep46ck), .ep46trig(ep46trig), // input wire, output wire [31:0],
-	.ep47ck(ep47ck), .ep47trig(ep47trig), // input wire, output wire [31:0],
-	.ep48ck(ep48ck), .ep48trig(ep48trig), // input wire, output wire [31:0],
-	.ep49ck(ep49ck), .ep49trig(ep49trig), // input wire, output wire [31:0],
-	.ep4Ack(ep4Ack), .ep4Atrig(ep4Atrig), // input wire, output wire [31:0],
-	.ep4Bck(ep4Bck), .ep4Btrig(ep4Btrig), // input wire, output wire [31:0],
-	.ep4Cck(ep4Cck), .ep4Ctrig(ep4Ctrig), // input wire, output wire [31:0],
-	.ep4Dck(ep4Dck), .ep4Dtrig(ep4Dtrig), // input wire, output wire [31:0],
-	.ep4Eck(ep4Eck), .ep4Etrig(ep4Etrig), // input wire, output wire [31:0],
-	.ep4Fck(ep4Fck), .ep4Ftrig(ep4Ftrig), // input wire, output wire [31:0],
-	.ep50ck(ep50ck), .ep50trig(ep50trig), // input wire, output wire [31:0],
-	.ep51ck(ep51ck), .ep51trig(ep51trig), // input wire, output wire [31:0],
-	.ep52ck(ep52ck), .ep52trig(ep52trig), // input wire, output wire [31:0],
-	.ep53ck(ep53ck), .ep53trig(ep53trig), // input wire, output wire [31:0],
-	.ep54ck(ep54ck), .ep54trig(ep54trig), // input wire, output wire [31:0],
-	.ep55ck(ep55ck), .ep55trig(ep55trig), // input wire, output wire [31:0],
-	.ep56ck(ep56ck), .ep56trig(ep56trig), // input wire, output wire [31:0],
-	.ep57ck(ep57ck), .ep57trig(ep57trig), // input wire, output wire [31:0],
-	.ep58ck(ep58ck), .ep58trig(ep58trig), // input wire, output wire [31:0],
-	.ep59ck(ep59ck), .ep59trig(ep59trig), // input wire, output wire [31:0],
-	.ep5Ack(ep5Ack), .ep5Atrig(ep5Atrig), // input wire, output wire [31:0],
-	.ep5Bck(ep5Bck), .ep5Btrig(ep5Btrig), // input wire, output wire [31:0],
-	.ep5Cck(ep5Cck), .ep5Ctrig(ep5Ctrig), // input wire, output wire [31:0],
-	.ep5Dck(ep5Dck), .ep5Dtrig(ep5Dtrig), // input wire, output wire [31:0],
-	.ep5Eck(ep5Eck), .ep5Etrig(ep5Etrig), // input wire, output wire [31:0],
-	.ep5Fck(ep5Fck), .ep5Ftrig(ep5Ftrig), // input wire, output wire [31:0],
-	// Trigger Out 	0x60 - 0x7F
-	.ep60ck(ep60ck), .ep60trig(ep60trig), // input wire, input wire [31:0],
-	.ep61ck(ep61ck), .ep61trig(ep61trig), // input wire, input wire [31:0],
-	.ep62ck(ep62ck), .ep62trig(ep62trig), // input wire, input wire [31:0],
-	.ep63ck(ep63ck), .ep63trig(ep63trig), // input wire, input wire [31:0],
-	.ep64ck(ep64ck), .ep64trig(ep64trig), // input wire, input wire [31:0],
-	.ep65ck(ep65ck), .ep65trig(ep65trig), // input wire, input wire [31:0],
-	.ep66ck(ep66ck), .ep66trig(ep66trig), // input wire, input wire [31:0],
-	.ep67ck(ep67ck), .ep67trig(ep67trig), // input wire, input wire [31:0],
-	.ep68ck(ep68ck), .ep68trig(ep68trig), // input wire, input wire [31:0],
-	.ep69ck(ep69ck), .ep69trig(ep69trig), // input wire, input wire [31:0],
-	.ep6Ack(ep6Ack), .ep6Atrig(ep6Atrig), // input wire, input wire [31:0],
-	.ep6Bck(ep6Bck), .ep6Btrig(ep6Btrig), // input wire, input wire [31:0],
-	.ep6Cck(ep6Cck), .ep6Ctrig(ep6Ctrig), // input wire, input wire [31:0],
-	.ep6Dck(ep6Dck), .ep6Dtrig(ep6Dtrig), // input wire, input wire [31:0],
-	.ep6Eck(ep6Eck), .ep6Etrig(ep6Etrig), // input wire, input wire [31:0],
-	.ep6Fck(ep6Fck), .ep6Ftrig(ep6Ftrig), // input wire, input wire [31:0],
-	.ep70ck(ep70ck), .ep70trig(ep70trig), // input wire, input wire [31:0],
-	.ep71ck(ep71ck), .ep71trig(ep71trig), // input wire, input wire [31:0],
-	.ep72ck(ep72ck), .ep72trig(ep72trig), // input wire, input wire [31:0],
-	.ep73ck(ep73ck), .ep73trig(ep73trig), // input wire, input wire [31:0],
-	.ep74ck(ep74ck), .ep74trig(ep74trig), // input wire, input wire [31:0],
-	.ep75ck(ep75ck), .ep75trig(ep75trig), // input wire, input wire [31:0],
-	.ep76ck(ep76ck), .ep76trig(ep76trig), // input wire, input wire [31:0],
-	.ep77ck(ep77ck), .ep77trig(ep77trig), // input wire, input wire [31:0],
-	.ep78ck(ep78ck), .ep78trig(ep78trig), // input wire, input wire [31:0],
-	.ep79ck(ep79ck), .ep79trig(ep79trig), // input wire, input wire [31:0],
-	.ep7Ack(ep7Ack), .ep7Atrig(ep7Atrig), // input wire, input wire [31:0],
-	.ep7Bck(ep7Bck), .ep7Btrig(ep7Btrig), // input wire, input wire [31:0],
-	.ep7Cck(ep7Cck), .ep7Ctrig(ep7Ctrig), // input wire, input wire [31:0],
-	.ep7Dck(ep7Dck), .ep7Dtrig(ep7Dtrig), // input wire, input wire [31:0],
-	.ep7Eck(ep7Eck), .ep7Etrig(ep7Etrig), // input wire, input wire [31:0],
-	.ep7Fck(ep7Fck), .ep7Ftrig(ep7Ftrig), // input wire, input wire [31:0],
-	// Pipe In 		0x80 - 0x9F
-	.ep80wr(ep80wr), .ep80pipe(ep80pipe), // output wire, output wire [31:0],
-	.ep81wr(ep81wr), .ep81pipe(ep81pipe), // output wire, output wire [31:0],
-	.ep82wr(ep82wr), .ep82pipe(ep82pipe), // output wire, output wire [31:0],
-	.ep83wr(ep83wr), .ep83pipe(ep83pipe), // output wire, output wire [31:0],
-	.ep84wr(ep84wr), .ep84pipe(ep84pipe), // output wire, output wire [31:0],
-	.ep85wr(ep85wr), .ep85pipe(ep85pipe), // output wire, output wire [31:0],
-	.ep86wr(ep86wr), .ep86pipe(ep86pipe), // output wire, output wire [31:0],
-	.ep87wr(ep87wr), .ep87pipe(ep87pipe), // output wire, output wire [31:0],
-	.ep88wr(ep88wr), .ep88pipe(ep88pipe), // output wire, output wire [31:0],
-	.ep89wr(ep89wr), .ep89pipe(ep89pipe), // output wire, output wire [31:0],
-	.ep8Awr(ep8Awr), .ep8Apipe(ep8Apipe), // output wire, output wire [31:0],
-	.ep8Bwr(ep8Bwr), .ep8Bpipe(ep8Bpipe), // output wire, output wire [31:0],
-	.ep8Cwr(ep8Cwr), .ep8Cpipe(ep8Cpipe), // output wire, output wire [31:0],
-	.ep8Dwr(ep8Dwr), .ep8Dpipe(ep8Dpipe), // output wire, output wire [31:0],
-	.ep8Ewr(ep8Ewr), .ep8Epipe(ep8Epipe), // output wire, output wire [31:0],
-	.ep8Fwr(ep8Fwr), .ep8Fpipe(ep8Fpipe), // output wire, output wire [31:0],
-	.ep90wr(ep90wr), .ep90pipe(ep90pipe), // output wire, output wire [31:0],
-	.ep91wr(ep91wr), .ep91pipe(ep91pipe), // output wire, output wire [31:0],
-	.ep92wr(ep92wr), .ep92pipe(ep92pipe), // output wire, output wire [31:0],
-	.ep93wr(ep93wr), .ep93pipe(ep93pipe), // output wire, output wire [31:0],
-	.ep94wr(ep94wr), .ep94pipe(ep94pipe), // output wire, output wire [31:0],
-	.ep95wr(ep95wr), .ep95pipe(ep95pipe), // output wire, output wire [31:0],
-	.ep96wr(ep96wr), .ep96pipe(ep96pipe), // output wire, output wire [31:0],
-	.ep97wr(ep97wr), .ep97pipe(ep97pipe), // output wire, output wire [31:0],
-	.ep98wr(ep98wr), .ep98pipe(ep98pipe), // output wire, output wire [31:0],
-	.ep99wr(ep99wr), .ep99pipe(ep99pipe), // output wire, output wire [31:0],
-	.ep9Awr(ep9Awr), .ep9Apipe(ep9Apipe), // output wire, output wire [31:0],
-	.ep9Bwr(ep9Bwr), .ep9Bpipe(ep9Bpipe), // output wire, output wire [31:0],
-	.ep9Cwr(ep9Cwr), .ep9Cpipe(ep9Cpipe), // output wire, output wire [31:0],
-	.ep9Dwr(ep9Dwr), .ep9Dpipe(ep9Dpipe), // output wire, output wire [31:0],
-	.ep9Ewr(ep9Ewr), .ep9Epipe(ep9Epipe), // output wire, output wire [31:0],
-	.ep9Fwr(ep9Fwr), .ep9Fpipe(ep9Fpipe), // output wire, output wire [31:0],
-	// Pipe Out 	0xA0 - 0xBF
-	.epA0rd(epA0rd), .epA0pipe(epA0pipe), // output wire, input wire [31:0],
-	.epA1rd(epA1rd), .epA1pipe(epA1pipe), // output wire, input wire [31:0],
-	.epA2rd(epA2rd), .epA2pipe(epA2pipe), // output wire, input wire [31:0],
-	.epA3rd(epA3rd), .epA3pipe(epA3pipe), // output wire, input wire [31:0],
-	.epA4rd(epA4rd), .epA4pipe(epA4pipe), // output wire, input wire [31:0],
-	.epA5rd(epA5rd), .epA5pipe(epA5pipe), // output wire, input wire [31:0],
-	.epA6rd(epA6rd), .epA6pipe(epA6pipe), // output wire, input wire [31:0],
-	.epA7rd(epA7rd), .epA7pipe(epA7pipe), // output wire, input wire [31:0],
-	.epA8rd(epA8rd), .epA8pipe(epA8pipe), // output wire, input wire [31:0],
-	.epA9rd(epA9rd), .epA9pipe(epA9pipe), // output wire, input wire [31:0],
-	.epAArd(epAArd), .epAApipe(epAApipe), // output wire, input wire [31:0],
-	.epABrd(epABrd), .epABpipe(epABpipe), // output wire, input wire [31:0],
-	.epACrd(epACrd), .epACpipe(epACpipe), // output wire, input wire [31:0],
-	.epADrd(epADrd), .epADpipe(epADpipe), // output wire, input wire [31:0],
-	.epAErd(epAErd), .epAEpipe(epAEpipe), // output wire, input wire [31:0],
-	.epAFrd(epAFrd), .epAFpipe(epAFpipe), // output wire, input wire [31:0],
-	.epB0rd(epB0rd), .epB0pipe(epB0pipe), // output wire, input wire [31:0],
-	.epB1rd(epB1rd), .epB1pipe(epB1pipe), // output wire, input wire [31:0],
-	.epB2rd(epB2rd), .epB2pipe(epB2pipe), // output wire, input wire [31:0],
-	.epB3rd(epB3rd), .epB3pipe(epB3pipe), // output wire, input wire [31:0],
-	.epB4rd(epB4rd), .epB4pipe(epB4pipe), // output wire, input wire [31:0],
-	.epB5rd(epB5rd), .epB5pipe(epB5pipe), // output wire, input wire [31:0],
-	.epB6rd(epB6rd), .epB6pipe(epB6pipe), // output wire, input wire [31:0],
-	.epB7rd(epB7rd), .epB7pipe(epB7pipe), // output wire, input wire [31:0],
-	.epB8rd(epB8rd), .epB8pipe(epB8pipe), // output wire, input wire [31:0],
-	.epB9rd(epB9rd), .epB9pipe(epB9pipe), // output wire, input wire [31:0],
-	.epBArd(epBArd), .epBApipe(epBApipe), // output wire, input wire [31:0],
-	.epBBrd(epBBrd), .epBBpipe(epBBpipe), // output wire, input wire [31:0],
-	.epBCrd(epBCrd), .epBCpipe(epBCpipe), // output wire, input wire [31:0],
-	.epBDrd(epBDrd), .epBDpipe(epBDpipe), // output wire, input wire [31:0],
-	.epBErd(epBErd), .epBEpipe(epBEpipe), // output wire, input wire [31:0],
-	.epBFrd(epBFrd), .epBFpipe(epBFpipe), // output wire, input wire [31:0],
-	// 
-	.okClk(okClk)//output wire okClk // sync with write/read of pipe
-	);
+
+// ok_endpoint_wrapper  ok_endpoint_wrapper_inst (
+// 	.okUH (okUH ), //input  wire [4:0]   okUH, // external pins
+// 	.okHU (okHU ), //output wire [2:0]   okHU, // external pins
+// 	.okUHU(okUHU), //inout  wire [31:0]  okUHU, // external pins
+// 	.okAA (okAA ), //inout  wire         okAA, // external pin
+// 	// Wire In 		0x00 - 0x1F
+// 	.ep00wire(ep00wire), // output wire [31:0]
+// 	.ep01wire(ep01wire), // output wire [31:0]
+// 	.ep02wire(ep02wire), // output wire [31:0]
+// 	.ep03wire(ep03wire), // output wire [31:0]
+// 	.ep04wire(ep04wire), // output wire [31:0]
+// 	.ep05wire(ep05wire), // output wire [31:0]
+// 	.ep06wire(ep06wire), // output wire [31:0]
+// 	.ep07wire(ep07wire), // output wire [31:0]
+// 	.ep08wire(ep08wire), // output wire [31:0]
+// 	.ep09wire(ep09wire), // output wire [31:0]
+// 	.ep0Awire(ep0Awire), // output wire [31:0]
+// 	.ep0Bwire(ep0Bwire), // output wire [31:0]
+// 	.ep0Cwire(ep0Cwire), // output wire [31:0]
+// 	.ep0Dwire(ep0Dwire), // output wire [31:0]
+// 	.ep0Ewire(ep0Ewire), // output wire [31:0]
+// 	.ep0Fwire(ep0Fwire), // output wire [31:0]
+// 	.ep10wire(ep10wire), // output wire [31:0]
+// 	.ep11wire(ep11wire), // output wire [31:0]
+// 	.ep12wire(ep12wire), // output wire [31:0]
+// 	.ep13wire(ep13wire), // output wire [31:0]
+// 	.ep14wire(ep14wire), // output wire [31:0]
+// 	.ep15wire(ep15wire), // output wire [31:0]
+// 	.ep16wire(ep16wire), // output wire [31:0]
+// 	.ep17wire(ep17wire), // output wire [31:0]
+// 	.ep18wire(ep18wire), // output wire [31:0]
+// 	.ep19wire(ep19wire), // output wire [31:0]
+// 	.ep1Awire(ep1Awire), // output wire [31:0]
+// 	.ep1Bwire(ep1Bwire), // output wire [31:0]
+// 	.ep1Cwire(ep1Cwire), // output wire [31:0]
+// 	.ep1Dwire(ep1Dwire), // output wire [31:0]
+// 	.ep1Ewire(ep1Ewire), // output wire [31:0]
+// 	.ep1Fwire(ep1Fwire), // output wire [31:0]
+// 	// Wire Out 	0x20 - 0x3F
+// 	.ep20wire(ep20wire), // input wire [31:0]
+// 	.ep21wire(ep21wire), // input wire [31:0]
+// 	.ep22wire(ep22wire), // input wire [31:0]
+// 	.ep23wire(ep23wire), // input wire [31:0]
+// 	.ep24wire(ep24wire), // input wire [31:0]
+// 	.ep25wire(ep25wire), // input wire [31:0]
+// 	.ep26wire(ep26wire), // input wire [31:0]
+// 	.ep27wire(ep27wire), // input wire [31:0]
+// 	.ep28wire(ep28wire), // input wire [31:0]
+// 	.ep29wire(ep29wire), // input wire [31:0]
+// 	.ep2Awire(ep2Awire), // input wire [31:0]
+// 	.ep2Bwire(ep2Bwire), // input wire [31:0]
+// 	.ep2Cwire(ep2Cwire), // input wire [31:0]
+// 	.ep2Dwire(ep2Dwire), // input wire [31:0]
+// 	.ep2Ewire(ep2Ewire), // input wire [31:0]
+// 	.ep2Fwire(ep2Fwire), // input wire [31:0]
+// 	.ep30wire(ep30wire), // input wire [31:0]
+// 	.ep31wire(ep31wire), // input wire [31:0]
+// 	.ep32wire(ep32wire), // input wire [31:0]
+// 	.ep33wire(ep33wire), // input wire [31:0]
+// 	.ep34wire(ep34wire), // input wire [31:0]
+// 	.ep35wire(ep35wire), // input wire [31:0]
+// 	.ep36wire(ep36wire), // input wire [31:0]
+// 	.ep37wire(ep37wire), // input wire [31:0]
+// 	.ep38wire(ep38wire), // input wire [31:0]
+// 	.ep39wire(ep39wire), // input wire [31:0]
+// 	.ep3Awire(ep3Awire), // input wire [31:0]
+// 	.ep3Bwire(ep3Bwire), // input wire [31:0]
+// 	.ep3Cwire(ep3Cwire), // input wire [31:0]
+// 	.ep3Dwire(ep3Dwire), // input wire [31:0]
+// 	.ep3Ewire(ep3Ewire), // input wire [31:0]
+// 	.ep3Fwire(ep3Fwire), // input wire [31:0]
+// 	// Trigger In 	0x40 - 0x5F
+// 	.ep40ck(ep40ck), .ep40trig(ep40trig), // input wire, output wire [31:0],
+// 	.ep41ck(ep41ck), .ep41trig(ep41trig), // input wire, output wire [31:0],
+// 	.ep42ck(ep42ck), .ep42trig(ep42trig), // input wire, output wire [31:0],
+// 	.ep43ck(ep43ck), .ep43trig(ep43trig), // input wire, output wire [31:0],
+// 	.ep44ck(ep44ck), .ep44trig(ep44trig), // input wire, output wire [31:0],
+// 	.ep45ck(ep45ck), .ep45trig(ep45trig), // input wire, output wire [31:0],
+// 	.ep46ck(ep46ck), .ep46trig(ep46trig), // input wire, output wire [31:0],
+// 	.ep47ck(ep47ck), .ep47trig(ep47trig), // input wire, output wire [31:0],
+// 	.ep48ck(ep48ck), .ep48trig(ep48trig), // input wire, output wire [31:0],
+// 	.ep49ck(ep49ck), .ep49trig(ep49trig), // input wire, output wire [31:0],
+// 	.ep4Ack(ep4Ack), .ep4Atrig(ep4Atrig), // input wire, output wire [31:0],
+// 	.ep4Bck(ep4Bck), .ep4Btrig(ep4Btrig), // input wire, output wire [31:0],
+// 	.ep4Cck(ep4Cck), .ep4Ctrig(ep4Ctrig), // input wire, output wire [31:0],
+// 	.ep4Dck(ep4Dck), .ep4Dtrig(ep4Dtrig), // input wire, output wire [31:0],
+// 	.ep4Eck(ep4Eck), .ep4Etrig(ep4Etrig), // input wire, output wire [31:0],
+// 	.ep4Fck(ep4Fck), .ep4Ftrig(ep4Ftrig), // input wire, output wire [31:0],
+// 	.ep50ck(ep50ck), .ep50trig(ep50trig), // input wire, output wire [31:0],
+// 	.ep51ck(ep51ck), .ep51trig(ep51trig), // input wire, output wire [31:0],
+// 	.ep52ck(ep52ck), .ep52trig(ep52trig), // input wire, output wire [31:0],
+// 	.ep53ck(ep53ck), .ep53trig(ep53trig), // input wire, output wire [31:0],
+// 	.ep54ck(ep54ck), .ep54trig(ep54trig), // input wire, output wire [31:0],
+// 	.ep55ck(ep55ck), .ep55trig(ep55trig), // input wire, output wire [31:0],
+// 	.ep56ck(ep56ck), .ep56trig(ep56trig), // input wire, output wire [31:0],
+// 	.ep57ck(ep57ck), .ep57trig(ep57trig), // input wire, output wire [31:0],
+// 	.ep58ck(ep58ck), .ep58trig(ep58trig), // input wire, output wire [31:0],
+// 	.ep59ck(ep59ck), .ep59trig(ep59trig), // input wire, output wire [31:0],
+// 	.ep5Ack(ep5Ack), .ep5Atrig(ep5Atrig), // input wire, output wire [31:0],
+// 	.ep5Bck(ep5Bck), .ep5Btrig(ep5Btrig), // input wire, output wire [31:0],
+// 	.ep5Cck(ep5Cck), .ep5Ctrig(ep5Ctrig), // input wire, output wire [31:0],
+// 	.ep5Dck(ep5Dck), .ep5Dtrig(ep5Dtrig), // input wire, output wire [31:0],
+// 	.ep5Eck(ep5Eck), .ep5Etrig(ep5Etrig), // input wire, output wire [31:0],
+// 	.ep5Fck(ep5Fck), .ep5Ftrig(ep5Ftrig), // input wire, output wire [31:0],
+// 	// Trigger Out 	0x60 - 0x7F
+// 	.ep60ck(ep60ck), .ep60trig(ep60trig), // input wire, input wire [31:0],
+// 	.ep61ck(ep61ck), .ep61trig(ep61trig), // input wire, input wire [31:0],
+// 	.ep62ck(ep62ck), .ep62trig(ep62trig), // input wire, input wire [31:0],
+// 	.ep63ck(ep63ck), .ep63trig(ep63trig), // input wire, input wire [31:0],
+// 	.ep64ck(ep64ck), .ep64trig(ep64trig), // input wire, input wire [31:0],
+// 	.ep65ck(ep65ck), .ep65trig(ep65trig), // input wire, input wire [31:0],
+// 	.ep66ck(ep66ck), .ep66trig(ep66trig), // input wire, input wire [31:0],
+// 	.ep67ck(ep67ck), .ep67trig(ep67trig), // input wire, input wire [31:0],
+// 	.ep68ck(ep68ck), .ep68trig(ep68trig), // input wire, input wire [31:0],
+// 	.ep69ck(ep69ck), .ep69trig(ep69trig), // input wire, input wire [31:0],
+// 	.ep6Ack(ep6Ack), .ep6Atrig(ep6Atrig), // input wire, input wire [31:0],
+// 	.ep6Bck(ep6Bck), .ep6Btrig(ep6Btrig), // input wire, input wire [31:0],
+// 	.ep6Cck(ep6Cck), .ep6Ctrig(ep6Ctrig), // input wire, input wire [31:0],
+// 	.ep6Dck(ep6Dck), .ep6Dtrig(ep6Dtrig), // input wire, input wire [31:0],
+// 	.ep6Eck(ep6Eck), .ep6Etrig(ep6Etrig), // input wire, input wire [31:0],
+// 	.ep6Fck(ep6Fck), .ep6Ftrig(ep6Ftrig), // input wire, input wire [31:0],
+// 	.ep70ck(ep70ck), .ep70trig(ep70trig), // input wire, input wire [31:0],
+// 	.ep71ck(ep71ck), .ep71trig(ep71trig), // input wire, input wire [31:0],
+// 	.ep72ck(ep72ck), .ep72trig(ep72trig), // input wire, input wire [31:0],
+// 	.ep73ck(ep73ck), .ep73trig(ep73trig), // input wire, input wire [31:0],
+// 	.ep74ck(ep74ck), .ep74trig(ep74trig), // input wire, input wire [31:0],
+// 	.ep75ck(ep75ck), .ep75trig(ep75trig), // input wire, input wire [31:0],
+// 	.ep76ck(ep76ck), .ep76trig(ep76trig), // input wire, input wire [31:0],
+// 	.ep77ck(ep77ck), .ep77trig(ep77trig), // input wire, input wire [31:0],
+// 	.ep78ck(ep78ck), .ep78trig(ep78trig), // input wire, input wire [31:0],
+// 	.ep79ck(ep79ck), .ep79trig(ep79trig), // input wire, input wire [31:0],
+// 	.ep7Ack(ep7Ack), .ep7Atrig(ep7Atrig), // input wire, input wire [31:0],
+// 	.ep7Bck(ep7Bck), .ep7Btrig(ep7Btrig), // input wire, input wire [31:0],
+// 	.ep7Cck(ep7Cck), .ep7Ctrig(ep7Ctrig), // input wire, input wire [31:0],
+// 	.ep7Dck(ep7Dck), .ep7Dtrig(ep7Dtrig), // input wire, input wire [31:0],
+// 	.ep7Eck(ep7Eck), .ep7Etrig(ep7Etrig), // input wire, input wire [31:0],
+// 	.ep7Fck(ep7Fck), .ep7Ftrig(ep7Ftrig), // input wire, input wire [31:0],
+// 	// Pipe In 		0x80 - 0x9F
+// 	.ep80wr(ep80wr), .ep80pipe(ep80pipe), // output wire, output wire [31:0],
+// 	.ep81wr(ep81wr), .ep81pipe(ep81pipe), // output wire, output wire [31:0],
+// 	.ep82wr(ep82wr), .ep82pipe(ep82pipe), // output wire, output wire [31:0],
+// 	.ep83wr(ep83wr), .ep83pipe(ep83pipe), // output wire, output wire [31:0],
+// 	.ep84wr(ep84wr), .ep84pipe(ep84pipe), // output wire, output wire [31:0],
+// 	.ep85wr(ep85wr), .ep85pipe(ep85pipe), // output wire, output wire [31:0],
+// 	.ep86wr(ep86wr), .ep86pipe(ep86pipe), // output wire, output wire [31:0],
+// 	.ep87wr(ep87wr), .ep87pipe(ep87pipe), // output wire, output wire [31:0],
+// 	.ep88wr(ep88wr), .ep88pipe(ep88pipe), // output wire, output wire [31:0],
+// 	.ep89wr(ep89wr), .ep89pipe(ep89pipe), // output wire, output wire [31:0],
+// 	.ep8Awr(ep8Awr), .ep8Apipe(ep8Apipe), // output wire, output wire [31:0],
+// 	.ep8Bwr(ep8Bwr), .ep8Bpipe(ep8Bpipe), // output wire, output wire [31:0],
+// 	.ep8Cwr(ep8Cwr), .ep8Cpipe(ep8Cpipe), // output wire, output wire [31:0],
+// 	.ep8Dwr(ep8Dwr), .ep8Dpipe(ep8Dpipe), // output wire, output wire [31:0],
+// 	.ep8Ewr(ep8Ewr), .ep8Epipe(ep8Epipe), // output wire, output wire [31:0],
+// 	.ep8Fwr(ep8Fwr), .ep8Fpipe(ep8Fpipe), // output wire, output wire [31:0],
+// 	.ep90wr(ep90wr), .ep90pipe(ep90pipe), // output wire, output wire [31:0],
+// 	.ep91wr(ep91wr), .ep91pipe(ep91pipe), // output wire, output wire [31:0],
+// 	.ep92wr(ep92wr), .ep92pipe(ep92pipe), // output wire, output wire [31:0],
+// 	.ep93wr(ep93wr), .ep93pipe(ep93pipe), // output wire, output wire [31:0],
+// 	.ep94wr(ep94wr), .ep94pipe(ep94pipe), // output wire, output wire [31:0],
+// 	.ep95wr(ep95wr), .ep95pipe(ep95pipe), // output wire, output wire [31:0],
+// 	.ep96wr(ep96wr), .ep96pipe(ep96pipe), // output wire, output wire [31:0],
+// 	.ep97wr(ep97wr), .ep97pipe(ep97pipe), // output wire, output wire [31:0],
+// 	.ep98wr(ep98wr), .ep98pipe(ep98pipe), // output wire, output wire [31:0],
+// 	.ep99wr(ep99wr), .ep99pipe(ep99pipe), // output wire, output wire [31:0],
+// 	.ep9Awr(ep9Awr), .ep9Apipe(ep9Apipe), // output wire, output wire [31:0],
+// 	.ep9Bwr(ep9Bwr), .ep9Bpipe(ep9Bpipe), // output wire, output wire [31:0],
+// 	.ep9Cwr(ep9Cwr), .ep9Cpipe(ep9Cpipe), // output wire, output wire [31:0],
+// 	.ep9Dwr(ep9Dwr), .ep9Dpipe(ep9Dpipe), // output wire, output wire [31:0],
+// 	.ep9Ewr(ep9Ewr), .ep9Epipe(ep9Epipe), // output wire, output wire [31:0],
+// 	.ep9Fwr(ep9Fwr), .ep9Fpipe(ep9Fpipe), // output wire, output wire [31:0],
+// 	// Pipe Out 	0xA0 - 0xBF
+// 	.epA0rd(epA0rd), .epA0pipe(epA0pipe), // output wire, input wire [31:0],
+// 	.epA1rd(epA1rd), .epA1pipe(epA1pipe), // output wire, input wire [31:0],
+// 	.epA2rd(epA2rd), .epA2pipe(epA2pipe), // output wire, input wire [31:0],
+// 	.epA3rd(epA3rd), .epA3pipe(epA3pipe), // output wire, input wire [31:0],
+// 	.epA4rd(epA4rd), .epA4pipe(epA4pipe), // output wire, input wire [31:0],
+// 	.epA5rd(epA5rd), .epA5pipe(epA5pipe), // output wire, input wire [31:0],
+// 	.epA6rd(epA6rd), .epA6pipe(epA6pipe), // output wire, input wire [31:0],
+// 	.epA7rd(epA7rd), .epA7pipe(epA7pipe), // output wire, input wire [31:0],
+// 	.epA8rd(epA8rd), .epA8pipe(epA8pipe), // output wire, input wire [31:0],
+// 	.epA9rd(epA9rd), .epA9pipe(epA9pipe), // output wire, input wire [31:0],
+// 	.epAArd(epAArd), .epAApipe(epAApipe), // output wire, input wire [31:0],
+// 	.epABrd(epABrd), .epABpipe(epABpipe), // output wire, input wire [31:0],
+// 	.epACrd(epACrd), .epACpipe(epACpipe), // output wire, input wire [31:0],
+// 	.epADrd(epADrd), .epADpipe(epADpipe), // output wire, input wire [31:0],
+// 	.epAErd(epAErd), .epAEpipe(epAEpipe), // output wire, input wire [31:0],
+// 	.epAFrd(epAFrd), .epAFpipe(epAFpipe), // output wire, input wire [31:0],
+// 	.epB0rd(epB0rd), .epB0pipe(epB0pipe), // output wire, input wire [31:0],
+// 	.epB1rd(epB1rd), .epB1pipe(epB1pipe), // output wire, input wire [31:0],
+// 	.epB2rd(epB2rd), .epB2pipe(epB2pipe), // output wire, input wire [31:0],
+// 	.epB3rd(epB3rd), .epB3pipe(epB3pipe), // output wire, input wire [31:0],
+// 	.epB4rd(epB4rd), .epB4pipe(epB4pipe), // output wire, input wire [31:0],
+// 	.epB5rd(epB5rd), .epB5pipe(epB5pipe), // output wire, input wire [31:0],
+// 	.epB6rd(epB6rd), .epB6pipe(epB6pipe), // output wire, input wire [31:0],
+// 	.epB7rd(epB7rd), .epB7pipe(epB7pipe), // output wire, input wire [31:0],
+// 	.epB8rd(epB8rd), .epB8pipe(epB8pipe), // output wire, input wire [31:0],
+// 	.epB9rd(epB9rd), .epB9pipe(epB9pipe), // output wire, input wire [31:0],
+// 	.epBArd(epBArd), .epBApipe(epBApipe), // output wire, input wire [31:0],
+// 	.epBBrd(epBBrd), .epBBpipe(epBBpipe), // output wire, input wire [31:0],
+// 	.epBCrd(epBCrd), .epBCpipe(epBCpipe), // output wire, input wire [31:0],
+// 	.epBDrd(epBDrd), .epBDpipe(epBDpipe), // output wire, input wire [31:0],
+// 	.epBErd(epBErd), .epBEpipe(epBEpipe), // output wire, input wire [31:0],
+// 	.epBFrd(epBFrd), .epBFpipe(epBFpipe), // output wire, input wire [31:0],
+// 	// 
+// 	.okClk(okClk)//output wire okClk // sync with write/read of pipe
+// 	);
+
 //}
+
+
+///TODO: //-------------------------------------------------------//
+
+/* TODO: Master_SPI emulation for Slave_SPI */ //{
+
+
+
+// module //{
+
+wire w_SSPI_TEST_trig_reset = w_SSPI_TEST_TI[0];
+assign w_SSPI_TEST_TO[0]    = w_SSPI_TEST_trig_reset;
+//
+wire  w_SSPI_TEST_trig_init = w_SSPI_TEST_TI[1];
+wire  w_SSPI_TEST_done_init ;
+assign w_SSPI_TEST_mode_en = w_SSPI_TEST_done_init;
+assign w_SSPI_TEST_TO[1]   = w_SSPI_TEST_done_init;
+//
+wire  w_SSPI_TEST_trig_frame = w_SSPI_TEST_TI[2];
+wire  w_SSPI_TEST_done_frame;
+assign w_SSPI_TEST_TO[2]   = w_SSPI_TEST_done_frame;
+//
+assign w_SSPI_TEST_TO[31:3] = 29'b0;
+
+//
+wire  [ 5:0] w_SSPI_frame_data_C = w_SSPI_TEST_WI[31:26];
+wire  [ 9:0] w_SSPI_frame_data_A = w_SSPI_TEST_WI[25:16];
+wire  [15:0] w_SSPI_frame_data_D = w_SSPI_TEST_WI[15: 0];
+//
+wire  [15:0] w_SSPI_frame_data_B;
+wire  [15:0] w_SSPI_frame_data_E;
+assign w_SSPI_TEST_WO[15:0] = w_SSPI_frame_data_B[15:0];
+
+wire  w_SSPI_TEST_SS_B   ;
+wire  w_SSPI_TEST_MCLK   ;
+wire  w_SSPI_TEST_SCLK   ;
+wire  w_SSPI_TEST_MOSI   ;
+wire  w_SSPI_TEST_MISO   ;
+wire  w_SSPI_TEST_MISO_EN;
+
+//
+master_spi_mth_brd  master_spi_mth_brd__inst (
+	.clk     (base_sspi_clk), // 104MHz
+	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
+	
+	// control 
+	.i_trig_init    (w_SSPI_TEST_trig_init ), // 
+	.o_done_init    (w_SSPI_TEST_done_init ), // to be used for monitoring test mode 
+	.i_trig_frame   (w_SSPI_TEST_trig_frame), // 
+	.o_done_frame   (w_SSPI_TEST_done_frame), // 
+
+	// frame data 
+	.i_frame_data_C (w_SSPI_frame_data_C), // [ 5:0] // control  data on MOSI
+	.i_frame_data_A (w_SSPI_frame_data_A), // [ 9:0] // address  data on MOSI
+	.i_frame_data_D (w_SSPI_frame_data_D), // [15:0] // register data on MOSI
+	//
+	.o_frame_data_B (w_SSPI_frame_data_B), // [15:0] // readback data on MISO, low  16 bits
+	.o_frame_data_E (w_SSPI_frame_data_E), // [15:0] // readback data on MISO, high 16 bits
+	
+	// IO 
+	.o_SS_B    (w_SSPI_TEST_SS_B   ),
+	.o_MCLK    (w_SSPI_TEST_MCLK   ), // sclk master out 
+	.i_SCLK    (w_SSPI_TEST_SCLK   ), // sclk slave out
+	.o_MOSI    (w_SSPI_TEST_MOSI   ),
+	.i_MISO    (w_SSPI_TEST_MISO   ),
+	.i_MISO_EN (w_SSPI_TEST_MISO_EN),
+	
+	.valid  ()
+); 
+//}
+
+//}
+
+
+///TODO: //-------------------------------------------------------//
+
+/* TODO: Slave_SPI : from Mother board */ //{
+
+// ports for Slave SPI //{
+
+//// mux M0 with test module : w_SSPI_TEST_mode_en //$$ //{
+wire  M0_SPI_CS_B_BUF;
+wire  M0_SPI_CLK     ;
+wire  M0_SPI_SCLK    ; //$$ REV2
+wire  M0_SPI_MOSI    ;
+wire  M0_SPI_MISO    ;
+wire  M0_SPI_MISO_EN ;
+
+//
+//IBUF ibuf__M0_SPI_CS_B_BUF_inst (.I(i_B34_L2P       ), .O(M0_SPI_CS_B_BUF  ) ); //
+//IBUF ibuf__M0_SPI_CLK______inst (.I(i_B34_L2N       ), .O(M0_SPI_CLK       ) ); //
+//OBUF obuf__M0_SPI_SCLK_____inst (.O(o_B34_L1P       ), .I(M0_SPI_SCLK      ) ); //$$ REV2
+//IBUF ibuf__M0_SPI_MOSI_____inst (.I(i_B34_L4P       ), .O(M0_SPI_MOSI      ) ); //
+//OBUF obuf__M0_SPI_MISO_____inst (.O(o_B34_L4N       ), .I(M0_SPI_MISO      ) ); // 
+//OBUF obuf__M0_SPI_MISO_EN__inst (.O(o_B34_L24P      ), .I(M0_SPI_MISO_EN   ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
+
+wire  w_B34_L2P  ;
+wire  w_B34_L2N  ;
+wire  w_B34_L1P  ;
+wire  w_B34_L4P  ;
+wire  w_B34_L4N  ;
+wire  w_B34_L24P ;
+
+IBUF ibuf__M0_SPI_CS_B_BUF_inst (.I(i_B34_L2P       ), .O(w_B34_L2P  ) ); //
+IBUF ibuf__M0_SPI_CLK______inst (.I(i_B34_L2N       ), .O(w_B34_L2N  ) ); //
+OBUF obuf__M0_SPI_SCLK_____inst (.O(o_B34_L1P       ), .I(w_B34_L1P  ) ); //$$ REV2
+IBUF ibuf__M0_SPI_MOSI_____inst (.I(i_B34_L4P       ), .O(w_B34_L4P  ) ); //
+OBUF obuf__M0_SPI_MISO_____inst (.O(o_B34_L4N       ), .I(w_B34_L4N  ) ); // 
+OBUF obuf__M0_SPI_MISO_EN__inst (.O(o_B34_L24P      ), .I(w_B34_L24P ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
+
+assign M0_SPI_CS_B_BUF = (~w_SSPI_TEST_mode_en)? w_B34_L2P      : w_SSPI_TEST_SS_B ; // w_SSPI_TEST_SS_B   
+assign M0_SPI_CLK      = (~w_SSPI_TEST_mode_en)? w_B34_L2N      : w_SSPI_TEST_MCLK ; // w_SSPI_TEST_MCLK   
+assign w_B34_L1P       = (~w_SSPI_TEST_mode_en)? M0_SPI_SCLK    : 1'b1             ; // w_SSPI_TEST_SCLK   
+assign M0_SPI_MOSI     = (~w_SSPI_TEST_mode_en)? w_B34_L4P      : w_SSPI_TEST_MOSI ; // w_SSPI_TEST_MOSI   
+assign w_B34_L4N       = (~w_SSPI_TEST_mode_en)? M0_SPI_MISO    : 1'b1             ; // w_SSPI_TEST_MISO   
+assign w_B34_L24P      = (~w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b1             ; // w_SSPI_TEST_MISO_EN
+
+//w_SSPI_TEST_SS_B   
+//w_SSPI_TEST_MCLK   
+assign w_SSPI_TEST_SCLK    = (w_SSPI_TEST_mode_en)? M0_SPI_SCLK    : 1'b1 ;
+//w_SSPI_TEST_MOSI   
+assign w_SSPI_TEST_MISO    = (w_SSPI_TEST_mode_en)? M0_SPI_MISO    : 1'b1 ;
+assign w_SSPI_TEST_MISO_EN = (w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b0 ;
+
+//}
+
+//// M1 //{
+wire  M1_SPI_CS_B_BUF;
+wire  M1_SPI_CLK     ;
+wire  M1_SPI_SCLK    ; //$$ REV2
+wire  M1_SPI_MOSI    ;
+wire  M1_SPI_MISO    ;
+wire  M1_SPI_MISO_EN ;
+IBUF ibuf__M1_SPI_CS_B_BUF_inst (.I(i_B34_L1N       ), .O(M1_SPI_CS_B_BUF  ) ); //
+IBUF ibuf__M1_SPI_CLK______inst (.I(i_B34_L7P       ), .O(M1_SPI_CLK       ) ); //
+OBUF obuf__M1_SPI_SCLK_____inst (.O(o_B34_L12N_MRCC ), .I(M1_SPI_SCLK      ) ); //$$ REV2
+IBUF ibuf__M1_SPI_MOSI_____inst (.I(i_B34_L7N       ), .O(M1_SPI_MOSI      ) ); //
+OBUF obuf__M1_SPI_MISO_____inst (.O(o_B34_L12P_MRCC ), .I(M1_SPI_MISO      ) ); // 
+OBUF obuf__M1_SPI_MISO_EN__inst (.O(o_B34_L24N      ), .I(M1_SPI_MISO_EN   ) ); //$$ o_B34_L12N_MRCC --> o_B34_L24N //$$ REV2
+
+//}
+
+//}
+
+// modules //{
+(* keep = "true" *) wire w_M0_SPI_CS_B_BUF;
+(* keep = "true" *) wire w_M0_SPI_CLK     ;
+(* keep = "true" *) wire w_M0_SPI_MOSI    ;
+(* keep = "true" *) wire w_M0_SPI_MISO    ;
+(* keep = "true" *) wire w_M0_SPI_MISO_EN ;
+//
+(* keep = "true" *) wire w_M1_SPI_CS_B_BUF;
+(* keep = "true" *) wire w_M1_SPI_CLK     ;
+(* keep = "true" *) wire w_M1_SPI_MOSI    ;
+(* keep = "true" *) wire w_M1_SPI_MISO    ;
+(* keep = "true" *) wire w_M1_SPI_MISO_EN ;
+//
+wire [15:0] w_M0_cnt_sspi_cs;
+wire [15:0] w_M1_cnt_sspi_cs;
+
+//// serial address:
+wire [31:0] w_M0_port_wi_sadrs_h000; // SW_BUILD_ID_WI		0x000	wi00
+wire [31:0] w_M0_port_wi_sadrs_h004; // TEST_CON_WI			0x004	wi01 //$$ not used in SSPI
+wire [31:0] w_M0_port_wi_sadrs_h008; // SSPI_CON_WI			0x008	wi02
+wire [31:0] w_M0_port_wi_sadrs_h00C; // RNET_CON_WI			0x00C	wi03
+wire [31:0] w_M0_port_wi_sadrs_h010; // SPIO_FDAT_WI		0x010	wi04
+wire [31:0] w_M0_port_wi_sadrs_h014; // SPIO_CON_WI			0x014	wi05
+wire [31:0] w_M0_port_wi_sadrs_h018; // DAC_CON_WI			0x018	wi06
+//
+wire [31:0] w_M0_port_wi_sadrs_h060; // MHVSU_DAC	DAC_S1_WI	0x060	wi18	write DAC buffer data.	={S1_DAC_CH2[15:0], S1_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wi_sadrs_h064; // MHVSU_DAC	DAC_S2_WI	0x064	wi19	write DAC buffer data.	={S2_DAC_CH2[15:0], S2_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wi_sadrs_h068; // MHVSU_DAC	DAC_S3_WI	0x068	wi1A	write DAC buffer data.	={S3_DAC_CH2[15:0], S3_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wi_sadrs_h06C; // MHVSU_DAC	DAC_S4_WI	0x06C	wi1B	write DAC buffer data.	={S4_DAC_CH2[15:0], S4_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wi_sadrs_h070; // MHVSU_DAC	DAC_S5_WI	0x070	wi1C	write DAC buffer data.	={S5_DAC_CH2[15:0], S5_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wi_sadrs_h074; // MHVSU_DAC	DAC_S6_WI	0x074	wi1D	write DAC buffer data.	={S6_DAC_CH2[15:0], S6_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wi_sadrs_h078; // MHVSU_DAC	DAC_S7_WI	0x078	wi1E	write DAC buffer data.	={S7_DAC_CH2[15:0], S7_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wi_sadrs_h07C; // MHVSU_DAC	DAC_S8_WI	0x07C	wi1F	write DAC buffer data.	={S8_DAC_CH2[15:0], S8_DAC_CH1[15:0]}	
+//
+wire [31:0] w_M0_port_wi_sadrs_h01C; // ADC_CON_WI		0x01C			wi07
+wire [31:0] w_M0_port_wi_sadrs_h040; // ADC_PAR_WI		0x040 			wi10
+//
+wire [31:0] w_M0_port_wi_sadrs_h048; // MEM_FDAT_WI		0x048	wi12 //$$
+wire [31:0] w_M0_port_wi_sadrs_h04C; // MEM_WI			0x04C	wi13 //$$
+wire [31:0] w_M0_port_wi_sadrs_h050; // wire [31:0] ext_trig_con_wi___sspi; // control from sspi adrs 0x050
+wire [31:0] w_M0_port_wi_sadrs_h054; // wire [31:0] ext_trig_para_wi__sspi; // control from sspi adrs 0x054
+wire [31:0] w_M0_port_wi_sadrs_h058; // wire [31:0] ext_trig_aux_wi___sspi; // control from sspi adrs 0x058
+//
+wire [31:0] w_M0_port_wo_sadrs_h080 = w_FPGA_IMAGE_ID_WO; // FPGA_IMAGE_ID_WO	0x080	wo20
+wire [31:0] w_M0_port_wo_sadrs_h084 = w_TEST_FLAG_WO    ; // TEST_FLAG_WO		0x084	wo21
+wire [31:0] w_M0_port_wo_sadrs_h088 = w_SSPI_FLAG_WO    ; // SSPI_FLAG_WO		0x088	wo22
+wire [31:0] w_M0_port_wo_sadrs_h08C = w_MON_XADC_WO     ; // MON_XADC_WO		0x08C	wo23
+wire [31:0] w_M0_port_wo_sadrs_h090 = w_MON_GP_WO       ; // MON_GP_WO			0x090	wo24
+wire [31:0] w_M0_port_wo_sadrs_h094 = w_SPIO_FLAG_WO    ; // SPIO_FLAG_WO		0x094	wo25
+wire [31:0] w_M0_port_wo_sadrs_h098 = w_DAC_FLAG_WO     ; // DAC_FLAG_WO		0x098	wo26
+//
+wire [31:0] w_M0_port_wo_sadrs_h380 = 32'h33AA_CC55     ; // SSPI_TEST_OUT		0x380	NA  // known pattern
+wire [31:0] w_M0_port_wo_sadrs_h384 = w_SSPI_BD_STAT_WO           ;
+wire [31:0] w_M0_port_wo_sadrs_h388 = w_SSPI_CNT_CS_M0_WO         ;
+wire [31:0] w_M0_port_wo_sadrs_h38C = w_SSPI_CNT_CS_M1_WO         ;
+wire [31:0] w_M0_port_wo_sadrs_h390 = w_SSPI_CNT_ADC_FIFO_IN_WO   ;
+wire [31:0] w_M0_port_wo_sadrs_h394 = w_SSPI_CNT_ADC_TRIG_WO  ;
+wire [31:0] w_M0_port_wo_sadrs_h398 = w_SSPI_CNT_SPIO_FRM_TRIG_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h39C = w_SSPI_CNT_DAC_TRIG_WO  ;
+//
+wire [31:0] w_M0_port_wo_sadrs_h0E0 = w_DAC_S1_WO ; // MHVSU_DAC	DAC_S1_WO	0x0E0	wo38	read DAC buffer data.	={S1_DAC_CH2[15:0], S1_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wo_sadrs_h0E4 = w_DAC_S2_WO ; // MHVSU_DAC	DAC_S2_WO	0x0E4	wo39	read DAC buffer data.	={S2_DAC_CH2[15:0], S2_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wo_sadrs_h0E8 = w_DAC_S3_WO ; // MHVSU_DAC	DAC_S3_WO	0x0E8	wo3A	read DAC buffer data.	={S3_DAC_CH2[15:0], S3_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wo_sadrs_h0EC = w_DAC_S4_WO ; // MHVSU_DAC	DAC_S4_WO	0x0EC	wo3B	read DAC buffer data.	={S4_DAC_CH2[15:0], S4_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wo_sadrs_h0F0 = w_DAC_S5_WO ; // MHVSU_DAC	DAC_S5_WO	0x0F0	wo3C	read DAC buffer data.	={S5_DAC_CH2[15:0], S5_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wo_sadrs_h0F4 = w_DAC_S6_WO ; // MHVSU_DAC	DAC_S6_WO	0x0F4	wo3D	read DAC buffer data.	={S6_DAC_CH2[15:0], S6_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wo_sadrs_h0F8 = w_DAC_S7_WO ; // MHVSU_DAC	DAC_S7_WO	0x0F8	wo3E	read DAC buffer data.	={S7_DAC_CH2[15:0], S7_DAC_CH1[15:0]}	
+wire [31:0] w_M0_port_wo_sadrs_h0FC = w_DAC_S8_WO ; // MHVSU_DAC	DAC_S8_WO	0x0FC	wo3F	read DAC buffer data.	={S8_DAC_CH2[15:0], S8_DAC_CH1[15:0]}
+//
+wire [31:0] w_M0_port_wo_sadrs_h09C = w_ADC_FLAG_WO ; // ADC_FLAG_WO		0x09C			wo27
+//
+wire [31:0] w_M0_port_wo_sadrs_h0A0 = w_ADC_S1_ACC_MAX_WO ; // ADC_Sn_WO		0x0A0~0x0BC		wo28~wo2F
+wire [31:0] w_M0_port_wo_sadrs_h0A4 = w_ADC_S2_ACC_MAX_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0A8 = w_ADC_S3_ACC_MAX_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0AC = w_ADC_S4_ACC_MAX_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0B0 = w_ADC_S5_ACC_MAX_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0B4 = w_ADC_S6_ACC_MAX_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0B8 = w_ADC_S7_ACC_MAX_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0BC = w_ADC_S8_ACC_MAX_WO ;
+//
+wire [31:0] w_M0_port_wo_sadrs_h0C0 = w_ADC_S1_VAL_MIN_WO ; // ADC_Sn_WO		0x0C0~0x0DC		wo30~wo37
+wire [31:0] w_M0_port_wo_sadrs_h0C4 = w_ADC_S2_VAL_MIN_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0C8 = w_ADC_S3_VAL_MIN_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0CC = w_ADC_S4_VAL_MIN_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0D0 = w_ADC_S5_VAL_MIN_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0D4 = w_ADC_S6_VAL_MIN_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0D8 = w_ADC_S7_VAL_MIN_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h0DC = w_ADC_S8_VAL_MIN_WO ;
+//
+wire [31:0] w_M0_port_ti_sadrs_h104; // TEST_TI				0x104	ti41
+wire [31:0] w_M0_port_ti_sadrs_h114; // SPIO_TRIG_TI		0x114	ti45
+wire [31:0] w_M0_port_ti_sadrs_h118; // DAC_TRIG_TI			0x118	ti46
+wire [31:0] w_M0_port_ti_sadrs_h11C; // ADC_TRIG_TI		0x11C			ti47 // base_adc_clk --> p_adc_clk
+wire [31:0] w_M0_port_ti_sadrs_h110; // wire [31:0] ext_trig_ti_______sspi; // control from sspi adrs 0x110
+wire [31:0] w_M0_port_ti_sadrs_h14C; // MEM_TI	0x14C	ti53 // sys_clk //$$
+//
+wire [31:0] w_M0_port_to_sadrs_h190 = w_EXT_TRIG_TO     ; // EXT_TRIG_TO	0x190	to64 // sys_clk //$$
+wire [31:0] w_M0_port_to_sadrs_h194 = w_SPIO_TRIG_TO    ; // SPIO_TRIG_TO	0x194	to65
+wire [31:0] w_M0_port_to_sadrs_h198 = w_DAC_TRIG_TO     ; // DAC_TRIG_TO	0x198	to66
+wire [31:0] w_M0_port_to_sadrs_h19C = w_ADC_TRIG_TO     ; // ADC_TRIG_TO	0x19C	to67 // base_adc_clk --> p_adc_clk
+wire [31:0] w_M0_port_to_sadrs_h1CC = w_MEM_TO          ; // MEM_TO			0x1CC	to73 // sys_clk //$$
+//
+wire        w_M0_loopback_en           = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[24]    : 
+														   w_SSPI_CON_WI[24]              ;
+wire        w_M0_MISO_one_bit_ahead_en = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[25]    : 
+														   w_SSPI_CON_WI[25]              ;
+wire [2:0]  w_M0_slack_count_MISO      = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[30:28] :
+														   w_SSPI_CON_WI[30:28]           ;
+//
+//wire [3:0] w_board_id = {S_ID3_BUF,S_ID2_BUF,S_ID1_BUF,S_ID0_BUF};
+//$$wire [3:0] w_board_id = w_slot_id; //$$ rev miso info
+wire [7:0] w_board_status;
+assign w_board_status[7] = 1'b0                    ; // NA // Board Error Status                
+assign w_board_status[6] = r_M_TRIG[0]             ; // M_TRIG             
+assign w_board_status[5] = r_M_PRE_TRIG[0]         ; // M_PRE_TRIG         
+assign w_board_status[4] = r_M_BUSY_B_OUT          ; // M_BUSY_B_OUT or M_READY_OUT      
+assign w_board_status[3] = w_busy_SPI_frame        ; // SPIO busy          
+assign w_board_status[2] = w_busy_DAC_update       ; // DAC  busy          
+assign w_board_status[1] = w_fifo_adc_empty_and_all; // ADC FIFO all empty 
+assign w_board_status[0] = w_ADC_busy_pclk         ; // ADC_busy           
+
+//
+slave_spi_mth_brd  slave_spi_mth_brd__M0_inst (
+	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
+	.reset_n (reset_n),
+	
+	//// slave SPI pins:
+	.i_SPI_CS_B      (w_M0_SPI_CS_B_BUF),
+	.i_SPI_CLK       (w_M0_SPI_CLK     ),
+	.i_SPI_MOSI      (w_M0_SPI_MOSI    ),
+	.o_SPI_MISO      (w_M0_SPI_MISO    ),
+	.o_SPI_MISO_EN   (w_M0_SPI_MISO_EN ), // MISO buffer control
+	
+	.o_cnt_sspi_cs   (w_M0_cnt_sspi_cs ), // [15:0] //$$
+	
+	//// test register interface
+	
+	// wi
+	.o_port_wi_sadrs_h000    (w_M0_port_wi_sadrs_h000), // [31:0] // SW_BUILD_ID_WI		0x000	wi00
+	.o_port_wi_sadrs_h004    (w_M0_port_wi_sadrs_h004), // [31:0] // TEST_CON_WI		0x004	wi01
+	.o_port_wi_sadrs_h008    (w_M0_port_wi_sadrs_h008), // [31:0] // SSPI_CON_WI		0x008	wi02
+	.o_port_wi_sadrs_h00C    (w_M0_port_wi_sadrs_h00C), // [31:0] // RNET_CON_WI		0x00C	wi03
+	.o_port_wi_sadrs_h010    (w_M0_port_wi_sadrs_h010), // [31:0] // SPIO_FDAT_WI		0x010	wi04
+	.o_port_wi_sadrs_h014    (w_M0_port_wi_sadrs_h014), // [31:0] // SPIO_CON_WI		0x014	wi05
+	.o_port_wi_sadrs_h018    (w_M0_port_wi_sadrs_h018), // [31:0] // DAC_CON_WI			0x018	wi06
+	.o_port_wi_sadrs_h048    (w_M0_port_wi_sadrs_h048), // [31:0] // MEM_FDAT_WI		0x048	wi12 //$$
+	.o_port_wi_sadrs_h04C    (w_M0_port_wi_sadrs_h04C), // [31:0] // MEM_WI				0x04C	wi13 //$$
+	.o_port_wi_sadrs_h050    (w_M0_port_wi_sadrs_h050), // [31:0] // EXT_TRIG_CON_WI	0x050	wi14
+	.o_port_wi_sadrs_h054    (w_M0_port_wi_sadrs_h054), // [31:0] // EXT_TRIG_PARA_WI	0x054	wi15
+	.o_port_wi_sadrs_h058    (w_M0_port_wi_sadrs_h058), // [31:0] // EXT_TRIG_AUX_WI	0x058	wi16
+	.o_port_wi_sadrs_h060    (w_M0_port_wi_sadrs_h060), // [31:0] // DAC_S1_WI	0x060	wi18
+	.o_port_wi_sadrs_h064    (w_M0_port_wi_sadrs_h064), // [31:0] // DAC_S2_WI	0x064	wi19
+	.o_port_wi_sadrs_h068    (w_M0_port_wi_sadrs_h068), // [31:0] // DAC_S3_WI	0x068	wi1A
+	.o_port_wi_sadrs_h06C    (w_M0_port_wi_sadrs_h06C), // [31:0] // DAC_S4_WI	0x06C	wi1B
+	.o_port_wi_sadrs_h070    (w_M0_port_wi_sadrs_h070), // [31:0] // DAC_S5_WI	0x070	wi1C
+	.o_port_wi_sadrs_h074    (w_M0_port_wi_sadrs_h074), // [31:0] // DAC_S6_WI	0x074	wi1D
+	.o_port_wi_sadrs_h078    (w_M0_port_wi_sadrs_h078), // [31:0] // DAC_S7_WI	0x078	wi1E
+	.o_port_wi_sadrs_h07C    (w_M0_port_wi_sadrs_h07C), // [31:0] // DAC_S8_WI	0x07C	wi1F
+	.o_port_wi_sadrs_h01C    (w_M0_port_wi_sadrs_h01C), // ADC_CON_WI		0x01C			wi07
+	.o_port_wi_sadrs_h040    (w_M0_port_wi_sadrs_h040), // ADC_PAR_WI		0x040 			wi10
+	
+	// wo
+	.i_port_wo_sadrs_h080    (w_M0_port_wo_sadrs_h080),
+	.i_port_wo_sadrs_h084    (w_M0_port_wo_sadrs_h084),
+	.i_port_wo_sadrs_h088    (w_M0_port_wo_sadrs_h088),
+	.i_port_wo_sadrs_h08C    (w_M0_port_wo_sadrs_h08C),
+	.i_port_wo_sadrs_h090    (w_M0_port_wo_sadrs_h090),
+	.i_port_wo_sadrs_h094    (w_M0_port_wo_sadrs_h094),
+	.i_port_wo_sadrs_h098    (w_M0_port_wo_sadrs_h098),
+	.i_port_wo_sadrs_h09C    (w_M0_port_wo_sadrs_h09C), // ADC_FLAG_WO		0x09C			wo27
+	.i_port_wo_sadrs_h0E0    (w_M0_port_wo_sadrs_h0E0), // [31:0] // DAC_S1_WO	0x0E0	wo38
+	.i_port_wo_sadrs_h0E4    (w_M0_port_wo_sadrs_h0E4), // [31:0] // DAC_S2_WO	0x0E4	wo39
+	.i_port_wo_sadrs_h0E8    (w_M0_port_wo_sadrs_h0E8), // [31:0] // DAC_S3_WO	0x0E8	wo3A
+	.i_port_wo_sadrs_h0EC    (w_M0_port_wo_sadrs_h0EC), // [31:0] // DAC_S4_WO	0x0EC	wo3B
+	.i_port_wo_sadrs_h0F0    (w_M0_port_wo_sadrs_h0F0), // [31:0] // DAC_S5_WO	0x0F0	wo3C
+	.i_port_wo_sadrs_h0F4    (w_M0_port_wo_sadrs_h0F4), // [31:0] // DAC_S6_WO	0x0F4	wo3D
+	.i_port_wo_sadrs_h0F8    (w_M0_port_wo_sadrs_h0F8), // [31:0] // DAC_S7_WO	0x0F8	wo3E
+	.i_port_wo_sadrs_h0FC    (w_M0_port_wo_sadrs_h0FC), // [31:0] // DAC_S8_WO	0x0FC	wo3F
+	//
+	.i_port_wo_sadrs_h0A0    (w_M0_port_wo_sadrs_h0A0), // ADC_Sn_ACC_WO		0x0A0~0x0BC		wo28~wo2F
+	.i_port_wo_sadrs_h0A4    (w_M0_port_wo_sadrs_h0A4),
+	.i_port_wo_sadrs_h0A8    (w_M0_port_wo_sadrs_h0A8),
+	.i_port_wo_sadrs_h0AC    (w_M0_port_wo_sadrs_h0AC),
+	.i_port_wo_sadrs_h0B0    (w_M0_port_wo_sadrs_h0B0),
+	.i_port_wo_sadrs_h0B4    (w_M0_port_wo_sadrs_h0B4),
+	.i_port_wo_sadrs_h0B8    (w_M0_port_wo_sadrs_h0B8),
+	.i_port_wo_sadrs_h0BC    (w_M0_port_wo_sadrs_h0BC),
+	//
+	.i_port_wo_sadrs_h0C0    (w_M0_port_wo_sadrs_h0C0), // ADC_Sn_WO		0x0C0~0x0DC		wo30~wo37
+	.i_port_wo_sadrs_h0C4    (w_M0_port_wo_sadrs_h0C4),
+	.i_port_wo_sadrs_h0C8    (w_M0_port_wo_sadrs_h0C8),
+	.i_port_wo_sadrs_h0CC    (w_M0_port_wo_sadrs_h0CC),
+	.i_port_wo_sadrs_h0D0    (w_M0_port_wo_sadrs_h0D0),
+	.i_port_wo_sadrs_h0D4    (w_M0_port_wo_sadrs_h0D4),
+	.i_port_wo_sadrs_h0D8    (w_M0_port_wo_sadrs_h0D8),
+	.i_port_wo_sadrs_h0DC    (w_M0_port_wo_sadrs_h0DC),
+	//
+	.i_port_wo_sadrs_h380    (w_M0_port_wo_sadrs_h380), // [31:0] // adrs h383~h380	
+	.i_port_wo_sadrs_h384    (w_M0_port_wo_sadrs_h384), // [31:0] // SSPI_BD_STAT_WO           
+	.i_port_wo_sadrs_h388    (w_M0_port_wo_sadrs_h388), // [31:0] // SSPI_CNT_CS_M0_WO         
+	.i_port_wo_sadrs_h38C    (w_M0_port_wo_sadrs_h38C), // [31:0] // SSPI_CNT_CS_M1_WO         
+	.i_port_wo_sadrs_h390    (w_M0_port_wo_sadrs_h390), // [31:0] // SSPI_CNT_ADC_FIFO_IN_WO   
+	.i_port_wo_sadrs_h394    (w_M0_port_wo_sadrs_h394), // [31:0] // SSPI_CNT_ADC_RUN_TRIG_WO  
+	.i_port_wo_sadrs_h398    (w_M0_port_wo_sadrs_h398), // [31:0] // SSPI_CNT_SPIO_FRM_TRIG_WO 
+	.i_port_wo_sadrs_h39C    (w_M0_port_wo_sadrs_h39C), // [31:0] // SSPI_CNT_DAC_FRM_TRIG_WO  
+	
+	// ti
+	.i_ck__sadrs_h104  (sys_clk),      .o_port_ti_sadrs_h104  (w_M0_port_ti_sadrs_h104), // [31:0]
+	.i_ck__sadrs_h110  (sys_clk),      .o_port_ti_sadrs_h110  (w_M0_port_ti_sadrs_h110), // [31:0]
+	.i_ck__sadrs_h114  (sys_clk),      .o_port_ti_sadrs_h114  (w_M0_port_ti_sadrs_h114), // [31:0]
+	.i_ck__sadrs_h118  (sys_clk),      .o_port_ti_sadrs_h118  (w_M0_port_ti_sadrs_h118), // [31:0]
+	.i_ck__sadrs_h11C  (p_adc_clk),    .o_port_ti_sadrs_h11C  (w_M0_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
+	.i_ck__sadrs_h14C  (sys_clk),      .o_port_ti_sadrs_h14C  (w_M0_port_ti_sadrs_h14C), // [31:0] // MEM_TI	0x14C	ti53 // sys_clk //$$
+
+	// to
+	.i_ck__sadrs_h190  (sys_clk  ),    .i_port_to_sadrs_h190  (w_M0_port_to_sadrs_h190), // [31:0] // EXT_TRIG_TO	0x190	to64 // sys_clk //$$
+	.i_ck__sadrs_h194  (sys_clk  ),    .i_port_to_sadrs_h194  (w_M0_port_to_sadrs_h194), // [31:0]
+	.i_ck__sadrs_h198  (sys_clk  ),    .i_port_to_sadrs_h198  (w_M0_port_to_sadrs_h198), // [31:0]
+	.i_ck__sadrs_h19C  (p_adc_clk),    .i_port_to_sadrs_h19C  (w_M0_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
+	.i_ck__sadrs_h1CC  (sys_clk  ),    .i_port_to_sadrs_h1CC  (w_M0_port_to_sadrs_h1CC), // [31:0] // MEM_TO	0x1CC	to73 // sys_clk //$$
+
+	// pi
+	.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M0),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M0), // [31:0]  // MEM_PI	0x24C	pi93 //$$
+	
+	// po
+	// ADC_Sn_CH1_PO	0x280~0x29C		poA0~poA7
+	// ADC_Sn_CH2_PO	0x2A0~0x2BC		poA8~poAF
+	.o_rd__sadrs_h280 (w_ADC_S1_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h280 (w_ADC_S1_CH1_PO), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
+	.o_rd__sadrs_h284 (w_ADC_S2_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h284 (w_ADC_S2_CH1_PO), // [31:0]  // ADC_S2_CH1_PO	0x284	poA1
+	.o_rd__sadrs_h288 (w_ADC_S3_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h288 (w_ADC_S3_CH1_PO), // [31:0]  // ADC_S3_CH1_PO	0x288	poA2
+	.o_rd__sadrs_h28C (w_ADC_S4_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h28C (w_ADC_S4_CH1_PO), // [31:0]  // ADC_S4_CH1_PO	0x28C	poA3
+	.o_rd__sadrs_h290 (w_ADC_S5_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h290 (w_ADC_S5_CH1_PO), // [31:0]  // ADC_S5_CH1_PO	0x290	poA4
+	.o_rd__sadrs_h294 (w_ADC_S6_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h294 (w_ADC_S6_CH1_PO), // [31:0]  // ADC_S6_CH1_PO	0x294	poA5
+	.o_rd__sadrs_h298 (w_ADC_S7_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h298 (w_ADC_S7_CH1_PO), // [31:0]  // ADC_S7_CH1_PO	0x298	poA6
+	.o_rd__sadrs_h29C (w_ADC_S8_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h29C (w_ADC_S8_CH1_PO), // [31:0]  // ADC_S8_CH1_PO	0x29C	poA7
+	.o_rd__sadrs_h2A0 (w_ADC_S1_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A0 (w_ADC_S1_CH2_PO), // [31:0]  // ADC_S1_CH2_PO	0x2A0	poA8
+	.o_rd__sadrs_h2A4 (w_ADC_S2_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A4 (w_ADC_S2_CH2_PO), // [31:0]  // ADC_S2_CH2_PO	0x2A4	poA9
+	.o_rd__sadrs_h2A8 (w_ADC_S3_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A8 (w_ADC_S3_CH2_PO), // [31:0]  // ADC_S3_CH2_PO	0x2A8	poAA
+	.o_rd__sadrs_h2AC (w_ADC_S4_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2AC (w_ADC_S4_CH2_PO), // [31:0]  // ADC_S4_CH2_PO	0x2AC	poAB
+	.o_rd__sadrs_h2B0 (w_ADC_S5_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B0 (w_ADC_S5_CH2_PO), // [31:0]  // ADC_S5_CH2_PO	0x2B0	poAC
+	.o_rd__sadrs_h2B4 (w_ADC_S6_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B4 (w_ADC_S6_CH2_PO), // [31:0]  // ADC_S6_CH2_PO	0x2B4	poAD
+	.o_rd__sadrs_h2B8 (w_ADC_S7_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B8 (w_ADC_S7_CH2_PO), // [31:0]  // ADC_S7_CH2_PO	0x2B8	poAE
+	.o_rd__sadrs_h2BC (w_ADC_S8_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2BC (w_ADC_S8_CH2_PO), // [31:0]  // ADC_S8_CH2_PO	0x2BC	poAF
+	.o_rd__sadrs_h2CC (       w_MEM_PO_rd_sspi_M0),   .i_port_po_sadrs_h2CC (       w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+	
+	//// loopback mode control 
+	.i_loopback_en           (w_M0_loopback_en),
+
+	//// timing control 
+	.i_slack_count_MISO      (w_M0_slack_count_MISO), // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
+	.i_MISO_one_bit_ahead_en (w_M0_MISO_one_bit_ahead_en), // '1' for MISO one bit ahead mode.  
+
+	.i_board_id      (w_slot_id    ), // [3:0] // slot ID
+	.i_board_status  (w_board_status), // [7:0] // board status
+
+	.valid    () 
+);
+//
+wire [31:0] w_M1_port_wi_sadrs_h000; // to mux ... // not used
+wire [31:0] w_M1_port_wi_sadrs_h008; // to mux ... // not used
+//
+//wire [31:0] w_M1_port_wo_sadrs_h080 = w_FPGA_IMAGE_ID_WO;
+//wire [31:0] w_M1_port_wo_sadrs_h088 = w_SSPI_FLAG_WO    ;
+//wire [31:0] w_M1_port_wo_sadrs_h380 = 32'h33AA_CC55     ; // known pattern
+//
+wire        w_M1_loopback_en           = w_M1_port_wi_sadrs_h008[24];
+wire        w_M1_MISO_one_bit_ahead_en = w_M1_port_wi_sadrs_h008[25];
+wire [2:0]  w_M1_slack_count_MISO      = w_M1_port_wi_sadrs_h008[30:28];
+//
+slave_spi_mth_brd  slave_spi_mth_brd__M1_inst (
+	.clk     (base_sspi_clk), // base clock 72MHz
+	.reset_n (reset_n),
+	//// slave SPI pins:
+	.i_SPI_CS_B      (w_M1_SPI_CS_B_BUF),
+	.i_SPI_CLK       (w_M1_SPI_CLK     ),
+	.i_SPI_MOSI      (w_M1_SPI_MOSI    ),
+	.o_SPI_MISO      (w_M1_SPI_MISO    ),
+	.o_SPI_MISO_EN   (w_M1_SPI_MISO_EN), // MISO buffer control
+	
+	.o_cnt_sspi_cs   (w_M1_cnt_sspi_cs ), // [15:0] //$$
+
+	//// test register interface
+	
+	.o_port_wi_sadrs_h000    (w_M1_port_wi_sadrs_h000), // [31:0] // adrs h003~h000
+	.o_port_wi_sadrs_h004    (),
+	.o_port_wi_sadrs_h008    (w_M1_port_wi_sadrs_h008),
+	.o_port_wi_sadrs_h00C    (),
+	.o_port_wi_sadrs_h010    (),
+	.o_port_wi_sadrs_h014    (),
+	.o_port_wi_sadrs_h018    (),
+	.o_port_wi_sadrs_h048    (), 
+	.o_port_wi_sadrs_h04C    (), 
+	.o_port_wi_sadrs_h050    (),
+	.o_port_wi_sadrs_h054    (),
+	.o_port_wi_sadrs_h058    (),
+	.o_port_wi_sadrs_h060    (),
+	.o_port_wi_sadrs_h064    (),
+	.o_port_wi_sadrs_h068    (),
+	.o_port_wi_sadrs_h06C    (),
+	.o_port_wi_sadrs_h070    (),
+	.o_port_wi_sadrs_h074    (),
+	.o_port_wi_sadrs_h078    (),
+	.o_port_wi_sadrs_h07C    (),
+	.o_port_wi_sadrs_h01C    (),
+	.o_port_wi_sadrs_h040    (),
+	
+	// WO monitor // duplicate
+	.i_port_wo_sadrs_h080    (w_M0_port_wo_sadrs_h080),
+	.i_port_wo_sadrs_h084    (w_M0_port_wo_sadrs_h084),
+	.i_port_wo_sadrs_h088    (w_M0_port_wo_sadrs_h088),
+	.i_port_wo_sadrs_h08C    (w_M0_port_wo_sadrs_h08C),
+	.i_port_wo_sadrs_h090    (w_M0_port_wo_sadrs_h090),
+	.i_port_wo_sadrs_h094    (w_M0_port_wo_sadrs_h094),
+	.i_port_wo_sadrs_h098    (w_M0_port_wo_sadrs_h098),
+	.i_port_wo_sadrs_h09C    (w_M0_port_wo_sadrs_h09C), 
+	.i_port_wo_sadrs_h0E0    (w_M0_port_wo_sadrs_h0E0),
+	.i_port_wo_sadrs_h0E4    (w_M0_port_wo_sadrs_h0E4),
+	.i_port_wo_sadrs_h0E8    (w_M0_port_wo_sadrs_h0E8),
+	.i_port_wo_sadrs_h0EC    (w_M0_port_wo_sadrs_h0EC),
+	.i_port_wo_sadrs_h0F0    (w_M0_port_wo_sadrs_h0F0),
+	.i_port_wo_sadrs_h0F4    (w_M0_port_wo_sadrs_h0F4),
+	.i_port_wo_sadrs_h0F8    (w_M0_port_wo_sadrs_h0F8),
+	.i_port_wo_sadrs_h0FC    (w_M0_port_wo_sadrs_h0FC),
+	//
+	.i_port_wo_sadrs_h0A0    (w_M0_port_wo_sadrs_h0A0),
+	.i_port_wo_sadrs_h0A4    (w_M0_port_wo_sadrs_h0A4),
+	.i_port_wo_sadrs_h0A8    (w_M0_port_wo_sadrs_h0A8),
+	.i_port_wo_sadrs_h0AC    (w_M0_port_wo_sadrs_h0AC),
+	.i_port_wo_sadrs_h0B0    (w_M0_port_wo_sadrs_h0B0),
+	.i_port_wo_sadrs_h0B4    (w_M0_port_wo_sadrs_h0B4),
+	.i_port_wo_sadrs_h0B8    (w_M0_port_wo_sadrs_h0B8),
+	.i_port_wo_sadrs_h0BC    (w_M0_port_wo_sadrs_h0BC),
+	//
+	.i_port_wo_sadrs_h0C0    (w_M0_port_wo_sadrs_h0C0), 
+	.i_port_wo_sadrs_h0C4    (w_M0_port_wo_sadrs_h0C4),
+	.i_port_wo_sadrs_h0C8    (w_M0_port_wo_sadrs_h0C8),
+	.i_port_wo_sadrs_h0CC    (w_M0_port_wo_sadrs_h0CC),
+	.i_port_wo_sadrs_h0D0    (w_M0_port_wo_sadrs_h0D0),
+	.i_port_wo_sadrs_h0D4    (w_M0_port_wo_sadrs_h0D4),
+	.i_port_wo_sadrs_h0D8    (w_M0_port_wo_sadrs_h0D8),
+	.i_port_wo_sadrs_h0DC    (w_M0_port_wo_sadrs_h0DC),
+	//
+	.i_port_wo_sadrs_h380    (w_M0_port_wo_sadrs_h380),
+	.i_port_wo_sadrs_h384    (w_M0_port_wo_sadrs_h384),
+	.i_port_wo_sadrs_h388    (w_M0_port_wo_sadrs_h388),
+	.i_port_wo_sadrs_h38C    (w_M0_port_wo_sadrs_h38C),
+	.i_port_wo_sadrs_h390    (w_M0_port_wo_sadrs_h390),
+	.i_port_wo_sadrs_h394    (w_M0_port_wo_sadrs_h394),
+	.i_port_wo_sadrs_h398    (w_M0_port_wo_sadrs_h398),
+	.i_port_wo_sadrs_h39C    (w_M0_port_wo_sadrs_h39C),
+	
+	// ti
+	.i_ck__sadrs_h104  (1'b0),   .o_port_ti_sadrs_h104  (), // [31:0]
+	.i_ck__sadrs_h110  (1'b0),   .o_port_ti_sadrs_h110  (), // [31:0]
+	.i_ck__sadrs_h114  (1'b0),   .o_port_ti_sadrs_h114  (), // [31:0]
+	.i_ck__sadrs_h118  (1'b0),   .o_port_ti_sadrs_h118  (), // [31:0]
+	.i_ck__sadrs_h11C  (1'b0),   .o_port_ti_sadrs_h11C  (), 
+	.i_ck__sadrs_h14C  (1'b0),   .o_port_ti_sadrs_h14C  (), 
+	
+	// TO monitor
+	.i_ck__sadrs_h190  (sys_clk  ),   .i_port_to_sadrs_h190  (w_M0_port_to_sadrs_h190), // [31:0]
+	.i_ck__sadrs_h194  (sys_clk  ),   .i_port_to_sadrs_h194  (w_M0_port_to_sadrs_h194), // [31:0]
+	.i_ck__sadrs_h198  (sys_clk  ),   .i_port_to_sadrs_h198  (w_M0_port_to_sadrs_h198), // [31:0]
+	.i_ck__sadrs_h19C  (p_adc_clk),   .i_port_to_sadrs_h19C  (w_M0_port_to_sadrs_h19C), 
+	.i_ck__sadrs_h1CC  (sys_clk  ),   .i_port_to_sadrs_h1CC  (w_M0_port_to_sadrs_h1CC), // [31:0]
+	
+	// pi
+	.o_wr__sadrs_h24C (),   .o_port_po_sadrs_h24C (),
+	
+	// PO monitor
+	.o_rd__sadrs_h280 (w_ADC_S1_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h280 (w_ADC_S1_CH1_PO), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
+	.o_rd__sadrs_h284 (w_ADC_S2_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h284 (w_ADC_S2_CH1_PO), // [31:0]  // ADC_S2_CH1_PO	0x284	poA1
+	.o_rd__sadrs_h288 (w_ADC_S3_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h288 (w_ADC_S3_CH1_PO), // [31:0]  // ADC_S3_CH1_PO	0x288	poA2
+	.o_rd__sadrs_h28C (w_ADC_S4_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h28C (w_ADC_S4_CH1_PO), // [31:0]  // ADC_S4_CH1_PO	0x28C	poA3
+	.o_rd__sadrs_h290 (w_ADC_S5_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h290 (w_ADC_S5_CH1_PO), // [31:0]  // ADC_S5_CH1_PO	0x290	poA4
+	.o_rd__sadrs_h294 (w_ADC_S6_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h294 (w_ADC_S6_CH1_PO), // [31:0]  // ADC_S6_CH1_PO	0x294	poA5
+	.o_rd__sadrs_h298 (w_ADC_S7_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h298 (w_ADC_S7_CH1_PO), // [31:0]  // ADC_S7_CH1_PO	0x298	poA6
+	.o_rd__sadrs_h29C (w_ADC_S8_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h29C (w_ADC_S8_CH1_PO), // [31:0]  // ADC_S8_CH1_PO	0x29C	poA7
+	.o_rd__sadrs_h2A0 (w_ADC_S1_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A0 (w_ADC_S1_CH2_PO), // [31:0]  // ADC_S1_CH2_PO	0x2A0	poA8
+	.o_rd__sadrs_h2A4 (w_ADC_S2_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A4 (w_ADC_S2_CH2_PO), // [31:0]  // ADC_S2_CH2_PO	0x2A4	poA9
+	.o_rd__sadrs_h2A8 (w_ADC_S3_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A8 (w_ADC_S3_CH2_PO), // [31:0]  // ADC_S3_CH2_PO	0x2A8	poAA
+	.o_rd__sadrs_h2AC (w_ADC_S4_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2AC (w_ADC_S4_CH2_PO), // [31:0]  // ADC_S4_CH2_PO	0x2AC	poAB
+	.o_rd__sadrs_h2B0 (w_ADC_S5_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B0 (w_ADC_S5_CH2_PO), // [31:0]  // ADC_S5_CH2_PO	0x2B0	poAC
+	.o_rd__sadrs_h2B4 (w_ADC_S6_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B4 (w_ADC_S6_CH2_PO), // [31:0]  // ADC_S6_CH2_PO	0x2B4	poAD
+	.o_rd__sadrs_h2B8 (w_ADC_S7_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B8 (w_ADC_S7_CH2_PO), // [31:0]  // ADC_S7_CH2_PO	0x2B8	poAE
+	.o_rd__sadrs_h2BC (w_ADC_S8_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2BC (w_ADC_S8_CH2_PO), // [31:0]  // ADC_S8_CH2_PO	0x2BC	poAF
+	.o_rd__sadrs_h2CC (       w_MEM_PO_rd_sspi_M1),   .i_port_po_sadrs_h2CC (       w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+
+	
+	//// loopback mode control 
+	.i_loopback_en           (w_M1_loopback_en),
+
+	//// timing control 
+	.i_slack_count_MISO      (w_M1_slack_count_MISO), // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
+	.i_MISO_one_bit_ahead_en (w_M1_MISO_one_bit_ahead_en), // '1' for MISO one bit ahead mode.  
+
+	.i_board_id      (w_slot_id    ), // [3:0] // slot ID
+	.i_board_status  (w_board_status), // [7:0] // board status
+
+	.valid    () 
+);
+
+
+//}
+
+// assignments //{
+
+// signal monitoring reg
+(* keep = "true" *) reg r_M0_SPI_CS_B_BUF; // test sampling
+(* keep = "true" *) reg r_M0_SPI_CLK     ; // test sampling
+(* keep = "true" *) reg r_M0_SPI_MOSI    ; // test sampling
+(* keep = "true" *) reg r_M0_SPI_MISO    ; // test output
+(* keep = "true" *) reg r_M0_SPI_MISO_EN ; // test output
+//
+(* keep = "true" *) reg r_M1_SPI_CS_B_BUF; // test sampling
+(* keep = "true" *) reg r_M1_SPI_CLK     ; // test sampling
+(* keep = "true" *) reg r_M1_SPI_MOSI    ; // test sampling
+(* keep = "true" *) reg r_M1_SPI_MISO    ; // test output
+(* keep = "true" *) reg r_M1_SPI_MISO_EN ; // test output
+
+
+//// output pin assignment
+assign M0_SPI_MISO_EN = r_M0_SPI_MISO_EN;
+assign M0_SPI_MISO    = r_M0_SPI_MISO   ;
+assign M1_SPI_MISO_EN = r_M1_SPI_MISO_EN;
+assign M1_SPI_MISO    = r_M1_SPI_MISO   ;
+
+//// input pin sampling
+always @(posedge base_sspi_clk, negedge reset_n)
+	if (!reset_n) begin
+		r_M0_SPI_CS_B_BUF  <= 1'b0;
+		r_M0_SPI_CLK       <= 1'b0;
+		r_M0_SPI_MOSI      <= 1'b0;
+		r_M1_SPI_CS_B_BUF  <= 1'b0;
+		r_M1_SPI_CLK       <= 1'b0;
+		r_M1_SPI_MOSI      <= 1'b0;
+	end
+	else begin
+		r_M0_SPI_CS_B_BUF  <= M0_SPI_CS_B_BUF;
+		r_M0_SPI_CLK       <= M0_SPI_CLK     ;
+		r_M0_SPI_MOSI      <= M0_SPI_MOSI    ;
+		r_M1_SPI_CS_B_BUF  <= M1_SPI_CS_B_BUF;
+		r_M1_SPI_CLK       <= M1_SPI_CLK     ;
+		r_M1_SPI_MOSI      <= M1_SPI_MOSI    ;
+	end	
+
+
+// output sampling
+always @(posedge base_sspi_clk, negedge reset_n)
+	if (!reset_n) begin
+		r_M0_SPI_MISO     <= 1'b0;
+		r_M0_SPI_MISO_EN  <= 1'b0;
+		r_M1_SPI_MISO     <= 1'b0;
+		r_M1_SPI_MISO_EN  <= 1'b0;
+	end
+	else begin
+		r_M0_SPI_MISO      <= w_M0_SPI_MISO    ;
+		r_M0_SPI_MISO_EN   <= w_M0_SPI_MISO_EN ;
+		r_M1_SPI_MISO      <= w_M1_SPI_MISO    ;
+		r_M1_SPI_MISO_EN   <= w_M1_SPI_MISO_EN ;
+	end	
+
+// input wire assignment
+assign w_M0_SPI_CS_B_BUF = r_M0_SPI_CS_B_BUF;
+assign w_M0_SPI_CLK      = r_M0_SPI_CLK     ;
+assign w_M0_SPI_MOSI     = r_M0_SPI_MOSI    ;
+assign w_M1_SPI_CS_B_BUF = r_M1_SPI_CS_B_BUF;
+assign w_M1_SPI_CLK      = r_M1_SPI_CLK     ;
+assign w_M1_SPI_MOSI     = r_M1_SPI_MOSI    ;
+
+
+// output wire loopback //{
+// loopback MISO <-- MOSI 
+// loobback conditions
+//   assign w_M0_SPI_MISO    =  w_M0_SPI_MOSI;
+//   assign w_M0_SPI_MISO_EN = (w_M0_SPI_CS_B_BUF == 1'b0)? 1'b1 : 1'b0 ;
+//   assign w_M1_SPI_MISO    =  w_M1_SPI_MOSI;
+//   assign w_M1_SPI_MISO_EN = (w_M1_SPI_CS_B_BUF == 1'b0)? 1'b1 : 1'b0 ;
+//}
+
+
+// slave clock duplication //$$ REV2 //{
+assign M0_SPI_SCLK = r_M0_SPI_CLK;
+assign M1_SPI_SCLK = r_M1_SPI_CLK;
+//}
+
+
+// miso control M0
+assign w_M0_loopback_en        = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[24]    : 
+												   w_SSPI_CON_WI[24]              ;
+assign w_M0_slack_count_MISO   = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[30:28] :
+												   w_SSPI_CON_WI[30:28]           ;
+
+// HW reset control 
+assign w_HW_reset__ext        = w_M0_port_wi_sadrs_h008[3]; //$$
+
+// res net assignment 
+assign res_net_ctrl_ext_en    = w_M0_port_wi_sadrs_h008[1];   //$$ enable LED control on Base board
+assign res_net_ctrl_ext_data  = w_M0_port_wi_sadrs_h00C[3:0];
+
+// count2 control 
+assign count2_trig_ext_data  = w_M0_port_ti_sadrs_h104[2:0];
+
+// SPIO control 
+assign spio_trig_ti_ext      = w_M0_port_ti_sadrs_h114[1:0];
+assign spio_con_wi_ext       = w_M0_port_wi_sadrs_h014     ; // SPIO_CON_WI			0x014	wi05
+assign spio_fdat_wi_ext      = w_M0_port_wi_sadrs_h010     ; // SPIO_FDAT_WI		0x010	wi04
+
+// DAC control 
+assign dac_trig_ti_ext       = w_M0_port_ti_sadrs_h118[4:0];
+assign dac_con_wi_ext        = w_M0_port_wi_sadrs_h018[31:0];
+
+// DAC wire in 
+assign dac_s1_wi_ext = w_M0_port_wi_sadrs_h060 ; // [31:0] // DAC_S1_WI	0x060	wi18;
+assign dac_s2_wi_ext = w_M0_port_wi_sadrs_h064 ; // [31:0] // DAC_S2_WI	0x064	wi19;
+assign dac_s3_wi_ext = w_M0_port_wi_sadrs_h068 ; // [31:0] // DAC_S3_WI	0x068	wi1A;
+assign dac_s4_wi_ext = w_M0_port_wi_sadrs_h06C ; // [31:0] // DAC_S4_WI	0x06C	wi1B;
+assign dac_s5_wi_ext = w_M0_port_wi_sadrs_h070 ; // [31:0] // DAC_S5_WI	0x070	wi1C;
+assign dac_s6_wi_ext = w_M0_port_wi_sadrs_h074 ; // [31:0] // DAC_S6_WI	0x074	wi1D;
+assign dac_s7_wi_ext = w_M0_port_wi_sadrs_h078 ; // [31:0] // DAC_S7_WI	0x078	wi1E;
+assign dac_s8_wi_ext = w_M0_port_wi_sadrs_h07C ; // [31:0] // DAC_S8_WI	0x07C	wi1F;
+
+// ADC control 
+assign adc_con_wi_ext  = w_M0_port_wi_sadrs_h01C ;
+assign adc_par_wi_ext  = w_M0_port_wi_sadrs_h040 ;
+assign adc_trig_ti_ext = w_M0_port_ti_sadrs_h11C[3:0];
+
+// MEM control  //$$
+//$$ MEM_FDAT_WI	0x048	wi12
+//$$ MEM_WI			0x04C	wi13
+//$$ MEM_TI			0x14C	ti53
+//$$ MEM_TO		0x1CC	to73
+//$$ MEM_PI		0x24C	pi93
+//$$ MEM_PO		0x2CC	poB3
+assign mem_fdat_wi__sspi = w_M0_port_wi_sadrs_h048; //$$ rev
+assign mem_wi_______sspi = w_M0_port_wi_sadrs_h04C; //$$ rev
+assign mem_ti_______sspi = w_M0_port_ti_sadrs_h14C; //$$
+
+// EXT_TRIG control 
+assign ext_trig_con_wi___sspi = w_M0_port_wi_sadrs_h050 ;
+assign ext_trig_para_wi__sspi = w_M0_port_wi_sadrs_h054 ;
+assign ext_trig_aux_wi___sspi = w_M0_port_wi_sadrs_h058 ;
+assign ext_trig_ti_______sspi = w_M0_port_ti_sadrs_h110 ;
+
+// flag assignment 
+assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
+assign w_SSPI_FLAG_WO[1]     = res_net_ctrl_ext_en; // enables res net control from SSPI
+assign w_SSPI_FLAG_WO[2]   = 1'b0; 
+assign w_SSPI_FLAG_WO[3]   = w_HW_reset; //$$ HW reset status
+assign w_SSPI_FLAG_WO[7:4]   = w_slot_id[3:0]     ; // show board slot id 
+assign w_SSPI_FLAG_WO[15:8]  = w_board_status[7:0]; // show board status
+assign w_SSPI_FLAG_WO[23:16] = 8'b0;
+assign w_SSPI_FLAG_WO[27:24] = {w_M0_slack_count_MISO[2:0], w_M0_loopback_en}; // miso control
+assign w_SSPI_FLAG_WO[31:28] = {w_M1_slack_count_MISO[2:0], w_M1_loopback_en}; // miso control
+
+//w_SSPI_BD_STAT_WO           
+assign w_SSPI_BD_STAT_WO[7:0]  = w_board_status[7:0];
+assign w_SSPI_BD_STAT_WO[11:8] = w_slot_id;
+assign w_SSPI_BD_STAT_WO[15:12] = 4'b0;
+assign w_SSPI_BD_STAT_WO[31:16] = w_board_id;
+
+//w_SSPI_CNT_CS_M0_WO         
+assign w_SSPI_CNT_CS_M0_WO[15:0]  = w_M0_cnt_sspi_cs; //$$ count the falling edge of i_SPI_CS_B
+assign w_SSPI_CNT_CS_M0_WO[31:16] = 16'b0;
+
+//w_SSPI_CNT_CS_M1_WO         
+assign w_SSPI_CNT_CS_M1_WO[15:0]  = w_M1_cnt_sspi_cs;
+assign w_SSPI_CNT_CS_M1_WO[31:16] = 16'b0;
+
+//w_SSPI_CNT_ADC_FIFO_IN_WO   
+assign w_SSPI_CNT_ADC_FIFO_IN_WO[15:0]  = w_cnt_adc_fifo_in_pclk;
+assign w_SSPI_CNT_ADC_FIFO_IN_WO[31:16] = 16'b0;
+
+//w_SSPI_CNT_ADC_TRIG_WO  
+assign w_SSPI_CNT_ADC_TRIG_WO[15:0]  = w_cnt_adc_trig_conv_pclk;
+assign w_SSPI_CNT_ADC_TRIG_WO[31:16] = 16'b0;
+
+//w_SSPI_CNT_SPIO_FRM_TRIG_WO 
+assign w_SSPI_CNT_SPIO_FRM_TRIG_WO[15:0]  = w_cnt_spio_trig_frame; //$$ count w_trig_SPIO_SPI_frame
+assign w_SSPI_CNT_SPIO_FRM_TRIG_WO[31:16] = 16'b0;
+
+//w_SSPI_CNT_DAC_TRIG_WO  
+assign w_SSPI_CNT_DAC_TRIG_WO[15:0]  = w_cnt_dac_trig; //$$ count DAC trig
+assign w_SSPI_CNT_DAC_TRIG_WO[31:16] = 16'b0;
+
+
+//}
+
+
+//}
+
 
 ///TODO: //-------------------------------------------------------//
 
