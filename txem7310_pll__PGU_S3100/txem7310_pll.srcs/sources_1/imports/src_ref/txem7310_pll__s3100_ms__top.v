@@ -99,113 +99,117 @@ module txem7310_pll__s3100_ms__top (
 	output wire  o_B15_L5N_AD9N   , // # H15  # F_TP7 
 								   
 	// ## LAN for END-POINTS       
-	output wire   o_B15_L6P ,       // # H17  # LAN_PWDN 
-	//input  wire i_B15_L6N_VREF,   // # H18  # NA
-	output wire   o_B15_L7P ,       // # J22  # LAN_MOSI
-	output wire   o_B15_L7N ,       // # H22  # LAN_SCLK
-	output wire   o_B15_L8P ,       // # H20  # LAN_SSN_B
-	input  wire   i_B15_L8N ,       // # G20  # LAN_INT_B
-	output wire   o_B15_L9P ,       // # K21  # LAN_RST_B
-	input  wire   i_B15_L9N ,       // # K22  # LAN_MISO
+	output wire  o_B15_L6P        , // # H17  # LAN_PWDN 
+	//input  wire i_B15_L6N_VREF  , // # H18  # NA
+	output wire  o_B15_L7P        , // # J22  # LAN_MOSI
+	output wire  o_B15_L7N        , // # H22  # LAN_SCLK
+	output wire  o_B15_L8P        , // # H20  # LAN_SSN_B
+	input  wire  i_B15_L8N        , // # G20  # LAN_INT_B
+	output wire  o_B15_L9P        , // # K21  # LAN_RST_B
+	input  wire  i_B15_L9N        , // # K22  # LAN_MISO
 	
 	// ## ADC
 	//input  wire i_B15_L10P_AD11P, // # H20  # AUX_AD11P
 	//input  wire i_B15_L10N_AD11N, // # G20  # AUX_AD11N
 
-	//input  wire i_B15_L11P_SRCC,  // # J20  # NA
-	//input  wire i_B15_L11N_SRCC,  // # J21  # NA
+	//input  wire i_B15_L11P_SRCC , // # J20  # NA
+	//input  wire i_B15_L11N_SRCC , // # J21  # NA
 
-	input  wire i_B15_L12P_MRCC ,   // # J19  # GPIB_IRQ      
-	output wire o_B15_L12N_MRCC ,   // # H19  # GPIB_nCS      
-	output wire o_B15_L13P_MRCC ,   // # K18  # GPIB_nRESET   
-	output wire o_B15_L13N_MRCC ,   // # K19  # GPIB_SW_nOE   
-	input  wire i_B15_L14P_SRCC ,   // # L19  # GPIB_REM      
-	input  wire i_B15_L14N_SRCC ,   // # L20  # GPIB_TADCS    
-	input  wire i_B15_L15P      ,   // # N22  # GPIB_LADCS    
-	input  wire i_B15_L15N      ,   // # M22  # GPIB_DCAS     
-	input  wire i_B15_L16P      ,   // # M18  # GPIB_TRIG     
-	output wire o_B15_L16N      ,   // # L18  # GPIB_DATA_DIR 
-	output wire o_B15_L17P      ,   // # N18  # GPIB_DATA_nOE 
+	input  wire  i_B15_L12P_MRCC  , // # J19  # GPIB_IRQ      
+	output wire  o_B15_L12N_MRCC  , // # H19  # GPIB_nCS      
+	output wire  o_B15_L13P_MRCC  , // # K18  # GPIB_nRESET   
+	output wire  o_B15_L13N_MRCC  , // # K19  # GPIB_SW_nOE   
+	input  wire  i_B15_L14P_SRCC  , // # L19  # GPIB_REM      
+	input  wire  i_B15_L14N_SRCC  , // # L20  # GPIB_TADCS    
+	input  wire  i_B15_L15P       , // # N22  # GPIB_LADCS    
+	input  wire  i_B15_L15N       , // # M22  # GPIB_DCAS     
+	input  wire  i_B15_L16P       , // # M18  # GPIB_TRIG     
+	output wire  o_B15_L16N       , // # L18  # GPIB_DATA_DIR 
+	output wire  o_B15_L17P       , // # N18  # GPIB_DATA_nOE 
 
 	//input  wire i_B15_L17N,       // # N19  # NA
 							        
-	input  wire i_B15_L18P ,        // # N20  # BA25
-	input  wire i_B15_L18N ,        // # M20  # BA24
-	input  wire i_B15_L19P ,        // # K13  # BA23
-	input  wire i_B15_L19N ,        // # K14  # BA22
-	input  wire i_B15_L20P ,        // # M13  # BA21
-	input  wire i_B15_L20N ,        // # L13  # BA20
-	input  wire i_B15_L21P ,        // # K17  # BA19
-	input  wire i_B15_L21N ,        // # J17  # BA18
-	input  wire i_B15_L22P ,        // # L14  # BA7
-	input  wire i_B15_L22N ,        // # L15  # BA6
-	input  wire i_B15_L23P ,        // # L16  # BA5
-	input  wire i_B15_L23N ,        // # K16  # BA4
-	input  wire i_B15_L24P ,        // # M15  # BA3
-	input  wire i_B15_L24N ,        // # M16  # BA2
+	input  wire  i_B15_L18P       , // # N20  # BA25
+	input  wire  i_B15_L18N       , // # M20  # BA24
+	input  wire  i_B15_L19P       , // # K13  # BA23
+	input  wire  i_B15_L19N       , // # K14  # BA22
+	input  wire  i_B15_L20P       , // # M13  # BA21
+	input  wire  i_B15_L20N       , // # L13  # BA20
+	input  wire  i_B15_L21P       , // # K17  # BA19
+	input  wire  i_B15_L21N       , // # J17  # BA18
+	input  wire  i_B15_L22P       , // # L14  # BA7
+	input  wire  i_B15_L22N       , // # L15  # BA6
+	input  wire  i_B15_L23P       , // # L16  # BA5
+	input  wire  i_B15_L23N       , // # K16  # BA4
+	input  wire  i_B15_L24P       , // # M15  # BA3
+	input  wire  i_B15_L24N       , // # M16  # BA2
 
-	input  wire  i_B15_25        ,  // # M17  # BUF_FMC_CLK
+	input  wire  i_B15_25         , // # M17  # BUF_FMC_CLK
 
 	//}
 
 
 	//// BANK B16 //{
 	
-	// # F15   #  O_B16_0                       # BASE_F_LED_ERR 
-	// # F13   #  O_B16_L1P_T0_16               # BD0
-	// # F14   # IO_B16_L1N_T0_16               # BD1
-	// # F16   # IO_B16_L2P_T0_16               # BD2
-	// # E17   # IO_B16_L2N_T0_16               # BD3
-	// # C14   # IO_B16_L3P_T0_DQS_16           # BD4
-	// # C15   # IO_B16_L3N_T0_DQS_16           # BD5
-	// # E13   # IO_B16_L4P_T0_16               # BD6
-	// # E14   # IO_B16_L4N_T0_16               # BD7
-	// # E16   # IO_B16_L5P_T0_16               # BD8
-	// # D16   # IO_B16_L5N_T0_16               # BD9
-	// # D14   # IO_B16_L6P_T0_16               # BD10
-	// # D15   # IO_B16_L6N_T0_VREF_16          # BD11
-	// # B15   # IO_B16_L7P_T1_16               # BD12
-	// # B16   # IO_B16_L7N_T1_16               # BD13
-	// # C13   # IO_B16_L8P_T1_16               # BD14
-	// # B13   # IO_B16_L8N_T1_16               # BD15
-	// # A15   # IO_B16_L9P_T1_DQS_16           # BD16
-	// # A16   # IO_B16_L9N_T1_DQS_16           # BD17
-	// # A13   # IO_B16_L10P_T1_16              # BD18
-	// # A14   # IO_B16_L10N_T1_16              # BD19
-	// # B17   # IO_B16_L11P_T1_SRCC_16         # BD20
-	// # B18   # IO_B16_L11N_T1_SRCC_16         # BD21
-	// # D17   # IO_B16_L12P_T1_MRCC_16         # BD22
-	// # C17   # IO_B16_L12N_T1_MRCC_16         # BD23
-	// # C18   # IO_B16_L13P_T2_MRCC_16         # BD24
-	// # C19   # IO_B16_L13N_T2_MRCC_16         # BD25
-	// # E19   # IO_B16_L14P_T2_SRCC_16         # BD26
-	// # D19   # IO_B16_L14N_T2_SRCC_16         # BD27
-	// # F18   # IO_B16_L15P_T2_DQS_16          # BD28
-	// # E18   # IO_B16_L15N_T2_DQS_16          # BD29
-	// # B20   # IO_B16_L16P_T2_16              # BD30
-	// # A20   # IO_B16_L16N_T2_16              # BD31
-	// # A18   # IO_B16_L17P_T2_16              # NA
+	output wire  o_B16_0_         , // # F15  # BASE_F_LED_ERR 
 	
-	// # A19   # IO_B16_L17N_T2_16              # BUF_DATA_DIR
-	// # F19   # IO_B16_L18P_T2_16              # nBUF_DATA_OE
+	input  wire io_B16_L1P        , // # F13  # BD0
+	input  wire io_B16_L1N        , // # F14  # BD1
+	input  wire io_B16_L2P        , // # F16  # BD2
+	input  wire io_B16_L2N        , // # E17  # BD3
+	input  wire io_B16_L3P        , // # C14  # BD4
+	input  wire io_B16_L3N        , // # C15  # BD5
+	input  wire io_B16_L4P        , // # E13  # BD6
+	input  wire io_B16_L4N        , // # E14  # BD7
+	input  wire io_B16_L5P        , // # E16  # BD8
+	input  wire io_B16_L5N        , // # D16  # BD9
+	input  wire io_B16_L6P        , // # D14  # BD10
+	input  wire io_B16_L6N        , // # D15  # BD11
+	input  wire io_B16_L7P        , // # B15  # BD12
+	input  wire io_B16_L7N        , // # B16  # BD13
+	input  wire io_B16_L8P        , // # C13  # BD14
+	input  wire io_B16_L8N        , // # B13  # BD15
+	input  wire io_B16_L9P        , // # A15  # BD16
+	input  wire io_B16_L9N        , // # A16  # BD17
+	input  wire io_B16_L10P       , // # A13  # BD18
+	input  wire io_B16_L10N       , // # A14  # BD19
+	input  wire io_B16_L11P       , // # B17  # BD20
+	input  wire io_B16_L11N       , // # B18  # BD21
+	input  wire io_B16_L12P       , // # D17  # BD22
+	input  wire io_B16_L12N       , // # C17  # BD23
+	input  wire io_B16_L13P       , // # C18  # BD24
+	input  wire io_B16_L13N       , // # C19  # BD25
+	input  wire io_B16_L14P       , // # E19  # BD26
+	input  wire io_B16_L14N       , // # D19  # BD27
+	input  wire io_B16_L15P       , // # F18  # BD28
+	input  wire io_B16_L15N       , // # E18  # BD29
+	input  wire io_B16_L16P       , // # B20  # BD30
+	input  wire io_B16_L16N       , // # A20  # BD31
 	
-	// # F20   # IO_B16_L18N_T2_16              # NA
+	//  # IO_B16_L17P_T2_16         // # A18  # NA
+
+	output wire  o_B16_L17N       , // # A19  # BUF_DATA_DIR
+	output wire  o_B16_L18P       , // # F19  # nBUF_DATA_OE
+
+	//  # IO_B16_L18N_T2_16         // # F20  # NA
+
+	output wire  o_B16_L19P       , // # D20  # INTER_RELAY_O
+	output wire  o_B16_L19N       , // # C20  # INTER_LED_O
+	input  wire  i_B16_L20P       , // # C22  # INTER_LOCK_ON
+
+	//  # IO_B16_L20N_T3_16         // # B22  # NA
+
+	input  wire  i_B16_L21P       , // # B21  # nBNE1
+	input  wire  i_B16_L21N       , // # A21  # nBNE2
+	input  wire  i_B16_L22P       , // # E22  # nBNE3
+	input  wire  i_B16_L22N       , // # D22  # nBNE4
+	input  wire  i_B16_L23P       , // # E21  # nBOE
+	input  wire  i_B16_L23N       , // # D21  # nBWE
 	
-	// # D20   # IO_B16_L19P_T3_16              # INTER_RELAY_O
-	// # C20   # IO_B16_L19N_T3_VREF_16         # INTER_LED_O
-	// # C22   # IO_B16_L20P_T3_16              # INTER_LOCK_ON
+	//  # IO_B16_L24P_T3_16         // # G21  # NA
 	
-	// # B22   # IO_B16_L20N_T3_16              # NA
-	
-	// # B21   # IO_B16_L21P_T3_DQS_16          # nBNE1
-	// # A21   # IO_B16_L21N_T3_DQS_16          # nBNE2
-	// # E22   # IO_B16_L22P_T3_16              # nBNE3
-	// # D22   # IO_B16_L22N_T3_16              # nBNE4
-	// # E21   # IO_B16_L23P_T3_16              # nBOE
-	// # D21   # IO_B16_L23N_T3_16              # nBWE
-	// # G21   # IO_B16_L24P_T3_16              # NA
-	// # G22   # IO_B16_L24N_T3_16              # BUF_nRESET											
-	// # F21   # IO_B16_25_16                  	# RUN_FPGA_LED
+	input  wire  i_B16_L24N       , // # G22  # BUF_nRESET											
+	output wire  o_B16_25         , // # F21  # RUN_FPGA_LED
 	
 	//}
 	
@@ -363,104 +367,124 @@ module txem7310_pll__s3100_ms__top (
 
 	//// BANK B13 //{
 	
-	// # Y17    #  i_B13_0          # NA
-	// # Y16    # IO_B13_L1P        # SPI__1_SCLK
-	// # AA16   # IO_B13_L1N        # SPI__1_nCS
-	// # AB16   # IO_B13_L2P        # SPI__1_MOSI
-	// # AB17   # IO_B13_L2N        # SPI__1_MISO
-	// # AA13   # IO_B13_L3P        # SPI__2_SCLK
-	// # AB13   # IO_B13_L3N        # SPI__2_nCS
-	// # AA15   # IO_B13_L4P        # SPI__2_MOSI
-	// # AB15   # IO_B13_L4N        # SPI__2_MISO
-	// # Y13    # IO_B13_L5P        # QSPI_BK1_NCS
-	// # AA14   # IO_B13_L5N        # QSPI_CLK
-	// # W14    # IO_B13_L6P        # QSPI_BK1_IO0
-	// # Y14    # IO_B13_L6N        # QSPI_BK1_IO1
-	// # AB11   # IO_B13_L7P        # QSPI_BK1_IO2
-	// # AB12   # IO_B13_L7N        # QSPI_BK1_IO3
-	// # AA9    # IO_B13_L8P        # NA
-	// # AB10   # IO_B13_L8N        # ETH_nIRQ
-	// # AA10   # IO_B13_L9P        # ETH_nRESET
-	// # AA11   # IO_B13_L9N        # ETH_nCS
-	// # V10    # IO_B13_L10P       # ETH_nLINKLED
-	// # W10    # IO_B13_L10N       # ETH_nTXLED
-	// # Y11    # IO_B13_L11P_SRCC  # ETH_nRXLED
-	// # Y12    # IO_B13_L11N_SRCC  # NA
-	// # W11    # IO_B13_L12P_MRCC  # clocks sys_clkp (*)
-	// # W12    # IO_B13_L12N_MRCC  # clocks sys_clkn (*)
-	// # V13    # IO_B13_L13P_MRCC  # SYNC_10MHz
-	// # V14    # IO_B13_L13N_MRCC  # EXT_TRIG_IN_CW
-	// # U15    # IO_B13_L14P_SRCC  # FPGA_FAN_SENS_0
-	// # V15    # IO_B13_L14N_SRCC  # FPGA_FAN_SENS_1
-	// # T14    # IO_B13_L15P       # FPGA_FAN_SENS_2
-	// # T15    # IO_B13_L15N       # FPGA_FAN_SENS_3
-	// # W15    # IO_B13_L16P       # FPGA_FAN_SENS_4
-	// # W16    # IO_B13_L16N       # FPGA_FAN_SENS_5
-	// # T16    # IO_B13_L17P       # FPGA_FAN_SENS_6
-	// # U16    # IO_B13_L17N       # FPGA_FAN_SENS_7
+	// # IO_B13_0_                , // # Y17  # NA
+											  
+	input  wire  i_B13_L1P        , // # Y16  # SPI__1_SCLK
+	input  wire  i_B13_L1N        , // # AA16 # SPI__1_nCS
+	input  wire  i_B13_L2P        , // # AB16 # SPI__1_MOSI
+	output wire  o_B13_L2N        , // # AB17 # SPI__1_MISO
+
+	input  wire  i_B13_L3P        , // # AA13   # SPI__2_SCLK
+	input  wire  i_B13_L3N        , // # AB13   # SPI__2_nCS
+	input  wire  i_B13_L4P        , // # AA15   # SPI__2_MOSI
+	output wire  o_B13_L4N        , // # AB15   # SPI__2_MISO
+
+	input  wire  i_B13_L5P        , // # Y13    # QSPI_BK1_NCS
+	input  wire  i_B13_L5N        , // # AA14   # QSPI_CLK
+	input  wire  i_B13_L6P        , // # W14    # QSPI_BK1_IO0
+	input  wire  i_B13_L6N        , // # Y14    # QSPI_BK1_IO1
+	input  wire  i_B13_L7P        , // # AB11   # QSPI_BK1_IO2
+	input  wire  i_B13_L7N        , // # AB12   # QSPI_BK1_IO3
+
+	// # IO_B13_L8P               , // # AA9    # NA
+
+	input  wire  i_B13_L8N        , // # AB10   # ETH_nIRQ
+	output wire  o_B13_L9P        , // # AA10   # ETH_nRESET
+	output wire  o_B13_L9N        , // # AA11   # ETH_nCS
+	input  wire  i_B13_L10P       , // # V10    # ETH_nLINKLED
+	input  wire  i_B13_L10N       , // # W10    # ETH_nTXLED
+	input  wire  i_B13_L11P_SRCC  , // # Y11    # ETH_nRXLED
+
+	// # IO_B13_L11N_SRCC         , // # Y12    # NA
+
+	// # IO_B13_L12P_MRCC         , // # W11    # clocks sys_clkp (*)
+	// # IO_B13_L12N_MRCC         , // # W12    # clocks sys_clkn (*)
+
+	input  wire  i_B13_L13P_MRCC  , // # V13    # SYNC_10MHz
+	input  wire  i_B13_L13N_MRCC  , // # V14    # EXT_TRIG_IN_CW
+
+	input  wire  i_B13_L14P_SRCC  , // # U15    # FPGA_FAN_SENS_0
+	input  wire  i_B13_L14N_SRCC  , // # V15    # FPGA_FAN_SENS_1
+	input  wire  i_B13_L15P       , // # T14    # FPGA_FAN_SENS_2
+	input  wire  i_B13_L15N       , // # T15    # FPGA_FAN_SENS_3
+	input  wire  i_B13_L16P       , // # W15    # FPGA_FAN_SENS_4
+	input  wire  i_B13_L16N       , // # W16    # FPGA_FAN_SENS_5
+	input  wire  i_B13_L17P       , // # T16    # FPGA_FAN_SENS_6
+	input  wire  i_B13_L17N       , // # U16    # FPGA_FAN_SENS_7
 
 	//}
 	
 	
 	//// BANK B34 //{
 	
-	// # T3     # IO_B34_0         # FPGA_EXT_TRIG_IN_D
-	// # T1     # IO_B34_L1P       # FPGA_M0_SPI_nCS0
-	// # U1     # IO_B34_L1N       # FPGA_M0_SPI_nCS1
-	// # U2     # IO_B34_L2P       # FPGA_M0_SPI_nCS2
-	// # V2     # IO_B34_L2N       # FPGA_M0_SPI_nCS3
-	// # R3     # IO_B34_L3P       # FPGA_M0_SPI_nCS4
-	// # R2     # IO_B34_L3N       # FPGA_M0_SPI_nCS5
-	// # W2     # IO_B34_L4P       # FPGA_M0_SPI_nCS6
-	// # Y2     # IO_B34_L4N       # FPGA_M0_SPI_nCS7
-	// # W1     # IO_B34_L5P       # FPGA_M0_SPI_nCS8
-	// # Y1     # IO_B34_L5N       # FPGA_M0_SPI_nCS9
-	// # U3     # IO_B34_L6P       # FPGA_M0_SPI_nCS10
-	// # V3     # IO_B34_L6N       # FPGA_M0_SPI_nCS11
-	// # AA1    # IO_B34_L7P       # FPGA_M0_SPI_nCS12
-	// # AB1    # IO_B34_L7N       # M0_SPI_TX_CLK
-	// # AB3    # IO_B34_L8P       # M0_SPI_MOSI
-	// # AB2    # IO_B34_L8N       # M0_SPI_RX_CLK
-	// # Y3     # IO_B34_L9P       # M0_SPI_MISO
-	// # AA3    # IO_B34_L9N       # NA
-	// # AA5    # IO_B34_L10P      # FPGA_M1_SPI_nCS0
-	// # AB5    # IO_B34_L10N      # FPGA_M1_SPI_nCS1
-	// # Y4     # IO_B34_L11P_SRCC # FPGA_M1_SPI_nCS2
-	// # AA4    # IO_B34_L11N_SRCC # FPGA_M1_SPI_nCS3
-	// # V4     # IO_B34_L12P_MRCC # FPGA_M1_SPI_nCS4
-	// # W4     # IO_B34_L12N_MRCC # FPGA_M1_SPI_nCS5
-	// # R4     # IO_B34_L13P_MRCC # FPGA_M1_SPI_nCS6
-	// # T4     # IO_B34_L13N_MRCC # FPGA_M1_SPI_nCS7
-	// # T5     # IO_B34_L14P_SRCC # FPGA_M1_SPI_nCS8
-	// # U5     # IO_B34_L14N_SRCC # FPGA_M1_SPI_nCS9
-	// # W6     # IO_B34_L15P      # FPGA_M1_SPI_nCS10
-	// # W5     # IO_B34_L15N      # FPGA_M1_SPI_nCS11
-	// # U6     # IO_B34_L16P      # FPGA_M1_SPI_nCS12
-	// # V5     # IO_B34_L16N      # M1_SPI_TX_CLK
-	// # R6     # IO_B34_L17P      # M1_SPI_MOSI
-	// # T6     # IO_B34_L17N      # M1_SPI_RX_CLK
-	// # Y6     # IO_B34_L18P      # M1_SPI_MISO
-	// # AA6    # IO_B34_L18N      # NA
-	// # V7     # IO_B34_L19P      # TRIG
-	// # W7     # IO_B34_L19N      # SOT
-	// # AB7    # IO_B34_L20P      # PRE_TRIG
-	// # AB6    # IO_B34_L20N      # NA
-	// # V9     # IO_B34_L21P      # FPGA_H_IN1
-	// # V8     # IO_B34_L21N      # FPGA_H_IN2
-	// # AA8    # IO_B34_L22P      # FPGA_H_IN3
-	// # AB8    # IO_B34_L22N      # FPGA_H_IN4
-	// # Y8     # IO_B34_L23P      # FPGA_H_OUT1
-	// # Y7     # IO_B34_L23N      # FPGA_H_OUT2
-	// # W9     # IO_B34_L24P      # FPGA_H_OUT3
-	// # Y9     # IO_B34_L24N      # FPGA_H_OUT4
-	// # U7     # IO_B34_25        # FPGA_EXT_TRIG_OUT_D
+	input  wire  i_B34_0_        , // # T3   # FPGA_EXT_TRIG_IN_D
+	
+	output wire  o_B34_L1P       , // # T1   # FPGA_M0_SPI_nCS0
+	output wire  o_B34_L1N       , // # U1   # FPGA_M0_SPI_nCS1
+	output wire  o_B34_L2P       , // # U2   # FPGA_M0_SPI_nCS2
+	output wire  o_B34_L2N       , // # V2   # FPGA_M0_SPI_nCS3
+	output wire  o_B34_L3P       , // # R3   # FPGA_M0_SPI_nCS4
+	output wire  o_B34_L3N       , // # R2   # FPGA_M0_SPI_nCS5
+	output wire  o_B34_L4P       , // # W2   # FPGA_M0_SPI_nCS6
+	output wire  o_B34_L4N       , // # Y2   # FPGA_M0_SPI_nCS7
+	output wire  o_B34_L5P       , // # W1   # FPGA_M0_SPI_nCS8
+	output wire  o_B34_L5N       , // # Y1   # FPGA_M0_SPI_nCS9
+	output wire  o_B34_L6P       , // # U3   # FPGA_M0_SPI_nCS10
+	output wire  o_B34_L6N       , // # V3   # FPGA_M0_SPI_nCS11
+	output wire  o_B34_L7P       , // # AA1  # FPGA_M0_SPI_nCS12
+	
+	output wire  o_B34_L7N       , // # AB1  # M0_SPI_TX_CLK
+	output wire  o_B34_L8P       , // # AB3  # M0_SPI_MOSI
+	input  wire  i_B34_L8N       , // # AB2  # M0_SPI_RX_CLK
+	input  wire  i_B34_L9P       , // # Y3   # M0_SPI_MISO
+	
+	//  # IO_B34_L9N       , // # AA3  # NA
+	
+	output wire  o_B34_L10P      , // # AA5  # FPGA_M1_SPI_nCS0
+	output wire  o_B34_L10N      , // # AB5  # FPGA_M1_SPI_nCS1
+	output wire  o_B34_L11P_SRCC , // # Y4   # FPGA_M1_SPI_nCS2
+	output wire  o_B34_L11N_SRCC , // # AA4  # FPGA_M1_SPI_nCS3
+	output wire  o_B34_L12P_MRCC , // # V4   # FPGA_M1_SPI_nCS4
+	output wire  o_B34_L12N_MRCC , // # W4   # FPGA_M1_SPI_nCS5
+	output wire  o_B34_L13P_MRCC , // # R4   # FPGA_M1_SPI_nCS6
+	output wire  o_B34_L13N_MRCC , // # T4   # FPGA_M1_SPI_nCS7
+	output wire  o_B34_L14P_SRCC , // # T5   # FPGA_M1_SPI_nCS8
+	output wire  o_B34_L14N_SRCC , // # U5   # FPGA_M1_SPI_nCS9
+	output wire  o_B34_L15P      , // # W6   # FPGA_M1_SPI_nCS10
+	output wire  o_B34_L15N      , // # W5   # FPGA_M1_SPI_nCS11
+	output wire  o_B34_L16P      , // # U6   # FPGA_M1_SPI_nCS12
+	
+	output wire  o_B34_L16N      , // # V5   # M1_SPI_TX_CLK
+	output wire  o_B34_L17P      , // # R6   # M1_SPI_MOSI
+	input  wire  i_B34_L17N      , // # T6   # M1_SPI_RX_CLK
+	input  wire  i_B34_L18P      , // # Y6   # M1_SPI_MISO
+	
+	//  # IO_B34_L18N      , // # AA6  # NA
+	
+	output wire  o_B34_L19P      , // # V7   # TRIG
+	output wire  o_B34_L19N      , // # W7   # SOT
+	output wire  o_B34_L20P      , // # AB7  # PRE_TRIG
+	
+	//  # IO_B34_L20N      , // # AB6  # NA
+	
+	input  wire  i_B34_L21P      , // # V9   # FPGA_H_IN1
+	input  wire  i_B34_L21N      , // # V8   # FPGA_H_IN2
+	input  wire  i_B34_L22P      , // # AA8  # FPGA_H_IN3
+	input  wire  i_B34_L22N      , // # AB8  # FPGA_H_IN4
+	
+	output wire  o_B34_L23P      , // # Y8   # FPGA_H_OUT1
+	output wire  o_B34_L23N      , // # Y7   # FPGA_H_OUT2
+	output wire  o_B34_L24P      , // # W9   # FPGA_H_OUT3
+	output wire  o_B34_L24N      , // # Y9   # FPGA_H_OUT4
+	
+	output wire  o_B34_25        , // # U7   # FPGA_EXT_TRIG_OUT_D
 	
 	//}
 
 
 	//// BANK B35 //{
 	
-	// # F4    IO_B35_0            # BUF_MASTER0
+	// # F4    IO_B35_0_           # BUF_MASTER0
 	// # B1    IO_B35_L1P          # FPGA_M2_SPI_nCS0
 	// # A1    IO_B35_L1N          # FPGA_M2_SPI_nCS1
 	// # C2    IO_B35_L2P          # FPGA_M2_SPI_nCS2
