@@ -597,8 +597,8 @@ OBUF obuf__FPGA_IO0__inst (.O( o_B14_L4P ), .I( FPGA_IO0 ) );
 OBUF obuf__FPGA_IO1__inst (.O( o_B14_L4N ), .I( FPGA_IO1 ) ); 
 OBUF obuf__FPGA_IO2__inst (.O( o_B14_L5P ), .I( FPGA_IO2 ) ); 
 OBUF obuf__FPGA_IO3__inst (.O( o_B14_L5N ), .I( FPGA_IO3 ) ); 
-OBUF obuf__FPGA_IO0__inst (.O( o_B14_L6N ), .I( FPGA_IO4 ) );
-OBUF obuf__FPGA_IO1__inst (.O( o_B14_L7P ), .I( FPGA_IO5 ) );
+OBUF obuf__FPGA_IO4__inst (.O( o_B14_L6N ), .I( FPGA_IO4 ) );
+OBUF obuf__FPGA_IO5__inst (.O( o_B14_L7P ), .I( FPGA_IO5 ) );
 
 wire FPGA_MBD_RS_422_SPI_EN  ;
 wire FPGA_MBD_RS_422_TRIG_EN ;
