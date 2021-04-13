@@ -1744,13 +1744,29 @@ fifo_generator_4 TEST_fifo_inst (
 
 // most control in signals
 
+//// TEST wires //{
+wire [31:0] w_SW_BUILD_ID_WI = ep00wire; // alternatively, w_GP_WI
+wire [31:0] w_TEST_CON_WI    = ep01wire;
+wire [31:0] w_RNET_CON_WI    = ep03wire;
+//
+wire [31:0] w_FPGA_IMAGE_ID_WO ; assign ep20wire = w_FPGA_IMAGE_ID_WO; // alternatively, w_GP_WO
+wire [31:0] w_TEST_FLAG_WO     ; assign ep21wire = w_TEST_FLAG_WO;
+wire [31:0] w_MON_XADC_WO      ; assign ep23wire = w_MON_XADC_WO;
+wire [31:0] w_MON_GP_WO        ; assign ep24wire = w_MON_GP_WO;
+//
+wire [31:0] w_TEST_TI        = ep41trig; assign ep41ck = sys_clk;
+//
+wire [31:0] w_TEST_TO          ; assign ep61trig = w_TEST_TO     ; assign ep61ck = sys_clk; 
+//}
+
+
 //// BRD_CON //{
 wire [31:0] w_BRD_CON = w_port_wi_03_1 | ep03wire; // board control // logic or
 // reset wires 
 // endpoint mux enable : LAN(MCS) vs USB
 
 // sub wires 
-wire w_HW_reset              = w_BRD_CON[0];
+//wire w_HW_reset              = w_BRD_CON[0];
 ////  wire w_time_stamp_disp_en    = w_BRD_CON[16];
 
 // reset wires 
@@ -1830,9 +1846,9 @@ wire [31:0] w_TEST_OUT;
 assign ep21wire = (!w_mcs_ep_wo_en)? w_TEST_OUT : 32'hACAC_ACAC; // TEST_OUT
 assign w_port_wo_21_1 = (w_mcs_ep_wo_en)? w_TEST_OUT : 32'hACAC_ACAC;
 //
-wire [31:0] w_TEST_TI = (w_mcs_ep_ti_en)? w_port_ti_40_1 : ep40trig;
+//wire [31:0] w_TEST_TI = (w_mcs_ep_ti_en)? w_port_ti_40_1 : ep40trig;
 //
-wire [31:0] w_TEST_TO;
+//wire [31:0] w_TEST_TO;
 assign ep60trig = w_TEST_TO; //$$
 assign w_port_to_60_1 = (w_mcs_ep_to_en)? w_TEST_TO : 32'h0000_0000; //$$
 //}
@@ -1860,6 +1876,38 @@ assign w_TEST_IO_MON[15: 0] = 16'b0;
 
 
 //}
+
+
+//// SSPI wires //{
+wire [31:0] w_SSPI_CON_WI  = ep02wire; // controls ... 
+			// w_SSPI_CON_WI[0] enables SSPI control from USB 
+			// w_SSPI_CON_WI[1] ...
+wire [31:0] w_SSPI_FLAG_WO; assign ep22wire = w_SSPI_FLAG_WO;
+//
+
+// HW reset signal : SPIO, DAC, ADC, TRIG_IO, MEM, TEST_COUNTER, XADC, TIMESTAMP
+wire w_HW_reset__ext;
+wire w_HW_reset = w_SSPI_CON_WI[3] | w_HW_reset__ext | w_BRD_CON[0] ; //$$
+
+wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi
+wire [31:0] w_SSPI_TEST_WI   = ep17wire; // test data for SSPI
+wire [31:0] w_SSPI_TEST_WO; //$$ assign ep21wire = w_SSPI_TEST_WO; //$$ share with ep21wire or w_TEST_FLAG_WO
+//wire [31:0] w_SSPI_TI   = ep42trig; assign ep42ck = sys_clk;
+wire [31:0] w_SSPI_TEST_TI   = ep42trig; assign ep42ck = base_sspi_clk;
+//wire [31:0] w_SSPI_TO      = 32'b0; assign ep62trig = w_SSPI_TO; assign ep62ck = sys_clk;
+wire [31:0] w_SSPI_TEST_TO; assign ep62trig = w_SSPI_TEST_TO; assign ep62ck = base_sspi_clk; // vs sys_clk
+
+//
+wire [31:0] w_SSPI_BD_STAT_WO           ;
+wire [31:0] w_SSPI_CNT_CS_M0_WO         ;
+wire [31:0] w_SSPI_CNT_CS_M1_WO         ;
+wire [31:0] w_SSPI_CNT_ADC_FIFO_IN_WO   ;
+wire [31:0] w_SSPI_CNT_ADC_TRIG_WO  ;
+wire [31:0] w_SSPI_CNT_SPIO_FRM_TRIG_WO ;
+wire [31:0] w_SSPI_CNT_DAC_TRIG_WO  ;
+//}
+
+
 
 //// SPIO wires //{
 
@@ -2553,8 +2601,8 @@ wire [31:0] w_M0_port_wo_sadrs_h084 = w_TEST_FLAG_WO    ; // TEST_FLAG_WO		0x084
 wire [31:0] w_M0_port_wo_sadrs_h088 = w_SSPI_FLAG_WO    ; // SSPI_FLAG_WO		0x088	wo22
 wire [31:0] w_M0_port_wo_sadrs_h08C = w_MON_XADC_WO     ; // MON_XADC_WO		0x08C	wo23
 wire [31:0] w_M0_port_wo_sadrs_h090 = w_MON_GP_WO       ; // MON_GP_WO			0x090	wo24
-wire [31:0] w_M0_port_wo_sadrs_h094 = w_SPIO_FLAG_WO    ; // SPIO_FLAG_WO		0x094	wo25
-wire [31:0] w_M0_port_wo_sadrs_h098 = w_DAC_FLAG_WO     ; // DAC_FLAG_WO		0x098	wo26
+//wire [31:0] w_M0_port_wo_sadrs_h094 = w_SPIO_FLAG_WO    ; // SPIO_FLAG_WO		0x094	wo25
+//wire [31:0] w_M0_port_wo_sadrs_h098 = w_DAC_FLAG_WO     ; // DAC_FLAG_WO		0x098	wo26
 //
 wire [31:0] w_M0_port_wo_sadrs_h380 = 32'h33AA_CC55     ; // SSPI_TEST_OUT		0x380	NA  // known pattern
 wire [31:0] w_M0_port_wo_sadrs_h384 = w_SSPI_BD_STAT_WO           ;
@@ -2565,34 +2613,34 @@ wire [31:0] w_M0_port_wo_sadrs_h394 = w_SSPI_CNT_ADC_TRIG_WO  ;
 wire [31:0] w_M0_port_wo_sadrs_h398 = w_SSPI_CNT_SPIO_FRM_TRIG_WO ;
 wire [31:0] w_M0_port_wo_sadrs_h39C = w_SSPI_CNT_DAC_TRIG_WO  ;
 //
-wire [31:0] w_M0_port_wo_sadrs_h0E0 = w_DAC_S1_WO ; // MHVSU_DAC	DAC_S1_WO	0x0E0	wo38	read DAC buffer data.	={S1_DAC_CH2[15:0], S1_DAC_CH1[15:0]}	
-wire [31:0] w_M0_port_wo_sadrs_h0E4 = w_DAC_S2_WO ; // MHVSU_DAC	DAC_S2_WO	0x0E4	wo39	read DAC buffer data.	={S2_DAC_CH2[15:0], S2_DAC_CH1[15:0]}	
-wire [31:0] w_M0_port_wo_sadrs_h0E8 = w_DAC_S3_WO ; // MHVSU_DAC	DAC_S3_WO	0x0E8	wo3A	read DAC buffer data.	={S3_DAC_CH2[15:0], S3_DAC_CH1[15:0]}	
-wire [31:0] w_M0_port_wo_sadrs_h0EC = w_DAC_S4_WO ; // MHVSU_DAC	DAC_S4_WO	0x0EC	wo3B	read DAC buffer data.	={S4_DAC_CH2[15:0], S4_DAC_CH1[15:0]}	
-wire [31:0] w_M0_port_wo_sadrs_h0F0 = w_DAC_S5_WO ; // MHVSU_DAC	DAC_S5_WO	0x0F0	wo3C	read DAC buffer data.	={S5_DAC_CH2[15:0], S5_DAC_CH1[15:0]}	
-wire [31:0] w_M0_port_wo_sadrs_h0F4 = w_DAC_S6_WO ; // MHVSU_DAC	DAC_S6_WO	0x0F4	wo3D	read DAC buffer data.	={S6_DAC_CH2[15:0], S6_DAC_CH1[15:0]}	
-wire [31:0] w_M0_port_wo_sadrs_h0F8 = w_DAC_S7_WO ; // MHVSU_DAC	DAC_S7_WO	0x0F8	wo3E	read DAC buffer data.	={S7_DAC_CH2[15:0], S7_DAC_CH1[15:0]}	
-wire [31:0] w_M0_port_wo_sadrs_h0FC = w_DAC_S8_WO ; // MHVSU_DAC	DAC_S8_WO	0x0FC	wo3F	read DAC buffer data.	={S8_DAC_CH2[15:0], S8_DAC_CH1[15:0]}
-//
-wire [31:0] w_M0_port_wo_sadrs_h09C = w_ADC_FLAG_WO ; // ADC_FLAG_WO		0x09C			wo27
-//
-wire [31:0] w_M0_port_wo_sadrs_h0A0 = w_ADC_S1_ACC_MAX_WO ; // ADC_Sn_WO		0x0A0~0x0BC		wo28~wo2F
-wire [31:0] w_M0_port_wo_sadrs_h0A4 = w_ADC_S2_ACC_MAX_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0A8 = w_ADC_S3_ACC_MAX_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0AC = w_ADC_S4_ACC_MAX_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0B0 = w_ADC_S5_ACC_MAX_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0B4 = w_ADC_S6_ACC_MAX_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0B8 = w_ADC_S7_ACC_MAX_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0BC = w_ADC_S8_ACC_MAX_WO ;
-//
-wire [31:0] w_M0_port_wo_sadrs_h0C0 = w_ADC_S1_VAL_MIN_WO ; // ADC_Sn_WO		0x0C0~0x0DC		wo30~wo37
-wire [31:0] w_M0_port_wo_sadrs_h0C4 = w_ADC_S2_VAL_MIN_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0C8 = w_ADC_S3_VAL_MIN_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0CC = w_ADC_S4_VAL_MIN_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0D0 = w_ADC_S5_VAL_MIN_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0D4 = w_ADC_S6_VAL_MIN_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0D8 = w_ADC_S7_VAL_MIN_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h0DC = w_ADC_S8_VAL_MIN_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0E0 = w_DAC_S1_WO ; // MHVSU_DAC	DAC_S1_WO	0x0E0	wo38	read DAC buffer data.	={S1_DAC_CH2[15:0], S1_DAC_CH1[15:0]}	
+//wire [31:0] w_M0_port_wo_sadrs_h0E4 = w_DAC_S2_WO ; // MHVSU_DAC	DAC_S2_WO	0x0E4	wo39	read DAC buffer data.	={S2_DAC_CH2[15:0], S2_DAC_CH1[15:0]}	
+//wire [31:0] w_M0_port_wo_sadrs_h0E8 = w_DAC_S3_WO ; // MHVSU_DAC	DAC_S3_WO	0x0E8	wo3A	read DAC buffer data.	={S3_DAC_CH2[15:0], S3_DAC_CH1[15:0]}	
+//wire [31:0] w_M0_port_wo_sadrs_h0EC = w_DAC_S4_WO ; // MHVSU_DAC	DAC_S4_WO	0x0EC	wo3B	read DAC buffer data.	={S4_DAC_CH2[15:0], S4_DAC_CH1[15:0]}	
+//wire [31:0] w_M0_port_wo_sadrs_h0F0 = w_DAC_S5_WO ; // MHVSU_DAC	DAC_S5_WO	0x0F0	wo3C	read DAC buffer data.	={S5_DAC_CH2[15:0], S5_DAC_CH1[15:0]}	
+//wire [31:0] w_M0_port_wo_sadrs_h0F4 = w_DAC_S6_WO ; // MHVSU_DAC	DAC_S6_WO	0x0F4	wo3D	read DAC buffer data.	={S6_DAC_CH2[15:0], S6_DAC_CH1[15:0]}	
+//wire [31:0] w_M0_port_wo_sadrs_h0F8 = w_DAC_S7_WO ; // MHVSU_DAC	DAC_S7_WO	0x0F8	wo3E	read DAC buffer data.	={S7_DAC_CH2[15:0], S7_DAC_CH1[15:0]}	
+//wire [31:0] w_M0_port_wo_sadrs_h0FC = w_DAC_S8_WO ; // MHVSU_DAC	DAC_S8_WO	0x0FC	wo3F	read DAC buffer data.	={S8_DAC_CH2[15:0], S8_DAC_CH1[15:0]}
+////
+//wire [31:0] w_M0_port_wo_sadrs_h09C = w_ADC_FLAG_WO ; // ADC_FLAG_WO		0x09C			wo27
+////
+//wire [31:0] w_M0_port_wo_sadrs_h0A0 = w_ADC_S1_ACC_MAX_WO ; // ADC_Sn_WO		0x0A0~0x0BC		wo28~wo2F
+//wire [31:0] w_M0_port_wo_sadrs_h0A4 = w_ADC_S2_ACC_MAX_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0A8 = w_ADC_S3_ACC_MAX_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0AC = w_ADC_S4_ACC_MAX_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0B0 = w_ADC_S5_ACC_MAX_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0B4 = w_ADC_S6_ACC_MAX_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0B8 = w_ADC_S7_ACC_MAX_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0BC = w_ADC_S8_ACC_MAX_WO ;
+////
+//wire [31:0] w_M0_port_wo_sadrs_h0C0 = w_ADC_S1_VAL_MIN_WO ; // ADC_Sn_WO		0x0C0~0x0DC		wo30~wo37
+//wire [31:0] w_M0_port_wo_sadrs_h0C4 = w_ADC_S2_VAL_MIN_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0C8 = w_ADC_S3_VAL_MIN_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0CC = w_ADC_S4_VAL_MIN_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0D0 = w_ADC_S5_VAL_MIN_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0D4 = w_ADC_S6_VAL_MIN_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0D8 = w_ADC_S7_VAL_MIN_WO ;
+//wire [31:0] w_M0_port_wo_sadrs_h0DC = w_ADC_S8_VAL_MIN_WO ;
 //
 wire [31:0] w_M0_port_ti_sadrs_h104; // TEST_TI				0x104	ti41
 wire [31:0] w_M0_port_ti_sadrs_h114; // SPIO_TRIG_TI		0x114	ti45
@@ -2601,10 +2649,10 @@ wire [31:0] w_M0_port_ti_sadrs_h11C; // ADC_TRIG_TI		0x11C			ti47 // base_adc_cl
 wire [31:0] w_M0_port_ti_sadrs_h110; // wire [31:0] ext_trig_ti_______sspi; // control from sspi adrs 0x110
 wire [31:0] w_M0_port_ti_sadrs_h14C; // MEM_TI	0x14C	ti53 // sys_clk //$$
 //
-wire [31:0] w_M0_port_to_sadrs_h190 = w_EXT_TRIG_TO     ; // EXT_TRIG_TO	0x190	to64 // sys_clk //$$
-wire [31:0] w_M0_port_to_sadrs_h194 = w_SPIO_TRIG_TO    ; // SPIO_TRIG_TO	0x194	to65
-wire [31:0] w_M0_port_to_sadrs_h198 = w_DAC_TRIG_TO     ; // DAC_TRIG_TO	0x198	to66
-wire [31:0] w_M0_port_to_sadrs_h19C = w_ADC_TRIG_TO     ; // ADC_TRIG_TO	0x19C	to67 // base_adc_clk --> p_adc_clk
+//wire [31:0] w_M0_port_to_sadrs_h190 = w_EXT_TRIG_TO     ; // EXT_TRIG_TO	0x190	to64 // sys_clk //$$
+//wire [31:0] w_M0_port_to_sadrs_h194 = w_SPIO_TRIG_TO    ; // SPIO_TRIG_TO	0x194	to65
+//wire [31:0] w_M0_port_to_sadrs_h198 = w_DAC_TRIG_TO     ; // DAC_TRIG_TO	0x198	to66
+//wire [31:0] w_M0_port_to_sadrs_h19C = w_ADC_TRIG_TO     ; // ADC_TRIG_TO	0x19C	to67 // base_adc_clk --> p_adc_clk
 wire [31:0] w_M0_port_to_sadrs_h1CC = w_MEM_TO          ; // MEM_TO			0x1CC	to73 // sys_clk //$$
 //
 wire        w_M0_loopback_en           = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[24]    : 
@@ -2618,13 +2666,13 @@ wire [2:0]  w_M0_slack_count_MISO      = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs
 //$$wire [3:0] w_board_id = w_slot_id; //$$ rev miso info
 wire [7:0] w_board_status;
 assign w_board_status[7] = 1'b0                    ; // NA // Board Error Status                
-assign w_board_status[6] = r_M_TRIG[0]             ; // M_TRIG             
-assign w_board_status[5] = r_M_PRE_TRIG[0]         ; // M_PRE_TRIG         
-assign w_board_status[4] = r_M_BUSY_B_OUT          ; // M_BUSY_B_OUT or M_READY_OUT      
-assign w_board_status[3] = w_busy_SPI_frame        ; // SPIO busy          
-assign w_board_status[2] = w_busy_DAC_update       ; // DAC  busy          
-assign w_board_status[1] = w_fifo_adc_empty_and_all; // ADC FIFO all empty 
-assign w_board_status[0] = w_ADC_busy_pclk         ; // ADC_busy           
+//assign w_board_status[6] = r_M_TRIG[0]             ; // M_TRIG             
+//assign w_board_status[5] = r_M_PRE_TRIG[0]         ; // M_PRE_TRIG         
+//assign w_board_status[4] = r_M_BUSY_B_OUT          ; // M_BUSY_B_OUT or M_READY_OUT      
+//assign w_board_status[3] = w_busy_SPI_frame        ; // SPIO busy          
+//assign w_board_status[2] = w_busy_DAC_update       ; // DAC  busy          
+//assign w_board_status[1] = w_fifo_adc_empty_and_all; // ADC FIFO all empty 
+//assign w_board_status[0] = w_ADC_busy_pclk         ; // ADC_busy           
 
 //
 slave_spi_mth_brd  slave_spi_mth_brd__M0_inst (
@@ -3074,21 +3122,21 @@ assign w_SSPI_CNT_CS_M0_WO[31:16] = 16'b0;
 assign w_SSPI_CNT_CS_M1_WO[15:0]  = w_M1_cnt_sspi_cs;
 assign w_SSPI_CNT_CS_M1_WO[31:16] = 16'b0;
 
-//w_SSPI_CNT_ADC_FIFO_IN_WO   
-assign w_SSPI_CNT_ADC_FIFO_IN_WO[15:0]  = w_cnt_adc_fifo_in_pclk;
-assign w_SSPI_CNT_ADC_FIFO_IN_WO[31:16] = 16'b0;
-
-//w_SSPI_CNT_ADC_TRIG_WO  
-assign w_SSPI_CNT_ADC_TRIG_WO[15:0]  = w_cnt_adc_trig_conv_pclk;
-assign w_SSPI_CNT_ADC_TRIG_WO[31:16] = 16'b0;
-
-//w_SSPI_CNT_SPIO_FRM_TRIG_WO 
-assign w_SSPI_CNT_SPIO_FRM_TRIG_WO[15:0]  = w_cnt_spio_trig_frame; //$$ count w_trig_SPIO_SPI_frame
-assign w_SSPI_CNT_SPIO_FRM_TRIG_WO[31:16] = 16'b0;
-
-//w_SSPI_CNT_DAC_TRIG_WO  
-assign w_SSPI_CNT_DAC_TRIG_WO[15:0]  = w_cnt_dac_trig; //$$ count DAC trig
-assign w_SSPI_CNT_DAC_TRIG_WO[31:16] = 16'b0;
+////w_SSPI_CNT_ADC_FIFO_IN_WO   
+//assign w_SSPI_CNT_ADC_FIFO_IN_WO[15:0]  = w_cnt_adc_fifo_in_pclk;
+//assign w_SSPI_CNT_ADC_FIFO_IN_WO[31:16] = 16'b0;
+//
+////w_SSPI_CNT_ADC_TRIG_WO  
+//assign w_SSPI_CNT_ADC_TRIG_WO[15:0]  = w_cnt_adc_trig_conv_pclk;
+//assign w_SSPI_CNT_ADC_TRIG_WO[31:16] = 16'b0;
+//
+////w_SSPI_CNT_SPIO_FRM_TRIG_WO 
+//assign w_SSPI_CNT_SPIO_FRM_TRIG_WO[15:0]  = w_cnt_spio_trig_frame; //$$ count w_trig_SPIO_SPI_frame
+//assign w_SSPI_CNT_SPIO_FRM_TRIG_WO[31:16] = 16'b0;
+//
+////w_SSPI_CNT_DAC_TRIG_WO  
+//assign w_SSPI_CNT_DAC_TRIG_WO[15:0]  = w_cnt_dac_trig; //$$ count DAC trig
+//assign w_SSPI_CNT_DAC_TRIG_WO[31:16] = 16'b0;
 
 
 //}
