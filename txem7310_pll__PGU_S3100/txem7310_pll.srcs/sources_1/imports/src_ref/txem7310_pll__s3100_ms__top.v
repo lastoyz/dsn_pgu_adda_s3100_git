@@ -100,7 +100,7 @@ module txem7310_pll__s3100_ms__top (
 								   
 	// ## LAN for END-POINTS       
 	output wire  o_B15_L6P        , // # H17  # LAN_PWDN 
-	//input  wire i_B15_L6N_VREF  , // # H18  # NA
+	output wire  o_B15_L6N        , // # H18  # LAN_SSAUX_B //$$ ssn aux
 	output wire  o_B15_L7P        , // # J22  # LAN_MOSI
 	output wire  o_B15_L7N        , // # H22  # LAN_SCLK
 	output wire  o_B15_L8P        , // # H20  # LAN_SSN_B
@@ -112,8 +112,8 @@ module txem7310_pll__s3100_ms__top (
 	//input  wire i_B15_L10P_AD11P, // # H20  # AUX_AD11P
 	//input  wire i_B15_L10N_AD11N, // # G20  # AUX_AD11N
 
-	inout  wire io_B15_L11P_SRCC  , // # J20  # NA //$$ SCIO_11AA160T
-	//input  wire i_B15_L11N_SRCC , // # J21  # NA
+	inout  wire io_B15_L11P_SRCC  , // # J20  # SCIO_0 //$$ 11AA160T
+	inout  wire io_B15_L11N_SRCC  , // # J21  # SCIO_1 //$$ 11AA160T
 
 	input  wire  i_B15_L12P_MRCC  , // # J19  # GPIB_IRQ      
 	output wire  o_B15_L12N_MRCC  , // # H19  # GPIB_nCS      
@@ -606,7 +606,7 @@ wire FPGA_M0_SPI_TX_EN       ;
 wire FPGA_M1_SPI_TX_EN       ;
 wire FPGA_M2_SPI_TX_EN       ;
 wire FPGA_TRIG_TX_EN         ;
-OBUF obuf__FPGA_MBD_RS_422_SPI_EN __inst (.O( o_B14_L7N  ), .I( FPGA_MBD_RS_422_SPI_EN  ) );
+OBUF obuf__FPGA_MBD_RS_422_SPI_EN___inst (.O( o_B14_L7N  ), .I( FPGA_MBD_RS_422_SPI_EN  ) );
 OBUF obuf__FPGA_MBD_RS_422_TRIG_EN__inst (.O( o_B14_L8P  ), .I( FPGA_MBD_RS_422_TRIG_EN ) );
 OBUF obuf__FPGA_M0_SPI_TX_EN________inst (.O( o_B14_L8N  ), .I( FPGA_M0_SPI_TX_EN       ) );
 OBUF obuf__FPGA_M1_SPI_TX_EN________inst (.O( o_B14_L9P  ), .I( FPGA_M1_SPI_TX_EN       ) );
@@ -663,9 +663,9 @@ wire FPGA_GPIO_PD2  ;
 wire FPGA_GPIO_PI8  ;
 wire FPGA_GPIO_PA8  ;
 wire FPGA_GPIO_PB11 ;
-IBUF ibuf__FPGA_GPIO_PD2 _inst (.I( i_B14_L23P ), .O( FPGA_GPIO_PD2  ) ); //
-IBUF ibuf__FPGA_GPIO_PI8 _inst (.I( i_B14_L23N ), .O( FPGA_GPIO_PI8  ) ); //
-IBUF ibuf__FPGA_GPIO_PA8 _inst (.I( i_B14_L24P ), .O( FPGA_GPIO_PA8  ) ); //
+IBUF ibuf__FPGA_GPIO_PD2__inst (.I( i_B14_L23P ), .O( FPGA_GPIO_PD2  ) ); //
+IBUF ibuf__FPGA_GPIO_PI8__inst (.I( i_B14_L23N ), .O( FPGA_GPIO_PI8  ) ); //
+IBUF ibuf__FPGA_GPIO_PA8__inst (.I( i_B14_L24P ), .O( FPGA_GPIO_PA8  ) ); //
 IBUF ibuf__FPGA_GPIO_PB11_inst (.I( i_B14_L24N ), .O( FPGA_GPIO_PB11 ) ); //
 
 	
