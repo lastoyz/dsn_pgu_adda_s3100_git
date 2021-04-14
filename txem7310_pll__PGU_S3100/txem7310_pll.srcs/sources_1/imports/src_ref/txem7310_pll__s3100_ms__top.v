@@ -2,9 +2,20 @@
 // # top xdc        : txem7310_pll__s3100_ms__top.xdc
 //
 // # board          : S3100-CPU-BASE
-// # board sch      : NA
-//
+// # board sch      : s3100_cpu_base_v100_20210413.pdf
+
 // # note: artix-7 top design for S3100 PGU master side
+//
+// ############################################################################
+// ## bank usage
+// ############################################################################
+// # B13 : CPU_SPI, CPU_QSPI, CPU_ETH, FAN_SENS // (prev. in MC1/MC2) // 3.3V
+// # B14 : CONF, LED, MTH_SPI control, CPU_GPIO                       // 1.8V
+// # B15 : TP, LAN_SPI, SCIO, GPIB, BUS_BA                            // 3.3V
+// # B16 : BUS_BD, BUS control, INTER_LOCK                            // 3.3V
+// # B34 : MTH M0_SPI, MTH M1_SPI, HDR control         (prev. in MC1) // 3.3V
+// # B35 : MTH M2_SPI, CAL_SPI, EXT_TRIG               (prev. in MC2) // 3.3V
+// # B216: not used
 
 
 /* top module integration */
