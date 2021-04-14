@@ -120,8 +120,8 @@ module txem7310_pll__s3100_ms__top (
 	input  wire  i_B15_L9N        , // # K22  # LAN_MISO
 	
 	// ## ADC
-	//input  wire i_B15_L10P_AD11P, // # H20  # AUX_AD11P
-	//input  wire i_B15_L10N_AD11N, // # G20  # AUX_AD11N
+	//input  wire i_B15_L10P_AD11P, // # M21  # AUX_AD11P
+	//input  wire i_B15_L10N_AD11N, // # L21  # AUX_AD11N
 
 	inout  wire io_B15_L11P_SRCC  , // # J20  # SCIO_0 //$$ 11AA160T
 	inout  wire io_B15_L11N_SRCC  , // # J21  # SCIO_1 //$$ 11AA160T
@@ -1262,48 +1262,17 @@ clk_wiz_0_0_1  clk_wiz_0_0_1_inst(
 //}
 
 // clock pll1 //{
-//wire clk1_out1_160M; // for DWAVE 
-//wire clk1_out2_120M; // unused
-//wire clk1_out3_80M ; // unused
-//wire clk1_out4_60M ; // unused // 10M exact...
 
 wire clk1_locked = 1'b1; // unused
-
-//  clk_wiz_0_1  clk_wiz_0_1_inst(
-//  	// Clock out ports  
-//  	.clk_out1_160M(clk1_out1_160M),  
-//  	.clk_out2_120M(clk1_out2_120M), 
-//  	.clk_out3_80M (clk1_out3_80M ), 
-//  	.clk_out4_60M (clk1_out4_60M ), 
-//  	// Status and control signals     
-//  	.resetn(clk_locked_pre),          
-//  	.locked(clk1_locked),
-//  	// Clock in ports
-//  	.clk_in1(clk_out1_200M)
-//  );
 
 //}
 
 // clock pll2 //{
-// wire clk2_out1_210M; // for HR-ADC and test_clk
-// wire clk2_out2_105M; // unused
-// wire clk2_out3_60M ; // for ADC fifo/serdes
-// wire clk2_out4_30M ; // unused             
+
 
 wire clk2_locked = 1'b1; // unused
 
-//  clk_wiz_0_2  clk_wiz_0_2_inst(
-//  	// Clock out ports  
-//  	.clk_out1_210M(clk2_out1_210M),  
-//  	.clk_out2_105M(clk2_out2_105M), 
-//  	.clk_out3_60M (clk2_out3_60M ), 
-//  	.clk_out4_30M (clk2_out4_30M ), 
-//  	// Status and control signals     
-//  	.resetn(clk_locked_pre),          
-//  	.locked(clk2_locked),
-//  	// Clock in ports
-//  	.clk_in1(clk_out2_140M) // 200M --> 140M for better jitter.
-//  );
+
 
 //}
 
@@ -1331,35 +1300,15 @@ clk_wiz_0_3_1  clk_wiz_0_3_1_inst(
 //}
 
 // clock pll4 //{
-//wire clk4_out2_10M ; // for DAC clock measure // unused
-//
+
 wire clk4_locked = 1'b1;
-//  clk_wiz_0_4  clk_wiz_0_4_inst(
-//  	// Clock out ports  
-//  	.clk_out1_10M (xadc_clk ),  // BUFH --> BUFG
-//  	//.clk_out2_10M (clk4_out2_10M ),  // BUFG
-//  	// Status and control signals     
-//  	.resetn(clk_locked_pre),          
-//  	.locked(clk4_locked),
-//  	// Clock in ports
-//  	.clk_in1(clk_out1_200M)
-//  );
+
 
 //}
 
 // clock pll for DAC 400MHz  //{
 
-// add more clocks for DAC0_DCI DAC1_DCI
-//  DCI pin swap info:
-//    DAC0_DCI_P/N - pin noraml
-//    DAC1_DCI_P/N - pin swap
 
-//$$ note ... 
-//    clk_wiz_1 setting : eventually 1:1
-//                        output 400MHz --> 200MHz 
-//                        input             200MHz
-//    input clock from CLKD 400MHz 
-//    clk_wiz_1 --> clk_wiz_1_3 removed unused
 
 wire clk_dac_out1_400M; // DAC update rate 
 wire clk_dac_out2_400M_0;   // for DAC0_DCI //$$ alternative to DAC0_DCO
@@ -1386,21 +1335,7 @@ clk_wiz_1_2  clk_wiz_1_2_inst(
 	.clk_in1_200M       (clk_dac_clk_in) // no buf
 );
 
-//clk_wiz_1_3  clk_wiz_1_3_inst(
-//	// Clock out ports  
-//	.clk_out1_400M      (clk_dac_out1_400M     ), // BUFGCE // same buf type for phase align 
-//	.clk_out2_400M_0    (clk_dac_out2_400M_0   ), // BUFGCE // same buf type for phase align
-//	.clk_out3_400M_180  (clk_dac_out3_400M_180 ), // BUFGCE // same buf type for phase align
-//	// clock en ports
-//	.clk_out1_400M_ce     (1'b1),
-//	.clk_out2_400M_0_ce   (1'b1),
-//	.clk_out3_400M_180_ce (1'b1),
-//	// Status and control signals     
-//	.resetn(clk_locked_pre & ~clk_dac_clk_rst),          
-//	.locked(clk_dac_locked),
-//	// Clock in ports
-//	.clk_in1_400M       (clk_dac_clk_in) // no buf
-//);
+
 
 //   
 wire dac0_dco_clk_out1_400M; // DAC0 update rate 
@@ -1461,37 +1396,7 @@ clk_wiz_1_2  clk_wiz_1_2_1_inst(
 	.clk_in1_200M      (dac1_dco_clk_in) // no buf // 0 deg
 );
 
-//  clk_wiz_1_3  clk_wiz_1_3_0_inst( // VCO 1400MHz
-//  	// Clock out ports  
-//  	.clk_out1_400M     (dac0_dco_clk_out1_400M), // BUFGCE // //$$ for dac0_clk
-//  	.clk_out2_400M_0   (dac0_dco_clk_out5_400M), // BUFGCE // //$$ for DAC0_DCI
-//  	.clk_out3_400M_180 (),
-//  	// clock en ports
-//  	.clk_out1_400M_ce     (1'b1 & (~dac0_clk_dis) ),
-//  	.clk_out2_400M_0_ce   (1'b1 & (~dac0_clk_dis) ),
-//  	.clk_out3_400M_180_ce (1'b0),
-//  	// Status and control signals            
-//  	.resetn(clk_locked_pre & ~dac0_dco_clk_rst),          
-//  	.locked(dac0_dco_clk_locked),
-//  	// Clock in ports
-//  	.clk_in1_400M      (dac0_dco_clk_in) // no buf
-//  );
-//  //
-//  clk_wiz_1_3  clk_wiz_1_3_1_inst(
-//  	// Clock out ports  
-//  	.clk_out1_400M     (dac1_dco_clk_out5_400M), // BUFGCE // 0 deg for dci same phase with clk in //$$ for DAC1_DCI 
-//  	.clk_out2_400M_0   (),
-//  	.clk_out3_400M_180 (dac1_dco_clk_out1_400M), // BUFGCE // 180 deg for clock in PN swap //$$ for dac1_clk
-//  	// clock en ports
-//  	.clk_out1_400M_ce     (1'b1 & (~dac1_clk_dis) ),
-//  	.clk_out2_400M_0_ce   (1'b0),
-//  	.clk_out3_400M_180_ce (1'b1 & (~dac1_clk_dis) ),
-//  	// Status and control signals            
-//  	.resetn(clk_locked_pre & ~dac1_dco_clk_rst),          
-//  	.locked(dac1_dco_clk_locked),
-//  	// Clock in ports
-//  	.clk_in1_400M      (dac1_dco_clk_in) // no buf // 0 deg
-//  );
+
 
 //}
 
