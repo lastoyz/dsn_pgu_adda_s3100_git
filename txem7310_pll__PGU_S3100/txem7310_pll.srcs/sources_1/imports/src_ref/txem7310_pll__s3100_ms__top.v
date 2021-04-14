@@ -92,7 +92,7 @@ module txem7310_pll__s3100_ms__top (
 	output wire  o_B15_L3P_AD1P   , // # J14  # F_TP4 
 	output wire  o_B15_L3N_AD1N   , // # H14  # F_TP5 
 	//                                        
-	output wire  o_B15_L4P        , // # G17  # EXT_I2C_4_SCL
+	input  wire  i_B15_L4P        , // # G17  # EXT_I2C_4_SCL
 	inout  wire io_B15_L4N        , // # G18  # EXT_I2C_4_SDA
 	//                                        
 	output wire  o_B15_L5P_AD9P   , // # J15  # F_TP6 
@@ -218,7 +218,6 @@ module txem7310_pll__s3100_ms__top (
 	//// note: BANK 13 34 35 signal lists // compatible with TXEM7310 connectors in PGU //{
 	
 	// MC1 - odd //{
-	
 	// # MC1-15  # o_B34D_L24P,       # DAC0_DAT_N8 
 	// # MC1-19  # o_B34D_L24N,       # DAC0_DAT_N9 
 	// # MC1-17  # o_B34D_L17P,       # DAC0_DAT_P8 
@@ -254,7 +253,6 @@ module txem7310_pll__s3100_ms__top (
 	//}
 	
 	// MC1 - even //{
-
 	// # MC1-8   # o_B13_SYS_CLK_MC1, # DACx_RST_B
 	// # MC1-10  # i_XADC_VN,         # XADC_VN  # M9
 	// # MC1-12  # i_XADC_VP,         # XADC_VP  # L10
@@ -291,7 +289,6 @@ module txem7310_pll__s3100_ms__top (
 	//}
 	
 	// MC2 - odd //{
-
 	// # MC2-11  # o_B13_SYS_CLK_MC2, # CLKD_SYNC
 	// # MC2-15  # o_B35D_L21P,       # DAC1_DAT_N0  //$$ --> DAC1_DAT_P3
 	// # MC2-17  # o_B35D_L21N,       # DAC1_DAT_P0  //$$ --> DAC1_DAT_N3
@@ -581,9 +578,6 @@ parameter REQ_SW_BUILD_ID = 32'h_A57E_183C; // 0 for bypass
 
 /* TODO: IO BUF assignment */ //{
 
-//OBUF obuf__EP_LAN_CS_B__inst (.O( o_B15_L8P ), .I( PT_FMOD_EP_LAN_CS_B  ) ); // 
-//IBUF ibuf__EP_LAN_INT_B_inst (.I( i_B15_L8N ), .O( PT_FMOD_EP_LAN_INT_B ) ); //
-//IOBUF iobuf__TP0__inst(.IO(io_B15_L1P  ), .T(TP_tri[0]), .I(TP_out[0] ), .O(TP_in[0] ) ); //
 
 //// BANK B14 IOBUF //{
 
@@ -593,12 +587,12 @@ wire FPGA_IO2;
 wire FPGA_IO3;
 wire FPGA_IO4;
 wire FPGA_IO5;
-OBUF obuf__FPGA_IO0__inst (.O( o_B14_L4P ), .I( FPGA_IO0 ) ); 
-OBUF obuf__FPGA_IO1__inst (.O( o_B14_L4N ), .I( FPGA_IO1 ) ); 
-OBUF obuf__FPGA_IO2__inst (.O( o_B14_L5P ), .I( FPGA_IO2 ) ); 
-OBUF obuf__FPGA_IO3__inst (.O( o_B14_L5N ), .I( FPGA_IO3 ) ); 
-OBUF obuf__FPGA_IO4__inst (.O( o_B14_L6N ), .I( FPGA_IO4 ) );
-OBUF obuf__FPGA_IO5__inst (.O( o_B14_L7P ), .I( FPGA_IO5 ) );
+OBUF obuf__FPGA_IO0__inst(.O( o_B14_L4P ), .I( FPGA_IO0 ) ); 
+OBUF obuf__FPGA_IO1__inst(.O( o_B14_L4N ), .I( FPGA_IO1 ) ); 
+OBUF obuf__FPGA_IO2__inst(.O( o_B14_L5P ), .I( FPGA_IO2 ) ); 
+OBUF obuf__FPGA_IO3__inst(.O( o_B14_L5N ), .I( FPGA_IO3 ) ); 
+OBUF obuf__FPGA_IO4__inst(.O( o_B14_L6N ), .I( FPGA_IO4 ) );
+OBUF obuf__FPGA_IO5__inst(.O( o_B14_L7P ), .I( FPGA_IO5 ) );
 
 wire FPGA_MBD_RS_422_SPI_EN  ;
 wire FPGA_MBD_RS_422_TRIG_EN ;
@@ -606,12 +600,12 @@ wire FPGA_M0_SPI_TX_EN       ;
 wire FPGA_M1_SPI_TX_EN       ;
 wire FPGA_M2_SPI_TX_EN       ;
 wire FPGA_TRIG_TX_EN         ;
-OBUF obuf__FPGA_MBD_RS_422_SPI_EN___inst (.O( o_B14_L7N  ), .I( FPGA_MBD_RS_422_SPI_EN  ) );
-OBUF obuf__FPGA_MBD_RS_422_TRIG_EN__inst (.O( o_B14_L8P  ), .I( FPGA_MBD_RS_422_TRIG_EN ) );
-OBUF obuf__FPGA_M0_SPI_TX_EN________inst (.O( o_B14_L8N  ), .I( FPGA_M0_SPI_TX_EN       ) );
-OBUF obuf__FPGA_M1_SPI_TX_EN________inst (.O( o_B14_L9P  ), .I( FPGA_M1_SPI_TX_EN       ) );
-OBUF obuf__FPGA_M2_SPI_TX_EN________inst (.O( o_B14_L9N  ), .I( FPGA_M2_SPI_TX_EN       ) );
-OBUF obuf__FPGA_TRIG_TX_EN__________inst (.O( o_B14_L10P ), .I( FPGA_TRIG_TX_EN         ) );
+OBUF obuf__FPGA_MBD_RS_422_SPI_EN___inst(.O( o_B14_L7N  ), .I( FPGA_MBD_RS_422_SPI_EN  ) );
+OBUF obuf__FPGA_MBD_RS_422_TRIG_EN__inst(.O( o_B14_L8P  ), .I( FPGA_MBD_RS_422_TRIG_EN ) );
+OBUF obuf__FPGA_M0_SPI_TX_EN________inst(.O( o_B14_L8N  ), .I( FPGA_M0_SPI_TX_EN       ) );
+OBUF obuf__FPGA_M1_SPI_TX_EN________inst(.O( o_B14_L9P  ), .I( FPGA_M1_SPI_TX_EN       ) );
+OBUF obuf__FPGA_M2_SPI_TX_EN________inst(.O( o_B14_L9N  ), .I( FPGA_M2_SPI_TX_EN       ) );
+OBUF obuf__FPGA_TRIG_TX_EN__________inst(.O( o_B14_L10P ), .I( FPGA_TRIG_TX_EN         ) );
 
 wire [7:0] led; //$$
 wire FPGA_LED0 = led[0];  //$$ led                
@@ -622,14 +616,14 @@ wire FPGA_LED4 = led[4];  //$$ led
 wire FPGA_LED5 = led[5];  //$$ led                
 wire FPGA_LED6 = led[6];  //$$ led                
 wire FPGA_LED7 = led[7];  //$$ led                
-OBUF obuf__FPGA_LED0__inst (.O( o_B14_L11P_SRCC  ), .I( FPGA_LED0 ) );
-OBUF obuf__FPGA_LED1__inst (.O( o_B14_L11N_SRCC  ), .I( FPGA_LED1 ) );
-OBUF obuf__FPGA_LED2__inst (.O( o_B14_L12P_MRCC  ), .I( FPGA_LED2 ) );
-OBUF obuf__FPGA_LED3__inst (.O( o_B14_L12N_MRCC  ), .I( FPGA_LED3 ) );
-OBUF obuf__FPGA_LED4__inst (.O( o_B14_L13P_MRCC  ), .I( FPGA_LED4 ) );
-OBUF obuf__FPGA_LED5__inst (.O( o_B14_L13N_MRCC  ), .I( FPGA_LED5 ) );
-OBUF obuf__FPGA_LED6__inst (.O( o_B14_L14P_SRCC  ), .I( FPGA_LED6 ) );
-OBUF obuf__FPGA_LED7__inst (.O( o_B14_L14N_SRCC  ), .I( FPGA_LED7 ) );
+OBUF obuf__FPGA_LED0__inst(.O( o_B14_L11P_SRCC  ), .I( FPGA_LED0 ) );
+OBUF obuf__FPGA_LED1__inst(.O( o_B14_L11N_SRCC  ), .I( FPGA_LED1 ) );
+OBUF obuf__FPGA_LED2__inst(.O( o_B14_L12P_MRCC  ), .I( FPGA_LED2 ) );
+OBUF obuf__FPGA_LED3__inst(.O( o_B14_L12N_MRCC  ), .I( FPGA_LED3 ) );
+OBUF obuf__FPGA_LED4__inst(.O( o_B14_L13P_MRCC  ), .I( FPGA_LED4 ) );
+OBUF obuf__FPGA_LED5__inst(.O( o_B14_L13N_MRCC  ), .I( FPGA_LED5 ) );
+OBUF obuf__FPGA_LED6__inst(.O( o_B14_L14P_SRCC  ), .I( FPGA_LED6 ) );
+OBUF obuf__FPGA_LED7__inst(.O( o_B14_L14N_SRCC  ), .I( FPGA_LED7 ) );
 								 		 
 wire FPGA_GPIO_PB5 ;
 wire FPGA_GPIO_PC4 ;
@@ -637,12 +631,12 @@ wire FPGA_GPIO_PC5 ;
 wire FPGA_GPIO_PH4 ;
 wire FPGA_GPIO_PH6 ;
 wire FPGA_GPIO_PH7 ;
-OBUF obuf__FPGA_GPIO_PB5__inst (.O( o_B14_L16N  ), .I( FPGA_GPIO_PB5 ) );
-OBUF obuf__FPGA_GPIO_PC4__inst (.O( o_B14_L17P  ), .I( FPGA_GPIO_PC4 ) );
-OBUF obuf__FPGA_GPIO_PC5__inst (.O( o_B14_L17N  ), .I( FPGA_GPIO_PC5 ) );
-OBUF obuf__FPGA_GPIO_PH4__inst (.O( o_B14_L18P  ), .I( FPGA_GPIO_PH4 ) );
-OBUF obuf__FPGA_GPIO_PH6__inst (.O( o_B14_L18N  ), .I( FPGA_GPIO_PH6 ) );
-OBUF obuf__FPGA_GPIO_PH7__inst (.O( o_B14_L19P  ), .I( FPGA_GPIO_PH7 ) );
+OBUF obuf__FPGA_GPIO_PB5__inst(.O( o_B14_L16N  ), .I( FPGA_GPIO_PB5 ) );
+OBUF obuf__FPGA_GPIO_PC4__inst(.O( o_B14_L17P  ), .I( FPGA_GPIO_PC4 ) );
+OBUF obuf__FPGA_GPIO_PC5__inst(.O( o_B14_L17N  ), .I( FPGA_GPIO_PC5 ) );
+OBUF obuf__FPGA_GPIO_PH4__inst(.O( o_B14_L18P  ), .I( FPGA_GPIO_PH4 ) );
+OBUF obuf__FPGA_GPIO_PH6__inst(.O( o_B14_L18N  ), .I( FPGA_GPIO_PH6 ) );
+OBUF obuf__FPGA_GPIO_PH7__inst(.O( o_B14_L19P  ), .I( FPGA_GPIO_PH7 ) );
 				 				 		 
 wire FPGA_GPIO_PC9  ;
 wire FPGA_GPIO_PC10 ;
@@ -651,35 +645,570 @@ wire FPGA_GPIO_PC12 ;
 wire FPGA_GPIO_PC13 ;
 wire FPGA_GPIO_PC14 ;
 wire FPGA_GPIO_PC15 ;
-OBUF obuf__FPGA_GPIO_PC9___inst (.O( o_B14_L19N  ), .I( FPGA_GPIO_PC9  ) );
-OBUF obuf__FPGA_GPIO_PC10__inst (.O( o_B14_L20P  ), .I( FPGA_GPIO_PC10 ) );
-OBUF obuf__FPGA_GPIO_PC11__inst (.O( o_B14_L20N  ), .I( FPGA_GPIO_PC11 ) );
-OBUF obuf__FPGA_GPIO_PC12__inst (.O( o_B14_L21P  ), .I( FPGA_GPIO_PC12 ) );
-OBUF obuf__FPGA_GPIO_PC13__inst (.O( o_B14_L21N  ), .I( FPGA_GPIO_PC13 ) );
-OBUF obuf__FPGA_GPIO_PC14__inst (.O( o_B14_L22P  ), .I( FPGA_GPIO_PC14 ) );
-OBUF obuf__FPGA_GPIO_PC15__inst (.O( o_B14_L22N  ), .I( FPGA_GPIO_PC15 ) );
+OBUF obuf__FPGA_GPIO_PC9___inst(.O( o_B14_L19N  ), .I( FPGA_GPIO_PC9  ) );
+OBUF obuf__FPGA_GPIO_PC10__inst(.O( o_B14_L20P  ), .I( FPGA_GPIO_PC10 ) );
+OBUF obuf__FPGA_GPIO_PC11__inst(.O( o_B14_L20N  ), .I( FPGA_GPIO_PC11 ) );
+OBUF obuf__FPGA_GPIO_PC12__inst(.O( o_B14_L21P  ), .I( FPGA_GPIO_PC12 ) );
+OBUF obuf__FPGA_GPIO_PC13__inst(.O( o_B14_L21N  ), .I( FPGA_GPIO_PC13 ) );
+OBUF obuf__FPGA_GPIO_PC14__inst(.O( o_B14_L22P  ), .I( FPGA_GPIO_PC14 ) );
+OBUF obuf__FPGA_GPIO_PC15__inst(.O( o_B14_L22N  ), .I( FPGA_GPIO_PC15 ) );
 
 wire FPGA_GPIO_PD2  ;
 wire FPGA_GPIO_PI8  ;
 wire FPGA_GPIO_PA8  ;
 wire FPGA_GPIO_PB11 ;
-IBUF ibuf__FPGA_GPIO_PD2__inst (.I( i_B14_L23P ), .O( FPGA_GPIO_PD2  ) ); //
-IBUF ibuf__FPGA_GPIO_PI8__inst (.I( i_B14_L23N ), .O( FPGA_GPIO_PI8  ) ); //
-IBUF ibuf__FPGA_GPIO_PA8__inst (.I( i_B14_L24P ), .O( FPGA_GPIO_PA8  ) ); //
-IBUF ibuf__FPGA_GPIO_PB11_inst (.I( i_B14_L24N ), .O( FPGA_GPIO_PB11 ) ); //
+IBUF ibuf__FPGA_GPIO_PD2__inst(.I( i_B14_L23P ), .O( FPGA_GPIO_PD2  ) ); //
+IBUF ibuf__FPGA_GPIO_PI8__inst(.I( i_B14_L23N ), .O( FPGA_GPIO_PI8  ) ); //
+IBUF ibuf__FPGA_GPIO_PA8__inst(.I( i_B14_L24P ), .O( FPGA_GPIO_PA8  ) ); //
+IBUF ibuf__FPGA_GPIO_PB11_inst(.I( i_B14_L24N ), .O( FPGA_GPIO_PB11 ) ); //
 
 	
 //}
 
-//// BANK B15 IOBUF
+//// BANK B15 IOBUF //{
 
-//// BANK B16 IOBUF
+wire F_RDY ;
+wire BUF_FMC_CLK ;
+OBUF obuf__F_RDY__inst      ( .O( o_B15_0_ ), .I( F_RDY        ) );
+IBUF ibuf__BUF_FMC_CLK__inst( .I( i_B15_25 ), .O( BUF_FMC_CLK  ) );
 
-//// BANK B13 IOBUF
 
-//// BANK B34 IOBUF
+wire  F_TP0 ;
+wire  F_TP1 ;
+wire  F_TP2 ;
+wire  F_TP3 ;
+wire  F_TP4 ;
+wire  F_TP5 ;
+wire  F_TP6 ;
+wire  F_TP7 ;
+OBUF obuf__F_TP0__inst(.O( o_B15_L1P_AD0P ), .I( F_TP0 ) );
+OBUF obuf__F_TP1__inst(.O( o_B15_L1N_AD0N ), .I( F_TP1 ) );
+OBUF obuf__F_TP2__inst(.O( o_B15_L2P_AD8P ), .I( F_TP2 ) );
+OBUF obuf__F_TP3__inst(.O( o_B15_L2N_AD8N ), .I( F_TP3 ) );
+OBUF obuf__F_TP4__inst(.O( o_B15_L3P_AD1P ), .I( F_TP4 ) );
+OBUF obuf__F_TP5__inst(.O( o_B15_L3N_AD1N ), .I( F_TP5 ) );
+OBUF obuf__F_TP6__inst(.O( o_B15_L5P_AD9P ), .I( F_TP6 ) );
+OBUF obuf__F_TP7__inst(.O( o_B15_L5N_AD9N ), .I( F_TP7 ) );
 
-//// BANK B35 IOBUF
+wire EXT_I2C_4_SCL_in  ;
+wire EXT_I2C_4_SDA_tri ;
+wire EXT_I2C_4_SDA_out ;
+wire EXT_I2C_4_SDA_in  ;
+IBUF   ibuf__EXT_I2C_4_SCL__inst( .I( i_B15_L4P ), .O( EXT_I2C_4_SCL_in  ) );
+IOBUF iobuf__EXT_I2C_4_SDA__inst(.IO(io_B15_L4N ), 
+								                   .T( EXT_I2C_4_SDA_tri ) , 
+								                   .I( EXT_I2C_4_SDA_out ) , 
+								                   .O( EXT_I2C_4_SDA_in  ) ); 
+								   
+	// ## LAN for END-POINTS       
+wire  LAN_PWDN    ;
+wire  LAN_RST_B   ;
+wire  LAN_SSAUX_B ;
+wire  LAN_SSN_B   ;
+wire  LAN_MOSI    ;
+wire  LAN_SCLK    ;
+wire  LAN_INT_B   ;
+wire  LAN_MISO    ;
+OBUF obuf__LAN_PWDN_____inst(.O( o_B15_L6P ), .I( LAN_PWDN    ) );
+OBUF obuf__LAN_RST_B____inst(.O( o_B15_L9P ), .I( LAN_RST_B   ) );
+OBUF obuf__LAN_SSAUX_B__inst(.O( o_B15_L6N ), .I( LAN_SSAUX_B ) );
+OBUF obuf__LAN_SSN_B____inst(.O( o_B15_L8P ), .I( LAN_SSN_B   ) );
+OBUF obuf__LAN_MOSI_____inst(.O( o_B15_L7P ), .I( LAN_MOSI    ) );
+OBUF obuf__LAN_SCLK_____inst(.O( o_B15_L7N ), .I( LAN_SCLK    ) );
+IBUF ibuf__LAN_INT_B____inst( .I( i_B15_L8N ), .O( LAN_INT_B   ) );
+IBUF ibuf__LAN_MISO_____inst( .I( i_B15_L9N ), .O( LAN_MISO    ) );
+	
+// # H20  # AUX_AD11P ## unused
+// # G20  # AUX_AD11N ## unused
+
+wire SCIO_0_tri ;
+wire SCIO_0_out ;
+wire SCIO_0_in  ;
+wire SCIO_1_tri ;
+wire SCIO_1_out ;
+wire SCIO_1_in  ;
+IOBUF iobuf__SCIO_0__inst(.IO(io_B15_L11P_SRCC ), 
+			                   .T( SCIO_0_tri ) , 
+			                   .I( SCIO_0_out ) , 
+			                   .O( SCIO_0_in  ) ); 
+IOBUF iobuf__SCIO_1__inst(.IO(io_B15_L11N_SRCC ), 
+			                   .T( SCIO_1_tri ) , 
+			                   .I( SCIO_1_out ) , 
+			                   .O( SCIO_1_in  ) ); 
+
+wire  GPIB_nCS      ;
+wire  GPIB_nRESET   ;
+wire  GPIB_SW_nOE   ;
+wire  GPIB_DATA_DIR ;
+wire  GPIB_DATA_nOE ;
+wire  GPIB_IRQ      ;
+wire  GPIB_REM      ;
+wire  GPIB_TADCS    ;
+wire  GPIB_LADCS    ;
+wire  GPIB_DCAS     ;
+wire  GPIB_TRIG     ;
+OBUF obuf__GPIB_nCS_______inst(.O( o_B15_L12N_MRCC ), .I( GPIB_nCS      ) );
+OBUF obuf__GPIB_nRESET____inst(.O( o_B15_L13P_MRCC ), .I( GPIB_nRESET   ) );
+OBUF obuf__GPIB_SW_nOE____inst(.O( o_B15_L13N_MRCC ), .I( GPIB_SW_nOE   ) );
+OBUF obuf__GPIB_DATA_DIR__inst(.O( o_B15_L16N      ), .I( GPIB_DATA_DIR ) );
+OBUF obuf__GPIB_DATA_nOE__inst(.O( o_B15_L17P      ), .I( GPIB_DATA_nOE ) );
+IBUF ibuf__GPIB_IRQ_______inst( .I( i_B15_L12P_MRCC ), .O( GPIB_IRQ      ) );
+IBUF ibuf__GPIB_REM_______inst( .I( i_B15_L14P_SRCC ), .O( GPIB_REM      ) );
+IBUF ibuf__GPIB_TADCS_____inst( .I( i_B15_L14N_SRCC ), .O( GPIB_TADCS    ) );
+IBUF ibuf__GPIB_LADCS_____inst( .I( i_B15_L15P      ), .O( GPIB_LADCS    ) );
+IBUF ibuf__GPIB_DCAS______inst( .I( i_B15_L15N      ), .O( GPIB_DCAS     ) );
+IBUF ibuf__GPIB_TRIG______inst( .I( i_B15_L16P      ), .O( GPIB_TRIG     ) );
+
+// # N19  # NA
+							        
+wire  BA25 ;
+wire  BA24 ;
+wire  BA23 ;
+wire  BA22 ;
+wire  BA21 ;
+wire  BA20 ;
+wire  BA19 ;
+wire  BA18 ;
+wire  BA7  ;
+wire  BA6  ;
+wire  BA5  ;
+wire  BA4  ;
+wire  BA3  ;
+wire  BA2  ;
+IBUF ibuf__BA25__inst( .I( i_B15_L18P ), .O( BA25 ) );
+IBUF ibuf__BA24__inst( .I( i_B15_L18N ), .O( BA24 ) );
+IBUF ibuf__BA23__inst( .I( i_B15_L19P ), .O( BA23 ) );
+IBUF ibuf__BA22__inst( .I( i_B15_L19N ), .O( BA22 ) );
+IBUF ibuf__BA21__inst( .I( i_B15_L20P ), .O( BA21 ) );
+IBUF ibuf__BA20__inst( .I( i_B15_L20N ), .O( BA20 ) );
+IBUF ibuf__BA19__inst( .I( i_B15_L21P ), .O( BA19 ) );
+IBUF ibuf__BA18__inst( .I( i_B15_L21N ), .O( BA18 ) );
+IBUF ibuf__BA7___inst( .I( i_B15_L22P ), .O( BA7  ) );
+IBUF ibuf__BA6___inst( .I( i_B15_L22N ), .O( BA6  ) );
+IBUF ibuf__BA5___inst( .I( i_B15_L23P ), .O( BA5  ) );
+IBUF ibuf__BA4___inst( .I( i_B15_L23N ), .O( BA4  ) );
+IBUF ibuf__BA3___inst( .I( i_B15_L24P ), .O( BA3  ) );
+IBUF ibuf__BA2___inst( .I( i_B15_L24N ), .O( BA2  ) );
+
+
+//}
+
+//// BANK B16 IOBUF //{
+
+wire  BASE_F_LED_ERR ;
+wire  RUN_FPGA_LED   ;
+wire  BUF_nRESET     ;
+OBUF obuf__BASE_F_LED_ERR__inst(.O( o_B16_0_   ), .I( BASE_F_LED_ERR ) );
+OBUF obuf__RUN_FPGA_LED____inst(.O( o_B16_25   ), .I( RUN_FPGA_LED   ) );
+IBUF ibuf__BUF_nRESET______inst( .I( i_B16_L24N ), .O( BUF_nRESET     ) );
+	
+wire BD0__tri ;  wire BD0__out ;  wire BD0__in ;
+wire BD1__tri ;  wire BD1__out ;  wire BD1__in ;
+wire BD2__tri ;  wire BD2__out ;  wire BD2__in ;
+wire BD3__tri ;  wire BD3__out ;  wire BD3__in ;
+wire BD4__tri ;  wire BD4__out ;  wire BD4__in ;
+wire BD5__tri ;  wire BD5__out ;  wire BD5__in ;
+wire BD6__tri ;  wire BD6__out ;  wire BD6__in ;
+wire BD7__tri ;  wire BD7__out ;  wire BD7__in ;
+wire BD8__tri ;  wire BD8__out ;  wire BD8__in ;
+wire BD9__tri ;  wire BD9__out ;  wire BD9__in ;
+wire BD10_tri ;  wire BD10_out ;  wire BD10_in ;
+wire BD11_tri ;  wire BD11_out ;  wire BD11_in ;
+wire BD12_tri ;  wire BD12_out ;  wire BD12_in ;
+wire BD13_tri ;  wire BD13_out ;  wire BD13_in ;
+wire BD14_tri ;  wire BD14_out ;  wire BD14_in ;
+wire BD15_tri ;  wire BD15_out ;  wire BD15_in ;
+wire BD16_tri ;  wire BD16_out ;  wire BD16_in ;
+wire BD17_tri ;  wire BD17_out ;  wire BD17_in ;
+wire BD18_tri ;  wire BD18_out ;  wire BD18_in ;
+wire BD19_tri ;  wire BD19_out ;  wire BD19_in ;
+wire BD20_tri ;  wire BD20_out ;  wire BD20_in ;
+wire BD21_tri ;  wire BD21_out ;  wire BD21_in ;
+wire BD22_tri ;  wire BD22_out ;  wire BD22_in ;
+wire BD23_tri ;  wire BD23_out ;  wire BD23_in ;
+wire BD24_tri ;  wire BD24_out ;  wire BD24_in ;
+wire BD25_tri ;  wire BD25_out ;  wire BD25_in ;
+wire BD26_tri ;  wire BD26_out ;  wire BD26_in ;
+wire BD27_tri ;  wire BD27_out ;  wire BD27_in ;
+wire BD28_tri ;  wire BD28_out ;  wire BD28_in ;
+wire BD29_tri ;  wire BD29_out ;  wire BD29_in ;
+wire BD30_tri ;  wire BD30_out ;  wire BD30_in ;
+wire BD31_tri ;  wire BD31_out ;  wire BD31_in ;
+IOBUF iobuf__BD0___inst(.IO( io_B16_L1P  ), .T( BD0__tri ), .I( BD0__out ), .O( BD0__in  ) ); 
+IOBUF iobuf__BD1___inst(.IO( io_B16_L1N  ), .T( BD1__tri ), .I( BD1__out ), .O( BD1__in  ) ); 
+IOBUF iobuf__BD2___inst(.IO( io_B16_L2P  ), .T( BD2__tri ), .I( BD2__out ), .O( BD2__in  ) ); 
+IOBUF iobuf__BD3___inst(.IO( io_B16_L2N  ), .T( BD3__tri ), .I( BD3__out ), .O( BD3__in  ) ); 
+IOBUF iobuf__BD4___inst(.IO( io_B16_L3P  ), .T( BD4__tri ), .I( BD4__out ), .O( BD4__in  ) ); 
+IOBUF iobuf__BD5___inst(.IO( io_B16_L3N  ), .T( BD5__tri ), .I( BD5__out ), .O( BD5__in  ) ); 
+IOBUF iobuf__BD6___inst(.IO( io_B16_L4P  ), .T( BD6__tri ), .I( BD6__out ), .O( BD6__in  ) ); 
+IOBUF iobuf__BD7___inst(.IO( io_B16_L4N  ), .T( BD7__tri ), .I( BD7__out ), .O( BD7__in  ) ); 
+IOBUF iobuf__BD8___inst(.IO( io_B16_L5P  ), .T( BD8__tri ), .I( BD8__out ), .O( BD8__in  ) ); 
+IOBUF iobuf__BD9___inst(.IO( io_B16_L5N  ), .T( BD9__tri ), .I( BD9__out ), .O( BD9__in  ) ); 
+IOBUF iobuf__BD10__inst(.IO( io_B16_L6P  ), .T( BD10_tri ), .I( BD10_out ), .O( BD10_in  ) ); 
+IOBUF iobuf__BD11__inst(.IO( io_B16_L6N  ), .T( BD11_tri ), .I( BD11_out ), .O( BD11_in  ) ); 
+IOBUF iobuf__BD12__inst(.IO( io_B16_L7P  ), .T( BD12_tri ), .I( BD12_out ), .O( BD12_in  ) ); 
+IOBUF iobuf__BD13__inst(.IO( io_B16_L7N  ), .T( BD13_tri ), .I( BD13_out ), .O( BD13_in  ) ); 
+IOBUF iobuf__BD14__inst(.IO( io_B16_L8P  ), .T( BD14_tri ), .I( BD14_out ), .O( BD14_in  ) ); 
+IOBUF iobuf__BD15__inst(.IO( io_B16_L8N  ), .T( BD15_tri ), .I( BD15_out ), .O( BD15_in  ) ); 
+IOBUF iobuf__BD16__inst(.IO( io_B16_L9P  ), .T( BD16_tri ), .I( BD16_out ), .O( BD16_in  ) ); 
+IOBUF iobuf__BD17__inst(.IO( io_B16_L9N  ), .T( BD17_tri ), .I( BD17_out ), .O( BD17_in  ) ); 
+IOBUF iobuf__BD18__inst(.IO( io_B16_L10P ), .T( BD18_tri ), .I( BD18_out ), .O( BD18_in  ) ); 
+IOBUF iobuf__BD19__inst(.IO( io_B16_L10N ), .T( BD19_tri ), .I( BD19_out ), .O( BD19_in  ) ); 
+IOBUF iobuf__BD20__inst(.IO( io_B16_L11P ), .T( BD20_tri ), .I( BD20_out ), .O( BD20_in  ) ); 
+IOBUF iobuf__BD21__inst(.IO( io_B16_L11N ), .T( BD21_tri ), .I( BD21_out ), .O( BD21_in  ) ); 
+IOBUF iobuf__BD22__inst(.IO( io_B16_L12P ), .T( BD22_tri ), .I( BD22_out ), .O( BD22_in  ) ); 
+IOBUF iobuf__BD23__inst(.IO( io_B16_L12N ), .T( BD23_tri ), .I( BD23_out ), .O( BD23_in  ) ); 
+IOBUF iobuf__BD24__inst(.IO( io_B16_L13P ), .T( BD24_tri ), .I( BD24_out ), .O( BD24_in  ) ); 
+IOBUF iobuf__BD25__inst(.IO( io_B16_L13N ), .T( BD25_tri ), .I( BD25_out ), .O( BD25_in  ) ); 
+IOBUF iobuf__BD26__inst(.IO( io_B16_L14P ), .T( BD26_tri ), .I( BD26_out ), .O( BD26_in  ) ); 
+IOBUF iobuf__BD27__inst(.IO( io_B16_L14N ), .T( BD27_tri ), .I( BD27_out ), .O( BD27_in  ) ); 
+IOBUF iobuf__BD28__inst(.IO( io_B16_L15P ), .T( BD28_tri ), .I( BD28_out ), .O( BD28_in  ) ); 
+IOBUF iobuf__BD29__inst(.IO( io_B16_L15N ), .T( BD29_tri ), .I( BD29_out ), .O( BD29_in  ) ); 
+IOBUF iobuf__BD30__inst(.IO( io_B16_L16P ), .T( BD30_tri ), .I( BD30_out ), .O( BD30_in  ) ); 
+IOBUF iobuf__BD31__inst(.IO( io_B16_L16N ), .T( BD31_tri ), .I( BD31_out ), .O( BD31_in  ) ); 
+
+// # A18  # NA
+
+wire  BUF_DATA_DIR ;
+wire  nBUF_DATA_OE ;
+OBUF obuf__BUF_DATA_DIR__inst(.O( o_B16_L17N ), .I( BUF_DATA_DIR ) );
+OBUF obuf__nBUF_DATA_OE__inst(.O( o_B16_L18P ), .I( nBUF_DATA_OE ) );
+
+// # F20  # NA
+
+wire  INTER_RELAY_O ;
+wire  INTER_LED_O   ;
+wire  INTER_LOCK_ON ;
+OBUF obuf__INTER_RELAY_O__inst(.O( o_B16_L19P ), .I( INTER_RELAY_O ) );
+OBUF obuf__INTER_LED_O____inst(.O( o_B16_L19N ), .I( INTER_LED_O   ) );
+IBUF ibuf__INTER_LOCK_ON__inst( .I( i_B16_L20P ), .O( INTER_LOCK_ON ) );
+
+// # B22  # NA
+
+wire  nBNE1 ;
+wire  nBNE2 ;
+wire  nBNE3 ;
+wire  nBNE4 ;
+wire  nBOE  ;
+wire  nBWE  ;
+IBUF ibuf__nBNE1__inst( .I( i_B16_L21P ), .O( nBNE1 ) );
+IBUF ibuf__nBNE2__inst( .I( i_B16_L21N ), .O( nBNE2 ) );
+IBUF ibuf__nBNE3__inst( .I( i_B16_L22P ), .O( nBNE3 ) );
+IBUF ibuf__nBNE4__inst( .I( i_B16_L22N ), .O( nBNE4 ) );
+IBUF ibuf__nBOE___inst( .I( i_B16_L23P ), .O( nBOE  ) );
+IBUF ibuf__nBWE___inst( .I( i_B16_L23N ), .O( nBWE  ) );
+	
+// # G21  # NA
+	
+
+//}
+
+//// BANK B13 IOBUF //{
+
+// # Y17  # NA
+											  
+wire  SPI__1_SCLK ;
+wire  SPI__1_nCS  ;
+wire  SPI__1_MOSI ;
+wire  SPI__1_MISO ;
+IBUF ibuf__SPI__1_SCLK__inst( .I( i_B13_L1P ), .O( SPI__1_SCLK ) );
+IBUF ibuf__SPI__1_nCS___inst( .I( i_B13_L1N ), .O( SPI__1_nCS  ) );
+IBUF ibuf__SPI__1_MOSI__inst( .I( i_B13_L2P ), .O( SPI__1_MOSI ) );
+OBUF obuf__SPI__1_MISO__inst(.O( o_B13_L2N ), .I( SPI__1_MISO ) );
+
+wire  SPI__2_SCLK ;
+wire  SPI__2_nCS  ;
+wire  SPI__2_MOSI ;
+wire  SPI__2_MISO ;
+IBUF ibuf__SPI__2_SCLK__inst( .I( i_B13_L3P ), .O( SPI__2_SCLK ) );
+IBUF ibuf__SPI__2_nCS___inst( .I( i_B13_L3N ), .O( SPI__2_nCS  ) );
+IBUF ibuf__SPI__2_MOSI__inst( .I( i_B13_L4P ), .O( SPI__2_MOSI ) );
+OBUF obuf__SPI__2_MISO__inst(.O( o_B13_L4N ), .I( SPI__2_MISO ) );
+
+wire  QSPI_BK1_NCS ;
+wire  QSPI_CLK     ;
+wire  QSPI_BK1_IO0 ;
+wire  QSPI_BK1_IO1 ;
+wire  QSPI_BK1_IO2 ;
+wire  QSPI_BK1_IO3 ;
+IBUF ibuf__QSPI_BK1_NCS__inst( .I( i_B13_L5P ), .O( QSPI_BK1_NCS ) );
+IBUF ibuf__QSPI_CLK______inst( .I( i_B13_L5N ), .O( QSPI_CLK     ) );
+IBUF ibuf__QSPI_BK1_IO0__inst( .I( i_B13_L6P ), .O( QSPI_BK1_IO0 ) );
+IBUF ibuf__QSPI_BK1_IO1__inst( .I( i_B13_L6N ), .O( QSPI_BK1_IO1 ) );
+IBUF ibuf__QSPI_BK1_IO2__inst( .I( i_B13_L7P ), .O( QSPI_BK1_IO2 ) );
+IBUF ibuf__QSPI_BK1_IO3__inst( .I( i_B13_L7N ), .O( QSPI_BK1_IO3 ) );
+
+// # AA9    # NA
+
+wire  ETH_nRESET   ;
+wire  ETH_nCS      ;
+wire  ETH_nIRQ     ;
+wire  ETH_nLINKLED ;
+wire  ETH_nTXLED   ;
+wire  ETH_nRXLED   ;
+OBUF obuf__ETH_nRESET____inst( .O( o_B13_L9P       ), .I( ETH_nRESET   ) );
+OBUF obuf__ETH_nCS_______inst( .O( o_B13_L9N       ), .I( ETH_nCS      ) );
+IBUF ibuf__ETH_nIRQ______inst( .I( i_B13_L8N       ), .O( ETH_nIRQ     ) );
+IBUF ibuf__ETH_nLINKLED__inst( .I( i_B13_L10P      ), .O( ETH_nLINKLED ) );
+IBUF ibuf__ETH_nTXLED____inst( .I( i_B13_L10N      ), .O( ETH_nTXLED   ) );
+IBUF ibuf__ETH_nRXLED____inst( .I( i_B13_L11P_SRCC ), .O( ETH_nRXLED   ) );
+
+// # Y12    # NA
+
+// # W11    # clocks sys_clkp (*)
+// # W12    # clocks sys_clkn (*)
+
+wire  SYNC_10MHz     ;
+wire  EXT_TRIG_IN_CW ;
+IBUF ibuf__SYNC_10MHz______inst( .I( i_B13_L13P_MRCC ), .O( SYNC_10MHz ) );
+IBUF ibuf__EXT_TRIG_IN_CW__inst( .I( i_B13_L13N_MRCC ), .O( EXT_TRIG_IN_CW ) );
+
+wire  FPGA_FAN_SENS_0 ;
+wire  FPGA_FAN_SENS_1 ;
+wire  FPGA_FAN_SENS_2 ;
+wire  FPGA_FAN_SENS_3 ;
+wire  FPGA_FAN_SENS_4 ;
+wire  FPGA_FAN_SENS_5 ;
+wire  FPGA_FAN_SENS_6 ;
+wire  FPGA_FAN_SENS_7 ;
+IBUF ibuf__FPGA_FAN_SENS_0__inst( .I( i_B13_L14P_SRCC ), .O( FPGA_FAN_SENS_0 ) );
+IBUF ibuf__FPGA_FAN_SENS_1__inst( .I( i_B13_L14N_SRCC ), .O( FPGA_FAN_SENS_1 ) );
+IBUF ibuf__FPGA_FAN_SENS_2__inst( .I( i_B13_L15P      ), .O( FPGA_FAN_SENS_2 ) );
+IBUF ibuf__FPGA_FAN_SENS_3__inst( .I( i_B13_L15N      ), .O( FPGA_FAN_SENS_3 ) );
+IBUF ibuf__FPGA_FAN_SENS_4__inst( .I( i_B13_L16P      ), .O( FPGA_FAN_SENS_4 ) );
+IBUF ibuf__FPGA_FAN_SENS_5__inst( .I( i_B13_L16N      ), .O( FPGA_FAN_SENS_5 ) );
+IBUF ibuf__FPGA_FAN_SENS_6__inst( .I( i_B13_L17P      ), .O( FPGA_FAN_SENS_6 ) );
+IBUF ibuf__FPGA_FAN_SENS_7__inst( .I( i_B13_L17N      ), .O( FPGA_FAN_SENS_7 ) );
+
+//}
+
+//// BANK B34 IOBUF //{
+
+wire  FPGA_EXT_TRIG_IN_D  ;
+wire  FPGA_EXT_TRIG_OUT_D ;
+IBUF ibuf__FPGA_EXT_TRIG_IN_D___inst(.I( i_B34_0_ ), .O( FPGA_EXT_TRIG_IN_D  ) );
+OBUF obuf__FPGA_EXT_TRIG_OUT_D__inst(.O( o_B34_25 ), .I( FPGA_EXT_TRIG_OUT_D ) );
+											    
+wire  FPGA_M0_SPI_nCS0_;
+wire  FPGA_M0_SPI_nCS1_;
+wire  FPGA_M0_SPI_nCS2_;
+wire  FPGA_M0_SPI_nCS3_;
+wire  FPGA_M0_SPI_nCS4_;
+wire  FPGA_M0_SPI_nCS5_;
+wire  FPGA_M0_SPI_nCS6_;
+wire  FPGA_M0_SPI_nCS7_;
+wire  FPGA_M0_SPI_nCS8_;
+wire  FPGA_M0_SPI_nCS9_;
+wire  FPGA_M0_SPI_nCS10;
+wire  FPGA_M0_SPI_nCS11;
+wire  FPGA_M0_SPI_nCS12;
+OBUF obuf__FPGA_M0_SPI_nCS0___inst(.O( o_B34_L1P ), .I( FPGA_M0_SPI_nCS0_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS1___inst(.O( o_B34_L1N ), .I( FPGA_M0_SPI_nCS1_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS2___inst(.O( o_B34_L2P ), .I( FPGA_M0_SPI_nCS2_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS3___inst(.O( o_B34_L2N ), .I( FPGA_M0_SPI_nCS3_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS4___inst(.O( o_B34_L3P ), .I( FPGA_M0_SPI_nCS4_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS5___inst(.O( o_B34_L3N ), .I( FPGA_M0_SPI_nCS5_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS6___inst(.O( o_B34_L4P ), .I( FPGA_M0_SPI_nCS6_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS7___inst(.O( o_B34_L4N ), .I( FPGA_M0_SPI_nCS7_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS8___inst(.O( o_B34_L5P ), .I( FPGA_M0_SPI_nCS8_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS9___inst(.O( o_B34_L5N ), .I( FPGA_M0_SPI_nCS9_ ) );
+OBUF obuf__FPGA_M0_SPI_nCS10__inst(.O( o_B34_L6P ), .I( FPGA_M0_SPI_nCS10 ) );
+OBUF obuf__FPGA_M0_SPI_nCS11__inst(.O( o_B34_L6N ), .I( FPGA_M0_SPI_nCS11 ) );
+OBUF obuf__FPGA_M0_SPI_nCS12__inst(.O( o_B34_L7P ), .I( FPGA_M0_SPI_nCS12 ) );
+											    
+wire  M0_SPI_TX_CLK ;
+wire  M0_SPI_MOSI   ;
+wire  M0_SPI_RX_CLK ;
+wire  M0_SPI_MISO   ;
+OBUF obuf__M0_SPI_TX_CLK__inst(.O( o_B34_L7N ), .I( M0_SPI_TX_CLK ) );
+OBUF obuf__M0_SPI_MOSI____inst(.O( o_B34_L8P ), .I( M0_SPI_MOSI   ) );
+IBUF ibuf__M0_SPI_RX_CLK__inst( .I( i_B34_L8N ), .O( M0_SPI_RX_CLK ) );
+IBUF ibuf__M0_SPI_MISO____inst( .I( i_B34_L9P ), .O( M0_SPI_MISO   ) );
+	
+// # AA3    # NA
+	
+wire  FPGA_M1_SPI_nCS0_ ;
+wire  FPGA_M1_SPI_nCS1_ ;
+wire  FPGA_M1_SPI_nCS2_ ;
+wire  FPGA_M1_SPI_nCS3_ ;
+wire  FPGA_M1_SPI_nCS4_ ;
+wire  FPGA_M1_SPI_nCS5_ ;
+wire  FPGA_M1_SPI_nCS6_ ;
+wire  FPGA_M1_SPI_nCS7_ ;
+wire  FPGA_M1_SPI_nCS8_ ;
+wire  FPGA_M1_SPI_nCS9_ ;
+wire  FPGA_M1_SPI_nCS10 ;
+wire  FPGA_M1_SPI_nCS11 ;
+wire  FPGA_M1_SPI_nCS12 ;
+OBUF obuf__FPGA_M1_SPI_nCS0___inst(.O( o_B34_L10P      ), .I( FPGA_M1_SPI_nCS0_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS1___inst(.O( o_B34_L10N      ), .I( FPGA_M1_SPI_nCS1_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS2___inst(.O( o_B34_L11P_SRCC ), .I( FPGA_M1_SPI_nCS2_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS3___inst(.O( o_B34_L11N_SRCC ), .I( FPGA_M1_SPI_nCS3_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS4___inst(.O( o_B34_L12P_MRCC ), .I( FPGA_M1_SPI_nCS4_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS5___inst(.O( o_B34_L12N_MRCC ), .I( FPGA_M1_SPI_nCS5_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS6___inst(.O( o_B34_L13P_MRCC ), .I( FPGA_M1_SPI_nCS6_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS7___inst(.O( o_B34_L13N_MRCC ), .I( FPGA_M1_SPI_nCS7_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS8___inst(.O( o_B34_L14P_SRCC ), .I( FPGA_M1_SPI_nCS8_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS9___inst(.O( o_B34_L14N_SRCC ), .I( FPGA_M1_SPI_nCS9_ ) );
+OBUF obuf__FPGA_M1_SPI_nCS10__inst(.O( o_B34_L15P      ), .I( FPGA_M1_SPI_nCS10 ) );
+OBUF obuf__FPGA_M1_SPI_nCS11__inst(.O( o_B34_L15N      ), .I( FPGA_M1_SPI_nCS11 ) );
+OBUF obuf__FPGA_M1_SPI_nCS12__inst(.O( o_B34_L16P      ), .I( FPGA_M1_SPI_nCS12 ) );
+									     		    
+wire  M1_SPI_TX_CLK ;
+wire  M1_SPI_MOSI   ;
+wire  M1_SPI_RX_CLK ;
+wire  M1_SPI_MISO   ;
+OBUF obuf__M1_SPI_TX_CLK__inst(.O( o_B34_L16N ), .I( M1_SPI_TX_CLK ) );
+OBUF obuf__M1_SPI_MOSI____inst(.O( o_B34_L17P ), .I( M1_SPI_MOSI   ) );
+IBUF ibuf__M1_SPI_RX_CLK__inst( .I( i_B34_L17N ), .O( M1_SPI_RX_CLK ) );
+IBUF ibuf__M1_SPI_MISO____inst( .I( i_B34_L18P ), .O( M1_SPI_MISO   ) );
+	
+// # AA6    # NA
+											   
+wire  TRIG     ;
+wire  SOT      ;
+wire  PRE_TRIG ;
+OBUF obuf__TRIG______inst(.O( o_B34_L19P ), .I( TRIG     ) );
+OBUF obuf__SOT_______inst(.O( o_B34_L19N ), .I( SOT      ) );
+OBUF obuf__PRE_TRIG__inst(.O( o_B34_L20P ), .I( PRE_TRIG ) );
+	
+// # AB6    # NA
+	
+wire  FPGA_H_IN1 ;
+wire  FPGA_H_IN2 ;
+wire  FPGA_H_IN3 ;
+wire  FPGA_H_IN4 ;
+IBUF ibuf__FPGA_H_IN1__inst( .I( i_B34_L21P ), .O( FPGA_H_IN1 ) );
+IBUF ibuf__FPGA_H_IN2__inst( .I( i_B34_L21N ), .O( FPGA_H_IN2 ) );
+IBUF ibuf__FPGA_H_IN3__inst( .I( i_B34_L22P ), .O( FPGA_H_IN3 ) );
+IBUF ibuf__FPGA_H_IN4__inst( .I( i_B34_L22N ), .O( FPGA_H_IN4 ) );
+											   
+wire  FPGA_H_OUT1 ;
+wire  FPGA_H_OUT2 ;
+wire  FPGA_H_OUT3 ;
+wire  FPGA_H_OUT4 ;
+OBUF obuf__FPGA_H_OUT1__inst(.O( o_B34_L23P ), .I( FPGA_H_OUT1 ) );
+OBUF obuf__FPGA_H_OUT2__inst(.O( o_B34_L23N ), .I( FPGA_H_OUT2 ) );
+OBUF obuf__FPGA_H_OUT3__inst(.O( o_B34_L24P ), .I( FPGA_H_OUT3 ) );
+OBUF obuf__FPGA_H_OUT4__inst(.O( o_B34_L24N ), .I( FPGA_H_OUT4 ) );
+											   
+
+
+//}
+
+//// BANK B35 IOBUF //{
+
+wire  BUF_MASTER0 ;
+wire  BUF_MASTER1 ;
+IBUF ibuf__BUF_MASTER0__inst(.I( i_B35_0_ ), .O( BUF_MASTER0 ) );
+IBUF ibuf__BUF_MASTER1__inst(.I( i_B35_25 ), .O( BUF_MASTER1 ) );
+											   
+wire  FPGA_M2_SPI_nCS0_ ;
+wire  FPGA_M2_SPI_nCS1_ ;
+wire  FPGA_M2_SPI_nCS2_ ;
+wire  FPGA_M2_SPI_nCS3_ ;
+wire  FPGA_M2_SPI_nCS4_ ;
+wire  FPGA_M2_SPI_nCS5_ ;
+wire  FPGA_M2_SPI_nCS6_ ;
+wire  FPGA_M2_SPI_nCS7_ ;
+wire  FPGA_M2_SPI_nCS8_ ;
+wire  FPGA_M2_SPI_nCS9_ ;
+wire  FPGA_M2_SPI_nCS10 ;
+wire  FPGA_M2_SPI_nCS11 ;
+wire  FPGA_M2_SPI_nCS12 ;
+OBUF obuf__FPGA_M2_SPI_nCS0___inst(.O( o_B35_L1P ), .I( FPGA_M2_SPI_nCS0_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS1___inst(.O( o_B35_L1N ), .I( FPGA_M2_SPI_nCS1_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS2___inst(.O( o_B35_L2P ), .I( FPGA_M2_SPI_nCS2_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS3___inst(.O( o_B35_L2N ), .I( FPGA_M2_SPI_nCS3_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS4___inst(.O( o_B35_L3P ), .I( FPGA_M2_SPI_nCS4_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS5___inst(.O( o_B35_L3N ), .I( FPGA_M2_SPI_nCS5_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS6___inst(.O( o_B35_L4P ), .I( FPGA_M2_SPI_nCS6_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS7___inst(.O( o_B35_L4N ), .I( FPGA_M2_SPI_nCS7_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS8___inst(.O( o_B35_L5P ), .I( FPGA_M2_SPI_nCS8_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS9___inst(.O( o_B35_L5N ), .I( FPGA_M2_SPI_nCS9_ ) );
+OBUF obuf__FPGA_M2_SPI_nCS10__inst(.O( o_B35_L6P ), .I( FPGA_M2_SPI_nCS10 ) );
+OBUF obuf__FPGA_M2_SPI_nCS11__inst(.O( o_B35_L6N ), .I( FPGA_M2_SPI_nCS11 ) );
+OBUF obuf__FPGA_M2_SPI_nCS12__inst(.O( o_B35_L7P ), .I( FPGA_M2_SPI_nCS12 ) );
+											   
+wire  M2_SPI_TX_CLK ;
+wire  M2_SPI_MOSI   ;
+wire  M2_SPI_RX_CLK ;
+wire  M2_SPI_MISO   ;
+OBUF obuf__M2_SPI_TX_CLK__inst(.O( o_B35_L7N ), .I( M2_SPI_TX_CLK ) );
+OBUF obuf__M2_SPI_MOSI____inst(.O( o_B35_L8P ), .I( M2_SPI_MOSI   ) );
+IBUF ibuf__M2_SPI_RX_CLK__inst(.I( i_B35_L8N ), .O( M2_SPI_RX_CLK ) );
+IBUF ibuf__M2_SPI_MISO____inst(.I( i_B35_L9P ), .O( M2_SPI_MISO   ) );
+											   
+// # J2    # NA     
+											   
+wire  FPGA_CAL_SPI_nCS0_ ;
+wire  FPGA_CAL_SPI_nCS1_ ;
+wire  FPGA_CAL_SPI_nCS2_ ;
+wire  FPGA_CAL_SPI_nCS3_ ;
+wire  FPGA_CAL_SPI_nCS4_ ;
+wire  FPGA_CAL_SPI_nCS5_ ;
+wire  FPGA_CAL_SPI_nCS6_ ;
+wire  FPGA_CAL_SPI_nCS7_ ;
+wire  FPGA_CAL_SPI_nCS8_ ;
+wire  FPGA_CAL_SPI_nCS9_ ;
+wire  FPGA_CAL_SPI_nCS10 ;
+wire  FPGA_CAL_SPI_nCS11 ;
+wire  FPGA_CAL_SPI_nCS12 ;
+OBUF obuf__FPGA_CAL_SPI_nCS0___inst(.O( o_B35_L10P      ), .I( FPGA_CAL_SPI_nCS0_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS1___inst(.O( o_B35_L10N      ), .I( FPGA_CAL_SPI_nCS1_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS2___inst(.O( o_B35_L11P_SRCC ), .I( FPGA_CAL_SPI_nCS2_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS3___inst(.O( o_B35_L11N_SRCC ), .I( FPGA_CAL_SPI_nCS3_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS4___inst(.O( o_B35_L12P_MRCC ), .I( FPGA_CAL_SPI_nCS4_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS5___inst(.O( o_B35_L12N_MRCC ), .I( FPGA_CAL_SPI_nCS5_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS6___inst(.O( o_B35_L13P_MRCC ), .I( FPGA_CAL_SPI_nCS6_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS7___inst(.O( o_B35_L13N_MRCC ), .I( FPGA_CAL_SPI_nCS7_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS8___inst(.O( o_B35_L14P_SRCC ), .I( FPGA_CAL_SPI_nCS8_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS9___inst(.O( o_B35_L14N_SRCC ), .I( FPGA_CAL_SPI_nCS9_ ) );
+OBUF obuf__FPGA_CAL_SPI_nCS10__inst(.O( o_B35_L15P      ), .I( FPGA_CAL_SPI_nCS10 ) );
+OBUF obuf__FPGA_CAL_SPI_nCS11__inst(.O( o_B35_L15N      ), .I( FPGA_CAL_SPI_nCS11 ) );
+OBUF obuf__FPGA_CAL_SPI_nCS12__inst(.O( o_B35_L16P      ), .I( FPGA_CAL_SPI_nCS12 ) );
+											   
+wire  FPGA_CAL_SPI_TX_CLK ;
+wire  FPGA_CAL_SPI_MOSI   ;
+wire  FPGA_CAL_SPI_MISO   ;
+OBUF obuf__FPGA_CAL_SPI_TX_CLK__inst(.O( o_B35_L16N ), .I( FPGA_CAL_SPI_TX_CLK ) );
+OBUF obuf__FPGA_CAL_SPI_MOSI____inst(.O( o_B35_L17P ), .I( FPGA_CAL_SPI_MOSI   ) );
+IBUF ibuf__FPGA_CAL_SPI_MISO____inst(.I( i_B35_L17N ), .O( FPGA_CAL_SPI_MISO   ) );
+
+wire FPGA_nRESET_OUT ;
+OBUF obuf__FPGA_nRESET_OUT__inst(.O( o_B35_L18P ), .I( FPGA_nRESET_OUT ) );
+											   
+// # L4    # NA     
+											   
+wire  BUF_LAN_IP0 ;
+wire  BUF_LAN_IP1 ;
+wire  BUF_LAN_IP2 ;
+wire  BUF_LAN_IP3 ;
+IBUF ibuf__BUF_LAN_IP0__inst(.I( i_B35_L19P ), .O( BUF_LAN_IP0  ) );
+IBUF ibuf__BUF_LAN_IP1__inst(.I( i_B35_L19N ), .O( BUF_LAN_IP1  ) );
+IBUF ibuf__BUF_LAN_IP2__inst(.I( i_B35_L20P ), .O( BUF_LAN_IP2  ) );
+IBUF ibuf__BUF_LAN_IP3__inst(.I( i_B35_L20N ), .O( BUF_LAN_IP3  ) );
+											   
+wire  FPGA_RESERVED0 ;
+wire  FPGA_RESERVED1 ;
+wire  FPGA_RESERVED2 ;
+OBUF obuf__FPGA_RESERVED0__inst(.O( o_B35_L21P ), .I( FPGA_RESERVED0 ) );
+OBUF obuf__FPGA_RESERVED1__inst(.O( o_B35_L21N ), .I( FPGA_RESERVED1 ) );
+OBUF obuf__FPGA_RESERVED2__inst(.O( o_B35_L22P ), .I( FPGA_RESERVED2 ) );
+											   
+wire  EXT_TRIG_CW_IN       ;
+wire  EXT_TRIG_DIGITAL_IN  ;
+wire  EXT_TRIG_CW_OUT      ;
+wire  EXT_TRIG_DIGITAL_OUT ;
+wire  EXT_TRIG_BYPASS      ;
+OBUF obuf__EXT_TRIG_CW_IN________inst(.O( o_B35_L22N ), .I( EXT_TRIG_CW_IN       ) );
+OBUF obuf__EXT_TRIG_DIGITAL_IN___inst(.O( o_B35_L23P ), .I( EXT_TRIG_DIGITAL_IN  ) );
+OBUF obuf__EXT_TRIG_CW_OUT_______inst(.O( o_B35_L23N ), .I( EXT_TRIG_CW_OUT      ) );
+OBUF obuf__EXT_TRIG_DIGITAL_OUT__inst(.O( o_B35_L24P ), .I( EXT_TRIG_DIGITAL_OUT ) );
+OBUF obuf__EXT_TRIG_BYPASS_______inst(.O( o_B35_L24N ), .I( EXT_TRIG_BYPASS      ) );
+											   
+
+//}
 
 
 //}
@@ -697,7 +1226,7 @@ wire clk_out3_10M  ; // for slow logic / I2C //
 wire clk_out4_10M ; // for XADC 
 //
 wire clk_locked_pre;
-clk_wiz_0  clk_wiz_0_inst (
+clk_wiz_0  clk_wiz_0_inst(
 	// Clock out ports  
 	.clk_out1_200M (clk_out1_200M ), // BUFG
 	.clk_out2_140M (clk_out2_140M ), // BUFG
@@ -708,7 +1237,7 @@ clk_wiz_0  clk_wiz_0_inst (
 	.clk_in1_n(sys_clkn)
 );
 ////
-clk_wiz_0_0_1  clk_wiz_0_0_1_inst (
+clk_wiz_0_0_1  clk_wiz_0_0_1_inst(
 	// Clock out ports  
 	.clk_out1_10M (clk_out3_10M), // BUFGCE // due to soft-startup
 	.clk_out2_10M (clk_out4_10M), // BUFGCE // due to soft-startup
@@ -729,7 +1258,7 @@ clk_wiz_0_0_1  clk_wiz_0_0_1_inst (
 
 wire clk1_locked = 1'b1; // unused
 
-//  clk_wiz_0_1  clk_wiz_0_1_inst (
+//  clk_wiz_0_1  clk_wiz_0_1_inst(
 //  	// Clock out ports  
 //  	.clk_out1_160M(clk1_out1_160M),  
 //  	.clk_out2_120M(clk1_out2_120M), 
@@ -752,7 +1281,7 @@ wire clk1_locked = 1'b1; // unused
 
 wire clk2_locked = 1'b1; // unused
 
-//  clk_wiz_0_2  clk_wiz_0_2_inst (
+//  clk_wiz_0_2  clk_wiz_0_2_inst(
 //  	// Clock out ports  
 //  	.clk_out1_210M(clk2_out1_210M),  
 //  	.clk_out2_105M(clk2_out2_105M), 
@@ -775,7 +1304,7 @@ wire clk3_out4_72M ; // eeprom fifo
 //
 wire clk3_locked;
 //
-clk_wiz_0_3_1  clk_wiz_0_3_1_inst (
+clk_wiz_0_3_1  clk_wiz_0_3_1_inst(
 	// Clock out ports  
 	.clk_out1_72M (clk3_out1_72M ), // BUFGCE // due to soft-startup 
 	.clk_out2_144M(clk3_out2_144M), // BUFGCE // due to soft-startup
@@ -794,7 +1323,7 @@ clk_wiz_0_3_1  clk_wiz_0_3_1_inst (
 //wire clk4_out2_10M ; // for DAC clock measure // unused
 //
 wire clk4_locked = 1'b1;
-//  clk_wiz_0_4  clk_wiz_0_4_inst (
+//  clk_wiz_0_4  clk_wiz_0_4_inst(
 //  	// Clock out ports  
 //  	.clk_out1_10M (xadc_clk ),  // BUFH --> BUFG
 //  	//.clk_out2_10M (clk4_out2_10M ),  // BUFG
@@ -830,7 +1359,7 @@ wire clk_dac_clk_in; // from  CLKD_COUT or c_B13D_L13P_MRCC // for DAC/CLK 400MH
 wire clk_dac_clk_rst;
 //
 
-clk_wiz_1_2  clk_wiz_1_2_inst (
+clk_wiz_1_2  clk_wiz_1_2_inst(
 	// Clock out ports  
 	.clk_out1_200M      (clk_dac_out1_400M     ), // BUFGCE // same buf type for phase align 
 	.clk_out2_200M_0    (clk_dac_out2_400M_0   ), // BUFGCE // same buf type for phase align
@@ -846,7 +1375,7 @@ clk_wiz_1_2  clk_wiz_1_2_inst (
 	.clk_in1_200M       (clk_dac_clk_in) // no buf
 );
 
-//clk_wiz_1_3  clk_wiz_1_3_inst (
+//clk_wiz_1_3  clk_wiz_1_3_inst(
 //	// Clock out ports  
 //	.clk_out1_400M      (clk_dac_out1_400M     ), // BUFGCE // same buf type for phase align 
 //	.clk_out2_400M_0    (clk_dac_out2_400M_0   ), // BUFGCE // same buf type for phase align
@@ -889,7 +1418,7 @@ assign dac1_dco_clk_in = clk_dac_out3_400M_180; // for common clock //$$ emulati
 //
 //
 
-clk_wiz_1_2  clk_wiz_1_2_0_inst ( // VCO 1200MHz
+clk_wiz_1_2  clk_wiz_1_2_0_inst( // VCO 1200MHz
 	// Clock out ports  
 	.clk_out1_200M     (dac0_dco_clk_out1_400M), // BUFGCE // //$$ for dac0_clk
 	.clk_out2_200M_0   (dac0_dco_clk_out5_400M), // BUFGCE // //$$ for DAC0_DCI
@@ -905,7 +1434,7 @@ clk_wiz_1_2  clk_wiz_1_2_0_inst ( // VCO 1200MHz
 	.clk_in1_200M      (dac0_dco_clk_in) // no buf
 );
 //
-clk_wiz_1_2  clk_wiz_1_2_1_inst (
+clk_wiz_1_2  clk_wiz_1_2_1_inst(
 	// Clock out ports  
 	.clk_out1_200M     (dac1_dco_clk_out5_400M), // BUFGCE // 0 deg for dci same phase with clk in //$$ for DAC1_DCI 
 	.clk_out2_200M_0   (),
@@ -921,7 +1450,7 @@ clk_wiz_1_2  clk_wiz_1_2_1_inst (
 	.clk_in1_200M      (dac1_dco_clk_in) // no buf // 0 deg
 );
 
-//  clk_wiz_1_3  clk_wiz_1_3_0_inst ( // VCO 1400MHz
+//  clk_wiz_1_3  clk_wiz_1_3_0_inst( // VCO 1400MHz
 //  	// Clock out ports  
 //  	.clk_out1_400M     (dac0_dco_clk_out1_400M), // BUFGCE // //$$ for dac0_clk
 //  	.clk_out2_400M_0   (dac0_dco_clk_out5_400M), // BUFGCE // //$$ for DAC0_DCI
@@ -937,7 +1466,7 @@ clk_wiz_1_2  clk_wiz_1_2_1_inst (
 //  	.clk_in1_400M      (dac0_dco_clk_in) // no buf
 //  );
 //  //
-//  clk_wiz_1_3  clk_wiz_1_3_1_inst (
+//  clk_wiz_1_3  clk_wiz_1_3_1_inst(
 //  	// Clock out ports  
 //  	.clk_out1_400M     (dac1_dco_clk_out5_400M), // BUFGCE // 0 deg for dci same phase with clk in //$$ for DAC1_DCI 
 //  	.clk_out2_400M_0   (),
@@ -964,7 +1493,7 @@ ODDR #(
 	.DDR_CLK_EDGE("SAME_EDGE"), // "OPPOSITE_EDGE" or "SAME_EDGE" 
 	.INIT(1'b0),    // Initial value of Q: 1'b0 or 1'b1
 	.SRTYPE("SYNC") // Set/Reset type: "SYNC" or "ASYNC" 
-) ODDR_TRIG_P_inst (
+) ODDR_TRIG_P_inst(
 	.Q(w_trig_p_oddr_out),   // 1-bit DDR output
 	.C(w_oddr_in),   // 1-bit clock input
 	.CE(1'b1), // 1-bit clock enable input
@@ -978,7 +1507,7 @@ ODDR #(
 	.DDR_CLK_EDGE("SAME_EDGE"), // "OPPOSITE_EDGE" or "SAME_EDGE" 
 	.INIT(1'b0),    // Initial value of Q: 1'b0 or 1'b1
 	.SRTYPE("SYNC") // Set/Reset type: "SYNC" or "ASYNC" 
-) ODDR_TRIG_N_inst (
+) ODDR_TRIG_N_inst(
 	.Q(w_trig_n_oddr_out),   // 1-bit DDR output
 	.C(w_oddr_in),   // 1-bit clock input
 	.CE(1'b1), // 1-bit clock enable input
@@ -1030,7 +1559,7 @@ ODDR #(
 	.DDR_CLK_EDGE("SAME_EDGE"), // "OPPOSITE_EDGE" or "SAME_EDGE" 
 	.INIT(1'b0),    // Initial value of Q: 1'b0 or 1'b1
 	.SRTYPE("SYNC") // Set/Reset type: "SYNC" or "ASYNC" 
-)   ODDR_dac0_dci_inst (
+)   ODDR_dac0_dci_inst(
 	.Q(w_dac0_dci_oddr_out),   // 1-bit DDR output
 	.C(w_dac0_dci_oddr_in),   // 1-bit clock input
 	.CE(1'b1), // 1-bit clock enable input
@@ -1044,7 +1573,7 @@ ODDR #(
 	.DDR_CLK_EDGE("SAME_EDGE"), // "OPPOSITE_EDGE" or "SAME_EDGE" 
 	.INIT(1'b0),    // Initial value of Q: 1'b0 or 1'b1
 	.SRTYPE("SYNC") // Set/Reset type: "SYNC" or "ASYNC" 
-)   ODDR_dac1_dci_inst (
+)   ODDR_dac1_dci_inst(
 	.Q(w_dac1_dci_oddr_out),   // 1-bit DDR output
 	.C(w_dac1_dci_oddr_in),   // 1-bit clock input
 	.CE(1'b1), // 1-bit clock enable input
@@ -1446,7 +1975,7 @@ lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
 	.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020
 	.FPGA_IMAGE_ID              (FPGA_IMAGE_ID)  
-) lan_endpoint_wrapper_inst (
+) lan_endpoint_wrapper_inst(
 	
 	//// pins and config //{
 	
@@ -1718,7 +2247,7 @@ assign w_offset_lan_timeout_rcr_16b = 16'd0;
 // 4096 depth = 2^12
 // 2^12 * 4 byte = 16KB
 		
-fifo_generator_4 TEST_fifo_inst (
+fifo_generator_4 TEST_fifo_inst(
   //.rst       (~reset_n | ~w_LAN_RSTn | w_FIFO_reset), // input wire rst
   .rst       (~reset_n), // input wire rst
   .wr_clk    (mcs_clk),  // input wire wr_clk
@@ -2113,7 +2642,7 @@ assign led = xem7310_led(w_test ^ count1);
 //}
 
 // test_counter_wrapper //{
-test_counter_wrapper  test_counter_wrapper_inst (
+test_counter_wrapper  test_counter_wrapper_inst(
 	.sys_clk (sys_clk),
 	.reset_n (reset_n),
 	//
@@ -2261,7 +2790,7 @@ IOBUF iobuf_MEM_SIO_inst  (.IO(io_B34_L5N  ), .T(MEM_SIO_tri), .I(MEM_SIO_out ),
 // fifo read clock //{
 wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 //
-BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
+BUFGMUX bufgmux_c_eeprom_fifo_clk_inst(
 	.O(c_eeprom_fifo_clk), 
 	//.I0(base_sspi_clk), // base_sspi_clk for slave_spi_mth_brd // 104MHz
 	.I0(okClk        ), // USB  // 100.8MHz
@@ -2309,7 +2838,7 @@ wire w_SCIO_DO;
 wire w_SCIO_OE;
 
 //
-control_eeprom__11AA160T  control_eeprom__11AA160T_inst (
+control_eeprom__11AA160T  control_eeprom__11AA160T_inst(
 	//
 	.clk     (sys_clk                ), //	input  wire // 10MHz
 	.reset_n (reset_n & (~w_MEM_rst) & (~w_HW_reset)), //	input  wire // TI
@@ -2450,7 +2979,7 @@ wire  w_SSPI_TEST_MISO   ;
 wire  w_SSPI_TEST_MISO_EN;
 
 //
-master_spi_mth_brd  master_spi_mth_brd__inst (
+master_spi_mth_brd  master_spi_mth_brd__inst(
 	.clk     (base_sspi_clk), // 104MHz
 	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
 	
@@ -2490,20 +3019,21 @@ master_spi_mth_brd  master_spi_mth_brd__inst (
 // ports for Slave SPI //{
 
 //// mux M0 with test module : w_SSPI_TEST_mode_en //$$ //{
-wire  M0_SPI_CS_B_BUF;
-wire  M0_SPI_CLK     ;
-wire  M0_SPI_SCLK    ; //$$ REV2
-wire  M0_SPI_MOSI    ;
-wire  M0_SPI_MISO    ;
-wire  M0_SPI_MISO_EN ;
+
+//$$ wire  M0_SPI_CS_B_BUF;
+//$$ wire  M0_SPI_CLK     ;
+//$$ wire  M0_SPI_SCLK    ; //$$ REV2
+//$$ wire  M0_SPI_MOSI    ;
+//$$ wire  M0_SPI_MISO    ;
+//$$ wire  M0_SPI_MISO_EN ;
 
 //
-//IBUF ibuf__M0_SPI_CS_B_BUF_inst (.I(i_B34_L2P       ), .O(M0_SPI_CS_B_BUF  ) ); //
-//IBUF ibuf__M0_SPI_CLK______inst (.I(i_B34_L2N       ), .O(M0_SPI_CLK       ) ); //
-//OBUF obuf__M0_SPI_SCLK_____inst (.O(o_B34_L1P       ), .I(M0_SPI_SCLK      ) ); //$$ REV2
-//IBUF ibuf__M0_SPI_MOSI_____inst (.I(i_B34_L4P       ), .O(M0_SPI_MOSI      ) ); //
-//OBUF obuf__M0_SPI_MISO_____inst (.O(o_B34_L4N       ), .I(M0_SPI_MISO      ) ); // 
-//OBUF obuf__M0_SPI_MISO_EN__inst (.O(o_B34_L24P      ), .I(M0_SPI_MISO_EN   ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
+//IBUF ibuf__M0_SPI_CS_B_BUF_inst(.I(i_B34_L2P       ), .O(M0_SPI_CS_B_BUF  ) ); //
+//IBUF ibuf__M0_SPI_CLK______inst(.I(i_B34_L2N       ), .O(M0_SPI_CLK       ) ); //
+//OBUF obuf__M0_SPI_SCLK_____inst(.O(o_B34_L1P       ), .I(M0_SPI_SCLK      ) ); //$$ REV2
+//IBUF ibuf__M0_SPI_MOSI_____inst(.I(i_B34_L4P       ), .O(M0_SPI_MOSI      ) ); //
+//OBUF obuf__M0_SPI_MISO_____inst(.O(o_B34_L4N       ), .I(M0_SPI_MISO      ) ); // 
+//OBUF obuf__M0_SPI_MISO_EN__inst(.O(o_B34_L24P      ), .I(M0_SPI_MISO_EN   ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
 
 wire  w_B34_L2P  ;
 wire  w_B34_L2N  ;
@@ -2512,12 +3042,12 @@ wire  w_B34_L4P  ;
 wire  w_B34_L4N  ;
 wire  w_B34_L24P ;
 
-IBUF ibuf__M0_SPI_CS_B_BUF_inst (.I(i_B34_L2P       ), .O(w_B34_L2P  ) ); //
-IBUF ibuf__M0_SPI_CLK______inst (.I(i_B34_L2N       ), .O(w_B34_L2N  ) ); //
-OBUF obuf__M0_SPI_SCLK_____inst (.O(o_B34_L1P       ), .I(w_B34_L1P  ) ); //$$ REV2
-IBUF ibuf__M0_SPI_MOSI_____inst (.I(i_B34_L4P       ), .O(w_B34_L4P  ) ); //
-OBUF obuf__M0_SPI_MISO_____inst (.O(o_B34_L4N       ), .I(w_B34_L4N  ) ); // 
-OBUF obuf__M0_SPI_MISO_EN__inst (.O(o_B34_L24P      ), .I(w_B34_L24P ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
+IBUF ibuf__M0_SPI_CS_B_BUF_inst(.I(i_B34_L2P       ), .O(w_B34_L2P  ) ); //
+IBUF ibuf__M0_SPI_CLK______inst(.I(i_B34_L2N       ), .O(w_B34_L2N  ) ); //
+OBUF obuf__M0_SPI_SCLK_____inst(.O(o_B34_L1P       ), .I(w_B34_L1P  ) ); //$$ REV2
+IBUF ibuf__M0_SPI_MOSI_____inst(.I(i_B34_L4P       ), .O(w_B34_L4P  ) ); //
+OBUF obuf__M0_SPI_MISO_____inst(.O(o_B34_L4N       ), .I(w_B34_L4N  ) ); // 
+OBUF obuf__M0_SPI_MISO_EN__inst(.O(o_B34_L24P      ), .I(w_B34_L24P ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
 
 assign M0_SPI_CS_B_BUF = (~w_SSPI_TEST_mode_en)? w_B34_L2P      : w_SSPI_TEST_SS_B ; // w_SSPI_TEST_SS_B   
 assign M0_SPI_CLK      = (~w_SSPI_TEST_mode_en)? w_B34_L2N      : w_SSPI_TEST_MCLK ; // w_SSPI_TEST_MCLK   
@@ -2536,18 +3066,19 @@ assign w_SSPI_TEST_MISO_EN = (w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b0 ;
 //}
 
 //// M1 //{
-wire  M1_SPI_CS_B_BUF;
-wire  M1_SPI_CLK     ;
-wire  M1_SPI_SCLK    ; //$$ REV2
-wire  M1_SPI_MOSI    ;
-wire  M1_SPI_MISO    ;
-wire  M1_SPI_MISO_EN ;
-IBUF ibuf__M1_SPI_CS_B_BUF_inst (.I(i_B34_L1N       ), .O(M1_SPI_CS_B_BUF  ) ); //
-IBUF ibuf__M1_SPI_CLK______inst (.I(i_B34_L7P       ), .O(M1_SPI_CLK       ) ); //
-OBUF obuf__M1_SPI_SCLK_____inst (.O(o_B34_L12N_MRCC ), .I(M1_SPI_SCLK      ) ); //$$ REV2
-IBUF ibuf__M1_SPI_MOSI_____inst (.I(i_B34_L7N       ), .O(M1_SPI_MOSI      ) ); //
-OBUF obuf__M1_SPI_MISO_____inst (.O(o_B34_L12P_MRCC ), .I(M1_SPI_MISO      ) ); // 
-OBUF obuf__M1_SPI_MISO_EN__inst (.O(o_B34_L24N      ), .I(M1_SPI_MISO_EN   ) ); //$$ o_B34_L12N_MRCC --> o_B34_L24N //$$ REV2
+	
+//$$ wire  M1_SPI_CS_B_BUF;
+//$$ wire  M1_SPI_CLK     ;
+//$$ wire  M1_SPI_SCLK    ; //$$ REV2
+//$$ wire  M1_SPI_MOSI    ;
+//$$ wire  M1_SPI_MISO    ;
+//$$ wire  M1_SPI_MISO_EN ;
+//$$ IBUF ibuf__M1_SPI_CS_B_BUF_inst(.I(i_B34_L1N       ), .O(M1_SPI_CS_B_BUF  ) ); //
+//$$ IBUF ibuf__M1_SPI_CLK______inst(.I(i_B34_L7P       ), .O(M1_SPI_CLK       ) ); //
+//$$ OBUF obuf__M1_SPI_SCLK_____inst(.O(o_B34_L12N_MRCC ), .I(M1_SPI_SCLK      ) ); //$$ REV2
+//$$ IBUF ibuf__M1_SPI_MOSI_____inst(.I(i_B34_L7N       ), .O(M1_SPI_MOSI      ) ); //
+//$$ OBUF obuf__M1_SPI_MISO_____inst(.O(o_B34_L12P_MRCC ), .I(M1_SPI_MISO      ) ); // 
+//$$ OBUF obuf__M1_SPI_MISO_EN__inst(.O(o_B34_L24N      ), .I(M1_SPI_MISO_EN   ) ); //$$ o_B34_L12N_MRCC --> o_B34_L24N //$$ REV2
 
 //}
 
@@ -2675,7 +3206,7 @@ assign w_board_status[7] = 1'b0                    ; // NA // Board Error Status
 //assign w_board_status[0] = w_ADC_busy_pclk         ; // ADC_busy           
 
 //
-slave_spi_mth_brd  slave_spi_mth_brd__M0_inst (
+slave_spi_mth_brd  slave_spi_mth_brd__M0_inst(
 	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
 	.reset_n (reset_n),
 	
@@ -2822,7 +3353,7 @@ wire        w_M1_loopback_en           = w_M1_port_wi_sadrs_h008[24];
 wire        w_M1_MISO_one_bit_ahead_en = w_M1_port_wi_sadrs_h008[25];
 wire [2:0]  w_M1_slack_count_MISO      = w_M1_port_wi_sadrs_h008[30:28];
 //
-slave_spi_mth_brd  slave_spi_mth_brd__M1_inst (
+slave_spi_mth_brd  slave_spi_mth_brd__M1_inst(
 	.clk     (base_sspi_clk), // base clock 72MHz
 	.reset_n (reset_n),
 	//// slave SPI pins:
@@ -2981,23 +3512,23 @@ assign M1_SPI_MISO_EN = r_M1_SPI_MISO_EN;
 assign M1_SPI_MISO    = r_M1_SPI_MISO   ;
 
 //// input pin sampling
-always @(posedge base_sspi_clk, negedge reset_n)
-	if (!reset_n) begin
-		r_M0_SPI_CS_B_BUF  <= 1'b0;
-		r_M0_SPI_CLK       <= 1'b0;
-		r_M0_SPI_MOSI      <= 1'b0;
-		r_M1_SPI_CS_B_BUF  <= 1'b0;
-		r_M1_SPI_CLK       <= 1'b0;
-		r_M1_SPI_MOSI      <= 1'b0;
-	end
-	else begin
-		r_M0_SPI_CS_B_BUF  <= M0_SPI_CS_B_BUF;
-		r_M0_SPI_CLK       <= M0_SPI_CLK     ;
-		r_M0_SPI_MOSI      <= M0_SPI_MOSI    ;
-		r_M1_SPI_CS_B_BUF  <= M1_SPI_CS_B_BUF;
-		r_M1_SPI_CLK       <= M1_SPI_CLK     ;
-		r_M1_SPI_MOSI      <= M1_SPI_MOSI    ;
-	end	
+//$$  always @(posedge base_sspi_clk, negedge reset_n)
+//$$  	if (!reset_n) begin
+//$$  		r_M0_SPI_CS_B_BUF  <= 1'b0;
+//$$  		r_M0_SPI_CLK       <= 1'b0;
+//$$  		r_M0_SPI_MOSI      <= 1'b0;
+//$$  		r_M1_SPI_CS_B_BUF  <= 1'b0;
+//$$  		r_M1_SPI_CLK       <= 1'b0;
+//$$  		r_M1_SPI_MOSI      <= 1'b0;
+//$$  	end
+//$$  	else begin
+//$$  		r_M0_SPI_CS_B_BUF  <= M0_SPI_CS_B_BUF;
+//$$  		r_M0_SPI_CLK       <= M0_SPI_CLK     ;
+//$$  		r_M0_SPI_MOSI      <= M0_SPI_MOSI    ;
+//$$  		r_M1_SPI_CS_B_BUF  <= M1_SPI_CS_B_BUF;
+//$$  		r_M1_SPI_CLK       <= M1_SPI_CLK     ;
+//$$  		r_M1_SPI_MOSI      <= M1_SPI_MOSI    ;
+//$$  	end	
 
 
 // output sampling
@@ -3186,19 +3717,19 @@ assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : PT_BAS
 
 // LAN pin on BASE board (PGU) //{
 
-// OBUF obuf_LAN_MOSI_inst (.O(o_B13_L11N_SRCC ), .I(LAN_MOSI ) ); // 
-// OBUF obuf_LAN_SCLK_inst (.O(o_B13_L6N       ), .I(LAN_SCLK ) ); // 
-// OBUF obuf_LAN_SSNn_inst (.O(o_B13_L6P       ), .I(LAN_SSNn ) ); // 
-// IBUF ibuf_LAN_INTn_inst (.I(i_B13_L11P_SRCC ), .O(LAN_INTn ) ); //
-// OBUF obuf_LAN_RSTn_inst (.O(o_B13_L17N      ), .I(LAN_RSTn ) ); // 
-// IBUF ibuf_LAN_MISO_inst (.I(i_B13_L17P      ), .O(LAN_MISO ) ); //
+// OBUF obuf_LAN_MOSI_inst(.O(o_B13_L11N_SRCC ), .I(LAN_MOSI ) ); // 
+// OBUF obuf_LAN_SCLK_inst(.O(o_B13_L6N       ), .I(LAN_SCLK ) ); // 
+// OBUF obuf_LAN_SSNn_inst(.O(o_B13_L6P       ), .I(LAN_SSNn ) ); // 
+// IBUF ibuf_LAN_INTn_inst(.I(i_B13_L11P_SRCC ), .O(LAN_INTn ) ); //
+// OBUF obuf_LAN_RSTn_inst(.O(o_B13_L17N      ), .I(LAN_RSTn ) ); // 
+// IBUF ibuf_LAN_MISO_inst(.I(i_B13_L17P      ), .O(LAN_MISO ) ); //
 
-OBUF obuf__LAN_MOSI__inst (.O( o_B13_L11N_SRCC  ), .I(PT_BASE_EP_LAN_MOSI ) ); // 
-OBUF obuf__LAN_SCLK__inst (.O( o_B13_L6N        ), .I(PT_BASE_EP_LAN_SCLK ) ); // 
-OBUF obuf__LAN_CS_B__inst (.O( o_B13_L6P        ), .I(PT_BASE_EP_LAN_CS_B ) ); // 
-IBUF ibuf__LAN_INT_B_inst (.I( i_B13_L11P_SRCC  ), .O(PT_BASE_EP_LAN_INT_B) ); //
-OBUF obuf__LAN_RST_B_inst (.O( o_B13_L17N       ), .I(PT_BASE_EP_LAN_RST_B) ); // 
-IBUF ibuf__LAN_MISO__inst (.I( i_B13_L17P       ), .O(PT_BASE_EP_LAN_MISO ) ); //
+OBUF obuf__LAN_MOSI__inst(.O( o_B13_L11N_SRCC  ), .I(PT_BASE_EP_LAN_MOSI ) ); // 
+OBUF obuf__LAN_SCLK__inst(.O( o_B13_L6N        ), .I(PT_BASE_EP_LAN_SCLK ) ); // 
+OBUF obuf__LAN_CS_B__inst(.O( o_B13_L6P        ), .I(PT_BASE_EP_LAN_CS_B ) ); // 
+IBUF ibuf__LAN_INT_B_inst(.I( i_B13_L11P_SRCC  ), .O(PT_BASE_EP_LAN_INT_B) ); //
+OBUF obuf__LAN_RST_B_inst(.O( o_B13_L17N       ), .I(PT_BASE_EP_LAN_RST_B) ); // 
+IBUF ibuf__LAN_MISO__inst(.I( i_B13_L17P       ), .O(PT_BASE_EP_LAN_MISO ) ); //
 
 
 //}
@@ -3216,14 +3747,14 @@ IBUF ibuf__LAN_MISO__inst (.I( i_B13_L17P       ), .O(PT_BASE_EP_LAN_MISO ) ); /
 //	input  wire  i_B15_L9N , // # K22    EP_LAN_MISO
 
 wire  EP_LAN_PWDN  = 1'b0; // test // unused // fixed
-OBUF obuf__EP_LAN_PWDN__inst (.O( o_B15_L6P ), .I( EP_LAN_PWDN   ) ); // 
+OBUF obuf__EP_LAN_PWDN__inst(.O( o_B15_L6P ), .I( EP_LAN_PWDN   ) ); // 
 
-OBUF obuf__EP_LAN_MOSI__inst (.O( o_B15_L7P ), .I( PT_FMOD_EP_LAN_MOSI  ) ); // 
-OBUF obuf__EP_LAN_SCLK__inst (.O( o_B15_L7N ), .I( PT_FMOD_EP_LAN_SCLK  ) ); // 
-OBUF obuf__EP_LAN_CS_B__inst (.O( o_B15_L8P ), .I( PT_FMOD_EP_LAN_CS_B  ) ); // 
-IBUF ibuf__EP_LAN_INT_B_inst (.I( i_B15_L8N ), .O( PT_FMOD_EP_LAN_INT_B ) ); //
-OBUF obuf__EP_LAN_RST_B_inst (.O( o_B15_L9P ), .I( PT_FMOD_EP_LAN_RST_B ) ); // 
-IBUF ibuf__EP_LAN_MISO__inst (.I( i_B15_L9N ), .O( PT_FMOD_EP_LAN_MISO  ) ); //
+OBUF obuf__EP_LAN_MOSI__inst(.O( o_B15_L7P ), .I( PT_FMOD_EP_LAN_MOSI  ) ); // 
+OBUF obuf__EP_LAN_SCLK__inst(.O( o_B15_L7N ), .I( PT_FMOD_EP_LAN_SCLK  ) ); // 
+OBUF obuf__EP_LAN_CS_B__inst(.O( o_B15_L8P ), .I( PT_FMOD_EP_LAN_CS_B  ) ); // 
+IBUF ibuf__EP_LAN_INT_B_inst(.I( i_B15_L8N ), .O( PT_FMOD_EP_LAN_INT_B ) ); //
+OBUF obuf__EP_LAN_RST_B_inst(.O( o_B15_L9P ), .I( PT_FMOD_EP_LAN_RST_B ) ); // 
+IBUF ibuf__EP_LAN_MISO__inst(.I( i_B15_L9N ), .O( PT_FMOD_EP_LAN_MISO  ) ); //
 
 //}
 
