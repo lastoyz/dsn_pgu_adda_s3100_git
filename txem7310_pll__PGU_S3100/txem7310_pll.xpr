@@ -294,21 +294,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/ip/xbip_dsp48_macro_CPA_b16_0/xbip_dsp48_macro_CPA_b16_0.xci">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/new/dac_pattern_gen_wrapper.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/ip/xbip_dsp48_macro_APC_b32_0/xbip_dsp48_macro_APC_b32_0.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -323,6 +309,27 @@
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/imports/src_ref/txem7310_pll__s3100_sv__top.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/master_spi_mth_brd.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/slave_spi_mth_brd.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/src_ref/txem7310_pll__s3100_sv_pgu__top.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -623,14 +630,14 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="NoSrlExtract">1</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
-          <Option Id="ShregMinSize">5</Option>
-          <Option Id="ReTiming">1</Option>
-          <Option Id="FsmExtraction">0</Option>
           <Option Id="MaxClockBufferCount">32</Option>
+          <Option Id="FsmExtraction">0</Option>
           <Option Id="NoCombineLuts">1</Option>
           <Option Id="RepFanoutThreshold">200</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
+          <Option Id="NoSrlExtract">1</Option>
+          <Option Id="ShregMinSize">5</Option>
+          <Option Id="ReTiming">1</Option>
         </Step>
       </Strategy>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
@@ -640,12 +647,12 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="NoCombineLuts">1</Option>
           <Option Id="RepFanoutThreshold">400</Option>
+          <Option Id="NoCombineLuts">1</Option>
           <Option Id="ResourceSharing">2</Option>
           <Option Id="FsmExtraction">1</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="ShregMinSize">5</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
         </Step>
       </Strategy>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
@@ -655,12 +662,12 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="NoCombineLuts">1</Option>
           <Option Id="RepFanoutThreshold">400</Option>
+          <Option Id="NoCombineLuts">1</Option>
           <Option Id="ResourceSharing">2</Option>
           <Option Id="FsmExtraction">1</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="ShregMinSize">5</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
         </Step>
       </Strategy>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
