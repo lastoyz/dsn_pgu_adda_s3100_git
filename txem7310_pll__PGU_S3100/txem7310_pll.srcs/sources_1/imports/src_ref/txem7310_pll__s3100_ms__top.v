@@ -389,10 +389,10 @@ module txem7310_pll__s3100_ms__top (
 
 	input  wire  i_B13_L5P        , // # Y13    # QSPI_BK1_NCS
 	input  wire  i_B13_L5N        , // # AA14   # QSPI_CLK
-	input  wire  i_B13_L6P        , // # W14    # QSPI_BK1_IO0
-	input  wire  i_B13_L6N        , // # Y14    # QSPI_BK1_IO1
-	input  wire  i_B13_L7P        , // # AB11   # QSPI_BK1_IO2
-	input  wire  i_B13_L7N        , // # AB12   # QSPI_BK1_IO3
+	inout  wire io_B13_L6P        , // # W14    # QSPI_BK1_IO0
+	inout  wire io_B13_L6N        , // # Y14    # QSPI_BK1_IO1
+	inout  wire io_B13_L7P        , // # AB11   # QSPI_BK1_IO2
+	inout  wire io_B13_L7N        , // # AB12   # QSPI_BK1_IO3
 
 	// # IO_B13_L8P               , // # AA9    # NA
 
@@ -702,9 +702,7 @@ OBUF obuf__F_TP6__inst(.O( o_B15_L5P_AD9P ), .I( F_TP6 ) );
 OBUF obuf__F_TP7__inst(.O( o_B15_L5N_AD9N ), .I( F_TP7 ) );
 
 wire EXT_I2C_4_SCL_in  ;
-wire EXT_I2C_4_SDA_tri ;
-wire EXT_I2C_4_SDA_out ;
-wire EXT_I2C_4_SDA_in  ;
+wire EXT_I2C_4_SDA_tri ; wire EXT_I2C_4_SDA_out ; wire EXT_I2C_4_SDA_in  ;
 IBUF   ibuf__EXT_I2C_4_SCL__inst( .I( i_B15_L4P ), .O( EXT_I2C_4_SCL_in  ) );
 IOBUF iobuf__EXT_I2C_4_SDA__inst(.IO(io_B15_L4N ), 
 								                   .T( EXT_I2C_4_SDA_tri ) , 
@@ -732,12 +730,8 @@ IBUF ibuf__LAN_MISO_____inst( .I( i_B15_L9N ), .O( LAN_MISO    ) );
 // # H20  # AUX_AD11P ## unused
 // # G20  # AUX_AD11N ## unused
 
-wire SCIO_0_tri ;
-wire SCIO_0_out ;
-wire SCIO_0_in  ;
-wire SCIO_1_tri ;
-wire SCIO_1_out ;
-wire SCIO_1_in  ;
+wire SCIO_0_tri ; wire SCIO_0_out ; wire SCIO_0_in  ;
+wire SCIO_1_tri ; wire SCIO_1_out ; wire SCIO_1_in  ;
 IOBUF iobuf__SCIO_0__inst(.IO(io_B15_L11P_SRCC ), 
 			                   .T( SCIO_0_tri ) , 
 			                   .I( SCIO_0_out ) , 
@@ -938,16 +932,16 @@ OBUF obuf__SPI__2_MISO__inst(.O( o_B13_L4N ), .I( SPI__2_MISO ) );
 
 wire  QSPI_BK1_NCS ;
 wire  QSPI_CLK     ;
-wire  QSPI_BK1_IO0 ;
-wire  QSPI_BK1_IO1 ;
-wire  QSPI_BK1_IO2 ;
-wire  QSPI_BK1_IO3 ;
+wire  QSPI_BK1_IO0_tri ; wire  QSPI_BK1_IO0_out ; wire  QSPI_BK1_IO0_in ;
+wire  QSPI_BK1_IO1_tri ; wire  QSPI_BK1_IO1_out ; wire  QSPI_BK1_IO1_in ;
+wire  QSPI_BK1_IO2_tri ; wire  QSPI_BK1_IO2_out ; wire  QSPI_BK1_IO2_in ;
+wire  QSPI_BK1_IO3_tri ; wire  QSPI_BK1_IO3_out ; wire  QSPI_BK1_IO3_in ;
 IBUF ibuf__QSPI_BK1_NCS__inst( .I( i_B13_L5P ), .O( QSPI_BK1_NCS ) );
 IBUF ibuf__QSPI_CLK______inst( .I( i_B13_L5N ), .O( QSPI_CLK     ) );
-IBUF ibuf__QSPI_BK1_IO0__inst( .I( i_B13_L6P ), .O( QSPI_BK1_IO0 ) );
-IBUF ibuf__QSPI_BK1_IO1__inst( .I( i_B13_L6N ), .O( QSPI_BK1_IO1 ) );
-IBUF ibuf__QSPI_BK1_IO2__inst( .I( i_B13_L7P ), .O( QSPI_BK1_IO2 ) );
-IBUF ibuf__QSPI_BK1_IO3__inst( .I( i_B13_L7N ), .O( QSPI_BK1_IO3 ) );
+IOBUF iobuf__QSPI_BK1_IO0__inst(.IO( io_B13_L6P  ), .T( QSPI_BK1_IO0_tri ), .I( QSPI_BK1_IO0_out ), .O( QSPI_BK1_IO0_in  ) ); 
+IOBUF iobuf__QSPI_BK1_IO1__inst(.IO( io_B13_L6N  ), .T( QSPI_BK1_IO1_tri ), .I( QSPI_BK1_IO1_out ), .O( QSPI_BK1_IO1_in  ) ); 
+IOBUF iobuf__QSPI_BK1_IO2__inst(.IO( io_B13_L7P  ), .T( QSPI_BK1_IO2_tri ), .I( QSPI_BK1_IO2_out ), .O( QSPI_BK1_IO2_in  ) ); 
+IOBUF iobuf__QSPI_BK1_IO3__inst(.IO( io_B13_L7N  ), .T( QSPI_BK1_IO3_tri ), .I( QSPI_BK1_IO3_out ), .O( QSPI_BK1_IO3_in  ) ); 
 
 // # AA9    # NA
 
