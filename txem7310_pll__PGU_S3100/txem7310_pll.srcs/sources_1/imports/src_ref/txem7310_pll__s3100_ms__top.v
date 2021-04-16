@@ -1437,73 +1437,73 @@ wire [31:0] ep3Fwire = 32'b0; //
 //}
 
 // Trigger In 	0x40 - 0x5F //{
-wire ep40ck = sys_clk; wire [31:0] ep40trig; //$$ [TEST] TEST_TI  //$$ S3100
-wire ep41ck = 1'b0;    wire [31:0] ep41trig;
-wire ep42ck = 1'b0;    wire [31:0] ep42trig;
-wire ep43ck = 1'b0;    wire [31:0] ep43trig; 
-wire ep44ck = 1'b0;    wire [31:0] ep44trig; 
-wire ep45ck = 1'b0;    wire [31:0] ep45trig; 
-wire ep46ck = 1'b0;    wire [31:0] ep46trig; 
-wire ep47ck = 1'b0;    wire [31:0] ep47trig; 
-wire ep48ck = 1'b0;    wire [31:0] ep48trig; 
-wire ep49ck = 1'b0;    wire [31:0] ep49trig;
-wire ep4Ack = 1'b0;    wire [31:0] ep4Atrig;
-wire ep4Bck = 1'b0;    wire [31:0] ep4Btrig;
-wire ep4Cck = 1'b0;    wire [31:0] ep4Ctrig;
-wire ep4Dck = 1'b0;    wire [31:0] ep4Dtrig;
-wire ep4Eck = 1'b0;    wire [31:0] ep4Etrig;
-wire ep4Fck = 1'b0;    wire [31:0] ep4Ftrig;
-wire ep50ck = 1'b0;    wire [31:0] ep50trig;
-wire ep51ck = 1'b0;    wire [31:0] ep51trig;
-wire ep52ck = 1'b0;    wire [31:0] ep52trig;
-wire ep53ck = sys_clk; wire [31:0] ep53trig; //$$ [MEM] MEM_TI  //$$ S3100
-wire ep54ck = 1'b0;    wire [31:0] ep54trig;
-wire ep55ck = 1'b0;    wire [31:0] ep55trig;
-wire ep56ck = 1'b0;    wire [31:0] ep56trig;
-wire ep57ck = 1'b0;    wire [31:0] ep57trig;
-wire ep58ck = 1'b0;    wire [31:0] ep58trig;
-wire ep59ck = 1'b0;    wire [31:0] ep59trig;
-wire ep5Ack = 1'b0;    wire [31:0] ep5Atrig;
-wire ep5Bck = 1'b0;    wire [31:0] ep5Btrig;
-wire ep5Cck = 1'b0;    wire [31:0] ep5Ctrig;
-wire ep5Dck = 1'b0;    wire [31:0] ep5Dtrig;
-wire ep5Eck = 1'b0;    wire [31:0] ep5Etrig;
-wire ep5Fck = 1'b0;    wire [31:0] ep5Ftrig;
+wire ep40ck = sys_clk;          wire [31:0] ep40trig; //$$ [TEST] TEST_TI  //$$ S3100
+wire ep41ck = 1'b0;             wire [31:0] ep41trig;
+wire ep42ck = base_sspi_clk;    wire [31:0] ep42trig; //$$ [MSPI] MSPI_TI  //$$ S3100
+wire ep43ck = 1'b0;             wire [31:0] ep43trig; 
+wire ep44ck = 1'b0;             wire [31:0] ep44trig; 
+wire ep45ck = 1'b0;             wire [31:0] ep45trig; 
+wire ep46ck = 1'b0;             wire [31:0] ep46trig; 
+wire ep47ck = 1'b0;             wire [31:0] ep47trig; 
+wire ep48ck = 1'b0;             wire [31:0] ep48trig; 
+wire ep49ck = 1'b0;             wire [31:0] ep49trig;
+wire ep4Ack = 1'b0;             wire [31:0] ep4Atrig;
+wire ep4Bck = 1'b0;             wire [31:0] ep4Btrig;
+wire ep4Cck = 1'b0;             wire [31:0] ep4Ctrig;
+wire ep4Dck = 1'b0;             wire [31:0] ep4Dtrig;
+wire ep4Eck = 1'b0;             wire [31:0] ep4Etrig;
+wire ep4Fck = 1'b0;             wire [31:0] ep4Ftrig;
+wire ep50ck = 1'b0;             wire [31:0] ep50trig;
+wire ep51ck = 1'b0;             wire [31:0] ep51trig;
+wire ep52ck = 1'b0;             wire [31:0] ep52trig;
+wire ep53ck = sys_clk;          wire [31:0] ep53trig; //$$ [MEM] MEM_TI  //$$ S3100
+wire ep54ck = 1'b0;             wire [31:0] ep54trig;
+wire ep55ck = 1'b0;             wire [31:0] ep55trig;
+wire ep56ck = 1'b0;             wire [31:0] ep56trig;
+wire ep57ck = 1'b0;             wire [31:0] ep57trig;
+wire ep58ck = 1'b0;             wire [31:0] ep58trig;
+wire ep59ck = 1'b0;             wire [31:0] ep59trig;
+wire ep5Ack = 1'b0;             wire [31:0] ep5Atrig;
+wire ep5Bck = 1'b0;             wire [31:0] ep5Btrig;
+wire ep5Cck = 1'b0;             wire [31:0] ep5Ctrig;
+wire ep5Dck = 1'b0;             wire [31:0] ep5Dtrig;
+wire ep5Eck = 1'b0;             wire [31:0] ep5Etrig;
+wire ep5Fck = 1'b0;             wire [31:0] ep5Ftrig;
 //}
 
 // Trigger Out 	0x60 - 0x7F //{
-wire ep60ck = sys_clk; wire [31:0] ep60trig; //$$ [TEST] TEST_TO  //$$ S3100
-wire ep61ck = 1'b0;    wire [31:0] ep61trig = 32'b0;
-wire ep62ck = 1'b0;    wire [31:0] ep62trig = 32'b0;
-wire ep63ck = 1'b0;    wire [31:0] ep63trig = 32'b0;
-wire ep64ck = 1'b0;    wire [31:0] ep64trig = 32'b0;
-wire ep65ck = 1'b0;    wire [31:0] ep65trig = 32'b0;
-wire ep66ck = 1'b0;    wire [31:0] ep66trig = 32'b0;
-wire ep67ck = 1'b0;    wire [31:0] ep67trig = 32'b0;
-wire ep68ck = 1'b0;    wire [31:0] ep68trig = 32'b0;
-wire ep69ck = 1'b0;    wire [31:0] ep69trig = 32'b0;
-wire ep6Ack = 1'b0;    wire [31:0] ep6Atrig = 32'b0;
-wire ep6Bck = 1'b0;    wire [31:0] ep6Btrig = 32'b0;
-wire ep6Cck = 1'b0;    wire [31:0] ep6Ctrig = 32'b0;
-wire ep6Dck = 1'b0;    wire [31:0] ep6Dtrig = 32'b0;
-wire ep6Eck = 1'b0;    wire [31:0] ep6Etrig = 32'b0;
-wire ep6Fck = 1'b0;    wire [31:0] ep6Ftrig = 32'b0;
-wire ep70ck = 1'b0;    wire [31:0] ep70trig = 32'b0;
-wire ep71ck = 1'b0;    wire [31:0] ep71trig = 32'b0;
-wire ep72ck = 1'b0;    wire [31:0] ep72trig = 32'b0;
-wire ep73ck = sys_clk; wire [31:0] ep73trig; //$$ [MEM] MEM_TO  //$$ S3100
-wire ep74ck = 1'b0;    wire [31:0] ep74trig = 32'b0;
-wire ep75ck = 1'b0;    wire [31:0] ep75trig = 32'b0;
-wire ep76ck = 1'b0;    wire [31:0] ep76trig = 32'b0;
-wire ep77ck = 1'b0;    wire [31:0] ep77trig = 32'b0;
-wire ep78ck = 1'b0;    wire [31:0] ep78trig = 32'b0;
-wire ep79ck = 1'b0;    wire [31:0] ep79trig = 32'b0;
-wire ep7Ack = 1'b0;    wire [31:0] ep7Atrig = 32'b0;
-wire ep7Bck = 1'b0;    wire [31:0] ep7Btrig = 32'b0;
-wire ep7Cck = 1'b0;    wire [31:0] ep7Ctrig = 32'b0;
-wire ep7Dck = 1'b0;    wire [31:0] ep7Dtrig = 32'b0;
-wire ep7Eck = 1'b0;    wire [31:0] ep7Etrig = 32'b0;
-wire ep7Fck = 1'b0;    wire [31:0] ep7Ftrig = 32'b0; 
+wire ep60ck = sys_clk;          wire [31:0] ep60trig; //$$ [TEST] TEST_TO  //$$ S3100
+wire ep61ck = 1'b0;             wire [31:0] ep61trig = 32'b0;
+wire ep62ck = base_sspi_clk;    wire [31:0] ep62trig; //$$ [MSPI] MSPI_TO  //$$ S3100
+wire ep63ck = 1'b0;             wire [31:0] ep63trig = 32'b0;
+wire ep64ck = 1'b0;             wire [31:0] ep64trig = 32'b0;
+wire ep65ck = 1'b0;             wire [31:0] ep65trig = 32'b0;
+wire ep66ck = 1'b0;             wire [31:0] ep66trig = 32'b0;
+wire ep67ck = 1'b0;             wire [31:0] ep67trig = 32'b0;
+wire ep68ck = 1'b0;             wire [31:0] ep68trig = 32'b0;
+wire ep69ck = 1'b0;             wire [31:0] ep69trig = 32'b0;
+wire ep6Ack = 1'b0;             wire [31:0] ep6Atrig = 32'b0;
+wire ep6Bck = 1'b0;             wire [31:0] ep6Btrig = 32'b0;
+wire ep6Cck = 1'b0;             wire [31:0] ep6Ctrig = 32'b0;
+wire ep6Dck = 1'b0;             wire [31:0] ep6Dtrig = 32'b0;
+wire ep6Eck = 1'b0;             wire [31:0] ep6Etrig = 32'b0;
+wire ep6Fck = 1'b0;             wire [31:0] ep6Ftrig = 32'b0;
+wire ep70ck = 1'b0;             wire [31:0] ep70trig = 32'b0;
+wire ep71ck = 1'b0;             wire [31:0] ep71trig = 32'b0;
+wire ep72ck = 1'b0;             wire [31:0] ep72trig = 32'b0;
+wire ep73ck = sys_clk;          wire [31:0] ep73trig; //$$ [MEM] MEM_TO  //$$ S3100
+wire ep74ck = 1'b0;             wire [31:0] ep74trig = 32'b0;
+wire ep75ck = 1'b0;             wire [31:0] ep75trig = 32'b0;
+wire ep76ck = 1'b0;             wire [31:0] ep76trig = 32'b0;
+wire ep77ck = 1'b0;             wire [31:0] ep77trig = 32'b0;
+wire ep78ck = 1'b0;             wire [31:0] ep78trig = 32'b0;
+wire ep79ck = 1'b0;             wire [31:0] ep79trig = 32'b0;
+wire ep7Ack = 1'b0;             wire [31:0] ep7Atrig = 32'b0;
+wire ep7Bck = 1'b0;             wire [31:0] ep7Btrig = 32'b0;
+wire ep7Cck = 1'b0;             wire [31:0] ep7Ctrig = 32'b0;
+wire ep7Dck = 1'b0;             wire [31:0] ep7Dtrig = 32'b0;
+wire ep7Eck = 1'b0;             wire [31:0] ep7Etrig = 32'b0;
+wire ep7Fck = 1'b0;             wire [31:0] ep7Ftrig = 32'b0; 
 //}
 
 // Pipe In 		0x80 - 0x9F // clock is assumed to use okClk //{
@@ -1656,18 +1656,20 @@ wire [31:0] w_port_wo_3F_1 = 32'b0; // not yet used
 //}
 
 // trig in //{
-wire w_ck_40_1 = sys_clk       ; wire [31:0] w_port_ti_40_1; // PGU
-wire w_ck_43_1 = sys_clk       ; wire [31:0] w_port_ti_43_1; // PGU
-wire w_ck_44_1 = sys_clk       ; wire [31:0] w_port_ti_44_1; // PGU
-wire w_ck_45_1 = sys_clk       ; wire [31:0] w_port_ti_45_1; // PGU
-wire w_ck_46_1 = sys_clk       ; wire [31:0] w_port_ti_46_1; // PGU
-wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // PGU 
-wire w_ck_48_1 = sys_clk       ; wire [31:0] w_port_ti_48_1; // PGU
+wire w_ck_40_1 = sys_clk       ; wire [31:0] w_port_ti_40_1; // 
+wire w_ck_42_1 = base_sspi_clk ; wire [31:0] w_port_ti_42_1; // S3100
+wire w_ck_43_1 = sys_clk       ; wire [31:0] w_port_ti_43_1; // 
+wire w_ck_44_1 = sys_clk       ; wire [31:0] w_port_ti_44_1; // 
+wire w_ck_45_1 = sys_clk       ; wire [31:0] w_port_ti_45_1; // 
+wire w_ck_46_1 = sys_clk       ; wire [31:0] w_port_ti_46_1; // 
+wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // 
+wire w_ck_48_1 = sys_clk       ; wire [31:0] w_port_ti_48_1; // 
 wire w_ck_53_1 = sys_clk       ; wire [31:0] w_port_ti_53_1; // MEM
 //}
 
 // trig out //{
-wire w_ck_60_1 = sys_clk       ; wire [31:0] w_port_to_60_1; // PGU
+wire w_ck_60_1 = sys_clk       ; wire [31:0] w_port_to_60_1; // 
+wire w_ck_62_1 = base_sspi_clk ; wire [31:0] w_port_to_62_1; // S3100
 wire w_ck_73_1 = sys_clk       ; wire [31:0] w_port_to_73_1; 
 //}
 
@@ -1715,8 +1717,8 @@ wire w_ck_pipe; // not used // mcs_eeprom_fifo_clk vs epPPck from lan_endpoint_w
 
 // lan_endpoint_wrapper   //{
 
-wire [47:0] w_adrs_offset_mac_48b; // BASE = {8'h00,8'h08,8'hDC,8'h00,8'hAB,8'hCD}; // 00:08:DC:00:xx:yy ??48 bits
-wire [31:0] w_adrs_offset_ip_32b ; // BASE = {8'd192,8'd168,8'd168,8'd112}; // 192.168.168.112 or C0:A8:A8:70 ??32 bits
+wire [47:0] w_adrs_offset_mac_48b       ; // BASE = {8'h00,8'h08,8'hDC,8'h00,8'hAB,8'hCD}; // 00:08:DC:00:xx:yy ??48 bits
+wire [31:0] w_adrs_offset_ip_32b        ; // BASE = {8'd192,8'd168,8'd168,8'd112}; // 192.168.168.112 or C0:A8:A8:70 ??32 bits
 wire [15:0] w_offset_lan_timeout_rtr_16b; //$$ = ep00wire[31:16]; // assign later 
 wire [15:0] w_offset_lan_timeout_rcr_16b; //$$ = ep00wire[15: 0]; // assign later 
 
@@ -1730,6 +1732,7 @@ wire  EP_LAN_MISO ; // rev 20210105
 lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
 	.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020
+	////.MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100
 	.FPGA_IMAGE_ID              (FPGA_IMAGE_ID)  
 ) lan_endpoint_wrapper_inst(
 	
@@ -1835,7 +1838,7 @@ lan_endpoint_wrapper #(
 	// Trigger In 	0x40 - 0x5F //{
 	.ep40ck (w_ck_40_1), .ep40trig (w_port_ti_40_1), // input wire, output wire [31:0],
 	.ep41ck (1'b0),      .ep41trig (), // input wire, output wire [31:0],
-	.ep42ck (1'b0),      .ep42trig (), // input wire, output wire [31:0],
+	.ep42ck (w_ck_42_1), .ep42trig (w_port_ti_42_1), // input wire, output wire [31:0],
 	.ep43ck (w_ck_43_1), .ep43trig (w_port_ti_43_1), // input wire, output wire [31:0],
 	.ep44ck (w_ck_44_1), .ep44trig (w_port_ti_44_1), // input wire, output wire [31:0],
 	.ep45ck (w_ck_45_1), .ep45trig (w_port_ti_45_1), // input wire, output wire [31:0],
@@ -1870,7 +1873,7 @@ lan_endpoint_wrapper #(
 	// Trigger Out 	0x60 - 0x7F //{
 	.ep60ck (w_ck_60_1), .ep60trig (w_port_to_60_1), // input wire, input wire [31:0],
 	.ep61ck (1'b0),      .ep61trig (32'b0), // input wire, input wire [31:0],
-	.ep62ck (1'b0),      .ep62trig (32'b0), // input wire, input wire [31:0],
+	.ep62ck (w_ck_62_1), .ep62trig (w_port_to_62_1), // input wire, input wire [31:0],
 	.ep63ck (1'b0),      .ep63trig (32'b0), // input wire, input wire [31:0],
 	.ep64ck (1'b0),      .ep64trig (32'b0), // input wire, input wire [31:0],
 	.ep65ck (1'b0),      .ep65trig (32'b0), // input wire, input wire [31:0],
@@ -2110,7 +2113,7 @@ assign w_port_wo_22_1 = w_TIMESTAMP_WO ;
 wire [31:0] w_TEST_CON_WI = (w_mcs_ep_wi_en)? w_port_wi_01_1 : ep01wire;
 //
 wire [31:0] w_TEST_OUT_WO;
-assign ep21wire       = (!w_mcs_ep_wo_en)? w_TEST_OUT_WO : 32'hACAC_ACAC; 
+assign ep21wire       =                    w_TEST_OUT_WO ; 
 assign w_port_wo_21_1 = ( w_mcs_ep_wo_en)? w_TEST_OUT_WO : 32'hACAC_ACAC;
 
 wire [31:0] w_TEST_TI = ( w_mcs_ep_ti_en)? w_port_ti_40_1 : ep40trig;
@@ -2138,7 +2141,7 @@ wire [31:0] w_SSPI_FLAG_WO;
 wire w_HW_reset__ext;
 wire w_HW_reset = w_SSPI_CON_WI[3] | w_HW_reset__ext | w_BRD_CON[0] ; //$$
 
-wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi
+wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_MTH_SPI_emulation__en ??
 
 //$wire [31:0] w_SSPI_TEST_WI   = ep17wire; // test data for SSPI
 //$wire [31:0] w_SSPI_TEST_WO; //$$ assign ep21wire = w_SSPI_TEST_WO; //$$ share with ep21wire or w_TEST_FLAG_WO
@@ -2148,18 +2151,26 @@ wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
 //
 
 //wire [31:0] w_SSPI_TI   = ep42trig; assign ep42ck = sys_clk;
-wire [31:0] w_SSPI_TEST_TI   = ep42trig; assign ep42ck = base_sspi_clk;
+//wire [31:0] w_SSPI_TEST_TI   = ep42trig; assign ep42ck = base_sspi_clk;
+//$$ w_SSPI_TEST_TI --> w_MSPI_TI 
+wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : ep42trig;
+
 //wire [31:0] w_SSPI_TO      = 32'b0; assign ep62trig = w_SSPI_TO; assign ep62ck = sys_clk;
-wire [31:0] w_SSPI_TEST_TO; assign ep62trig = w_SSPI_TEST_TO; assign ep62ck = base_sspi_clk; // vs sys_clk
+//wire [31:0] w_SSPI_TEST_TO; assign ep62trig = w_SSPI_TEST_TO; assign ep62ck = base_sspi_clk; // vs sys_clk
+//$$ w_SSPI_TEST_TO --> w_MSPI_TO 
+wire [31:0] w_MSPI_TO
+	assign ep62trig      =  (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
+	assign w_port_to_62_1 = ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
+
 
 //
 wire [31:0] w_SSPI_BD_STAT_WO           ;  // rev...
 wire [31:0] w_SSPI_CNT_CS_M0_WO         ;  // rev...
 wire [31:0] w_SSPI_CNT_CS_M1_WO         ;  // rev...
-wire [31:0] w_SSPI_CNT_ADC_FIFO_IN_WO   ;  // rev...
-wire [31:0] w_SSPI_CNT_ADC_TRIG_WO      ;  // rev...
-wire [31:0] w_SSPI_CNT_SPIO_FRM_TRIG_WO ;  // rev...
-wire [31:0] w_SSPI_CNT_DAC_TRIG_WO      ;  // rev...
+//wire [31:0] w_SSPI_CNT_ADC_FIFO_IN_WO   ;  // rev...
+//wire [31:0] w_SSPI_CNT_ADC_TRIG_WO      ;  // rev...
+//wire [31:0] w_SSPI_CNT_SPIO_FRM_TRIG_WO ;  // rev...
+//wire [31:0] w_SSPI_CNT_DAC_TRIG_WO      ;  // rev...
 
 // for w_MSPI_FLAG_WO or w_TEST_FLAG_WO
 //assign w_TEST_FLAG_WO[23]    = w_SSPI_TEST_mode_en; //$$
@@ -2541,19 +2552,19 @@ assign  SCIO_1_out = 1'b0;
 
 // module //{
 
-wire w_SSPI_TEST_trig_reset = w_SSPI_TEST_TI[0];
-assign w_SSPI_TEST_TO[0]    = w_SSPI_TEST_trig_reset;
+wire w_SSPI_TEST_trig_reset = w_MSPI_TI[0];
+assign w_MSPI_TO[0]    = w_SSPI_TEST_trig_reset;
 //
-wire  w_SSPI_TEST_trig_init = w_SSPI_TEST_TI[1];
+wire  w_SSPI_TEST_trig_init = w_MSPI_TI[1];
 wire  w_SSPI_TEST_done_init ;
 assign w_SSPI_TEST_mode_en = w_SSPI_TEST_done_init;
-assign w_SSPI_TEST_TO[1]   = w_SSPI_TEST_done_init;
+assign w_MSPI_TO[1]   = w_SSPI_TEST_done_init;
 //
-wire  w_SSPI_TEST_trig_frame = w_SSPI_TEST_TI[2];
+wire  w_SSPI_TEST_trig_frame = w_MSPI_TI[2];
 wire  w_SSPI_TEST_done_frame;
-assign w_SSPI_TEST_TO[2]   = w_SSPI_TEST_done_frame;
+assign w_MSPI_TO[2]   = w_SSPI_TEST_done_frame;
 //
-assign w_SSPI_TEST_TO[31:3] = 29'b0;
+assign w_MSPI_TO[31:3] = 29'b0;
 
 //
 wire  [ 5:0] w_SSPI_frame_data_C = w_MSPI_CON_WI[31:26]; // w_SSPI_TEST_WI --> w_MSPI_CON_WI
@@ -2732,10 +2743,10 @@ wire [31:0] w_M0_port_wo_sadrs_h380 = 32'h33AA_CC55     ; // SSPI_TEST_OUT		0x38
 wire [31:0] w_M0_port_wo_sadrs_h384 = w_SSPI_BD_STAT_WO           ;
 wire [31:0] w_M0_port_wo_sadrs_h388 = w_SSPI_CNT_CS_M0_WO         ;
 wire [31:0] w_M0_port_wo_sadrs_h38C = w_SSPI_CNT_CS_M1_WO         ;
-wire [31:0] w_M0_port_wo_sadrs_h390 = w_SSPI_CNT_ADC_FIFO_IN_WO   ;
-wire [31:0] w_M0_port_wo_sadrs_h394 = w_SSPI_CNT_ADC_TRIG_WO  ;
-wire [31:0] w_M0_port_wo_sadrs_h398 = w_SSPI_CNT_SPIO_FRM_TRIG_WO ;
-wire [31:0] w_M0_port_wo_sadrs_h39C = w_SSPI_CNT_DAC_TRIG_WO  ;
+wire [31:0] w_M0_port_wo_sadrs_h390 = 32'b0; //$$ w_SSPI_CNT_ADC_FIFO_IN_WO   ;
+wire [31:0] w_M0_port_wo_sadrs_h394 = 32'b0; //$$ w_SSPI_CNT_ADC_TRIG_WO  ;
+wire [31:0] w_M0_port_wo_sadrs_h398 = 32'b0; //$$ w_SSPI_CNT_SPIO_FRM_TRIG_WO ;
+wire [31:0] w_M0_port_wo_sadrs_h39C = 32'b0; //$$ w_SSPI_CNT_DAC_TRIG_WO  ;
 //
 //wire [31:0] w_M0_port_wo_sadrs_h0E0 = w_DAC_S1_WO ; // MHVSU_DAC	DAC_S1_WO	0x0E0	wo38	read DAC buffer data.	={S1_DAC_CH2[15:0], S1_DAC_CH1[15:0]}	
 //wire [31:0] w_M0_port_wo_sadrs_h0E4 = w_DAC_S2_WO ; // MHVSU_DAC	DAC_S2_WO	0x0E4	wo39	read DAC buffer data.	={S2_DAC_CH2[15:0], S2_DAC_CH1[15:0]}	
@@ -2785,11 +2796,12 @@ wire        w_M0_MISO_one_bit_ahead_en = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs
 														   w_SSPI_CON_WI[25]              ;
 wire [2:0]  w_M0_slack_count_MISO      = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[30:28] :
 														   w_SSPI_CON_WI[30:28]           ;
-//
+
 //wire [3:0] w_board_id = {S_ID3_BUF,S_ID2_BUF,S_ID1_BUF,S_ID0_BUF};
 //$$wire [3:0] w_board_id = w_slot_id; //$$ rev miso info
-wire [7:0] w_board_status;
-assign w_board_status[7] = 1'b0                    ; // NA // Board Error Status                
+
+wire [7:0] w_board_status = 8'b0; // test
+//assign w_board_status[7] = 1'b0                    ; // NA // Board Error Status                
 //assign w_board_status[6] = r_M_TRIG[0]             ; // M_TRIG             
 //assign w_board_status[5] = r_M_PRE_TRIG[0]         ; // M_PRE_TRIG         
 //assign w_board_status[4] = r_M_BUSY_B_OUT          ; // M_BUSY_B_OUT or M_READY_OUT      
@@ -2797,6 +2809,7 @@ assign w_board_status[7] = 1'b0                    ; // NA // Board Error Status
 //assign w_board_status[2] = w_busy_DAC_update       ; // DAC  busy          
 //assign w_board_status[1] = w_fifo_adc_empty_and_all; // ADC FIFO all empty 
 //assign w_board_status[0] = w_ADC_busy_pclk         ; // ADC_busy           
+
 
 //
 slave_spi_mth_brd  slave_spi_mth_brd__M0_inst(
@@ -3224,8 +3237,8 @@ assign ext_trig_ti_______sspi = w_M0_port_ti_sadrs_h110 ;
 // flag assignment 
 assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
 assign w_SSPI_FLAG_WO[1]     = res_net_ctrl_ext_en; // enables res net control from SSPI
-assign w_SSPI_FLAG_WO[2]   = 1'b0; 
-assign w_SSPI_FLAG_WO[3]   = w_HW_reset; //$$ HW reset status
+assign w_SSPI_FLAG_WO[2]     = 1'b0; 
+assign w_SSPI_FLAG_WO[3]     = w_HW_reset; //$$ HW reset status
 assign w_SSPI_FLAG_WO[7:4]   = w_slot_id[3:0]     ; // show board slot id 
 assign w_SSPI_FLAG_WO[15:8]  = w_board_status[7:0]; // show board status
 assign w_SSPI_FLAG_WO[23:16] = 8'b0;
