@@ -19,7 +19,7 @@
     <Option Name="CompiledLibDirActivehdl" Val="$PCACHEDIR/compile_simlib/activehdl"/>
     <Option Name="BoardPart" Val=""/>
     <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
-    <Option Name="ActiveSimSet" Val="sim_9__pattern_gen"/>
+    <Option Name="ActiveSimSet" Val="sim_2__mth_spi"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -32,20 +32,20 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="886"/>
+    <Option Name="WTXSimLaunchSim" Val="888"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="222"/>
-    <Option Name="WTModelSimExportSim" Val="222"/>
-    <Option Name="WTQuestaExportSim" Val="222"/>
-    <Option Name="WTIesExportSim" Val="222"/>
-    <Option Name="WTVcsExportSim" Val="222"/>
-    <Option Name="WTRivieraExportSim" Val="222"/>
-    <Option Name="WTActivehdlExportSim" Val="222"/>
+    <Option Name="WTXSimExportSim" Val="236"/>
+    <Option Name="WTModelSimExportSim" Val="236"/>
+    <Option Name="WTQuestaExportSim" Val="236"/>
+    <Option Name="WTIesExportSim" Val="236"/>
+    <Option Name="WTVcsExportSim" Val="236"/>
+    <Option Name="WTRivieraExportSim" Val="236"/>
+    <Option Name="WTActivehdlExportSim" Val="236"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -64,20 +64,6 @@
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/ip/fifo_generator_3_1/fifo_generator_3_1.xci">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xci">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/ip/fifo_generator_4_1_2/fifo_generator_4_1_2.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -141,13 +127,6 @@
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/new/control_eeprom__11AA160T.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/dac_pattern_gen.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -280,39 +259,16 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/src_ref/xem7310__pgu_cpu__top.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/dac_pattern_gen_ext.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/new/dac_pattern_gen_wrapper.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/src_ref/txem7310_pll__s3100_ms__top.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/imports/src_ref/txem7310_pll__s3100_sv__top.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/new/master_spi_mth_brd.v">
@@ -330,6 +286,12 @@
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/imports/src_ref/txem7310_pll__s3100_sv_pgu__top.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -385,13 +347,6 @@
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
       <File Path="$PSRCDIR/constrs_1/new/debug_net.xdc">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/constrs_1/imports/src_ref/xem7310__pgu_cpu__top.xdc">
-        <FileInfo>
-          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
@@ -580,27 +535,34 @@
         <Option Name="xsim.simulate.runtime" Val="1ms"/>
       </Config>
     </FileSet>
-    <FileSet Name="constrs_2" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_2">
-      <File Path="$PSRCDIR/constrs_1/imports/src_ref/xem7310__pgu_cpu__top__try.xdc">
+    <FileSet Name="sim_2__mth_spi" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_2__mth_spi">
+      <File Path="$PSRCDIR/sources_1/new/tb_master_spi_mth_brd_behav.wcfg">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/constrs_1/new/debug_cores.xdc">
+      <File Path="$PSRCDIR/sources_1/new/tb_master_spi_mth_brd.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/constrs_1/new/debug_net.xdc">
+      <File Path="$PSRCDIR/sources_1/new/test_model__master_spi__from_mth_brd.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <Config>
-        <Option Name="ConstrsType" Val="XDC"/>
+        <Option Name="DesignMode" Val="RTL"/>
+        <Option Name="TopModule" Val="tb_master_spi_mth_brd"/>
+        <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TransportPathDelay" Val="0"/>
+        <Option Name="TransportIntDelay" Val="0"/>
+        <Option Name="SrcSet" Val="sources_1"/>
+        <Option Name="xsim.simulate.runtime" Val="1ms"/>
       </Config>
     </FileSet>
   </FileSets>
@@ -630,14 +592,14 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="MaxClockBufferCount">32</Option>
-          <Option Id="FsmExtraction">0</Option>
-          <Option Id="NoCombineLuts">1</Option>
-          <Option Id="RepFanoutThreshold">200</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="NoSrlExtract">1</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="ShregMinSize">5</Option>
           <Option Id="ReTiming">1</Option>
+          <Option Id="FsmExtraction">0</Option>
+          <Option Id="MaxClockBufferCount">32</Option>
+          <Option Id="NoCombineLuts">1</Option>
+          <Option Id="RepFanoutThreshold">200</Option>
         </Step>
       </Strategy>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
@@ -647,27 +609,12 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="RepFanoutThreshold">400</Option>
           <Option Id="NoCombineLuts">1</Option>
+          <Option Id="RepFanoutThreshold">400</Option>
           <Option Id="ResourceSharing">2</Option>
           <Option Id="FsmExtraction">1</Option>
-          <Option Id="ShregMinSize">5</Option>
           <Option Id="KeepEquivalentRegisters">1</Option>
-        </Step>
-      </Strategy>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-    </Run>
-    <Run Id="synth_3" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a200tfbg484-2" ConstrsSet="constrs_2" Description="Higher performance designs, resource sharing is turned off, the global fanout guide is set to a lower number, FSM extraction forced to one-hot, LUT combining is disabled, equivalent registers are preserved, SRL are inferred  with a larger threshold" WriteIncrSynthDcp="false" IncludeInArchive="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
-        <Step Id="synth_design">
-          <Option Id="RepFanoutThreshold">400</Option>
-          <Option Id="NoCombineLuts">1</Option>
-          <Option Id="ResourceSharing">2</Option>
-          <Option Id="FsmExtraction">1</Option>
           <Option Id="ShregMinSize">5</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
         </Step>
       </Strategy>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
@@ -700,28 +647,6 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
     <Run Id="impl_2" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Includes alternate algorithms for timing-driven optimization" WriteIncrSynthDcp="false" SynthRun="synth_2" IncludeInArchive="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Performance_ExtraTimingOpt" Flow="Vivado Implementation 2017"/>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design">
-          <Option Id="Directive">8</Option>
-        </Step>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design" EnableStepBool="1">
-          <Option Id="Directive">0</Option>
-        </Step>
-        <Step Id="route_design">
-          <Option Id="Directive">1</Option>
-        </Step>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2017"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-    </Run>
-    <Run Id="impl_3" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_2" Description="Includes alternate algorithms for timing-driven optimization" WriteIncrSynthDcp="false" SynthRun="synth_3" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Performance_ExtraTimingOpt" Flow="Vivado Implementation 2017"/>
         <Step Id="init_design"/>
