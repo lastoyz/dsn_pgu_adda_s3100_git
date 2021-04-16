@@ -226,153 +226,6 @@ module txem7310_pll__s3100_ms__top (
 	
 
 
-	//// note: BANK 13 34 35 signal lists // compatible with TXEM7310 connectors in PGU //{
-	
-	// MC1 - odd //{
-	// # MC1-15  # o_B34D_L24P,       # DAC0_DAT_N8 
-	// # MC1-19  # o_B34D_L24N,       # DAC0_DAT_N9 
-	// # MC1-17  # o_B34D_L17P,       # DAC0_DAT_P8 
-	// # MC1-21  # o_B34D_L17N,       # DAC0_DAT_P9 
-	// # MC1-23  # o_B34D_L16P,       # DAC0_DAT_N10
-	// # MC1-25  # o_B34D_L16N,       # DAC0_DAT_P10
-	// # MC1-27  # c_B34D_L14P_SRCC,  # DAC0_DCO_P
-	// # MC1-29  # c_B34D_L14N_SRCC,  # DAC0_DCO_N
-	// # MC1-31  # o_B34D_L10P,       # DAC0_DCI_P
-	// # MC1-33  # o_B34D_L10N,       # DAC0_DCI_N
-	// # MC1-37  # o_B34D_L20P,       # DAC0_DAT_P7
-	// # MC1-39  # o_B34D_L20N,       # DAC0_DAT_N7
-	// # MC1-41  # o_B34D_L3P,        # DAC0_DAT_P6
-	// # MC1-43  # o_B34D_L3N,        # DAC0_DAT_N6
-	// # MC1-45  # o_B34D_L9P,        # DAC0_DAT_P5
-	// # MC1-47  # o_B34D_L9N,        # DAC0_DAT_N5
-	// # MC1-49  # o_B34D_L2P,        # DAC0_DAT_P4
-	// # MC1-51  # o_B34D_L2N,        # DAC0_DAT_N4
-	// # MC1-53  # o_B34D_L4P,        # DAC0_DAT_P3
-	// # MC1-57  # o_B34D_L4N,        # DAC0_DAT_N3
-	// # MC1-59  # o_B34D_L1P,        # DAC0_DAT_P2
-	// # MC1-61  # o_B34D_L1N,        # DAC0_DAT_N2
-	// # MC1-63  # o_B34D_L7P,        # DAC0_DAT_P1
-	// # MC1-65  # o_B34D_L7N,        # DAC0_DAT_N1
-	// # MC1-67  # o_B13_L2P,         # SPIO0_CS
-	// # MC1-69  # o_B13_L2N,         # SPIOx_SCLK
-	// # MC1-71  # o_B13_L4P,         # SPIOx_MOSI
-	// # MC1-73  # i_B13_L4N,         # SPIOx_MISO
-	// # MC1-75  # o_B13_L1P,         # SPIO1_CS
-	// # MC1-77  # o_B34D_L12P_MRCC,  # DAC0_DAT_P0
-	// # MC1-79  # o_B34D_L12N_MRCC,  # DAC0_DAT_N0
-	
-	//}
-	
-	// MC1 - even //{
-	// # MC1-8   # o_B13_SYS_CLK_MC1, # DACx_RST_B
-	// # MC1-10  # i_XADC_VN,         # XADC_VN  # M9
-	// # MC1-12  # i_XADC_VP,         # XADC_VP  # L10
-	// # MC1-16  # o_B34D_L21P,       # DAC0_DAT_N12
-	// # MC1-18  # o_B34D_L21N,       # DAC0_DAT_P12
-	// # MC1-20  # o_B34D_L19P,       # DAC0_DAT_N13
-	// # MC1-22  # o_B34D_L19N,       # DAC0_DAT_P13
-	// # MC1-24  # o_B34D_L23P,       # DAC0_DAT_N14
-	// # MC1-26  # o_B34D_L23N,       # DAC0_DAT_P14
-	// # MC1-28  # o_B34D_L15P,       # DAC0_DAT_N15
-	// # MC1-30  # o_B34D_L15N,       # DAC0_DAT_P15
-	// # MC1-32  # o_B34D_L13P_MRCC,  # DAC0_DAT_P11
-	// # MC1-34  # o_B34D_L13N_MRCC,  # DAC0_DAT_N11
-	// # MC1-38  # c_B34D_L11P_SRCC,  # ADC0_DCO_P
-	// # MC1-40  # c_B34D_L11N_SRCC,  # ADC0_DCO_N
-	// # MC1-42  # i_B34D_L18P,       # ADC0_DA_P
-	// # MC1-44  # i_B34D_L18N,       # ADC0_DA_N
-	// # MC1-46  # i_B34D_L22P,       # ADC0_DB_P
-	// # MC1-48  # i_B34D_L22N,       # ADC0_DB_N
-	// # MC1-50  # o_B34D_L6P,        # ADCx_CNV_P
-	// # MC1-52  # o_B34D_L6N,        # ADCx_CNV_N
-	// # MC1-54  # o_B34_L5P,         # ADCx_TPT_B
-	// # MC1-58  # io_B34_L5N,        # S_IO_0
-	// # MC1-60  # o_B34D_L8P,        # ADCx_CLK_P
-	// # MC1-62  # o_B34D_L8N,        # ADCx_CLK_N
-	// # MC1-64  # o_B13_L5P,         # DAC1_CS
-	// # MC1-66  # o_B13_L5N,         # DACx_SCLK
-	// # MC1-68  # o_B13_L3P,         # DACx_SDIO
-	// # MC1-70  # i_B13_L3N,         # DACx_SDO
-	// # MC1-72  # o_B13_L16P,        # DAC0_CS
-	// # MC1-74  # io_B13_L16N,       # S_IO_1
-	// # MC1-76  # io_B13_L1N,        # S_IO_2
-
-	//}
-	
-	// MC2 - odd //{
-	// # MC2-11  # o_B13_SYS_CLK_MC2, # CLKD_SYNC
-	// # MC2-15  # o_B35D_L21P,       # DAC1_DAT_N0  //$$ --> DAC1_DAT_P3
-	// # MC2-17  # o_B35D_L21N,       # DAC1_DAT_P0  //$$ --> DAC1_DAT_N3
-	// # MC2-19  # o_B35D_L19P,       # DAC1_DAT_N1  //$$ --> DAC1_DAT_P2
-	// # MC2-21  # o_B35D_L19N,       # DAC1_DAT_P1  //$$ --> DAC1_DAT_N2
-	// # MC2-23  # o_B35D_L18P,       # DAC1_DAT_N2  //$$ --> DAC1_DAT_P1
-	// # MC2-25  # o_B35D_L18N,       # DAC1_DAT_P2  //$$ --> DAC1_DAT_N1
-	// # MC2-27  # o_B35D_L23P,       # DAC1_DAT_N3  //$$ --> DAC1_DAT_P0
-	// # MC2-29  # o_B35D_L23N,       # DAC1_DAT_P3  //$$ --> DAC1_DAT_N0
-	// # MC2-31  # i_B35_L15P,        # CLKD_STAT
-	// # MC2-33  # i_B35_L15N,        # CLKD_REFM
-	// # MC2-37  # i_B35D_L9P,        # ADC1_DB_P
-	// # MC2-39  # i_B35D_L9N,        # ADC1_DB_N
-	// # MC2-41  # i_B35D_L7P,        # ADC1_DA_P
-	// # MC2-43  # i_B35D_L7N,        # ADC1_DA_N
-	// # MC2-45  # c_B35D_L11P_SRCC,  # ADC1_DCO_P
-	// # MC2-47  # c_B35D_L11N_SRCC,  # ADC1_DCO_N
-	// # MC2-49  # o_B35_L4P,         # CLKD_SCLK
-	// # MC2-51  # o_B35_L4N,         # CLKD_CS_B
-	// # MC2-53  # i_B35_L6P,         # CLKD_SDO 
-	// # MC2-57  # io_B35_L6N,        # CLKD_SDIO
-	// # MC2-59  # o_B35D_L1P,        # DAC1_DAT_N13 // PN swap
-	// # MC2-61  # o_B35D_L1N,        # DAC1_DAT_P13 // PN swap
-	// # MC2-63  # o_B35D_L13P_MRCC,  # DAC1_DAT_N14 // PN swap
-	// # MC2-65  # o_B35D_L13N_MRCC,  # DAC1_DAT_P14 // PN swap
-	// # MC2-67  # o_B35D_L12P_MRCC,  # DAC1_DAT_N15 // PN swap
-	// # MC2-69  # o_B35D_L12N_MRCC,  # DAC1_DAT_P15 // PN swap
-	// # MC2-71  # i_B13_L17P,        # LAN_MISO     
-	// # MC2-73  # o_B13_L17N,        # LAN_RSTn     
-	// # MC2-75  # c_B13D_L13P_MRCC,  # CLKD_COUT_P   
-	// # MC2-77  # c_B13D_L13N_MRCC,  # CLKD_COUT_N   
-	// # MC2-79  # i_B13_L11P_SRCC,   # LAN_INTn     
-
-	//}
-	
-	// MC2 - even //{
-	// # MC2-10  # o_B35_IO0,         # CLKD_RST_B
-	// # MC2-12  # i_B35_IO25,        # CLKD_LD
-	// # MC2-16  # o_B35D_L24P,       # DAC1_DAT_P7
-	// # MC2-18  # o_B35D_L24N,       # DAC1_DAT_N7
-	// # MC2-20  # o_B35D_L22P,       # DAC1_DAT_P6
-	// # MC2-22  # o_B35D_L22N,       # DAC1_DAT_N6
-	// # MC2-24  # o_B35D_L20P,       # DAC1_DAT_P5
-	// # MC2-26  # o_B35D_L20N,       # DAC1_DAT_N5
-	// # MC2-28  # o_B35D_L16P,       # DAC1_DAT_P4
-	// # MC2-30  # o_B35D_L16N,       # DAC1_DAT_N4
-	// # MC2-32  # o_B35D_L17P,       # DAC1_DCI_N  
-	// # MC2-34  # o_B35D_L17N,       # DAC1_DCI_P  
-	// # MC2-38  # c_B35D_L14P_SRCC,  # DAC1_DCO_N  
-	// # MC2-40  # c_B35D_L14N_SRCC,  # DAC1_DCO_P  
-	// # MC2-42  # o_B35D_L10P,       # DAC1_DAT_N8 
-	// # MC2-44  # o_B35D_L10N,       # DAC1_DAT_P8 
-	// # MC2-46  # o_B35D_L8P,        # DAC1_DAT_N9 
-	// # MC2-48  # o_B35D_L8N,        # DAC1_DAT_P9 
-	// # MC2-50  # o_B35D_L5P,        # DAC1_DAT_N10
-	// # MC2-52  # o_B35D_L5N,        # DAC1_DAT_P10
-	// # MC2-54  # o_B35D_L3P,        # DAC1_DAT_N11
-	// # MC2-58  # o_B35D_L3N,        # DAC1_DAT_P11
-	// # MC2-60  # o_B35D_L2P,        # DAC1_DAT_N12
-	// # MC2-62  # o_B35D_L2N,        # DAC1_DAT_P12
-	// # MC2-64  # i_B13D_L14P_SRCC,  # TRIG_IN_P  
-	// # MC2-66  # i_B13D_L14N_SRCC,  # TRIG_IN_N  
-	// # MC2-68  # o_B13_L15P,        # TRIG_OUT_P 
-	// # MC2-70  # o_B13_L15N,        # TRIG_OUT_N 
-	// # MC2-72  # o_B13_L6P,         # LAN_SSNn   
-	// # MC2-74  # o_B13_L6N,         # LAN_SCLK   
-	// # MC2-76  # o_B13_L11N_SRCC,   # LAN_MOSI   
-
-	//}
-
-	//}
-
-
 	//// BANK B13 //{
 	
 	// # IO_B13_0_                , // # Y17  # NA
@@ -559,11 +412,12 @@ module txem7310_pll__s3100_ms__top (
 
 	//// external clock ports on B13 //{
 	input  wire  sys_clkp,  // # i_B13_L12P_MRCC  # W11 
-	input  wire  sys_clkn   // # i_B13_L12N_MRCC  # W12 
+	input  wire  sys_clkn,  // # i_B13_L12N_MRCC  # W12 
 	//}
 
-	//// LED on XEM7310 on B16 // compatible with TXEM7310 //{
-	//$$ output wire [7:0]   led // moved in S3100-CPU-BASE
+	//// XADC input on B0 //{
+	input  wire  i_XADC_VP, // # L10   VP_0      CONFIG    
+	input  wire  i_XADC_VN  // # M9    VN_0      CONFIG    
 	//}
 	
 	);
@@ -619,6 +473,7 @@ OBUF obuf__FPGA_M1_SPI_TX_EN________inst(.O( o_B14_L9P  ), .I( FPGA_M1_SPI_TX_EN
 OBUF obuf__FPGA_M2_SPI_TX_EN________inst(.O( o_B14_L9N  ), .I( FPGA_M2_SPI_TX_EN       ) );
 OBUF obuf__FPGA_TRIG_TX_EN__________inst(.O( o_B14_L10P ), .I( FPGA_TRIG_TX_EN         ) );
 
+//$$ S3100 vs TXEM7310
 wire [7:0] led; //$$
 wire FPGA_LED0 = led[0];  //$$ led                
 wire FPGA_LED1 = led[1];  //$$ led                
@@ -684,15 +539,15 @@ wire BUF_FMC_CLK ;
 OBUF obuf__F_RDY__inst      ( .O( o_B15_0_ ), .I( F_RDY        ) );
 IBUF ibuf__BUF_FMC_CLK__inst( .I( i_B15_25 ), .O( BUF_FMC_CLK  ) );
 
-
-wire  F_TP0 ;
-wire  F_TP1 ;
-wire  F_TP2 ;
-wire  F_TP3 ;
-wire  F_TP4 ;
-wire  F_TP5 ;
-wire  F_TP6 ;
-wire  F_TP7 ;
+wire [7:0] test_point = 8'b0; //$$
+wire  F_TP0 = test_point[0] ;
+wire  F_TP1 = test_point[1] ;
+wire  F_TP2 = test_point[2] ;
+wire  F_TP3 = test_point[3] ;
+wire  F_TP4 = test_point[4] ;
+wire  F_TP5 = test_point[5] ;
+wire  F_TP6 = test_point[6] ;
+wire  F_TP7 = test_point[7] ;
 OBUF obuf__F_TP0__inst(.O( o_B15_L1P_AD0P ), .I( F_TP0 ) );
 OBUF obuf__F_TP1__inst(.O( o_B15_L1N_AD0N ), .I( F_TP1 ) );
 OBUF obuf__F_TP2__inst(.O( o_B15_L2P_AD8P ), .I( F_TP2 ) );
@@ -2046,7 +1901,6 @@ wire [31:0] w_BRD_CON = w_port_wi_03_1 | ep03wire; // board control // logic or
 //wire w_rst_bias     = w_BRD_CON[3]; 
 //wire w_rst_spo      = w_BRD_CON[4]; 
 ////  wire w_rst_mcs_ep   = w_BRD_CON[]; 
-//// wire reset_sw_mcs1_n; // see ~w_rst_mcs_ep // not used
 
 // endpoint mux enable : LAN(MCS) vs USB
 wire w_mcs_ep_po_en = w_BRD_CON[ 8]; 
@@ -2055,13 +1909,6 @@ wire w_mcs_ep_to_en = w_BRD_CON[10];
 wire w_mcs_ep_ti_en = w_BRD_CON[11];  
 wire w_mcs_ep_wo_en = w_BRD_CON[12]; 
 wire w_mcs_ep_wi_en = w_BRD_CON[13]; 
-// mcs endpoint enables
-////wire w_mcs_ep_po_en = w_port_wi_10_0[5];
-////wire w_mcs_ep_pi_en = w_port_wi_10_0[4];
-////wire w_mcs_ep_to_en = w_port_wi_10_0[3];
-////wire w_mcs_ep_ti_en = w_port_wi_10_0[2]; 
-////wire w_mcs_ep_wo_en = w_port_wi_10_0[1];
-////wire w_mcs_ep_wi_en = w_port_wi_10_0[0];
 
 //}
 
@@ -2228,7 +2075,7 @@ sub_timestamp sub_timestamp_inst(
 /* TEST COUNTER */ //{
 
 // wires //{
-wire [7:0] w_test;
+wire [7:0]  w_test; // moving pattern
 wire [7:0]  count1;
 wire        count1eq00;
 wire        count1eq80;
@@ -2259,6 +2106,13 @@ assign down2      = w_TEST_TI[2];
 assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
 
 // LED drive //{
+
+//// note: fpga module    uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
+//// note: S3100-CPU-BASE uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
+
+// xem7310_led:
+//   1 in --> 0 out
+//   0 in --> Z out
 function [7:0] xem7310_led;
 input [7:0] a;
 integer i;
@@ -2279,7 +2133,7 @@ test_counter_wrapper  test_counter_wrapper_inst(
 	.sys_clk (sys_clk),
 	.reset_n (reset_n),
 	//
-	.o_test    (w_test),
+	.o_test        (w_test),
 	//
 	.o_count1      (count1),
 	//

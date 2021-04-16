@@ -48,8 +48,8 @@ set_property CONFIG_MODE SPIx4 [current_design]
 ## N10   DXP_0                         NA                 0     CONFIG    
 ## L9    VREFN_0                       NA                 0     CONFIG    
 ## M10   VREFP_0                       NA                 0     CONFIG    
-## L10   VP_0                          NA                 0     CONFIG    
-## M9    VN_0                          NA                 0     CONFIG    
+set_property PACKAGE_PIN L10 [get_ports i_XADC_VP] ; ## L10   VP_0                          NA                 0     CONFIG    
+set_property PACKAGE_PIN M9  [get_ports i_XADC_VN] ; ## M9    VN_0                          NA                 0     CONFIG    
 ## E12   VCCBATT_0                     NA                 0     CONFIG    
 ## L12   CCLK_0                        NA                 0     CONFIG    
 ## V12   TCK_0                         NA                 0     CONFIG    
@@ -63,6 +63,7 @@ set_property CONFIG_MODE SPIx4 [current_design]
 ## U9    M2_0                          NA                 0     CONFIG    
 ## U11   M0_0                          NA                 0     CONFIG    
 ## U10   M1_0                          NA                 0     CONFIG    
+
 
 ## set_property PACKAGE_PIN  Y17   [get_ports xx] ; # IO_0_13                       NA                 13    HR        
 set_property PACKAGE_PIN  Y16   [get_ports  i_B13_L1P] ; # IO_L1P_T0_13                  0                  13    HR        
