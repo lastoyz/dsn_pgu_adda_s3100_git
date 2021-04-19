@@ -468,6 +468,10 @@ create_generated_clock  -name lan_clk         [get_pins  clk_wiz_0_3_1_inst/inst
 ## TODO: define clock - mcs_eeprom_fifo_clk
 create_generated_clock  -name mcs_eeprom_fifo_clk      [get_pins  clk_wiz_0_3_1_inst/inst/plle2_adv_inst/CLKOUT3]
 
+## TODO: define clock - base_sspi_clk
+create_generated_clock  -name base_sspi_clk   [get_pins  clk_wiz_2_2_inst/inst/plle2_adv_inst/CLKOUT0]
+
+
 ## for eeprom
 set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
 
@@ -479,6 +483,11 @@ set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks sy
 set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks sys_clk]
 set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks mcs_clk]
 
+## for base_sspi_clk
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks sys_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_eeprom_fifo_clk]
+  
 
 ############################################################################
 ## TODO: IO property 
