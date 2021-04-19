@@ -451,7 +451,7 @@ set_property IOSTANDARD LVDS_25 [get_ports sys_clkp]
 set_property IOSTANDARD LVDS_25 [get_ports sys_clkn]
 
 ##$$ 200MHz 5ns // clock-in
-create_clock -period 5.000 -name sys_clk [get_ports sys_clkp]
+##create_clock -period 5.000 -name main_clk [get_ports sys_clkp]
 
 ## TODO: define clock - sys_clk // from pll // clk_out3_10M_clk_wiz_0
 create_generated_clock  -name sys_clk         [get_pins  clk_wiz_0_0_1_inst/inst/plle2_adv_inst/CLKOUT0]

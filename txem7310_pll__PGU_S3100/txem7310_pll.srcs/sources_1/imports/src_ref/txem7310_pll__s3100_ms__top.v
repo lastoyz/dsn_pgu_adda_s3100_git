@@ -164,38 +164,38 @@ module txem7310_pll__s3100_ms__top (
 	
 	output wire  o_B16_0_         , // # F15  # BASE_F_LED_ERR 
 	
-	input  wire io_B16_L1P        , // # F13  # BD0
-	input  wire io_B16_L1N        , // # F14  # BD1
-	input  wire io_B16_L2P        , // # F16  # BD2
-	input  wire io_B16_L2N        , // # E17  # BD3
-	input  wire io_B16_L3P        , // # C14  # BD4
-	input  wire io_B16_L3N        , // # C15  # BD5
-	input  wire io_B16_L4P        , // # E13  # BD6
-	input  wire io_B16_L4N        , // # E14  # BD7
-	input  wire io_B16_L5P        , // # E16  # BD8
-	input  wire io_B16_L5N        , // # D16  # BD9
-	input  wire io_B16_L6P        , // # D14  # BD10
-	input  wire io_B16_L6N        , // # D15  # BD11
-	input  wire io_B16_L7P        , // # B15  # BD12
-	input  wire io_B16_L7N        , // # B16  # BD13
-	input  wire io_B16_L8P        , // # C13  # BD14
-	input  wire io_B16_L8N        , // # B13  # BD15
-	input  wire io_B16_L9P        , // # A15  # BD16
-	input  wire io_B16_L9N        , // # A16  # BD17
-	input  wire io_B16_L10P       , // # A13  # BD18
-	input  wire io_B16_L10N       , // # A14  # BD19
-	input  wire io_B16_L11P       , // # B17  # BD20
-	input  wire io_B16_L11N       , // # B18  # BD21
-	input  wire io_B16_L12P       , // # D17  # BD22
-	input  wire io_B16_L12N       , // # C17  # BD23
-	input  wire io_B16_L13P       , // # C18  # BD24
-	input  wire io_B16_L13N       , // # C19  # BD25
-	input  wire io_B16_L14P       , // # E19  # BD26
-	input  wire io_B16_L14N       , // # D19  # BD27
-	input  wire io_B16_L15P       , // # F18  # BD28
-	input  wire io_B16_L15N       , // # E18  # BD29
-	input  wire io_B16_L16P       , // # B20  # BD30
-	input  wire io_B16_L16N       , // # A20  # BD31
+	inout  wire io_B16_L1P        , // # F13  # BD0
+	inout  wire io_B16_L1N        , // # F14  # BD1
+	inout  wire io_B16_L2P        , // # F16  # BD2
+	inout  wire io_B16_L2N        , // # E17  # BD3
+	inout  wire io_B16_L3P        , // # C14  # BD4
+	inout  wire io_B16_L3N        , // # C15  # BD5
+	inout  wire io_B16_L4P        , // # E13  # BD6
+	inout  wire io_B16_L4N        , // # E14  # BD7
+	inout  wire io_B16_L5P        , // # E16  # BD8
+	inout  wire io_B16_L5N        , // # D16  # BD9
+	inout  wire io_B16_L6P        , // # D14  # BD10
+	inout  wire io_B16_L6N        , // # D15  # BD11
+	inout  wire io_B16_L7P        , // # B15  # BD12
+	inout  wire io_B16_L7N        , // # B16  # BD13
+	inout  wire io_B16_L8P        , // # C13  # BD14
+	inout  wire io_B16_L8N        , // # B13  # BD15
+	inout  wire io_B16_L9P        , // # A15  # BD16
+	inout  wire io_B16_L9N        , // # A16  # BD17
+	inout  wire io_B16_L10P       , // # A13  # BD18
+	inout  wire io_B16_L10N       , // # A14  # BD19
+	inout  wire io_B16_L11P       , // # B17  # BD20
+	inout  wire io_B16_L11N       , // # B18  # BD21
+	inout  wire io_B16_L12P       , // # D17  # BD22
+	inout  wire io_B16_L12N       , // # C17  # BD23
+	inout  wire io_B16_L13P       , // # C18  # BD24
+	inout  wire io_B16_L13N       , // # C19  # BD25
+	inout  wire io_B16_L14P       , // # E19  # BD26
+	inout  wire io_B16_L14N       , // # D19  # BD27
+	inout  wire io_B16_L15P       , // # F18  # BD28
+	inout  wire io_B16_L15N       , // # E18  # BD29
+	inout  wire io_B16_L16P       , // # B20  # BD30
+	inout  wire io_B16_L16N       , // # A20  # BD31
 	
 	//  # IO_B16_L17P_T2_16         // # A18  # NA
 
@@ -892,8 +892,8 @@ wire  M0_SPI_RX_CLK ;
 wire  M0_SPI_MISO   ;
 OBUF obuf__M0_SPI_TX_CLK__inst(.O( o_B34_L7N ), .I( M0_SPI_TX_CLK ) );
 OBUF obuf__M0_SPI_MOSI____inst(.O( o_B34_L8P ), .I( M0_SPI_MOSI   ) );
-IBUF ibuf__M0_SPI_RX_CLK__inst( .I( i_B34_L8N ), .O( M0_SPI_RX_CLK ) );
-IBUF ibuf__M0_SPI_MISO____inst( .I( i_B34_L9P ), .O( M0_SPI_MISO   ) );
+IBUF ibuf__M0_SPI_RX_CLK__inst(.I( i_B34_L8N ), .O( M0_SPI_RX_CLK ) );
+IBUF ibuf__M0_SPI_MISO____inst(.I( i_B34_L9P ), .O( M0_SPI_MISO   ) );
 	
 // # AA3    # NA
 	
@@ -930,8 +930,8 @@ wire  M1_SPI_RX_CLK ;
 wire  M1_SPI_MISO   ;
 OBUF obuf__M1_SPI_TX_CLK__inst(.O( o_B34_L16N ), .I( M1_SPI_TX_CLK ) );
 OBUF obuf__M1_SPI_MOSI____inst(.O( o_B34_L17P ), .I( M1_SPI_MOSI   ) );
-IBUF ibuf__M1_SPI_RX_CLK__inst( .I( i_B34_L17N ), .O( M1_SPI_RX_CLK ) );
-IBUF ibuf__M1_SPI_MISO____inst( .I( i_B34_L18P ), .O( M1_SPI_MISO   ) );
+IBUF ibuf__M1_SPI_RX_CLK__inst(.I( i_B34_L17N ), .O( M1_SPI_RX_CLK ) );
+IBUF ibuf__M1_SPI_MISO____inst(.I( i_B34_L18P ), .O( M1_SPI_MISO   ) );
 	
 // # AA6    # NA
 											   
@@ -2459,6 +2459,18 @@ wire  w_SSPI_TEST_MOSI   ;
 wire  w_SSPI_TEST_MISO   ;
 wire  w_SSPI_TEST_MISO_EN;
 
+//$$ S3100: mapping SSPI_TEST to M0_SPI
+assign  FPGA_M0_SPI_TX_EN   = w_SSPI_TEST_mode_en ;
+assign  FPGA_M0_SPI_nCS0_   = w_SSPI_TEST_SS_B    ;
+assign  M0_SPI_TX_CLK       = w_SSPI_TEST_MCLK    ;
+assign  M0_SPI_MOSI         = w_SSPI_TEST_MOSI    ;
+//
+assign  w_SSPI_TEST_MISO_EN = w_SSPI_TEST_mode_en ; 
+//$$assign  w_SSPI_TEST_SCLK    = M0_SPI_RX_CLK       ; //$$ must come from SSPI in test.
+//$$assign  w_SSPI_TEST_MISO    = M0_SPI_MISO         ; //$$ must come from SSPI in test.
+
+
+
 //
 master_spi_mth_brd  master_spi_mth_brd__inst(
 	.clk     (base_sspi_clk), // 104MHz
@@ -2481,7 +2493,7 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 	// IO 
 	.o_SS_B    (w_SSPI_TEST_SS_B   ),
 	.o_MCLK    (w_SSPI_TEST_MCLK   ), // sclk master out 
-	.i_SCLK    (w_SSPI_TEST_SCLK   ), // sclk slave out
+	.i_SCLK    (w_SSPI_TEST_SCLK   ), // sclk slave in
 	.o_MOSI    (w_SSPI_TEST_MOSI   ),
 	.i_MISO    (w_SSPI_TEST_MISO   ),
 	.i_MISO_EN (w_SSPI_TEST_MISO_EN),
@@ -2516,33 +2528,35 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 //OBUF obuf__M0_SPI_MISO_____inst(.O(o_B34_L4N       ), .I(M0_SPI_MISO      ) ); // 
 //OBUF obuf__M0_SPI_MISO_EN__inst(.O(o_B34_L24P      ), .I(M0_SPI_MISO_EN   ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
 
-wire  w_B34_L2P  ;
-wire  w_B34_L2N  ;
-wire  w_B34_L1P  ;
-wire  w_B34_L4P  ;
-wire  w_B34_L4N  ;
-wire  w_B34_L24P ;
 
-IBUF ibuf__M0_SPI_CS_B_BUF_inst(.I(i_B34_L2P       ), .O(w_B34_L2P  ) ); //
-IBUF ibuf__M0_SPI_CLK______inst(.I(i_B34_L2N       ), .O(w_B34_L2N  ) ); //
-OBUF obuf__M0_SPI_SCLK_____inst(.O(o_B34_L1P       ), .I(w_B34_L1P  ) ); //$$ REV2
-IBUF ibuf__M0_SPI_MOSI_____inst(.I(i_B34_L4P       ), .O(w_B34_L4P  ) ); //
-OBUF obuf__M0_SPI_MISO_____inst(.O(o_B34_L4N       ), .I(w_B34_L4N  ) ); // 
-OBUF obuf__M0_SPI_MISO_EN__inst(.O(o_B34_L24P      ), .I(w_B34_L24P ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
+//$$ wire  w_B34_L2P  ;
+//$$ wire  w_B34_L2N  ;
+//$$ wire  w_B34_L1P  ;
+//$$ wire  w_B34_L4P  ;
+//$$ wire  w_B34_L4N  ;
+//$$ wire  w_B34_L24P ;
+//$$ 
+//$$ //$$IBUF ibuf__M0_SPI_CS_B_BUF_inst(.I(i_B34_L2P       ), .O(w_B34_L2P  ) ); //
+//$$ //$$IBUF ibuf__M0_SPI_CLK______inst(.I(i_B34_L2N       ), .O(w_B34_L2N  ) ); //
+//$$ //$$OBUF obuf__M0_SPI_SCLK_____inst(.O(o_B34_L1P       ), .I(w_B34_L1P  ) ); //$$ REV2
+//$$ //$$IBUF ibuf__M0_SPI_MOSI_____inst(.I(i_B34_L4P       ), .O(w_B34_L4P  ) ); //
+//$$ //$$OBUF obuf__M0_SPI_MISO_____inst(.O(o_B34_L4N       ), .I(w_B34_L4N  ) ); // 
+//$$ //$$OBUF obuf__M0_SPI_MISO_EN__inst(.O(o_B34_L24P      ), .I(w_B34_L24P ) ); //$$ o_B34_L1P --> o_B34_L24P //$$ REV2
+//$$ 
+//$$ assign M0_SPI_CS_B_BUF = (~w_SSPI_TEST_mode_en)? w_B34_L2P      : w_SSPI_TEST_SS_B ; // w_SSPI_TEST_SS_B   
+//$$ assign M0_SPI_CLK      = (~w_SSPI_TEST_mode_en)? w_B34_L2N      : w_SSPI_TEST_MCLK ; // w_SSPI_TEST_MCLK   
+//$$ assign w_B34_L1P       = (~w_SSPI_TEST_mode_en)? M0_SPI_SCLK    : 1'b1             ; // w_SSPI_TEST_SCLK   
+//$$ assign M0_SPI_MOSI     = (~w_SSPI_TEST_mode_en)? w_B34_L4P      : w_SSPI_TEST_MOSI ; // w_SSPI_TEST_MOSI   
+//$$ assign w_B34_L4N       = (~w_SSPI_TEST_mode_en)? M0_SPI_MISO    : 1'b1             ; // w_SSPI_TEST_MISO   
+//$$ assign w_B34_L24P      = (~w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b1             ; // w_SSPI_TEST_MISO_EN
+//$$ 
+//$$ //w_SSPI_TEST_SS_B   
+//$$ //w_SSPI_TEST_MCLK   
+//$$ assign w_SSPI_TEST_SCLK    = (w_SSPI_TEST_mode_en)? M0_SPI_SCLK    : 1'b1 ;
+//$$ //w_SSPI_TEST_MOSI   
+//$$ assign w_SSPI_TEST_MISO    = (w_SSPI_TEST_mode_en)? M0_SPI_MISO    : 1'b1 ;
+//$$ assign w_SSPI_TEST_MISO_EN = (w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b0 ;
 
-assign M0_SPI_CS_B_BUF = (~w_SSPI_TEST_mode_en)? w_B34_L2P      : w_SSPI_TEST_SS_B ; // w_SSPI_TEST_SS_B   
-assign M0_SPI_CLK      = (~w_SSPI_TEST_mode_en)? w_B34_L2N      : w_SSPI_TEST_MCLK ; // w_SSPI_TEST_MCLK   
-assign w_B34_L1P       = (~w_SSPI_TEST_mode_en)? M0_SPI_SCLK    : 1'b1             ; // w_SSPI_TEST_SCLK   
-assign M0_SPI_MOSI     = (~w_SSPI_TEST_mode_en)? w_B34_L4P      : w_SSPI_TEST_MOSI ; // w_SSPI_TEST_MOSI   
-assign w_B34_L4N       = (~w_SSPI_TEST_mode_en)? M0_SPI_MISO    : 1'b1             ; // w_SSPI_TEST_MISO   
-assign w_B34_L24P      = (~w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b1             ; // w_SSPI_TEST_MISO_EN
-
-//w_SSPI_TEST_SS_B   
-//w_SSPI_TEST_MCLK   
-assign w_SSPI_TEST_SCLK    = (w_SSPI_TEST_mode_en)? M0_SPI_SCLK    : 1'b1 ;
-//w_SSPI_TEST_MOSI   
-assign w_SSPI_TEST_MISO    = (w_SSPI_TEST_mode_en)? M0_SPI_MISO    : 1'b1 ;
-assign w_SSPI_TEST_MISO_EN = (w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b0 ;
 
 //}
 
@@ -2571,6 +2585,16 @@ assign w_SSPI_TEST_MISO_EN = (w_SSPI_TEST_mode_en)? M0_SPI_MISO_EN : 1'b0 ;
 (* keep = "true" *) wire w_M0_SPI_MOSI    ;
 (* keep = "true" *) wire w_M0_SPI_MISO    ;
 (* keep = "true" *) wire w_M0_SPI_MISO_EN ;
+
+//$$ for S3100 test
+assign w_M0_SPI_CS_B_BUF = w_SSPI_TEST_SS_B;
+assign w_M0_SPI_CLK      = w_SSPI_TEST_MCLK;
+assign w_M0_SPI_MOSI     = w_SSPI_TEST_MOSI;
+//
+assign  w_SSPI_TEST_SCLK    = w_M0_SPI_CLK       ; //$$ must come from SSPI in test.
+assign  w_SSPI_TEST_MISO    = w_M0_SPI_MISO      ; //$$ must come from SSPI in test.
+
+
 //
 (* keep = "true" *) wire w_M1_SPI_CS_B_BUF;
 (* keep = "true" *) wire w_M1_SPI_CLK     ;
@@ -2978,68 +3002,50 @@ slave_spi_mth_brd  slave_spi_mth_brd__M1_inst(
 
 // assignments //{
 
-// signal monitoring reg
-(* keep = "true" *) reg r_M0_SPI_CS_B_BUF; // test sampling
-(* keep = "true" *) reg r_M0_SPI_CLK     ; // test sampling
-(* keep = "true" *) reg r_M0_SPI_MOSI    ; // test sampling
-(* keep = "true" *) reg r_M0_SPI_MISO    ; // test output
-(* keep = "true" *) reg r_M0_SPI_MISO_EN ; // test output
-//
-(* keep = "true" *) reg r_M1_SPI_CS_B_BUF; // test sampling
-(* keep = "true" *) reg r_M1_SPI_CLK     ; // test sampling
-(* keep = "true" *) reg r_M1_SPI_MOSI    ; // test sampling
-(* keep = "true" *) reg r_M1_SPI_MISO    ; // test output
-(* keep = "true" *) reg r_M1_SPI_MISO_EN ; // test output
 
 
-//// output pin assignment
-assign M0_SPI_MISO_EN = r_M0_SPI_MISO_EN;
-assign M0_SPI_MISO    = r_M0_SPI_MISO   ;
-assign M1_SPI_MISO_EN = r_M1_SPI_MISO_EN;
-assign M1_SPI_MISO    = r_M1_SPI_MISO   ;
-
-//// input pin sampling
+//$$  // signal monitoring reg
+//$$  (* keep = "true" *) reg r_M0_SPI_CS_B_BUF; // test sampling
+//$$  (* keep = "true" *) reg r_M0_SPI_CLK     ; // test sampling
+//$$  (* keep = "true" *) reg r_M0_SPI_MOSI    ; // test sampling
+//$$  (* keep = "true" *) reg r_M0_SPI_MISO    ; // test output
+//$$  (* keep = "true" *) reg r_M0_SPI_MISO_EN ; // test output
+//$$  //
+//$$  (* keep = "true" *) reg r_M1_SPI_CS_B_BUF; // test sampling
+//$$  (* keep = "true" *) reg r_M1_SPI_CLK     ; // test sampling
+//$$  (* keep = "true" *) reg r_M1_SPI_MOSI    ; // test sampling
+//$$  (* keep = "true" *) reg r_M1_SPI_MISO    ; // test output
+//$$  (* keep = "true" *) reg r_M1_SPI_MISO_EN ; // test output
+//$$  
+//$$  
+//$$  //// output pin assignment
+//$$  assign M0_SPI_MISO_EN = r_M0_SPI_MISO_EN;
+//$$  assign M0_SPI_MISO    = r_M0_SPI_MISO   ;
+//$$  assign M1_SPI_MISO_EN = r_M1_SPI_MISO_EN;
+//$$  assign M1_SPI_MISO    = r_M1_SPI_MISO   ;
+//$$  
+//$$  // output sampling
 //$$  always @(posedge base_sspi_clk, negedge reset_n)
 //$$  	if (!reset_n) begin
-//$$  		r_M0_SPI_CS_B_BUF  <= 1'b0;
-//$$  		r_M0_SPI_CLK       <= 1'b0;
-//$$  		r_M0_SPI_MOSI      <= 1'b0;
-//$$  		r_M1_SPI_CS_B_BUF  <= 1'b0;
-//$$  		r_M1_SPI_CLK       <= 1'b0;
-//$$  		r_M1_SPI_MOSI      <= 1'b0;
+//$$  		r_M0_SPI_MISO     <= 1'b0;
+//$$  		r_M0_SPI_MISO_EN  <= 1'b0;
+//$$  		r_M1_SPI_MISO     <= 1'b0;
+//$$  		r_M1_SPI_MISO_EN  <= 1'b0;
 //$$  	end
 //$$  	else begin
-//$$  		r_M0_SPI_CS_B_BUF  <= M0_SPI_CS_B_BUF;
-//$$  		r_M0_SPI_CLK       <= M0_SPI_CLK     ;
-//$$  		r_M0_SPI_MOSI      <= M0_SPI_MOSI    ;
-//$$  		r_M1_SPI_CS_B_BUF  <= M1_SPI_CS_B_BUF;
-//$$  		r_M1_SPI_CLK       <= M1_SPI_CLK     ;
-//$$  		r_M1_SPI_MOSI      <= M1_SPI_MOSI    ;
+//$$  		r_M0_SPI_MISO      <= w_M0_SPI_MISO    ;
+//$$  		r_M0_SPI_MISO_EN   <= w_M0_SPI_MISO_EN ;
+//$$  		r_M1_SPI_MISO      <= w_M1_SPI_MISO    ;
+//$$  		r_M1_SPI_MISO_EN   <= w_M1_SPI_MISO_EN ;
 //$$  	end	
-
-
-// output sampling
-always @(posedge base_sspi_clk, negedge reset_n)
-	if (!reset_n) begin
-		r_M0_SPI_MISO     <= 1'b0;
-		r_M0_SPI_MISO_EN  <= 1'b0;
-		r_M1_SPI_MISO     <= 1'b0;
-		r_M1_SPI_MISO_EN  <= 1'b0;
-	end
-	else begin
-		r_M0_SPI_MISO      <= w_M0_SPI_MISO    ;
-		r_M0_SPI_MISO_EN   <= w_M0_SPI_MISO_EN ;
-		r_M1_SPI_MISO      <= w_M1_SPI_MISO    ;
-		r_M1_SPI_MISO_EN   <= w_M1_SPI_MISO_EN ;
-	end	
-
-// input wire assignment
-assign w_M0_SPI_CS_B_BUF = r_M0_SPI_CS_B_BUF;
-assign w_M0_SPI_CLK      = r_M0_SPI_CLK     ;
-assign w_M0_SPI_MOSI     = r_M0_SPI_MOSI    ;
-assign w_M1_SPI_CS_B_BUF = r_M1_SPI_CS_B_BUF;
-assign w_M1_SPI_CLK      = r_M1_SPI_CLK     ;
-assign w_M1_SPI_MOSI     = r_M1_SPI_MOSI    ;
+//$$  
+//$$  // input wire assignment
+//$$  assign w_M0_SPI_CS_B_BUF = r_M0_SPI_CS_B_BUF;
+//$$  assign w_M0_SPI_CLK      = r_M0_SPI_CLK     ;
+//$$  assign w_M0_SPI_MOSI     = r_M0_SPI_MOSI    ;
+//$$  assign w_M1_SPI_CS_B_BUF = r_M1_SPI_CS_B_BUF;
+//$$  assign w_M1_SPI_CLK      = r_M1_SPI_CLK     ;
+//$$  assign w_M1_SPI_MOSI     = r_M1_SPI_MOSI    ;
 
 
 // output wire loopback //{
@@ -3053,8 +3059,9 @@ assign w_M1_SPI_MOSI     = r_M1_SPI_MOSI    ;
 
 
 // slave clock duplication //$$ REV2 //{
-assign M0_SPI_SCLK = r_M0_SPI_CLK;
-assign M1_SPI_SCLK = r_M1_SPI_CLK;
+//$$ assign M0_SPI_SCLK = r_M0_SPI_CLK;
+//$$ assign M1_SPI_SCLK = r_M1_SPI_CLK;
+
 //}
 
 
@@ -3068,7 +3075,7 @@ assign w_M0_slack_count_MISO   = (~w_SSPI_CON_WI[0])? w_M0_port_wi_sadrs_h008[30
 assign w_HW_reset__ext        = w_M0_port_wi_sadrs_h008[3]; //$$
 
 // res net assignment 
-assign res_net_ctrl_ext_en    = w_M0_port_wi_sadrs_h008[1];   //$$ enable LED control on Base board
+//$$assign res_net_ctrl_ext_en    = w_M0_port_wi_sadrs_h008[1];   //$$ enable LED control on Base board
 assign res_net_ctrl_ext_data  = w_M0_port_wi_sadrs_h00C[3:0];
 
 // count2 control 
@@ -3117,7 +3124,7 @@ assign ext_trig_ti_______sspi = w_M0_port_ti_sadrs_h110 ;
 
 // flag assignment 
 assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
-assign w_SSPI_FLAG_WO[1]     = res_net_ctrl_ext_en; // enables res net control from SSPI
+//$$assign w_SSPI_FLAG_WO[1]     = res_net_ctrl_ext_en; // enables res net control from SSPI
 assign w_SSPI_FLAG_WO[2]     = 1'b0; 
 assign w_SSPI_FLAG_WO[3]     = w_HW_reset; //$$ HW reset status
 assign w_SSPI_FLAG_WO[7:4]   = w_slot_id[3:0]     ; // show board slot id 
