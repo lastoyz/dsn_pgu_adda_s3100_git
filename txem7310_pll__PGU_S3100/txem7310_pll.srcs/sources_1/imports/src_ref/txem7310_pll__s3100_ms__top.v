@@ -1190,6 +1190,8 @@ wire xadc_clk             =  clk_out4_10M;
 wire base_sspi_clk; // base clock for slave SPI // 104MHz
 wire p_sspi_clk;    // p_clk for SSPI // 13MHz = base / 8
 
+wire clk_2_locked = 1'b1;
+
 // clk_wiz_2_2
 wire clk_2_2_locked; //$$ unused
 clk_wiz_2_2  clk_wiz_2_2_inst (
@@ -2452,12 +2454,12 @@ wire  [15:0] w_SSPI_frame_data_B;
 wire  [15:0] w_SSPI_frame_data_E;
 assign w_MSPI_FLAG_WO[15:0] = w_SSPI_frame_data_B[15:0]; //$$ w_SSPI_TEST_WO --> w_MSPI_FLAG_WO
 
-wire  w_SSPI_TEST_SS_B   ;
-wire  w_SSPI_TEST_MCLK   ;
-wire  w_SSPI_TEST_SCLK   ;
-wire  w_SSPI_TEST_MOSI   ;
-wire  w_SSPI_TEST_MISO   ;
-wire  w_SSPI_TEST_MISO_EN;
+(* keep = "true" *) wire  w_SSPI_TEST_SS_B   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MCLK   ;
+(* keep = "true" *) wire  w_SSPI_TEST_SCLK   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MOSI   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MISO   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MISO_EN;
 
 //$$ S3100: mapping SSPI_TEST to M0_SPI
 assign  FPGA_M0_SPI_TX_EN   = w_SSPI_TEST_mode_en ;
@@ -2762,35 +2764,35 @@ slave_spi_mth_brd  slave_spi_mth_brd__M0_inst(
 	.i_port_wo_sadrs_h088    (w_M0_port_wo_sadrs_h088),
 	.i_port_wo_sadrs_h08C    (w_M0_port_wo_sadrs_h08C),
 	.i_port_wo_sadrs_h090    (w_M0_port_wo_sadrs_h090),
-	.i_port_wo_sadrs_h094    (w_M0_port_wo_sadrs_h094),
-	.i_port_wo_sadrs_h098    (w_M0_port_wo_sadrs_h098),
-	.i_port_wo_sadrs_h09C    (w_M0_port_wo_sadrs_h09C), // ADC_FLAG_WO		0x09C			wo27
-	.i_port_wo_sadrs_h0E0    (w_M0_port_wo_sadrs_h0E0), // [31:0] // DAC_S1_WO	0x0E0	wo38
-	.i_port_wo_sadrs_h0E4    (w_M0_port_wo_sadrs_h0E4), // [31:0] // DAC_S2_WO	0x0E4	wo39
-	.i_port_wo_sadrs_h0E8    (w_M0_port_wo_sadrs_h0E8), // [31:0] // DAC_S3_WO	0x0E8	wo3A
-	.i_port_wo_sadrs_h0EC    (w_M0_port_wo_sadrs_h0EC), // [31:0] // DAC_S4_WO	0x0EC	wo3B
-	.i_port_wo_sadrs_h0F0    (w_M0_port_wo_sadrs_h0F0), // [31:0] // DAC_S5_WO	0x0F0	wo3C
-	.i_port_wo_sadrs_h0F4    (w_M0_port_wo_sadrs_h0F4), // [31:0] // DAC_S6_WO	0x0F4	wo3D
-	.i_port_wo_sadrs_h0F8    (w_M0_port_wo_sadrs_h0F8), // [31:0] // DAC_S7_WO	0x0F8	wo3E
-	.i_port_wo_sadrs_h0FC    (w_M0_port_wo_sadrs_h0FC), // [31:0] // DAC_S8_WO	0x0FC	wo3F
+	//.i_port_wo_sadrs_h094    (w_M0_port_wo_sadrs_h094),
+	//.i_port_wo_sadrs_h098    (w_M0_port_wo_sadrs_h098),
+	//.i_port_wo_sadrs_h09C    (w_M0_port_wo_sadrs_h09C), // ADC_FLAG_WO		0x09C			wo27
+	//.i_port_wo_sadrs_h0E0    (w_M0_port_wo_sadrs_h0E0), // [31:0] // DAC_S1_WO	0x0E0	wo38
+	//.i_port_wo_sadrs_h0E4    (w_M0_port_wo_sadrs_h0E4), // [31:0] // DAC_S2_WO	0x0E4	wo39
+	//.i_port_wo_sadrs_h0E8    (w_M0_port_wo_sadrs_h0E8), // [31:0] // DAC_S3_WO	0x0E8	wo3A
+	//.i_port_wo_sadrs_h0EC    (w_M0_port_wo_sadrs_h0EC), // [31:0] // DAC_S4_WO	0x0EC	wo3B
+	//.i_port_wo_sadrs_h0F0    (w_M0_port_wo_sadrs_h0F0), // [31:0] // DAC_S5_WO	0x0F0	wo3C
+	//.i_port_wo_sadrs_h0F4    (w_M0_port_wo_sadrs_h0F4), // [31:0] // DAC_S6_WO	0x0F4	wo3D
+	//.i_port_wo_sadrs_h0F8    (w_M0_port_wo_sadrs_h0F8), // [31:0] // DAC_S7_WO	0x0F8	wo3E
+	//.i_port_wo_sadrs_h0FC    (w_M0_port_wo_sadrs_h0FC), // [31:0] // DAC_S8_WO	0x0FC	wo3F
 	//
-	.i_port_wo_sadrs_h0A0    (w_M0_port_wo_sadrs_h0A0), // ADC_Sn_ACC_WO		0x0A0~0x0BC		wo28~wo2F
-	.i_port_wo_sadrs_h0A4    (w_M0_port_wo_sadrs_h0A4),
-	.i_port_wo_sadrs_h0A8    (w_M0_port_wo_sadrs_h0A8),
-	.i_port_wo_sadrs_h0AC    (w_M0_port_wo_sadrs_h0AC),
-	.i_port_wo_sadrs_h0B0    (w_M0_port_wo_sadrs_h0B0),
-	.i_port_wo_sadrs_h0B4    (w_M0_port_wo_sadrs_h0B4),
-	.i_port_wo_sadrs_h0B8    (w_M0_port_wo_sadrs_h0B8),
-	.i_port_wo_sadrs_h0BC    (w_M0_port_wo_sadrs_h0BC),
+	//.i_port_wo_sadrs_h0A0    (w_M0_port_wo_sadrs_h0A0), // ADC_Sn_ACC_WO		0x0A0~0x0BC		wo28~wo2F
+	//.i_port_wo_sadrs_h0A4    (w_M0_port_wo_sadrs_h0A4),
+	//.i_port_wo_sadrs_h0A8    (w_M0_port_wo_sadrs_h0A8),
+	//.i_port_wo_sadrs_h0AC    (w_M0_port_wo_sadrs_h0AC),
+	//.i_port_wo_sadrs_h0B0    (w_M0_port_wo_sadrs_h0B0),
+	//.i_port_wo_sadrs_h0B4    (w_M0_port_wo_sadrs_h0B4),
+	//.i_port_wo_sadrs_h0B8    (w_M0_port_wo_sadrs_h0B8),
+	//.i_port_wo_sadrs_h0BC    (w_M0_port_wo_sadrs_h0BC),
 	//
-	.i_port_wo_sadrs_h0C0    (w_M0_port_wo_sadrs_h0C0), // ADC_Sn_WO		0x0C0~0x0DC		wo30~wo37
-	.i_port_wo_sadrs_h0C4    (w_M0_port_wo_sadrs_h0C4),
-	.i_port_wo_sadrs_h0C8    (w_M0_port_wo_sadrs_h0C8),
-	.i_port_wo_sadrs_h0CC    (w_M0_port_wo_sadrs_h0CC),
-	.i_port_wo_sadrs_h0D0    (w_M0_port_wo_sadrs_h0D0),
-	.i_port_wo_sadrs_h0D4    (w_M0_port_wo_sadrs_h0D4),
-	.i_port_wo_sadrs_h0D8    (w_M0_port_wo_sadrs_h0D8),
-	.i_port_wo_sadrs_h0DC    (w_M0_port_wo_sadrs_h0DC),
+	//.i_port_wo_sadrs_h0C0    (w_M0_port_wo_sadrs_h0C0), // ADC_Sn_WO		0x0C0~0x0DC		wo30~wo37
+	//.i_port_wo_sadrs_h0C4    (w_M0_port_wo_sadrs_h0C4),
+	//.i_port_wo_sadrs_h0C8    (w_M0_port_wo_sadrs_h0C8),
+	//.i_port_wo_sadrs_h0CC    (w_M0_port_wo_sadrs_h0CC),
+	//.i_port_wo_sadrs_h0D0    (w_M0_port_wo_sadrs_h0D0),
+	//.i_port_wo_sadrs_h0D4    (w_M0_port_wo_sadrs_h0D4),
+	//.i_port_wo_sadrs_h0D8    (w_M0_port_wo_sadrs_h0D8),
+	//.i_port_wo_sadrs_h0DC    (w_M0_port_wo_sadrs_h0DC),
 	//
 	.i_port_wo_sadrs_h380    (w_M0_port_wo_sadrs_h380), // [31:0] // adrs h383~h380	
 	.i_port_wo_sadrs_h384    (w_M0_port_wo_sadrs_h384), // [31:0] // SSPI_BD_STAT_WO           
@@ -2806,39 +2808,39 @@ slave_spi_mth_brd  slave_spi_mth_brd__M0_inst(
 	.i_ck__sadrs_h110  (sys_clk),      .o_port_ti_sadrs_h110  (w_M0_port_ti_sadrs_h110), // [31:0]
 	.i_ck__sadrs_h114  (sys_clk),      .o_port_ti_sadrs_h114  (w_M0_port_ti_sadrs_h114), // [31:0]
 	.i_ck__sadrs_h118  (sys_clk),      .o_port_ti_sadrs_h118  (w_M0_port_ti_sadrs_h118), // [31:0]
-	.i_ck__sadrs_h11C  (p_adc_clk),    .o_port_ti_sadrs_h11C  (w_M0_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
+	//.i_ck__sadrs_h11C  (p_adc_clk),    .o_port_ti_sadrs_h11C  (w_M0_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
 	.i_ck__sadrs_h14C  (sys_clk),      .o_port_ti_sadrs_h14C  (w_M0_port_ti_sadrs_h14C), // [31:0] // MEM_TI	0x14C	ti53 // sys_clk //$$
 
 	// to
-	.i_ck__sadrs_h190  (sys_clk  ),    .i_port_to_sadrs_h190  (w_M0_port_to_sadrs_h190), // [31:0] // EXT_TRIG_TO	0x190	to64 // sys_clk //$$
-	.i_ck__sadrs_h194  (sys_clk  ),    .i_port_to_sadrs_h194  (w_M0_port_to_sadrs_h194), // [31:0]
-	.i_ck__sadrs_h198  (sys_clk  ),    .i_port_to_sadrs_h198  (w_M0_port_to_sadrs_h198), // [31:0]
-	.i_ck__sadrs_h19C  (p_adc_clk),    .i_port_to_sadrs_h19C  (w_M0_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
+	//.i_ck__sadrs_h190  (sys_clk  ),    .i_port_to_sadrs_h190  (w_M0_port_to_sadrs_h190), // [31:0] // EXT_TRIG_TO	0x190	to64 // sys_clk //$$
+	//.i_ck__sadrs_h194  (sys_clk  ),    .i_port_to_sadrs_h194  (w_M0_port_to_sadrs_h194), // [31:0]
+	//.i_ck__sadrs_h198  (sys_clk  ),    .i_port_to_sadrs_h198  (w_M0_port_to_sadrs_h198), // [31:0]
+	//.i_ck__sadrs_h19C  (p_adc_clk),    .i_port_to_sadrs_h19C  (w_M0_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
 	.i_ck__sadrs_h1CC  (sys_clk  ),    .i_port_to_sadrs_h1CC  (w_M0_port_to_sadrs_h1CC), // [31:0] // MEM_TO	0x1CC	to73 // sys_clk //$$
 
 	// pi
-	.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M0),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M0), // [31:0]  // MEM_PI	0x24C	pi93 //$$
+	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M0),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M0), // [31:0]  // MEM_PI	0x24C	pi93 //$$
 	
 	// po
 	// ADC_Sn_CH1_PO	0x280~0x29C		poA0~poA7
 	// ADC_Sn_CH2_PO	0x2A0~0x2BC		poA8~poAF
-	.o_rd__sadrs_h280 (w_ADC_S1_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h280 (w_ADC_S1_CH1_PO), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
-	.o_rd__sadrs_h284 (w_ADC_S2_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h284 (w_ADC_S2_CH1_PO), // [31:0]  // ADC_S2_CH1_PO	0x284	poA1
-	.o_rd__sadrs_h288 (w_ADC_S3_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h288 (w_ADC_S3_CH1_PO), // [31:0]  // ADC_S3_CH1_PO	0x288	poA2
-	.o_rd__sadrs_h28C (w_ADC_S4_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h28C (w_ADC_S4_CH1_PO), // [31:0]  // ADC_S4_CH1_PO	0x28C	poA3
-	.o_rd__sadrs_h290 (w_ADC_S5_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h290 (w_ADC_S5_CH1_PO), // [31:0]  // ADC_S5_CH1_PO	0x290	poA4
-	.o_rd__sadrs_h294 (w_ADC_S6_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h294 (w_ADC_S6_CH1_PO), // [31:0]  // ADC_S6_CH1_PO	0x294	poA5
-	.o_rd__sadrs_h298 (w_ADC_S7_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h298 (w_ADC_S7_CH1_PO), // [31:0]  // ADC_S7_CH1_PO	0x298	poA6
-	.o_rd__sadrs_h29C (w_ADC_S8_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h29C (w_ADC_S8_CH1_PO), // [31:0]  // ADC_S8_CH1_PO	0x29C	poA7
-	.o_rd__sadrs_h2A0 (w_ADC_S1_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A0 (w_ADC_S1_CH2_PO), // [31:0]  // ADC_S1_CH2_PO	0x2A0	poA8
-	.o_rd__sadrs_h2A4 (w_ADC_S2_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A4 (w_ADC_S2_CH2_PO), // [31:0]  // ADC_S2_CH2_PO	0x2A4	poA9
-	.o_rd__sadrs_h2A8 (w_ADC_S3_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A8 (w_ADC_S3_CH2_PO), // [31:0]  // ADC_S3_CH2_PO	0x2A8	poAA
-	.o_rd__sadrs_h2AC (w_ADC_S4_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2AC (w_ADC_S4_CH2_PO), // [31:0]  // ADC_S4_CH2_PO	0x2AC	poAB
-	.o_rd__sadrs_h2B0 (w_ADC_S5_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B0 (w_ADC_S5_CH2_PO), // [31:0]  // ADC_S5_CH2_PO	0x2B0	poAC
-	.o_rd__sadrs_h2B4 (w_ADC_S6_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B4 (w_ADC_S6_CH2_PO), // [31:0]  // ADC_S6_CH2_PO	0x2B4	poAD
-	.o_rd__sadrs_h2B8 (w_ADC_S7_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B8 (w_ADC_S7_CH2_PO), // [31:0]  // ADC_S7_CH2_PO	0x2B8	poAE
-	.o_rd__sadrs_h2BC (w_ADC_S8_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2BC (w_ADC_S8_CH2_PO), // [31:0]  // ADC_S8_CH2_PO	0x2BC	poAF
-	.o_rd__sadrs_h2CC (       w_MEM_PO_rd_sspi_M0),   .i_port_po_sadrs_h2CC (       w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+	//.o_rd__sadrs_h280 (w_ADC_S1_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h280 (w_ADC_S1_CH1_PO), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
+	//.o_rd__sadrs_h284 (w_ADC_S2_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h284 (w_ADC_S2_CH1_PO), // [31:0]  // ADC_S2_CH1_PO	0x284	poA1
+	//.o_rd__sadrs_h288 (w_ADC_S3_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h288 (w_ADC_S3_CH1_PO), // [31:0]  // ADC_S3_CH1_PO	0x288	poA2
+	//.o_rd__sadrs_h28C (w_ADC_S4_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h28C (w_ADC_S4_CH1_PO), // [31:0]  // ADC_S4_CH1_PO	0x28C	poA3
+	//.o_rd__sadrs_h290 (w_ADC_S5_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h290 (w_ADC_S5_CH1_PO), // [31:0]  // ADC_S5_CH1_PO	0x290	poA4
+	//.o_rd__sadrs_h294 (w_ADC_S6_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h294 (w_ADC_S6_CH1_PO), // [31:0]  // ADC_S6_CH1_PO	0x294	poA5
+	//.o_rd__sadrs_h298 (w_ADC_S7_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h298 (w_ADC_S7_CH1_PO), // [31:0]  // ADC_S7_CH1_PO	0x298	poA6
+	//.o_rd__sadrs_h29C (w_ADC_S8_CH1_PO_rd_sspi_M0),   .i_port_po_sadrs_h29C (w_ADC_S8_CH1_PO), // [31:0]  // ADC_S8_CH1_PO	0x29C	poA7
+	//.o_rd__sadrs_h2A0 (w_ADC_S1_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A0 (w_ADC_S1_CH2_PO), // [31:0]  // ADC_S1_CH2_PO	0x2A0	poA8
+	//.o_rd__sadrs_h2A4 (w_ADC_S2_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A4 (w_ADC_S2_CH2_PO), // [31:0]  // ADC_S2_CH2_PO	0x2A4	poA9
+	//.o_rd__sadrs_h2A8 (w_ADC_S3_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2A8 (w_ADC_S3_CH2_PO), // [31:0]  // ADC_S3_CH2_PO	0x2A8	poAA
+	//.o_rd__sadrs_h2AC (w_ADC_S4_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2AC (w_ADC_S4_CH2_PO), // [31:0]  // ADC_S4_CH2_PO	0x2AC	poAB
+	//.o_rd__sadrs_h2B0 (w_ADC_S5_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B0 (w_ADC_S5_CH2_PO), // [31:0]  // ADC_S5_CH2_PO	0x2B0	poAC
+	//.o_rd__sadrs_h2B4 (w_ADC_S6_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B4 (w_ADC_S6_CH2_PO), // [31:0]  // ADC_S6_CH2_PO	0x2B4	poAD
+	//.o_rd__sadrs_h2B8 (w_ADC_S7_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2B8 (w_ADC_S7_CH2_PO), // [31:0]  // ADC_S7_CH2_PO	0x2B8	poAE
+	//.o_rd__sadrs_h2BC (w_ADC_S8_CH2_PO_rd_sspi_M0),   .i_port_po_sadrs_h2BC (w_ADC_S8_CH2_PO), // [31:0]  // ADC_S8_CH2_PO	0x2BC	poAF
+	//.o_rd__sadrs_h2CC (       w_MEM_PO_rd_sspi_M0),   .i_port_po_sadrs_h2CC (       w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
 	
 	//// loopback mode control 
 	.i_loopback_en           (w_M0_loopback_en),
@@ -2907,35 +2909,35 @@ slave_spi_mth_brd  slave_spi_mth_brd__M1_inst(
 	.i_port_wo_sadrs_h088    (w_M0_port_wo_sadrs_h088),
 	.i_port_wo_sadrs_h08C    (w_M0_port_wo_sadrs_h08C),
 	.i_port_wo_sadrs_h090    (w_M0_port_wo_sadrs_h090),
-	.i_port_wo_sadrs_h094    (w_M0_port_wo_sadrs_h094),
-	.i_port_wo_sadrs_h098    (w_M0_port_wo_sadrs_h098),
-	.i_port_wo_sadrs_h09C    (w_M0_port_wo_sadrs_h09C), 
-	.i_port_wo_sadrs_h0E0    (w_M0_port_wo_sadrs_h0E0),
-	.i_port_wo_sadrs_h0E4    (w_M0_port_wo_sadrs_h0E4),
-	.i_port_wo_sadrs_h0E8    (w_M0_port_wo_sadrs_h0E8),
-	.i_port_wo_sadrs_h0EC    (w_M0_port_wo_sadrs_h0EC),
-	.i_port_wo_sadrs_h0F0    (w_M0_port_wo_sadrs_h0F0),
-	.i_port_wo_sadrs_h0F4    (w_M0_port_wo_sadrs_h0F4),
-	.i_port_wo_sadrs_h0F8    (w_M0_port_wo_sadrs_h0F8),
-	.i_port_wo_sadrs_h0FC    (w_M0_port_wo_sadrs_h0FC),
+	//.i_port_wo_sadrs_h094    (w_M0_port_wo_sadrs_h094),
+	//.i_port_wo_sadrs_h098    (w_M0_port_wo_sadrs_h098),
+	//.i_port_wo_sadrs_h09C    (w_M0_port_wo_sadrs_h09C), 
+	//.i_port_wo_sadrs_h0E0    (w_M0_port_wo_sadrs_h0E0),
+	//.i_port_wo_sadrs_h0E4    (w_M0_port_wo_sadrs_h0E4),
+	//.i_port_wo_sadrs_h0E8    (w_M0_port_wo_sadrs_h0E8),
+	//.i_port_wo_sadrs_h0EC    (w_M0_port_wo_sadrs_h0EC),
+	//.i_port_wo_sadrs_h0F0    (w_M0_port_wo_sadrs_h0F0),
+	//.i_port_wo_sadrs_h0F4    (w_M0_port_wo_sadrs_h0F4),
+	//.i_port_wo_sadrs_h0F8    (w_M0_port_wo_sadrs_h0F8),
+	//.i_port_wo_sadrs_h0FC    (w_M0_port_wo_sadrs_h0FC),
 	//
-	.i_port_wo_sadrs_h0A0    (w_M0_port_wo_sadrs_h0A0),
-	.i_port_wo_sadrs_h0A4    (w_M0_port_wo_sadrs_h0A4),
-	.i_port_wo_sadrs_h0A8    (w_M0_port_wo_sadrs_h0A8),
-	.i_port_wo_sadrs_h0AC    (w_M0_port_wo_sadrs_h0AC),
-	.i_port_wo_sadrs_h0B0    (w_M0_port_wo_sadrs_h0B0),
-	.i_port_wo_sadrs_h0B4    (w_M0_port_wo_sadrs_h0B4),
-	.i_port_wo_sadrs_h0B8    (w_M0_port_wo_sadrs_h0B8),
-	.i_port_wo_sadrs_h0BC    (w_M0_port_wo_sadrs_h0BC),
+	//.i_port_wo_sadrs_h0A0    (w_M0_port_wo_sadrs_h0A0),
+	//.i_port_wo_sadrs_h0A4    (w_M0_port_wo_sadrs_h0A4),
+	//.i_port_wo_sadrs_h0A8    (w_M0_port_wo_sadrs_h0A8),
+	//.i_port_wo_sadrs_h0AC    (w_M0_port_wo_sadrs_h0AC),
+	//.i_port_wo_sadrs_h0B0    (w_M0_port_wo_sadrs_h0B0),
+	//.i_port_wo_sadrs_h0B4    (w_M0_port_wo_sadrs_h0B4),
+	//.i_port_wo_sadrs_h0B8    (w_M0_port_wo_sadrs_h0B8),
+	//.i_port_wo_sadrs_h0BC    (w_M0_port_wo_sadrs_h0BC),
 	//
-	.i_port_wo_sadrs_h0C0    (w_M0_port_wo_sadrs_h0C0), 
-	.i_port_wo_sadrs_h0C4    (w_M0_port_wo_sadrs_h0C4),
-	.i_port_wo_sadrs_h0C8    (w_M0_port_wo_sadrs_h0C8),
-	.i_port_wo_sadrs_h0CC    (w_M0_port_wo_sadrs_h0CC),
-	.i_port_wo_sadrs_h0D0    (w_M0_port_wo_sadrs_h0D0),
-	.i_port_wo_sadrs_h0D4    (w_M0_port_wo_sadrs_h0D4),
-	.i_port_wo_sadrs_h0D8    (w_M0_port_wo_sadrs_h0D8),
-	.i_port_wo_sadrs_h0DC    (w_M0_port_wo_sadrs_h0DC),
+	//.i_port_wo_sadrs_h0C0    (w_M0_port_wo_sadrs_h0C0), 
+	//.i_port_wo_sadrs_h0C4    (w_M0_port_wo_sadrs_h0C4),
+	//.i_port_wo_sadrs_h0C8    (w_M0_port_wo_sadrs_h0C8),
+	//.i_port_wo_sadrs_h0CC    (w_M0_port_wo_sadrs_h0CC),
+	//.i_port_wo_sadrs_h0D0    (w_M0_port_wo_sadrs_h0D0),
+	//.i_port_wo_sadrs_h0D4    (w_M0_port_wo_sadrs_h0D4),
+	//.i_port_wo_sadrs_h0D8    (w_M0_port_wo_sadrs_h0D8),
+	//.i_port_wo_sadrs_h0DC    (w_M0_port_wo_sadrs_h0DC),
 	//
 	.i_port_wo_sadrs_h380    (w_M0_port_wo_sadrs_h380),
 	.i_port_wo_sadrs_h384    (w_M0_port_wo_sadrs_h384),
@@ -2955,33 +2957,33 @@ slave_spi_mth_brd  slave_spi_mth_brd__M1_inst(
 	.i_ck__sadrs_h14C  (1'b0),   .o_port_ti_sadrs_h14C  (), 
 	
 	// TO monitor
-	.i_ck__sadrs_h190  (sys_clk  ),   .i_port_to_sadrs_h190  (w_M0_port_to_sadrs_h190), // [31:0]
-	.i_ck__sadrs_h194  (sys_clk  ),   .i_port_to_sadrs_h194  (w_M0_port_to_sadrs_h194), // [31:0]
-	.i_ck__sadrs_h198  (sys_clk  ),   .i_port_to_sadrs_h198  (w_M0_port_to_sadrs_h198), // [31:0]
-	.i_ck__sadrs_h19C  (p_adc_clk),   .i_port_to_sadrs_h19C  (w_M0_port_to_sadrs_h19C), 
+	//.i_ck__sadrs_h190  (sys_clk  ),   .i_port_to_sadrs_h190  (w_M0_port_to_sadrs_h190), // [31:0]
+	//.i_ck__sadrs_h194  (sys_clk  ),   .i_port_to_sadrs_h194  (w_M0_port_to_sadrs_h194), // [31:0]
+	//.i_ck__sadrs_h198  (sys_clk  ),   .i_port_to_sadrs_h198  (w_M0_port_to_sadrs_h198), // [31:0]
+	//.i_ck__sadrs_h19C  (p_adc_clk),   .i_port_to_sadrs_h19C  (w_M0_port_to_sadrs_h19C), 
 	.i_ck__sadrs_h1CC  (sys_clk  ),   .i_port_to_sadrs_h1CC  (w_M0_port_to_sadrs_h1CC), // [31:0]
 	
 	// pi
 	.o_wr__sadrs_h24C (),   .o_port_po_sadrs_h24C (),
 	
 	// PO monitor
-	.o_rd__sadrs_h280 (w_ADC_S1_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h280 (w_ADC_S1_CH1_PO), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
-	.o_rd__sadrs_h284 (w_ADC_S2_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h284 (w_ADC_S2_CH1_PO), // [31:0]  // ADC_S2_CH1_PO	0x284	poA1
-	.o_rd__sadrs_h288 (w_ADC_S3_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h288 (w_ADC_S3_CH1_PO), // [31:0]  // ADC_S3_CH1_PO	0x288	poA2
-	.o_rd__sadrs_h28C (w_ADC_S4_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h28C (w_ADC_S4_CH1_PO), // [31:0]  // ADC_S4_CH1_PO	0x28C	poA3
-	.o_rd__sadrs_h290 (w_ADC_S5_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h290 (w_ADC_S5_CH1_PO), // [31:0]  // ADC_S5_CH1_PO	0x290	poA4
-	.o_rd__sadrs_h294 (w_ADC_S6_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h294 (w_ADC_S6_CH1_PO), // [31:0]  // ADC_S6_CH1_PO	0x294	poA5
-	.o_rd__sadrs_h298 (w_ADC_S7_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h298 (w_ADC_S7_CH1_PO), // [31:0]  // ADC_S7_CH1_PO	0x298	poA6
-	.o_rd__sadrs_h29C (w_ADC_S8_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h29C (w_ADC_S8_CH1_PO), // [31:0]  // ADC_S8_CH1_PO	0x29C	poA7
-	.o_rd__sadrs_h2A0 (w_ADC_S1_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A0 (w_ADC_S1_CH2_PO), // [31:0]  // ADC_S1_CH2_PO	0x2A0	poA8
-	.o_rd__sadrs_h2A4 (w_ADC_S2_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A4 (w_ADC_S2_CH2_PO), // [31:0]  // ADC_S2_CH2_PO	0x2A4	poA9
-	.o_rd__sadrs_h2A8 (w_ADC_S3_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A8 (w_ADC_S3_CH2_PO), // [31:0]  // ADC_S3_CH2_PO	0x2A8	poAA
-	.o_rd__sadrs_h2AC (w_ADC_S4_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2AC (w_ADC_S4_CH2_PO), // [31:0]  // ADC_S4_CH2_PO	0x2AC	poAB
-	.o_rd__sadrs_h2B0 (w_ADC_S5_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B0 (w_ADC_S5_CH2_PO), // [31:0]  // ADC_S5_CH2_PO	0x2B0	poAC
-	.o_rd__sadrs_h2B4 (w_ADC_S6_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B4 (w_ADC_S6_CH2_PO), // [31:0]  // ADC_S6_CH2_PO	0x2B4	poAD
-	.o_rd__sadrs_h2B8 (w_ADC_S7_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B8 (w_ADC_S7_CH2_PO), // [31:0]  // ADC_S7_CH2_PO	0x2B8	poAE
-	.o_rd__sadrs_h2BC (w_ADC_S8_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2BC (w_ADC_S8_CH2_PO), // [31:0]  // ADC_S8_CH2_PO	0x2BC	poAF
-	.o_rd__sadrs_h2CC (       w_MEM_PO_rd_sspi_M1),   .i_port_po_sadrs_h2CC (       w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+	//.o_rd__sadrs_h280 (w_ADC_S1_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h280 (w_ADC_S1_CH1_PO), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
+	//.o_rd__sadrs_h284 (w_ADC_S2_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h284 (w_ADC_S2_CH1_PO), // [31:0]  // ADC_S2_CH1_PO	0x284	poA1
+	//.o_rd__sadrs_h288 (w_ADC_S3_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h288 (w_ADC_S3_CH1_PO), // [31:0]  // ADC_S3_CH1_PO	0x288	poA2
+	//.o_rd__sadrs_h28C (w_ADC_S4_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h28C (w_ADC_S4_CH1_PO), // [31:0]  // ADC_S4_CH1_PO	0x28C	poA3
+	//.o_rd__sadrs_h290 (w_ADC_S5_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h290 (w_ADC_S5_CH1_PO), // [31:0]  // ADC_S5_CH1_PO	0x290	poA4
+	//.o_rd__sadrs_h294 (w_ADC_S6_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h294 (w_ADC_S6_CH1_PO), // [31:0]  // ADC_S6_CH1_PO	0x294	poA5
+	//.o_rd__sadrs_h298 (w_ADC_S7_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h298 (w_ADC_S7_CH1_PO), // [31:0]  // ADC_S7_CH1_PO	0x298	poA6
+	//.o_rd__sadrs_h29C (w_ADC_S8_CH1_PO_rd_sspi_M1),   .i_port_po_sadrs_h29C (w_ADC_S8_CH1_PO), // [31:0]  // ADC_S8_CH1_PO	0x29C	poA7
+	//.o_rd__sadrs_h2A0 (w_ADC_S1_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A0 (w_ADC_S1_CH2_PO), // [31:0]  // ADC_S1_CH2_PO	0x2A0	poA8
+	//.o_rd__sadrs_h2A4 (w_ADC_S2_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A4 (w_ADC_S2_CH2_PO), // [31:0]  // ADC_S2_CH2_PO	0x2A4	poA9
+	//.o_rd__sadrs_h2A8 (w_ADC_S3_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2A8 (w_ADC_S3_CH2_PO), // [31:0]  // ADC_S3_CH2_PO	0x2A8	poAA
+	//.o_rd__sadrs_h2AC (w_ADC_S4_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2AC (w_ADC_S4_CH2_PO), // [31:0]  // ADC_S4_CH2_PO	0x2AC	poAB
+	//.o_rd__sadrs_h2B0 (w_ADC_S5_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B0 (w_ADC_S5_CH2_PO), // [31:0]  // ADC_S5_CH2_PO	0x2B0	poAC
+	//.o_rd__sadrs_h2B4 (w_ADC_S6_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B4 (w_ADC_S6_CH2_PO), // [31:0]  // ADC_S6_CH2_PO	0x2B4	poAD
+	//.o_rd__sadrs_h2B8 (w_ADC_S7_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2B8 (w_ADC_S7_CH2_PO), // [31:0]  // ADC_S7_CH2_PO	0x2B8	poAE
+	//.o_rd__sadrs_h2BC (w_ADC_S8_CH2_PO_rd_sspi_M1),   .i_port_po_sadrs_h2BC (w_ADC_S8_CH2_PO), // [31:0]  // ADC_S8_CH2_PO	0x2BC	poAF
+	//.o_rd__sadrs_h2CC (       w_MEM_PO_rd_sspi_M1),   .i_port_po_sadrs_h2CC (       w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
 
 	
 	//// loopback mode control 
@@ -3076,34 +3078,34 @@ assign w_HW_reset__ext        = w_M0_port_wi_sadrs_h008[3]; //$$
 
 // res net assignment 
 //$$assign res_net_ctrl_ext_en    = w_M0_port_wi_sadrs_h008[1];   //$$ enable LED control on Base board
-assign res_net_ctrl_ext_data  = w_M0_port_wi_sadrs_h00C[3:0];
+//assign res_net_ctrl_ext_data  = w_M0_port_wi_sadrs_h00C[3:0];
 
 // count2 control 
-assign count2_trig_ext_data  = w_M0_port_ti_sadrs_h104[2:0];
+//assign count2_trig_ext_data  = w_M0_port_ti_sadrs_h104[2:0];
 
 // SPIO control 
-assign spio_trig_ti_ext      = w_M0_port_ti_sadrs_h114[1:0];
-assign spio_con_wi_ext       = w_M0_port_wi_sadrs_h014     ; // SPIO_CON_WI			0x014	wi05
-assign spio_fdat_wi_ext      = w_M0_port_wi_sadrs_h010     ; // SPIO_FDAT_WI		0x010	wi04
+//assign spio_trig_ti_ext      = w_M0_port_ti_sadrs_h114[1:0];
+//assign spio_con_wi_ext       = w_M0_port_wi_sadrs_h014     ; // SPIO_CON_WI			0x014	wi05
+//assign spio_fdat_wi_ext      = w_M0_port_wi_sadrs_h010     ; // SPIO_FDAT_WI		0x010	wi04
 
 // DAC control 
-assign dac_trig_ti_ext       = w_M0_port_ti_sadrs_h118[4:0];
-assign dac_con_wi_ext        = w_M0_port_wi_sadrs_h018[31:0];
+//assign dac_trig_ti_ext       = w_M0_port_ti_sadrs_h118[4:0];
+//assign dac_con_wi_ext        = w_M0_port_wi_sadrs_h018[31:0];
 
 // DAC wire in 
-assign dac_s1_wi_ext = w_M0_port_wi_sadrs_h060 ; // [31:0] // DAC_S1_WI	0x060	wi18;
-assign dac_s2_wi_ext = w_M0_port_wi_sadrs_h064 ; // [31:0] // DAC_S2_WI	0x064	wi19;
-assign dac_s3_wi_ext = w_M0_port_wi_sadrs_h068 ; // [31:0] // DAC_S3_WI	0x068	wi1A;
-assign dac_s4_wi_ext = w_M0_port_wi_sadrs_h06C ; // [31:0] // DAC_S4_WI	0x06C	wi1B;
-assign dac_s5_wi_ext = w_M0_port_wi_sadrs_h070 ; // [31:0] // DAC_S5_WI	0x070	wi1C;
-assign dac_s6_wi_ext = w_M0_port_wi_sadrs_h074 ; // [31:0] // DAC_S6_WI	0x074	wi1D;
-assign dac_s7_wi_ext = w_M0_port_wi_sadrs_h078 ; // [31:0] // DAC_S7_WI	0x078	wi1E;
-assign dac_s8_wi_ext = w_M0_port_wi_sadrs_h07C ; // [31:0] // DAC_S8_WI	0x07C	wi1F;
+//assign dac_s1_wi_ext = w_M0_port_wi_sadrs_h060 ; // [31:0] // DAC_S1_WI	0x060	wi18;
+//assign dac_s2_wi_ext = w_M0_port_wi_sadrs_h064 ; // [31:0] // DAC_S2_WI	0x064	wi19;
+//assign dac_s3_wi_ext = w_M0_port_wi_sadrs_h068 ; // [31:0] // DAC_S3_WI	0x068	wi1A;
+//assign dac_s4_wi_ext = w_M0_port_wi_sadrs_h06C ; // [31:0] // DAC_S4_WI	0x06C	wi1B;
+//assign dac_s5_wi_ext = w_M0_port_wi_sadrs_h070 ; // [31:0] // DAC_S5_WI	0x070	wi1C;
+//assign dac_s6_wi_ext = w_M0_port_wi_sadrs_h074 ; // [31:0] // DAC_S6_WI	0x074	wi1D;
+//assign dac_s7_wi_ext = w_M0_port_wi_sadrs_h078 ; // [31:0] // DAC_S7_WI	0x078	wi1E;
+//assign dac_s8_wi_ext = w_M0_port_wi_sadrs_h07C ; // [31:0] // DAC_S8_WI	0x07C	wi1F;
 
 // ADC control 
-assign adc_con_wi_ext  = w_M0_port_wi_sadrs_h01C ;
-assign adc_par_wi_ext  = w_M0_port_wi_sadrs_h040 ;
-assign adc_trig_ti_ext = w_M0_port_ti_sadrs_h11C[3:0];
+//assign adc_con_wi_ext  = w_M0_port_wi_sadrs_h01C ;
+//assign adc_par_wi_ext  = w_M0_port_wi_sadrs_h040 ;
+//assign adc_trig_ti_ext = w_M0_port_ti_sadrs_h11C[3:0];
 
 // MEM control  //$$
 //$$ MEM_FDAT_WI	0x048	wi12
@@ -3112,15 +3114,15 @@ assign adc_trig_ti_ext = w_M0_port_ti_sadrs_h11C[3:0];
 //$$ MEM_TO		0x1CC	to73
 //$$ MEM_PI		0x24C	pi93
 //$$ MEM_PO		0x2CC	poB3
-assign mem_fdat_wi__sspi = w_M0_port_wi_sadrs_h048; //$$ rev
-assign mem_wi_______sspi = w_M0_port_wi_sadrs_h04C; //$$ rev
-assign mem_ti_______sspi = w_M0_port_ti_sadrs_h14C; //$$
+//assign mem_fdat_wi__sspi = w_M0_port_wi_sadrs_h048; //$$ rev
+//assign mem_wi_______sspi = w_M0_port_wi_sadrs_h04C; //$$ rev
+//assign mem_ti_______sspi = w_M0_port_ti_sadrs_h14C; //$$
 
 // EXT_TRIG control 
-assign ext_trig_con_wi___sspi = w_M0_port_wi_sadrs_h050 ;
-assign ext_trig_para_wi__sspi = w_M0_port_wi_sadrs_h054 ;
-assign ext_trig_aux_wi___sspi = w_M0_port_wi_sadrs_h058 ;
-assign ext_trig_ti_______sspi = w_M0_port_ti_sadrs_h110 ;
+//assign ext_trig_con_wi___sspi = w_M0_port_wi_sadrs_h050 ;
+//assign ext_trig_para_wi__sspi = w_M0_port_wi_sadrs_h054 ;
+//assign ext_trig_aux_wi___sspi = w_M0_port_wi_sadrs_h058 ;
+//assign ext_trig_ti_______sspi = w_M0_port_ti_sadrs_h110 ;
 
 // flag assignment 
 assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
