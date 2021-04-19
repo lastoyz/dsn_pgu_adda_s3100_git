@@ -53,14 +53,14 @@ module txem7310_pll__s3100_ms__top (
 								 		 
 	// # IO_B14_L10N_                  # AB22 # NA                        
 								 		 
-	output wire  o_B14_L11P_SRCC  , // # U20  # FPGA_LED0  //$$ led                
-	output wire  o_B14_L11N_SRCC  , // # V20  # FPGA_LED1  //$$ led                
-	output wire  o_B14_L12P_MRCC  , // # W19  # FPGA_LED2  //$$ led                
-	output wire  o_B14_L12N_MRCC  , // # W20  # FPGA_LED3  //$$ led                
-	output wire  o_B14_L13P_MRCC  , // # Y18  # FPGA_LED4  //$$ led                
-	output wire  o_B14_L13N_MRCC  , // # Y19  # FPGA_LED5  //$$ led                
-	output wire  o_B14_L14P_SRCC  , // # V18  # FPGA_LED6  //$$ led                
-	output wire  o_B14_L14N_SRCC  , // # V19  # FPGA_LED7  //$$ led                
+	inout  wire  io_B14_L11P_SRCC , // # U20  # FPGA_LED0  //$$ led                
+	inout  wire  io_B14_L11N_SRCC , // # V20  # FPGA_LED1  //$$ led                
+	inout  wire  io_B14_L12P_MRCC , // # W19  # FPGA_LED2  //$$ led                
+	inout  wire  io_B14_L12N_MRCC , // # W20  # FPGA_LED3  //$$ led                
+	inout  wire  io_B14_L13P_MRCC , // # Y18  # FPGA_LED4  //$$ led                
+	inout  wire  io_B14_L13N_MRCC , // # Y19  # FPGA_LED5  //$$ led                
+	inout  wire  io_B14_L14P_SRCC , // # V18  # FPGA_LED6  //$$ led                
+	inout  wire  io_B14_L14N_SRCC , // # V19  # FPGA_LED7  //$$ led                
 								 		 
 	// # IO_B14_L15P                   # AA19 # NA                        
 	// # IO_B14_L15N                   # AB20 # NA                        
@@ -474,23 +474,28 @@ OBUF obuf__FPGA_M2_SPI_TX_EN________inst(.O( o_B14_L9N  ), .I( FPGA_M2_SPI_TX_EN
 OBUF obuf__FPGA_TRIG_TX_EN__________inst(.O( o_B14_L10P ), .I( FPGA_TRIG_TX_EN         ) );
 
 //$$ S3100 vs TXEM7310
+//// note: fpga module    uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
+//// note: S3100-CPU-BASE uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
 wire [7:0] led; //$$
-wire FPGA_LED0 = led[0];  //$$ led                
-wire FPGA_LED1 = led[1];  //$$ led                
-wire FPGA_LED2 = led[2];  //$$ led                
-wire FPGA_LED3 = led[3];  //$$ led                
-wire FPGA_LED4 = led[4];  //$$ led                
-wire FPGA_LED5 = led[5];  //$$ led                
-wire FPGA_LED6 = led[6];  //$$ led                
-wire FPGA_LED7 = led[7];  //$$ led                
-OBUF obuf__FPGA_LED0__inst(.O( o_B14_L11P_SRCC  ), .I( FPGA_LED0 ) );
-OBUF obuf__FPGA_LED1__inst(.O( o_B14_L11N_SRCC  ), .I( FPGA_LED1 ) );
-OBUF obuf__FPGA_LED2__inst(.O( o_B14_L12P_MRCC  ), .I( FPGA_LED2 ) );
-OBUF obuf__FPGA_LED3__inst(.O( o_B14_L12N_MRCC  ), .I( FPGA_LED3 ) );
-OBUF obuf__FPGA_LED4__inst(.O( o_B14_L13P_MRCC  ), .I( FPGA_LED4 ) );
-OBUF obuf__FPGA_LED5__inst(.O( o_B14_L13N_MRCC  ), .I( FPGA_LED5 ) );
-OBUF obuf__FPGA_LED6__inst(.O( o_B14_L14P_SRCC  ), .I( FPGA_LED6 ) );
-OBUF obuf__FPGA_LED7__inst(.O( o_B14_L14N_SRCC  ), .I( FPGA_LED7 ) );
+wire FPGA_LED0_tri = led[0];  wire FPGA_LED0_out = 1'b0;  wire FPGA_LED0_in; // *_in unused
+wire FPGA_LED1_tri = led[1];  wire FPGA_LED1_out = 1'b0;  wire FPGA_LED1_in; // *_in unused
+wire FPGA_LED2_tri = led[2];  wire FPGA_LED2_out = 1'b0;  wire FPGA_LED2_in; // *_in unused
+wire FPGA_LED3_tri = led[3];  wire FPGA_LED3_out = 1'b0;  wire FPGA_LED3_in; // *_in unused
+wire FPGA_LED4_tri = led[4];  wire FPGA_LED4_out = 1'b0;  wire FPGA_LED4_in; // *_in unused
+wire FPGA_LED5_tri = led[5];  wire FPGA_LED5_out = 1'b0;  wire FPGA_LED5_in; // *_in unused
+wire FPGA_LED6_tri = led[6];  wire FPGA_LED6_out = 1'b0;  wire FPGA_LED6_in; // *_in unused
+wire FPGA_LED7_tri = led[7];  wire FPGA_LED7_out = 1'b0;  wire FPGA_LED7_in; // *_in unused
+//
+IOBUF iobuf__FPGA_LED0__inst(.IO(io_B14_L11P_SRCC ), .T( FPGA_LED0_tri ) , .I( FPGA_LED0_out ), .O( FPGA_LED0_in  ) ); 
+IOBUF iobuf__FPGA_LED1__inst(.IO(io_B14_L11N_SRCC ), .T( FPGA_LED1_tri ) , .I( FPGA_LED1_out ), .O( FPGA_LED1_in  ) ); 
+IOBUF iobuf__FPGA_LED2__inst(.IO(io_B14_L12P_MRCC ), .T( FPGA_LED2_tri ) , .I( FPGA_LED2_out ), .O( FPGA_LED2_in  ) ); 
+IOBUF iobuf__FPGA_LED3__inst(.IO(io_B14_L12N_MRCC ), .T( FPGA_LED3_tri ) , .I( FPGA_LED3_out ), .O( FPGA_LED3_in  ) ); 
+IOBUF iobuf__FPGA_LED4__inst(.IO(io_B14_L13P_MRCC ), .T( FPGA_LED4_tri ) , .I( FPGA_LED4_out ), .O( FPGA_LED4_in  ) ); 
+IOBUF iobuf__FPGA_LED5__inst(.IO(io_B14_L13N_MRCC ), .T( FPGA_LED5_tri ) , .I( FPGA_LED5_out ), .O( FPGA_LED5_in  ) ); 
+IOBUF iobuf__FPGA_LED6__inst(.IO(io_B14_L14P_SRCC ), .T( FPGA_LED6_tri ) , .I( FPGA_LED6_out ), .O( FPGA_LED6_in  ) ); 
+IOBUF iobuf__FPGA_LED7__inst(.IO(io_B14_L14N_SRCC ), .T( FPGA_LED7_tri ) , .I( FPGA_LED7_out ), .O( FPGA_LED7_in  ) ); 
+
+
 								 		 
 wire FPGA_GPIO_PB5 ;
 wire FPGA_GPIO_PC4 ;
@@ -2005,7 +2010,7 @@ wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : ep42trig;
 //wire [31:0] w_SSPI_TO      = 32'b0; assign ep62trig = w_SSPI_TO; assign ep62ck = sys_clk;
 //wire [31:0] w_SSPI_TEST_TO; assign ep62trig = w_SSPI_TEST_TO; assign ep62ck = base_sspi_clk; // vs sys_clk
 //$$ w_SSPI_TEST_TO --> w_MSPI_TO 
-wire [31:0] w_MSPI_TO
+wire [31:0] w_MSPI_TO;
 	assign ep62trig      =  (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
 	assign w_port_to_62_1 = ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
 
@@ -2111,14 +2116,15 @@ assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
 //// note: S3100-CPU-BASE uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
 
 // xem7310_led:
-//   1 in --> 0 out
-//   0 in --> Z out
+//   1 in --> 0 out // tri_0, out_0
+//   0 in --> Z out // tri_1, out_X
 function [7:0] xem7310_led;
 input [7:0] a;
 integer i;
 begin
 	for(i=0; i<8; i=i+1) begin: u
-		xem7310_led[i] = (a[i]==1'b1) ? (1'b0) : (1'bz);
+		//xem7310_led[i] = (a[i]==1'b1) ? (1'b0) : (1'bz);
+		xem7310_led[i] = (a[i]==1'b1) ? (1'b0) : (1'b0); // inverter
 	end
 end
 endfunction
@@ -2232,6 +2238,11 @@ assign w_XADC_VOLT_WO =
 // note that 10K ohm pull up is located on board.
 // net in sch : SCIO_0              in S3100-CPU-BASE
 // pin in fpga: io_B15_L11P_SRCC    in S3100-CPU-BASE
+
+//$$ S3100 vs TXEM7310
+//// note: fpga module in PGU    uses io_B34_L5N       // Y1
+//// note: S3100-CPU-BASE SCIO_0 uses io_B15_L11P_SRCC // J20
+
 
 
 // fifo read clock //{
