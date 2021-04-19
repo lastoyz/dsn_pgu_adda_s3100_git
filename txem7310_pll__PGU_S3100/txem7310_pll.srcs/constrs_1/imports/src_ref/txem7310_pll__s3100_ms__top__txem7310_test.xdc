@@ -488,7 +488,8 @@ set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks m
 # B13
 set_property IOSTANDARD LVCMOS25  [get_ports  *_B13_*]  ; # due to diff clock LVDS_25
 # B14                             
-set_property IOSTANDARD LVCMOS18  [get_ports  *_B14_*]
+# test swap #set_property IOSTANDARD LVCMOS18  [get_ports  *_B14_*]
+set_property IOSTANDARD LVCMOS33  [get_ports  *_B14_*]
 # B15
 set_property IOSTANDARD LVCMOS33  [get_ports  *_B15_*]
 # B16

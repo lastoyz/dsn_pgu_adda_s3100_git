@@ -475,8 +475,8 @@ OBUF obuf__FPGA_TRIG_TX_EN__________inst(.O( o_B14_L10P ), .I( FPGA_TRIG_TX_EN  
 
 // ## LED
 //$$ S3100 vs TXEM7310
-//// note: fpga module    uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
-//// note: S3100-CPU-BASE uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
+//// note: fpga module    in B16 uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
+//// note: S3100-CPU-BASE in B14 uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
 wire [7:0] led; //$$
 wire FPGA_LED0_tri = led[0];  wire FPGA_LED0_out = 1'b0;  wire FPGA_LED0_in; // *_in unused
 wire FPGA_LED1_tri = led[1];  wire FPGA_LED1_out = 1'b0;  wire FPGA_LED1_in; // *_in unused
