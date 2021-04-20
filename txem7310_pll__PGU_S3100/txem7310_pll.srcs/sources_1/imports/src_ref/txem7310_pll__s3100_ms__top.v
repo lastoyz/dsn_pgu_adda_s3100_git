@@ -2139,7 +2139,7 @@ integer i;
 begin
 	for(i=0; i<8; i=i+1) begin: u
 		//xem7310_led[i] = (a[i]==1'b1) ? (1'b0) : (1'bz);
-		xem7310_led[i] = (a[i]==1'b1) ? (1'b0) : (1'b0); // inverter
+		xem7310_led[i] = (a[i]==1'b1) ? (1'b0) : (1'b1); // inverter
 	end
 end
 endfunction
@@ -2430,6 +2430,27 @@ assign  SCIO_1_out = 1'b0;
 
 
 // module //{
+
+//// Master SPI endpoints
+//
+// MSPI_TI :
+//   bit[0] = reset_trig 
+//   bit[1] = init_trig
+//   bit[2] = frame_trig
+//
+// MSPI_TO :
+//   bit[0] = reset_done
+//   bit[1] = init_done
+//   bit[2] = frame_done
+//
+// MSPI_CON_WI :
+//  bit[31:26] = data_C // control[5:0]
+//  bit[25:16] = data_A // address[9:0]
+//  bit[15: 0] = data_D // MOSI data[15:0]
+//
+// MSPI_FLAG_WO : 
+//  bit[23]   = TEST_mode_en
+//  bit[15:0] = data_B // MISO data[15:0]
 
 wire w_SSPI_TEST_trig_reset = w_MSPI_TI[0];
 assign w_MSPI_TO[0]    = w_SSPI_TEST_trig_reset;

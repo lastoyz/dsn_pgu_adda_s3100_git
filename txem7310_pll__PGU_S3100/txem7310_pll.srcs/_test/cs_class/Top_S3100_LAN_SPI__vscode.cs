@@ -19,7 +19,211 @@ namespace TopInstrument
     public class TOP_EPS 
 	{
 		// new class
-		
+        
+        //// TCPIP
+        public int SO_SNDBUF = 2048;
+        public int SO_RCVBUF = 32768;
+        public int INTVAL = 100;                       // Milli Second
+        public int BUF_SIZE_NORMAL = 2048;
+        public int BUF_SIZE_LARGE = 16384;
+
+        public int PORT = 5025;
+
+        public Socket ss = null;		
+
+
+        //// LAN command string headers
+        public string cmd_str__IDN = "*IDN?\n";
+        public string cmd_str__RST = "*RST\n";
+
+        public string cmd_str__FPGA_FID = ":FPGA:FID?\n";
+        public string cmd_str__FPGA_TMP = ":FPGA:TMP?\n";
+
+        public string cmd_str__EPS_EN = ":EPS:EN";
+        // ...
+
+
+        //----//
+
+        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
+		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
+        //public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
+        //public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\log\\"; //$$ TODO: logfile location
+
+        public bool IsInit = false;
+
+        public string SysOpen(string HOST, int TIMEOUT = 20000)
+        {
+            my_open(HOST, TIMEOUT);
+
+            string ret;
+
+            if (IsInit == false)
+            {            
+
+                //### :PGEP:EN
+                ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__EPS_EN + " ON\n"));
+
+                IsInit = true;     
+            }
+
+            //### scpi : *IDN?
+            return scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__IDN));  
+        }
+
+
+        public void SysClose()
+        {
+            if (ss != null) scpi_close(ss);
+        }
+
+        public void SysClose__clear_init() 
+        {
+            //$$ shutdown board 
+            IsInit = false; 
+
+            scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__EPS_EN   + " OFF\n"));
+
+            if (ss != null) scpi_close(ss);
+        }
+        
+        public Socket my_open(string HOST, int TIMEOUT)
+        {
+            if (ss != null) scpi_close(ss);
+            //
+            ss = scpi_open(HOST, PORT, TIMEOUT, SO_SNDBUF, SO_RCVBUF);
+            scpi_connect(ss, HOST, PORT);
+                        
+            return ss;
+        }
+
+        private static Socket scpi_open(string HOST, int PORT, int TIMEOUT, int SO_SNDBUF, int SO_RCVBUF)
+        {
+
+            try
+            {
+                Socket ss = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                ss.SendTimeout = TIMEOUT;
+                ss.ReceiveTimeout = TIMEOUT;
+                ss.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.SendBuffer, SO_SNDBUF);
+                ss.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveBuffer, SO_RCVBUF);
+                return ss;
+
+            }
+
+            catch (Exception e)
+            {
+                //$$Socket ss = null;
+                throw new Exception(String.Format("Error in Open") + e.Message);
+            }
+        }
+
+        private Socket scpi_connect(Socket ss, string HOST, int PORT)
+        {
+            var result = ss.BeginConnect(HOST, PORT, null, null);
+            bool success = result.AsyncWaitHandle.WaitOne(2000, true);
+            if (success)
+            {
+                ss.EndConnect(result);
+            }
+            else
+            {
+                ss.Close();
+                ss = null;
+                throw new SocketException(10060); // Connection timed out.                 
+            }
+
+            return ss;
+
+        }
+
+        private Socket scpi_close(Socket ss)
+        {
+            try
+            {
+                ss.Close();
+            }
+
+
+            catch (Exception e)
+            {
+                ss = null;
+                throw new Exception(String.Format("Error in Close") + e.Message);
+            }
+
+            return ss;
+
+        }
+
+
+        private static DateTime Delay(int S) //$$ ms
+        {
+            DateTime ThisMoment = DateTime.Now;
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S);
+            DateTime AfterWards = ThisMoment.Add(duration);
+
+            while (AfterWards >= ThisMoment)
+            {
+                ThisMoment = DateTime.Now;
+            }
+
+            return DateTime.Now;
+        }
+
+        public string scpi_comm_resp_ss(Socket ss, byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 100)
+        {
+
+            byte[] receiverBuff = new byte[BUF_SIZE_NORMAL];
+
+            try
+            {
+                //Console.WriteLine(String.Format("Send:", cmd_str));
+                int Sent = ss.Send(cmd_str);
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(String.Format("Error in sendall") + e.Message); //$$ for release
+
+				//$$ TODO:  print out command string for test
+				//Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
+            }
+
+            Delay(1);
+
+            int nRecvSize;
+            string data;
+            try
+            {
+                nRecvSize = ss.Receive(receiverBuff);
+                data = new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+
+                while (true)
+                {
+                    if (receiverBuff[nRecvSize - 1] == '\n')
+                    {
+                        break;
+                    }
+                    nRecvSize = ss.Receive(receiverBuff);
+                    data = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+
+                }
+            }
+
+            catch
+            {
+                //Console.WriteLine(String.Format("Error in Recive"));
+                //$$data = "";
+                data = "#H00000000\n";
+                //raise
+            }
+
+            return data;
+
+        }
+
+
+        //// test
 		public static int _test()
         {
 			// test
@@ -27,7 +231,16 @@ namespace TopInstrument
 
             // init class
             TOP_EPS dev = new TOP_EPS();
-			
+
+            // connect board S3100-CPU-BASE via EPS
+            // sys_open
+            Console.WriteLine(dev.SysOpen("192.168.168.143"));
+
+            // do somthing here
+
+            // sys_close
+            dev.SysClose__clear_init(); // close with board shutdown and clear init bit
+
 			// done
             return 0;
 		}

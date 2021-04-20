@@ -125,7 +125,7 @@ set_property PACKAGE_PIN  Y22  [get_ports o_B14_L9N ] ; # IO_L9N_T1_DQS_D13_14  
 set_property PACKAGE_PIN  AB21 [get_ports o_B14_L10P] ; # IO_L10P_T1_D14_14             1                  14    HR        
 ## set_property PACKAGE_PIN  AB22 [get_ports xx] ; # IO_L10N_T1_D15_14             1                  14    HR        
 #
-## // ## LED
+## // ## LED test
 ## //$$ S3100 vs TXEM7310
 ## //// note: fpga module    uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
 ## //// note: S3100-CPU-BASE uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
@@ -191,6 +191,7 @@ set_property PACKAGE_PIN  K22  [get_ports i_B15_L9N] ; # IO_L9N_T1_DQS_AD3N_15  
 ## set_property PACKAGE_PIN  M21  [get_ports xx] ; # IO_L10P_T1_AD11P_15           1                  15    HR        
 ## set_property PACKAGE_PIN  L21  [get_ports xx] ; # IO_L10N_T1_AD11N_15           1                  15    HR        
 #
+## // ## EEPROM test
 ##//// note: fpga module in PGU    uses io_B34_L5N       // Y1
 ##//// note: S3100-CPU-BASE SCIO_0 uses io_B15_L11P_SRCC // J20
 ## // test swap J20 <--> Y1 # set_property PACKAGE_PIN  J20  [get_ports io_B15_L11P_SRCC] ; # IO_L11P_T1_SRCC_15            1                  15    HR        
@@ -239,6 +240,7 @@ set_property PACKAGE_PIN  E16  [get_ports io_B16_L5P ] ; # IO_L5P_T0_16         
 set_property PACKAGE_PIN  D16  [get_ports io_B16_L5N ] ; # IO_L5N_T0_16                  0                  16    HR        
 set_property PACKAGE_PIN  D14  [get_ports io_B16_L6P ] ; # IO_L6P_T0_16                  0                  16    HR        
 set_property PACKAGE_PIN  D15  [get_ports io_B16_L6N ] ; # IO_L6N_T0_VREF_16             0                  16    HR        
+#
 ## // test swap # set_property PACKAGE_PIN  B15  [get_ports io_B16_L7P ] ; # IO_L7P_T1_16                  1                  16    HR        
 ## // test swap # set_property PACKAGE_PIN  B16  [get_ports io_B16_L7N ] ; # IO_L7N_T1_16                  1                  16    HR        
 set_property PACKAGE_PIN  C13  [get_ports io_B16_L8P ] ; # IO_L8P_T1_16                  1                  16    HR        
@@ -248,6 +250,20 @@ set_property PACKAGE_PIN  C13  [get_ports io_B16_L8P ] ; # IO_L8P_T1_16         
 ## // test swap # set_property PACKAGE_PIN  A13  [get_ports io_B16_L10P] ; # IO_L10P_T1_16                 1                  16    HR        
 ## // test swap # set_property PACKAGE_PIN  A14  [get_ports io_B16_L10N] ; # IO_L10N_T1_16                 1                  16    HR        
 ## // test swap # set_property PACKAGE_PIN  B17  [get_ports io_B16_L11P] ; # IO_L11P_T1_SRCC_16            1                  16    HR        
+#
+## // ## LED
+## //$$ S3100 vs TXEM7310
+## //// note: fpga module    uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
+## //// note: S3100-CPU-BASE uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
+set_property PACKAGE_PIN  Y18  [get_ports io_B16_L7P ] ; # IO_L7P_T1_16                  1                  16    HR        
+set_property PACKAGE_PIN  V18  [get_ports io_B16_L7N ] ; # IO_L7N_T1_16                  1                  16    HR        
+set_property PACKAGE_PIN  V20  [get_ports io_B16_L8N ] ; # IO_L8N_T1_16                  1                  16    HR        
+set_property PACKAGE_PIN  W20  [get_ports io_B16_L9P ] ; # IO_L9P_T1_DQS_16              1                  16    HR        
+set_property PACKAGE_PIN  Y19  [get_ports io_B16_L9N ] ; # IO_L9N_T1_DQS_16              1                  16    HR        
+set_property PACKAGE_PIN  U20  [get_ports io_B16_L10P] ; # IO_L10P_T1_16                 1                  16    HR        
+set_property PACKAGE_PIN  W19  [get_ports io_B16_L10N] ; # IO_L10N_T1_16                 1                  16    HR        
+set_property PACKAGE_PIN  V19  [get_ports io_B16_L11P] ; # IO_L11P_T1_SRCC_16            1                  16    HR        
+#
 set_property PACKAGE_PIN  B18  [get_ports io_B16_L11N] ; # IO_L11N_T1_SRCC_16            1                  16    HR        
 set_property PACKAGE_PIN  D17  [get_ports io_B16_L12P] ; # IO_L12P_T1_MRCC_16            1                  16    HR        
 set_property PACKAGE_PIN  C17  [get_ports io_B16_L12N] ; # IO_L12N_T1_MRCC_16            1                  16    HR        
@@ -288,7 +304,10 @@ set_property PACKAGE_PIN  R2   [get_ports o_B34_L3N      ] ; # IO_L3N_T0_DQS_34 
 set_property PACKAGE_PIN  W2   [get_ports o_B34_L4P      ] ; # IO_L4P_T0_34                  0                  34    HR        
 set_property PACKAGE_PIN  Y2   [get_ports o_B34_L4N      ] ; # IO_L4N_T0_34                  0                  34    HR        
 set_property PACKAGE_PIN  W1   [get_ports o_B34_L5P      ] ; # IO_L5P_T0_34                  0                  34    HR        
+#
 ## // test swap J20 <--> Y1 # set_property PACKAGE_PIN  Y1   [get_ports o_B34_L5N      ] ; # IO_L5N_T0_34                  0                  34    HR        
+set_property PACKAGE_PIN  J20   [get_ports o_B34_L5N      ] ; # IO_L5N_T0_34                  0                  34    HR        
+#
 set_property PACKAGE_PIN  U3   [get_ports o_B34_L6P      ] ; # IO_L6P_T0_34                  0                  34    HR        
 set_property PACKAGE_PIN  V3   [get_ports o_B34_L6N      ] ; # IO_L6N_T0_VREF_34             0                  34    HR        
 set_property PACKAGE_PIN  AA1  [get_ports o_B34_L7P      ] ; # IO_L7P_T1_34                  1                  34    HR        

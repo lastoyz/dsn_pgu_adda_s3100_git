@@ -1,4 +1,4 @@
 THIRPARTY=false
-HW_PROJECT_REFERENCE=xem7310__pgu_cpu__top_hw_platform_0
+HW_PROJECT_REFERENCE=txem7310_pll__s3100_ms__top_hw_platform_0
 PROCESSOR=microblaze_I
 MSS_FILE=system.mss
