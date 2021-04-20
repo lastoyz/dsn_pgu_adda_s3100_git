@@ -15,6 +15,12 @@ set_property MARK_DEBUG true [get_nets w_SSPI_TEST_MISO_EN]
 set_property MARK_DEBUG true [get_nets w_SSPI_TEST_MISO]
 set_property MARK_DEBUG true [get_nets w_SSPI_TEST_SCLK]
 
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_C[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_A[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_D[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_B[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_E[*]]
+
 
 ##== LAN ==##
 

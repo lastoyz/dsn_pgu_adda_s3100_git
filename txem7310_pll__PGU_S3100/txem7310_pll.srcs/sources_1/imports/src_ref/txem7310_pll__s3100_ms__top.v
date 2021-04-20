@@ -2012,10 +2012,11 @@ wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_M
 
 //$wire [31:0] w_SSPI_TEST_WI   = ep17wire; // test data for SSPI
 //$wire [31:0] w_SSPI_TEST_WO; //$$ assign ep21wire = w_SSPI_TEST_WO; //$$ share with ep21wire or w_TEST_FLAG_WO
-wire [31:0] w_MSPI_CON_WI   = ep17wire; // w_SSPI_TEST_WI --> w_MSPI_CON_WI// test data for SSPI
+//wire [31:0] w_MSPI_CON_WI   = ep17wire; // w_SSPI_TEST_WI --> w_MSPI_CON_WI// test data for SSPI
+wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; // w_SSPI_TEST_WI --> w_MSPI_CON_WI// test data for SSPI
 wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
-	assign ep24wire = w_MSPI_FLAG_WO; //$$ ep22wire --> ep23wire
-//
+	assign ep24wire         =                   w_MSPI_FLAG_WO                ;
+	assign w_port_wo_24_1   = (w_mcs_ep_wo_en)? w_MSPI_FLAG_WO : 32'hACAC_ACAC;
 
 //wire [31:0] w_SSPI_TI   = ep42trig; assign ep42ck = sys_clk;
 //wire [31:0] w_SSPI_TEST_TI   = ep42trig; assign ep42ck = base_sspi_clk;
@@ -2433,22 +2434,22 @@ assign  SCIO_1_out = 1'b0;
 
 //// Master SPI endpoints
 //
-// MSPI_TI :
+// MSPI_TI : ep42trig
 //   bit[0] = reset_trig 
 //   bit[1] = init_trig
 //   bit[2] = frame_trig
 //
-// MSPI_TO :
+// MSPI_TO : ep62trig
 //   bit[0] = reset_done
 //   bit[1] = init_done
 //   bit[2] = frame_done
 //
-// MSPI_CON_WI :
+// MSPI_CON_WI : ep17wire
 //  bit[31:26] = data_C // control[5:0]
 //  bit[25:16] = data_A // address[9:0]
 //  bit[15: 0] = data_D // MOSI data[15:0]
 //
-// MSPI_FLAG_WO : 
+// MSPI_FLAG_WO : ep24wire
 //  bit[23]   = TEST_mode_en
 //  bit[15:0] = data_B // MISO data[15:0]
 
