@@ -738,6 +738,8 @@ def eps_test():
 	dev.SetWireInValue(0x17, MSPI_CON_WI)
 	
 	#ActivateTriggerIn // IsTriggered
+
+	## reset 
 	dev.ActivateTriggerIn(0x42, 0) # reset_trig
 	cnt_loop = 0
 	while True:
@@ -747,8 +749,33 @@ def eps_test():
 			print('reset done !! @ ' + repr(cnt_loop))
 			break
 	
+	## init 
+	dev.ActivateTriggerIn(0x42, 1) # init_trig
+	cnt_loop = 0
+	while True:
+		ret=dev.IsTriggered(0x62,0x00000002) # init_done
+		cnt_loop += 1
+		if ret:
+			print('init done !! @ ' + repr(cnt_loop))
+			break
+
+	## frame 
+	dev.ActivateTriggerIn(0x42, 2) # frame_trig
+	cnt_loop = 0
+	while True:
+		ret=dev.IsTriggered(0x62,0x00000002) # frame_done
+		cnt_loop += 1
+		if ret:
+			print('frame done !! @ ' + repr(cnt_loop))
+			break
+
+
 	#GetWireOutValue
-	
+	ret=dev.GetWireOutValue(0x24)
+	data_B = ret & 0xFFFF
+	print('0x{:08X}'.format(data_B))
+
+
 	
 	##---- EPS OFF test ----##
 	
