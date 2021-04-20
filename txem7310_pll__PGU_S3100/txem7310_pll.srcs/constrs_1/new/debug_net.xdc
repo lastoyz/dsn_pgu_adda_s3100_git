@@ -21,3 +21,21 @@ set_property MARK_DEBUG true [get_nets w_SSPI_TEST_SCLK]
 
 ##------------------------------------------------------------------------##
 
+#### LOC for mmcm pll ####
+
+##set_property LOC MMCME2_ADV_X0Y2 [get_cells -quiet [list ok_endpoint_wrapper_inst/okHI/mmcm0]]
+set_property LOC MMCME2_ADV_X0Y1 [get_cells -quiet [list clk_wiz_0_inst/inst/mmcm_adv_inst]]
+
+##set_property LOC PLLE2_ADV_X0Y1 [get_cells clk_wiz_1_2_inst/inst/plle2_adv_inst]
+set_property LOC PLLE2_ADV_X0Y0 [get_cells clk_wiz_0_3_1_inst/inst/plle2_adv_inst]
+##set_property LOC PLLE2_ADV_X1Y3 [get_cells clk_wiz_1_2_1_inst/inst/plle2_adv_inst]
+##set_property LOC PLLE2_ADV_X1Y2 [get_cells clk_wiz_1_2_0_inst/inst/plle2_adv_inst]
+
+
+#### pblock ####
+
+create_pblock pblock_lan_endpnt_wrpr_inst
+add_cells_to_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] [get_cells -quiet [list lan_endpoint_wrapper_inst]]
+resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y0:CLOCKREGION_X1Y1}
+
+
