@@ -91,10 +91,7 @@ int main(void)
 	init_platform();
 
 	//// test setup for print on jtag-terminal // stdio with mdm //{
-	//xil_printf("> Go MHVSU BASE!! \r\n");
-	//xil_printf("> Go CMU-CPU-F5500 with LAN support!! \r\n");
-	//xil_printf("> Go PGU-CPU-F5500 with LAN support!! \r\n");
-	xil_printf("> Go S3100-CPU-BASE with LAN support!! \r\n");
+	xil_printf("> Go S3100-CPU-BASE with LAN support!! \r\n"); // on jtag-terminal
 
 	xil_printf(">>> build_info: ["__TIME__"],[" __DATE__ "]\r\n");
 #ifdef  _SCPI_DEBUG_
@@ -115,14 +112,14 @@ int main(void)
 	// test read ADRS_FPGA_IMAGE
 	_test_read_mcs(">>> FPGA_IMAGE_ID: \r\n", ADRS_FPGA_IMAGE);
 	
-	// MCS access enable  // BRD_CON // ADRS_PORT_WI_03 --> ADRS_PGU__BRD_CON
-	_test_write_mcs(">>> enable MCS control : \r\n", ADRS_PGU__BRD_CON, 0x00003F00);
+	// MCS access enable  // BRD_CON // ADRS_PORT_WI_03 --> ADRS__BRD_CON_WI
+	_test_write_mcs(">>> enable MCS control : \r\n", ADRS__BRD_CON_WI, 0x00003F00);
 	
 	// test read FPGA_IMAGE_ID from mcs endpoint WO_20 // FPGA_IMAGE_ID // ADRS_PORT_WO_20
-	_test_read_mcs(">>> FPGA_IMAGE_ID from ADRS_PGU__FPGA_IMAGE_ID : \r\n", ADRS_PGU__FPGA_IMAGE_ID);
+	_test_read_mcs(">>> FPGA_IMAGE_ID from ADRS__FPGA_IMAGE_ID_WO : \r\n", ADRS__FPGA_IMAGE_ID_WO);
 	
-	// clear test : TEST_CON // ADRS_PORT_WI_01 --> ADRS_PGU__TEST_CON
-	_test_write_mcs(">>>clear test control: \r\n",   ADRS_PGU__TEST_CON, 0x00000000);
+	// clear test : TEST_CON // ADRS_PORT_WI_01 --> ADRS__TEST_CON_WI
+	_test_write_mcs(">>>clear test control: \r\n",   ADRS__TEST_CON_WI, 0x00000000);
 		
 	//}
 
@@ -139,9 +136,9 @@ int main(void)
 	
 	//}
 	
-	//// test read  MON_XADC_WO or temperature // ADRS_PORT_WO_3A --> ADRS_PGU__XADC_TEMP //{
-	_test_read_mcs(">>> read ADRS_PGU__XADC_TEMP : \r\n", ADRS_PGU__XADC_TEMP);
-	value = read_mcs_io (ADRS_PGU__XADC_TEMP);
+	//// test read  MON_XADC_WO or temperature // ADRS_PORT_WO_3A --> ADRS__XADC_TEMP_WO //{
+	_test_read_mcs(">>> read ADRS__XADC_TEMP_WO : \r\n", ADRS__XADC_TEMP_WO);
+	value = read_mcs_io (ADRS__XADC_TEMP_WO);
 	xil_printf("mcs rd: %d \r\n", value );
 	//}
 	
@@ -149,73 +146,73 @@ int main(void)
 	
 	xil_printf(">>> test count2 \r\n");
 	
-	// read_mcs_ep_to @ 0x61 --> 0x60 //$$ TEST_TO --> EP_ADRS_PGU__TEST_TO
+	// read_mcs_ep_to @ 0x61 --> 0x60 //$$ TEST_TO --> EP_ADRS__TEST_TO
 	//   assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
-	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS_PGU__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
+	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
 	xil_printf("TO60 rd: 0x%08X \r\n", value );
 
-	// read  : test counts at WO21  // TEST_OUT --> EP_ADRS_PGU__TEST_OUT
-	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__TEST_OUT, 0x0000FFFF); // TEST_OUT
+	// read  : test counts at WO21  // TEST_OUT --> EP_ADRS__TEST_OUT_WO
+	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_OUT_WO, 0x0000FFFF); // TEST_OUT
 	xil_printf("WO21 rd: 0x%08X \r\n", value );
 
 	// read_mcs_ep_to @ 0x61 --> 0x60 
 	//   assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
-	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS_PGU__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
+	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
 	xil_printf("TO60 rd: 0x%08X \r\n", value );
 
-	// TEST_TI // ti40 --> EP_ADRS_PGU__TEST_TI
-	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS_PGU__TEST_TI,0); // reset : test count2 TI40[0] 
-	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__TEST_OUT, 0x0000FFFF); // TEST_OUT
-	xil_printf("WO21 rd: 0x%08X \r\n", value );
-	
-	//
-	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS_PGU__TEST_TI,1); // up    : test count2 TI40[1] 
-	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__TEST_OUT, 0x0000FFFF); // TEST_OUT
-	xil_printf("WO21 rd: 0x%08X \r\n", value );
-	//
-	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS_PGU__TEST_TI,2); // down  : test count2 TI40[2] 
-	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__TEST_OUT, 0x0000FFFF); // TEST_OUT
+	// TEST_TI // ti40 --> EP_ADRS__TEST_TI
+	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS__TEST_TI,0); // reset : test count2 TI40[0]
+	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_OUT_WO, 0x0000FFFF); // TEST_OUT
 	xil_printf("WO21 rd: 0x%08X \r\n", value );
 	
+	//
+	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS__TEST_TI,1); // up    : test count2 TI40[1]
+	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_OUT_WO, 0x0000FFFF); // TEST_OUT
+	xil_printf("WO21 rd: 0x%08X \r\n", value );
+	//
+	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS__TEST_TI,2); // down  : test count2 TI40[2]
+	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_OUT_WO, 0x0000FFFF); // TEST_OUT
+	xil_printf("WO21 rd: 0x%08X \r\n", value );
+	
 	// read_mcs_ep_to @ 0x61 --> 0x60 
 	//   assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
-	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS_PGU__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
+	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
 	xil_printf("TO60 rd: 0x%08X \r\n", value );
 
 	//
-	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS_PGU__TEST_TI,2); // down  : test count2 TI40[2] 
-	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__TEST_OUT, 0x0000FFFF); // TEST_OUT
+	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS__TEST_TI,2); // down  : test count2 TI40[2]
+	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_OUT_WO, 0x0000FFFF); // TEST_OUT
 	xil_printf("WO21 rd: 0x%08X \r\n", value );
 
 	// read_mcs_ep_to @ 0x61 --> 0x60 
 	//   assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
-	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS_PGU__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
+	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
 	xil_printf("TO60 rd: 0x%08X \r\n", value );
 
 	// read_mcs_ep_to @ 0x61 --> 0x60 
 	//   assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
-	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS_PGU__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
+	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
 	xil_printf("TO60 rd: 0x%08X \r\n", value );
 
 	//
-	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS_PGU__TEST_TI,1); // up    : test count2 TI40[1] 
-	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__TEST_OUT, 0x0000FFFF); // TEST_OUT
+	activate_mcs_ep_ti(MCS_EP_BASE,EP_ADRS__TEST_TI,1); // up    : test count2 TI40[1]
+	value = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_OUT_WO, 0x0000FFFF); // TEST_OUT
 	xil_printf("WO21 rd: 0x%08X \r\n", value );
 
 	// read_mcs_ep_to @ 0x61 --> 0x60 
 	//   assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
-	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS_PGU__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
+	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
 	xil_printf("TO60 rd: 0x%08X \r\n", value );
 
 	// read_mcs_ep_to @ 0x61 --> 0x60 
 	//   assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
-	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS_PGU__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
+	value = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__TEST_TO, 0xFFFFFFFF); //$$ TEST_TO
 	xil_printf("TO60 rd: 0x%08X \r\n", value );
 
-	// test count :  set autocount2 // TEST_CON // ADRS_PORT_WI_01 --> MCS_EP_BASE + EP_ADRS_PGU__TEST_CON
+	// test count :  set autocount2 // TEST_CON // ADRS_PORT_WI_01 --> MCS_EP_BASE + EP_ADRS__TEST_CON_WI
 	xil_printf(">>> test count :  set autocount2 \r\n");
-	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000000, 0x00000004); // adrs_base, EP_offset_EP, data, mask
-	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000004, 0x00000004); // adrs_base, EP_offset_EP, data, mask
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000000, 0x00000004); // adrs_base, EP_offset_EP, data, mask
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000004, 0x00000004); // adrs_base, EP_offset_EP, data, mask
 	
 	//}
 
@@ -514,36 +511,14 @@ int main(void)
 
 
 
-	//// TODO: PGU start up --------////
+	//// TODO: S3100 start up --------////
 	
-	//// note : PGU initialization comes with the command of ":PGU:PWR ON\n"
-	
-	//// PGU led control //{
-	// test on
-	// pgu.spio_ext__pwr_led(led=1,pwr_dac=1,pwr_adc=0,pwr_amp=1)
-	pgu_spio_ext_pwr_led(1,0,0,0);
-	value = pgu_spio_ext_pwr_led_readback();
-	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
-	// sleep
-	//usleep(9000);
-	usleep(300000); // 0.3s = 300ms =300000us
-	// test off
-	pgu_spio_ext_pwr_led(0,0,0,0);
-	value = pgu_spio_ext_pwr_led_readback();
-	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
-	//}
-	
-	//// PGU AUX IO //{
-	// PGU AUX IO initialization
-	
-	// setup io direction and idle state
-	pgu_spio_ext__aux_init(); //
-	pgu_spio_ext__aux_idle(); //
-	//}
-	
+	// Not Yet
+
 
 	
 	//// TODO: LAN start up --------////
+
 
 	//// TODO: end-point control back to USB //{
 	
@@ -554,23 +529,23 @@ int main(void)
 	// reset all MASK : ADRS_MASK_ALL__
 	_test_write_mcs(">>> set MASK for WI: \r\n",     ADRS_MASK_ALL__, 0xFFFFFFFF);
 
-	// MCS access enable // BRD_CON // ADRS_PORT_WI_03 --> ADRS_PGU__BRD_CON
-	//_test_write_mcs(">>> enable  MCS control : \r\n", ADRS_PGU__BRD_CON, 0x00003F00);
-	_test_write_mcs  (">>> disable MCS control : \r\n", ADRS_PGU__BRD_CON, 0x00000000);
+	// MCS access enable // BRD_CON // ADRS_PORT_WI_03 --> ADRS__BRD_CON_WI
+	//_test_write_mcs(">>> enable  MCS control : \r\n", ADRS__BRD_CON_WI, 0x00003F00);
+	_test_write_mcs  (">>> disable MCS control : \r\n", ADRS__BRD_CON_WI, 0x00000000);
 
-	// read back : return 0xACACACAC due to lost control // ADRS_PORT_WO_3A --> ADRS_PGU__XADC_TEMP
-	_test_read_mcs(">>> read ADRS_PGU__XADC_TEMP : \r\n", ADRS_PGU__XADC_TEMP);
+	// read back : return 0xACACACAC due to lost control // ADRS_PORT_WO_3A --> ADRS__XADC_TEMP_WO
+	_test_read_mcs(">>> read ADRS__XADC_TEMP_WO : \r\n", ADRS__XADC_TEMP_WO);
 	
-	value = read_mcs_io (ADRS_PGU__BRD_CON);
+	value = read_mcs_io (ADRS__BRD_CON_WI);
 	xil_printf("mcs rd: %d \r\n", value );
 	
 	//}
 
 	//// select LAN-on-BASE first //{
 	
-	//$$ MCS_SETUP_WI // wi19 --> EP_ADRS_PGU__MCS_SETUP_WI
+	//$$ MCS_SETUP_WI // wi19 --> EP_ADRS__MCS_SETUP_WI
 	xil_printf(">>>LAN-on-BASE selected: \r\n");
-	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__MCS_SETUP_WI, 0x00000400, 0x00000400); // MCS_SETUP_WI // wi19
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MCS_SETUP_WI, 0x00000400, 0x00000400); // MCS_SETUP_WI // wi19
 	
 	//}
 
@@ -630,7 +605,7 @@ int main(void)
 		
 		//// try LAN-on-FPGA
 		xil_printf(">>>LAN-on-FPGA selected: \r\n");
-		write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__MCS_SETUP_WI, 0x00000000, 0x00000400); // MCS_SETUP_WI // wi19
+		write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MCS_SETUP_WI, 0x00000000, 0x00000400); // MCS_SETUP_WI // wi19
 		
 		hw_reset__wz850();
 
@@ -669,7 +644,7 @@ int main(void)
 	
 	//// network initialized
 	// turn on running LED // only if MCS is enabled
-	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000004, 0x00000004); // TEST_CON // wi01
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000004, 0x00000004); // TEST_CON // wi01
 
 
 	/* PHY link check */
@@ -681,7 +656,7 @@ int main(void)
 		//disconnect(SOCK_TCPS); // hanging; must remove.
 		
 		// turn off running LED 
-		write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000000, 0x00000004); // TEST_CON // wi01
+		write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000000, 0x00000004); // TEST_CON // wi01
 	
 		// wait for PHY_LINK_ON
 		do
@@ -690,7 +665,7 @@ int main(void)
 		}while(g_tmp_u8 == PHY_LINK_OFF);
 	
 		// turn on running LED 
-		write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000004, 0x00000004); // TEST_CON // wi01
+		write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000004, 0x00000004); // TEST_CON // wi01
 
 
 		// re-init network
@@ -730,7 +705,7 @@ int main(void)
 			//disconnect(SOCK_TCPS); // hanging; must remove.
 			
 			// turn off running LED 
-			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000000, 0x00000004); // TEST_CON // wi01
+			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000000, 0x00000004); // TEST_CON // wi01
 		
 			// wait for PHY_LINK_ON
 			do
@@ -739,7 +714,7 @@ int main(void)
 			}while(g_tmp_u8 == PHY_LINK_OFF);
 		
 			// turn on running LED 
-			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000004, 0x00000004); // TEST_CON // wi01
+			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000004, 0x00000004); // TEST_CON // wi01
 	
 			// re-init network
 			network_init(); 
@@ -753,10 +728,6 @@ int main(void)
 	/* TODO: Main loop for TCP socket based SCPI server test */
 	while(1)
 	{
-		//  /* SCPI server Test */
-		// if( (g_tmp_s32 = scpi_tcps_ep_state(SOCK_TCPS, gDATABUF, 5025)) < 0) {
-		// 	xil_printf("SOCKET ERROR : %ld \n", g_tmp_s32);
-		// }
 	
 		//  /* SCPI server Test : eps */
 		if( (g_tmp_s32 = scpi_tcps_ep(SOCK_TCPS, gDATABUF, 5025)) < 0) {
@@ -769,10 +740,9 @@ int main(void)
 			xil_printf(">>> PHY_LINK_OFF \r\n"); 
 			// close socket
 			close(SOCK_TCPS);
-			//disconnect(SOCK_TCPS); // hanging; must remove.
 			
 			// turn off running LED 
-			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000000, 0x00000004); // TEST_CON // wi01
+			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000000, 0x00000004); // TEST_CON // wi01
 		
 			// wait for PHY_LINK_ON
 			do
@@ -781,7 +751,7 @@ int main(void)
 			}while(g_tmp_u8 == PHY_LINK_OFF);
 		
 			// turn on running LED 
-			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__TEST_CON, 0x00000004, 0x00000004); // TEST_CON // wi01
+			write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__TEST_CON_WI, 0x00000004, 0x00000004); // TEST_CON // wi01
 	
 			// re-init network
 			network_init(); 
