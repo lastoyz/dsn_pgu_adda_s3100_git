@@ -1,20 +1,15 @@
-//#include <stdio.h>
-//#include <string.h>
+//$$ s3100_mcs_lan_eps.c
+//$$   main top for S3100-CPU-BASE to run MCS (microblaze controller system) with LAN end-point system
 
-#include "xil_printf.h" // print() for pure string; xil_printf() for formatted string
 #include "microblaze_sleep.h" // for usleep()
 
+#include "xil_printf.h" // print() for pure string; xil_printf() for formatted string
 #include "BOARD_BASE_LIB/xil_sprintf.h" // modified from // https://gist.github.com/raczben/a8b5410440b601ce6e7d64fd96b2d79d
-
-
 
 #include "BOARD_BASE_LIB/platform.h"
 
-//$$  #include "BOARD_BASE_LIB/mhvsu_base_config.h" //$$ board dependent
-//$$  #include "BOARD_BASE_LIB/cmu_cpu_config.h" //$$ board dependent
-#include "BOARD_BASE_LIB/mcs_io_bridge_ext.h" //$$ board dependent
+#include "BOARD_BASE_LIB/mcs_io_bridge_ext.h" //$$ board dependent // LAN and EPS control
 
-//$$ support W5500
 #include "BOARD_BASE_LIB/ioLibrary/Ethernet/W5500/w5500.h" // for w5500 io functions
 #include "BOARD_BASE_LIB/ioLibrary/Ethernet/socket.h"	// Just include one header for WIZCHIP // for close(SOCK_TCPS) and disconnect(SOCK_TCPS)
 
@@ -54,7 +49,6 @@ uint8_t gDATABUF[DATA_BUF_SIZE_SCPI]; // DATA_BUF_SIZE_SCPI from scpi.h // -->bs
 wiz_NetInfo gWIZNETINFO = { .mac = {0x00, 0x08, 0xdc,0x00, 0xab, 0xcd},
 							.ip = {192, 168, 168, 143},
 							.sn = {255,255,255,0},
-							//.gw = {192, 168, 168, 1},
 							.gw  = {0,0,0,0},
 							.dns = {0,0,0,0},
 							.dhcp = NETINFO_STATIC };
@@ -65,7 +59,6 @@ u16 gWIZNET_RTR = 4000; // 2000; // setRTR(2000); // retry time based on 100us u
 u16 gWIZNET_RCR = 46  ; // 23  ; // setRCR(23);   // retry count
 
 // network IC buf size : W5500 ... TX 16KB and RX 16KB
-//uint8_t gMEMSIZE[2][8] = {{8,0,0,0,0,0,0,0},{8,0,0,0,0,0,0,0}}; // KB => 16KB // 31568
 uint8_t gMEMSIZE[2][8] = {{16,0,0,0,0,0,0,0},{16,0,0,0,0,0,0,0}}; // KB
 
 // dummy variable
@@ -76,8 +69,6 @@ int32_t g_tmp_s32;
 // For example of ioLibrary_BSD //
 //////////////////////////////////
 uint8_t network_init(void);								// Initialize Network information and display it
-//int32_t loopback_tcps(uint8_t, uint8_t*, uint16_t);	// Loopback TCP server
-//int32_t loopback_udps(uint8_t, uint8_t*, uint16_t);	// Loopback UDP server
 //////////////////////////////////
 
 //// EEPROM test mem 
