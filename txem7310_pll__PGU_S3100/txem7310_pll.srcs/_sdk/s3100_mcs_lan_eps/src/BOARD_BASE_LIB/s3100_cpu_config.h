@@ -594,6 +594,7 @@ extern "C" {
 #define EP_ADRS__BRD_CON_WI         0x03  //$$ [TEST] BRD_CON_WI       //$$ S3100
 #define EP_ADRS__MEM_FDAT_WI        0x12  //$$ [MEM]  MEM_FDAT_WI      //$$ S3100
 #define EP_ADRS__MEM_WI             0x13  //$$ [MEM]  MEM_WI           //$$ S3100
+#define EP_ADRS__MSPI_EN_CS_WI      0x16  //$$ [MSPI] MSPI_EN_CS_WI    //$$ S3100 
 #define EP_ADRS__MSPI_CON_WI        0x17  //$$ [MSPI] MSPI_CON_WI      //$$ S3100 // SSPI_TEST_WI // for MTH spi master test 
 #define EP_ADRS__MCS_SETUP_WI       0x19  //$$ [MCS]  MCS_SETUP_WI     //$$ S3100
 #define EP_ADRS__FPGA_IMAGE_ID_WO   0x20  //$$ [TEST] FPGA_IMAGE_ID_WO //$$ S3100
@@ -621,6 +622,7 @@ extern "C" {
 #define ADRS__BRD_CON_WI            ( MCS_EP_BASE + (EP_ADRS__BRD_CON_WI        <<4) )
 #define ADRS__MEM_FDAT_WI           ( MCS_EP_BASE + (EP_ADRS__MEM_FDAT_WI       <<4) )
 #define ADRS__MEM_WI                ( MCS_EP_BASE + (EP_ADRS__MEM_WI            <<4) )
+#define ADRS__MSPI_EN_CS_WI         ( MCS_EP_BASE + (EP_ADRS__MSPI_EN_CS_WI     <<4) )
 #define ADRS__MSPI_CON_WI           ( MCS_EP_BASE + (EP_ADRS__MSPI_CON_WI       <<4) )
 #define ADRS__MCS_SETUP_WI          ( MCS_EP_BASE + (EP_ADRS__MCS_SETUP_WI      <<4) )
 #define ADRS__FPGA_IMAGE_ID_WO      ( MCS_EP_BASE + (EP_ADRS__FPGA_IMAGE_ID_WO  <<4) )

@@ -1251,14 +1251,14 @@ wire [31:0] ep0Ewire; //
 wire [31:0] ep0Fwire; //
 wire [31:0] ep10wire; //
 wire [31:0] ep11wire; //
-wire [31:0] ep12wire; //$$ [MEM] MEM_FDAT_WI   //$$ S3100
-wire [31:0] ep13wire; //$$ [MEM] MEM_WI        //$$ S3100
+wire [31:0] ep12wire; //$$ [MEM] MEM_FDAT_WI    //$$ S3100
+wire [31:0] ep13wire; //$$ [MEM] MEM_WI         //$$ S3100
 wire [31:0] ep14wire; //
 wire [31:0] ep15wire; //
-wire [31:0] ep16wire; //
-wire [31:0] ep17wire; //$$ [MSPI] MSPI_CON_WI  //$$ S3100  // SSPI_TEST_WI // for MTH spi master test 
+wire [31:0] ep16wire; //$$ [MSPI] MSPI_EN_CS_WI //$$ S3100 
+wire [31:0] ep17wire; //$$ [MSPI] MSPI_CON_WI   //$$ S3100  // SSPI_TEST_WI // for MTH spi master test 
 wire [31:0] ep18wire; //
-wire [31:0] ep19wire; //$$ [MCS] MCS_SETUP_WI  //$$ S3100
+wire [31:0] ep19wire; //$$ [MCS] MCS_SETUP_WI   //$$ S3100
 wire [31:0] ep1Awire; //
 wire [31:0] ep1Bwire; //
 wire [31:0] ep1Cwire; //
@@ -2013,7 +2013,10 @@ wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_M
 //$wire [31:0] w_SSPI_TEST_WI   = ep17wire; // test data for SSPI
 //$wire [31:0] w_SSPI_TEST_WO; //$$ assign ep21wire = w_SSPI_TEST_WO; //$$ share with ep21wire or w_TEST_FLAG_WO
 //wire [31:0] w_MSPI_CON_WI   = ep17wire; // w_SSPI_TEST_WI --> w_MSPI_CON_WI// test data for SSPI
-wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; // w_SSPI_TEST_WI --> w_MSPI_CON_WI// test data for SSPI
+
+wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
+wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable
+
 wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
 	assign ep24wire         =                   w_MSPI_FLAG_WO                ;
 	assign w_port_wo_24_1   = (w_mcs_ep_wo_en)? w_MSPI_FLAG_WO : 32'hACAC_ACAC;
@@ -2449,6 +2452,21 @@ assign  SCIO_1_out = 1'b0;
 //  bit[25:16] = data_A // address[9:0]
 //  bit[15: 0] = data_D // MOSI data[15:0]
 //
+// MSPI_EN_CS_WI : ep16wire
+//  bit[0 ] = enable SPI_nCS0  
+//  bit[1 ] = enable SPI_nCS1  
+//  bit[2 ] = enable SPI_nCS2  
+//  bit[3 ] = enable SPI_nCS3  
+//  bit[4 ] = enable SPI_nCS4  
+//  bit[5 ] = enable SPI_nCS5  
+//  bit[6 ] = enable SPI_nCS6  
+//  bit[7 ] = enable SPI_nCS7  
+//  bit[8 ] = enable SPI_nCS8  
+//  bit[9 ] = enable SPI_nCS9  
+//  bit[10] = enable SPI_nCS10 
+//  bit[11] = enable SPI_nCS11 
+//  bit[12] = enable SPI_nCS12 
+//
 // MSPI_FLAG_WO : ep24wire
 //  bit[23]   = TEST_mode_en
 //  bit[15:0] = data_B // MISO data[15:0]
@@ -2485,7 +2503,21 @@ assign w_MSPI_FLAG_WO[15:0] = w_SSPI_frame_data_B[15:0]; //$$ w_SSPI_TEST_WO -->
 
 //$$ S3100: mapping SSPI_TEST to M0_SPI
 assign  FPGA_M0_SPI_TX_EN   = w_SSPI_TEST_mode_en ;
-assign  FPGA_M0_SPI_nCS0_   = w_SSPI_TEST_SS_B    ;
+//
+assign  FPGA_M0_SPI_nCS0_   = (w_MSPI_EN_CS_WI[0 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS1_   = (w_MSPI_EN_CS_WI[1 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS2_   = (w_MSPI_EN_CS_WI[2 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS3_   = (w_MSPI_EN_CS_WI[3 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS4_   = (w_MSPI_EN_CS_WI[4 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS5_   = (w_MSPI_EN_CS_WI[5 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS6_   = (w_MSPI_EN_CS_WI[6 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS7_   = (w_MSPI_EN_CS_WI[7 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS8_   = (w_MSPI_EN_CS_WI[8 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS9_   = (w_MSPI_EN_CS_WI[9 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS10   = (w_MSPI_EN_CS_WI[10])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS11   = (w_MSPI_EN_CS_WI[11])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS12   = (w_MSPI_EN_CS_WI[12])? w_SSPI_TEST_SS_B : 1'b1 ;
+//
 assign  M0_SPI_TX_CLK       = w_SSPI_TEST_MCLK    ;
 assign  M0_SPI_MOSI         = w_SSPI_TEST_MOSI    ;
 //

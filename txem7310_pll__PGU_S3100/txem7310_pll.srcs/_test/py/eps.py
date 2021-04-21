@@ -687,6 +687,7 @@ def eps_test():
 	#print('hex code rcvd: ' + rsp.hex())
 	print('string rcvd: ' + repr(rsp))
 	
+
 	##---- EPS ON test ----##
 	
 	### scpi : ":EPS:EN ON\n"
@@ -721,6 +722,21 @@ def eps_test():
 	##//   bit[1] = init_done
 	##//   bit[2] = frame_done
 	##//
+	##// MSPI_EN_CS_WI : ep16wire
+	##//  bit[0 ] = enable SPI_nCS0  
+	##//  bit[1 ] = enable SPI_nCS1  
+	##//  bit[2 ] = enable SPI_nCS2  
+	##//  bit[3 ] = enable SPI_nCS3  
+	##//  bit[4 ] = enable SPI_nCS4  
+	##//  bit[5 ] = enable SPI_nCS5  
+	##//  bit[6 ] = enable SPI_nCS6  
+	##//  bit[7 ] = enable SPI_nCS7  
+	##//  bit[8 ] = enable SPI_nCS8  
+	##//  bit[9 ] = enable SPI_nCS9  
+	##//  bit[10] = enable SPI_nCS10 
+	##//  bit[11] = enable SPI_nCS11 
+	##//  bit[12] = enable SPI_nCS12 
+	##//
 	##// MSPI_CON_WI : ep17wire
 	##//  bit[31:26] = data_C // control[5:0]
 	##//  bit[25:16] = data_A // address[9:0]
@@ -730,14 +746,6 @@ def eps_test():
 	##//  bit[23]   = TEST_mode_en
 	##//  bit[15:0] = data_B // MISO data[15:0]	
 	
-	## test spi frame 
-	data_C = 0x10   ##// for read 
-	data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
-	data_D = 0x0000 ##// for reading (XXXX)
-	MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D
-	dev.SetWireInValue(0x17, MSPI_CON_WI)
-	
-	#ActivateTriggerIn // IsTriggered
 
 	## reset 
 	dev.ActivateTriggerIn(0x42, 0) # reset_trig
@@ -758,6 +766,19 @@ def eps_test():
 		if ret:
 			print('init done !! @ ' + repr(cnt_loop))
 			break
+
+
+	## set spi frame data
+	data_C = 0x10   ##// for read 
+	data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
+	data_D = 0x0000 ##// for reading (XXXX)
+	MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D
+	dev.SetWireInValue(0x17, MSPI_CON_WI)
+	
+	## set spi enable signals
+	MSPI_EN_CS_WI = 0x00000CA5
+	dev.SetWireInValue(0x16, MSPI_EN_CS_WI)
+	
 
 	## frame 
 	dev.ActivateTriggerIn(0x42, 2) # frame_trig
