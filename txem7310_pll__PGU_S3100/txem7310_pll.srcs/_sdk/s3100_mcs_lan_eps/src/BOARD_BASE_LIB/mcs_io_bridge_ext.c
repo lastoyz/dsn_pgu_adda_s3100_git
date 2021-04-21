@@ -248,18 +248,6 @@ u32 write_mcs_io(u32 adrs, u32 value) {
 }
 
 
-//  u32   read_mcs_fpga_img_id(u32 adrs_base) {
-//  	return XIomodule_In32 (adrs_base + ADRS_FPGA_IMAGE_OFST);
-//  }
-//  
-//  u32   read_mcs_test_reg(u32 adrs_base) {
-//  	return XIomodule_In32 (adrs_base + ADRS_TEST_REG___OFST);
-//  }
-//  
-//  void write_mcs_test_reg(u32 adrs_base, u32 data) {
-//  	      XIomodule_Out32 (adrs_base + ADRS_TEST_REG___OFST, data);
-//  }
-
 //}
 
 

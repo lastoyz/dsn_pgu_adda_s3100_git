@@ -140,6 +140,7 @@ int main(void)
 	_test_read_mcs(">>> read ADRS__XADC_TEMP_WO : \r\n", ADRS__XADC_TEMP_WO);
 	value = read_mcs_io (ADRS__XADC_TEMP_WO);
 	xil_printf("mcs rd: %d \r\n", value );
+	xil_printf("XADC_TEMP = %d C degree \r\n", value/1000 );
 	//}
 	
 	//// test counters //{
@@ -220,30 +221,9 @@ int main(void)
 		
 	xil_printf(">>> test eeprom  \r\n");
 	
-	// test call eeprom functions in mcs_io_bridge_ext.h //{
 	
-	// test ep // clear wires
-	eeprom_send_frame_ep(0,0); // (u32 MEM_WI_b32, u32 MEM_FDAT_WI_b32)
-	
-	// select EEPROM on BASE
-	value = eeprom_set_g_var(1,0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
-	xil_printf("> eeprom_set_g_var: 0x%08X \r\n", value );
-	
-	// select EEPROM on TP
-	value = eeprom_set_g_var(1,1); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
-	xil_printf("> eeprom_set_g_var: 0x%08X \r\n", value );
-
-	// eeprom_read_status
-	eeprom_send_frame(0x05, 0, 0, 0, 1, 0); // (u8 CMD_b8, u8 STA_in_b8, u8 ADL_b8, u8 ADH_b8, u16 num_bytes_DAT_b16, u8 con_disable_SBP_b8);
-
-	// read status
-	value = eeprom_read_status();
-	xil_printf("> eeprom_read_status: 0x%08X \r\n", value );
-	
-	//}
-	
-	// check and switch connection //{
-	eeprom_set_g_var(1, 0); // # EEPROM on MEM_SIO (MHVSU_BASE) or FPGA_IO_A (EXT-CMU)
+	// check connection and locate eeprom : eeprom on SCIO_0 vs TP in S3100  //{
+	eeprom_set_g_var(1, 0); // # EEPROM on SCIO_0 (S3100-CPU-BASE)
 	if (is_eeprom_available()) {
 		xil_printf(">> EEPROM on BASE is available. \r\n");
 	}
@@ -259,148 +239,7 @@ int main(void)
 	
 	//}
 	
-	//// test eeprom_erase_all()
-//#define _TEST__EEPROM_ERASE_ALL_
-#ifdef _TEST__EEPROM_ERASE_ALL_
-	eeprom_erase_all();
-#endif 	
-
-	//// test eeprom_set_all()
-//#define _TEST__EEPROM_SET_ALL_
-#ifdef _TEST__EEPROM_SET_ALL_
-	eeprom_set_all();
-#endif 	
 	
-	// test functions about check sum //{
-	value = cal_checksum (32, (u8*)"1234567812345678test try good~!!");
-	xil_printf("cal_checksum: 0x%02X \r\n", value );
-	value = gen_checksum (32, (u8*)"1234567812345678test try good~!!");
-	xil_printf("gen_checksum: 0x%02X \r\n", value );
-	// test hex display
-	hex_txt_display (32, (u8*)"1234567812345678test try good~!!", 0x0020); // (s16 len_b16, u8 *p_mem_data, u32 adrs_offset)	
-	//}
-
-	//// eeprom header renewal 
-	
-//#define _TEST__EEPROM_HEADER_RENEWAL_
-#ifdef _TEST__EEPROM_HEADER_RENEWAL_
-
-	// 000  0x0000  43 4D 55 5F 43 50 55 5F  4C 41 4E 23 30 31 30 31  PGU_CPU_ LAN#0101 // info_txt[0:10]+'#'+BoardID_txt[0:3]
-	// 001  0x0010  C0 A8 A8 8F FF FF FF 00  C0 A8 A8 01 00 00 00 00  ........ ........ // SIP[0:3]+SUB[0:3]+GAR[0:3]+DNS[0:3]
-	// 002  0x0020  30 30 30 38 44 43 30 30  41 43 33 32 31 35 24 31  0008DC00 AC3215$1 // MAC_txt[0:11]+SlotID_txt[0:1]+UserID[0]+CKS[0]
-	// 003  0x0030  2D 5F 2D 5F 2D 2D 5F 5F  2D 5F 2D 5F 2D 2D 5F 5F  -_-_--__ -_-_--__	 // test_txt[0:15]
-	
-	// input para :
-	
-	//u32 BoardID = 101; // EEPROM on TP
-	//u32 SlotID  =  15; // EEPROM on TP
-
-	//u32 BoardID = 110+4; // CMU-CPU-F5500 #4
-	//u32 SlotID  =     4; // CMU-CPU-F5500 #4
-	
-	//u32 BoardID = 110+7; // CMU-CPU-F5500 #7
-	//u32 SlotID  =     7; // CMU-CPU-F5500 #7
-	
-	//u32 BoardID = 110+15; // CMU-CPU-F5500 #15
-	//u32 SlotID  =     15; // CMU-CPU-F5500 #15
-
-	u32 BoardID = 210+15; // PGU-CPU-F5500 #15
-	u32 SlotID  =     15; // PGU-CPU-F5500 #15
-
-	//   info_txt[0:10]  
-	u8* info_txt = (u8*)"PGU_CPU_LAN"; // + sentinel
-	
-	//   BoardID_txt[0:3]
-	//... see line 0
-	
-	
-	// note CMU base ip  : 192.168.100.16, 192.168.100.80,  192.168.168.80
-	// note CMU base MAC : "0008DC00AB00"
-	
-	// note PGU base ip  : 192.168.100.48, 192.168.100.112, 192.168.168.112
-	// note PGU base MAC : "0008DC00CD00"
-	
-	//   SIP[0:3]
-	u8 eeprom_SIP[4] = {192,168,100,112}; // will add SlotID to eeprom_SIP[3]
-	//   SUB[0:3]
-	u8 eeprom_SUB[4] = {255,255,255,  0};
-	//   GAR[0:3]       
-	u8 eeprom_GAR[4] = {  0,  0,  0,  0};
-	//   DNS[0:3]       
-	u8 eeprom_DNS[4] = {  0,  0,  0,  0};
-	//
-	eeprom_SIP[3] += SlotID;
-	
-	//   MAC_txt[0:11]
-	//u8* MAC_txt = (u8*)"0008DC00ABCD"; // + sentinel // will add BoardID
-	u8 MAC_txt[12];// will add BoardID
-	xil_sprintf((char*)MAC_txt, "%s%08X", (char *)"0008", (unsigned int)0XDC00ABCD+BoardID);
-	//   SlotID_txt[0:1]
-	//...
-	//   UserID[0]
-	u8 UserID = '$';
-	//   CKS[0]
-	u8 CKS = 0;
-
-	
-	
-	//   test_txt[0:15]
-	u8* test_txt = (u8*)"-_-_--__-_-_--__"; // + sentinel
-
-	// write header
-	//...
-	//eeprom_write_data (0x0000, 16, (u8*)"CMU_CPU_LAN#0100"); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
-	
-	// line 0
-	xil_sprintf((char*)tmp_buf, "%.11s%c%04d", (char*)info_txt, (char)'#', (unsigned int)BoardID);
-	eeprom_write_data (0x0000, 16, (u8*)tmp_buf); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
-
-	// line 1
-	//mcopy(void *dest, const void *src, size_t n);
-	mcopy(&tmp_buf[ 0], eeprom_SIP, 4);
-	mcopy(&tmp_buf[ 4], eeprom_SUB, 4);
-	mcopy(&tmp_buf[ 8], eeprom_GAR, 4);
-	mcopy(&tmp_buf[12], eeprom_DNS, 4);
-	eeprom_write_data (0x0010, 16, (u8*)tmp_buf); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
-	
-	// line 2
-	xil_sprintf((char*)tmp_buf, "%.12s%02d%c%c", (char*)MAC_txt, (unsigned int)SlotID, (char)UserID , (char)CKS);
-	eeprom_write_data (0x0020, 16, (u8*)tmp_buf); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
-	// re-calculate check sum
-	eeprom_read_data (0x0010, 16*2, tmp_buf);
-	value = cal_checksum (32, tmp_buf); // 
-	xil_printf("cal_checksum of EEPROM[0x10:0x2F] = 0x%02X \r\n", value );
-	tmp_buf[0x1F]-=value;
-	value = cal_checksum (32, tmp_buf); // 
-	xil_printf("re-cal_checksum of EEPROM[0x10:0x2F] = 0x%02X \r\n", value );
-	eeprom_write_data (0x0010, 32, (u8*)tmp_buf); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
-
-	// line 3
-	eeprom_write_data (0x0030, 16, (u8*)test_txt); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
-
-	
-
-	// read header
-	eeprom_read_data (0x0000, 16*4, tmp_buf); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_dataout)
-	hex_txt_display (16*4, tmp_buf, 0x0000);
-	
-#endif 	
-	
-
-//#define _TEST__EEPROM_WRITE_
-#ifdef _TEST__EEPROM_WRITE_
-	// test read all from EEPROM to g_EEPROM__buf_2KB
-	eeprom_read_all();
-	p_tmp_u8 = get_adrs__g_EEPROM__buf_2KB();
-	hex_txt_display (16*4, p_tmp_u8, 0x0000);
-	
-	// test eeprom write 
-	eeprom_write_data (0x0030, 2, (u8*)"?!"); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
-	eeprom_read_data (0x0000, 16*4, tmp_buf); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_dataout)
-	hex_txt_display (16*4, tmp_buf, 0x0000);
-#endif 	
-	
-
 	// read eeprom //{
 
 	eeprom_read_all();
@@ -524,13 +363,11 @@ int main(void)
 	
 	// dedicated LAN is always available to MCS.
 	// MCS_SETUP_WI (wi19) is also always available to MCS.
-	// TEST_CON (wi01) is controlled by MCS_SETUP_WI.
 	
 	// reset all MASK : ADRS_MASK_ALL__
 	_test_write_mcs(">>> set MASK for WI: \r\n",     ADRS_MASK_ALL__, 0xFFFFFFFF);
 
 	// MCS access enable // BRD_CON // ADRS_PORT_WI_03 --> ADRS__BRD_CON_WI
-	//_test_write_mcs(">>> enable  MCS control : \r\n", ADRS__BRD_CON_WI, 0x00003F00);
 	_test_write_mcs  (">>> disable MCS control : \r\n", ADRS__BRD_CON_WI, 0x00000000);
 
 	// read back : return 0xACACACAC due to lost control // ADRS_PORT_WO_3A --> ADRS__XADC_TEMP_WO
@@ -543,9 +380,9 @@ int main(void)
 
 	//// select LAN-on-BASE first //{
 	
-	//$$ MCS_SETUP_WI // wi19 --> EP_ADRS__MCS_SETUP_WI
+	//$$ MCS_SETUP_WI // EP_ADRS__MCS_SETUP_WI
 	xil_printf(">>>LAN-on-BASE selected: \r\n");
-	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MCS_SETUP_WI, 0x00000400, 0x00000400); // MCS_SETUP_WI // wi19
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MCS_SETUP_WI, 0x00000400, 0x00000400); // MCS_SETUP_WI // sel__H_LAN_on_BASE_BD bit[10]
 	
 	//}
 

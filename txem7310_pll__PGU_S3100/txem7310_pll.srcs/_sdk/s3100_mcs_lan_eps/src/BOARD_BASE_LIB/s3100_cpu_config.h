@@ -24,11 +24,11 @@ extern "C" {
 
 
 // offset definition for mcs_io_bridge.v //{
-#define MCS_IO_INST_OFFSET              0x00000000 // for LAN
-#define MCS_IO_INST_OFFSET_CMU          0x00010000 // for CMU
-#define MCS_IO_INST_OFFSET_PGU          0x00020000 // for PGU
-#define MCS_IO_INST_OFFSET_EXT          0x00030000 // for MHVSU_BASE (port end-points + lan end-points)
-#define MCS_IO_INST_OFFSET_EXT_CMU      0x00040000 // for NEW CMU (port end-points + lan end-points)
+//#define MCS_IO_INST_OFFSET              0x00000000 // for LAN
+//#define MCS_IO_INST_OFFSET_CMU          0x00010000 // for CMU
+//#define MCS_IO_INST_OFFSET_PGU          0x00020000 // for PGU
+//#define MCS_IO_INST_OFFSET_EXT          0x00030000 // for MHVSU_BASE (port end-points + lan end-points)
+//#define MCS_IO_INST_OFFSET_EXT_CMU      0x00040000 // for NEW CMU (port end-points + lan end-points)
 #define MCS_IO_INST_OFFSET_EXT_PGU      0x00050000 // for NEW PGU (port end-points + lan end-points)
 #define MCS_IO_INST_OFFSET_EXT_S3100    0x00060000 // for S3100   (port end-points + lan end-points)
 //}
@@ -42,8 +42,8 @@ extern "C" {
 #define ADRS_BASE_EXT_PGU     XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_PGU
 #define ADRS_BASE_EXT_S3100   XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_S3100
 
-#define MCS_EP_BASE           ADRS_BASE_EXT_PGU // test 
-//#define MCS_EP_BASE         ADRS_BASE_EXT_S3100 // to come
+//#define MCS_EP_BASE           ADRS_BASE_EXT_PGU // test 
+#define MCS_EP_BASE         ADRS_BASE_EXT_S3100 // to come
 
 
 //}

@@ -1584,9 +1584,9 @@ wire w_ck_pipe; // not used // mcs_eeprom_fifo_clk vs epPPck from lan_endpoint_w
 // lan_endpoint_wrapper   //{
 
 wire [47:0] w_adrs_offset_mac_48b       ; // BASE = {8'h00,8'h08,8'hDC,8'h00,8'hAB,8'hCD}; // 00:08:DC:00:xx:yy ??48 bits
-wire [31:0] w_adrs_offset_ip_32b        ; // BASE = {8'd192,8'd168,8'd168,8'd112}; // 192.168.168.112 or C0:A8:A8:70 ??32 bits
-wire [15:0] w_offset_lan_timeout_rtr_16b; //$$ = ep00wire[31:16]; // assign later 
-wire [15:0] w_offset_lan_timeout_rcr_16b; //$$ = ep00wire[15: 0]; // assign later 
+wire [31:0] w_adrs_offset_ip_32b        ; // BASE = {8'd192,8'd168,8'd168,8'd112};         // 192.168.168.112 or C0:A8:A8:70 ??32 bits
+wire [15:0] w_offset_lan_timeout_rtr_16b; //
+wire [15:0] w_offset_lan_timeout_rcr_16b; //
 
 wire  EP_LAN_MOSI ; 
 wire  EP_LAN_SCLK ; 
@@ -1606,8 +1606,8 @@ assign  EP_LAN_MISO   = LAN_MISO    ;
 
 lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
-	.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020
-	////.MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100
+	//.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020
+	.MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100
 	.FPGA_IMAGE_ID              (FPGA_IMAGE_ID)  
 ) lan_endpoint_wrapper_inst(
 	
@@ -1936,18 +1936,18 @@ wire w_mcs_ep_wi_en = w_BRD_CON[13];
 
 // MCS control 
 wire [31:0] w_MCS_SETUP_WI = w_port_wi_19_1; //$$ dedicated to MCS. updated by MCS boot-up.
-// bit[3:0]=slot_id, range of 00~99, set from EEPROM via MCS
+// bit[3:0]= slot_id, range of 00~99, set from EEPROM via MCS
 // ...
-// bit[8]=sel__H_LAN_for_EEPROM_fifo (or USB)
-// bit[9]=sel__H_EEPROM_on_TP (or on Base)
-// bit[10]=sel__H_LAN_on_BASE_BD (or on module)
+// bit[8]  = sel__H_LAN_for_EEPROM_fifo (or USB)  //$$ no USB in S3100
+// bit[9]  = sel__H_EEPROM_on_TP (or on Base)
+// bit[10] = sel__H_LAN_on_BASE_BD (or on module) //$$ always LAN_on_BASE in S3100
 // ...
 // bit[31:16]=board_id, range of 0000~9999, set from EEPROM via MCS
 
 wire [3:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   // not yet
 wire w_sel__H_LAN_for_EEPROM_fifo = w_MCS_SETUP_WI[8];
 wire w_sel__H_EEPROM_on_TP        = w_MCS_SETUP_WI[9];     // not yet
-wire w_sel__H_LAN_on_BASE_BD      = w_MCS_SETUP_WI[10];    // not yet
+wire w_sel__H_LAN_on_BASE_BD      = w_MCS_SETUP_WI[10];    // not yet // ignored in S3100
 wire [15:0] w_board_id            = w_MCS_SETUP_WI[31:16]; // not yet
 
 // for dedicated LAN setup from MCS
@@ -3423,106 +3423,10 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 
 ///TODO: //-------------------------------------------------------//
 
-/* TODO: BANK signals */
-
-// LAN signals to mux //{
-
-//// note  S3100 uses one LAN interface.
-
-//wire  PT_BASE_EP_LAN_MOSI ; 
-//wire  PT_BASE_EP_LAN_SCLK ; 
-//wire  PT_BASE_EP_LAN_CS_B ; 
-//wire  PT_BASE_EP_LAN_INT_B;
-//wire  PT_BASE_EP_LAN_RST_B; 
-//wire  PT_BASE_EP_LAN_MISO ;
-//
-//wire  PT_FMOD_EP_LAN_MOSI ; 
-//wire  PT_FMOD_EP_LAN_SCLK ; 
-//wire  PT_FMOD_EP_LAN_CS_B ; 
-//wire  PT_FMOD_EP_LAN_INT_B;
-//wire  PT_FMOD_EP_LAN_RST_B; 
-//wire  PT_FMOD_EP_LAN_MISO ;
-//
-//// output mux
-//assign PT_BASE_EP_LAN_MOSI  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
-//assign PT_BASE_EP_LAN_SCLK  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
-//assign PT_BASE_EP_LAN_CS_B  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
-//assign PT_BASE_EP_LAN_RST_B = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
-//
-//assign PT_FMOD_EP_LAN_MOSI  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
-//assign PT_FMOD_EP_LAN_SCLK  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
-//assign PT_FMOD_EP_LAN_CS_B  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
-//assign PT_FMOD_EP_LAN_RST_B = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
-//
-//// input mux
-//assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : PT_BASE_EP_LAN_INT_B;
-//assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : PT_BASE_EP_LAN_MISO;
+/* TODO: TP assign */
 
 
-//}
 
-// LAN pin on BASE board (PGU) //{
-
-// OBUF obuf_LAN_MOSI_inst(.O(o_B13_L11N_SRCC ), .I(LAN_MOSI ) ); // 
-// OBUF obuf_LAN_SCLK_inst(.O(o_B13_L6N       ), .I(LAN_SCLK ) ); // 
-// OBUF obuf_LAN_SSNn_inst(.O(o_B13_L6P       ), .I(LAN_SSNn ) ); // 
-// IBUF ibuf_LAN_INTn_inst(.I(i_B13_L11P_SRCC ), .O(LAN_INTn ) ); //
-// OBUF obuf_LAN_RSTn_inst(.O(o_B13_L17N      ), .I(LAN_RSTn ) ); // 
-// IBUF ibuf_LAN_MISO_inst(.I(i_B13_L17P      ), .O(LAN_MISO ) ); //
-
-// OBUF obuf__LAN_MOSI__inst(.O( o_B13_L11N_SRCC  ), .I(PT_BASE_EP_LAN_MOSI ) ); // 
-// OBUF obuf__LAN_SCLK__inst(.O( o_B13_L6N        ), .I(PT_BASE_EP_LAN_SCLK ) ); // 
-// OBUF obuf__LAN_CS_B__inst(.O( o_B13_L6P        ), .I(PT_BASE_EP_LAN_CS_B ) ); // 
-// IBUF ibuf__LAN_INT_B_inst(.I( i_B13_L11P_SRCC  ), .O(PT_BASE_EP_LAN_INT_B) ); //
-// OBUF obuf__LAN_RST_B_inst(.O( o_B13_L17N       ), .I(PT_BASE_EP_LAN_RST_B) ); // 
-// IBUF ibuf__LAN_MISO__inst(.I( i_B13_L17P       ), .O(PT_BASE_EP_LAN_MISO ) ); //
-
-
-//}
-
-
-/* TODO: reserved signals : compatible with TXEM7310 */
-
-//// LAN pin on FPGA module //{
-//	output wire  o_B15_L6P , // # H17    EP_LAN_PWDN 
-//	output wire  o_B15_L7P , // # J22    EP_LAN_MOSI
-//	output wire  o_B15_L7N , // # H22    EP_LAN_SCLK
-//	output wire  o_B15_L8P , // # H20    EP_LAN_CS_B
-//	input  wire  i_B15_L8N , // # G20    EP_LAN_INT_B
-//	output wire  o_B15_L9P , // # K21    EP_LAN_RST_B
-//	input  wire  i_B15_L9N , // # K22    EP_LAN_MISO
-
-// wire  EP_LAN_PWDN  = 1'b0; // test // unused // fixed
-// OBUF obuf__EP_LAN_PWDN__inst(.O( o_B15_L6P ), .I( EP_LAN_PWDN   ) ); // 
-// 
-// OBUF obuf__EP_LAN_MOSI__inst(.O( o_B15_L7P ), .I( PT_FMOD_EP_LAN_MOSI  ) ); // 
-// OBUF obuf__EP_LAN_SCLK__inst(.O( o_B15_L7N ), .I( PT_FMOD_EP_LAN_SCLK  ) ); // 
-// OBUF obuf__EP_LAN_CS_B__inst(.O( o_B15_L8P ), .I( PT_FMOD_EP_LAN_CS_B  ) ); // 
-// IBUF ibuf__EP_LAN_INT_B_inst(.I( i_B15_L8N ), .O( PT_FMOD_EP_LAN_INT_B ) ); //
-// OBUF obuf__EP_LAN_RST_B_inst(.O( o_B15_L9P ), .I( PT_FMOD_EP_LAN_RST_B ) ); // 
-// IBUF ibuf__EP_LAN_MISO__inst(.I( i_B15_L9N ), .O( PT_FMOD_EP_LAN_MISO  ) ); //
-
-//}
-
-//// TP on FPGA module //{
-
-//	inout  wire  io_B15_L1P , // # H13    TP0 // test for eeprom : VCC_3.3V
-//	inout  wire  io_B15_L1N , // # G13    TP1 // test for eeprom : VSS_GND
-//	inout  wire  io_B15_L2P , // # G15    TP2 // test for eeprom : SCIO
-//	inout  wire  io_B15_L2N , // # G16    TP3 // test for eeprom : NA
-//	inout  wire  io_B15_L3P , // # J14    TP4 // test for eeprom : VCC_3.3V
-//	inout  wire  io_B15_L3N , // # H14    TP5 // test for eeprom : VSS_GND
-//	inout  wire  io_B15_L5P , // # J15    TP6 // test for eeprom : NA
-//	inout  wire  io_B15_L5N , // # H15    TP7 // test for eeprom : NA
-
-//IOBUF iobuf__TP0__inst(.IO(io_B15_L1P  ), .T(TP_tri[0]), .I(TP_out[0] ), .O(TP_in[0] ) ); //
-//IOBUF iobuf__TP1__inst(.IO(io_B15_L1N  ), .T(TP_tri[1]), .I(TP_out[1] ), .O(TP_in[1] ) ); //
-//IOBUF iobuf__TP2__inst(.IO(io_B15_L2P  ), .T(TP_tri[2]), .I(TP_out[2] ), .O(TP_in[2] ) ); //
-//IOBUF iobuf__TP3__inst(.IO(io_B15_L2N  ), .T(TP_tri[3]), .I(TP_out[3] ), .O(TP_in[3] ) ); //
-//IOBUF iobuf__TP4__inst(.IO(io_B15_L3P  ), .T(TP_tri[4]), .I(TP_out[4] ), .O(TP_in[4] ) ); //
-//IOBUF iobuf__TP5__inst(.IO(io_B15_L3N  ), .T(TP_tri[5]), .I(TP_out[5] ), .O(TP_in[5] ) ); //
-//IOBUF iobuf__TP6__inst(.IO(io_B15_L5P  ), .T(TP_tri[6]), .I(TP_out[6] ), .O(TP_in[6] ) ); //
-//IOBUF iobuf__TP7__inst(.IO(io_B15_L5N  ), .T(TP_tri[7]), .I(TP_out[7] ), .O(TP_in[7] ) ); //
 
 //}
 
