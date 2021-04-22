@@ -2432,7 +2432,6 @@ assign  SCIO_1_out = 1'b0;
 /* TODO: Master_SPI emulation for Slave_SPI  or  MSPI */ //{
 
 
-
 // module //{
 
 //// Master SPI endpoints

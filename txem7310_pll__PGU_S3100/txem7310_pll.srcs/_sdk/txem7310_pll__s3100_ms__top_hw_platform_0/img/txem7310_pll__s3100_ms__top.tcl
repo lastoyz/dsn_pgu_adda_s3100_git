@@ -75,144 +75,16 @@ set_msg_config  -ruleid {7}  -id {Synth 8-3331}  -new_severity {INFO}
 set_msg_config  -ruleid {8}  -id {DRC DPOP-1}  -suppress 
 set_msg_config  -ruleid {9}  -id {DRC DPOP-2}  -suppress 
 
-start_step init_design
-set ACTIVE_STEP init_design
-set rc [catch {
-  create_msg_db init_design.pb
-  create_project -in_memory -part xc7a200tfbg484-2
-  set_property design_mode GateLvl [current_fileset]
-  set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.cache/wt [current_project]
-  set_property parent.project_path /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.xpr [current_project]
-  set_property ip_output_repo /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.cache/ip [current_project]
-  set_property ip_cache_permissions {read write} [current_project]
-  set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
-  add_files -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.runs/synth_1/txem7310_pll__s3100_ms__top.dcp
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_2/fifo_generator_3_2.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_1/fifo_generator_3_1.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/xadc_wiz_0/xadc_wiz_0.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/fifo_generator_4/fifo_generator_4.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/microblaze_mcs_1.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_3_1/clk_wiz_0_3_1.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_0_1/clk_wiz_0_0_1.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
-  read_ip -quiet /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2.xci
-  read_xdc /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/constrs_1/new/debug_net.xdc
-  read_xdc /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/constrs_1/new/debug_cores.xdc
-  read_xdc /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/constrs_1/imports/src_ref/txem7310_pll__s3100_ms__top__txem7310_test.xdc
-  link_design -top txem7310_pll__s3100_ms__top -part xc7a200tfbg484-2
-  write_hwdef -force -file txem7310_pll__s3100_ms__top.hwdef
-  close_msg_db -file init_design.pb
-} RESULT]
-if {$rc} {
-  step_failed init_design
-  return -code error $RESULT
-} else {
-  end_step init_design
-  unset ACTIVE_STEP 
-}
-
-start_step opt_design
-set ACTIVE_STEP opt_design
-set rc [catch {
-  create_msg_db opt_design.pb
-  opt_design -directive Explore
-  write_checkpoint -force txem7310_pll__s3100_ms__top_opt.dcp
-  create_report "impl_1_opt_report_drc_0" "report_drc -file txem7310_pll__s3100_ms__top_drc_opted.rpt -pb txem7310_pll__s3100_ms__top_drc_opted.pb -rpx txem7310_pll__s3100_ms__top_drc_opted.rpx"
-  close_msg_db -file opt_design.pb
-} RESULT]
-if {$rc} {
-  step_failed opt_design
-  return -code error $RESULT
-} else {
-  end_step opt_design
-  unset ACTIVE_STEP 
-}
-
-start_step place_design
-set ACTIVE_STEP place_design
-set rc [catch {
-  create_msg_db place_design.pb
-  implement_debug_core 
-  place_design -directive ExtraPostPlacementOpt
-  write_checkpoint -force txem7310_pll__s3100_ms__top_placed.dcp
-  create_report "impl_1_place_report_io_0" "report_io -file txem7310_pll__s3100_ms__top_io_placed.rpt"
-  create_report "impl_1_place_report_utilization_0" "report_utilization -file txem7310_pll__s3100_ms__top_utilization_placed.rpt -pb txem7310_pll__s3100_ms__top_utilization_placed.pb"
-  create_report "impl_1_place_report_control_sets_0" "report_control_sets -verbose -file txem7310_pll__s3100_ms__top_control_sets_placed.rpt"
-  close_msg_db -file place_design.pb
-} RESULT]
-if {$rc} {
-  step_failed place_design
-  return -code error $RESULT
-} else {
-  end_step place_design
-  unset ACTIVE_STEP 
-}
-
-start_step phys_opt_design
-set ACTIVE_STEP phys_opt_design
-set rc [catch {
-  create_msg_db phys_opt_design.pb
-  phys_opt_design -directive ExploreWithHoldFix
-  write_checkpoint -force txem7310_pll__s3100_ms__top_physopt.dcp
-  close_msg_db -file phys_opt_design.pb
-} RESULT]
-if {$rc} {
-  step_failed phys_opt_design
-  return -code error $RESULT
-} else {
-  end_step phys_opt_design
-  unset ACTIVE_STEP 
-}
-
-  set_msg_config -source 4 -id {Route 35-39} -severity "critical warning" -new_severity warning
-start_step route_design
-set ACTIVE_STEP route_design
-set rc [catch {
-  create_msg_db route_design.pb
-  route_design -directive AdvancedSkewModeling
-  write_checkpoint -force txem7310_pll__s3100_ms__top_routed.dcp
-  create_report "impl_1_route_report_drc_0" "report_drc -file txem7310_pll__s3100_ms__top_drc_routed.rpt -pb txem7310_pll__s3100_ms__top_drc_routed.pb -rpx txem7310_pll__s3100_ms__top_drc_routed.rpx"
-  create_report "impl_1_route_report_methodology_0" "report_methodology -file txem7310_pll__s3100_ms__top_methodology_drc_routed.rpt -pb txem7310_pll__s3100_ms__top_methodology_drc_routed.pb -rpx txem7310_pll__s3100_ms__top_methodology_drc_routed.rpx"
-  create_report "impl_1_route_report_power_0" "report_power -file txem7310_pll__s3100_ms__top_power_routed.rpt -pb txem7310_pll__s3100_ms__top_power_summary_routed.pb -rpx txem7310_pll__s3100_ms__top_power_routed.rpx"
-  create_report "impl_1_route_report_route_status_0" "report_route_status -file txem7310_pll__s3100_ms__top_route_status.rpt -pb txem7310_pll__s3100_ms__top_route_status.pb"
-  create_report "impl_1_route_report_timing_summary_0" "report_timing_summary -max_paths 10 -file txem7310_pll__s3100_ms__top_timing_summary_routed.rpt -rpx txem7310_pll__s3100_ms__top_timing_summary_routed.rpx"
-  create_report "impl_1_route_report_incremental_reuse_0" "report_incremental_reuse -file txem7310_pll__s3100_ms__top_incremental_reuse_routed.rpt"
-  create_report "impl_1_route_report_clock_utilization_0" "report_clock_utilization -file txem7310_pll__s3100_ms__top_clock_utilization_routed.rpt"
-  close_msg_db -file route_design.pb
-} RESULT]
-if {$rc} {
-  write_checkpoint -force txem7310_pll__s3100_ms__top_routed_error.dcp
-  step_failed route_design
-  return -code error $RESULT
-} else {
-  end_step route_design
-  unset ACTIVE_STEP 
-}
-
-start_step post_route_phys_opt_design
-set ACTIVE_STEP post_route_phys_opt_design
-set rc [catch {
-  create_msg_db post_route_phys_opt_design.pb
-  phys_opt_design -directive Explore
-  write_checkpoint -force txem7310_pll__s3100_ms__top_postroute_physopt.dcp
-  create_report "impl_1_post_route_phys_opt_report_timing_summary_0" "report_timing_summary -max_paths 10 -warn_on_violation -file txem7310_pll__s3100_ms__top_timing_summary_postroute_physopted.rpt -rpx txem7310_pll__s3100_ms__top_timing_summary_postroute_physopted.rpx"
-  close_msg_db -file post_route_phys_opt_design.pb
-} RESULT]
-if {$rc} {
-  step_failed post_route_phys_opt_design
-  return -code error $RESULT
-} else {
-  end_step post_route_phys_opt_design
-  unset ACTIVE_STEP 
-}
-
 start_step write_bitstream
 set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
+  open_checkpoint txem7310_pll__s3100_ms__top_postroute_physopt.dcp
+  set_property webtalk.parent_dir /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.cache/wt [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
+  add_files /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf
+  set_property SCOPED_TO_REF microblaze_mcs_1 [get_files -all /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
+  set_property SCOPED_TO_CELLS inst/microblaze_I [get_files -all /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
   catch { write_mem_info -force txem7310_pll__s3100_ms__top.mmi }
   catch { write_bmm -force txem7310_pll__s3100_ms__top_bd.bmm }
   write_bitstream -force txem7310_pll__s3100_ms__top.bit 
