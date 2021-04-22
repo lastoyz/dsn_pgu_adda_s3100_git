@@ -427,7 +427,7 @@ class EPS_Dev:
 		return rsp
 
 	## composite function for spi test
-	def _test__send_spi_frame(self, data_C, data_A, data_D):
+	def _test__send_spi_frame(self, data_C, data_A, data_D, enable_CS_bits = 0x00001FFF):
 		## set spi frame data
 		#data_C = 0x10   ##// for read 
 		#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
@@ -436,7 +436,7 @@ class EPS_Dev:
 		EPS_Dev.SetWireInValue(self,0x17, MSPI_CON_WI)
 
 		## set spi enable signals
-		MSPI_EN_CS_WI = 0x00000CA5
+		MSPI_EN_CS_WI = enable_CS_bits
 		EPS_Dev.SetWireInValue(self,0x16, MSPI_EN_CS_WI)
 
 		## frame 
@@ -800,13 +800,15 @@ def eps_test():
 			break
 
 	
-
+	## set CS enable bits 
+	enable_CS_bits = 0x000013CA
+	
 	## set spi frame data @ address 0x380
 	data_C = 0x10   ##// control data 6bit for read 
 	data_A = 0x380  ##// address data 10bit for address of known pattern  0x_33AA_CC55
 	data_D = 0x0000 ##// MOSI data 16bit for reading (XXXX)
 
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D) ##// MISO data
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
 
 	print('{} = 0x{:02X}'.format('data_C', data_C))
 	print('{} = 0x{:03X}'.format('data_A', data_A))
@@ -819,7 +821,7 @@ def eps_test():
 	data_A = 0x382  ##// address data 10bit for address of known pattern  0x_33AA_CC55
 	data_D = 0x0000 ##// MOSI data 16bit for reading (XXXX)
 
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D) ##// MISO data
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
 
 	print('{} = 0x{:02X}'.format('data_C', data_C))
 	print('{} = 0x{:03X}'.format('data_A', data_A))
