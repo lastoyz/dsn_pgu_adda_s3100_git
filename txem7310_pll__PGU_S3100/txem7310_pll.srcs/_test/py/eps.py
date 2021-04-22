@@ -425,7 +425,36 @@ class EPS_Dev:
 		
 		#
 		return rsp
-		
+
+	## composite function for spi test
+	def _test__send_spi_frame(self, data_C, data_A, data_D):
+		## set spi frame data
+		#data_C = 0x10   ##// for read 
+		#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
+		#data_D = 0x0000 ##// for reading (XXXX)
+		MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D
+		EPS_Dev.SetWireInValue(self,0x17, MSPI_CON_WI)
+
+		## set spi enable signals
+		MSPI_EN_CS_WI = 0x00000CA5
+		EPS_Dev.SetWireInValue(self,0x16, MSPI_EN_CS_WI)
+
+		## frame 
+		EPS_Dev.ActivateTriggerIn(self,0x42, 2) # frame_trig
+		cnt_loop = 0
+		while True:
+			ret=EPS_Dev.IsTriggered(self,0x62,0x00000002) # frame_done
+			cnt_loop += 1
+			if ret:
+				print('frame done !! @ ' + repr(cnt_loop))
+				break
+			
+		#GetWireOutValue
+		ret=EPS_Dev.GetWireOutValue(self,0x24)
+		data_B = ret & 0xFFFF
+		print('0x{:08X}'.format(data_B))
+
+		return data_B		
 
 ###########################################################################
 ###########################################################################
@@ -624,6 +653,9 @@ def set_host_ip_by_ping():
 
 ###########################################################################
 # TODO: test function
+
+
+
 def eps_test():
 	print('#################################################')
 
@@ -767,37 +799,34 @@ def eps_test():
 			print('init done !! @ ' + repr(cnt_loop))
 			break
 
-
-	## set spi frame data
-	data_C = 0x10   ##// for read 
-	data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
-	data_D = 0x0000 ##// for reading (XXXX)
-	MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D
-	dev.SetWireInValue(0x17, MSPI_CON_WI)
-	
-	## set spi enable signals
-	MSPI_EN_CS_WI = 0x00000CA5
-	dev.SetWireInValue(0x16, MSPI_EN_CS_WI)
 	
 
-	## frame 
-	dev.ActivateTriggerIn(0x42, 2) # frame_trig
-	cnt_loop = 0
-	while True:
-		ret=dev.IsTriggered(0x62,0x00000002) # frame_done
-		cnt_loop += 1
-		if ret:
-			print('frame done !! @ ' + repr(cnt_loop))
-			break
+	## set spi frame data @ address 0x380
+	data_C = 0x10   ##// control data 6bit for read 
+	data_A = 0x380  ##// address data 10bit for address of known pattern  0x_33AA_CC55
+	data_D = 0x0000 ##// MOSI data 16bit for reading (XXXX)
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D) ##// MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
 
 
-	#GetWireOutValue
-	ret=dev.GetWireOutValue(0x24)
-	data_B = ret & 0xFFFF
-	print('0x{:08X}'.format(data_B))
+	## set spi frame data @ address 0x382
+	data_C = 0x10   ##// control data 6bit for read 
+	data_A = 0x382  ##// address data 10bit for address of known pattern  0x_33AA_CC55
+	data_D = 0x0000 ##// MOSI data 16bit for reading (XXXX)
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D) ##// MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
 
 
-	
 	##---- EPS OFF test ----##
 	
 	### scpi : ":EPS:EN OFF\n"
