@@ -102,7 +102,9 @@ int main(void)
 	//// test setup for print on jtag-terminal // stdio with mdm //{
 	//xil_printf("> Go MHVSU BASE!! \r\n");
 	//xil_printf("> Go CMU-CPU-F5500 with LAN support!! \r\n");
-	xil_printf("> Go PGU-CPU-F5500 with LAN support!! \r\n");
+	//xil_printf("> Go PGU-CPU-F5500 with LAN support!! \r\n");
+	xil_printf("> Go S3100-CPU-BASE with LAN support!! \r\n");
+
 	xil_printf(">>> build_info: ["__TIME__"],[" __DATE__ "]\r\n");
 #ifdef  _SCPI_DEBUG_
 	xil_printf(">> _SCPI_DEBUG_ mode enabled \r\n");
