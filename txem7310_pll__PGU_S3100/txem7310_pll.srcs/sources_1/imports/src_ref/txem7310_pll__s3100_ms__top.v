@@ -4,7 +4,7 @@
 // # board          : S3100-CPU-BASE
 // # board sch      : s3100_cpu_base_v100_20210413.pdf
 
-// # note: artix-7 top design for S3100 PGU master side
+// # note: artix-7 top design for S3100 PGU master spi side
 //
 // ############################################################################
 // ## bank usage
@@ -16,6 +16,16 @@
 // # B34 : MTH M0_SPI, MTH M1_SPI, HDR control         (prev. in MC1) // 3.3V
 // # B35 : MTH M2_SPI, CAL_SPI, EXT_TRIG               (prev. in MC2) // 3.3V
 // # B216: not used
+
+
+// ## EP locations : Host 32-bit interface, LAN-MCS interface, MTH slave interface
+
+// * Host 32-bit interface : CPU board interface and "device IO control"
+
+// * LAN-MCS interface : MTH spi master emulation for debugging without connecting mother board
+
+// * MTH slave interface : END-POINT for "loopback test"
+
 
 
 /* top module integration */
