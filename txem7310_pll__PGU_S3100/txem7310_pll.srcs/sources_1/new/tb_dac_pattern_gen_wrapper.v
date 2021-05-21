@@ -475,7 +475,7 @@ endmodule
 
 ////---- ================================================================ ----////
 
-// testbench for dac pattern using dsp macro 
+// TODO: testbench for dac pattern using dsp macro 
 module tb_dac_pattern_gen_wrapper__dsp ; //{
 
 //// clock and reset //{
@@ -498,10 +498,16 @@ reg clk_200M = 1'b0; // 200Mz
 	always
 	#2.5 	clk_200M = ~clk_200M; // toggle every 2.5ns --> clock 5ns 
 	
+reg clk_100M = 1'b0; // 100Mz
+	always
+	#5  	clk_100M = ~clk_100M; // toggle every 5ns --> clock 10ns 
 
 //}
 
 //// reg and wire //{
+
+reg [31:0] test_case_no = 0;
+
 reg test_reset;
 //
 reg [31:0] r_trig_dacz_ctrl;
@@ -537,9 +543,9 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 	.reset_n            (reset_n),
 	
 	// DAC clock / reset
-	.i_clk_dac0_dco     (clk_200M),    // clk_400M --> clk_200M
+	.i_clk_dac0_dco     (clk_100M),    // clk_400M --> clk_200M or clk_100M
 	.i_rstn_dac0_dco    (reset_n & ~test_reset), //
-	.i_clk_dac1_dco     (clk_200M),    // clk_400M --> clk_200M
+	.i_clk_dac1_dco     (clk_100M),    // clk_400M --> clk_200M or clk_100M
 	.i_rstn_dac1_dco    (reset_n & ~test_reset), //
 	
 	// DACZ control port
@@ -588,9 +594,9 @@ dac_pattern_gen_wrapper  dac_pattern_gen_wrapper__ref__inst (
 	.reset_n            (reset_n),
 	
 	// DAC clock / reset
-	.i_clk_dac0_dco     (clk_200M),    // clk_400M --> clk_200M
+	.i_clk_dac0_dco     (clk_100M),    // clk_400M --> clk_200M or clk_100M
 	.i_rstn_dac0_dco    (reset_n & ~test_reset), //
-	.i_clk_dac1_dco     (clk_200M),    // clk_400M --> clk_200M
+	.i_clk_dac1_dco     (clk_100M),    // clk_400M --> clk_200M or clk_100M
 	.i_rstn_dac1_dco    (reset_n & ~test_reset), //
 	
 	// DACZ control port
@@ -799,6 +805,7 @@ CID_SEQ_TEST_STOP();
 
 //// FCID test //{
 
+test_case_no = 1;
 // test fifo setup 1 //{
 
 // short interval test
@@ -822,7 +829,14 @@ CID_SEQ_TEST_STOP();
 //            XXXX  
 
 ////---- CID ---////
+
+// reset
 CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd0008); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd0008); // (data)
+
 //
 FIFO_IN_CID_DATA(32'h_3FFF_0000, 32'h_0000_0000,  32'h_3FFF_0080, 32'h_0000_0008); // (datinc0, dur0,  datinc1, dur1)
 FIFO_IN_CID_DATA(32'h_7FFF_0000, 32'h_0000_0000,  32'h_7FFF_FF80, 32'h_0000_0010);
@@ -842,9 +856,6 @@ FIFO_IN_CID_DATA(32'h_0001_0000, 32'h_0000_0000,  32'h_0000_0001, 32'h_0000_0004
 // FIFO_OUT_CID_DATA();
 // FIFO_OUT_CID_DATA();
 
-CID_DAC0_NUM_FFDAT_WR(32'd0008); // (data)
-CID_DAC1_NUM_FFDAT_WR(32'd0008); // (data)
-
 //}
 
 // test repeat setup 1 //{
@@ -852,8 +863,8 @@ CID_DAC1_NUM_FFDAT_WR(32'd0008); // (data)
 
 //CID_DAC0_REPEAT_WR(32'h_0000_0000);
 //CID_DAC1_REPEAT_WR(32'h_0000_0000);
-CID_DAC0_REPEAT_WR(32'h_0000_0003);
-CID_DAC1_REPEAT_WR(32'h_0000_0005);
+CID_DAC0_REPEAT_WR(32'h_0000_0005);
+CID_DAC1_REPEAT_WR(32'h_0000_0002);
 
 //}
 
@@ -868,6 +879,707 @@ CID_FIFO_TEST_STOP();
 
 //}
 
+//----//
+
+// test fifo setup 1 //{
+
+// short interval test
+
+// cnt_duration,    rd_en  ...  expected
+//                        
+// 3FFF_0000  XXXX  H
+// 7FFF_0000  XXXX  H
+// 3FFF_0001  XXXX  L
+//            0000  H
+// FFFE_0002  XXXX  L
+//            0001  L
+//            0000  H
+// C000_0002  XXXX  L
+//            0001  L
+//            0000  H
+// 8000_0001  XXXX  L
+//            0000  H
+// C000_0000  0000  H
+// 0001_0000  XXXX  H
+//            XXXX  
+
+// test sequence 1
+//  out  inc  dur       // duration count 
+// _3FFF 0000 00000000  // 1
+// _7FFF 0000 00000000  // 1
+// _3FFF 0000 00000001  // 2
+// _FFFE 0000 00000002  // 3
+// _C000 0000 00000002  // 3
+// _8000 0000 00000001  // 2
+// _C000 0000 00000000  // 1
+// _0001 0000 00000000  // 1
+//
+// duration count sum = 14 or 140ns @ 100MHz update
+
+// test sequence 1-2
+//  out  inc  dur
+// _3FFF 0080 00000008
+// _7FFF FF80 00000010
+// _3FFF FF80 00000008
+// _0000 FFFF 00000004
+// _C000 FF80 00000008
+// _8000 0080 00000010
+// _C000 0080 00000008
+// _0000 0001 00000004
+
+
+////---- CID ---////
+
+// reset 
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd0008); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd0008); // (data)
+
+//
+FIFO_IN_CID_DATA(32'h_3FFF_0000, 32'h_0000_0000,  32'h_3FFF_0080, 32'h_0000_0008); // (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_7FFF_0000, 32'h_0000_0000,  32'h_7FFF_FF80, 32'h_0000_0010);
+FIFO_IN_CID_DATA(32'h_3FFF_0000, 32'h_0000_0001,  32'h_3FFF_FF80, 32'h_0000_0008);
+FIFO_IN_CID_DATA(32'h_FFFE_0000, 32'h_0000_0002,  32'h_0000_FFFF, 32'h_0000_0004);
+FIFO_IN_CID_DATA(32'h_C000_0000, 32'h_0000_0002,  32'h_C000_FF80, 32'h_0000_0008);
+FIFO_IN_CID_DATA(32'h_8000_0000, 32'h_0000_0001,  32'h_8000_0080, 32'h_0000_0010);
+FIFO_IN_CID_DATA(32'h_C000_0000, 32'h_0000_0000,  32'h_C000_0080, 32'h_0000_0008);
+FIFO_IN_CID_DATA(32'h_0001_0000, 32'h_0000_0000,  32'h_0000_0001, 32'h_0000_0004);
+
+// FIFO_OUT_CID_DATA();
+// FIFO_OUT_CID_DATA();
+// FIFO_OUT_CID_DATA();
+// FIFO_OUT_CID_DATA();
+// FIFO_OUT_CID_DATA();
+// FIFO_OUT_CID_DATA();
+// FIFO_OUT_CID_DATA();
+// FIFO_OUT_CID_DATA();
+
+
+//}
+
+// test repeat setup 1 //{
+#200;
+
+//CID_DAC0_REPEAT_WR(32'h_0000_0000);
+//CID_DAC1_REPEAT_WR(32'h_0000_0000);
+CID_DAC0_REPEAT_WR(32'h_0000_0003);
+CID_DAC1_REPEAT_WR(32'h_0000_0002);
+
+//}
+
+// test run 1 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+//----//
+
+test_case_no = 2;
+// test fifo setup 2 //{
+
+// test seq 2 
+//  [from fifo       ]
+//  out  inc  dur       // duration count
+// _0000 0000 00000013  // +0x13+1
+// _0000 007D 00000013  // +0x13+1
+// _09CB 0000 00000013  // +0x13+1
+// _09CB 007D 00000013  // +0x13+1
+// _1396 0000 00000027  // +0x27+1
+// _1396 FF44 00000013  // +0x13+1
+// _04E5 0000 0000004F  // +0x4F+1
+// _04E5 FFC1 00000013  // +0x13+1
+// _0000 0000 00000013  // +0x13+1
+// _0000 0000 00000000  // +0x00+1
+//
+// duration count sum = 0x105 = 261 or 2610ns @ 100MHz update
+
+// test seq 1 
+// [from fifo         ] [reg                  ] [start] [pattern state] [fifo load]
+//  out  inc  dur        out  cnt_idx cnt_dur             
+// _FFDF 0253 00000027   XXXX XXXX    00000000   0       0
+//                       XXXX XXXX    00000000   1       0
+//                       XXXX XXXX    00000000   0       1
+// _5CE7 0000 0000009F   XXXX XXXX    00000000   0       1
+// _5CE7 FDAD 00000027
+// _FFDF 0000 0000009F
+// _FFDF FDAD 00000027
+// _A2D8 0000 0000009F
+// _A2D8 0253 00000027
+// _FFDF 0000 0000009F
+// _FFDF 0000 00000000 
+// _0000 0000 00000000 
+
+// reset
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd0010); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd0010); // (data)
+
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_00000013,  32'h_FFDF_0253, 32'h_00000027); // (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_0000_007D, 32'h_00000013,  32'h_5CE7_0000, 32'h_0000009F);
+FIFO_IN_CID_DATA(32'h_09CB_0000, 32'h_00000013,  32'h_5CE7_FDAD, 32'h_00000027);
+FIFO_IN_CID_DATA(32'h_09CB_007D, 32'h_00000013,  32'h_FFDF_0000, 32'h_0000009F);
+FIFO_IN_CID_DATA(32'h_1396_0000, 32'h_00000027,  32'h_FFDF_FDAD, 32'h_00000027);
+FIFO_IN_CID_DATA(32'h_1396_FF44, 32'h_00000013,  32'h_A2D8_0000, 32'h_0000009F);
+FIFO_IN_CID_DATA(32'h_04E5_0000, 32'h_0000004F,  32'h_A2D8_0253, 32'h_00000027);
+FIFO_IN_CID_DATA(32'h_04E5_FFC1, 32'h_00000013,  32'h_FFDF_0000, 32'h_0000009F);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_00000013,  32'h_FFDF_0000, 32'h_00000000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_00000000,  32'h_0000_0000, 32'h_00000000);
+
+CID_DAC0_REPEAT_WR(32'h_0000_0003);
+CID_DAC1_REPEAT_WR(32'h_0000_0002);
+
+
+//}
+
+// test run 2 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+#10000;
+#10000;
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+
+//-- gui debug --//
+
+test_case_no = 3;
+// test fifo setup 3 //{
+
+//  test case 3 
+// :PGU:NFDT0 #H00000010 
+// :PGU:FDAT0 #N8_000064_0000000000000000_0000000000000000_0000000000000000_0000000000000000 
+// :PGU:FDAT0 #N8_000032_0000000000000000_2C7B000000000000 
+// :PGU:FDAT0 #N8_000064_58F7000000000001_58F7000000000001_58F7000000000001_58F7000000000001 
+// :PGU:FDAT0 #N8_000032_58F7000000000000_2C7C000000000000 
+// :PGU:FDAT0 #N8_000064_0000000000000015_0000000000000015_0000000000000015_0000000000000015 
+//
+// (datinc0, dur0)       // duration count
+//  0000_0000 0000_0000  // +0x00+1
+//  0000_0000 0000_0000  // +0x00+1
+//  0000_0000 0000_0000  // +0x00+1
+//  0000_0000 0000_0000  // +0x00+1
+//  0000_0000 0000_0000  // +0x00+1
+//  2C7B_0000 0000_0000  // +0x00+1
+//  58F7_0000 0000_0001  // +0x01+1
+//  58F7_0000 0000_0001  // +0x01+1
+//  58F7_0000 0000_0001  // +0x01+1
+//  58F7_0000 0000_0001  // +0x01+1
+//  58F7_0000 0000_0000  // +0x00+1
+//  2C7C_0000 0000_0000  // +0x00+1
+//  0000_0000 0000_0015  // +0x15+1
+//  0000_0000 0000_0015  // +0x15+1
+//  0000_0000 0000_0015  // +0x15+1
+//  0000_0000 0000_0015  // +0x15+1
+//
+//  duration count sum = 104 or 1040ns @ 100MHz update
+
+
+// 96 ptr setup
+// Timedata = [0,40,50,100,110,1000,]
+// Vdata = [0,0,40,40,0,0,] 
+// 
+// :PGU:NFDT0 #H00000010 
+// :PGU:FDAT0 #N8_000064_0000000000000000_0000000000000000_0000000000000000_0000000000000000 
+// :PGU:FDAT0 #N8_000032_0000000000000000_2C7B000000000000 
+// :PGU:FDAT0 #N8_000064_58F7000000000000_58F7000000000000_58F7000000000000_58F7000000000000 
+// :PGU:FDAT0 #N8_000032_58F7000000000000_2C7C000000000000 
+// :PGU:FDAT0 #N8_000064_0000000000000015_0000000000000015_0000000000000015_0000000000000015 
+//
+// (datinc1, dur1)
+//  0000_0000 0000_0000
+//  0000_0000 0000_0000
+//  0000_0000 0000_0000
+//  0000_0000 0000_0000
+//  0000_0000 0000_0000
+//  2C7B_0000 0000_0000
+//  58F7_0000 0000_0000
+//  58F7_0000 0000_0000
+//  58F7_0000 0000_0000
+//  58F7_0000 0000_0000
+//  58F7_0000 0000_0000
+//  2C7C_0000 0000_0000
+//  0000_0000 0000_0015
+//  0000_0000 0000_0015
+//  0000_0000 0000_0015
+//  0000_0000 0000_0015
+
+
+
+
+// reset
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'h0000_0010); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'h0000_0010); // (data)
+
+// (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_2C7B_0000, 32'h_0000_0000,  32'h_2C7B_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0001,  32'h_58F7_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0001,  32'h_58F7_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0001,  32'h_58F7_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0001,  32'h_58F7_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0000,  32'h_58F7_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_2C7C_0000, 32'h_0000_0000,  32'h_2C7C_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0015,  32'h_0000_0000, 32'h_0000_0015);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0015,  32'h_0000_0000, 32'h_0000_0015);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0015,  32'h_0000_0000, 32'h_0000_0015);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0015,  32'h_0000_0000, 32'h_0000_0015);
+
+// set repeat
+CID_DAC0_REPEAT_WR(32'h_0000_0020);
+CID_DAC1_REPEAT_WR(32'h_0000_0019);
+
+
+//}
+
+// test run 3 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+#10000;
+#10000;
+#10000;
+#10000;
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+
+//-- gui debug --//
+
+test_case_no = 4;
+// test fifo setup 4 //{
+
+// test case 4
+// Timedata = [0,40,50,120,130,1000,]
+// Vdata    = [0, 0,40, 40, 0,    0,] 
+//
+// :PGU:FDAT0 #N8_000048_0000000000000004_58F7000000000007_0000000000000056
+//
+// (datinc0, dur0)      // Vdata    // duration 
+//  0000_0000 0000_0004 //  0       // 5        
+//  58F7_0000 0000_0007 //  40      // 8        
+//  0000_0000 0000_0056 //  0       // 87       
+//
+//  duration count sum = 100 or 1000ns @ 100MHz update
+
+// 96 ptr setup
+// Timedata = [0,40,50,100,110,1000,]
+// Vdata    = [0, 0,40, 40,  0,   0,] 
+//
+// :PGU:FDAT0 #N8_000048_0000000000000004_58F7000000000005_0000000000000058
+//
+// (datinc0, dur0)      // Vdata    // duration  // expected  // simulated start location
+//  0000_0000 0000_0004 //  0       // 5         // clock 0   //    0 ns
+//  58F7_0000 0000_0005 //  40      // 6         // clock 5   //   50 ns
+//  0000_0000 0000_0058 //  0       // 89        // clock 13  //  130 ns
+
+// reset
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'h0000_0003); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'h0000_0003); // (data)
+
+// (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0004,  32'h_0000_0000, 32'h_0000_0004); 
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0007,  32'h_58F7_0000, 32'h_0000_0005);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0056,  32'h_0000_0000, 32'h_0000_0058);
+
+// set repeat
+CID_DAC0_REPEAT_WR(32'h_0000_0020);
+CID_DAC1_REPEAT_WR(32'h_0000_0020);
+
+
+//}
+
+// test run 4 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+#10000;
+#10000;
+#10000;
+#10000;
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+
+
+//-- gui debug --//
+
+test_case_no = 5;
+// test fifo setup 5 //{
+
+// :PGU:FDAT0 #N8_000048_0000000000000000_0000000000000001_0000000000000000
+// :PGU:FDAT0 #N8_000032_0000000000000000_58F7000000000000 
+// :PGU:FDAT0 #N8_000048_58F7000000000001_58F7000000000003_58F7000000000000
+// :PGU:FDAT0 #N8_000032_58F7000000000000_0000000000000000 
+// :PGU:FDAT0 #N8_000048_0000000000000000_0000000000000053_0000000000000000
+// 
+// (datinc0, dur0)      // Vdata    // duration  // expected  // simulated start location
+//  0000_0000 0000_0000 //  0       // 1         // clock   0   //    0 ns
+//  0000_0000 0000_0001 //  0       // 2         // clock   1   //   10 ns
+//  0000_0000 0000_0000 //  0       // 1         // clock   3   //   30 ns
+//  0000_0000 0000_0000 //  0       // 1         // clock   4   //   40 ns
+//  58F7_0000 0000_0000 // 40       // 1         // clock   5   //   50 ns
+//  58F7_0000 0000_0000 // 40       // 1         // clock   6   //   60 ns
+//  58F7_0000 0000_0003 // 40       // 4         // clock   7   //   80 ns
+//  58F7_0000 0000_0000 // 40       // 1         // clock  11   //  100 ns
+//  58F7_0000 0000_0000 // 40       // 1         // clock  12   //  120 ns
+//  0000_0000 0000_0000 //  0       // 1         // clock  13   //  130 ns
+//  0000_0000 0000_0000 //  0       // 1         // clock  14   //  140 ns
+//  0000_0000 0000_0053 //  0       // 84        // clock  15   //  350 ns
+//  0000_0000 0000_0000 //  0       // 1         // clock  99   //  980 ns
+//                          0                    // clock 100   // 1000 ns
+//
+//  duration count sum = 100 or 1000ns @ 100MHz update
+
+// Timedata = [0,40,50,100,110,1000,]
+// Vdata    = [0, 0,40, 40,  0,   0,] 
+//
+// :PGU:FDAT0 #N8_000048_0000000000000004_58F7000000000005_0000000000000058
+//
+// (datinc0, dur0)      // Vdata    // duration  // expected  // simulated start location
+//  0000_0000 0000_0004 //  0       // 5         // clock 0   //    0 ns
+//  58F7_0000 0000_0005 //  40      // 6         // clock 5   //   50 ns
+//  0000_0000 0000_0058 //  0       // 89        // clock 13  //  130 ns
+
+// reset
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd13); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd13); // (data)
+
+// (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0001,  32'h_0000_0000, 32'h_0000_0001);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0000,  32'h_58F7_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0000,  32'h_58F7_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0003,  32'h_58F7_0000, 32'h_0000_0003);
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0000,  32'h_58F7_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_58F7_0000, 32'h_0000_0000,  32'h_58F7_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0053,  32'h_0000_0000, 32'h_0000_0053); 
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+
+// set repeat
+CID_DAC0_REPEAT_WR(32'h_0000_0020);
+CID_DAC1_REPEAT_WR(32'h_0000_0020);
+
+
+//}
+
+// test run 5 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+#10000;
+#10000;
+#10000;
+#10000;
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+
+//-- debug leading repeat by one dur count  --//
+
+test_case_no = 6;
+// test fifo setup 6 //{
+
+// Send: b':PGU:NFDT0 #H00000009 \n'
+// Send: b':PGU:FDAT0 #N8_000144_FFDF5D0700000000_5CE7000000000027_5CE7A2F900000000_FFDF000000000027_FFDFA2F900000000_A2D8000000000027_A2D85D0700000000_FFDF000000000027_FFDF000000000000 \n'
+// Send: b':PGU:FRPT0 #H00000003 \n'
+// 
+// (datinc0, dur0)     // duration count 
+// FFDF_5D07 0000_0000 // +0x00+1                 //duration of one count duration causes error in repeat pattern
+// 5CE7_0000 0000_0027 // +0x27+1 
+// 5CE7_A2F9 0000_0000 // +0x00+1 
+// FFDF_0000 0000_0027 // +0x27+1 
+// FFDF_A2F9 0000_0000 // +0x00+1 
+// A2D8_0000 0000_0027 // +0x27+1 
+// A2D8_5D07 0000_0000 // +0x00+1 
+// FFDF_0000 0000_0027 // +0x27+1 
+// FFDF_0000 0000_0000 // +0x00+1 
+//
+//  duration count sum = 165 or 1650ns @ 100MHz update
+
+// (datinc1, dur1) 
+// FFDF_5D07 0000_0001 // add dur count 2 // check : inc code !=0 and duration ==0
+// 5CE7_0000 0000_0026
+// 5CE7_A2F9 0000_0000
+// FFDF_0000 0000_0027
+// FFDF_A2F9 0000_0000
+// A2D8_0000 0000_0027
+// A2D8_5D07 0000_0000
+// FFDF_0000 0000_0027
+// FFDF_0000 0000_0000
+
+
+// reset
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd9); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd9); // (data)
+
+// (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_FFDF_5D07, 32'h_0000_0000,  32'h_FFDF_5D07, 32'h_0000_0001); 
+FIFO_IN_CID_DATA(32'h_5CE7_0000, 32'h_0000_0027,  32'h_5CE7_0000, 32'h_0000_0026);
+FIFO_IN_CID_DATA(32'h_5CE7_A2F9, 32'h_0000_0000,  32'h_5CE7_A2F9, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_FFDF_0000, 32'h_0000_0027,  32'h_FFDF_0000, 32'h_0000_0027); 
+FIFO_IN_CID_DATA(32'h_FFDF_A2F9, 32'h_0000_0000,  32'h_FFDF_A2F9, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_A2D8_0000, 32'h_0000_0027,  32'h_A2D8_0000, 32'h_0000_0027); 
+FIFO_IN_CID_DATA(32'h_A2D8_5D07, 32'h_0000_0000,  32'h_A2D8_5D07, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_FFDF_0000, 32'h_0000_0027,  32'h_FFDF_0000, 32'h_0000_0027); 
+FIFO_IN_CID_DATA(32'h_FFDF_0000, 32'h_0000_0000,  32'h_FFDF_0000, 32'h_0000_0000);
+
+// set repeat
+CID_DAC0_REPEAT_WR(32'h_0000_0003);
+CID_DAC1_REPEAT_WR(32'h_0000_0003);
+
+
+//}
+
+// test run 6 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+#10000;
+#10000;
+#10000;
+#10000;
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+
+//-- debug leading repeat by one dur count  --//
+
+test_case_no = 7;
+// test fifo setup 7 //{
+
+// Timedata = [ 0.000, 10.000, 20.000, 60.000, 70.000, 200.000, ]
+// Vdata    = [ 0.000,  0.000, -20.000, -20.000,  0.000,  0.000, ] 
+// Tdata_cmd       = [ 0.000, 10.000, 20.000, 60.000, 70.000, 200.000, ]
+// Vdata_cmd       = [ 0.000,  0.000, -3.475, -3.475,  0.000,  0.000, ]
+// Tdata_seg       = [     0,     10,     20,     60,     70, ]
+// Ddata_seg       = [    10,     10,     40,     10,    130, ]
+// Vdata_seg       = [ 0.000,  0.000, -3.475, -3.475,  0.000, ]
+// ## :PGU:NFDT1 #H00000005 
+// ## :PGU:FDAT1 #N8_000016_0000000000000000 
+// ## :PGU:FDAT1 #N8_000016_0000000000000000 
+// ## :PGU:FDAT1 #N8_000016_D385000000000003 
+// ## :PGU:FDAT1 #N8_000016_D385000000000000 
+// ## :PGU:FDAT1 #N8_000016_000000000000000C 
+// ## :PGU:FRPT1 #H00000064
+//
+// (datinc0, dur0)     // duration count 
+// 0000_0000 0000_0000 // +0x0+1             //duration of one count duration causes error in repeat pattern
+// 0000_0000 0000_0000 // +0x0+1 
+// D385_0000 0000_0003 // +0x3+1 
+// D385_0000 0000_0000 // +0x0+1 
+// 0000_0000 0000_000C // +0xC+1 
+
+//  duration count sum = 20 or 200ns @ 100MHz update
+
+// (datinc1, dur1) 
+// 0000_0000 0000_0003 // add dur count 3 
+// 0000_0000 0000_0000
+// D385_0000 0000_0003
+// D385_0000 0000_0000
+// 0000_0000 0000_0009
+// 
+
+
+// reset
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd5); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd5); // (data)
+
+// (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0003); 
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000);
+FIFO_IN_CID_DATA(32'h_D385_0000, 32'h_0000_0003,  32'h_D385_0000, 32'h_0000_0003);
+FIFO_IN_CID_DATA(32'h_D385_0000, 32'h_0000_0000,  32'h_D385_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_000C,  32'h_0000_0000, 32'h_0000_0009);
+
+// set repeat
+CID_DAC0_REPEAT_WR(32'h_0000_0064);
+CID_DAC1_REPEAT_WR(32'h_0000_0064);
+
+
+//}
+
+// test run 7 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+#10000;
+#10000;
+#10000;
+#10000;
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+
+//-- debug leading repeat by one dur count  --//
+
+test_case_no = 8;
+// test fifo setup 8 //{
+
+//// before SW correction
+//  Timedata = [ 0.000, 10.000, 40.000, 60.000, 90.000, 100.000, ]
+//  Vdata    = [ 0.000, 20.000, 20.000, -20.000, -20.000,  0.000, ] 
+//  Tdata_cmd       = [ 0.000, 10.000, 40.000, 60.000, 90.000, 100.000, ]
+//  Vdata_cmd       = [ 0.000,  6.950,  6.950, -6.950, -6.950,  0.000, ]
+//  Tdata_seg       = [     0,     10,     40,     50,     60,     90, ]
+//  Ddata_seg       = [    10,     30,     10,     10,     30,     10, ]
+//  Vdata_seg       = [ 0.000,  6.950,  6.950, 10.000, -6.950, -6.950, ]
+//  ## :PGU:NFDT0 #H00000006 
+//  ## :PGU:FDAT0 #N8_000016_0000000000000000 
+//  ## :PGU:FDAT0 #N8_000016_58F6000000000002 
+//  ## :PGU:FDAT0 #N8_000032_58F6000000000000_7FFF000000000000 
+//  ## :PGU:FDAT0 #N8_000016_A70A000000000002 
+//  ## :PGU:FDAT0 #N8_000016_A70A000000000000 
+//  ## :PGU:FRPT0 #H00000064
+
+//// after SW correction
+//  Timedata = [ 0.000, 10.000, 40.000, 60.000, 90.000, 100.000, ]
+//  Vdata    = [ 0.000, 20.000, 20.000, -20.000, -20.000,  0.000, ] 
+//  Tdata_cmd       = [ 0.000, 10.000, 40.000, 60.000, 90.000, 100.000, ]
+//  Vdata_cmd       = [ 0.000,  6.950,  6.950, -6.950, -6.950,  0.000, ]
+//  Tdata_seg       = [     0,     10,     40,     50,     60,     90, ]
+//  Ddata_seg       = [    10,     30,     10,     10,     30,     10, ]
+//  Vdata_seg       = [ 0.000,  6.950,  6.950,  0.000, -6.950, -6.950, ] <<< correction!!!
+//  ## :PGU:NFDT0 #H00000006 
+//  ## :PGU:FDAT0 #N8_000016_0000000000000000 
+//  ## :PGU:FDAT0 #N8_000016_58F6000000000002 
+//  ## :PGU:FDAT0 #N8_000032_58F6000000000000_0000000000000000 <<< correction!!!
+//  ## :PGU:FDAT0 #N8_000016_A70A000000000002 
+//  ## :PGU:FDAT0 #N8_000016_A70A000000000000 
+
+// (datinc0, dur0)     // duration count
+// 0000_0000 0000_0000 // 1                //duration of one count duration causes error in repeat pattern
+// 58F6_0000 0000_0002 // 3                
+// 58F6_0000 0000_0000 // 1                
+// 7FFF_0000 0000_0000 // 1                // error point from command // corrected as 0000_0000 0000_0000
+// A70A_0000 0000_0002 // 3                
+// A70A_0000 0000_0000 // 1                // undetermined last point issue 
+//
+//  duration count sum = 10 or 100ns @ 100MHz update
+
+
+// (datinc1, dur1) 
+// 0000_0000 0000_0000 //duration of one count duration causes error in repeat pattern
+// 58F6_0000 0000_0002
+// 58F6_0000 0000_0000
+// 7FFF_0000 0000_0000 // error point from command // corrected as 0000_0000 0000_0000
+// A70A_0000 0000_0002
+// A70A_0000 0000_0000 // undetermined last point issue 
+// 
+
+
+// reset
+CID_FIFO_RESET();
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd6); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd6); // (data)
+
+// (datinc0, dur0,  datinc1, dur1)
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000); 
+FIFO_IN_CID_DATA(32'h_58F6_0000, 32'h_0000_0002,  32'h_58F6_0000, 32'h_0000_0002);
+FIFO_IN_CID_DATA(32'h_58F6_0000, 32'h_0000_0000,  32'h_58F6_0000, 32'h_0000_0000);
+//FIFO_IN_CID_DATA(32'h_7FFF_0000, 32'h_0000_0000,  32'h_7FFF_0000, 32'h_0000_0000); //$$ SW error
+FIFO_IN_CID_DATA(32'h_0000_0000, 32'h_0000_0000,  32'h_0000_0000, 32'h_0000_0000); //$$ SW correction done.
+FIFO_IN_CID_DATA(32'h_A70A_0000, 32'h_0000_0002,  32'h_A70A_0000, 32'h_0000_0002);
+FIFO_IN_CID_DATA(32'h_A70A_0000, 32'h_0000_0000,  32'h_A70A_0000, 32'h_0000_0000);
+
+// set repeat
+CID_DAC0_REPEAT_WR(32'h_0000_0064);
+CID_DAC1_REPEAT_WR(32'h_0000_0001);
+
+
+//}
+
+// test run 8 //{
+#200;
+
+CID_FIFO_TEST_RUN();
+#1000;
+#1000;
+#10000;
+#10000;
+#10000;
+#10000;
+#1000;
+#1000;
+CID_FIFO_TEST_STOP();
+
+
+//}
+
+
+
+//// EOT
 
 //}
 
@@ -1225,9 +1937,10 @@ endmodule
 //}
 
 
+
 ////---- TODO: ================================================================ ----////
 
-//// testbench
+//// TODO: testbench  tb_dac_pattern_gen_wrapper
 module tb_dac_pattern_gen_wrapper; //{
 
 //// clock and reset //{
@@ -1662,8 +2375,14 @@ FIFO_IN_DATA(32'h_0001_0000, 32'h_0000_0004);
 //FIFO_OUT_DATA();
 
 ////---- CID ---////
+
+// reset
 CID_FIFO_RESET();
-//
+
+// set fifo data length
+CID_DAC0_NUM_FFDAT_WR(32'd0008); // (data)
+CID_DAC1_NUM_FFDAT_WR(32'd0008); // (data)
+
 FIFO_IN_CID_DATA(32'h_3FFF_0000, 32'h_0000_0000,  32'h_3FFF_0080, 32'h_0000_0008); // (datinc0, dur0,  datinc1, dur1)
 FIFO_IN_CID_DATA(32'h_7FFF_0000, 32'h_0000_0000,  32'h_7FFF_FF80, 32'h_0000_0010);
 FIFO_IN_CID_DATA(32'h_3FFF_0000, 32'h_0000_0001,  32'h_3FFF_FF80, 32'h_0000_0008);
@@ -1682,8 +2401,6 @@ FIFO_IN_CID_DATA(32'h_0001_0000, 32'h_0000_0000,  32'h_0000_0001, 32'h_0000_0004
 // FIFO_OUT_CID_DATA();
 // FIFO_OUT_CID_DATA();
 
-CID_DAC0_NUM_FFDAT_WR(32'd0008); // (data)
-CID_DAC1_NUM_FFDAT_WR(32'd0008); // (data)
 
 //}
 
