@@ -1,6 +1,8 @@
 // # this           : txem7310_pll__s3100_ms__top.v
 // # top xdc        : txem7310_pll__s3100_ms__top.xdc
 //
+// # FPGA on board
+//
 // # board          : S3100-CPU-BASE
 // # board sch      : s3100_cpu_base_v100_20210413.pdf
 

@@ -10,8 +10,8 @@
 # FPGA board     : XEM7310-A200 # (not yet) TXEM7310-FPGA-CORE 
 # FPGA board sch : NA           # (not yet) PGU_CPU_F5500__R190929__4M.pdf
 #
-# base board     : PGU-CPU-F5500-REVA 19-10-24
-# base board sch : PGU-CPU-F5500-REVA__DEBUG_1206.pdf
+# base board     : S3100-PGU
+# base board sch : PGU-CPU-S3100__R20210521.pdf
 #
 ############################################################################
 
@@ -32,91 +32,91 @@ set_property BITSTREAM.GENERAL.COMPRESS True [current_design]
 ## TODO: FrontPanel Host Interface
 ############################################################################
 ##$$ bank 14
-set_property PACKAGE_PIN Y19 [get_ports {okHU[0]}]
-set_property PACKAGE_PIN R18 [get_ports {okHU[1]}]
-set_property PACKAGE_PIN R16 [get_ports {okHU[2]}]
-set_property SLEW FAST [get_ports {okHU[*]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {okHU[*]}]
-
-set_property PACKAGE_PIN W19 [get_ports {okUH[0]}]
-set_property PACKAGE_PIN V18 [get_ports {okUH[1]}]
-set_property PACKAGE_PIN U17 [get_ports {okUH[2]}]
-set_property PACKAGE_PIN W17 [get_ports {okUH[3]}]
-set_property PACKAGE_PIN T19 [get_ports {okUH[4]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {okUH[*]}]
-
-set_property PACKAGE_PIN AB22 [get_ports {okUHU[0]}]
-set_property PACKAGE_PIN AB21 [get_ports {okUHU[1]}]
-set_property PACKAGE_PIN Y22 [get_ports {okUHU[2]}]
-set_property PACKAGE_PIN AA21 [get_ports {okUHU[3]}]
-set_property PACKAGE_PIN AA20 [get_ports {okUHU[4]}]
-set_property PACKAGE_PIN W22 [get_ports {okUHU[5]}]
-set_property PACKAGE_PIN W21 [get_ports {okUHU[6]}]
-set_property PACKAGE_PIN T20 [get_ports {okUHU[7]}]
-set_property PACKAGE_PIN R19 [get_ports {okUHU[8]}]
-set_property PACKAGE_PIN P19 [get_ports {okUHU[9]}]
-set_property PACKAGE_PIN U21 [get_ports {okUHU[10]}]
-set_property PACKAGE_PIN T21 [get_ports {okUHU[11]}]
-set_property PACKAGE_PIN R21 [get_ports {okUHU[12]}]
-set_property PACKAGE_PIN P21 [get_ports {okUHU[13]}]
-set_property PACKAGE_PIN R22 [get_ports {okUHU[14]}]
-set_property PACKAGE_PIN P22 [get_ports {okUHU[15]}]
-set_property PACKAGE_PIN R14 [get_ports {okUHU[16]}]
-set_property PACKAGE_PIN W20 [get_ports {okUHU[17]}]
-set_property PACKAGE_PIN Y21 [get_ports {okUHU[18]}]
-set_property PACKAGE_PIN P17 [get_ports {okUHU[19]}]
-set_property PACKAGE_PIN U20 [get_ports {okUHU[20]}]
-set_property PACKAGE_PIN N17 [get_ports {okUHU[21]}]
-set_property PACKAGE_PIN N14 [get_ports {okUHU[22]}]
-set_property PACKAGE_PIN V20 [get_ports {okUHU[23]}]
-set_property PACKAGE_PIN P16 [get_ports {okUHU[24]}]
-set_property PACKAGE_PIN T18 [get_ports {okUHU[25]}]
-set_property PACKAGE_PIN V19 [get_ports {okUHU[26]}]
-set_property PACKAGE_PIN AB20 [get_ports {okUHU[27]}]
-set_property PACKAGE_PIN P15 [get_ports {okUHU[28]}]
-set_property PACKAGE_PIN V22 [get_ports {okUHU[29]}]
-set_property PACKAGE_PIN U18 [get_ports {okUHU[30]}]
-set_property PACKAGE_PIN AB18 [get_ports {okUHU[31]}]
-set_property SLEW FAST [get_ports {okUHU[*]}]
-set_property IOSTANDARD LVCMOS18 [get_ports {okUHU[*]}]
-
-set_property PACKAGE_PIN N13 [get_ports okAA]
-set_property IOSTANDARD LVCMOS18 [get_ports okAA]
+#  set_property PACKAGE_PIN Y19 [get_ports {okHU[0]}]
+#  set_property PACKAGE_PIN R18 [get_ports {okHU[1]}]
+#  set_property PACKAGE_PIN R16 [get_ports {okHU[2]}]
+#  set_property SLEW FAST [get_ports {okHU[*]}]
+#  set_property IOSTANDARD LVCMOS18 [get_ports {okHU[*]}]
+#  
+#  set_property PACKAGE_PIN W19 [get_ports {okUH[0]}]
+#  set_property PACKAGE_PIN V18 [get_ports {okUH[1]}]
+#  set_property PACKAGE_PIN U17 [get_ports {okUH[2]}]
+#  set_property PACKAGE_PIN W17 [get_ports {okUH[3]}]
+#  set_property PACKAGE_PIN T19 [get_ports {okUH[4]}]
+#  set_property IOSTANDARD LVCMOS18 [get_ports {okUH[*]}]
+#  
+#  set_property PACKAGE_PIN AB22 [get_ports {okUHU[0]}]
+#  set_property PACKAGE_PIN AB21 [get_ports {okUHU[1]}]
+#  set_property PACKAGE_PIN Y22 [get_ports {okUHU[2]}]
+#  set_property PACKAGE_PIN AA21 [get_ports {okUHU[3]}]
+#  set_property PACKAGE_PIN AA20 [get_ports {okUHU[4]}]
+#  set_property PACKAGE_PIN W22 [get_ports {okUHU[5]}]
+#  set_property PACKAGE_PIN W21 [get_ports {okUHU[6]}]
+#  set_property PACKAGE_PIN T20 [get_ports {okUHU[7]}]
+#  set_property PACKAGE_PIN R19 [get_ports {okUHU[8]}]
+#  set_property PACKAGE_PIN P19 [get_ports {okUHU[9]}]
+#  set_property PACKAGE_PIN U21 [get_ports {okUHU[10]}]
+#  set_property PACKAGE_PIN T21 [get_ports {okUHU[11]}]
+#  set_property PACKAGE_PIN R21 [get_ports {okUHU[12]}]
+#  set_property PACKAGE_PIN P21 [get_ports {okUHU[13]}]
+#  set_property PACKAGE_PIN R22 [get_ports {okUHU[14]}]
+#  set_property PACKAGE_PIN P22 [get_ports {okUHU[15]}]
+#  set_property PACKAGE_PIN R14 [get_ports {okUHU[16]}]
+#  set_property PACKAGE_PIN W20 [get_ports {okUHU[17]}]
+#  set_property PACKAGE_PIN Y21 [get_ports {okUHU[18]}]
+#  set_property PACKAGE_PIN P17 [get_ports {okUHU[19]}]
+#  set_property PACKAGE_PIN U20 [get_ports {okUHU[20]}]
+#  set_property PACKAGE_PIN N17 [get_ports {okUHU[21]}]
+#  set_property PACKAGE_PIN N14 [get_ports {okUHU[22]}]
+#  set_property PACKAGE_PIN V20 [get_ports {okUHU[23]}]
+#  set_property PACKAGE_PIN P16 [get_ports {okUHU[24]}]
+#  set_property PACKAGE_PIN T18 [get_ports {okUHU[25]}]
+#  set_property PACKAGE_PIN V19 [get_ports {okUHU[26]}]
+#  set_property PACKAGE_PIN AB20 [get_ports {okUHU[27]}]
+#  set_property PACKAGE_PIN P15 [get_ports {okUHU[28]}]
+#  set_property PACKAGE_PIN V22 [get_ports {okUHU[29]}]
+#  set_property PACKAGE_PIN U18 [get_ports {okUHU[30]}]
+#  set_property PACKAGE_PIN AB18 [get_ports {okUHU[31]}]
+#  set_property SLEW FAST [get_ports {okUHU[*]}]
+#  set_property IOSTANDARD LVCMOS18 [get_ports {okUHU[*]}]
+#  
+#  set_property PACKAGE_PIN N13 [get_ports okAA]
+#  set_property IOSTANDARD LVCMOS18 [get_ports okAA]
 
 ## TODO: okUH0
-create_clock -period 9.920 -name okUH0 [get_ports {okUH[0]}]
-
-set_input_delay -clock [get_clocks okUH0] -max -add_delay 8.000 [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}]
-set_input_delay -clock [get_clocks okUH0] -min -add_delay 10.000 [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}]
-set_multicycle_path -setup -from [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}] 2
-
-set_input_delay -clock [get_clocks okUH0] -max -add_delay 8.000 [get_ports {okUHU[*]}]
-set_input_delay -clock [get_clocks okUH0] -min -add_delay 2.000 [get_ports {okUHU[*]}]
-set_multicycle_path -setup -from [get_ports {okUHU[*]}] 2
-
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okHU[*]}]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okHU[*]}]
-
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okUHU[*]}]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okUHU[*]}]
-
-# for okAA
-set_input_delay -clock [get_clocks okUH0] -max -add_delay 7.000 [get_ports okAA]
-set_input_delay -clock [get_clocks okUH0] -min -add_delay 2.000 [get_ports okAA]
-set_multicycle_path -setup -from [get_ports okAA] 2
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports okAA]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports okAA]
-
-## TODO: define clock - okDnaClk   for ok_endpoint_wrapper_inst/okHI/core0/core0/a0
-create_generated_clock -name okDnaClk -source [get_pins ok_endpoint_wrapper_inst/okHI/mmcm0/CLKOUT0] -divide_by 32 [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/d0/lc4da648cb12eeeb24e4d199c1195ed93_reg[4]/Q}]
-set_false_path -to [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/pm0/ram_1k_generate.v6.kcpsm6_rom/DIBDI[*]}]
-set_false_path -to [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/pm0/ram_1k_generate.v6.kcpsm6_rom/DIPBDIP[*]}]
-
-## TODO: define clock - okHI_clk // replace mmcm0_clk0
-create_generated_clock  -name okHI_clk        [get_pins  ok_endpoint_wrapper_inst/okHI/mmcm0/CLKOUT0]
-
-# asynchronous
-set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks okDnaClk]
+#  create_clock -period 9.920 -name okUH0 [get_ports {okUH[0]}]
+#  
+#  set_input_delay -clock [get_clocks okUH0] -max -add_delay 8.000 [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}]
+#  set_input_delay -clock [get_clocks okUH0] -min -add_delay 10.000 [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}]
+#  set_multicycle_path -setup -from [get_ports {{okUH[1]} {okUH[2]} {okUH[3]} {okUH[4]}}] 2
+#  
+#  set_input_delay -clock [get_clocks okUH0] -max -add_delay 8.000 [get_ports {okUHU[*]}]
+#  set_input_delay -clock [get_clocks okUH0] -min -add_delay 2.000 [get_ports {okUHU[*]}]
+#  set_multicycle_path -setup -from [get_ports {okUHU[*]}] 2
+#  
+#  set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okHU[*]}]
+#  set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okHU[*]}]
+#  
+#  set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okUHU[*]}]
+#  set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okUHU[*]}]
+#  
+#  # for okAA
+#  set_input_delay -clock [get_clocks okUH0] -max -add_delay 7.000 [get_ports okAA]
+#  set_input_delay -clock [get_clocks okUH0] -min -add_delay 2.000 [get_ports okAA]
+#  set_multicycle_path -setup -from [get_ports okAA] 2
+#  set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports okAA]
+#  set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports okAA]
+#  
+#  ## TODO: define clock - okDnaClk   for ok_endpoint_wrapper_inst/okHI/core0/core0/a0
+#  create_generated_clock -name okDnaClk -source [get_pins ok_endpoint_wrapper_inst/okHI/mmcm0/CLKOUT0] -divide_by 32 [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/d0/lc4da648cb12eeeb24e4d199c1195ed93_reg[4]/Q}]
+#  set_false_path -to [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/pm0/ram_1k_generate.v6.kcpsm6_rom/DIBDI[*]}]
+#  set_false_path -to [get_pins {ok_endpoint_wrapper_inst/okHI/core0/core0/a0/pm0/ram_1k_generate.v6.kcpsm6_rom/DIPBDIP[*]}]
+#  
+#  ## TODO: define clock - okHI_clk // replace mmcm0_clk0
+#  create_generated_clock  -name okHI_clk        [get_pins  ok_endpoint_wrapper_inst/okHI/mmcm0/CLKOUT0]
+#  
+#  # asynchronous
+#  set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks okDnaClk]
 
 ############################################################################
 
@@ -157,11 +157,11 @@ create_generated_clock  -name mcs_eeprom_fifo_clk      [get_pins  clk_wiz_0_3_1_
 create_generated_clock  -name ref_clk        [get_pins  clk_wiz_0_inst/inst/plle2_adv_inst/CLKOUT0]
 
 ####
-set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks {okHI_clk okUH0}]
 set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks okHI_clk]
 set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks sys_clk]
+#  set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks {okHI_clk okUH0}]
+#  set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks okHI_clk]
+#  set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks sys_clk]
 
 
 ## for MCS
@@ -170,11 +170,11 @@ set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_
 # lan_io_clk # not yet
 set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks lan_clk]
 set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks {okHI_clk okUH0}]
-set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks {okHI_clk okUH0}]
 set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks {okHI_clk okUH0}]
 set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks mcs_clk]
+#  set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks {okHI_clk okUH0}]
+#  set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks {okHI_clk okUH0}]
+#  set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks {okHI_clk okUH0}]
 #set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks lan_io_clk]
 #set_clock_groups -asynchronous -group [get_clocks lan_io_clk] -group [get_clocks lan_clk]
 
@@ -714,11 +714,11 @@ create_generated_clock  -name dac1_clk        [get_pins  clk_wiz_1_2_1_inst/inst
 create_generated_clock  -name dac1_clk_180    [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT0]
 
 
-set_clock_groups -asynchronous -group [get_clocks {dac0_clk dac0_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
+#  set_clock_groups -asynchronous -group [get_clocks {dac0_clk dac0_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_clk_180}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {sys_clk}]
 #
-set_clock_groups -asynchronous -group [get_clocks {dac1_clk dac1_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
+#  set_clock_groups -asynchronous -group [get_clocks {dac1_clk dac1_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_clk_180}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {sys_clk}]
 #
