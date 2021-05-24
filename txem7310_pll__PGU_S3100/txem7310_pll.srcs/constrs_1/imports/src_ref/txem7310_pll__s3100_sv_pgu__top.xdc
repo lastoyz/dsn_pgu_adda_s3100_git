@@ -11,7 +11,7 @@
 # FPGA board sch : NA           # (not yet) PGU_CPU_F5500__R190929__4M.pdf
 #
 # base board     : S3100-PGU
-# base board sch : PGU-CPU-S3100__R20210521.pdf
+# base board sch : PGU-CPU-S3100__R20210522.pdf
 #
 ############################################################################
 
@@ -26,6 +26,15 @@ set_property BITSTREAM.GENERAL.COMPRESS True [current_design]
 ## set_property CONFIG_MODE SPIx4 [current_design]
 
 ############################################################################
+## TODO: bank usage
+############################################################################
+# B13 : CLK, SPIO1, S_IO, DACx_SPI, M2_SPI, CLK_COUT, TRIG  // 3.3V // (in MC1/MC2) 
+# B14 : CONF                                                // 1.8V
+# B15 : TP, LAN_SPI(, SCIO)                                 // 3.3V
+# B16 : LED                                                 // 3.3V
+# B34 : XADC, DAC0, ADC0, ADCx                              // 3.3V // (in MC1)
+# B35 : DAC1, ADC1, CLK_SPI                                 // 3.3V // (in MC2)
+# B216: not used
 
 
 ############################################################################

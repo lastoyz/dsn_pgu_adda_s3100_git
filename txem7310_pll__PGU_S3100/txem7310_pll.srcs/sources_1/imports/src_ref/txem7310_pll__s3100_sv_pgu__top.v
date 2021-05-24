@@ -112,7 +112,7 @@ module txem7310_pll__s3100_sv_pgu__top (
 
 	// ## LAN for END-POINTS       
 	output wire  o_B15_L6P        , // # H17  # LAN_PWDN    ## EP_LAN_PWDN 
-	//output wire  o_B15_L6N        , // # H18  # LAN_SSAUX_B //$$ ssn aux # NA
+	output wire  o_B15_L6N        , // # H18  # LAN_SSAUX_B //$$ ssn aux # NA
 	output wire  o_B15_L7P        , // # J22  # LAN_MOSI    ## EP_LAN_MOSI
 	output wire  o_B15_L7N        , // # H22  # LAN_SCLK    ## EP_LAN_SCLK
 	output wire  o_B15_L8P        , // # H20  # LAN_SSN_B   ## EP_LAN_CS_B
@@ -482,7 +482,7 @@ wire  PT_FMOD_EP_LAN_INT_B;
 wire  PT_FMOD_EP_LAN_RST_B; 
 wire  PT_FMOD_EP_LAN_MISO ;
 OBUF obuf__LAN_PWDN_____inst (.O( o_B15_L6P ), .I( LAN_PWDN             ) ); // 
-OBUF obuf__LAN_SSAUX_B__inst (.O( o_B15_L6P ), .I( LAN_SSAUX_B          ) ); // 
+OBUF obuf__LAN_SSAUX_B__inst (.O( o_B15_L6N ), .I( LAN_SSAUX_B          ) ); // 
 OBUF obuf__EP_LAN_MOSI__inst (.O( o_B15_L7P ), .I( PT_FMOD_EP_LAN_MOSI  ) ); // 
 OBUF obuf__EP_LAN_SCLK__inst (.O( o_B15_L7N ), .I( PT_FMOD_EP_LAN_SCLK  ) ); // 
 OBUF obuf__EP_LAN_CS_B__inst (.O( o_B15_L8P ), .I( PT_FMOD_EP_LAN_CS_B  ) ); // 
