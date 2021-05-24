@@ -218,8 +218,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 	
 	// # IO_B13_0_                       , // # Y17  # NA
 	output wire			 o_B13_L1P       , // # Y16  # MC1-75  ## SPIO1_CS    
-	inout  wire			io_B13_L1N       , // # AA16 # MC1-76  ## S_IO_2      
-	output wire			 o_B13_L2P       , // # AB16 # MC1-67  ## SPIO0_CS    
+	inout  wire			io_B13_L1N       , // # AA16 # MC1-76  ## S_IO_2    
+	output wire			 o_B13_L2P       , // # AB16 # MC1-67  ## SPIO0_CS --> M2_SPI_RX_EN_SLAVE
 	output wire			 o_B13_L2N       , // # AB17 # MC1-69  ## SPIOx_SCLK  
 	output wire			 o_B13_L3P       , // # AA13 # MC1-68  ## DACx_SDIO   
 	input  wire			 i_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO    
@@ -227,8 +227,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 	input  wire			 i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO  
 	output wire			 o_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS     
 	output wire			 o_B13_L5N       , // # AA14 # MC1-66  ## DACx_SCLK   
-	output wire			 o_B13_L6P       , // # W14  # MC2-72  ## LAN_SSNn    
-	output wire			 o_B13_L6N       , // # Y14  # MC2-74  ## LAN_SCLK    
+	output wire			 i_B13_L6P       , // # W14  # MC2-72  ## LAN_SSNn --> M2_SPI_CS_BUF
+	output wire			 i_B13_L6N       , // # Y14  # MC2-74  ## LAN_SCLK --> M2_SPI_TX_CLK
 	output wire			 o_B13_L7P       , // # AB11 # MC1-8   ## DACx_RST_B  
 	output wire			 o_B13_L7N       , // # AB12 # MC2-11  ## CLKD_SYNC   
 	// # IO_B13_L8P                 , // # AA9                      # NA
@@ -237,20 +237,20 @@ module txem7310_pll__s3100_sv_pgu__top (
 	//output wire  o_B13_L9N        , // # AA11   # ETH_nCS         # NA
 	//input  wire  i_B13_L10P       , // # V10    # ETH_nLINKLED    # NA
 	//input  wire  i_B13_L10N       , // # W10    # ETH_nTXLED      # NA
-	input  wire			i_B13_L11P_SRCC  , // # Y11  # MC2-79  ## LAN_INTn    
-	output wire			o_B13_L11N_SRCC  , // # Y12  # MC2-76  ## LAN_MOSI    
+	input  wire			o_B13_L11P_SRCC  , // # Y11  # MC2-75  ## LAN_INTn --> M2_SPI_TX_EN_SLAVE
+	output wire			i_B13_L11N_SRCC  , // # Y12  # MC2-76  ## LAN_MOSI --> M2_SPI_MOSI     
 	// # IO_B13_L12P_MRCC         , // # W11    # clocks sys_clkp (*)
 	// # IO_B13_L12N_MRCC         , // # W12    # clocks sys_clkn (*)
-	input  wire			 i_B13D_L13P_MRCC, // # V13  # MC2-75  ## CLKD_COUT_P                     
-	input  wire			 i_B13D_L13N_MRCC, // # V14  # MC2-77  ## CLKD_COUT_N                     
+	input  wire			 i_B13D_L13P_MRCC, // # V13  # MC2-71  ## CLKD_COUT_P                     
+	input  wire			 i_B13D_L13N_MRCC, // # V14  # MC2-73  ## CLKD_COUT_N                     
 	input  wire			 i_B13D_L14P_SRCC, // # U15  # MC2-64  ## TRIG_IN_P    //                 
 	input  wire			 i_B13D_L14N_SRCC, // # V15  # MC2-66  ## TRIG_IN_N    //                 
 	output wire			 o_B13_L15P,       // # T14  # MC2-68  ## TRIG_OUT_P   //$$ B13 LVCMOS25  
 	output wire			 o_B13_L15N,       // # T15  # MC2-70  ## TRIG_OUT_N   //$$ B13 LVCMOS25  
 	output wire			 o_B13_L16P,       // # W15  # MC1-72  ## DAC0_CS                         
 	inout  wire			io_B13_L16N,       // # W16  # MC1-74  ## S_IO_1                          
-	input  wire			 i_B13_L17P,       // # T16  # MC2-71  ## LAN_MISO                        
-	output wire			 o_B13_L17N,       // # U16  # MC2-73  ## LAN_RSTn                        
+	input  wire			 o_B13_L17P,       // # T16  # MC2-67  ## LAN_MISO --> M2_SPI_MISO_B
+	output wire			 o_B13_L17N,       // # U16  # MC2-69  ## LAN_RSTn --> M2_SPI_RX_CLK_B
 	
 	//}
 		
@@ -531,6 +531,21 @@ wire  PT_BASE_EP_LAN_MISO ;
 //OBUF obuf__LAN_RST_B_inst (.O( o_B13_L17N       ), .I(PT_BASE_EP_LAN_RST_B) ); // 
 //IBUF ibuf__LAN_MISO__inst (.I( i_B13_L17P       ), .O(PT_BASE_EP_LAN_MISO ) ); //
 
+//// M2_SPI buffers
+wire  M2_SPI_CS_BUF      ; // i
+wire  M2_SPI_MOSI        ; // i
+wire  M2_SPI_TX_CLK      ; // i
+wire  M2_SPI_MISO        ;  wire  M2_SPI_MISO_B   = ~M2_SPI_MISO   ; // o
+wire  M2_SPI_RX_CLK      ;  wire  M2_SPI_RX_CLK_B = ~M2_SPI_RX_CLK ; // o
+wire  M2_SPI_RX_EN_SLAVE ; // o
+wire  M2_SPI_TX_EN_SLAVE ; // o
+IBUF ibuf__M2_SPI_CS_BUF_______inst (.I( i_B13_L6P       ), .O( M2_SPI_CS_BUF      ) ); //
+IBUF ibuf__M2_SPI_MOSI_________inst (.I( i_B13_L11N_SRCC ), .O( M2_SPI_MOSI        ) ); //
+IBUF ibuf__M2_SPI_TX_CLK_______inst (.I( i_B13_L6N       ), .O( M2_SPI_TX_CLK      ) ); //
+IBUF ibuf__M2_SPI_MISO_B_______inst (.I( o_B13_L17P      ), .O( M2_SPI_MISO_B      ) ); //
+IBUF ibuf__M2_SPI_RX_CLK_B_____inst (.I( o_B13_L17N      ), .O( M2_SPI_RX_CLK_B    ) ); //
+OBUF obuf__M2_SPI_RX_EN_SLAVE__inst (.O( o_B13_L2P       ), .I( M2_SPI_RX_EN_SLAVE ) ); // 
+OBUF obuf__M2_SPI_TX_EN_SLAVE__inst (.O( o_B13_L11P_SRCC ), .I( M2_SPI_TX_EN_SLAVE ) ); // 
 
 
 //}

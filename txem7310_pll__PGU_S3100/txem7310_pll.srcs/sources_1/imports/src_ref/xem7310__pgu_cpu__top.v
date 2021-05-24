@@ -178,13 +178,13 @@ module xem7310__pgu_cpu__top (
 	output wire			o_B35D_L1N,        // # MC2-61  # DAC1_DAT_P13 // PN swap
 	output wire			o_B35D_L13P_MRCC,  // # MC2-63  # DAC1_DAT_N14 // PN swap
 	output wire			o_B35D_L13N_MRCC,  // # MC2-65  # DAC1_DAT_P14 // PN swap
-	output wire			o_B35D_L12P_MRCC,  // # MC2-67  # DAC1_DAT_N15 // PN swap
-	output wire			o_B35D_L12N_MRCC,  // # MC2-69  # DAC1_DAT_P15 // PN swap
-	input  wire			i_B13_L17P,        // # MC2-71  # LAN_MISO     
-	output wire			o_B13_L17N,        // # MC2-73  # LAN_RSTn     
-	input  wire			c_B13D_L13P_MRCC,  // # MC2-75  # CLKD_COUT_P   
-	input  wire			c_B13D_L13N_MRCC,  // # MC2-77  # CLKD_COUT_N   
-	input  wire			i_B13_L11P_SRCC,   // # MC2-79  # LAN_INTn     
+	output wire			o_B35D_L12P_MRCC,  // # MC2-77  # DAC1_DAT_N15 // PN swap
+	output wire			o_B35D_L12N_MRCC,  // # MC2-79  # DAC1_DAT_P15 // PN swap
+	input  wire			i_B13_L17P,        // # MC2-67  # LAN_MISO     
+	output wire			o_B13_L17N,        // # MC2-69  # LAN_RSTn     
+	input  wire			c_B13D_L13P_MRCC,  // # MC2-71  # CLKD_COUT_P   
+	input  wire			c_B13D_L13N_MRCC,  // # MC2-73  # CLKD_COUT_N   
+	input  wire			i_B13_L11P_SRCC,   // # MC2-75  # LAN_INTn     
 	//}
 	
 	// MC2 - even //{
