@@ -5,7 +5,7 @@
 // # FPGA board_sch : FPGA_MODULE_V11_20200812-4M.pdf
 //
 // # base board     : S3100-PGU
-// # base board sch : PGU-CPU-S3100__R20210521.pdf
+// # base board sch : PGU-CPU-S3100__R20210525.pdf
 //
 // # note: artix-7 top design for S3100 PGU slave spi side
 //
@@ -1041,7 +1041,7 @@ wire sys_clk	= clk_out3_10M;
 wire reset_n	= clk_locked;
 wire reset		= ~reset_n;
 
-// clocks 
+// other clocks 
 wire mcs_clk    = clk3_out1_72M;
 wire lan_clk      = clk3_out2_144M;
 wire lan_io_clk  = clk3_out3_12M; // not used yet
@@ -1050,8 +1050,7 @@ wire  mcs_eeprom_fifo_clk = clk3_out4_72M;
 wire xadc_clk =  clk_out4_10M;
 
 
-
-//// DAC clocks
+// DAC clocks //{
 	
 wire dac0_clk   = dac0_dco_clk_out1_400M; 
 wire dac1_clk   = dac1_dco_clk_out1_400M; 
@@ -1096,6 +1095,31 @@ ODDR #(
 	
 //}	
 	
+//}
+
+
+// clock for MTH SPI //{
+
+wire base_sspi_clk; // base clock for slave SPI // 104MHz
+wire p_sspi_clk;    // p_clk for SSPI // 13MHz = base / 8
+
+wire clk_2_locked = 1'b1;
+
+// clk_wiz_2_2
+wire clk_2_2_locked; //$$ unused
+clk_wiz_2_2  clk_wiz_2_2_inst (
+	// Clock out ports  
+	.clk_out1_104M(base_sspi_clk),  
+	.clk_out2_13M (p_sspi_clk   ),  
+	// Status and control signals     
+	.resetn(clk_2_locked),          
+	.locked(clk_2_2_locked),
+	// Clock in ports
+	.clk_in1(clk_out1_200M)
+);
+
+//}
+
 //}
 
 

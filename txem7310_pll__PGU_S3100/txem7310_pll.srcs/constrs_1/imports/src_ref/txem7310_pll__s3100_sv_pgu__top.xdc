@@ -11,7 +11,7 @@
 # FPGA board sch : FPGA_MODULE_V11_20200812-4M.pdf
 #
 # base board     : S3100-PGU
-# base board sch : PGU-CPU-S3100__R20210522.pdf
+# base board sch : PGU-CPU-S3100__R20210525.pdf
 #
 ############################################################################
 
@@ -450,18 +450,18 @@ create_generated_clock  -name mcs_clk         [get_pins  clk_wiz_0_3_1_inst/inst
 ## TODO: define clock - lan_clk // replace clk_out2_144M_clk_wiz_0_3
 create_generated_clock  -name lan_clk         [get_pins  clk_wiz_0_3_1_inst/inst/plle2_adv_inst/CLKOUT1]
 
-## TODO: define clock - lan_io_clk // replace clk_out3_12M_clk_wiz_0_3
-#create_generated_clock  -name lan_io_clk      [get_pins  clk_wiz_0_3_1_inst/inst/plle2_adv_inst/CLKOUT2]
-
 ## TODO: define clock - mcs_eeprom_fifo_clk
 create_generated_clock  -name mcs_eeprom_fifo_clk      [get_pins  clk_wiz_0_3_1_inst/inst/plle2_adv_inst/CLKOUT3]
 
+## TODO: define clock - base_sspi_clk
+create_generated_clock  -name base_sspi_clk   [get_pins  clk_wiz_2_2_inst/inst/plle2_adv_inst/CLKOUT0]
+
 ## TODO: define clock - ref_clk // replace clk_out1_200M_clk_wiz_0
-create_generated_clock  -name ref_clk        [get_pins  clk_wiz_0_inst/inst/plle2_adv_inst/CLKOUT0]
+#create_generated_clock  -name ref_clk        [get_pins  clk_wiz_0_inst/inst/plle2_adv_inst/CLKOUT0]
 
 ####
 set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks sys_clk]
+#  set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks sys_clk]
 #  set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks {okHI_clk okUH0}]
 #  set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks okHI_clk]
 #  set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks sys_clk]
@@ -470,17 +470,15 @@ set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks sy
 ## for MCS
 # mcs_clk
 # lan_clk
-# lan_io_clk # not yet
 set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks lan_clk]
 set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks sys_clk]
 set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks sys_clk]
 set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks mcs_clk]
-#  set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks {okHI_clk okUH0}]
-#  set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks {okHI_clk okUH0}]
-#  set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks {okHI_clk okUH0}]
-#set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks lan_io_clk]
-#set_clock_groups -asynchronous -group [get_clocks lan_io_clk] -group [get_clocks lan_clk]
 
+## for base_sspi_clk
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks sys_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_eeprom_fifo_clk]
 
 
 ############################################################################
@@ -615,13 +613,13 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o
 set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B15*]
 
 ## B16 common
-set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B16*]
-set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B16*]
+#set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B16*]
+#set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B16*]
 set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B16*]
 set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B16*]
 #
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B16*]
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B16*]
+#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B16*]
+#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B16*]
 
 ## B34 common
 set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B34*]
@@ -726,7 +724,7 @@ set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L4P ]
 set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L1P ]
 #
 # ignore wire in from ep07wire
-set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi07/ep_dataout_reg[*]/C}] 
+#set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi07/ep_dataout_reg[*]/C}] 
 
 
 ############################################################################
@@ -748,7 +746,7 @@ set_max_delay    -to [get_ports o_B35_0_] 20.0
 #
 
 # ignore wire in from ep06wire
-set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi06/ep_dataout_reg[*]/C}] 
+#set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi06/ep_dataout_reg[*]/C}] 
 
 ## pull up for SDIO SDO in bidir mode
 # CLKD_SDIO
