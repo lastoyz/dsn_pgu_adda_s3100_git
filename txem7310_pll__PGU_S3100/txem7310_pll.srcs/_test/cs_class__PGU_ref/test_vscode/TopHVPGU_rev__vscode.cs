@@ -215,7 +215,7 @@ namespace TopInstrument
 
             catch (Exception e)
             {
-                Socket ss = null;
+                //$$Socket ss = null;
                 throw new Exception(String.Format("Error in Open") + e.Message);
             }
 

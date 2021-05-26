@@ -491,7 +491,7 @@ IBUF ibuf__EP_LAN_MISO__inst (.I( i_B15_L9N ), .O( PT_FMOD_EP_LAN_MISO  ) ); //
 
 //// LED on FPGA module
 wire [7:0] led;
-wire [7:0] F_LED_tri = led;  wire [7:0] F_LED_out = 1'b0;  wire [7:0] F_LED_in; // 
+wire [7:0] F_LED_tri = led;  wire [7:0] F_LED_out = 8'b0;  wire [7:0] F_LED_in; // 
 IOBUF iobuf__F_LED4__inst(.IO( io_B16_L7P   ), .T(F_LED_tri[4]), .I(F_LED_out[4] ), .O(F_LED_in[4] ) ); //
 IOBUF iobuf__F_LED6__inst(.IO( io_B16_L7N   ), .T(F_LED_tri[6]), .I(F_LED_out[6] ), .O(F_LED_in[6] ) ); //
 IOBUF iobuf__F_LED1__inst(.IO( io_B16_L8N   ), .T(F_LED_tri[1]), .I(F_LED_out[1] ), .O(F_LED_in[1] ) ); //
