@@ -17,6 +17,79 @@
 // # B35 : MTH M2_SPI, CAL_SPI, EXT_TRIG               (prev. in MC2) // 3.3V
 // # B216: not used
 
+////
+module led_test (
+	input wire clk    , // system 10MHz 
+	input wire reset_n,
+	//
+	output wire [31:0] o_timestamp, // 
+	//
+	output wire o_run_led, // 
+     //
+    // flag
+	output wire valid
+	);
+
+// valid
+(* keep = "true" *) 
+reg r_valid; //{
+assign valid = r_valid;
+//
+always @(posedge clk, negedge reset_n)
+	if (!reset_n) begin
+		r_valid <= 1'b0;
+	end
+	else begin
+		r_valid <= 1'b1;
+	end	
+//}
+	
+// global time index in debugger based on 10MHz
+(* keep = "true" *) 
+reg [31:0] r_global_time_idx; //{
+//
+always @(posedge clk, negedge reset_n) begin
+	if (!reset_n) begin
+		r_global_time_idx <= 32'd0; 
+	end
+	else begin
+		//
+		r_global_time_idx <= r_global_time_idx + 1;
+		//
+		end
+end
+//
+assign o_timestamp = r_global_time_idx;
+//}
+
+reg FPGA_LED_RUN_STATUS;
+reg [23:0] FPGA_LED_RUN_cnt;
+
+wire sys_clk = clk;
+
+always @(posedge sys_clk)
+begin
+    if(reset_n == 1'b0) begin
+        FPGA_LED_RUN_STATUS     <= 1'b0;
+        FPGA_LED_RUN_cnt        <= {24{1'b0}};
+    end else begin
+        if(FPGA_LED_RUN_cnt < 24'h2625A0) begin             // DEC 2,500,000
+            FPGA_LED_RUN_STATUS     <= 1'b0;
+            FPGA_LED_RUN_cnt        <= FPGA_LED_RUN_cnt + 1;
+        end else if(FPGA_LED_RUN_cnt < 24'h4C4B40) begin    // DEC 5,000,000
+            FPGA_LED_RUN_STATUS     <= 1'b1;
+            FPGA_LED_RUN_cnt        <= FPGA_LED_RUN_cnt + 1;
+        end else begin 
+            FPGA_LED_RUN_STATUS     <= 1'b0;
+            FPGA_LED_RUN_cnt        <= {24{1'b0}};
+        end
+    end
+end
+
+assign o_run_led = FPGA_LED_RUN_STATUS;
+
+endmodule 
+
 
 /* top module integration */
 module txem7310_pll__s3100_ms__top ( 
@@ -477,6 +550,9 @@ OBUF obuf__FPGA_TRIG_TX_EN__________inst(.O( o_B14_L10P ), .I( FPGA_TRIG_TX_EN  
 //$$ S3100 vs TXEM7310
 //// note: fpga module    in B16 uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
 //// note: S3100-CPU-BASE in B14 uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
+//  led[0:7] = 1    'Z' LED OFF
+//  led[0:7] = 0    '0' LED ON
+ 
 wire [7:0] led; //$$
 wire FPGA_LED0_tri = led[0];  wire FPGA_LED0_out = 1'b0;  wire FPGA_LED0_in; // *_in unused
 wire FPGA_LED1_tri = led[1];  wire FPGA_LED1_out = 1'b0;  wire FPGA_LED1_in; // *_in unused
@@ -495,6 +571,7 @@ IOBUF iobuf__FPGA_LED4__inst(.IO(io_B14_L13P_MRCC ), .T( FPGA_LED4_tri ) , .I( F
 IOBUF iobuf__FPGA_LED5__inst(.IO(io_B14_L13N_MRCC ), .T( FPGA_LED5_tri ) , .I( FPGA_LED5_out ), .O( FPGA_LED5_in  ) ); 
 IOBUF iobuf__FPGA_LED6__inst(.IO(io_B14_L14P_SRCC ), .T( FPGA_LED6_tri ) , .I( FPGA_LED6_out ), .O( FPGA_LED6_in  ) ); 
 IOBUF iobuf__FPGA_LED7__inst(.IO(io_B14_L14N_SRCC ), .T( FPGA_LED7_tri ) , .I( FPGA_LED7_out ), .O( FPGA_LED7_in  ) ); 
+
 
 
 wire FPGA_GPIO_PB5 ;
@@ -671,6 +748,7 @@ wire  BUF_nRESET     ;
 OBUF obuf__BASE_F_LED_ERR__inst(.O( o_B16_0_   ), .I( BASE_F_LED_ERR ) );
 OBUF obuf__RUN_FPGA_LED____inst(.O( o_B16_25   ), .I( RUN_FPGA_LED   ) );
 IBUF ibuf__BUF_nRESET______inst( .I( i_B16_L24N ), .O( BUF_nRESET     ) );
+	
 	
 wire BD0__tri ;  wire BD0__out ;  wire BD0__in ;
 wire BD1__tri ;  wire BD1__out ;  wire BD1__in ;
@@ -1092,8 +1170,8 @@ OBUF obuf__EXT_TRIG_BYPASS_______inst(.O( o_B35_L24N ), .I( EXT_TRIG_BYPASS     
 // clock pll0 //{
 wire clk_out1_200M ; // REFCLK 200MHz for IDELAYCTRL // for pll1
 wire clk_out2_140M ; // for pll2 ... 140M
-wire clk_out3_10M  ; // for slow logic / I2C //
-wire clk_out4_10M ; // for XADC 
+wire clk_out3_10M  ; // for slow logic / I2C 
+wire clk_out4_10M ; // for XADC //FPGA_RUN_LED
 //
 wire clk_locked_pre;
 clk_wiz_0  clk_wiz_0_inst(
@@ -1183,7 +1261,7 @@ wire lan_clk              = clk3_out2_144M;
 wire mcs_eeprom_fifo_clk  = clk3_out4_72M;
 //
 wire xadc_clk             =  clk_out4_10M;
-
+wire fpga_run_led_clk     =  clk_out4_10M;
 
 // clock for MTH SPI //{
 
@@ -2137,6 +2215,8 @@ assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
 // xem7310_led:
 //   1 in --> 0 out // tri_0, out_0
 //   0 in --> Z out // tri_1, out_X
+
+
 function [7:0] xem7310_led;
 input [7:0] a;
 integer i;
@@ -2148,7 +2228,7 @@ begin
 end
 endfunction
 // 
-assign led = xem7310_led(w_test ^ count1);
+//assign led = xem7310_led(w_test ^ count1);
 //}
 
 //}
@@ -3452,9 +3532,40 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 //}
 
 
+
+
+
+
 ///TODO: //-------------------------------------------------------//
 
+wire FPGA_LED_RUN_STATUS;
+led_test  led_test__inst (
+	.clk       (sys_clk            ), // system 10MHz 
+	.reset_n   (reset_n            ),
+	.o_run_led (FPGA_LED_RUN_STATUS), // 
+	.valid     (                   )
+	);
+
+
+
+assign RUN_FPGA_LED = (FPGA_LED_RUN_STATUS == 1'b1) ?  1'b1 : 1'b0;    
+
+
+assign led[0] = (FPGA_LED_RUN_STATUS == 1'b1) ?  1'b1 : 1'b0; 
+assign led[1] = (FPGA_LED_RUN_STATUS == 1'b1) ?  1'b1 : 1'b0; 
+assign led[2] = 1'b0;
+assign led[3] = 1'b1;
+
+assign led[4] = 1'b0;
+assign led[5] = 1'b1;
+assign led[6] = 1'b0;
+assign led[7] = 1'b1;
+
+
+
+
 /* TODO: TP assign */
+	
 
 
 
