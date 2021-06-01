@@ -555,7 +555,7 @@ parameter REQ_SW_BUILD_ID = 32'h_A57E_183C; // 0 for bypass
 //// BANK B15 IOBUF //{
 
 //// TP on FPGA module
-wire [7:0] TP_tri;  wire [7:0] TP_out;  wire [7:0] TP_in; // 
+wire [7:0] TP_tri = 8'b1;  wire [7:0] TP_out = 8'b0;  wire [7:0] TP_in; // 
 IOBUF iobuf__TP0__inst(.IO( io_B15_L1P_AD0P  ), .T(TP_tri[0]), .I(TP_out[0] ), .O(TP_in[0] ) ); //
 IOBUF iobuf__TP1__inst(.IO( io_B15_L1N_AD0N  ), .T(TP_tri[1]), .I(TP_out[1] ), .O(TP_in[1] ) ); //
 IOBUF iobuf__TP2__inst(.IO( io_B15_L2P_AD8P  ), .T(TP_tri[2]), .I(TP_out[2] ), .O(TP_in[2] ) ); //
@@ -636,8 +636,8 @@ wire  M2_SPI_TX_EN_SLAVE ; // o
 IBUF ibuf__M2_SPI_CS_BUF_______inst (.I( i_B13_L6P       ), .O( M2_SPI_CS_BUF      ) ); //
 IBUF ibuf__M2_SPI_MOSI_________inst (.I( i_B13_L11N_SRCC ), .O( M2_SPI_MOSI        ) ); //
 IBUF ibuf__M2_SPI_TX_CLK_______inst (.I( i_B13_L6N       ), .O( M2_SPI_TX_CLK      ) ); //
-IBUF ibuf__M2_SPI_MISO_B_______inst (.I( o_B13_L17P      ), .O( M2_SPI_MISO_B      ) ); //
-IBUF ibuf__M2_SPI_RX_CLK_B_____inst (.I( o_B13_L17N      ), .O( M2_SPI_RX_CLK_B    ) ); //
+OBUF ibuf__M2_SPI_MISO_B_______inst (.O( o_B13_L17P      ), .I( M2_SPI_MISO_B      ) ); //
+OBUF ibuf__M2_SPI_RX_CLK_B_____inst (.O( o_B13_L17N      ), .I( M2_SPI_RX_CLK_B    ) ); //
 OBUF obuf__M2_SPI_RX_EN_SLAVE__inst (.O( o_B13_L2P       ), .I( M2_SPI_RX_EN_SLAVE ) ); // 
 OBUF obuf__M2_SPI_TX_EN_SLAVE__inst (.O( o_B13_L11P_SRCC ), .I( M2_SPI_TX_EN_SLAVE ) ); // 
 
@@ -1919,7 +1919,7 @@ wire [31:0] w_BRD_CON = w_port_wi_03_1 | ep03wire; // board control // logic or
 // endpoint mux enable : LAN(MCS) vs USB
 
 // sub wires 
-wire w_HW_reset              = w_BRD_CON[0];
+////wire w_HW_reset              = w_BRD_CON[0];
 ////  wire w_time_stamp_disp_en    = w_BRD_CON[16];
 
 // reset wires 
