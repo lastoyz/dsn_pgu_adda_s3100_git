@@ -190,7 +190,7 @@ module txem7310_pll__s3100_sv_pgu__top (
 	
 	//// BANK B15 //{
 	
-	output wire   o_B15_0_        , // # J16  # F_RDY
+	//output wire   o_B15_0_        , // # J16  # NA
 
 	// ## TPs 
 	inout  wire io_B15_L1P_AD0P   , // # H13  # F_TP0       ## TP0 // test for eeprom : VCC_3.3V
@@ -1272,7 +1272,7 @@ wire [31:0] ep12wire; //$$ [MEM] MEM_FDAT_WI
 wire [31:0] ep13wire; //$$ [MEM] MEM_WI
 wire [31:0] ep14wire; //
 wire [31:0] ep15wire; //
-wire [31:0] ep16wire; //$$ [MSPI] MSPI_EN_CS_WI //$$ S3100
+wire [31:0] ep16wire; //$$ [MSPI] MSPI_EN_CS_WI //$$ S3100-CPU-BASE only // not in S3100-PGU
 wire [31:0] ep17wire; //$$ [MSPI] MSPI_CON_WI   //$$ S3100
 wire [31:0] ep18wire; //
 wire [31:0] ep19wire; //$$ [MCS] MCS_SETUP_WI   //$$ S3100
@@ -1524,7 +1524,7 @@ wire [31:0] w_port_wo_30_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_31_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_32_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_33_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_34_1 = 32'b0; // not yet used
+wire [31:0] w_port_wo_34_1; // S3100-PGU
 wire [31:0] w_port_wo_35_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_36_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_37_1 = 32'b0; // not yet used
@@ -2048,7 +2048,7 @@ wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_M
 
 
 wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
-wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable
+//wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable //$$ only for S3100-CPU-BASE
 
 wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
 	assign ep34wire         =                   w_MSPI_FLAG_WO                ; //$$ ep24wire --> ep34wire
@@ -2078,10 +2078,11 @@ wire [31:0] w_MSPI_TO;
 //							    w_adc_busy_cowork, r_M_TRIG[0], r_M_PRE_TRIG[0], r_M_BUSY_B_OUT}; 
 //assign w_SSPI_TEST_WO[15:0] = w_SSPI_frame_data_B[15:0];
 //
-assign w_MSPI_FLAG_WO[31:24] = 8'b0; //$$ not yet used
-assign w_MSPI_FLAG_WO[23]    = w_SSPI_TEST_mode_en;
-assign w_MSPI_FLAG_WO[22:20] = 3'b0; //$$ not yet used
-//assign w_MSPI_FLAG_WO[15:0 ] = w_SSPI_frame_data_B[15:0]; // to come
+//assign w_MSPI_FLAG_WO[31:24] = 8'b0; //$$ not yet used
+//assign w_MSPI_FLAG_WO[23]    = w_SSPI_TEST_mode_en;
+//assign w_MSPI_FLAG_WO[22:20] = 3'b0; //$$ not yet used
+//assign w_MSPI_FLAG_WO[19:16] = 4'b0; //$$ not yet used
+//assign w_MSPI_FLAG_WO[15:0 ] = w_SSPI_frame_data_B[15:0]; // to come below
 
 //}
 
@@ -3037,7 +3038,9 @@ wire  [15:0] w_SSPI_frame_data_D = w_MSPI_CON_WI[15: 0]; // w_SSPI_TEST_WI --> w
 //
 wire  [15:0] w_SSPI_frame_data_B;
 wire  [15:0] w_SSPI_frame_data_E;
-assign w_MSPI_FLAG_WO[15:0] = w_SSPI_frame_data_B[15:0]; //$$ w_SSPI_TEST_WO --> w_MSPI_FLAG_WO
+//
+assign w_MSPI_FLAG_WO[31:16] = w_SSPI_frame_data_E[15:0];
+assign w_MSPI_FLAG_WO[15: 0] = w_SSPI_frame_data_B[15:0]; //$$ w_SSPI_TEST_WO --> w_MSPI_FLAG_WO
 
 (* keep = "true" *) wire  w_SSPI_TEST_SS_B   ;
 (* keep = "true" *) wire  w_SSPI_TEST_MCLK   ;
