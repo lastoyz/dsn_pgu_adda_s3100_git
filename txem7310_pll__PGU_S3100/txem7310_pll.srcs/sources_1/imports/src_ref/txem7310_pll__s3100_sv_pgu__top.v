@@ -612,12 +612,12 @@ IOBUF iobuf__F_LED7__inst(.IO( io_B16_L11P  ), .T(F_LED_tri[7]), .I(F_LED_out[7]
 //// BANK B13 IOBUF //{
 
 //// LAN pin on BASE board (PGU) // removed in S3100
-wire  PT_BASE_EP_LAN_MOSI ; 
-wire  PT_BASE_EP_LAN_SCLK ; 
-wire  PT_BASE_EP_LAN_CS_B ; 
-wire  PT_BASE_EP_LAN_INT_B;
-wire  PT_BASE_EP_LAN_RST_B; 
-wire  PT_BASE_EP_LAN_MISO ;
+//wire  PT_BASE_EP_LAN_MOSI ; 
+//wire  PT_BASE_EP_LAN_SCLK ; 
+//wire  PT_BASE_EP_LAN_CS_B ; 
+//wire  PT_BASE_EP_LAN_INT_B;
+//wire  PT_BASE_EP_LAN_RST_B; 
+//wire  PT_BASE_EP_LAN_MISO ;
 //OBUF obuf__LAN_MOSI__inst (.O( o_B13_L11N_SRCC  ), .I(PT_BASE_EP_LAN_MOSI ) ); // 
 //OBUF obuf__LAN_SCLK__inst (.O( o_B13_L6N        ), .I(PT_BASE_EP_LAN_SCLK ) ); // 
 //OBUF obuf__LAN_CS_B__inst (.O( o_B13_L6P        ), .I(PT_BASE_EP_LAN_CS_B ) ); // 
@@ -3485,10 +3485,10 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 // LAN signals to mux //{
 
 // output mux
-assign PT_BASE_EP_LAN_MOSI  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
-assign PT_BASE_EP_LAN_SCLK  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
-assign PT_BASE_EP_LAN_CS_B  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
-assign PT_BASE_EP_LAN_RST_B = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
+//assign PT_BASE_EP_LAN_MOSI  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
+//assign PT_BASE_EP_LAN_SCLK  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
+//assign PT_BASE_EP_LAN_CS_B  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
+//assign PT_BASE_EP_LAN_RST_B = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
 
 assign PT_FMOD_EP_LAN_MOSI  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
 assign PT_FMOD_EP_LAN_SCLK  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
@@ -3496,8 +3496,10 @@ assign PT_FMOD_EP_LAN_CS_B  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
 assign PT_FMOD_EP_LAN_RST_B = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
 
 // input mux
-assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : PT_BASE_EP_LAN_INT_B;
-assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : PT_BASE_EP_LAN_MISO;
+//assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : PT_BASE_EP_LAN_INT_B;
+//assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : PT_BASE_EP_LAN_MISO;
+assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : 1'b1;
+assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : 1'b0;
 
 
 //}
