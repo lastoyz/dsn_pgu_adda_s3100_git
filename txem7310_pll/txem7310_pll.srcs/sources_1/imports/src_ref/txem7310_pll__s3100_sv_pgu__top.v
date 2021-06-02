@@ -3048,34 +3048,34 @@ assign  w_SSPI_TEST_MISO_EN = w_SSPI_TEST_mode_en ;
 //  //$$assign  w_SSPI_TEST_MISO    = M0_SPI_MISO         ; //$$ must come from SSPI in test.
 
 
-//$$  master_spi_mth_brd  master_spi_mth_brd__inst(
-//$$  	.clk     (base_sspi_clk), // 104MHz
-//$$  	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
-//$$  	
-//$$  	// control 
-//$$  	.i_trig_init    (w_SSPI_TEST_trig_init ), // 
-//$$  	.o_done_init    (w_SSPI_TEST_done_init ), // to be used for monitoring test mode 
-//$$  	.i_trig_frame   (w_SSPI_TEST_trig_frame), // 
-//$$  	.o_done_frame   (w_SSPI_TEST_done_frame), // 
-//$$  
-//$$  	// frame data 
-//$$  	.i_frame_data_C (w_SSPI_frame_data_C), // [ 5:0] // control  data on MOSI
-//$$  	.i_frame_data_A (w_SSPI_frame_data_A), // [ 9:0] // address  data on MOSI
-//$$  	.i_frame_data_D (w_SSPI_frame_data_D), // [15:0] // register data on MOSI
-//$$  	//
-//$$  	.o_frame_data_B (w_SSPI_frame_data_B), // [15:0] // readback data on MISO, low  16 bits
-//$$  	.o_frame_data_E (w_SSPI_frame_data_E), // [15:0] // readback data on MISO, high 16 bits
-//$$  	
-//$$  	// IO 
-//$$  	.o_SS_B    (w_SSPI_TEST_SS_B   ),
-//$$  	.o_MCLK    (w_SSPI_TEST_MCLK   ), // sclk master out 
-//$$  	.i_SCLK    (w_SSPI_TEST_SCLK   ), // sclk slave in
-//$$  	.o_MOSI    (w_SSPI_TEST_MOSI   ),
-//$$  	.i_MISO    (w_SSPI_TEST_MISO   ),
-//$$  	.i_MISO_EN (w_SSPI_TEST_MISO_EN),
-//$$  	
-//$$  	.valid  ()
-//$$  ); 
+master_spi_mth_brd  master_spi_mth_brd__inst(
+	.clk     (base_sspi_clk), // 104MHz
+	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
+	
+	// control 
+	.i_trig_init    (w_SSPI_TEST_trig_init ), // 
+	.o_done_init    (w_SSPI_TEST_done_init ), // to be used for monitoring test mode 
+	.i_trig_frame   (w_SSPI_TEST_trig_frame), // 
+	.o_done_frame   (w_SSPI_TEST_done_frame), // 
+
+	// frame data 
+	.i_frame_data_C (w_SSPI_frame_data_C), // [ 5:0] // control  data on MOSI
+	.i_frame_data_A (w_SSPI_frame_data_A), // [ 9:0] // address  data on MOSI
+	.i_frame_data_D (w_SSPI_frame_data_D), // [15:0] // register data on MOSI
+	//
+	.o_frame_data_B (w_SSPI_frame_data_B), // [15:0] // readback data on MISO, low  16 bits
+	.o_frame_data_E (w_SSPI_frame_data_E), // [15:0] // readback data on MISO, high 16 bits
+	
+	// IO 
+	.o_SS_B    (w_SSPI_TEST_SS_B   ),
+	.o_MCLK    (w_SSPI_TEST_MCLK   ), // sclk master out 
+	.i_SCLK    (w_SSPI_TEST_SCLK   ), // sclk slave in
+	.o_MOSI    (w_SSPI_TEST_MOSI   ),
+	.i_MISO    (w_SSPI_TEST_MISO   ),
+	.i_MISO_EN (w_SSPI_TEST_MISO_EN),
+	
+	.valid  ()
+); 
 
 //}
 
