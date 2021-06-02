@@ -498,14 +498,14 @@ set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clo
 ## TODO: downclocking 400MHz 2.5ns ----////
 # --> 200MHz 5ns --> 175.01MHz 5.714ns --> 174.06MHz 5.745ns --> 169.49MHz 5.9ns  --> 166.67MHz 6.0ns 
 # --> 161.29MHz 6.2ns --> 158.73MHz 6.3ns --> 156.25MHz 6.4ns --> 152.91MHz 6.54ns
-create_clock -period 5.000 -name dac_clk      [get_ports i_B13D_L13P_MRCC]
-create_clock -period 5.000 -name dac0_dco_clk [get_ports i_B34D_L14P_SRCC]
-create_clock -period 5.000 -name dac1_dco_clk [get_ports i_B35D_L14N_SRCC]
+create_clock -period 5.000 -name dac_clk      [get_ports c_B13D_L13P_MRCC]
+create_clock -period 5.000 -name dac0_dco_clk [get_ports c_B34D_L14P_SRCC]
+create_clock -period 5.000 -name dac1_dco_clk [get_ports c_B35D_L14N_SRCC]
 
 
 ## setup diff termination for clock in ## LVDS_25 with LVCMOS25
-set_property DIFF_TERM TRUE [get_ports {i_B13D_L13P_MRCC}]
-set_property DIFF_TERM TRUE [get_ports {i_B13D_L13N_MRCC}]
+set_property DIFF_TERM TRUE [get_ports {c_B13D_L13P_MRCC}]
+set_property DIFF_TERM TRUE [get_ports {c_B13D_L13N_MRCC}]
 
 
 
