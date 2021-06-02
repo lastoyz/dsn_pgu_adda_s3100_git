@@ -48,13 +48,12 @@ set_property MARK_DEBUG true [get_nets w_SSPI_MISO_EN]
 
 #### LOC for mmcm pll ####
 
-##set_property LOC MMCME2_ADV_X0Y2 [get_cells -quiet [list ok_endpoint_wrapper_inst/okHI/mmcm0]]
-set_property LOC MMCME2_ADV_X0Y1 [get_cells -quiet [list clk_wiz_0_inst/inst/mmcm_adv_inst]]
+## set_property LOC MMCME2_ADV_X0Y1 [get_cells -quiet [list clk_wiz_0_inst/inst/mmcm_adv_inst]]
 
-##set_property LOC PLLE2_ADV_X0Y1 [get_cells clk_wiz_1_2_inst/inst/plle2_adv_inst]
+set_property LOC PLLE2_ADV_X0Y1 [get_cells clk_wiz_1_2_inst/inst/plle2_adv_inst]
 set_property LOC PLLE2_ADV_X0Y0 [get_cells clk_wiz_0_3_1_inst/inst/plle2_adv_inst]
-##set_property LOC PLLE2_ADV_X1Y3 [get_cells clk_wiz_1_2_1_inst/inst/plle2_adv_inst]
-##set_property LOC PLLE2_ADV_X1Y2 [get_cells clk_wiz_1_2_0_inst/inst/plle2_adv_inst]
+set_property LOC PLLE2_ADV_X1Y3 [get_cells clk_wiz_1_2_1_inst/inst/plle2_adv_inst]
+set_property LOC PLLE2_ADV_X1Y2 [get_cells clk_wiz_1_2_0_inst/inst/plle2_adv_inst]
 
 
 #### pblock ####
@@ -62,5 +61,71 @@ set_property LOC PLLE2_ADV_X0Y0 [get_cells clk_wiz_0_3_1_inst/inst/plle2_adv_ins
 create_pblock pblock_lan_endpnt_wrpr_inst
 add_cells_to_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] [get_cells -quiet [list lan_endpoint_wrapper_inst]]
 resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y0:CLOCKREGION_X1Y1}
+
+
+create_pblock pblock_dac
+add_cells_to_pblock [get_pblocks pblock_dac] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_*]]
+resize_pblock [get_pblocks pblock_dac] -add {CLOCKREGION_X1Y2:CLOCKREGION_X1Y3}
+
+
+create_pblock pblock_dac0_fifo_datinc
+add_cells_to_pblock [get_pblocks pblock_dac0_fifo_datinc] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst ]]
+resize_pblock [get_pblocks pblock_dac0_fifo_datinc] -add {RAMB36_X6Y22:RAMB36_X6Y23}
+#set_property PARENT pblock_dac0 [get_pblocks pblock_dac0_fifo_datinc]
+set_property PARENT pblock_dac [get_pblocks pblock_dac0_fifo_datinc]
+
+create_pblock pblock_dac0_fifo_dur
+add_cells_to_pblock [get_pblocks pblock_dac0_fifo_dur] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst]]
+resize_pblock [get_pblocks pblock_dac0_fifo_dur] -add {RAMB36_X6Y20:RAMB36_X6Y21}
+#set_property PARENT pblock_dac0 [get_pblocks pblock_dac0_fifo_dur]
+set_property PARENT pblock_dac [get_pblocks pblock_dac0_fifo_dur]
+
+#GRID_RANGES	RAMB36_X6Y20:RAMB36_X6Y24, RAMB18_X6Y40:RAMB18_X6Y49, DSP48_X5Y40:DSP48_X6Y49, SLICE_X92Y100:SLICE_X117Y124  for dac0
+create_pblock pblock_dac0
+#add_cells_to_pblock [get_pblocks pblock_dac0] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_idx_dac0__inst dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_rpt_dac0__inst]]
+add_cells_to_pblock [get_pblocks pblock_dac0] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_idx_dac0__inst]]
+resize_pblock [get_pblocks pblock_dac0] -add {SLICE_X92Y100:SLICE_X117Y124}
+set_property PARENT pblock_dac [get_pblocks pblock_dac0]
+
+#create_pblock pblock_dac0_cnt_dur
+#add_cells_to_pblock [get_pblocks pblock_dac0_cnt_dur] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_dur_dac0__inst]]
+#resize_pblock [get_pblocks pblock_dac0_cnt_dur] -add {SLICE_X102Y100:SLICE_X108Y119}
+#set_property PARENT pblock_dac0 [get_pblocks pblock_dac0_cnt_dur]
+
+#create_pblock pblock_dac0_dat_out
+#add_cells_to_pblock [get_pblocks pblock_dac0_dat_out] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_dat_out_dac0__inst]]
+#resize_pblock [get_pblocks pblock_dac0_dat_out] -add {SLICE_X104Y100:SLICE_X107Y119}
+#set_property PARENT pblock_dac0 [get_pblocks pblock_dac0_dat_out]
+
+
+create_pblock pblock_dac1_fifo_datinc
+add_cells_to_pblock [get_pblocks pblock_dac1_fifo_datinc] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst ]]
+resize_pblock [get_pblocks pblock_dac1_fifo_datinc] -add {RAMB36_X6Y27:RAMB36_X6Y28}
+#set_property PARENT pblock_dac1 [get_pblocks pblock_dac1_fifo_datinc]
+set_property PARENT pblock_dac [get_pblocks pblock_dac1_fifo_datinc]
+
+create_pblock pblock_dac1_fifo_dur
+add_cells_to_pblock [get_pblocks pblock_dac1_fifo_dur] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst]]
+resize_pblock [get_pblocks pblock_dac1_fifo_dur] -add {RAMB36_X6Y25:RAMB36_X6Y26}
+#set_property PARENT pblock_dac1 [get_pblocks pblock_dac1_fifo_dur]
+set_property PARENT pblock_dac [get_pblocks pblock_dac1_fifo_dur]
+
+#GRID_RANGES	RAMB36_X6Y25:RAMB36_X6Y29, RAMB18_X6Y50:RAMB18_X6Y59, DSP48_X5Y50:DSP48_X6Y59, SLICE_X92Y125:SLICE_X117Y149  for dac1
+create_pblock pblock_dac1
+#add_cells_to_pblock [get_pblocks pblock_dac1] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_idx_dac1__inst dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_rpt_dac1__inst]]
+add_cells_to_pblock [get_pblocks pblock_dac1] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_idx_dac1__inst]]
+resize_pblock [get_pblocks pblock_dac1] -add {SLICE_X92Y125:SLICE_X117Y149}
+set_property PARENT pblock_dac [get_pblocks pblock_dac1]
+
+#create_pblock pblock_dac1_cnt_dur
+#add_cells_to_pblock [get_pblocks pblock_dac1_cnt_dur] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_cnt_dur_dac1__inst]]
+#resize_pblock [get_pblocks pblock_dac1_cnt_dur] -add {SLICE_X102Y150:SLICE_X108Y169}
+#set_property PARENT pblock_dac1 [get_pblocks pblock_dac1_cnt_dur]
+
+#create_pblock pblock_dac1_dat_out
+#add_cells_to_pblock [get_pblocks pblock_dac1_dat_out] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_fcid_dat_out_dac1__inst]]
+#resize_pblock [get_pblocks pblock_dac1_dat_out] -add {SLICE_X104Y150:SLICE_X107Y169}
+#set_property PARENT pblock_dac1 [get_pblocks pblock_dac1_dat_out]
+
 
 

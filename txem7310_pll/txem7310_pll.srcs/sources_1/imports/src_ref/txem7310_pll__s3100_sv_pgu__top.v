@@ -842,13 +842,15 @@ wire clk_out4_10M ; // for XADC
 //
 wire clk_locked_pre;
 clk_wiz_0  clk_wiz_0_inst (
+	// MMCM
+	// VCO 700MHz
 	// Clock out ports  
 	.clk_out1_200M (clk_out1_200M ), // BUFG
 	.clk_out2_140M (clk_out2_140M ), // BUFG
 	// Status and control signals               
 	.locked(clk_locked_pre),
 	// Clock in ports
-	.clk_in1_p(sys_clkp),
+	.clk_in1_p(sys_clkp), // diff clock pin
 	.clk_in1_n(sys_clkn)
 );
 ////
@@ -975,6 +977,8 @@ wire clk_dac_clk_rst;
 //
 
 clk_wiz_1_2  clk_wiz_1_2_inst (
+	// PLL
+	// VCO 800MHz
 	// Clock out ports  
 	.clk_out1_200M      (clk_dac_out1_400M     ), // BUFGCE // same buf type for phase align 
 	.clk_out2_200M_0    (clk_dac_out2_400M_0   ), // BUFGCE // same buf type for phase align
@@ -990,21 +994,6 @@ clk_wiz_1_2  clk_wiz_1_2_inst (
 	.clk_in1_200M       (clk_dac_clk_in) // no buf
 );
 
-//clk_wiz_1_3  clk_wiz_1_3_inst (
-//	// Clock out ports  
-//	.clk_out1_400M      (clk_dac_out1_400M     ), // BUFGCE // same buf type for phase align 
-//	.clk_out2_400M_0    (clk_dac_out2_400M_0   ), // BUFGCE // same buf type for phase align
-//	.clk_out3_400M_180  (clk_dac_out3_400M_180 ), // BUFGCE // same buf type for phase align
-//	// clock en ports
-//	.clk_out1_400M_ce     (1'b1),
-//	.clk_out2_400M_0_ce   (1'b1),
-//	.clk_out3_400M_180_ce (1'b1),
-//	// Status and control signals     
-//	.resetn(clk_locked_pre & ~clk_dac_clk_rst),          
-//	.locked(clk_dac_locked),
-//	// Clock in ports
-//	.clk_in1_400M       (clk_dac_clk_in) // no buf
-//);
 
 //   
 wire dac0_dco_clk_out1_400M; // DAC0 update rate 
@@ -1032,6 +1021,11 @@ assign dac0_dco_clk_in = clk_dac_out2_400M_0; // for common clock
 assign dac1_dco_clk_in = clk_dac_out3_400M_180; // for common clock //$$ emulation for PN swap of DAC1_DCO
 //
 //
+
+//$$ for common 
+//$$ wire dac0_dco_clk_locked = clk_dac_locked;
+//$$ wire dac1_dco_clk_locked = clk_dac_locked;
+
 
 clk_wiz_1_2  clk_wiz_1_2_0_inst ( // VCO 1200MHz
 	// Clock out ports  
@@ -1065,37 +1059,6 @@ clk_wiz_1_2  clk_wiz_1_2_1_inst (
 	.clk_in1_200M      (dac1_dco_clk_in) // no buf // 0 deg
 );
 
-//  clk_wiz_1_3  clk_wiz_1_3_0_inst ( // VCO 1400MHz
-//  	// Clock out ports  
-//  	.clk_out1_400M     (dac0_dco_clk_out1_400M), // BUFGCE // //$$ for dac0_clk
-//  	.clk_out2_400M_0   (dac0_dco_clk_out5_400M), // BUFGCE // //$$ for DAC0_DCI
-//  	.clk_out3_400M_180 (),
-//  	// clock en ports
-//  	.clk_out1_400M_ce     (1'b1 & (~dac0_clk_dis) ),
-//  	.clk_out2_400M_0_ce   (1'b1 & (~dac0_clk_dis) ),
-//  	.clk_out3_400M_180_ce (1'b0),
-//  	// Status and control signals            
-//  	.resetn(clk_locked_pre & ~dac0_dco_clk_rst),          
-//  	.locked(dac0_dco_clk_locked),
-//  	// Clock in ports
-//  	.clk_in1_400M      (dac0_dco_clk_in) // no buf
-//  );
-//  //
-//  clk_wiz_1_3  clk_wiz_1_3_1_inst (
-//  	// Clock out ports  
-//  	.clk_out1_400M     (dac1_dco_clk_out5_400M), // BUFGCE // 0 deg for dci same phase with clk in //$$ for DAC1_DCI 
-//  	.clk_out2_400M_0   (),
-//  	.clk_out3_400M_180 (dac1_dco_clk_out1_400M), // BUFGCE // 180 deg for clock in PN swap //$$ for dac1_clk
-//  	// clock en ports
-//  	.clk_out1_400M_ce     (1'b1 & (~dac1_clk_dis) ),
-//  	.clk_out2_400M_0_ce   (1'b0),
-//  	.clk_out3_400M_180_ce (1'b1 & (~dac1_clk_dis) ),
-//  	// Status and control signals            
-//  	.resetn(clk_locked_pre & ~dac1_dco_clk_rst),          
-//  	.locked(dac1_dco_clk_locked),
-//  	// Clock in ports
-//  	.clk_in1_400M      (dac1_dco_clk_in) // no buf // 0 deg
-//  );
 
 //}
 
@@ -1134,31 +1097,40 @@ ODDR #(
 
 //}
 
-// clock locked 
+// clock locked //{
+
 //$$wire clk_locked = clk1_locked & clk2_locked & clk3_locked & clk4_locked
 //$$                  & clk_dac_locked & dac0_dco_clk_locked & dac1_dco_clk_locked;
 wire clk_locked = clk1_locked & clk2_locked & clk3_locked & clk4_locked;
+//}
 
-// system clock
+// system clock //{
 wire sys_clk	= clk_out3_10M;
+//}
 
-// system reset 
+// system reset //{
 wire reset_n	= clk_locked;
 wire reset		= ~reset_n;
+//}
 
-// other clocks 
+// other alias clocks //{
 wire mcs_clk    = clk3_out1_72M;
 wire lan_clk      = clk3_out2_144M;
 wire lan_io_clk  = clk3_out3_12M; // not used yet
 wire  mcs_eeprom_fifo_clk = clk3_out4_72M;
 //
 wire xadc_clk =  clk_out4_10M;
-
+//}
 
 // DAC clocks //{
 	
 wire dac0_clk   = dac0_dco_clk_out1_400M; 
 wire dac1_clk   = dac1_dco_clk_out1_400M; 
+
+wire dac0_reset_n = dac0_dco_clk_locked;
+wire dac1_reset_n = dac1_dco_clk_locked;
+
+
 
 // dac dci oddr output //{
 wire w_dac0_dci_oddr_out; // to DAC0_DCI
@@ -2634,13 +2606,14 @@ wire w_DAC0_DUR_PI_CK = c_fifo_wr;
 wire w_DAC1_DAT_INC_PI_CK = c_fifo_wr;
 wire w_DAC1_DUR_PI_CK = c_fifo_wr;
 
-BUFGMUX bufgmux_c_fifo_read_inst (
-	.O(c_fifo_wr), 
-	.I0(okClk), 
-	.I1(mcs_clk), //$$ mcs_clk vs clk3_out1_72M
-	.S(w_mcs_ep_pi_en) 
-); 
-//
+//$$  BUFGMUX bufgmux_c_fifo_read_inst (
+//$$  	.O(c_fifo_wr), 
+//$$  	.I0(okClk), 
+//$$  	.I1(mcs_clk), //$$ mcs_clk vs clk3_out1_72M
+//$$  	.S(w_mcs_ep_pi_en) 
+//$$  ); 
+
+assign c_fifo_wr = (w_mcs_ep_pi_en == 0)? okClk : mcs_clk ; //$$ remove BUFGMUX
 
 
 // for DACZ
@@ -2691,8 +2664,8 @@ assign w_DACX_WO[26] = 1'b0; // w_fifo_dac0_wrack;
 //wire dacx_ref_clk     = clk_dac_out1_400M;
 //wire dacx_ref_reset_n = clk_dac_locked;
 
-wire dac0_reset_n = dac0_dco_clk_locked;
-wire dac1_reset_n = dac1_dco_clk_locked;
+//wire dac0_reset_n = dac0_dco_clk_locked;
+//wire dac1_reset_n = dac1_dco_clk_locked;
 //
 wire [15:0] w_dac0_data_pin;
 wire [15:0] w_dac1_data_pin;
@@ -3075,35 +3048,35 @@ assign  w_SSPI_TEST_MISO_EN = w_SSPI_TEST_mode_en ;
 //  //$$assign  w_SSPI_TEST_MISO    = M0_SPI_MISO         ; //$$ must come from SSPI in test.
 
 
-//
-master_spi_mth_brd  master_spi_mth_brd__inst(
-	.clk     (base_sspi_clk), // 104MHz
-	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
-	
-	// control 
-	.i_trig_init    (w_SSPI_TEST_trig_init ), // 
-	.o_done_init    (w_SSPI_TEST_done_init ), // to be used for monitoring test mode 
-	.i_trig_frame   (w_SSPI_TEST_trig_frame), // 
-	.o_done_frame   (w_SSPI_TEST_done_frame), // 
+//$$  master_spi_mth_brd  master_spi_mth_brd__inst(
+//$$  	.clk     (base_sspi_clk), // 104MHz
+//$$  	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
+//$$  	
+//$$  	// control 
+//$$  	.i_trig_init    (w_SSPI_TEST_trig_init ), // 
+//$$  	.o_done_init    (w_SSPI_TEST_done_init ), // to be used for monitoring test mode 
+//$$  	.i_trig_frame   (w_SSPI_TEST_trig_frame), // 
+//$$  	.o_done_frame   (w_SSPI_TEST_done_frame), // 
+//$$  
+//$$  	// frame data 
+//$$  	.i_frame_data_C (w_SSPI_frame_data_C), // [ 5:0] // control  data on MOSI
+//$$  	.i_frame_data_A (w_SSPI_frame_data_A), // [ 9:0] // address  data on MOSI
+//$$  	.i_frame_data_D (w_SSPI_frame_data_D), // [15:0] // register data on MOSI
+//$$  	//
+//$$  	.o_frame_data_B (w_SSPI_frame_data_B), // [15:0] // readback data on MISO, low  16 bits
+//$$  	.o_frame_data_E (w_SSPI_frame_data_E), // [15:0] // readback data on MISO, high 16 bits
+//$$  	
+//$$  	// IO 
+//$$  	.o_SS_B    (w_SSPI_TEST_SS_B   ),
+//$$  	.o_MCLK    (w_SSPI_TEST_MCLK   ), // sclk master out 
+//$$  	.i_SCLK    (w_SSPI_TEST_SCLK   ), // sclk slave in
+//$$  	.o_MOSI    (w_SSPI_TEST_MOSI   ),
+//$$  	.i_MISO    (w_SSPI_TEST_MISO   ),
+//$$  	.i_MISO_EN (w_SSPI_TEST_MISO_EN),
+//$$  	
+//$$  	.valid  ()
+//$$  ); 
 
-	// frame data 
-	.i_frame_data_C (w_SSPI_frame_data_C), // [ 5:0] // control  data on MOSI
-	.i_frame_data_A (w_SSPI_frame_data_A), // [ 9:0] // address  data on MOSI
-	.i_frame_data_D (w_SSPI_frame_data_D), // [15:0] // register data on MOSI
-	//
-	.o_frame_data_B (w_SSPI_frame_data_B), // [15:0] // readback data on MISO, low  16 bits
-	.o_frame_data_E (w_SSPI_frame_data_E), // [15:0] // readback data on MISO, high 16 bits
-	
-	// IO 
-	.o_SS_B    (w_SSPI_TEST_SS_B   ),
-	.o_MCLK    (w_SSPI_TEST_MCLK   ), // sclk master out 
-	.i_SCLK    (w_SSPI_TEST_SCLK   ), // sclk slave in
-	.o_MOSI    (w_SSPI_TEST_MOSI   ),
-	.i_MISO    (w_SSPI_TEST_MISO   ),
-	.i_MISO_EN (w_SSPI_TEST_MISO_EN),
-	
-	.valid  ()
-); 
 //}
 
 //}
@@ -3170,53 +3143,52 @@ wire [7:0] w_board_status = 8'b0; // test
 //}
 
 
-//
-slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
-	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
-	.reset_n (reset_n),
-	
-	//// slave SPI pins:
-	.i_SPI_CS_B      (w_SSPI_CS_B   ),
-	.i_SPI_CLK       (w_SSPI_CLK    ),
-	.i_SPI_MOSI      (w_SSPI_MOSI   ),
-	.o_SPI_MISO      (w_SSPI_MISO   ),
-	.o_SPI_MISO_EN   (w_SSPI_MISO_EN), // MISO buffer control
-	
-	
-	//// endpoint port interface //{
-	
-	// wi
-	.o_port_wi_sadrs_h008    (w_M2_port_wi_sadrs_h008), 
-	
-	// wo
-	.i_port_wo_sadrs_h080    (w_M2_port_wo_sadrs_h080),
-	.i_port_wo_sadrs_h0E8    (w_M2_port_wo_sadrs_h0E8), 
-	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
-	
-	// ti
-	//.i_ck__sadrs_h11C  (base_hradc_clk),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
-
-	// to
-	//.i_ck__sadrs_h19C  (base_hradc_clk),    .i_port_to_sadrs_h19C  (w_M2_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
-
-	// pi
-	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M2),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M2), // [31:0]  // MEM_PI	0x24C	pi93 //$$
-	
-	// po
-	//.o_rd__sadrs_h2CC (w_MEM_PO_rd_sspi_M2),   .i_port_po_sadrs_h2CC (        w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
-	
-	//}
-	
-	//// loopback mode and timing control 
-	.i_loopback_en           (w_M2_loopback_en          ), //       // '1' for loopback
-	.i_slack_count_MISO      (w_M2_slack_count_MISO     ), // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
-	.i_MISO_one_bit_ahead_en (w_M2_MISO_one_bit_ahead_en), //       // '1' for MISO one bit ahead mode.  
-
-	.i_board_id      (w_slot_id     ), // [3:0] // slot ID
-	.i_board_status  (w_board_status), // [7:0] // board status
-
-	.valid    () 
-);
+//$$  slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
+//$$  	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
+//$$  	.reset_n (reset_n),
+//$$  	
+//$$  	//// slave SPI pins:
+//$$  	.i_SPI_CS_B      (w_SSPI_CS_B   ),
+//$$  	.i_SPI_CLK       (w_SSPI_CLK    ),
+//$$  	.i_SPI_MOSI      (w_SSPI_MOSI   ),
+//$$  	.o_SPI_MISO      (w_SSPI_MISO   ),
+//$$  	.o_SPI_MISO_EN   (w_SSPI_MISO_EN), // MISO buffer control
+//$$  	
+//$$  	
+//$$  	//// endpoint port interface //{
+//$$  	
+//$$  	// wi
+//$$  	.o_port_wi_sadrs_h008    (w_M2_port_wi_sadrs_h008), 
+//$$  	
+//$$  	// wo
+//$$  	.i_port_wo_sadrs_h080    (w_M2_port_wo_sadrs_h080),
+//$$  	.i_port_wo_sadrs_h0E8    (w_M2_port_wo_sadrs_h0E8), 
+//$$  	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
+//$$  	
+//$$  	// ti
+//$$  	//.i_ck__sadrs_h11C  (base_hradc_clk),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
+//$$  
+//$$  	// to
+//$$  	//.i_ck__sadrs_h19C  (base_hradc_clk),    .i_port_to_sadrs_h19C  (w_M2_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
+//$$  
+//$$  	// pi
+//$$  	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M2),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M2), // [31:0]  // MEM_PI	0x24C	pi93 //$$
+//$$  	
+//$$  	// po
+//$$  	//.o_rd__sadrs_h2CC (w_MEM_PO_rd_sspi_M2),   .i_port_po_sadrs_h2CC (        w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+//$$  	
+//$$  	//}
+//$$  	
+//$$  	//// loopback mode and timing control 
+//$$  	.i_loopback_en           (w_M2_loopback_en          ), //       // '1' for loopback
+//$$  	.i_slack_count_MISO      (w_M2_slack_count_MISO     ), // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
+//$$  	.i_MISO_one_bit_ahead_en (w_M2_MISO_one_bit_ahead_en), //       // '1' for MISO one bit ahead mode.  
+//$$  
+//$$  	.i_board_id      (w_slot_id     ), // [3:0] // slot ID
+//$$  	.i_board_status  (w_board_status), // [7:0] // board status
+//$$  
+//$$  	.valid    () 
+//$$  );
 
 
 //}
