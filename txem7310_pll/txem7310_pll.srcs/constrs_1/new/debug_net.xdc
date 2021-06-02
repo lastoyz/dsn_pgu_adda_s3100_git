@@ -11,6 +11,17 @@ set_property MARK_DEBUG true [get_nets {sub_timestamp_inst/r_global_time_idx[*]}
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_done_frame]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_trig_init]
 
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_init  ]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_init  ]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_frame ]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_frame ]
+
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_C[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_A[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_D[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_B[*]]
+set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_E[*]]
+
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_SS_B]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_MOSI]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_MCLK]
@@ -18,11 +29,6 @@ set_property MARK_DEBUG true [get_nets {sub_timestamp_inst/r_global_time_idx[*]}
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_MISO]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_SCLK]
 
-#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_C[*]]
-#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_A[*]]
-#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_D[*]]
-#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_B[*]]
-#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_E[*]]
 
 ##set_property MARK_DEBUG true [get_nets FPGA_M0_SPI_nCS0_ ]
 ##set_property MARK_DEBUG true [get_nets FPGA_M0_SPI_nCS1_ ]
@@ -41,11 +47,18 @@ set_property MARK_DEBUG true [get_nets {sub_timestamp_inst/r_global_time_idx[*]}
 
 ## ports for slave_spi_mth_brd__M2_inst 
 
-set_property MARK_DEBUG true [get_nets w_SSPI_CS_B   ]
-set_property MARK_DEBUG true [get_nets w_SSPI_CLK    ]
-set_property MARK_DEBUG true [get_nets w_SSPI_MOSI   ]
-set_property MARK_DEBUG true [get_nets w_SSPI_MISO   ]
-set_property MARK_DEBUG true [get_nets w_SSPI_MISO_EN]
+#set_property MARK_DEBUG true [get_nets w_SSPI_CS_B   ]
+#set_property MARK_DEBUG true [get_nets w_SSPI_CLK    ]
+#set_property MARK_DEBUG true [get_nets w_SSPI_MOSI   ]
+#set_property MARK_DEBUG true [get_nets w_SSPI_MISO   ]
+#set_property MARK_DEBUG true [get_nets w_SSPI_MISO_EN]
+
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_SPI_CS_B    ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_SPI_CLK     ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_SPI_MOSI    ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO    ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO_EN ]
+
 
 ##== LAN ==##
 

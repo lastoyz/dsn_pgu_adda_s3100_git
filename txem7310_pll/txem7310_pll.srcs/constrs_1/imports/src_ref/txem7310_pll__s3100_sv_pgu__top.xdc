@@ -462,9 +462,6 @@ create_generated_clock  -name base_sspi_clk   [get_pins  clk_wiz_2_2_inst/inst/p
 ####
 set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
 #  set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks sys_clk]
-#  set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks {okHI_clk okUH0}]
-#  set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks okHI_clk]
-#  set_clock_groups -asynchronous -group [get_clocks {okHI_clk okUH0}] -group [get_clocks sys_clk]
 
 
 ## for MCS
@@ -474,11 +471,13 @@ set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks la
 set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks sys_clk]
 set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks sys_clk]
 set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks mcs_clk]
+set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks mcs_clk]
 
 ## for base_sspi_clk
 set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks sys_clk            ]
 set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_clk            ]
 set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_eeprom_fifo_clk]
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks xadc_clk           ]
 
 
 ############################################################################
@@ -514,6 +513,9 @@ set_property DIFF_TERM TRUE [get_ports {c_B13D_L13N_MRCC}]
 #clk_wiz_1_3_0_inst
 #clk_wiz_1_3_1_inst
 
+## TODO: define clock - dac_test_clk // replace clk_out1_200M_clk_wiz_1_2
+create_generated_clock  -name dac_test_clk    [get_pins  clk_wiz_1_2_inst/inst/plle2_adv_inst/CLKOUT0]
+
 ## TODO: define clock - dac0_clk // replace clk_out1_400M_clk_wiz_1_0
 create_generated_clock  -name dac0_clk        [get_pins  clk_wiz_1_2_0_inst/inst/plle2_adv_inst/CLKOUT0]
 
@@ -527,13 +529,21 @@ create_generated_clock  -name dac1_clk        [get_pins  clk_wiz_1_2_1_inst/inst
 create_generated_clock  -name dac1_clk_180    [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT0]
 
 
-#  set_clock_groups -asynchronous -group [get_clocks {dac0_clk dac0_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac_test_clk] -group [get_clocks {sys_clk}]
+#
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_clk_180}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {sys_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {mcs_clk}]
 #
-#  set_clock_groups -asynchronous -group [get_clocks {dac1_clk dac1_clk_180}] -group [get_clocks {okHI_clk okUH0 mcs_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_clk_180] -group [get_clocks {sys_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_clk_180] -group [get_clocks {mcs_clk}]
+#
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_clk_180}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {sys_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {mcs_clk}]
+#
+set_clock_groups -asynchronous -group [get_clocks  dac1_clk_180] -group [get_clocks {sys_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_clk_180] -group [get_clocks {mcs_clk}]
 #
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks dac1_clk]
 #
@@ -619,7 +629,7 @@ set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io
 set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B16*]
 #
 #set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B16*]
-#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B16*]
+set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B16*]
 
 ## B34 common
 set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B34*]

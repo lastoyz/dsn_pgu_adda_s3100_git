@@ -3015,12 +3015,12 @@ wire  [15:0] w_SSPI_frame_data_E;
 assign w_MSPI_FLAG_WO[31:16] = w_SSPI_frame_data_E[15:0];
 assign w_MSPI_FLAG_WO[15: 0] = w_SSPI_frame_data_B[15:0]; //$$ w_SSPI_TEST_WO --> w_MSPI_FLAG_WO
 
-(* keep = "true" *) wire  w_SSPI_TEST_SS_B   ;
-(* keep = "true" *) wire  w_SSPI_TEST_MCLK   ;
-(* keep = "true" *) wire  w_SSPI_TEST_SCLK   ;
-(* keep = "true" *) wire  w_SSPI_TEST_MOSI   ;
-(* keep = "true" *) wire  w_SSPI_TEST_MISO   ;
-(* keep = "true" *) wire  w_SSPI_TEST_MISO_EN;
+wire  w_SSPI_TEST_SS_B   ;
+wire  w_SSPI_TEST_MCLK   ;
+wire  w_SSPI_TEST_SCLK   ;
+wire  w_SSPI_TEST_MOSI   ;
+wire  w_SSPI_TEST_MISO   ;
+wire  w_SSPI_TEST_MISO_EN;
 
 
 //  //$$ S3100: mapping SSPI_TEST to M0_SPI
