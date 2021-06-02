@@ -335,8 +335,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 	input  wire			i_B13_L11N_SRCC  , // # Y12  # MC2-76  ## M2_SPI_MOSI     
 	// # IO_B13_L12P_MRCC                , // # W11            ## clocks sys_clkp (*)
 	// # IO_B13_L12N_MRCC                , // # W12            ## clocks sys_clkn (*)
-	input  wire			 i_B13D_L13P_MRCC, // # V13  # MC2-71  ## CLKD_COUT_P                     
-	input  wire			 i_B13D_L13N_MRCC, // # V14  # MC2-73  ## CLKD_COUT_N                     
+	input  wire			 c_B13D_L13P_MRCC, // # V13  # MC2-71  ## CLKD_COUT_P                     
+	input  wire			 c_B13D_L13N_MRCC, // # V14  # MC2-73  ## CLKD_COUT_N                     
 	input  wire			 i_B13D_L14P_SRCC, // # U15  # MC2-64  ## TRIG_IN_P    //                 
 	input  wire			 i_B13D_L14N_SRCC, // # V15  # MC2-66  ## TRIG_IN_N    //                 
 	output wire			 o_B13_L15P      , // # T14  # MC2-68  ## TRIG_OUT_P   //$$ B13 LVCMOS25  
@@ -378,8 +378,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 	output wire  o_B34D_L12N_MRCC , // # W4    # MC1-79  ## DAC0_DAT_N0
 	output wire  o_B34D_L13P_MRCC , // # R4    # MC1-32  ## DAC0_DAT_P11
 	output wire  o_B34D_L13N_MRCC , // # T4    # MC1-34  ## DAC0_DAT_N11
-	input  wire  i_B34D_L14P_SRCC , // # T5    # MC1-27  ## DAC0_DCO_P
-	input  wire  i_B34D_L14N_SRCC , // # U5    # MC1-29  ## DAC0_DCO_N
+	input  wire  c_B34D_L14P_SRCC , // # T5    # MC1-27  ## DAC0_DCO_P
+	input  wire  c_B34D_L14N_SRCC , // # U5    # MC1-29  ## DAC0_DCO_N
 	output wire  o_B34D_L15P      , // # W6    # MC1-28  ## DAC0_DAT_N15 // swap
 	output wire  o_B34D_L15N      , // # W5    # MC1-30  ## DAC0_DAT_P15 // swap
 	output wire  o_B34D_L16P      , // # U6    # MC1-23  ## DAC0_DAT_N10 // swap
@@ -434,8 +434,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 	output wire  o_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // PN swap
 	output wire  o_B35D_L13P_MRCC , // # K4    # MC2-63  ## DAC1_DAT_N14 // PN swap
 	output wire  o_B35D_L13N_MRCC , // # J4    # MC2-65  ## DAC1_DAT_P14 // PN swap
-	input  wire  i_B35D_L14P_SRCC , // # L3    # MC2-38  ## DAC1_DCO_N   // PN swap
-	input  wire  i_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // PN swap
+	input  wire  c_B35D_L14P_SRCC , // # L3    # MC2-38  ## DAC1_DCO_N   // PN swap
+	input  wire  c_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // PN swap
 	input  wire  i_B35_L15P       , // # M1    # MC2-31  ## CLKD_STAT
 	input  wire  i_B35_L15N       , // # L1    # MC2-33  ## CLKD_REFM
 	output wire  o_B35D_L16P      , // # M3    # MC2-28  ## DAC1_DAT_P4
@@ -644,7 +644,7 @@ OBUF obuf__M2_SPI_TX_EN_SLAVE__inst (.O( o_B13_L11P_SRCC ), .I( M2_SPI_TX_EN_SLA
 //// CLKD
 wire   CLKD_COUT; // i
 wire c_CLKD_COUT;
-IBUFDS ibufds_CLKD_COUT_inst (.I(i_B13D_L13P_MRCC), .IB(i_B13D_L13N_MRCC), .O(c_CLKD_COUT) );
+IBUFDS ibufds_CLKD_COUT_inst (.I(c_B13D_L13P_MRCC), .IB(c_B13D_L13N_MRCC), .O(c_CLKD_COUT) );
 BUFG     bufg_CLKD_COUT_inst (.I(c_CLKD_COUT), .O(CLKD_COUT) ); //$$ use BUFG
 
 wire CLKD_SYNC = 1'b0; // o_B13_L7N // reserved
@@ -731,7 +731,7 @@ OBUFDS obufds_DAC0_DCI_inst 	(.O(o_B34D_L10P),      .OB(o_B34D_L10N),      .I(DA
 //
 wire          DAC0_DCO; // not used
 wire        c_DAC0_DCO;
-IBUFDS ibufds_DAC0_DCO_inst 	(.I(i_B34D_L14P_SRCC), .IB(i_B34D_L14N_SRCC), .O(c_DAC0_DCO) );
+IBUFDS ibufds_DAC0_DCO_inst 	(.I(c_B34D_L14P_SRCC), .IB(c_B34D_L14N_SRCC), .O(c_DAC0_DCO) );
 BUFG     bufg_DAC0_DCO_inst 	(.I(c_DAC0_DCO), .O(DAC0_DCO) ); 
 
 //// ADC
@@ -787,7 +787,7 @@ OBUFDS obufds_DAC1_DCI_inst 	(.O(o_B35D_L17P     ), .OB(o_B35D_L17N     ), .I( D
 //
 wire          DAC1_DCO; // not used
 wire        c_DAC1_DCO;
-IBUFDS ibufds_DAC1_DCO_inst 	(.I(i_B35D_L14P_SRCC), .IB(i_B35D_L14N_SRCC), .O(c_DAC1_DCO) );
+IBUFDS ibufds_DAC1_DCO_inst 	(.I(c_B35D_L14P_SRCC), .IB(c_B35D_L14N_SRCC), .O(c_DAC1_DCO) );
 //BUFG   bufg_DAC1_DCO_inst 	(.I(~c_DAC1_DCO), .O(DAC1_DCO) ); // PN swap
 BUFG     bufg_DAC1_DCO_inst 	(.I(c_DAC1_DCO), .O(DAC1_DCO) ); // PN swap by PLL 180 degree
 
@@ -3143,52 +3143,52 @@ wire [7:0] w_board_status = 8'b0; // test
 //}
 
 
-//$$  slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
-//$$  	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
-//$$  	.reset_n (reset_n),
-//$$  	
-//$$  	//// slave SPI pins:
-//$$  	.i_SPI_CS_B      (w_SSPI_CS_B   ),
-//$$  	.i_SPI_CLK       (w_SSPI_CLK    ),
-//$$  	.i_SPI_MOSI      (w_SSPI_MOSI   ),
-//$$  	.o_SPI_MISO      (w_SSPI_MISO   ),
-//$$  	.o_SPI_MISO_EN   (w_SSPI_MISO_EN), // MISO buffer control
-//$$  	
-//$$  	
-//$$  	//// endpoint port interface //{
-//$$  	
-//$$  	// wi
-//$$  	.o_port_wi_sadrs_h008    (w_M2_port_wi_sadrs_h008), 
-//$$  	
-//$$  	// wo
-//$$  	.i_port_wo_sadrs_h080    (w_M2_port_wo_sadrs_h080),
-//$$  	.i_port_wo_sadrs_h0E8    (w_M2_port_wo_sadrs_h0E8), 
-//$$  	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
-//$$  	
-//$$  	// ti
-//$$  	//.i_ck__sadrs_h11C  (base_hradc_clk),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
-//$$  
-//$$  	// to
-//$$  	//.i_ck__sadrs_h19C  (base_hradc_clk),    .i_port_to_sadrs_h19C  (w_M2_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
-//$$  
-//$$  	// pi
-//$$  	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M2),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M2), // [31:0]  // MEM_PI	0x24C	pi93 //$$
-//$$  	
-//$$  	// po
-//$$  	//.o_rd__sadrs_h2CC (w_MEM_PO_rd_sspi_M2),   .i_port_po_sadrs_h2CC (        w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
-//$$  	
-//$$  	//}
-//$$  	
-//$$  	//// loopback mode and timing control 
-//$$  	.i_loopback_en           (w_M2_loopback_en          ), //       // '1' for loopback
-//$$  	.i_slack_count_MISO      (w_M2_slack_count_MISO     ), // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
-//$$  	.i_MISO_one_bit_ahead_en (w_M2_MISO_one_bit_ahead_en), //       // '1' for MISO one bit ahead mode.  
-//$$  
-//$$  	.i_board_id      (w_slot_id     ), // [3:0] // slot ID
-//$$  	.i_board_status  (w_board_status), // [7:0] // board status
-//$$  
-//$$  	.valid    () 
-//$$  );
+slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
+	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
+	.reset_n (reset_n),
+	
+	//// slave SPI pins:
+	.i_SPI_CS_B      (w_SSPI_CS_B   ),
+	.i_SPI_CLK       (w_SSPI_CLK    ),
+	.i_SPI_MOSI      (w_SSPI_MOSI   ),
+	.o_SPI_MISO      (w_SSPI_MISO   ),
+	.o_SPI_MISO_EN   (w_SSPI_MISO_EN), // MISO buffer control
+	
+	
+	//// endpoint port interface //{
+	
+	// wi
+	.o_port_wi_sadrs_h008    (w_M2_port_wi_sadrs_h008), 
+	
+	// wo
+	.i_port_wo_sadrs_h080    (w_M2_port_wo_sadrs_h080),
+	.i_port_wo_sadrs_h0E8    (w_M2_port_wo_sadrs_h0E8), 
+	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
+	
+	// ti
+	//.i_ck__sadrs_h11C  (base_hradc_clk),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
+
+	// to
+	//.i_ck__sadrs_h19C  (base_hradc_clk),    .i_port_to_sadrs_h19C  (w_M2_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
+
+	// pi
+	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M2),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M2), // [31:0]  // MEM_PI	0x24C	pi93 //$$
+	
+	// po
+	//.o_rd__sadrs_h2CC (w_MEM_PO_rd_sspi_M2),   .i_port_po_sadrs_h2CC (        w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+	
+	//}
+	
+	//// loopback mode and timing control 
+	.i_loopback_en           (w_M2_loopback_en          ), //       // '1' for loopback
+	.i_slack_count_MISO      (w_M2_slack_count_MISO     ), // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
+	.i_MISO_one_bit_ahead_en (w_M2_MISO_one_bit_ahead_en), //       // '1' for MISO one bit ahead mode.  
+
+	.i_board_id      (w_slot_id     ), // [3:0] // slot ID
+	.i_board_status  (w_board_status), // [7:0] // board status
+
+	.valid    () 
+);
 
 
 //}
