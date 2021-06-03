@@ -79,7 +79,14 @@ set_property LOC PLLE2_ADV_X1Y2 [get_cells clk_wiz_1_2_0_inst/inst/plle2_adv_ins
 
 create_pblock pblock_lan_endpnt_wrpr_inst
 add_cells_to_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] [get_cells -quiet [list lan_endpoint_wrapper_inst]]
-resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y0:CLOCKREGION_X1Y1}
+##resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y0:CLOCKREGION_X1Y1}
+##resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y2:CLOCKREGION_X0Y4 CLOCKREGION_X1Y4:CLOCKREGION_X1Y4}
+resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y2:CLOCKREGION_X0Y4}
+
+
+create_pblock pblock_mth
+add_cells_to_pblock [get_pblocks pblock_mth] [get_cells -quiet [list  master_spi_mth_brd__inst slave_spi_mth_brd__M2_inst]]
+resize_pblock [get_pblocks pblock_mth] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y1}
 
 
 create_pblock pblock_dac
