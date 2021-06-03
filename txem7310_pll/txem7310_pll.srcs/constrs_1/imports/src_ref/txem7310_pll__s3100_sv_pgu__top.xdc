@@ -682,23 +682,23 @@ set_max_delay   -to [get_ports o_B34D_L12P_MRCC ] 16.060
 
 ## DAC1 data out : 400MHz case
 #
-## 14.380 --> 14.910 --> 15.910 --> 16.610
-set_max_delay   -to [get_ports o_B35D_L12P_MRCC ] 16.610
-set_max_delay   -to [get_ports o_B35D_L13P_MRCC ] 16.610
-set_max_delay   -to [get_ports o_B35D_L1P       ] 16.610
-set_max_delay   -to [get_ports o_B35D_L2P       ] 16.610
-set_max_delay   -to [get_ports o_B35D_L3P       ] 16.610
-set_max_delay   -to [get_ports o_B35D_L5P       ] 16.610
-set_max_delay   -to [get_ports o_B35D_L8P       ] 16.610
-set_max_delay   -to [get_ports o_B35D_L10P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L24P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L22P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L20P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L16P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L21P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L19P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L18P      ] 16.610
-set_max_delay   -to [get_ports o_B35D_L23P      ] 16.610
+## 14.380 --> 14.910 --> 15.910 --> 16.650
+set_max_delay   -to [get_ports o_B35D_L12P_MRCC ] 16.650
+set_max_delay   -to [get_ports o_B35D_L13P_MRCC ] 16.650
+set_max_delay   -to [get_ports o_B35D_L1P       ] 16.650
+set_max_delay   -to [get_ports o_B35D_L2P       ] 16.650
+set_max_delay   -to [get_ports o_B35D_L3P       ] 16.650
+set_max_delay   -to [get_ports o_B35D_L5P       ] 16.650
+set_max_delay   -to [get_ports o_B35D_L8P       ] 16.650
+set_max_delay   -to [get_ports o_B35D_L10P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L24P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L22P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L20P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L16P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L21P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L19P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L18P      ] 16.650
+set_max_delay   -to [get_ports o_B35D_L23P      ] 16.650
 #
 
 
