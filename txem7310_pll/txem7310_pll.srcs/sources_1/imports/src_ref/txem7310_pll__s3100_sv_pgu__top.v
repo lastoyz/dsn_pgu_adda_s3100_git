@@ -1105,7 +1105,7 @@ wire clk_locked = clk1_locked & clk2_locked & clk3_locked & clk4_locked;
 //}
 
 // system clock //{
-wire sys_clk	= clk_out3_10M;
+(* keep = "true" *) wire sys_clk	= clk_out3_10M;
 //}
 
 // system reset //{
@@ -1114,18 +1114,18 @@ wire reset		= ~reset_n;
 //}
 
 // other alias clocks //{
-wire mcs_clk    = clk3_out1_72M;
-wire lan_clk      = clk3_out2_144M;
-wire lan_io_clk  = clk3_out3_12M; // not used yet
-wire  mcs_eeprom_fifo_clk = clk3_out4_72M;
+(* keep = "true" *) wire mcs_clk    = clk3_out1_72M;
+(* keep = "true" *) wire lan_clk      = clk3_out2_144M;
+(* keep = "true" *) wire lan_io_clk  = clk3_out3_12M; // not used yet
+(* keep = "true" *) wire  mcs_eeprom_fifo_clk = clk3_out4_72M;
 //
-wire xadc_clk =  clk_out4_10M;
+(* keep = "true" *) wire xadc_clk =  clk_out4_10M;
 //}
 
 // DAC clocks //{
 	
-wire dac0_clk   = dac0_dco_clk_out1_400M; 
-wire dac1_clk   = dac1_dco_clk_out1_400M; 
+(* keep = "true" *) wire dac0_clk   = dac0_dco_clk_out1_400M; 
+(* keep = "true" *) wire dac1_clk   = dac1_dco_clk_out1_400M; 
 
 wire dac0_reset_n = dac0_dco_clk_locked;
 wire dac1_reset_n = dac1_dco_clk_locked;

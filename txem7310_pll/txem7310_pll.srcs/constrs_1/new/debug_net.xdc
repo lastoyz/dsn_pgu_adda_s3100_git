@@ -63,6 +63,16 @@ set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO_EN 
 ##== LAN ==##
 
 
+
+##== DAC Pattern Gen ==##
+
+set_property MARK_DEBUG true [get_nets {DAC0_DAT[*]}]
+set_property MARK_DEBUG true [get_nets {DAC1_DAT[*]}]
+
+set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac0]
+set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac1]
+
+
 ##------------------------------------------------------------------------##
 
 #### LOC for mmcm pll ####
