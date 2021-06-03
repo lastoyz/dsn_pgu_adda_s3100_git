@@ -658,44 +658,45 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o
 
 
 ## DAC0 data out : 400MHz case
-#
-set_max_delay   -to [get_ports o_B34D_L15P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L23P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L19P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L21P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L13P_MRCC ] 14.960
-set_max_delay   -to [get_ports o_B34D_L17P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L24P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L16P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L20P      ] 14.960
-set_max_delay   -to [get_ports o_B34D_L3P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L9P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L2P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L4P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L1P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L7P       ] 14.960
-set_max_delay   -to [get_ports o_B34D_L12P_MRCC ] 14.960
+# 
+## 14.960 --> 15.460
+set_max_delay   -to [get_ports o_B34D_L15P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L23P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L19P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L21P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L13P_MRCC ] 15.460
+set_max_delay   -to [get_ports o_B34D_L17P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L24P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L16P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L20P      ] 15.460
+set_max_delay   -to [get_ports o_B34D_L3P       ] 15.460
+set_max_delay   -to [get_ports o_B34D_L9P       ] 15.460
+set_max_delay   -to [get_ports o_B34D_L2P       ] 15.460
+set_max_delay   -to [get_ports o_B34D_L4P       ] 15.460
+set_max_delay   -to [get_ports o_B34D_L1P       ] 15.460
+set_max_delay   -to [get_ports o_B34D_L7P       ] 15.460
+set_max_delay   -to [get_ports o_B34D_L12P_MRCC ] 15.460
 #
 
 ## DAC1 data out : 400MHz case
 #
-## 14.380 --> 14.910
-set_max_delay   -to [get_ports o_B35D_L12P_MRCC ] 14.910
-set_max_delay   -to [get_ports o_B35D_L13P_MRCC ] 14.910
-set_max_delay   -to [get_ports o_B35D_L1P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L2P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L3P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L5P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L8P       ] 14.910
-set_max_delay   -to [get_ports o_B35D_L10P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L24P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L22P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L20P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L16P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L21P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L19P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L18P      ] 14.910
-set_max_delay   -to [get_ports o_B35D_L23P      ] 14.910
+## 14.380 --> 14.910 --> 15.910
+set_max_delay   -to [get_ports o_B35D_L12P_MRCC ] 15.910
+set_max_delay   -to [get_ports o_B35D_L13P_MRCC ] 15.910
+set_max_delay   -to [get_ports o_B35D_L1P       ] 15.910
+set_max_delay   -to [get_ports o_B35D_L2P       ] 15.910
+set_max_delay   -to [get_ports o_B35D_L3P       ] 15.910
+set_max_delay   -to [get_ports o_B35D_L5P       ] 15.910
+set_max_delay   -to [get_ports o_B35D_L8P       ] 15.910
+set_max_delay   -to [get_ports o_B35D_L10P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L24P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L22P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L20P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L16P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L21P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L19P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L18P      ] 15.910
+set_max_delay   -to [get_ports o_B35D_L23P      ] 15.910
 #
 
 
@@ -720,8 +721,10 @@ set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_in
 
 # TRIG_OUT
 # 400MHz clock out case
-set_max_delay   -to [get_ports o_B13_L15P ] 9.200
-set_max_delay   -to [get_ports o_B13_L15N ] 9.200
+##set_max_delay   -to [get_ports o_B13_L15P ] 9.200
+##set_max_delay   -to [get_ports o_B13_L15N ] 9.200
+set_max_delay   -to [get_ports o_B13_L15P ] 14.200
+set_max_delay   -to [get_ports o_B13_L15N ] 14.200
 #
 
 
@@ -795,8 +798,8 @@ set_min_delay   0.000  -from [get_ports i_B15_L8N]
 set_max_delay  18.000    -to [get_ports {{o_B15_L9P} {o_B15_L6P}}]  
 
 # LAN_SCLK   LAN_SSN_B LAN_SSAUX_B
-set_max_delay   6.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
-##set_max_delay   12.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
+##set_max_delay   6.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
+set_max_delay   12.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
 
 ## relax wires
 set_false_path -from [get_pins {lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__lan_wi_00/r_port_wi_00_reg[*]/C}] 
