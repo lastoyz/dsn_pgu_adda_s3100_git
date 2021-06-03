@@ -635,14 +635,14 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="MaxClockBufferCount">32</Option>
-          <Option Id="FsmExtraction">0</Option>
-          <Option Id="NoCombineLuts">1</Option>
-          <Option Id="RepFanoutThreshold">200</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="NoSrlExtract">1</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="ShregMinSize">5</Option>
           <Option Id="ReTiming">1</Option>
+          <Option Id="FsmExtraction">0</Option>
+          <Option Id="MaxClockBufferCount">32</Option>
+          <Option Id="NoCombineLuts">1</Option>
+          <Option Id="RepFanoutThreshold">200</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -653,12 +653,12 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="RepFanoutThreshold">400</Option>
           <Option Id="NoCombineLuts">1</Option>
+          <Option Id="RepFanoutThreshold">400</Option>
           <Option Id="ResourceSharing">2</Option>
           <Option Id="FsmExtraction">1</Option>
-          <Option Id="ShregMinSize">5</Option>
           <Option Id="KeepEquivalentRegisters">1</Option>
+          <Option Id="ShregMinSize">5</Option>
         </Step>
       </Strategy>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
@@ -712,11 +712,9 @@
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2017"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="impl_1_1" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Includes alternate algorithms for timing-driven optimization" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1_1" SynthRun="synth_1" IncludeInArchive="true">
+    <Run Id="impl_1_1" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Includes alternate algorithms for timing-driven optimization" WriteIncrSynthDcp="false" Dir="$PRUNDIR/impl_1_1" SynthRun="synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Performance_ExtraTimingOpt" Flow="Vivado Implementation 2017">
-          <Desc>Includes alternate algorithms for timing-driven optimization</Desc>
-        </StratHandle>
+        <StratHandle Name="Performance_ExtraTimingOpt" Flow="Vivado Implementation 2017"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -729,6 +727,33 @@
         </Step>
         <Step Id="route_design">
           <Option Id="Directive">1</Option>
+        </Step>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2017"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="impl_1_2" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Uses multiple algorithms for optimization, placement, and routing to get potentially better results." WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1_2" SynthRun="synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Performance_Explore" Flow="Vivado Implementation 2017">
+          <Desc>Uses multiple algorithms for optimization, placement, and routing to get potentially better results.</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design">
+          <Option Id="Directive">0</Option>
+        </Step>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design">
+          <Option Id="Directive">0</Option>
+        </Step>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design" EnableStepBool="1">
+          <Option Id="Directive">0</Option>
+        </Step>
+        <Step Id="route_design">
+          <Option Id="Directive">0</Option>
         </Step>
         <Step Id="post_route_phys_opt_design"/>
         <Step Id="write_bitstream"/>

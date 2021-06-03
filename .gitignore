@@ -60,3 +60,4 @@ txem7310_pll__PGU_S3100/txem7310_pll.srcs/_sdk/webtalk/
 txem7310_pll__PGU_S3100/txem7310_pll.srcs/_sdk/.sdk/
 txem7310_pll/txem7310_pll.hw/
 txem7310_pll/txem7310_pll.runs/
+txem7310_pll/txem7310_pll.cache/
