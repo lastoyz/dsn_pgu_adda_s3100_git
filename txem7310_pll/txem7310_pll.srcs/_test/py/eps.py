@@ -56,6 +56,7 @@ import socket
 
 HOST = '192.168.168.143'  # The server's hostname or IP address
 #HOST143 = '192.168.168.143'  # The server's hostname or IP address 
+#HOST127 = '192.168.100.127'  # The server's hostname or IP address 
 PORT = 5025               # The port used by the server
 #
 #TIMEOUT = 5.3 # socket timeout
@@ -450,7 +451,7 @@ class EPS_Dev:
 				break
 			
 		#GetWireOutValue
-		ret=EPS_Dev.GetWireOutValue(self,0x24)
+		ret=EPS_Dev.GetWireOutValue(self,0x34) ## 0x24 --> 0x34 # for S3100-PGU
 		data_B = ret & 0xFFFF
 		print('0x{:08X}'.format(data_B))
 
@@ -668,8 +669,10 @@ def eps_test():
 	## test ip 
 	#_host_,_port_ = set_host_ip_by_ping()
 	#
-	#_host_ = '192.168.100.127' # PGU test
-	_host_ = '192.168.168.143' # test
+
+	_host_ = '192.168.100.127' # PGU test
+	#_host_ = '192.168.168.143' # test
+
 	_port_ = 5025
 	#
 	print(_host_)

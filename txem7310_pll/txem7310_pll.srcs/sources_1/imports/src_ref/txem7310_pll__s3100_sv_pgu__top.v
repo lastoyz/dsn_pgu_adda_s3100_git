@@ -1691,7 +1691,9 @@ wire  EP_LAN_MISO ; // rev 20210105
 
 lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
-	.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020
+	.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020 or S3000-PGU // test S3100-PGU
+	// .MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100-CPU-BASE
+	// .MCS_IO_INST_OFFSET			(32'h_0007_0000), //$$ for S3100-PGU reserved
 	.FPGA_IMAGE_ID              (FPGA_IMAGE_ID)  
 ) lan_endpoint_wrapper_inst (
 	
