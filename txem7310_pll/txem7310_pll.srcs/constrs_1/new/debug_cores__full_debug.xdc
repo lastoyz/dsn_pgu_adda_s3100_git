@@ -1,3 +1,4 @@
+## full debug cores for DAC and MTH
 
 create_debug_core u_ila_0 ila
 set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
