@@ -127,6 +127,41 @@
 //
 
 
+/* sub modules */
+
+//// TODO:  sub_buf_16b //{
+module sub_buf_16b (
+	input wire clk    ,
+	input wire reset_n,
+	//
+	input  wire [15:0] i_buf, // 
+	output wire [15:0] o_buf  // 
+	);
+
+wire [15:0] w_DAT = i_buf;
+reg  [15:0] r_DAT; // located at IOB
+reg  [15:0] r_DAT_smp0;
+reg  [15:0] r_DAT_smp1;
+
+always @(posedge clk, negedge reset_n) begin 
+	if (!reset_n) begin 
+		r_DAT        <=  16'b0;
+		r_DAT_smp0   <=  16'b0;
+		r_DAT_smp1   <=  16'b0;
+	end
+	else begin
+		r_DAT        <= r_DAT_smp0;
+		r_DAT_smp0   <= r_DAT_smp1;
+		r_DAT_smp1   <= w_DAT     ;
+	end
+end
+
+assign o_buf = r_DAT;
+
+endmodule
+
+//}
+
 
 /* top module integration */
 module txem7310_pll__s3100_sv_pgu__top ( 
@@ -709,22 +744,54 @@ IBUF ibuf_DACx_SDO_inst   (.I(i_B13_L3N  ), .O(DACx_SDO   ) ); //
 
 //// DAC0
 (* keep = "true" *) wire [15:0] DAC0_DAT; 
-OBUFDS obufds_DAC0_DAT15_inst 	(.O(o_B34D_L15P     ), .OB(o_B34D_L15N     ), .I(~DAC0_DAT[15])	); // PN swap
-OBUFDS obufds_DAC0_DAT14_inst 	(.O(o_B34D_L23P     ), .OB(o_B34D_L23N     ), .I(~DAC0_DAT[14])	); // PN swap
-OBUFDS obufds_DAC0_DAT13_inst 	(.O(o_B34D_L19P     ), .OB(o_B34D_L19N     ), .I(~DAC0_DAT[13])	); // PN swap
-OBUFDS obufds_DAC0_DAT12_inst 	(.O(o_B34D_L21P     ), .OB(o_B34D_L21N     ), .I(~DAC0_DAT[12])	); // PN swap
-OBUFDS obufds_DAC0_DAT11_inst 	(.O(o_B34D_L13P_MRCC), .OB(o_B34D_L13N_MRCC), .I( DAC0_DAT[11])	);
-OBUFDS obufds_DAC0_DAT10_inst 	(.O(o_B34D_L16P     ), .OB(o_B34D_L16N     ), .I(~DAC0_DAT[10])	); // PN swap
-OBUFDS obufds_DAC0_DAT9__inst 	(.O(o_B34D_L17P     ), .OB(o_B34D_L17N     ), .I(~DAC0_DAT[9 ])	); // PN swap 
-OBUFDS obufds_DAC0_DAT8__inst 	(.O(o_B34D_L24P     ), .OB(o_B34D_L24N     ), .I(~DAC0_DAT[8 ])	); // PN swap 
-OBUFDS obufds_DAC0_DAT7__inst 	(.O(o_B34D_L20P     ), .OB(o_B34D_L20N     ), .I( DAC0_DAT[7 ])	);
-OBUFDS obufds_DAC0_DAT6__inst 	(.O(o_B34D_L3P      ), .OB(o_B34D_L3N      ), .I( DAC0_DAT[6 ])	);
-OBUFDS obufds_DAC0_DAT5__inst 	(.O(o_B34D_L9P      ), .OB(o_B34D_L9N      ), .I( DAC0_DAT[5 ])	);
-OBUFDS obufds_DAC0_DAT4__inst 	(.O(o_B34D_L2P      ), .OB(o_B34D_L2N      ), .I( DAC0_DAT[4 ])	);
-OBUFDS obufds_DAC0_DAT3__inst 	(.O(o_B34D_L4P      ), .OB(o_B34D_L4N      ), .I( DAC0_DAT[3 ])	);
-OBUFDS obufds_DAC0_DAT2__inst 	(.O(o_B34D_L1P      ), .OB(o_B34D_L1N      ), .I( DAC0_DAT[2 ])	);
-OBUFDS obufds_DAC0_DAT1__inst 	(.O(o_B34D_L7P      ), .OB(o_B34D_L7N      ), .I( DAC0_DAT[1 ])	);
-OBUFDS obufds_DAC0_DAT0__inst 	(.O(o_B34D_L12P_MRCC), .OB(o_B34D_L12N_MRCC), .I( DAC0_DAT[0 ])	);
+
+// IOB consideration
+wire        w_DAC0_DAT__IOB_clk;
+wire        w_DAC0_DAT__IOB_rst_n;
+wire [15:0] w_DAC0_DAT__IOB_in ;
+wire [15:0] w_DAC0_DAT__IOB_out;
+
+sub_buf_16b  sub_buf_16b__DAC0__inst (
+	.clk      (w_DAC0_DAT__IOB_clk  ),
+	.reset_n  (w_DAC0_DAT__IOB_rst_n),
+	//
+	.i_buf    (w_DAC0_DAT__IOB_in ), // [15:0]
+	.o_buf    (w_DAC0_DAT__IOB_out)  // [15:0]
+	);
+
+assign w_DAC0_DAT__IOB_in[15] = ~DAC0_DAT[15]; // PN swap
+assign w_DAC0_DAT__IOB_in[14] = ~DAC0_DAT[14]; // PN swap
+assign w_DAC0_DAT__IOB_in[13] = ~DAC0_DAT[13]; // PN swap
+assign w_DAC0_DAT__IOB_in[12] = ~DAC0_DAT[12]; // PN swap
+assign w_DAC0_DAT__IOB_in[11] =  DAC0_DAT[11]; 
+assign w_DAC0_DAT__IOB_in[10] = ~DAC0_DAT[10]; // PN swap
+assign w_DAC0_DAT__IOB_in[9 ] = ~DAC0_DAT[9 ]; // PN swap 
+assign w_DAC0_DAT__IOB_in[8 ] = ~DAC0_DAT[8 ]; // PN swap 
+assign w_DAC0_DAT__IOB_in[7 ] =  DAC0_DAT[7 ];
+assign w_DAC0_DAT__IOB_in[6 ] =  DAC0_DAT[6 ];
+assign w_DAC0_DAT__IOB_in[5 ] =  DAC0_DAT[5 ];
+assign w_DAC0_DAT__IOB_in[4 ] =  DAC0_DAT[4 ];
+assign w_DAC0_DAT__IOB_in[3 ] =  DAC0_DAT[3 ];
+assign w_DAC0_DAT__IOB_in[2 ] =  DAC0_DAT[2 ];
+assign w_DAC0_DAT__IOB_in[1 ] =  DAC0_DAT[1 ];
+assign w_DAC0_DAT__IOB_in[0 ] =  DAC0_DAT[0 ];
+
+OBUFDS obufds_DAC0_DAT15_inst 	(.O(o_B34D_L15P     ), .OB(o_B34D_L15N     ), .I(w_DAC0_DAT__IOB_out[15])	); // PN swap
+OBUFDS obufds_DAC0_DAT14_inst 	(.O(o_B34D_L23P     ), .OB(o_B34D_L23N     ), .I(w_DAC0_DAT__IOB_out[14])	); // PN swap
+OBUFDS obufds_DAC0_DAT13_inst 	(.O(o_B34D_L19P     ), .OB(o_B34D_L19N     ), .I(w_DAC0_DAT__IOB_out[13])	); // PN swap
+OBUFDS obufds_DAC0_DAT12_inst 	(.O(o_B34D_L21P     ), .OB(o_B34D_L21N     ), .I(w_DAC0_DAT__IOB_out[12])	); // PN swap
+OBUFDS obufds_DAC0_DAT11_inst 	(.O(o_B34D_L13P_MRCC), .OB(o_B34D_L13N_MRCC), .I(w_DAC0_DAT__IOB_out[11])	);
+OBUFDS obufds_DAC0_DAT10_inst 	(.O(o_B34D_L16P     ), .OB(o_B34D_L16N     ), .I(w_DAC0_DAT__IOB_out[10])	); // PN swap
+OBUFDS obufds_DAC0_DAT9__inst 	(.O(o_B34D_L17P     ), .OB(o_B34D_L17N     ), .I(w_DAC0_DAT__IOB_out[9 ])	); // PN swap 
+OBUFDS obufds_DAC0_DAT8__inst 	(.O(o_B34D_L24P     ), .OB(o_B34D_L24N     ), .I(w_DAC0_DAT__IOB_out[8 ])	); // PN swap 
+OBUFDS obufds_DAC0_DAT7__inst 	(.O(o_B34D_L20P     ), .OB(o_B34D_L20N     ), .I(w_DAC0_DAT__IOB_out[7 ])	);
+OBUFDS obufds_DAC0_DAT6__inst 	(.O(o_B34D_L3P      ), .OB(o_B34D_L3N      ), .I(w_DAC0_DAT__IOB_out[6 ])	);
+OBUFDS obufds_DAC0_DAT5__inst 	(.O(o_B34D_L9P      ), .OB(o_B34D_L9N      ), .I(w_DAC0_DAT__IOB_out[5 ])	);
+OBUFDS obufds_DAC0_DAT4__inst 	(.O(o_B34D_L2P      ), .OB(o_B34D_L2N      ), .I(w_DAC0_DAT__IOB_out[4 ])	);
+OBUFDS obufds_DAC0_DAT3__inst 	(.O(o_B34D_L4P      ), .OB(o_B34D_L4N      ), .I(w_DAC0_DAT__IOB_out[3 ])	);
+OBUFDS obufds_DAC0_DAT2__inst 	(.O(o_B34D_L1P      ), .OB(o_B34D_L1N      ), .I(w_DAC0_DAT__IOB_out[2 ])	);
+OBUFDS obufds_DAC0_DAT1__inst 	(.O(o_B34D_L7P      ), .OB(o_B34D_L7N      ), .I(w_DAC0_DAT__IOB_out[1 ])	);
+OBUFDS obufds_DAC0_DAT0__inst 	(.O(o_B34D_L12P_MRCC), .OB(o_B34D_L12N_MRCC), .I(w_DAC0_DAT__IOB_out[0 ])	);
 //
 wire          DAC0_DCI;
 OBUFDS obufds_DAC0_DCI_inst 	(.O(o_B34D_L10P),      .OB(o_B34D_L10N),      .I(DAC0_DCI)	); //
@@ -764,23 +831,55 @@ IOBUF iobuf_MEM_SIO_inst  (.IO(io_B34_L5N  ), .T(MEM_SIO_tri), .I(MEM_SIO_out ),
 
 //// DAC1 
 (* keep = "true" *) wire [15:0] DAC1_DAT;
+
+// IOB consideration
+wire        w_DAC1_DAT__IOB_clk;
+wire        w_DAC1_DAT__IOB_rst_n;
+wire [15:0] w_DAC1_DAT__IOB_in ;
+wire [15:0] w_DAC1_DAT__IOB_out;
+
+sub_buf_16b  sub_buf_16b__DAC1__inst (
+	.clk      (w_DAC1_DAT__IOB_clk  ),
+	.reset_n  (w_DAC1_DAT__IOB_rst_n),
+	//
+	.i_buf    (w_DAC1_DAT__IOB_in ), // [15:0]
+	.o_buf    (w_DAC1_DAT__IOB_out)  // [15:0]
+	);
+
+assign w_DAC1_DAT__IOB_in[15] = ~DAC1_DAT[15]; // PN swap
+assign w_DAC1_DAT__IOB_in[14] = ~DAC1_DAT[14]; // PN swap
+assign w_DAC1_DAT__IOB_in[13] = ~DAC1_DAT[13]; // PN swap
+assign w_DAC1_DAT__IOB_in[12] = ~DAC1_DAT[12]; // PN swap
+assign w_DAC1_DAT__IOB_in[11] = ~DAC1_DAT[11]; // PN swap
+assign w_DAC1_DAT__IOB_in[10] = ~DAC1_DAT[10]; // PN swap
+assign w_DAC1_DAT__IOB_in[9 ] = ~DAC1_DAT[9 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[8 ] = ~DAC1_DAT[8 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[7 ] =  DAC1_DAT[7 ];
+assign w_DAC1_DAT__IOB_in[6 ] =  DAC1_DAT[6 ];
+assign w_DAC1_DAT__IOB_in[5 ] =  DAC1_DAT[5 ];
+assign w_DAC1_DAT__IOB_in[4 ] =  DAC1_DAT[4 ];
+assign w_DAC1_DAT__IOB_in[3 ] =  DAC1_DAT[3 ];
+assign w_DAC1_DAT__IOB_in[2 ] =  DAC1_DAT[2 ];
+assign w_DAC1_DAT__IOB_in[1 ] =  DAC1_DAT[1 ];
+assign w_DAC1_DAT__IOB_in[0 ] =  DAC1_DAT[0 ];
+
 //
-OBUFDS obufds_DAC1_DAT15_inst 	(.O(o_B35D_L12P_MRCC), .OB(o_B35D_L12N_MRCC), .I(~DAC1_DAT[15])	); // PN swap
-OBUFDS obufds_DAC1_DAT14_inst 	(.O(o_B35D_L13P_MRCC), .OB(o_B35D_L13N_MRCC), .I(~DAC1_DAT[14])	); // PN swap
-OBUFDS obufds_DAC1_DAT13_inst 	(.O(o_B35D_L1P      ), .OB(o_B35D_L1N      ), .I(~DAC1_DAT[13])	); // PN swap
-OBUFDS obufds_DAC1_DAT12_inst 	(.O(o_B35D_L2P      ), .OB(o_B35D_L2N      ), .I(~DAC1_DAT[12])	); // PN swap
-OBUFDS obufds_DAC1_DAT11_inst 	(.O(o_B35D_L3P      ), .OB(o_B35D_L3N      ), .I(~DAC1_DAT[11])	); // PN swap
-OBUFDS obufds_DAC1_DAT10_inst 	(.O(o_B35D_L5P      ), .OB(o_B35D_L5N      ), .I(~DAC1_DAT[10])	); // PN swap
-OBUFDS obufds_DAC1_DAT9__inst 	(.O(o_B35D_L8P      ), .OB(o_B35D_L8N      ), .I(~DAC1_DAT[9 ])	); // PN swap
-OBUFDS obufds_DAC1_DAT8__inst 	(.O(o_B35D_L10P     ), .OB(o_B35D_L10N     ), .I(~DAC1_DAT[8 ])	); // PN swap
-OBUFDS obufds_DAC1_DAT7__inst 	(.O(o_B35D_L24P     ), .OB(o_B35D_L24N     ), .I( DAC1_DAT[7 ])	); 
-OBUFDS obufds_DAC1_DAT6__inst 	(.O(o_B35D_L22P     ), .OB(o_B35D_L22N     ), .I( DAC1_DAT[6 ])	); 
-OBUFDS obufds_DAC1_DAT5__inst 	(.O(o_B35D_L20P     ), .OB(o_B35D_L20N     ), .I( DAC1_DAT[5 ])	); 
-OBUFDS obufds_DAC1_DAT4__inst 	(.O(o_B35D_L16P     ), .OB(o_B35D_L16N     ), .I( DAC1_DAT[4 ])	); 
-OBUFDS obufds_DAC1_DAT3__inst 	(.O(o_B35D_L21P     ), .OB(o_B35D_L21N     ), .I( DAC1_DAT[3 ])	); 
-OBUFDS obufds_DAC1_DAT2__inst 	(.O(o_B35D_L19P     ), .OB(o_B35D_L19N     ), .I( DAC1_DAT[2 ])	); 
-OBUFDS obufds_DAC1_DAT1__inst 	(.O(o_B35D_L18P     ), .OB(o_B35D_L18N     ), .I( DAC1_DAT[1 ])	); 
-OBUFDS obufds_DAC1_DAT0__inst 	(.O(o_B35D_L23P     ), .OB(o_B35D_L23N     ), .I( DAC1_DAT[0 ])	); 
+OBUFDS obufds_DAC1_DAT15_inst 	(.O(o_B35D_L12P_MRCC), .OB(o_B35D_L12N_MRCC), .I(w_DAC1_DAT__IOB_out[15])	); // PN swap
+OBUFDS obufds_DAC1_DAT14_inst 	(.O(o_B35D_L13P_MRCC), .OB(o_B35D_L13N_MRCC), .I(w_DAC1_DAT__IOB_out[14])	); // PN swap
+OBUFDS obufds_DAC1_DAT13_inst 	(.O(o_B35D_L1P      ), .OB(o_B35D_L1N      ), .I(w_DAC1_DAT__IOB_out[13])	); // PN swap
+OBUFDS obufds_DAC1_DAT12_inst 	(.O(o_B35D_L2P      ), .OB(o_B35D_L2N      ), .I(w_DAC1_DAT__IOB_out[12])	); // PN swap
+OBUFDS obufds_DAC1_DAT11_inst 	(.O(o_B35D_L3P      ), .OB(o_B35D_L3N      ), .I(w_DAC1_DAT__IOB_out[11])	); // PN swap
+OBUFDS obufds_DAC1_DAT10_inst 	(.O(o_B35D_L5P      ), .OB(o_B35D_L5N      ), .I(w_DAC1_DAT__IOB_out[10])	); // PN swap
+OBUFDS obufds_DAC1_DAT9__inst 	(.O(o_B35D_L8P      ), .OB(o_B35D_L8N      ), .I(w_DAC1_DAT__IOB_out[9 ])	); // PN swap
+OBUFDS obufds_DAC1_DAT8__inst 	(.O(o_B35D_L10P     ), .OB(o_B35D_L10N     ), .I(w_DAC1_DAT__IOB_out[8 ])	); // PN swap
+OBUFDS obufds_DAC1_DAT7__inst 	(.O(o_B35D_L24P     ), .OB(o_B35D_L24N     ), .I(w_DAC1_DAT__IOB_out[7 ])	); 
+OBUFDS obufds_DAC1_DAT6__inst 	(.O(o_B35D_L22P     ), .OB(o_B35D_L22N     ), .I(w_DAC1_DAT__IOB_out[6 ])	); 
+OBUFDS obufds_DAC1_DAT5__inst 	(.O(o_B35D_L20P     ), .OB(o_B35D_L20N     ), .I(w_DAC1_DAT__IOB_out[5 ])	); 
+OBUFDS obufds_DAC1_DAT4__inst 	(.O(o_B35D_L16P     ), .OB(o_B35D_L16N     ), .I(w_DAC1_DAT__IOB_out[4 ])	); 
+OBUFDS obufds_DAC1_DAT3__inst 	(.O(o_B35D_L21P     ), .OB(o_B35D_L21N     ), .I(w_DAC1_DAT__IOB_out[3 ])	); 
+OBUFDS obufds_DAC1_DAT2__inst 	(.O(o_B35D_L19P     ), .OB(o_B35D_L19N     ), .I(w_DAC1_DAT__IOB_out[2 ])	); 
+OBUFDS obufds_DAC1_DAT1__inst 	(.O(o_B35D_L18P     ), .OB(o_B35D_L18N     ), .I(w_DAC1_DAT__IOB_out[1 ])	); 
+OBUFDS obufds_DAC1_DAT0__inst 	(.O(o_B35D_L23P     ), .OB(o_B35D_L23N     ), .I(w_DAC1_DAT__IOB_out[0 ])	); 
 //
 wire          DAC1_DCI ;
 OBUFDS obufds_DAC1_DCI_inst 	(.O(o_B35D_L17P     ), .OB(o_B35D_L17N     ), .I( DAC1_DCI  )	); // PN swap by PLL
@@ -1129,6 +1228,12 @@ wire reset		= ~reset_n;
 
 wire dac0_reset_n = dac0_dco_clk_locked;
 wire dac1_reset_n = dac1_dco_clk_locked;
+
+// for IOB registers
+assign w_DAC0_DAT__IOB_clk   = dac0_clk;
+assign w_DAC1_DAT__IOB_clk   = dac1_clk;
+assign w_DAC0_DAT__IOB_rst_n = reset_n;
+assign w_DAC1_DAT__IOB_rst_n = reset_n;
 
 
 
