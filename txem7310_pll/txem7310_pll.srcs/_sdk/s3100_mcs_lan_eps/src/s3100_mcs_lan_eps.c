@@ -307,7 +307,7 @@ int main(void)
 		
 			xil_printf(">> MAC and IP are set by EEPROM info. \r\n");
 			
-			//// update SID and BID into MCS_SETUP_WI @ WI11 --> wi19
+			//// update SID and BID into MCS_SETUP_WI @ WI11 --> wi19 ... ADRS__MCS_SETUP_WI
 			// WI11 :
 			//   bit [31:16] = board ID // 0000~9999, set from EEPROM via MCS
 			//   bit [10]    = select__L_LAN_on_FPGA_MD__H_LAN_on_BASE_BD // set from MCS
@@ -315,13 +315,13 @@ int main(void)
 			//   bit [8]     = w_con_fifo_path__L_sspi_H_lan              // set from MCS
 			//   bit [3:0]   = slot ID  // 00~99, set from EEPROM via MCS
 			//_test_write_mcs(">>> set BID and SID: \r\n", ADRS_PORT_WI_11_MHVSU, 
-			_test_write_mcs(">>> set BID and SID: \r\n", ADRS_PORT_WI_19, 
+			_test_write_mcs(">>> set BID and SID: \r\n", ADRS__MCS_SETUP_WI,
 				//(p_tmp_u8[0x0E]<<24) + (p_tmp_u8[0x0F]<<16) +  // BID
 				(decstr2data_u32(&p_tmp_u8[0x0C],4)<<16) + // BID
 				 decstr2data_u32(&p_tmp_u8[0x2C],2)        // SID
 				);
 			//_test_read_mcs (">>> get BID and SID: \r\n", ADRS_PORT_WI_11_MHVSU);
-			_test_read_mcs (">>> get BID and SID: \r\n", ADRS_PORT_WI_19);
+			_test_read_mcs (">>> get BID and SID: \r\n", ADRS__MCS_SETUP_WI);
 			
 			xil_printf(">> BID and SID are set by EEPROM info. \r\n");
 			
