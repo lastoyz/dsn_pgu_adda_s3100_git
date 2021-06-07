@@ -850,6 +850,17 @@ def eps_test():
 	print('{} = 0x{:04X}'.format('data_B', data_B))
 
 
+	## reset : for clearing SSPI test mode.
+	dev.ActivateTriggerIn(0x42, 0) # reset_trig
+	cnt_loop = 0
+	while True:
+		ret=dev.IsTriggered(0x62,0x00000001) # reset_done
+		cnt_loop += 1
+		if ret:
+			print('reset done !! @ ' + repr(cnt_loop))
+			break
+
+
 	##---- EPS OFF test ----##
 	
 	### scpi : ":EPS:EN OFF\n"

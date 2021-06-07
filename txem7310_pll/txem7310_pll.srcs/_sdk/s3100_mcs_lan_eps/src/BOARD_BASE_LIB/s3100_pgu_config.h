@@ -592,46 +592,6 @@ extern "C" {
 
 #ifdef _S3100_PGU_
 //
-// | Group | EP name       | MCS adrs   | type/index | Description                | contents (32-bit)              |
-// +=======+===============+============+=========================================+================================+
-// | TEST  | F_IMAGE_ID_WO | TBD        | wireout_20 | Return FPGA image ID.      | Image_ID[31:0]                 |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | TEST  | XADC_TEMP_WO  | TBD        | wireout_3A | Return XADC values.[mC]    | MON_TEMP[31:0]                 |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | TEST  | BRD_CON_WI    | TBD        | wire_in_03 | Control board from LAN.    | bit[ 0]=HW_reset               |
-// |       |               |            |            |                            | bit[ 8]=mcs_ep_po_enable       |
-// |       |               |            |            |                            | bit[ 9]=mcs_ep_pi_enable       |
-// |       |               |            |            |                            | bit[10]=mcs_ep_to_enable       |
-// |       |               |            |            |                            | bit[11]=mcs_ep_ti_enable       |
-// |       |               |            |            |                            | bit[12]=mcs_ep_wo_enable       |
-// |       |               |            |            |                            | bit[13]=mcs_ep_wi_enable       |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MCS   | MCS_SETUP_WI  | TBD        | wire_in_19 | Control board for MCS.     | bit[31:16]=board_id[15:0]      |
-// |       |               |            |            |                            | bit[10]=lan_on_base_enable     |
-// |       |               |            |            |                            | bit[ 9]=eeprom_on_tp_enable    |
-// |       |               |            |            |                            | bit[ 8]=eeprom_lan_enable      |
-// |       |               |            |            |                            | bit[ 3: 0]=slot_id             |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
-// |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
-// |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_34 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
-// |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
-// |       |               |            |            |                            | bit[1]=trigger_init            |
-// |       |               |            |            |                            | bit[2]=trigger_frame           |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_TO       | TBD        | trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
-// |       |               |            |            |                            | bit[1]=done_init               |
-// |       |               |            |            |                            | bit[2]=done_frame              |
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// +-------+---------------+------------+------------+----------------------------+--------------------------------+
-//
 #define EP_ADRS__FPGA_IMAGE_ID_WO   0x20  //$$ [TEST] FPGA_IMAGE_ID_WO //$$ S3100
 #define EP_ADRS__XADC_TEMP_WO       0x3A  //$$ [XADC] XADC_TEMP_WO     //$$ S3100
 #define EP_ADRS__TEST_CON_WI        0x01  //$$ [TEST] TEST_CON_WI      //$$ S3100
@@ -645,6 +605,12 @@ extern "C" {
 #define EP_ADRS__MSPI_FLAG_WO       0x34  //$$ [MSPI]  MSPI_FLAG_WO    //$$ S3100
 #define EP_ADRS__MSPI_TI            0x42  //$$ [MSPI]  MSPI_TI         //$$ S3100
 #define EP_ADRS__MSPI_TO            0x62  //$$ [MSPI]  MSPI_TO         //$$ S3100
+#define EP_ADRS__MEM_FDAT_WI        0x12  //$$ [MEM]  MEM_FDAT_WI      //$$ S3100
+#define EP_ADRS__MEM_WI             0x13  //$$ [MEM]  MEM_WI           //$$ S3100
+#define EP_ADRS__MEM_TI             0x53  //$$ [MEM]  MEM_TI           //$$ S3100
+#define EP_ADRS__MEM_TO             0x73  //$$ [MEM]  MEM_TO           //$$ S3100
+#define EP_ADRS__MEM_PI             0x93  //$$ [MEM]  MEM_PI           //$$ S3100
+#define EP_ADRS__MEM_PO             0xB3  //$$ [MEM]  MEM_PO           //$$ S3100
 //
 #define ADRS__FPGA_IMAGE_ID_WO      ( MCS_EP_BASE + (EP_ADRS__FPGA_IMAGE_ID_WO  <<4) )
 #define ADRS__XADC_TEMP_WO          ( MCS_EP_BASE + (EP_ADRS__XADC_TEMP_WO      <<4) )
@@ -659,6 +625,12 @@ extern "C" {
 #define ADRS__MSPI_FLAG_WO          ( MCS_EP_BASE + (EP_ADRS__MSPI_FLAG_WO      <<4) )
 #define ADRS__MSPI_TI               ( MCS_EP_BASE + (EP_ADRS__MSPI_TI           <<4) )
 #define ADRS__MSPI_TO               ( MCS_EP_BASE + (EP_ADRS__MSPI_TO           <<4) )
+#define ADRS__MEM_FDAT_WI           ( MCS_EP_BASE + (EP_ADRS__MEM_FDAT_WI       <<4) )
+#define ADRS__MEM_WI                ( MCS_EP_BASE + (EP_ADRS__MEM_WI            <<4) )
+#define ADRS__MEM_TI                ( MCS_EP_BASE + (EP_ADRS__MEM_TI            <<4) )
+#define ADRS__MEM_TO                ( MCS_EP_BASE + (EP_ADRS__MEM_TO            <<4) )
+#define ADRS__MEM_PI                ( MCS_EP_BASE + (EP_ADRS__MEM_PI            <<4) )
+#define ADRS__MEM_PO                ( MCS_EP_BASE + (EP_ADRS__MEM_PO            <<4) )
 //
 #endif
 
