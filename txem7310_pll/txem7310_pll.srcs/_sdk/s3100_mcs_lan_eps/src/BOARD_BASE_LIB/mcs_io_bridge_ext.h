@@ -3,14 +3,15 @@
 
 #include "xil_types.h"
 
-#include "s3100_cpu_config.h" //$$ board dependent
+//#include "s3100_cpu_config.h" //$$ board dependent : S3100-CPU-BASE
+#include "s3100_pgu_config.h" //$$ board dependent : S3100-PGU
 
 // macro for FPGA LAN end point access in  w5500.c
 #define _MCS_IO_BRDG_
 
 // MCS_EP_BASE control from pgu_cpu_config.h
 
-#define _MCS_DEBUG_
+// #define _MCS_DEBUG_ // not used
 
 
 //// common //{
@@ -199,14 +200,16 @@ u8 chk_all_zeros (u16 len_b16, u8 *p_data_b8);
 //}
 
 
-//// TODO: PGU-CPU functions ======== //{
-	
 // TODO: common
 //$$ new command for board GUI
 //$$ FPGA_IMAGE_ID `':FPGA:FID?'`
 //$$ FPGA_TEMP     `':FPGA:TMP?'`
-u32  pgu_read_fpga_image_id();
-u32  pgu_read_fpga_temperature();
+u32  read_fpga_image_id();
+u32  read_fpga_temperature();
+
+
+//// TODO: PGU-CPU functions ======== //{
+
 	
 // TODO: SPIO + AUX
 void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);

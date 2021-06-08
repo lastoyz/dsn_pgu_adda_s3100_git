@@ -55,38 +55,64 @@
 //   FRAME READ DATA  // [15:0]
 
 
-// ## TODO: S3100-PGU LAN-MCS endpoint address map
+// ## S3100-PGU LAN-MCS endpoint address map // GNDU --> PGU
 //
-// #define EP_ADRS__SW_BUILD_ID_WI     0x00  //$$ [TEST] SW_BUILD_ID_WI   
-// #define EP_ADRS__TEST_CON_WI        0x01  //$$ [TEST] TEST_CON_WI      
-//                                     0x02  //$$ [SSPI] SSPI_CON_WI      
-// #define EP_ADRS__BRD_CON_WI         0x03  //$$ [TEST] BRD_CON_WI       
-// #define EP_ADRS__MEM_FDAT_WI        0x12  //$$ [MEM]  MEM_FDAT_WI      
-// #define EP_ADRS__MEM_WI             0x13  //$$ [MEM]  MEM_WI           
-// #define EP_ADRS__MSPI_EN_CS_WI      0x16  //$$ [MSPI] MSPI_EN_CS_WI    
-// #define EP_ADRS__MSPI_CON_WI        0x17  //$$ [MSPI] MSPI_CON_WI      
-// #define EP_ADRS__MCS_SETUP_WI       0x19  //$$ [MCS]  MCS_SETUP_WI     
-// #define EP_ADRS__F_IMAGE_ID_WO      0x20  //$$ [TEST] F_IMAGE_ID_WO 
-// #define EP_ADRS__TEST_OUT_WO        0x21  //$$ [TEST] TEST_OUT_WO      
-// #define EP_ADRS__TIMESTAMP_WO       0x22  //$$ [TEST] TIMESTAMP_WO     
-//                                     0x23  //$$ [SSPI] SSPI_FLAG_WO
-// #define EP_ADRS__MSPI_FLAG_WO       0x24  //$$ [MSPI] MSPI_FLAG_WO     
-// #define EP_ADRS__XADC_TEMP_WO       0x3A  //$$ [XADC] XADC_TEMP_WO     
-// #define EP_ADRS__XADC_VOLT_WO       0x3B  //$$ [XADC] XADC_VOLT_WO     
-// #define EP_ADRS__TEST_TI            0x40  //$$ [TEST] TEST_TI          
-// #define EP_ADRS__MSPI_TI            0x42  //$$ [MSPI] MSPI_TI          
-// #define EP_ADRS__MEM_TI             0x53  //$$ [MEM]  MEM_TI           
-// #define EP_ADRS__TEST_TO            0x60  //$$ [TEST] TEST_TO          
-// #define EP_ADRS__MSPI_TO            0x62  //$$ [MSPI] MSPI_TO          
-// #define EP_ADRS__MEM_TO             0x73  //$$ [MEM]  MEM_TO           
-// #define EP_ADRS__MEM_PI             0x93  //$$ [MEM]  MEM_PI           
-// #define EP_ADRS__MEM_PO             0xB3  //$$ [MEM]  MEM_PO           
-//
-// | Group | EP name       | MCS adrs   | type/index | Description             | contents (32-bit)                 |
-// +=======+===============+============+======================================+===================================+
-// | TEST  | F_IMAGE_ID_WO | TBD        | wireout_20 | Return FPGA image ID.   | Image_ID[31:0]                    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | Group | EP name       | MCS adrs   | type/index | Description                | contents (32-bit)              |
+// +=======+===============+============+=========================================+================================+
+// | TEST  | F_IMAGE_ID_WO | TBD        | wireout_20 | Return FPGA image ID.      | Image_ID[31:0]                 | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_TEMP_WO  | TBD        | wireout_3A | Return XADC values.[mC]    | MON_TEMP[31:0]                 | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_CON_WI   | TBD        | wireout_01 | Control test logics.       | bit[0]=count1_reset            | 
+// |       |               |            |            |                            | bit[1]=count1_disable          |
+// |       |               |            |            |                            | bit[2]=count2_auto_increase    |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_OUT_WO   | TBD        | wireout_21 | Return test values.        | bit[15:8]=count2[7:0]          |
+// |       |               |            |            |                            | bit[ 7:0]=count1[7:0]          |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_TI       | TBD        | wireout_40 | Trigger test functions.    | bit[0]=trigger_count2_reset    |
+// |       |               |            |            |                            | bit[1]=trigger_count2_up       |
+// |       |               |            |            |                            | bit[2]=trigger_count2_down     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_TO       | TBD        | wireout_60 | Check if trigger is done.  | bit[ 0]=done_count1eq00        |
+// |       |               |            |            |                            | bit[ 1]=done_count1eq80        |
+// |       |               |            |            |                            | bit[16]=done_count2eqFF        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | BRD_CON_WI    | TBD        | wire_in_03 | Control board from LAN.    | bit[ 0]=HW_reset               | 
+// |       |               |            |            |                            | bit[ 8]=mcs_ep_po_enable       |
+// |       |               |            |            |                            | bit[ 9]=mcs_ep_pi_enable       |
+// |       |               |            |            |                            | bit[10]=mcs_ep_to_enable       |
+// |       |               |            |            |                            | bit[11]=mcs_ep_ti_enable       |
+// |       |               |            |            |                            | bit[12]=mcs_ep_wo_enable       |
+// |       |               |            |            |                            | bit[13]=mcs_ep_wi_enable       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MCS   | MCS_SETUP_WI  | TBD        | wire_in_19 | Control board for MCS.     | bit[31:16]=board_id[15:0]      | 
+// |       |               |            |            |                            | bit[10]=lan_on_base_enable     |
+// |       |               |            |            |                            | bit[ 9]=eeprom_on_tp_enable    |
+// |       |               |            |            |                            | bit[ 8]=eeprom_lan_enable      |
+// |       |               |            |            |                            | bit[ 3: 0]=slot_id             |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
+// |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
+// |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_34 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+// |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
+// |       |               |            |            |                            | bit[1]=trigger_init            |
+// |       |               |            |            |                            | bit[2]=trigger_frame           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_TO       | TBD        | trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
+// |       |               |            |            |                            | bit[1]=done_init               |
+// |       |               |            |            |                            | bit[2]=done_frame              |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+
 
 
 // ## TODO: S3100-PGU MTH slave SPI frame address map 
@@ -561,9 +587,10 @@ module txem7310_pll__s3100_sv_pgu__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A4_21_0521   //{
+// TODO: FPGA_IMAGE_ID = h_A4_21_0607   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
 
 //}
 
@@ -1328,10 +1355,10 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 
 // Wire In 		0x00 - 0x1F //{
 wire [31:0] ep00wire; //$$ [TEST] SW_BUILD_ID 
-wire [31:0] ep01wire; //$$ [TEST] TEST_CON 
+wire [31:0] ep01wire; //$$ [TEST] TEST_CON_WI 
 wire [31:0] ep02wire; //$$ [SSPI] SSPI_CON_WI         //$$ S3100 // to revise
 wire [31:0] ep03wire; //$$ [TEST] BRD_CON
-wire [31:0] ep04wire; //$$ [DACX] DACX_DAT_WI         // PGU
+wire [31:0] ep04wire; 
 wire [31:0] ep05wire; //$$ [DACX] DACX_WI             // PGU
 wire [31:0] ep06wire; //$$ [CLKD] CLKD_WI             // PGU
 wire [31:0] ep07wire; //$$ [SPIO] SPIO_WI             // PGU
@@ -1362,11 +1389,11 @@ wire [31:0] ep1Fwire; //
 //}
 
 // Wire Out 	0x20 - 0x3F //{
-wire [31:0] ep20wire;         //$$ [TEST] FPGA_IMAGE_ID       // PGU
-wire [31:0] ep21wire;         //$$ [TEST] TEST_OUT            // PGU
+wire [31:0] ep20wire;         //$$ [TEST] F_IMAGE_ID_WO       // PGU
+wire [31:0] ep21wire;         //$$ [TEST] TEST_OUT_WO         // PGU
 wire [31:0] ep22wire;         //$$ [TEST] TIMESTAMP_WO        // PGU
 wire [31:0] ep23wire;         //$$ [TEST] TEST_IO_MON         // PGU
-wire [31:0] ep24wire;         //$$ [DACX] DACX_DAT_WO         // PGU
+wire [31:0] ep24wire = 32'b0; //
 wire [31:0] ep25wire;         //$$ [DACX] DACX_WO             // PGU
 wire [31:0] ep26wire;         //$$ [CLKD] CLKD_WO             // PGU
 wire [31:0] ep27wire;         //$$ [SPIO] SPIO_WO             // PGU
@@ -1471,8 +1498,8 @@ wire ep80wr; wire [31:0] ep80pipe;
 wire ep81wr; wire [31:0] ep81pipe;
 wire ep82wr; wire [31:0] ep82pipe;
 wire ep83wr; wire [31:0] ep83pipe;
-wire ep84wr; wire [31:0] ep84pipe; //$$ [DACX] DAC0_DAT_PI
-wire ep85wr; wire [31:0] ep85pipe; //$$ [DACX] DAC1_DAT_PI
+wire ep84wr; wire [31:0] ep84pipe;
+wire ep85wr; wire [31:0] ep85pipe;
 wire ep86wr; wire [31:0] ep86pipe; //$$ [DACZ] DAC0_DAT_INC_PI
 wire ep87wr; wire [31:0] ep87pipe; //$$ [DACZ] DAC0_DUR_PI 
 wire ep88wr; wire [31:0] ep88pipe; //$$ [DACZ] DAC1_DAT_INC_PI
@@ -1691,9 +1718,9 @@ wire  EP_LAN_MISO ; // rev 20210105
 
 lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
-	.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020 or S3000-PGU // test S3100-PGU
+	//.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020 or S3000-PGU
 	// .MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100-CPU-BASE
-	// .MCS_IO_INST_OFFSET			(32'h_0007_0000), //$$ for S3100-PGU reserved
+	.MCS_IO_INST_OFFSET			(32'h_0007_0000), //$$ for S3100-PGU
 	.FPGA_IMAGE_ID              (FPGA_IMAGE_ID)  
 ) lan_endpoint_wrapper_inst (
 	
@@ -2072,11 +2099,11 @@ assign w_port_wo_22_1 = (w_mcs_ep_wo_en)? w_TIMESTAMP_WO : 32'hACAC_ACAC;
 //}
 
 // TEST counter end-point //{
-wire [31:0] w_TEST_CON = (w_mcs_ep_wi_en)? w_port_wi_01_1 : ep01wire;
+wire [31:0] w_TEST_CON_WI = (w_mcs_ep_wi_en)? w_port_wi_01_1 : ep01wire;
 //
-wire [31:0] w_TEST_OUT;
-assign ep21wire = (!w_mcs_ep_wo_en)? w_TEST_OUT : 32'hACAC_ACAC; // TEST_OUT
-assign w_port_wo_21_1 = (w_mcs_ep_wo_en)? w_TEST_OUT : 32'hACAC_ACAC;
+wire [31:0] w_TEST_OUT_WO;
+assign ep21wire = (!w_mcs_ep_wo_en)? w_TEST_OUT_WO : 32'hACAC_ACAC; // TEST_OUT
+assign w_port_wo_21_1 = (w_mcs_ep_wo_en)? w_TEST_OUT_WO : 32'hACAC_ACAC;
 //
 wire [31:0] w_TEST_TI = (w_mcs_ep_ti_en)? w_port_ti_40_1 : ep40trig;
 //
@@ -2247,22 +2274,22 @@ wire [31:0] w_DACZ_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_48_1 : ep48trig;
 // DACX_DAT_WO @ ep24wire
 // DACX_DAT_TI @ ep44trig
 
-wire [31:0] w_DACX_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_04_1 : ep04wire; 
+//$$wire [31:0] w_DACX_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_04_1 : ep04wire; 
 //
-wire [31:0] w_DACX_DAT_WO;
-assign ep24wire = (!w_mcs_ep_wo_en)? w_DACX_DAT_WO : 32'hACAC_ACAC; 
-assign w_port_wo_24_1 = (w_mcs_ep_wo_en)? w_DACX_DAT_WO : 32'hACAC_ACAC;
+//$$wire [31:0] w_DACX_DAT_WO;
+//$$assign ep24wire = (!w_mcs_ep_wo_en)? w_DACX_DAT_WO : 32'hACAC_ACAC; 
+//$$assign w_port_wo_24_1 = (w_mcs_ep_wo_en)? w_DACX_DAT_WO : 32'hACAC_ACAC;
 //
-wire [31:0] w_DACX_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_44_1 : ep44trig; // remove
+//$$wire [31:0] w_DACX_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_44_1 : ep44trig; // remove
 
 
 // DAC0_DAT_PI @ ep84pipe // pipe in for DAC0 FIFO 
 // DAC1_DAT_PI @ ep85pipe // pipe in for DAC1 FIFO 
-
-wire [31:0] w_DAC0_DAT_PI    = (w_mcs_ep_pi_en)? w_port_pi_84_1 : ep84pipe;
-wire        w_DAC0_DAT_PI_WR = (w_mcs_ep_pi_en)? w_wr_84_1 : ep84wr  ;
-wire [31:0] w_DAC1_DAT_PI    = (w_mcs_ep_pi_en)? w_port_pi_85_1 : ep85pipe;
-wire        w_DAC1_DAT_PI_WR = (w_mcs_ep_pi_en)? w_wr_85_1 : ep85wr  ;
+//$$
+//$$wire [31:0] w_DAC0_DAT_PI    = (w_mcs_ep_pi_en)? w_port_pi_84_1 : ep84pipe;
+//$$wire        w_DAC0_DAT_PI_WR = (w_mcs_ep_pi_en)? w_wr_84_1 : ep84wr  ;
+//$$wire [31:0] w_DAC1_DAT_PI    = (w_mcs_ep_pi_en)? w_port_pi_85_1 : ep85pipe;
+//$$wire        w_DAC1_DAT_PI_WR = (w_mcs_ep_pi_en)? w_wr_85_1 : ep85wr  ;
 
 
 // 'DAC0_DAT_INC_PI'    : 0x86, ##$$ new for DACZ CID style // data b16 + inc b16
@@ -2341,12 +2368,12 @@ wire        autocount2;
 // assign //{
 
 // Counter 1:
-assign reset1     = w_TEST_CON[0]; 
-assign disable1   = w_TEST_CON[1]; 
-assign autocount2 = w_TEST_CON[2]; 
+assign reset1     = w_TEST_CON_WI[0]; 
+assign disable1   = w_TEST_CON_WI[1]; 
+assign autocount2 = w_TEST_CON_WI[2]; 
 //
-assign w_TEST_OUT[15:0] = {count2[7:0], count1[7:0]}; 
-assign w_TEST_OUT[31:16] = 16'b0; 
+assign w_TEST_OUT_WO[15:0] = {count2[7:0], count1[7:0]}; 
+assign w_TEST_OUT_WO[31:16] = 16'b0; 
 // Counter 2:
 assign reset2     = w_TEST_TI[0];
 assign up2        = w_TEST_TI[1];
@@ -2695,10 +2722,10 @@ wire [31:0] w_wire_in__dacz_data = w_DACZ_DAT_WI;
 wire [31:0] w_wire_out_dacz_data;
 assign w_DACZ_DAT_WO = w_wire_out_dacz_data;
 
-wire [31:0] w_trig_dacx_ctrl     = w_DACX_DAT_TI; // to remove
-wire [31:0] w_wire_in__dacx_data = w_DACX_DAT_WI; // to remove
-wire [31:0] w_wire_out_dacx_data = 32'b0;         // to remove
-assign w_DACX_DAT_WO = w_wire_out_dacx_data;      // to remove
+//$$wire [31:0] w_trig_dacx_ctrl     = w_DACX_DAT_TI; // to remove
+//$$wire [31:0] w_wire_in__dacx_data = w_DACX_DAT_WI; // to remove
+//$$wire [31:0] w_wire_out_dacx_data = 32'b0;         // to remove
+//$$assign w_DACX_DAT_WO = w_wire_out_dacx_data;      // to remove
 
 // note clock mux
 // BUFGMUX in https://www.xilinx.com/support/documentation/user_guides/ug472_7Series_Clocking.pdf

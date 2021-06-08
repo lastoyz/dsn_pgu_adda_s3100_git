@@ -76,6 +76,8 @@ ss = None # socket
 ## command strings ##############################################################
 cmd_str__IDN      = b'*IDN?\n'
 cmd_str__RST      = b'*RST\n'
+cmd_str__FPGA_FID = b':FPGA:FID?\n'
+cmd_str__FPGA_TMP = b':FPGA:TMP?\n'
 cmd_str__EPS_EN   = b':EPS:EN'
 cmd_str__EPS_WMI  = b':EPS:WMI'
 cmd_str__EPS_WMO  = b':EPS:WMO'
@@ -743,7 +745,23 @@ def eps_test():
 	dev.UpdateWireOuts()
 	ret=dev.GetWireOutValue(0x20)
 	print('0x{:08X}'.format(ret))
+
+
+	##---- FPGA FID,TMP test ----##
+	print('\n>>> {} : {}'.format('Test',cmd_str__FPGA_FID))
+	rsp = scpi_comm_resp_ss(ss, cmd_str__FPGA_FID)
+	print('string rcvd: ' + repr(rsp))
 	
+	print('\n>>> {} : {}'.format('Test',cmd_str__FPGA_TMP))
+	rsp = scpi_comm_resp_ss(ss, cmd_str__FPGA_TMP)
+	print('string rcvd: ' + repr(rsp))
+	# assume hex decimal response: #HF3190306<NL>
+	rsp = rsp.decode()
+	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
+	tmp_mC = int(rsp,16) # convert hex into int
+	print('> FPGA temperature = {:8.3f} [C]'.format(tmp_mC/1000))
+	
+
 	##---- EPS  trigger test ----##
 	print('\n>>> {} : {}'.format('Test','EPS triggers'))
 
@@ -830,6 +848,17 @@ def eps_test():
 	print('{} = 0x{:03X}'.format('data_A', data_A))
 	print('{} = 0x{:04X}'.format('data_D', data_D))
 	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+
+	## reset : for clearing SSPI test mode.
+	dev.ActivateTriggerIn(0x42, 0) # reset_trig
+	cnt_loop = 0
+	while True:
+		ret=dev.IsTriggered(0x62,0x00000001) # reset_done
+		cnt_loop += 1
+		if ret:
+			print('reset done !! @ ' + repr(cnt_loop))
+			break
 
 
 	##---- EPS OFF test ----##

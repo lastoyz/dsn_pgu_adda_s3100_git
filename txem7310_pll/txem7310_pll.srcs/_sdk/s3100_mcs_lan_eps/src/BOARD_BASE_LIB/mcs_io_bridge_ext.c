@@ -1186,70 +1186,35 @@ u32  eeprom_send_frame_ep (u32 MEM_WI_b32, u32 MEM_FDAT_WI_b32) {
 //  	## // wire [31:0] w_MEM_TO; assign ep73trig = w_MEM_TO; assign ep73ck = sys_clk;
 //  	## // wire [31:0] w_MEM_PI = ep93pipe; wire w_MEM_PI_wr = ep93wr; 
 //  	## // wire [31:0] w_MEM_PO; assign epB3pipe = w_MEM_PO; wire w_MEM_PO_rd = epB3rd; 	
-//  //$$ same endpoints for EXT-CMU
-//  
 
 	xil_printf(">>>>>> eeprom_send_frame_ep  \r\n");
 	u32 ret;
 	u32 cnt_loop;
 	
-//  	print('{} = 0x{:08X}'.format('MEM_WI', MEM_WI))
-//  	dev.SetWireInValue(0x13,MEM_WI,0xFFFFFFFF) # (ep,val,mask)
-	write_mcs_ep_wi(MCS_EP_BASE, 0x13, MEM_WI_b32, 0xFFFFFFFF); // adrs_base, EP_offset_EP, data, mask
-//  	#dev.UpdateWireIns()	
-	xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_WI_b32, 0x13);
-//  	
-//  	print('{} = 0x{:08X}'.format('MEM_FDAT_WI', MEM_FDAT_WI))
-//  	dev.SetWireInValue(0x12,MEM_FDAT_WI,0xFFFFFFFF) # (ep,val,mask)
-	write_mcs_ep_wi(MCS_EP_BASE, 0x12, MEM_FDAT_WI_b32, 0xFFFFFFFF); // adrs_base, EP_offset_EP, data, mask
-//  	dev.UpdateWireIns()	
-	xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_FDAT_WI_b32, 0x12);
-//  	
-//  	# clear TO 
-//  	dev.UpdateTriggerOuts()
-//  	ret=dev.GetTriggerOutVector(0x73)
-	ret = read_mcs_ep_to(MCS_EP_BASE, 0x73, 0xFFFFFFFF);
-//  	print('{} = 0x{:08X}'.format('ret', ret))
-	xil_printf("read_mcs_ep_to: 0x%08X @ 0x%02X \r\n", ret, 0x73);
-//  
-//  
-//  	# act TI 
-//  	dev.ActivateTriggerIn(0x53, 2)	## (ep, loc)
-	activate_mcs_ep_ti(MCS_EP_BASE, 0x53, 2);
-	xil_printf("activate_mcs_ep_ti: loc %d @ 0x%02X \r\n", 2, 0x53);
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MEM_WI, MEM_WI_b32, 0xFFFFFFFF); // adrs_base, EP_offset_EP, data, mask
+	xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_WI_b32, EP_ADRS__MEM_WI);
 
-//  	
-//  	# check frame done
-//  	cnt_loop = 0;
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MEM_FDAT_WI, MEM_FDAT_WI_b32, 0xFFFFFFFF); // adrs_base, EP_offset_EP, data, mask
+	xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_FDAT_WI_b32, EP_ADRS__MEM_FDAT_WI);
+
+	//  	# clear TO
+	ret = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__MEM_TO, 0xFFFFFFFF);
+	xil_printf("read_mcs_ep_to: 0x%08X @ 0x%02X \r\n", ret, EP_ADRS__MEM_TO);
+
+	//  	# act TI
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__MEM_TI, 2);
+	xil_printf("activate_mcs_ep_ti: loc %d @ 0x%02X \r\n", 2, EP_ADRS__MEM_TI);
+
 	cnt_loop = 0;
-//  	while 1:
 	while (1) {
-//  		# First, query all XEM Trigger Outs.
-//  		dev.UpdateTriggerOuts()
-//  		# check trigger out //$$  0x01 w_MEM_TO[0]  or  0x04 w_MEM_TO[2] 
-//  		if dev.IsTriggered(0x73, 0x04) == True: # // (ep, mask)
-		ret = is_triggered_mcs_ep_to(MCS_EP_BASE, 0x73, 0x04);
+		ret = is_triggered_mcs_ep_to(MCS_EP_BASE, EP_ADRS__MEM_TO, 0x04);
 		if (ret==1) {
-			xil_printf("is_triggered_mcs_ep_to: 0x%08X @ 0x%02X \r\n", ret, 0x73);
+			xil_printf("is_triggered_mcs_ep_to: 0x%08X @ 0x%02X \r\n", ret, EP_ADRS__MEM_TO);
 			break;
 		}
-//  			break
-//  		cnt_loop += 1;
 		cnt_loop += 1;
-//  		print('{} = {}'.format('cnt_loop', cnt_loop))
-//  		if (cnt_loop>MAX_count):
-//  			break
 	}
-//  	print('{} = {}'.format('cnt_loop', cnt_loop))
 	xil_printf("cnt_loop = %d \r\n", cnt_loop);
-//  
-//  	# # read again TO 
-//  	# dev.UpdateTriggerOuts()
-//  	# ret=dev.GetTriggerOutVector(0x73)
-//  	# print('{} = 0x{:08X}'.format('ret', ret))
-//  
-//  	#
-//  	return ret	
 
 	return 0;
 }
@@ -1362,13 +1327,13 @@ u32 eeprom_read_status() {
 //  	# clear TO 
 //  	dev.UpdateTriggerOuts()
 //  	ret=dev.GetTriggerOutVector(0x73)
-	ret = read_mcs_ep_to(MCS_EP_BASE, 0x73, 0xFFFFFFFF);
+	ret = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__MEM_TO, 0xFFFFFFFF);
 //  	print('{} = 0x{:08X}'.format('ret', ret))
 //  
 //  	# read again TO 
 //  	dev.UpdateTriggerOuts()
 //  	ret=dev.GetTriggerOutVector(0x73)
-	ret = read_mcs_ep_to(MCS_EP_BASE, 0x73, 0xFFFFFFFF);
+	ret = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__MEM_TO, 0xFFFFFFFF);
 //  	print('{} = 0x{:08X}'.format('ret', ret))
 //  	
 //  	MUST_ZEROS = (ret>>12)&0x0F
@@ -1509,7 +1474,7 @@ void eeprom_reset_fifo() {
 //  	
 //  	# act TI 
 //  	dev.ActivateTriggerIn(0x53, 1)	## (ep, loc)
-	activate_mcs_ep_ti(MCS_EP_BASE, 0x53, 1);
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__MEM_TI, 1);
 //  	
 //  	pass
 }
@@ -1531,7 +1496,8 @@ u16 eeprom_read_fifo (u16 num_bytes_DAT_b16, u8 *buf_dataout) {
 //  	data_count = dev.ReadFromPipeOut(0xB3, dataout)
 
 	// memory copy from 32-bit width pipe to 8-bit width buffer // ADRS_BASE_MHVSU or MCS_EP_BASE
-	dcopy_pipe8_to_buf8 (MCS_EP_BASE + (0xB3<<4), buf_dataout, num_bytes_DAT_b16); // (u32 adrs_p8, u8 *p_buf_u8, u32 len)
+	//dcopy_pipe8_to_buf8 (MCS_EP_BASE + (0xB3<<4), buf_dataout, num_bytes_DAT_b16); // (u32 adrs_p8, u8 *p_buf_u8, u32 len)
+	dcopy_pipe8_to_buf8 (ADRS__MEM_PO, buf_dataout, num_bytes_DAT_b16); // (u32 adrs_p8, u8 *p_buf_u8, u32 len)
 
 //  	print('{} : {}'.format('data_count [byte]',data_count))
 //  	
@@ -1585,7 +1551,8 @@ u16 eeprom_write_fifo (u16 num_bytes_DAT_b16, u8 *buf_datain) {
 //  	data_count = dev.WriteToPipeIn(0x93, datain)
 
 	// memory copy from 8-bit width buffer to 32-bit width pipe // ADRS_BASE_MHVSU or MCS_EP_BASE
-	dcopy_buf8_to_pipe8  (buf_datain, MCS_EP_BASE + (0x93<<4), num_bytes_DAT_b16); //  (u8 *p_buf_u8, u32 adrs_p8, u32 len)
+	//dcopy_buf8_to_pipe8  (buf_datain, MCS_EP_BASE + (0x93<<4), num_bytes_DAT_b16); //  (u8 *p_buf_u8, u32 adrs_p8, u32 len)
+	dcopy_buf8_to_pipe8  (buf_datain, ADRS__MEM_PI, num_bytes_DAT_b16); //  (u8 *p_buf_u8, u32 adrs_p8, u32 len)
 	
 //  	
 //  	return 
