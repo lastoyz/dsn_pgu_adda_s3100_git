@@ -1337,9 +1337,9 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 
 /* TODO: end-point wires */ //{
 
-// end-points : USB vs LAN 
+// end-points : (USB or SSPI) vs LAN 
 
-// wrapper modules : ok_endpoint_wrapper for USB  vs  lan_endpoint_wrapper for LAN
+// endpoint modules : ok_endpoint_wrapper for USB  vs  lan_endpoint_wrapper for LAN
 // ok_endpoint_wrapper  : usb host interface <--> end-points
 //    okHost okHI
 //    ok...
@@ -1349,9 +1349,11 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 //    master_spi_wz850_ext  master_spi_wz850_inst
 //    fifo_generator_3  LAN_fifo_wr_inst
 //    fifo_generator_3  LAN_fifo_rd_inst
+// slave_spi_mth_brd : MTH slave SPI <--> end-points
+//   
 
 
-//// TODO: USB end-point wires: //{
+//// TODO: USB or SSPI end-point wires: //{
 
 // Wire In 		0x00 - 0x1F //{
 wire [31:0] ep00wire; //$$ [TEST] SW_BUILD_ID 
