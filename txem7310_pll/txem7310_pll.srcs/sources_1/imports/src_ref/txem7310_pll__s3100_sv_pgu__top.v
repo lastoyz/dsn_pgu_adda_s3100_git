@@ -3512,7 +3512,7 @@ wire [7:0] w_board_status = 8'b0; // test
 
 
 slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
-	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
+	.clk     (base_sspi_clk), // base clock 104MHz
 	.reset_n (reset_n),
 	
 	//// slave SPI pins:
@@ -3527,23 +3527,44 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	
 	// wi
 	.o_port_wi_sadrs_h008    (w_M2_port_wi_sadrs_h008), 
+	.o_port_wi_sadrs_h014    (),
+	.o_port_wi_sadrs_h018    (),
+	.o_port_wi_sadrs_h01C    (),
+	.o_port_wi_sadrs_h020    (),
+	.o_port_wi_sadrs_h024    (),
+	.o_port_wi_sadrs_h04C    (),
+	.o_port_wi_sadrs_h048    (),
 	
 	// wo
 	.i_port_wo_sadrs_h080    (w_M2_port_wo_sadrs_h080),
+	.i_port_wo_sadrs_h094    (),
+	.i_port_wo_sadrs_h098    (),
+	.i_port_wo_sadrs_h09C    (),
+	.i_port_wo_sadrs_h0A0    (),
+	.i_port_wo_sadrs_h0A4    (),
 	.i_port_wo_sadrs_h0E8    (w_M2_port_wo_sadrs_h0E8), 
 	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
 	
 	// ti
 	//.i_ck__sadrs_h11C  (base_hradc_clk),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
+	.i_ck__sadrs_h114  (),    .o_port_ti_sadrs_h114  (), // [31:0] 
+	.i_ck__sadrs_h118  (),    .o_port_ti_sadrs_h118  (), // [31:0] 
+	.i_ck__sadrs_h11C  (),    .o_port_ti_sadrs_h11C  (), // [31:0] 
+	.i_ck__sadrs_h120  (),    .o_port_ti_sadrs_h120  (), // [31:0] 
+	.i_ck__sadrs_h124  (),    .o_port_ti_sadrs_h124  (), // [31:0] 
+	.i_ck__sadrs_h14C  (),    .o_port_ti_sadrs_h14C  (), // [31:0] 
 
 	// to
 	//.i_ck__sadrs_h19C  (base_hradc_clk),    .i_port_to_sadrs_h19C  (w_M2_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
+	.i_ck__sadrs_h1CC  (),    .i_port_to_sadrs_h1CC  (), // [31:0] 
 
 	// pi
 	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M2),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M2), // [31:0]  // MEM_PI	0x24C	pi93 //$$
+	.o_wr__sadrs_h24C (),   .o_port_po_sadrs_h24C (), // [31:0]  
 	
 	// po
 	//.o_rd__sadrs_h2CC (w_MEM_PO_rd_sspi_M2),   .i_port_po_sadrs_h2CC (        w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+	.o_rd__sadrs_h2CC (),   .i_port_po_sadrs_h2CC (), // [31:0]  
 	
 	//}
 	
