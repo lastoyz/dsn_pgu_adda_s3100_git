@@ -1748,7 +1748,7 @@ wire [31:0] w_port_wo_25_1; // PGU
 wire [31:0] w_port_wo_26_1; // PGU
 wire [31:0] w_port_wo_27_1; // PGU
 wire [31:0] w_port_wo_28_1; // PGU
-wire [31:0] w_port_wo_29_1 = 32'b0; // not yet used
+wire [31:0] w_port_wo_29_1; // PGU
 wire [31:0] w_port_wo_2A_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_2B_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_2C_1 = 32'b0; // not yet used
