@@ -317,8 +317,9 @@ int main(void)
 			//_test_write_mcs(">>> set BID and SID: \r\n", ADRS_PORT_WI_11_MHVSU, 
 			_test_write_mcs(">>> set BID and SID: \r\n", ADRS__MCS_SETUP_WI,
 				//(p_tmp_u8[0x0E]<<24) + (p_tmp_u8[0x0F]<<16) +  // BID
-				(decstr2data_u32(&p_tmp_u8[0x0C],4)<<16) + // BID
-				 decstr2data_u32(&p_tmp_u8[0x2C],2)        // SID
+				(decstr2data_u32(&p_tmp_u8[0x0C],4)<<16) + // BID // board ID from EEPROM // to MCS_SETUP_WI[31:16]
+				 decstr2data_u32(&p_tmp_u8[0x2C],2)        // SID // slot ID from EEPROM  // to MCS_SETUP_WI[7:0]
+				//$$ note ... need to protect MCS_SETUP_WI[15:8]
 				);
 			//_test_read_mcs (">>> get BID and SID: \r\n", ADRS_PORT_WI_11_MHVSU);
 			_test_read_mcs (">>> get BID and SID: \r\n", ADRS__MCS_SETUP_WI);
@@ -343,7 +344,7 @@ int main(void)
 	//eeprom_set_g_var(0, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
 
 	// force LAN control and EEPROM on BOARD
-	eeprom_set_g_var(1, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
+	//eeprom_set_g_var(1, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
 
 	//}
 	
@@ -353,8 +354,8 @@ int main(void)
 
 	//// TODO: S3100 start up --------////
 	
-	// Not Yet
-
+	// EEPROM control from SSPI in S3100-PGU
+	eeprom_set_g_var(0, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
 
 	
 	//// TODO: LAN start up --------////

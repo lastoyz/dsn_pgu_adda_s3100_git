@@ -54,13 +54,13 @@ namespace TopInstrument
         // board INFO from EEPROM 
         public char[] __gui_pgu_idn_txt = new char[60]; //$$ not inside EEPROM
 
-        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F
+        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F //$$ note board ID in 0x0C-0x0F
         public char[] __gui_pgu_ip_adrs = new char[16]; //$$ location @ 0x10-0x13
         public char[] __gui_pgu_sm_adrs = new char[16]; //$$ location @ 0x14-0x17
         public char[] __gui_pgu_ga_adrs = new char[16]; //$$ location @ 0x18-0x1B
         public char[] __gui_pgu_dns_adrs= new char[16]; //$$ location @ 0x1C-0x1F
         public char[] __gui_pgu_mac_adrs= new char[12]; //$$ location @ 0x20-0x2B
-        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D
+        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D //$$ note slot ID in 0x2C-0x2D
         public byte __gui_pgu_user_id           ;       //$$ location @ 0x2E
         public byte __gui_pgu_check_sum         ;       //$$ location @ 0x2F
         public byte __gui_pgu_check_sum_residual;       //$$ not inside EEPROM
