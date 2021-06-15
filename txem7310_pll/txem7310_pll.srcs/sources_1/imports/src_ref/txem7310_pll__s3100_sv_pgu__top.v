@@ -853,9 +853,6 @@ parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI en
 
 //}
 
-// check SW_BUILD_ID //{
-parameter REQ_SW_BUILD_ID = 32'h_A57E_183C; // 0 for bypass 
-//}
 
 //}
 
