@@ -672,8 +672,8 @@ def eps_test():
 	#_host_,_port_ = set_host_ip_by_ping()
 	#
 
-	_host_ = '192.168.100.127' # PGU test
-	#_host_ = '192.168.168.143' # test
+	#_host_ = '192.168.100.127' # PGU test
+	_host_ = '192.168.168.143' # test
 
 	_port_ = 5025
 	#
