@@ -1852,9 +1852,170 @@ u8 chk_all_zeros (u16 len_b16, u8 *p_data_b8) {
 //}
 
 
+// === TODO: S3100-PGU functions === //{
+#ifdef _S3100_PGU_
+
+// SPIO //{
+
+// for master_spi_mcp23s17.v
+
+u32  pgu_spio_send_spi_frame(u32 frame_data) {
+	//dev = lib_ctrl.dev
+	//EP_ADRS = conf.OK_EP_ADRS_CONFIG
+	//#
+	//print('>> {}'.format('Send SPIO frame'))
+	//#
+	//wi = EP_ADRS['SPIO_WI']
+	//wo = EP_ADRS['SPIO_WO']
+	//ti = EP_ADRS['SPIO_TI']
+	//#
+	//#frame_data = (ctrl_b16<<16) + val_b16
+	//print('{} = 0x{:08X}'.format('frame_data',frame_data))#
+	//#
+	//# write control 
+	//dev.SetWireInValue(wi,frame_data,0xFFFFFFFF) # (ep,val,mask)
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__SPIO_WI, frame_data, MASK_ALL);
+	//dev.UpdateWireIns()
+	//#
+	//# trig spi frame
+	//#   wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1];
+	//ret = dev.ActivateTriggerIn(ti, 1) # (ep,bit) 
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__SPIO_TI, 1);
+	//#
+	//# check spi frame done
+	//#   assign w_SPIO_WO[25] = w_done_SPIO_SPI_frame;
+	u32 cnt_done = 0    ;
+	u32 MAX_CNT  = 20000;
+	u32 bit_loc  = 25   ;
+	u32 flag;
+	u32 flag_done;
+	//while True:
+	while (1) {
+		//dev.UpdateWireOuts()
+		//flag = dev.GetWireOutValue(wo)
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__SPIO_WO, MASK_ALL);
+		
+		flag_done = (flag&(1<<bit_loc))>>bit_loc;
+		//#print('{} = {:#010x}'.format('flag',flag))
+		if (flag_done==1)
+			break;
+		cnt_done += 1;
+		if (cnt_done>=MAX_CNT)
+			break;
+	}
+	//#  
+	//print('{} = {}'.format('cnt_done',cnt_done))#
+	//print('{} = {}'.format('flag_done',flag_done))
+	//#
+	//# read received data 
+	//#   assign w_SPIO_WO[15:8] = w_SPIO_rd_DA;
+	//#   assign w_SPIO_WO[ 7:0] = w_SPIO_rd_DB;
+	u32 val_recv = flag & 0x0000FFFF;
+	//#
+	//print('{} = 0x{:02X}'.format('val_recv',val_recv))#
+	//#
+	return val_recv;
+}
+
+u32  pgu_sp_1_reg_read_b16(u32 reg_adrs_b8) {
+	//#
+	u32 val_b16 =0;
+	//
+	u32 CS_id      = 1;
+	u32 pin_adrs_A = 0; 
+	u32 R_W_bar    = 1;
+	u32 reg_adrs_A = reg_adrs_b8;
+	//#
+	u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+	//#
+	return pgu_spio_send_spi_frame(framedata);
+}
+
+u32  pgu_sp_1_reg_write_b16(u32 reg_adrs_b8, u32 val_b16) {
+	//#
+	u32 CS_id      = 1;
+	u32 pin_adrs_A = 0;
+	u32 R_W_bar    = 0;
+	u32 reg_adrs_A = reg_adrs_b8;
+	//#
+	u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+	//#
+	return pgu_spio_send_spi_frame(framedata);
+}
+
+
+//$$ power control : pwd_amp removed in PGU-S3000
+void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+	//
+	u32 dir_read;
+	u32 lat_read;
+	//
+	//# read IO direction 
+	//# check IO direction : 0xFFX0 where (SPA,SPB)
+	dir_read = pgu_sp_1_reg_read_b16(0x00); // unused
+	//print('>>>{} = {}'.format('dir_read',form_hex_32b(dir_read)))
+	//# read output Latch
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//print('>>>{} = {}'.format('lat_read',form_hex_32b(lat_read)))
+	
+	//# set IO direction for SP1 PB[3:0] - all output
+	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
+	//# set IO for SP1 PB[3:0]
+	u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+	pgu_sp_1_reg_write_b16(0x12,val);
+}
+
+u32  pgu_spio_ext_pwr_led_readback() {
+	//
+	u32 lat_read;
+	//
+	//# read output Latch
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//
+	return lat_read & 0x000F;
+}
+
+//$$ output relay control : added in PGU-S3000
+void pgu_spio_ext_relay(u32 sw_rl_k1, u32 sw_rl_k2) {
+	//
+	u32 dir_read;
+	u32 lat_read;
+	//
+	//# read IO direction 
+	//# check IO direction : 0xFFX0 where (SPA,SPB)
+	dir_read = pgu_sp_1_reg_read_b16(0x00); // unused
+	//print('>>>{} = {}'.format('dir_read',form_hex_32b(dir_read)))
+	//# read output Latch
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//print('>>>{} = {}'.format('lat_read',form_hex_32b(lat_read)))
+	
+	//# set IO direction for SP1 PA[1:0] - all output
+	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFCFF);
+	//# set IO for SP1 PA[1:0]
+	u32 val = (lat_read & 0xFCFF) | ( (sw_rl_k2<<9) + (sw_rl_k1<<8) );
+	pgu_sp_1_reg_write_b16(0x12,val);
+}
+
+u32  pgu_spio_ext_relay_readback() {
+	//
+	u32 lat_read;
+	//
+	//# read output Latch // where (SPA,SPB)
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//
+	return (lat_read & 0x0300)>>8; //$$ {SW_RL_K2,SW_RL_K1}
+}
+
+
+//}
+
+#endif
+//}
+
 
 // === TODO: PGU-CPU functions === //{
 #ifdef _PGU_CPU_
+//#ifdef _S3100_PGU_  // temporal enable
 
 // note : ADRS_BASE_PGU               --> MCS_EP_BASE
 // note : EP_ADRS__FPGA_IMAGE_ID__PGU --> EP_ADRS_PGU__FPGA_IMAGE_ID

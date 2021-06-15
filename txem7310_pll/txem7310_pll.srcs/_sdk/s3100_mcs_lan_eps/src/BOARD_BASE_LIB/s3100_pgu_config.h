@@ -24,7 +24,6 @@ extern "C" {
 // macro for S3100-PGU board support
 #define _S3100_PGU_
 
-
 // offset definition for mcs_io_bridge.v //{
 //#define MCS_IO_INST_OFFSET              0x00000000 // for LAN
 //#define MCS_IO_INST_OFFSET_CMU          0x00010000 // for CMU
@@ -594,10 +593,13 @@ extern "C" {
 //
 #define EP_ADRS__FPGA_IMAGE_ID_WO   0x20  //$$ [TEST] FPGA_IMAGE_ID_WO //$$ S3100
 #define EP_ADRS__XADC_TEMP_WO       0x3A  //$$ [XADC] XADC_TEMP_WO     //$$ S3100
+#define EP_ADRS_PGU__XADC_VOLT        0x3B
+#define EP_ADRS_PGU__TIMESTAMP_WO     0x22
+#define EP_ADRS_PGU__TEST_IO_MON      0x23
+#define EP_ADRS__TEST_OUT_WO        0x21  //$$ [TEST] TEST_OUT_WO      //$$ S3100
 #define EP_ADRS__TEST_CON_WI        0x01  //$$ [TEST] TEST_CON_WI      //$$ S3100
 #define EP_ADRS__TEST_TI            0x40  //$$ [TEST] TEST_TI          //$$ S3100
 #define EP_ADRS__TEST_TO            0x60  //$$ [TEST] TEST_TO          //$$ S3100
-#define EP_ADRS__TEST_OUT_WO        0x21  //$$ [TEST] TEST_OUT_WO      //$$ S3100
 #define EP_ADRS__BRD_CON_WI         0x03  //$$ [TEST] BRD_CON_WI       //$$ S3100
 #define EP_ADRS__MCS_SETUP_WI       0x19  //$$ [MCS]  MCS_SETUP_WI     //$$ S3100
 #define EP_ADRS__MSPI_EN_CS_WI      0x16  //$$ [MSPI]  MSPI_EN_CS_WI   //$$ S3100 // reserved
@@ -611,6 +613,25 @@ extern "C" {
 #define EP_ADRS__MEM_TO             0x73  //$$ [MEM]  MEM_TO           //$$ S3100
 #define EP_ADRS__MEM_PI             0x93  //$$ [MEM]  MEM_PI           //$$ S3100
 #define EP_ADRS__MEM_PO             0xB3  //$$ [MEM]  MEM_PO           //$$ S3100
+#define EP_ADRS_PGU__DACX_WI          0x05 
+#define EP_ADRS_PGU__DACX_WO          0x25
+#define EP_ADRS_PGU__DACX_TI          0x45
+#define EP_ADRS_PGU__DACZ_DAT_WI      0x08
+#define EP_ADRS_PGU__DACZ_DAT_WO      0x28
+#define EP_ADRS_PGU__DACZ_DAT_TI      0x48
+#define EP_ADRS_PGU__DAC0_DAT_INC_PI  0x86 // data b16 + inc b16
+#define EP_ADRS_PGU__DAC0_DUR_PI      0x87 // duration b32
+#define EP_ADRS_PGU__DAC1_DAT_INC_PI  0x88 // data b16 + inc b16
+#define EP_ADRS_PGU__DAC1_DUR_PI      0x89 // duration b32
+#define EP_ADRS_PGU__CLKD_WI          0x06
+#define EP_ADRS_PGU__CLKD_WO          0x26
+#define EP_ADRS_PGU__CLKD_TI          0x46
+#define EP_ADRS_PGU__SPIO_WI          0x07
+#define EP_ADRS_PGU__SPIO_WO          0x27
+#define EP_ADRS_PGU__SPIO_TI          0x47
+#define EP_ADRS__TRIG_DAT_WI        0x09 // new
+#define EP_ADRS__TRIG_DAT_WO        0x29 // new
+#define EP_ADRS__TRIG_DAT_TI        0x49 // new
 //
 #define ADRS__FPGA_IMAGE_ID_WO      ( MCS_EP_BASE + (EP_ADRS__FPGA_IMAGE_ID_WO  <<4) )
 #define ADRS__XADC_TEMP_WO          ( MCS_EP_BASE + (EP_ADRS__XADC_TEMP_WO      <<4) )

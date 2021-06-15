@@ -386,12 +386,35 @@ int main(void)
 	//// TODO: S3100-PGU-TLAN start up --------////  //{
 	
 	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
+
+	// PGU led control //{
+	// test on
+	// pgu.spio_ext__pwr_led(led=1,pwr_dac=1,pwr_adc=0,pwr_amp=1)
+	//   led=0/1,
+	//   pwr_dac=0/1,
+	//   pwr_adc=0/1,
+	//   pwr_amp=X // always power on
+	//pgu_spio_ext_pwr_led(1,0,0,0); // LED only : OK
+	pgu_spio_ext_pwr_led(1,1,0,0); // dac test : OK
+	//pgu_spio_ext_pwr_led(1,0,1,0); // adc test : OK
+	value = pgu_spio_ext_pwr_led_readback();
+	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	// sleep
+	//usleep(9000);
+	//usleep(300000); // 0.3s = 300ms =300000us
+	usleep(3000000); // 3s = 3000ms =3000000us
+	// test off
+	pgu_spio_ext_pwr_led(0,0,0,0);
+	value = pgu_spio_ext_pwr_led_readback();
+	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	//}
+
 	//...
 	
 	//}
 
 
-	//// TODO: S3100-PGU-TLAN-SPI start up --------////  //{
+	//// TODO: S3100-PGU-TSPI start up --------////  //{
 
 	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
 	//...
@@ -399,7 +422,7 @@ int main(void)
 	//}
 
 	
-	//// TODO: S3100-CPU-BASE-TLAN start up --------////  //{
+	//// TODO: S3100-CPU-TSPI start up --------////  //{
 
 	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
 	//...
