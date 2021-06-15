@@ -849,7 +849,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
 
 //}
 
@@ -2320,9 +2321,9 @@ wire [7:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-
 wire [7:0]  w_slot_id_8b          = w_MCS_SETUP_WI[7:0];   //$$ 8 bits in S3100-PGU
 //
 //$$ note ... need to protect MCS_SETUP_WI[15:8] by SDK
-wire w_sel__H_LAN_for_EEPROM_fifo = w_MCS_SETUP_WI[8];     //$$ LAN or SSPI in S3100-PGU // must choose SSPI in idle.
-wire w_sel__H_EEPROM_on_TP        = w_MCS_SETUP_WI[9];     // not yet //$$ to remove in S3100-PGU
-wire w_sel__H_LAN_on_BASE_BD      = w_MCS_SETUP_WI[10];    // not yet //$$ to remove in S3100-PGU
+//##wire w_sel__H_LAN_for_EEPROM_fifo = w_MCS_SETUP_WI[8];     //$$ removed in S3100-PGU 
+//##wire w_sel__H_EEPROM_on_TP        = w_MCS_SETUP_WI[9];     //$$ removed in S3100-PGU 
+//##wire w_sel__H_LAN_on_BASE_BD      = w_MCS_SETUP_WI[10];    //$$ removed in S3100-PGU 
 //
 wire [15:0] w_board_id            = w_MCS_SETUP_WI[31:16]; 
 
@@ -2462,8 +2463,8 @@ assign w_port_to_62_1 = w_MSPI_TO; //$$ ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_
 wire [31:0] w_SPIO_WI = (w_mcs_ep_wi_en)? w_port_wi_07_1 : ep07wire; 
 //
 wire [31:0] w_SPIO_WO; 
-assign ep27wire = (!w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC; 
-assign w_port_wo_27_1 = (w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC;
+assign ep27wire       = (!w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC; 
+assign w_port_wo_27_1 = ( w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC;
 //
 wire [31:0] w_SPIO_TI = (w_mcs_ep_ti_en)? w_port_ti_47_1 : ep47trig;
 
@@ -2478,8 +2479,8 @@ wire [31:0] w_SPIO_TI = (w_mcs_ep_ti_en)? w_port_ti_47_1 : ep47trig;
 (* keep = "true" *) wire [31:0] w_CLKD_WI = (w_mcs_ep_wi_en)? w_port_wi_06_1 : ep06wire;
 
 (* keep = "true" *) wire [31:0] w_CLKD_WO;
-assign ep26wire = (!w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC; 
-assign w_port_wo_26_1 = (w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC;
+assign ep26wire       = (!w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC; 
+assign w_port_wo_26_1 = ( w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC;
 
 (* keep = "true" *) wire [31:0] w_CLKD_TI = (w_mcs_ep_ti_en)? w_port_ti_46_1 : ep46trig;
 
@@ -2541,8 +2542,8 @@ wire [31:0] w_DACX_TI = (w_mcs_ep_ti_en)? w_port_ti_45_1 : ep45trig;
 wire [31:0] w_DACZ_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_08_1 : ep08wire; 
 //
 wire [31:0] w_DACZ_DAT_WO;
-assign ep28wire = (!w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC; 
-assign w_port_wo_28_1 = (w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC;
+assign ep28wire       = (!w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC; 
+assign w_port_wo_28_1 = ( w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC;
 //
 wire [31:0] w_DACZ_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_48_1 : ep48trig;
 
@@ -2565,17 +2566,18 @@ wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en)?      w_wr_89_1 : ep89wr  ;
 //}
 
 //// EEPROM wires //{
-wire [31:0] w_MEM_WI      = (w_sel__H_LAN_for_EEPROM_fifo)? w_port_wi_13_1 : ep13wire;                                        
-wire [31:0] w_MEM_FDAT_WI = (w_sel__H_LAN_for_EEPROM_fifo)? w_port_wi_12_1 : ep12wire;                                        
+//$$ remove w_sel__H_LAN_for_EEPROM_fifo
+wire [31:0] w_MEM_WI      = (w_mcs_ep_wi_en)? w_port_wi_13_1 : ep13wire;                                        
+wire [31:0] w_MEM_FDAT_WI = (w_mcs_ep_wi_en)? w_port_wi_12_1 : ep12wire;                                        
 wire [31:0] w_MEM_TI      = w_port_ti_53_1 | ep53trig; 
 wire [31:0] w_MEM_TO; 
-	assign ep73trig       = w_MEM_TO; 
-	assign w_port_to_73_1 = w_MEM_TO; 
-wire [31:0] w_MEM_PI = (w_sel__H_LAN_for_EEPROM_fifo)? w_port_pi_93_1 : ep93pipe;
+assign ep73trig       = (~w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
+assign w_port_to_73_1 = ( w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
+wire [31:0] w_MEM_PI = (w_mcs_ep_pi_en)? w_port_pi_93_1 : ep93pipe;
 wire w_MEM_PI_wr = w_wr_93_1 | ep93wr;                  
 wire [31:0] w_MEM_PO; 
-	assign epB3pipe       = w_MEM_PO; 
-	assign w_port_po_B3_1 = w_MEM_PO; 
+assign epB3pipe       = (~w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
+assign w_port_po_B3_1 = ( w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
 wire w_MEM_PO_rd = w_rd_B3_1 | epB3rd; 
 
 //}
@@ -3177,14 +3179,14 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 // fifo read clock //{
 wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 //
-BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
-	.O(c_eeprom_fifo_clk), 
-	//.I0(base_sspi_clk), // base_sspi_clk for slave_spi_mth_brd // 104MHz
-	.I0(okClk        ), // USB  // 100.8MHz
-	//.I1(w_ck_pipe    ), // LAN from lan_endpoint_wrapper_inst      // 72MHz
-	.I1(mcs_eeprom_fifo_clk), 
-	.S(w_sel__H_LAN_for_EEPROM_fifo) 
-);
+//  BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
+//  	.O(c_eeprom_fifo_clk), 
+//  	//.I0(base_sspi_clk), // base_sspi_clk for slave_spi_mth_brd // 104MHz
+//  	.I0(okClk        ), // USB  // 100.8MHz
+//  	//.I1(w_ck_pipe    ), // LAN from lan_endpoint_wrapper_inst      // 72MHz
+//  	.I1(mcs_eeprom_fifo_clk), 
+//  	.S(w_sel__H_LAN_for_EEPROM_fifo) 
+//  );
 
 // note BUFG issue : solved with duplicated clock  mcs_eeprom_fifo_clk
 //   without BUFGMUX : pre BUFG 35, post BUGF 26
@@ -3194,7 +3196,10 @@ BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
 //assign c_eeprom_fifo_clk = w_ck_pipe; // LAN test 
 
 //$$ note in S3100-GNDU
-//$$ assign c_eeprom_fifo_clk = (w_sel__H_LAN_for_EEPROM_fifo == 0)? okClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+//assign c_eeprom_fifo_clk = (w_sel__H_LAN_for_EEPROM_fifo == 0)? okClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+
+//$$ note in S3100-PGU
+assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? base_sspi_clk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
 
 
 //}
@@ -3557,7 +3562,11 @@ wire w_M2_ck__sadrs_h14C;  wire [31:0] w_M2_port_ti_sadrs_h14C; // new
 wire w_M2_ck__sadrs_h1CC;  wire [31:0] w_M2_port_to_sadrs_h1CC; // new
 
 // pi 
-wire w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_po_sadrs_h24C; // new
+wire w_M2_wr__sadrs_h218;  wire [31:0] w_M2_port_pi_sadrs_h218; // new
+wire w_M2_wr__sadrs_h21C;  wire [31:0] w_M2_port_pi_sadrs_h21C; // new
+wire w_M2_wr__sadrs_h220;  wire [31:0] w_M2_port_pi_sadrs_h220; // new
+wire w_M2_wr__sadrs_h224;  wire [31:0] w_M2_port_pi_sadrs_h224; // new
+wire w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_pi_sadrs_h24C; // new
 
 // po
 wire w_M2_rd__sadrs_h2CC;  wire [31:0] w_M2_port_po_sadrs_h2CC; // new
@@ -3613,7 +3622,6 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
 	
 	// ti
-	//.i_ck__sadrs_h11C  (base_hradc_clk),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
 	.i_ck__sadrs_h114  (w_M2_ck__sadrs_h114),    .o_port_ti_sadrs_h114  (w_M2_port_ti_sadrs_h114), // [31:0] 
 	.i_ck__sadrs_h118  (w_M2_ck__sadrs_h118),    .o_port_ti_sadrs_h118  (w_M2_port_ti_sadrs_h118), // [31:0] 
 	.i_ck__sadrs_h11C  (w_M2_ck__sadrs_h11C),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] 
@@ -3622,15 +3630,16 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.i_ck__sadrs_h14C  (w_M2_ck__sadrs_h14C),    .o_port_ti_sadrs_h14C  (w_M2_port_ti_sadrs_h14C), // [31:0] 
 
 	// to
-	//.i_ck__sadrs_h19C  (base_hradc_clk),    .i_port_to_sadrs_h19C  (w_M2_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
 	.i_ck__sadrs_h1CC  (w_M2_ck__sadrs_h1CC),    .i_port_to_sadrs_h1CC  (w_M2_port_to_sadrs_h1CC), // [31:0] 
 
 	// pi
-	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M2),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M2), // [31:0]  // MEM_PI	0x24C	pi93 //$$
-	.o_wr__sadrs_h24C  (w_M2_wr__sadrs_h24C),    .o_port_po_sadrs_h24C  (w_M2_port_po_sadrs_h24C), // [31:0]  
+	.o_wr__sadrs_h218  (w_M2_wr__sadrs_h218),    .o_port_pi_sadrs_h218  (w_M2_port_pi_sadrs_h218), // [31:0]  
+	.o_wr__sadrs_h21C  (w_M2_wr__sadrs_h21C),    .o_port_pi_sadrs_h21C  (w_M2_port_pi_sadrs_h21C), // [31:0]  
+	.o_wr__sadrs_h220  (w_M2_wr__sadrs_h220),    .o_port_pi_sadrs_h220  (w_M2_port_pi_sadrs_h220), // [31:0]  
+	.o_wr__sadrs_h224  (w_M2_wr__sadrs_h224),    .o_port_pi_sadrs_h224  (w_M2_port_pi_sadrs_h224), // [31:0]  
+	.o_wr__sadrs_h24C  (w_M2_wr__sadrs_h24C),    .o_port_pi_sadrs_h24C  (w_M2_port_pi_sadrs_h24C), // [31:0]  
 	 
 	// po
-	//.o_rd__sadrs_h2CC (w_MEM_PO_rd_sspi_M2),   .i_port_po_sadrs_h2CC (        w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
 	.o_rd__sadrs_h2CC  (w_M2_rd__sadrs_h2CC),    .i_port_po_sadrs_h2CC  (w_M2_port_po_sadrs_h2CC), // [31:0]  
 	
 	//}
@@ -3914,6 +3923,16 @@ assign w_SSPI_FLAG_WO[15: 0] = 16'b0;
 
 /* TODO: BANK signals */
 
+//// LAN fixed in S3100-PGU
+assign PT_FMOD_EP_LAN_MOSI  = EP_LAN_MOSI ;
+assign PT_FMOD_EP_LAN_SCLK  = EP_LAN_SCLK ;
+assign PT_FMOD_EP_LAN_CS_B  = EP_LAN_CS_B ;
+assign PT_FMOD_EP_LAN_RST_B = EP_LAN_RST_B;
+//
+assign EP_LAN_INT_B = PT_FMOD_EP_LAN_INT_B;
+assign EP_LAN_MISO  = PT_FMOD_EP_LAN_MISO ;
+
+
 // LAN signals to mux //{
 
 // output mux
@@ -3922,16 +3941,16 @@ assign w_SSPI_FLAG_WO[15: 0] = 16'b0;
 //assign PT_BASE_EP_LAN_CS_B  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
 //assign PT_BASE_EP_LAN_RST_B = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
 
-assign PT_FMOD_EP_LAN_MOSI  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
-assign PT_FMOD_EP_LAN_SCLK  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
-assign PT_FMOD_EP_LAN_CS_B  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
-assign PT_FMOD_EP_LAN_RST_B = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
+//assign PT_FMOD_EP_LAN_MOSI  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
+//assign PT_FMOD_EP_LAN_SCLK  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
+//assign PT_FMOD_EP_LAN_CS_B  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
+//assign PT_FMOD_EP_LAN_RST_B = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
 
 // input mux
 //assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : PT_BASE_EP_LAN_INT_B;
 //assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : PT_BASE_EP_LAN_MISO;
-assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : 1'b1;
-assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : 1'b0;
+//assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : 1'b1;
+//assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : 1'b0;
 
 
 //}

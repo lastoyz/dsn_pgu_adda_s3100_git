@@ -205,8 +205,11 @@ module slave_spi_mth_brd (
 	input  wire i_ck__sadrs_h1CC,  input  wire [31:0] i_port_to_sadrs_h1CC, // [31:0] // ADC
 
 	//
-	//output wire o_wr_9F, output wire [31:0]   o_port_pi_9F ,
-	output wire o_wr__sadrs_h24C,  output wire [31:0] o_port_po_sadrs_h24C, // [31:0]  // MEM_PI	0x24C	pi93 //$$
+	output wire o_wr__sadrs_h218,  output wire [31:0] o_port_pi_sadrs_h218, // [31:0]
+	output wire o_wr__sadrs_h21C,  output wire [31:0] o_port_pi_sadrs_h21C, // [31:0]
+	output wire o_wr__sadrs_h220,  output wire [31:0] o_port_pi_sadrs_h220, // [31:0]
+	output wire o_wr__sadrs_h224,  output wire [31:0] o_port_pi_sadrs_h224, // [31:0]
+	output wire o_wr__sadrs_h24C,  output wire [31:0] o_port_pi_sadrs_h24C, // [31:0]  // MEM_PI	0x24C	pi93 //$$
 	
 	//
 	output wire o_rd__sadrs_h280,  input  wire [31:0] i_port_po_sadrs_h280, // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
@@ -371,6 +374,10 @@ reg [31:0] r_port_to_sadrs_h19C_mon; reg [31:0] r_port_to_sadrs_h19C_mon_smp;
 reg [31:0] r_port_to_sadrs_h1CC_ck;
 reg [31:0] r_port_to_sadrs_h1CC_mon; reg [31:0] r_port_to_sadrs_h1CC_mon_smp;
 //
+(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h218;
+(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h21C;
+(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h220;
+(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h224;
 (* keep = "true" *) reg [31:0] r_port_pi_sadrs_h24C;
 
 
@@ -402,7 +409,11 @@ assign o_port_wi_sadrs_h07C = r_port_wi_sadrs_h07C;
 assign o_port_wi_sadrs_h01C = r_port_wi_sadrs_h01C;
 assign o_port_wi_sadrs_h040 = r_port_wi_sadrs_h040;
 // pipe
-assign o_port_po_sadrs_h24C = r_port_pi_sadrs_h24C;
+assign o_port_pi_sadrs_h218 = r_port_pi_sadrs_h218;
+assign o_port_pi_sadrs_h21C = r_port_pi_sadrs_h21C;
+assign o_port_pi_sadrs_h220 = r_port_pi_sadrs_h220;
+assign o_port_pi_sadrs_h224 = r_port_pi_sadrs_h224;
+assign o_port_pi_sadrs_h24C = r_port_pi_sadrs_h24C;
 
 
 // frame detection
@@ -645,6 +656,10 @@ assign w_frame_miso_b32 =  //{
                       (w_frame_adrs_sel_32b == 10'h19C)?  r_port_to_sadrs_h19C :
                       (w_frame_adrs_sel_32b == 10'h1CC)?  r_port_to_sadrs_h1CC :
                       //
+                      (w_frame_adrs_sel_32b == 10'h218)?  r_port_pi_sadrs_h218 :
+                      (w_frame_adrs_sel_32b == 10'h21C)?  r_port_pi_sadrs_h21C :
+                      (w_frame_adrs_sel_32b == 10'h220)?  r_port_pi_sadrs_h220 :
+                      (w_frame_adrs_sel_32b == 10'h224)?  r_port_pi_sadrs_h224 :
                       (w_frame_adrs_sel_32b == 10'h24C)?  r_port_pi_sadrs_h24C :
                       //
                       (w_frame_adrs_sel_32b == 10'h280)?  i_port_po_sadrs_h280 :
@@ -752,6 +767,10 @@ always @(posedge clk, negedge reset_n)
 		r_port_wi_sadrs_h01C <= 32'b0;
 		r_port_wi_sadrs_h040 <= 32'b0;
 		// pipe in 
+		r_port_pi_sadrs_h218 <= 32'b0;
+		r_port_pi_sadrs_h21C <= 32'b0;
+		r_port_pi_sadrs_h220 <= 32'b0;
+		r_port_pi_sadrs_h224 <= 32'b0;
 		r_port_pi_sadrs_h24C <= 32'b0;
 	end
 	else begin
@@ -827,6 +846,18 @@ always @(posedge clk, negedge reset_n)
 			//
 			else if (r_frame_adrs == 10'h040+10'h000)  r_port_wi_sadrs_h040[15: 0]  <= r_frame_mosi;
 			else if (r_frame_adrs == 10'h040+10'h002)  r_port_wi_sadrs_h040[31:16]  <= r_frame_mosi;
+			//
+			else if (r_frame_adrs == 10'h218+10'h000)  r_port_pi_sadrs_h218[15: 0]  <= r_frame_mosi;
+			else if (r_frame_adrs == 10'h218+10'h002)  r_port_pi_sadrs_h218[31:16]  <= r_frame_mosi;
+			//
+			else if (r_frame_adrs == 10'h21C+10'h000)  r_port_pi_sadrs_h21C[15: 0]  <= r_frame_mosi;
+			else if (r_frame_adrs == 10'h21C+10'h002)  r_port_pi_sadrs_h21C[31:16]  <= r_frame_mosi;
+			//
+			else if (r_frame_adrs == 10'h220+10'h000)  r_port_pi_sadrs_h220[15: 0]  <= r_frame_mosi;
+			else if (r_frame_adrs == 10'h220+10'h002)  r_port_pi_sadrs_h220[31:16]  <= r_frame_mosi;
+			//
+			else if (r_frame_adrs == 10'h224+10'h000)  r_port_pi_sadrs_h224[15: 0]  <= r_frame_mosi;
+			else if (r_frame_adrs == 10'h224+10'h002)  r_port_pi_sadrs_h224[31:16]  <= r_frame_mosi;
 			//
 			else if (r_frame_adrs == 10'h24C+10'h000)  r_port_pi_sadrs_h24C[15: 0]  <= r_frame_mosi;
 			else if (r_frame_adrs == 10'h24C+10'h002)  r_port_pi_sadrs_h24C[31:16]  <= r_frame_mosi;
@@ -1377,17 +1408,33 @@ always @(posedge clk, negedge reset_n) // clk // base clock 72MHz or 104MHz
 // for o_wr__sadrs_h24C
 // sync with r_frame_mosi_trig (not r_frame_miso_trig)
 
+(* keep = "true" *) reg r_wr__sadrs_h218;
+(* keep = "true" *) reg r_wr__sadrs_h21C;
+(* keep = "true" *) reg r_wr__sadrs_h220;
+(* keep = "true" *) reg r_wr__sadrs_h224;
 (* keep = "true" *) reg r_wr__sadrs_h24C;
 //
 always @(posedge clk, negedge reset_n) // clk // base clock 72MHz or 104MHz
 	if (!reset_n) begin
+		r_wr__sadrs_h218         <= 1'b0;
+		r_wr__sadrs_h21C         <= 1'b0;
+		r_wr__sadrs_h220         <= 1'b0;
+		r_wr__sadrs_h224         <= 1'b0;
 		r_wr__sadrs_h24C         <= 1'b0;
 	end
 	else begin
 		// one pulse out
+		if (r_frame_mosi_trig & (r_frame_adrs == 10'h218)) r_wr__sadrs_h218 <= 1'b1;  else r_wr__sadrs_h218 <= 1'b0;
+		if (r_frame_mosi_trig & (r_frame_adrs == 10'h21C)) r_wr__sadrs_h21C <= 1'b1;  else r_wr__sadrs_h21C <= 1'b0;
+		if (r_frame_mosi_trig & (r_frame_adrs == 10'h220)) r_wr__sadrs_h220 <= 1'b1;  else r_wr__sadrs_h220 <= 1'b0;
+		if (r_frame_mosi_trig & (r_frame_adrs == 10'h224)) r_wr__sadrs_h224 <= 1'b1;  else r_wr__sadrs_h224 <= 1'b0;
 		if (r_frame_mosi_trig & (r_frame_adrs == 10'h24C)) r_wr__sadrs_h24C <= 1'b1;  else r_wr__sadrs_h24C <= 1'b0;
 	end
 //
+assign o_wr__sadrs_h218 = r_wr__sadrs_h218;
+assign o_wr__sadrs_h21C = r_wr__sadrs_h21C;
+assign o_wr__sadrs_h220 = r_wr__sadrs_h220;
+assign o_wr__sadrs_h224 = r_wr__sadrs_h224;
 assign o_wr__sadrs_h24C = r_wr__sadrs_h24C;
 
 

@@ -341,9 +341,10 @@ int main(void)
 
 	//// TODO: eeprom control back to USB control or not //{
 
+	// force SSPI control 
 	//eeprom_set_g_var(0, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
 
-	// force LAN control and EEPROM on BOARD
+	// force LAN control // EEPROM on BOARD // in S3000-PGU
 	//eeprom_set_g_var(1, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
 
 	//}
@@ -351,25 +352,69 @@ int main(void)
 	//}
 
 
+	//// TODO: S3000-PGU-LAN start up --------////  //{
 
-	//// TODO: S3100 start up --------////
+	// force LAN control // EEPROM on BOARD // in S3000-PGU
+	//eeprom_set_g_var(1, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
+
+	//// note : PGU initialization comes with the command of ":PGU:PWR ON\n"
+
+	//// PGU led control //{
+	//  // test on
+	//  pgu_spio_ext_pwr_led(1,0,0,0); // pgu.spio_ext__pwr_led(led=1,pwr_dac=1,pwr_adc=0,pwr_amp=1)
+	//  value = pgu_spio_ext_pwr_led_readback();
+	//  xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	//  // sleep
+	//  //usleep(9000);
+	//  usleep(300000); // 0.3s = 300ms =300000us
+	//  // test off
+	//  pgu_spio_ext_pwr_led(0,0,0,0);
+	//  value = pgu_spio_ext_pwr_led_readback();
+	//  xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	//}
+
+	//// PGU AUX IO //{
+	// PGU AUX IO initialization
+	//  // setup io direction and idle state
+	//  pgu_spio_ext__aux_init(); //
+	//  pgu_spio_ext__aux_idle(); //
+	//}
+
+	//}
+
+
+	//// TODO: S3100-PGU-TLAN start up --------////  //{
 	
-	// EEPROM control from SSPI in S3100-PGU
-	eeprom_set_g_var(0, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
+	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
+	//...
+	
+	//}
+
+
+	//// TODO: S3100-PGU-TLAN-SPI start up --------////  //{
+
+	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
+	//...
+	
+	//}
 
 	
-	//// TODO: LAN start up --------////
+	//// TODO: S3100-CPU-BASE-TLAN start up --------////  //{
+
+	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
+	//...
+
+	//}
 
 
-	//// TODO: end-point control back to USB //{
-	
-	// dedicated LAN is always available to MCS.
-	// MCS_SETUP_WI (wi19) is also always available to MCS.
-	
+	//// TODO: LAN start up --------////  //{
+
+	//// TODO: end-point control back to SSPI //{
+
 	// reset all MASK : ADRS_MASK_ALL__
 	_test_write_mcs(">>> set MASK for WI: \r\n",     ADRS_MASK_ALL__, 0xFFFFFFFF);
 
-	// MCS access enable // BRD_CON // ADRS_PORT_WI_03 --> ADRS__BRD_CON_WI
+	// MCS access disable // BRD_CON // ADRS_PORT_WI_03 --> ADRS__BRD_CON_WI
 	_test_write_mcs  (">>> disable MCS control : \r\n", ADRS__BRD_CON_WI, 0x00000000);
 
 	// read back : return 0xACACACAC due to lost control // ADRS_PORT_WO_3A --> ADRS__XADC_TEMP_WO
@@ -514,11 +559,12 @@ int main(void)
 
 	//}
 	
+	//}
+
 
 	/*****************************************/
 	/* WIZnet W5500 inside                   */
 	/*****************************************/
-
 
 #ifdef _TEST_LOOPBACK_
 	/* TODO: Main loop for TCP Loopback test */
