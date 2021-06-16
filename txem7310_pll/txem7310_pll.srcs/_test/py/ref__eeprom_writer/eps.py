@@ -56,7 +56,6 @@ import socket
 
 HOST = '192.168.168.143'  # The server's hostname or IP address
 #HOST143 = '192.168.168.143'  # The server's hostname or IP address 
-#HOST127 = '192.168.100.127'  # The server's hostname or IP address 
 PORT = 5025               # The port used by the server
 #
 #TIMEOUT = 5.3 # socket timeout
@@ -76,8 +75,6 @@ ss = None # socket
 ## command strings ##############################################################
 cmd_str__IDN      = b'*IDN?\n'
 cmd_str__RST      = b'*RST\n'
-cmd_str__FPGA_FID = b':FPGA:FID?\n'
-cmd_str__FPGA_TMP = b':FPGA:TMP?\n'
 cmd_str__EPS_EN   = b':EPS:EN'
 cmd_str__EPS_WMI  = b':EPS:WMI'
 cmd_str__EPS_WMO  = b':EPS:WMO'
@@ -264,7 +261,7 @@ class EPS_Dev:
 	def Reset(self):
 		# 
 		rsp = scpi_comm_resp_ss(self.ss, cmd_str__RST)
-		return rsp
+		return
 	def Open(self, hh=HOST, pp=PORT):
 		##  # open scpi
 		##  self.ss = LAN_CMU_Dev.f_scpi_open()		
@@ -289,7 +286,7 @@ class EPS_Dev:
 			raise
 		
 		# enable end-points control
-		scpi_comm_resp_ss(self.ss, cmd_str__EPS_EN +b' ON\n')
+		rsp = scpi_comm_resp_ss(self.ss, cmd_str__EPS_EN +b' ON\n')
 		
 		return self.ss
 	#
@@ -313,7 +310,7 @@ class EPS_Dev:
 		return []
 	def Close(self):
 		# disable end-points control
-		scpi_comm_resp_ss(self.ss, cmd_str__EPS_EN +b' OFF\n')
+		rsp = scpi_comm_resp_ss(self.ss, cmd_str__EPS_EN +b' OFF\n')
 		
 		#
 		ret = None
@@ -428,36 +425,7 @@ class EPS_Dev:
 		
 		#
 		return rsp
-
-	## composite function for spi test
-	def _test__send_spi_frame(self, data_C, data_A, data_D, enable_CS_bits = 0x00001FFF):
-		## set spi frame data
-		#data_C = 0x10   ##// for read 
-		#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
-		#data_D = 0x0000 ##// for reading (XXXX)
-		MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D
-		EPS_Dev.SetWireInValue(self,0x17, MSPI_CON_WI)
-
-		## set spi enable signals
-		MSPI_EN_CS_WI = enable_CS_bits
-		EPS_Dev.SetWireInValue(self,0x16, MSPI_EN_CS_WI)
-
-		## frame 
-		EPS_Dev.ActivateTriggerIn(self,0x42, 2) # frame_trig
-		cnt_loop = 0
-		while True:
-			ret=EPS_Dev.IsTriggered(self,0x62,0x00000002) # frame_done
-			cnt_loop += 1
-			if ret:
-				print('frame done !! @ ' + repr(cnt_loop))
-				break
-			
-		#GetWireOutValue
-		ret=EPS_Dev.GetWireOutValue(self,0x34) ## 0x24 --> 0x34 # for S3100-PGU
-		data_B = ret & 0xFFFF
-		print('0x{:08X}'.format(data_B))
-
-		return data_B		
+		
 
 ###########################################################################
 ###########################################################################
@@ -656,9 +624,6 @@ def set_host_ip_by_ping():
 
 ###########################################################################
 # TODO: test function
-
-
-
 def eps_test():
 	print('#################################################')
 
@@ -671,10 +636,7 @@ def eps_test():
 	## test ip 
 	#_host_,_port_ = set_host_ip_by_ping()
 	#
-
-	#_host_ = '192.168.100.127' # PGU test
-	_host_ = '192.168.168.143' # test
-
+	_host_ = '192.168.100.127' # PGU test
 	_port_ = 5025
 	#
 	print(_host_)
@@ -685,7 +647,7 @@ def eps_test():
 
 
 	## flag check max retry count
-	#MAX_count = 50
+	MAX_count = 50
 	##MAX_count = 500 # 20000 # 280 for 192000 samples
 	#MAX_count = 5000 # 1500 for 25600 samples @ 12500 count period	
 	
@@ -696,7 +658,7 @@ def eps_test():
 		print('>>> device is not open.')
 		## raise
 		input('')
-		#MAX_count = 3	
+		MAX_count = 3	
 	
 	
 	### scpi : *IDN?
@@ -724,9 +686,6 @@ def eps_test():
 	#print('hex code rcvd: ' + rsp.hex())
 	print('string rcvd: ' + repr(rsp))
 	
-
-	##---- EPS ON test ----##
-	
 	### scpi : ":EPS:EN ON\n"
 	print('\n>>> {} : {}'.format('Test',cmd_str__EPS_EN))
 	rsp = scpi_comm_resp_ss(ss, cmd_str__EPS_EN +b' ON\n')
@@ -745,123 +704,6 @@ def eps_test():
 	dev.UpdateWireOuts()
 	ret=dev.GetWireOutValue(0x20)
 	print('0x{:08X}'.format(ret))
-
-
-	##---- FPGA FID,TMP test ----##
-	print('\n>>> {} : {}'.format('Test',cmd_str__FPGA_FID))
-	rsp = scpi_comm_resp_ss(ss, cmd_str__FPGA_FID)
-	print('string rcvd: ' + repr(rsp))
-	
-	print('\n>>> {} : {}'.format('Test',cmd_str__FPGA_TMP))
-	rsp = scpi_comm_resp_ss(ss, cmd_str__FPGA_TMP)
-	print('string rcvd: ' + repr(rsp))
-	# assume hex decimal response: #HF3190306<NL>
-	rsp = rsp.decode()
-	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
-	tmp_mC = int(rsp,16) # convert hex into int
-	print('> FPGA temperature = {:8.3f} [C]'.format(tmp_mC/1000))
-	
-
-	##---- EPS  trigger test ----##
-	print('\n>>> {} : {}'.format('Test','EPS triggers'))
-
-	##// MSPI_TI : ep42trig
-	##//   bit[0] = reset_trig 
-	##//   bit[1] = init_trig
-	##//   bit[2] = frame_trig
-	##//
-	##// MSPI_TO : ep62trig
-	##//   bit[0] = reset_done
-	##//   bit[1] = init_done
-	##//   bit[2] = frame_done
-	##//
-	##// MSPI_EN_CS_WI : ep16wire
-	##//  bit[0 ] = enable SPI_nCS0  
-	##//  bit[1 ] = enable SPI_nCS1  
-	##//  bit[2 ] = enable SPI_nCS2  
-	##//  bit[3 ] = enable SPI_nCS3  
-	##//  bit[4 ] = enable SPI_nCS4  
-	##//  bit[5 ] = enable SPI_nCS5  
-	##//  bit[6 ] = enable SPI_nCS6  
-	##//  bit[7 ] = enable SPI_nCS7  
-	##//  bit[8 ] = enable SPI_nCS8  
-	##//  bit[9 ] = enable SPI_nCS9  
-	##//  bit[10] = enable SPI_nCS10 
-	##//  bit[11] = enable SPI_nCS11 
-	##//  bit[12] = enable SPI_nCS12 
-	##//
-	##// MSPI_CON_WI : ep17wire
-	##//  bit[31:26] = data_C // control[5:0]
-	##//  bit[25:16] = data_A // address[9:0]
-	##//  bit[15: 0] = data_D // MOSI data[15:0]
-	##//
-	##// MSPI_FLAG_WO : ep24wire
-	##//  bit[23]   = TEST_mode_en
-	##//  bit[15:0] = data_B // MISO data[15:0]	
-	
-
-	## reset 
-	dev.ActivateTriggerIn(0x42, 0) # reset_trig
-	cnt_loop = 0
-	while True:
-		ret=dev.IsTriggered(0x62,0x00000001) # reset_done
-		cnt_loop += 1
-		if ret:
-			print('reset done !! @ ' + repr(cnt_loop))
-			break
-	
-	## init 
-	dev.ActivateTriggerIn(0x42, 1) # init_trig
-	cnt_loop = 0
-	while True:
-		ret=dev.IsTriggered(0x62,0x00000002) # init_done
-		cnt_loop += 1
-		if ret:
-			print('init done !! @ ' + repr(cnt_loop))
-			break
-
-	
-	## set CS enable bits 
-	enable_CS_bits = 0x000013CA
-	
-	## set spi frame data @ address 0x380
-	data_C = 0x10   ##// control data 6bit for read 
-	data_A = 0x380  ##// address data 10bit for address of known pattern  0x_33AA_CC55
-	data_D = 0x0000 ##// MOSI data 16bit for reading (XXXX)
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-
-	## set spi frame data @ address 0x382
-	data_C = 0x10   ##// control data 6bit for read 
-	data_A = 0x382  ##// address data 10bit for address of known pattern  0x_33AA_CC55
-	data_D = 0x0000 ##// MOSI data 16bit for reading (XXXX)
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-
-	## reset : for clearing SSPI test mode.
-	dev.ActivateTriggerIn(0x42, 0) # reset_trig
-	cnt_loop = 0
-	while True:
-		ret=dev.IsTriggered(0x62,0x00000001) # reset_done
-		cnt_loop += 1
-		if ret:
-			print('reset done !! @ ' + repr(cnt_loop))
-			break
-
-
-	##---- EPS OFF test ----##
 	
 	### scpi : ":EPS:EN OFF\n"
 	print('\n>>> {} : {}'.format('Test',cmd_str__EPS_EN))

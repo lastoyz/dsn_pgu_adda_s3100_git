@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>txem7310_pll__s3100_ms__top_hw_platform_0</name>
+	<name>txem7310_pll__s3100_sv_pgu__top_hw_platform_0</name>
 	<comment>Created by SDK v2017.4</comment>
 	<projects>
 	</projects>
@@ -11,7 +11,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1618897993854</id>
+			<id>1622790320931</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -20,7 +20,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1618897993865</id>
+			<id>1622790320941</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -29,7 +29,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1618897993871</id>
+			<id>1622790320955</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -38,7 +38,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1619001281870</id>
+			<id>1623038469550</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -47,7 +47,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1619001281904</id>
+			<id>1623038469558</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -56,7 +56,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1619001281913</id>
+			<id>1623038469564</id>
 			<name></name>
 			<type>6</type>
 			<matcher>

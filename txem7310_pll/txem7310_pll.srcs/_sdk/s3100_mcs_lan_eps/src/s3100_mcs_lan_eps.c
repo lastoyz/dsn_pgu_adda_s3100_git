@@ -91,7 +91,8 @@ int main(void)
 	init_platform();
 
 	//// test setup for print on jtag-terminal // stdio with mdm //{
-	xil_printf("> Go S3100-CPU-BASE with LAN support!! \r\n"); // on jtag-terminal
+	//xil_printf("> Go S3100-CPU-BASE with LAN support!! \r\n"); // on jtag-terminal
+	xil_printf("> Go S3100-PGU with LAN support!! \r\n"); // on jtag-terminal
 
 	xil_printf(">>> build_info: ["__TIME__"],[" __DATE__ "]\r\n");
 #ifdef  _SCPI_DEBUG_
@@ -306,7 +307,7 @@ int main(void)
 		
 			xil_printf(">> MAC and IP are set by EEPROM info. \r\n");
 			
-			//// update SID and BID into MCS_SETUP_WI @ WI11 --> wi19
+			//// update SID and BID into MCS_SETUP_WI @ WI11 --> wi19 ... ADRS__MCS_SETUP_WI
 			// WI11 :
 			//   bit [31:16] = board ID // 0000~9999, set from EEPROM via MCS
 			//   bit [10]    = select__L_LAN_on_FPGA_MD__H_LAN_on_BASE_BD // set from MCS
@@ -314,13 +315,14 @@ int main(void)
 			//   bit [8]     = w_con_fifo_path__L_sspi_H_lan              // set from MCS
 			//   bit [3:0]   = slot ID  // 00~99, set from EEPROM via MCS
 			//_test_write_mcs(">>> set BID and SID: \r\n", ADRS_PORT_WI_11_MHVSU, 
-			_test_write_mcs(">>> set BID and SID: \r\n", ADRS_PORT_WI_19, 
+			_test_write_mcs(">>> set BID and SID: \r\n", ADRS__MCS_SETUP_WI,
 				//(p_tmp_u8[0x0E]<<24) + (p_tmp_u8[0x0F]<<16) +  // BID
-				(decstr2data_u32(&p_tmp_u8[0x0C],4)<<16) + // BID
-				 decstr2data_u32(&p_tmp_u8[0x2C],2)        // SID
+				(decstr2data_u32(&p_tmp_u8[0x0C],4)<<16) + // BID // board ID from EEPROM // to MCS_SETUP_WI[31:16]
+				 decstr2data_u32(&p_tmp_u8[0x2C],2)        // SID // slot ID from EEPROM  // to MCS_SETUP_WI[7:0]
+				//$$ note ... need to protect MCS_SETUP_WI[15:8]
 				);
 			//_test_read_mcs (">>> get BID and SID: \r\n", ADRS_PORT_WI_11_MHVSU);
-			_test_read_mcs (">>> get BID and SID: \r\n", ADRS_PORT_WI_19);
+			_test_read_mcs (">>> get BID and SID: \r\n", ADRS__MCS_SETUP_WI);
 			
 			xil_printf(">> BID and SID are set by EEPROM info. \r\n");
 			
@@ -339,35 +341,103 @@ int main(void)
 
 	//// TODO: eeprom control back to USB control or not //{
 
+	// force SSPI control 
 	//eeprom_set_g_var(0, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
 
-	// force LAN control and EEPROM on BOARD
-	eeprom_set_g_var(1, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
+	// force LAN control // EEPROM on BOARD // in S3000-PGU
+	//eeprom_set_g_var(1, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
 
 	//}
 	
 	//}
 
 
+	//// TODO: S3000-PGU-LAN start up --------////  //{
 
-	//// TODO: S3100 start up --------////
+	// force LAN control // EEPROM on BOARD // in S3000-PGU
+	//eeprom_set_g_var(1, 0); // (u8 EEPROM__LAN_access, u8 EEPROM__on_TP)
+
+	//// note : PGU initialization comes with the command of ":PGU:PWR ON\n"
+
+	//// PGU led control //{
+	//  // test on
+	//  pgu_spio_ext_pwr_led(1,0,0,0); // pgu.spio_ext__pwr_led(led=1,pwr_dac=1,pwr_adc=0,pwr_amp=1)
+	//  value = pgu_spio_ext_pwr_led_readback();
+	//  xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	//  // sleep
+	//  //usleep(9000);
+	//  usleep(300000); // 0.3s = 300ms =300000us
+	//  // test off
+	//  pgu_spio_ext_pwr_led(0,0,0,0);
+	//  value = pgu_spio_ext_pwr_led_readback();
+	//  xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	//}
+
+	//// PGU AUX IO //{
+	// PGU AUX IO initialization
+	//  // setup io direction and idle state
+	//  pgu_spio_ext__aux_init(); //
+	//  pgu_spio_ext__aux_idle(); //
+	//}
+
+	//}
+
+
+	//// TODO: S3100-PGU-TLAN start up --------////  //{
 	
-	// Not Yet
+	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
 
+	// PGU led control //{
+	// test on
+	// pgu.spio_ext__pwr_led(led=1,pwr_dac=1,pwr_adc=0,pwr_amp=1)
+	//   led=0/1,
+	//   pwr_dac=0/1,
+	//   pwr_adc=0/1,
+	//   pwr_amp=X // always power on
+	//pgu_spio_ext_pwr_led(1,0,0,0); // LED only : OK
+	pgu_spio_ext_pwr_led(1,1,0,0); // dac test : OK
+	//pgu_spio_ext_pwr_led(1,0,1,0); // adc test : OK
+	value = pgu_spio_ext_pwr_led_readback();
+	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	// sleep
+	//usleep(9000);
+	//usleep(300000); // 0.3s = 300ms =300000us
+	usleep(3000000); // 3s = 3000ms =3000000us
+	// test off
+	pgu_spio_ext_pwr_led(0,0,0,0);
+	value = pgu_spio_ext_pwr_led_readback();
+	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
+	//}
+
+	//...
+	
+	//}
+
+
+	//// TODO: S3100-PGU-TSPI start up --------////  //{
+
+	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
+	//...
+	
+	//}
 
 	
-	//// TODO: LAN start up --------////
+	//// TODO: S3100-CPU-TSPI start up --------////  //{
+
+	// EEPROM access from LAN whenever LAN is activated. Otherwise, access from SSPI. // logic revised.
+	//...
+
+	//}
 
 
-	//// TODO: end-point control back to USB //{
-	
-	// dedicated LAN is always available to MCS.
-	// MCS_SETUP_WI (wi19) is also always available to MCS.
-	
+	//// TODO: LAN start up --------////  //{
+
+	//// TODO: end-point control back to SSPI //{
+
 	// reset all MASK : ADRS_MASK_ALL__
 	_test_write_mcs(">>> set MASK for WI: \r\n",     ADRS_MASK_ALL__, 0xFFFFFFFF);
 
-	// MCS access enable // BRD_CON // ADRS_PORT_WI_03 --> ADRS__BRD_CON_WI
+	// MCS access disable // BRD_CON // ADRS_PORT_WI_03 --> ADRS__BRD_CON_WI
 	_test_write_mcs  (">>> disable MCS control : \r\n", ADRS__BRD_CON_WI, 0x00000000);
 
 	// read back : return 0xACACACAC due to lost control // ADRS_PORT_WO_3A --> ADRS__XADC_TEMP_WO
@@ -512,11 +582,12 @@ int main(void)
 
 	//}
 	
+	//}
+
 
 	/*****************************************/
 	/* WIZnet W5500 inside                   */
 	/*****************************************/
-
 
 #ifdef _TEST_LOOPBACK_
 	/* TODO: Main loop for TCP Loopback test */

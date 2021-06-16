@@ -1,5 +1,5 @@
-#ifndef __S3100_CPU_CONFIG_H_		/* prevent circular inclusions */
-#define __S3100_CPU_CONFIG_H_		/* by using protection macros */
+#ifndef __S3100_PGU_CONFIG_H_		/* prevent circular inclusions */
+#define __S3100_PGU_CONFIG_H_		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,9 +19,10 @@ extern "C" {
 //#define _PGU_CPU_
 
 // macro for S3100-CPU-BASE board support
-#define _S3100_CPU_
+//#define _S3100_CPU_
 
-
+// macro for S3100-PGU board support
+#define _S3100_PGU_
 
 // offset definition for mcs_io_bridge.v //{
 //#define MCS_IO_INST_OFFSET              0x00000000 // for LAN
@@ -29,8 +30,9 @@ extern "C" {
 //#define MCS_IO_INST_OFFSET_PGU          0x00020000 // for PGU
 //#define MCS_IO_INST_OFFSET_EXT          0x00030000 // for MHVSU_BASE (port end-points + lan end-points)
 //#define MCS_IO_INST_OFFSET_EXT_CMU      0x00040000 // for NEW CMU (port end-points + lan end-points)
-#define MCS_IO_INST_OFFSET_EXT_PGU      0x00050000 // for S3000-PGU       (port end-points + lan end-points)
-#define MCS_IO_INST_OFFSET_EXT_S3100    0x00060000 // for S3100-CPU-BASE  (port end-points + lan end-points)
+//#define MCS_IO_INST_OFFSET_EXT_PGU      0x00050000 // for S3000-PGU       (port end-points + lan end-points)
+//#define MCS_IO_INST_OFFSET_EXT_S3100    0x00060000 // for S3100-CPU-BASE  (port end-points + lan end-points)
+#define MCS_IO_INST_OFFSET_EXT_S3100_PGU  0x00070000 // for S3100-PGU       (port end-points + lan end-points)
 //}
 
 // BASE //{
@@ -38,13 +40,14 @@ extern "C" {
 //#define ADRS_BASE_CMU       XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_CMU // not used
 //#define ADRS_BASE_PGU       XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_PGU // not used
 //#define ADRS_BASE_MHVSU     XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT // not used
-//#define ADRS_BASE_EXT_CMU   XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_CMU
-#define ADRS_BASE_EXT_PGU     XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_PGU
-#define ADRS_BASE_EXT_S3100   XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_S3100
+//#define ADRS_BASE_EXT_CMU       XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_CMU
+//#define ADRS_BASE_EXT_PGU       XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_PGU
+//#define ADRS_BASE_EXT_S3100     XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_S3100
+#define ADRS_BASE_EXT_S3100_PGU   XPAR_IOMODULE_0_IO_BASEADDR + MCS_IO_INST_OFFSET_EXT_S3100_PGU
 
-#define MCS_EP_BASE           ADRS_BASE_EXT_PGU // test S3100-PGU or S3000-PGU
-//#define MCS_EP_BASE         ADRS_BASE_EXT_S3100 // for S3100-CPU-BASE
-
+//#define MCS_EP_BASE         ADRS_BASE_EXT_PGU       // S3000-PGU
+//#define MCS_EP_BASE         ADRS_BASE_EXT_S3100     // S3100-CPU-BASE
+#define MCS_EP_BASE           ADRS_BASE_EXT_S3100_PGU // S3100-PGU
 
 //}
 
@@ -585,6 +588,99 @@ extern "C" {
 //}
 
 // TODO: S3100 endpoints adrs //{
+
+#ifdef _S3100_PGU_
+
+//
+#define EP_ADRS__FPGA_IMAGE_ID_WO   0x20  //$$ [TEST] FPGA_IMAGE_ID_WO //$$ S3100
+#define EP_ADRS__XADC_TEMP_WO       0x3A  //$$ [XADC] XADC_TEMP_WO     //$$ S3100
+#define EP_ADRS__XADC_VOLT          0x3B  // <-- EP_ADRS_PGU__XADC_VOLT   
+#define EP_ADRS__TIMESTAMP_WO       0x22  // <-- EP_ADRS_PGU__TIMESTAMP_WO
+#define EP_ADRS__TEST_IO_MON        0x23  // <-- EP_ADRS_PGU__TEST_IO_MON 
+#define EP_ADRS__TEST_CON_WI        0x01  //$$ [TEST] TEST_CON_WI      //$$ S3100
+#define EP_ADRS__TEST_OUT_WO        0x21  //$$ [TEST] TEST_OUT_WO      //$$ S3100
+#define EP_ADRS__TEST_TI            0x40  //$$ [TEST] TEST_TI          //$$ S3100
+#define EP_ADRS__TEST_TO            0x60  //$$ [TEST] TEST_TO          //$$ S3100
+#define EP_ADRS__BRD_CON_WI         0x03  //$$ [TEST] BRD_CON_WI       //$$ S3100
+#define EP_ADRS__MCS_SETUP_WI       0x19  //$$ [MCS]  MCS_SETUP_WI     //$$ S3100
+#define EP_ADRS__MSPI_EN_CS_WI      0x16  //$$ [MSPI]  MSPI_EN_CS_WI   //$$ S3100 // reserved
+#define EP_ADRS__MSPI_CON_WI        0x17  //$$ [MSPI]  MSPI_CON_WI     //$$ S3100
+#define EP_ADRS__MSPI_FLAG_WO       0x34  //$$ [MSPI]  MSPI_FLAG_WO    //$$ S3100
+#define EP_ADRS__MSPI_TI            0x42  //$$ [MSPI]  MSPI_TI         //$$ S3100
+#define EP_ADRS__MSPI_TO            0x62  //$$ [MSPI]  MSPI_TO         //$$ S3100
+#define EP_ADRS__MEM_FDAT_WI        0x12  //$$ [MEM]  MEM_FDAT_WI      //$$ S3100
+#define EP_ADRS__MEM_WI             0x13  //$$ [MEM]  MEM_WI           //$$ S3100
+#define EP_ADRS__MEM_TI             0x53  //$$ [MEM]  MEM_TI           //$$ S3100
+#define EP_ADRS__MEM_TO             0x73  //$$ [MEM]  MEM_TO           //$$ S3100
+#define EP_ADRS__MEM_PI             0x93  //$$ [MEM]  MEM_PI           //$$ S3100
+#define EP_ADRS__MEM_PO             0xB3  //$$ [MEM]  MEM_PO           //$$ S3100
+#define EP_ADRS__DACX_WI            0x05                        // <-- EP_ADRS_PGU__DACX_WI        
+#define EP_ADRS__DACX_WO            0x25                        // <-- EP_ADRS_PGU__DACX_WO        
+#define EP_ADRS__DACX_TI            0x45                        // <-- EP_ADRS_PGU__DACX_TI        
+#define EP_ADRS__DACZ_DAT_WI        0x08                        // <-- EP_ADRS_PGU__DACZ_DAT_WI    
+#define EP_ADRS__DACZ_DAT_WO        0x28                        // <-- EP_ADRS_PGU__DACZ_DAT_WO    
+#define EP_ADRS__DACZ_DAT_TI        0x48                        // <-- EP_ADRS_PGU__DACZ_DAT_TI    
+#define EP_ADRS__DAC0_DAT_INC_PI    0x86 // data b16 + inc b16  // <-- EP_ADRS_PGU__DAC0_DAT_INC_PI
+#define EP_ADRS__DAC0_DUR_PI        0x87 // duration b32        // <-- EP_ADRS_PGU__DAC0_DUR_PI    
+#define EP_ADRS__DAC1_DAT_INC_PI    0x88 // data b16 + inc b16  // <-- EP_ADRS_PGU__DAC1_DAT_INC_PI
+#define EP_ADRS__DAC1_DUR_PI        0x89 // duration b32        // <-- EP_ADRS_PGU__DAC1_DUR_PI    
+#define EP_ADRS__CLKD_WI            0x06                        // <-- EP_ADRS_PGU__CLKD_WI        
+#define EP_ADRS__CLKD_WO            0x26                        // <-- EP_ADRS_PGU__CLKD_WO        
+#define EP_ADRS__CLKD_TI            0x46                        // <-- EP_ADRS_PGU__CLKD_TI        
+#define EP_ADRS__SPIO_WI            0x07 // <-- EP_ADRS_PGU__SPIO_WI
+#define EP_ADRS__SPIO_WO            0x27 // <-- EP_ADRS_PGU__SPIO_WO
+#define EP_ADRS__SPIO_TI            0x47 // <-- EP_ADRS_PGU__SPIO_TI
+#define EP_ADRS__TRIG_DAT_WI        0x09 // new
+#define EP_ADRS__TRIG_DAT_WO        0x29 // new
+#define EP_ADRS__TRIG_DAT_TI        0x49 // new
+
+//
+#define ADRS__FPGA_IMAGE_ID_WO      ( MCS_EP_BASE + (EP_ADRS__FPGA_IMAGE_ID_WO  <<4) )
+#define ADRS__XADC_TEMP_WO          ( MCS_EP_BASE + (EP_ADRS__XADC_TEMP_WO      <<4) )
+#define ADRS__XADC_VOLT             ( MCS_EP_BASE + (EP_ADRS__XADC_VOLT         <<4) )
+#define ADRS__TIMESTAMP_WO          ( MCS_EP_BASE + (EP_ADRS__TIMESTAMP_WO      <<4) )
+#define ADRS__TEST_IO_MON           ( MCS_EP_BASE + (EP_ADRS__TEST_IO_MON       <<4) )
+#define ADRS__TEST_CON_WI           ( MCS_EP_BASE + (EP_ADRS__TEST_CON_WI       <<4) )
+#define ADRS__TEST_OUT_WO           ( MCS_EP_BASE + (EP_ADRS__TEST_OUT_WO       <<4) )
+#define ADRS__TEST_TI               ( MCS_EP_BASE + (EP_ADRS__TEST_TI           <<4) )
+#define ADRS__TEST_TO               ( MCS_EP_BASE + (EP_ADRS__TEST_TO           <<4) )
+#define ADRS__BRD_CON_WI            ( MCS_EP_BASE + (EP_ADRS__BRD_CON_WI        <<4) )
+#define ADRS__MCS_SETUP_WI          ( MCS_EP_BASE + (EP_ADRS__MCS_SETUP_WI      <<4) )
+#define ADRS__MSPI_EN_CS_WI         ( MCS_EP_BASE + (EP_ADRS__MSPI_EN_CS_WI     <<4) )
+#define ADRS__MSPI_CON_WI           ( MCS_EP_BASE + (EP_ADRS__MSPI_CON_WI       <<4) )
+#define ADRS__MSPI_FLAG_WO          ( MCS_EP_BASE + (EP_ADRS__MSPI_FLAG_WO      <<4) )
+#define ADRS__MSPI_TI               ( MCS_EP_BASE + (EP_ADRS__MSPI_TI           <<4) )
+#define ADRS__MSPI_TO               ( MCS_EP_BASE + (EP_ADRS__MSPI_TO           <<4) )
+#define ADRS__MEM_FDAT_WI           ( MCS_EP_BASE + (EP_ADRS__MEM_FDAT_WI       <<4) )
+#define ADRS__MEM_WI                ( MCS_EP_BASE + (EP_ADRS__MEM_WI            <<4) )
+#define ADRS__MEM_TI                ( MCS_EP_BASE + (EP_ADRS__MEM_TI            <<4) )
+#define ADRS__MEM_TO                ( MCS_EP_BASE + (EP_ADRS__MEM_TO            <<4) )
+#define ADRS__MEM_PI                ( MCS_EP_BASE + (EP_ADRS__MEM_PI            <<4) )
+#define ADRS__MEM_PO                ( MCS_EP_BASE + (EP_ADRS__MEM_PO            <<4) )
+#define ADRS__DACX_WI               ( MCS_EP_BASE + (EP_ADRS__DACX_WI           <<4) )
+#define ADRS__DACX_WO               ( MCS_EP_BASE + (EP_ADRS__DACX_WO           <<4) )
+#define ADRS__DACX_TI               ( MCS_EP_BASE + (EP_ADRS__DACX_TI           <<4) )
+#define ADRS__DACZ_DAT_WI           ( MCS_EP_BASE + (EP_ADRS__DACZ_DAT_WI       <<4) )
+#define ADRS__DACZ_DAT_WO           ( MCS_EP_BASE + (EP_ADRS__DACZ_DAT_WO       <<4) )
+#define ADRS__DACZ_DAT_TI           ( MCS_EP_BASE + (EP_ADRS__DACZ_DAT_TI       <<4) )
+#define ADRS__DAC0_DAT_INC_PI       ( MCS_EP_BASE + (EP_ADRS__DAC0_DAT_INC_PI   <<4) )
+#define ADRS__DAC0_DUR_PI           ( MCS_EP_BASE + (EP_ADRS__DAC0_DUR_PI       <<4) )
+#define ADRS__DAC1_DAT_INC_PI       ( MCS_EP_BASE + (EP_ADRS__DAC1_DAT_INC_PI   <<4) )
+#define ADRS__DAC1_DUR_PI           ( MCS_EP_BASE + (EP_ADRS__DAC1_DUR_PI       <<4) )
+#define ADRS__CLKD_WI               ( MCS_EP_BASE + (EP_ADRS__CLKD_WI           <<4) )
+#define ADRS__CLKD_WO               ( MCS_EP_BASE + (EP_ADRS__CLKD_WO           <<4) )
+#define ADRS__CLKD_TI               ( MCS_EP_BASE + (EP_ADRS__CLKD_TI           <<4) )
+#define ADRS__SPIO_WI               ( MCS_EP_BASE + (EP_ADRS__SPIO_WI           <<4) )
+#define ADRS__SPIO_WO               ( MCS_EP_BASE + (EP_ADRS__SPIO_WO           <<4) )
+#define ADRS__SPIO_TI               ( MCS_EP_BASE + (EP_ADRS__SPIO_TI           <<4) )
+#define ADRS__TRIG_DAT_WI           ( MCS_EP_BASE + (EP_ADRS__TRIG_DAT_WI       <<4) )
+#define ADRS__TRIG_DAT_WO           ( MCS_EP_BASE + (EP_ADRS__TRIG_DAT_WO       <<4) )
+#define ADRS__TRIG_DAT_TI           ( MCS_EP_BASE + (EP_ADRS__TRIG_DAT_TI       <<4) )
+
+//
+#endif
+
+
 #ifdef _S3100_CPU_
 
 // EP address
@@ -641,8 +737,8 @@ extern "C" {
 #define ADRS__MEM_PI                ( MCS_EP_BASE + (EP_ADRS__MEM_PI            <<4) )
 #define ADRS__MEM_PO                ( MCS_EP_BASE + (EP_ADRS__MEM_PO            <<4) )
 
-
 #endif
+
 //}
  
 // TODO: PGU endpoints adrs //{

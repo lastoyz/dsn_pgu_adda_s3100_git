@@ -54,13 +54,13 @@ namespace TopInstrument
         // board INFO from EEPROM 
         public char[] __gui_pgu_idn_txt = new char[60]; //$$ not inside EEPROM
 
-        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F //$$ note board ID in 0x0C-0x0F
+        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F
         public char[] __gui_pgu_ip_adrs = new char[16]; //$$ location @ 0x10-0x13
         public char[] __gui_pgu_sm_adrs = new char[16]; //$$ location @ 0x14-0x17
         public char[] __gui_pgu_ga_adrs = new char[16]; //$$ location @ 0x18-0x1B
         public char[] __gui_pgu_dns_adrs= new char[16]; //$$ location @ 0x1C-0x1F
         public char[] __gui_pgu_mac_adrs= new char[12]; //$$ location @ 0x20-0x2B
-        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D //$$ note slot ID in 0x2C-0x2D
+        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D
         public byte __gui_pgu_user_id           ;       //$$ location @ 0x2E
         public byte __gui_pgu_check_sum         ;       //$$ location @ 0x2F
         public byte __gui_pgu_check_sum_residual;       //$$ not inside EEPROM
@@ -120,9 +120,9 @@ namespace TopInstrument
         
         //----//
 
-        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
+        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
 		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
-        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
+        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
 
         public bool IsInit = false;
 
@@ -215,7 +215,7 @@ namespace TopInstrument
 
             catch (Exception e)
             {
-                Socket ss = null;
+                //$$Socket ss = null;
                 throw new Exception(String.Format("Error in Open") + e.Message);
             }
 
@@ -1225,6 +1225,8 @@ namespace TopInstrument
             int pgu_freq_in_100kHz = Convert.ToInt32(1 / (time_ns__dac_update * 1e-9) / 100000);
             string pgu_freq_in_100kHz_str = string.Format(" {0,4:D4} \n", pgu_freq_in_100kHz);
 
+            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
+
             //pgu_freq_in_100kHz_str = ' {:04d} \n'.format(pgu_freq_in_100kHz).encode()
             //print('pgu_freq_in_100kHz_str:', repr(pgu_freq_in_100kHz_str))
 
@@ -1329,9 +1331,6 @@ namespace TopInstrument
 
             string LogFileName;
             LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
-
-            //using (StreamWriter ws = new StreamWriter(LogFileName, false))
-            //    ws.WriteLine("Debuger Start");
 
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                  ws.WriteLine("####$$$$------------------------------------------->>>>>>");
@@ -1790,7 +1789,7 @@ namespace TopInstrument
 
         }
 
-        public void trig_pgu_output_Cid_ON(int CycleCount)
+        public void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2)
         {
 
             string LogFileName;
@@ -1829,11 +1828,23 @@ namespace TopInstrument
             pgu_spio_ext__send_aux_IO_OLAT(0x3300);
 
             Delay(3);
+            string PGU_TRIG_ON;
+            if (Ch1 && Ch2)
+                PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010001 \n");
+            else if ( (Ch1 == true) && (Ch2 == false) )
+                PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00000001 \n");
+            else
+                PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010000 \n");
+            
+            //$$ byte[] cmd_str__PGU_TRIG_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
+            //$$ scpi_comm_resp_ss(ss, cmd_str__PGU_TRIG_CMD);
+            byte[] PGU_TRIG_ON_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
+            scpi_comm_resp_ss(ss, PGU_TRIG_ON_CMD);
 
-            string PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010001 \n");
-            byte[] cmd_str__PGU_TRIG_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
-            scpi_comm_resp_ss(ss, cmd_str__PGU_TRIG_CMD);
-                       
+            // log
+            using (StreamWriter ws = new StreamWriter(LogFileName, true))
+                ws.WriteLine("## " + PGU_TRIG_ON); 
+
             ret = pgu_spio_ext__read_aux_IO_GPIO();
 
         }
@@ -1935,7 +1946,7 @@ namespace TopInstrument
             //## initialize PGU //$$
 
             //write_aux_io__direct(__gui_aux_io_control & 0xFFFF);
-            trig_pgu_output_Cid_ON(CycleCount);
+            trig_pgu_output_Cid_ON(CycleCount, true, true);
 
             Delay(delay); //delay 3.5s
 
@@ -1959,9 +1970,37 @@ namespace TopInstrument
             return ret;
         }
 
-        public string ForcePGU_ON(int CycleCount)
+        public string ForcePGU__no_socket_close (int CycleCount, bool Ch1, bool Ch2, int delay=3500)
         {
-            trig_pgu_output_Cid_ON(CycleCount);
+            //$$ update repeat info in member
+            this.__gui_cycle_count = CycleCount;
+            
+            //## initialize PGU //$$
+
+            //write_aux_io__direct(__gui_aux_io_control & 0xFFFF);
+            trig_pgu_output_Cid_ON(CycleCount, Ch1, Ch2);
+
+            Delay(delay); //delay 3.5s
+
+            trig_pgu_output_Cid_OFF();
+
+            //write_aux_io__direct(__gui_aux_io_control & 0xFCFF);
+
+			//$$ remove below for stable output
+			//$$ //### power off 
+            //$$ scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " OFF\n"));
+            //$$ scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + "?\n"));
+
+            string ret;
+            ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(":EPS:WMO#H3A #HFFFFFFFF\n"));
+            //## close socket
+            //scpi_close(ss);
+
+            return ret;
+        }
+        public string ForcePGU_ON(int CycleCount, bool Ch1, bool Ch2)
+        {
+            trig_pgu_output_Cid_ON(CycleCount, Ch1, Ch2);
             string ret;
 
             ret = pgu_spio_ext__read_aux_IO_GPIO();
@@ -2108,7 +2147,7 @@ namespace TopInstrument
             //return rsp.decode()[0:2] # OK or NG
         }
 
-		/*
+		
 		public static int _test()
         {
             Console.WriteLine("Hello, TopInstrument!");
@@ -2149,7 +2188,8 @@ namespace TopInstrument
             //// sys_open
             //Console.WriteLine(dev.SysOpen("192.168.100.112", 20000));
             //Console.WriteLine(dev.SysOpen("192.168.100.115", 20000));
-            Console.WriteLine(dev.SysOpen("192.168.100.127", 20000));
+            //Console.WriteLine(dev.SysOpen("192.168.100.127", 20000));
+            Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test
 
 
             //// test eeprom access 
@@ -2314,46 +2354,40 @@ namespace TopInstrument
             dev.Load_INFO_from_EEPROM();
 
 
-            //// test change members
-            var model_name = new string  ("PGU_CPU_S3000#00").ToCharArray(); // (1)
-            //var model_name = new string("PGU_CPU_LAN#1234").ToCharArray(); // (1)
+            //// test change members //{
 
-            var pgu_ip_adrs = new string  ("192.168.100.127").ToCharArray(); // (2)
-            //var pgu_ip_adrs  = new string  ("192.168.100.112" ).ToCharArray(); // (2)
-
-            var pgu_sm_adrs  = new string  ("255.255.255.0" ).ToCharArray(); // (3)
-            var pgu_ga_adrs  = new string  ("0.0.0.0"       ).ToCharArray(); // (4)
-            var pgu_dns_adrs = new string  ("0.0.0.0"       ).ToCharArray(); // (5)
-
-            //var pgu_mac_adrs = new string  ("00485533CD0F" ).ToCharArray(); // (6)
-            var pgu_mac_adrs = new string  ("0008DC00CD0F" ).ToCharArray(); // (6)
-
-            var pgu_slot_id  = new string("56").ToCharArray(); // (7)
-            //var pgu_slot_id  = new string("98").ToCharArray(); // (7)
-
-            //var pgu_user_id = (byte) 32; //(8)
-            var pgu_user_id = (byte) 23; //(8)
-
-            //var pgu_user_txt = new string  ("0123456789ABCDEF").ToCharArray(); // (9)
-            var pgu_user_txt = new string("ACACABAB12123434").ToCharArray(); // (9)
+            //  var model_name = new string  ("PGU_CPU_S3000#00").ToCharArray(); // (1)
+            //  //var model_name = new string("PGU_CPU_LAN#1234").ToCharArray(); // (1)
+            //  var pgu_ip_adrs = new string  ("192.168.100.127").ToCharArray(); // (2)
+            //  //var pgu_ip_adrs  = new string  ("192.168.100.112" ).ToCharArray(); // (2)
+            //  var pgu_sm_adrs  = new string  ("255.255.255.0" ).ToCharArray(); // (3)
+            //  var pgu_ga_adrs  = new string  ("0.0.0.0"       ).ToCharArray(); // (4)
+            //  var pgu_dns_adrs = new string  ("0.0.0.0"       ).ToCharArray(); // (5)
+            //  //var pgu_mac_adrs = new string  ("00485533CD0F" ).ToCharArray(); // (6)
+            //  var pgu_mac_adrs = new string  ("0008DC00CD0F" ).ToCharArray(); // (6)
+            //  var pgu_slot_id  = new string("56").ToCharArray(); // (7)
+            //  //var pgu_slot_id  = new string("98").ToCharArray(); // (7)
+            //  //var pgu_user_id = (byte) 32; //(8)
+            //  var pgu_user_id = (byte) 23; //(8)
+            //  //var pgu_user_txt = new string  ("0123456789ABCDEF").ToCharArray(); // (9)
+            //  var pgu_user_txt = new string("ACACABAB12123434").ToCharArray(); // (9)
+            //  
+            //  // test save INFO
+            //  dev.Save_INFO_into_EEPROM(
+            //      model_name   ,  // (1)
+            //      pgu_ip_adrs  ,  // (2)
+            //      pgu_sm_adrs  ,  // (3)
+            //      pgu_ga_adrs  ,  // (4)
+            //      pgu_dns_adrs ,  // (5)
+            //      pgu_mac_adrs ,  // (6)
+            //      pgu_slot_id  ,  // (7) 
+            //      pgu_user_id  ,  // (8) 
+            //      pgu_user_txt ); // (9) 
+            //
+            //  //// test load INFO again
+            //  dev.Load_INFO_from_EEPROM();
             
-
-            // test save INFO
-            dev.Save_INFO_into_EEPROM(
-                model_name   ,  // (1)
-                pgu_ip_adrs  ,  // (2)
-                pgu_sm_adrs  ,  // (3)
-                pgu_ga_adrs  ,  // (4)
-                pgu_dns_adrs ,  // (5)
-                pgu_mac_adrs ,  // (6)
-                pgu_slot_id  ,  // (7) 
-                pgu_user_id  ,  // (8) 
-                pgu_user_txt ); // (9) 
-        
-
-            //// test load INFO again
-            dev.Load_INFO_from_EEPROM();
-            
+            //}
 
             ////
             Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x40));
@@ -2418,14 +2452,14 @@ namespace TopInstrument
             //$$ add cal_data access :
 
             //$$ case 0: init without using cal_data
-            //dev.Set_CAL_Mode(0);
-            //dev.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
+            dev.Set_CAL_Mode(0);
+            dev.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
 
             //$$ case 1: init with new cal_data and save it to EEPROM
-            dev.Set_CAL_Mode(1);
-            //dev.Save_CAL_into_EEPROM(0.01F, -0.01F, 0.9F, 1.1F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
-            dev.Save_CAL_into_EEPROM(0.001F, -0.001F, 0.99F, 1.01F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
-            dev.InitializePGU(10, 10, 7.650 / 10, 50); 
+            //dev.Set_CAL_Mode(1);
+            ////dev.Save_CAL_into_EEPROM(0.01F, -0.01F, 0.9F, 1.1F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
+            //dev.Save_CAL_into_EEPROM(0.001F, -0.001F, 0.99F, 1.01F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
+            //dev.InitializePGU(10, 10, 7.650 / 10, 50); 
 
             //$$ case 2: init with cal_data from EEPROM
             //dev.Set_CAL_Mode(1);
@@ -2442,6 +2476,13 @@ namespace TopInstrument
             StepTime = new long[] { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
             StepLevel = new double[] { 0.0, 0.0, 1.0, 1.0, 2.0, 2.0, 0.5, 0.5, 0.0, 0.0 };
             ret = dev.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
+            ret = dev.SetSetupPGU(2, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
+
+            // test force 
+            //dev.ForcePGU_ON(3,  true,  true); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(3,  true, false); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(3, false,  true); // (int CycleCount, bool Ch1, bool Ch2)
+
 
             //			// case2 BB // 1
             //			StepTime  = new long[]   {   0,  500, 2000, 3000, 4000, 5000, 6000, 7000, 8500, 9000 };
@@ -2515,13 +2556,17 @@ namespace TopInstrument
 
             Console.WriteLine("SetSetupPGU return Code = " + Convert.ToString(ret));
 
+
+            // force trigger : public string ForcePGU__no_socket_close(int CycleCount, bool Ch1, bool Ch2, int delay=3500)
+            dev.ForcePGU__no_socket_close(3, true, true, 3500);
+
+
             //dev.SysClose(); // close but all controls alive
             dev.SysClose__board_shutdown(); // close with board shutdown and clear init bit
 
             return 0x3535ACAC;
 
         }
-		*/
 
 
 
@@ -2558,7 +2603,7 @@ namespace TopInstrument
 
 
 ////---- cut off later ----////
-/*
+
 
 //using System;
 //using System.Collections.Generic;
@@ -2588,4 +2633,3 @@ namespace __test__
         }
     }
 }
-*/

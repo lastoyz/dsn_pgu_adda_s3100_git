@@ -54,13 +54,13 @@ namespace TopInstrument
         // board INFO from EEPROM 
         public char[] __gui_pgu_idn_txt = new char[60]; //$$ not inside EEPROM
 
-        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F //$$ note board ID in 0x0C-0x0F
+        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F
         public char[] __gui_pgu_ip_adrs = new char[16]; //$$ location @ 0x10-0x13
         public char[] __gui_pgu_sm_adrs = new char[16]; //$$ location @ 0x14-0x17
         public char[] __gui_pgu_ga_adrs = new char[16]; //$$ location @ 0x18-0x1B
         public char[] __gui_pgu_dns_adrs= new char[16]; //$$ location @ 0x1C-0x1F
         public char[] __gui_pgu_mac_adrs= new char[12]; //$$ location @ 0x20-0x2B
-        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D //$$ note slot ID in 0x2C-0x2D
+        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D
         public byte __gui_pgu_user_id           ;       //$$ location @ 0x2E
         public byte __gui_pgu_check_sum         ;       //$$ location @ 0x2F
         public byte __gui_pgu_check_sum_residual;       //$$ not inside EEPROM
@@ -120,7 +120,7 @@ namespace TopInstrument
         
         //----//
 
-        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
+        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log";
 		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
         //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
 
@@ -328,8 +328,7 @@ namespace TopInstrument
 
             catch (Exception e)
             {
-                throw new Exception(String.Format("Error in sendall") + e.Message); //$$ for release
-
+                throw new Exception(String.Format("Error in sendall") + e.Message);
 				//$$ TODO:  print out command string for test
 				//Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
             }
@@ -1330,9 +1329,6 @@ namespace TopInstrument
             string LogFileName;
             LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
-            //using (StreamWriter ws = new StreamWriter(LogFileName, false))
-            //    ws.WriteLine("Debuger Start");
-
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                  ws.WriteLine("####$$$$------------------------------------------->>>>>>");
                  ws.WriteLine("Tdata_usr = [" + Timedata_str + "]");
@@ -1790,7 +1786,7 @@ namespace TopInstrument
 
         }
 
-        public void trig_pgu_output_Cid_ON(int CycleCount)
+        public void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2)
         {
 
             string LogFileName;
@@ -1829,11 +1825,23 @@ namespace TopInstrument
             pgu_spio_ext__send_aux_IO_OLAT(0x3300);
 
             Delay(3);
+            string PGU_TRIG_ON;
+            if (Ch1 && Ch2)
+                PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010001 \n");
+            else if ( (Ch1 == true) && (Ch2 == false) )
+                PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00000001 \n");
+            else
+                PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010000 \n");
+            
+            //$$ byte[] cmd_str__PGU_TRIG_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
+            //$$ scpi_comm_resp_ss(ss, cmd_str__PGU_TRIG_CMD);
+            byte[] PGU_TRIG_ON_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
+            scpi_comm_resp_ss(ss, PGU_TRIG_ON_CMD);
 
-            string PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010001 \n");
-            byte[] cmd_str__PGU_TRIG_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
-            scpi_comm_resp_ss(ss, cmd_str__PGU_TRIG_CMD);
-                       
+            // log
+            using (StreamWriter ws = new StreamWriter(LogFileName, true))
+                ws.WriteLine("## " + PGU_TRIG_ON); 
+
             ret = pgu_spio_ext__read_aux_IO_GPIO();
 
         }
@@ -1935,7 +1943,7 @@ namespace TopInstrument
             //## initialize PGU //$$
 
             //write_aux_io__direct(__gui_aux_io_control & 0xFFFF);
-            trig_pgu_output_Cid_ON(CycleCount);
+            trig_pgu_output_Cid_ON(CycleCount, true, true);
 
             Delay(delay); //delay 3.5s
 
@@ -1959,9 +1967,9 @@ namespace TopInstrument
             return ret;
         }
 
-        public string ForcePGU_ON(int CycleCount)
+        public string ForcePGU_ON(int CycleCount, bool Ch1, bool Ch2)
         {
-            trig_pgu_output_Cid_ON(CycleCount);
+            trig_pgu_output_Cid_ON(CycleCount, Ch1, Ch2);
             string ret;
 
             ret = pgu_spio_ext__read_aux_IO_GPIO();
@@ -2418,14 +2426,14 @@ namespace TopInstrument
             //$$ add cal_data access :
 
             //$$ case 0: init without using cal_data
-            //dev.Set_CAL_Mode(0);
-            //dev.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
+            dev.Set_CAL_Mode(0);
+            dev.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
 
             //$$ case 1: init with new cal_data and save it to EEPROM
-            dev.Set_CAL_Mode(1);
-            //dev.Save_CAL_into_EEPROM(0.01F, -0.01F, 0.9F, 1.1F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
-            dev.Save_CAL_into_EEPROM(0.001F, -0.001F, 0.99F, 1.01F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
-            dev.InitializePGU(10, 10, 7.650 / 10, 50); 
+            //dev.Set_CAL_Mode(1);
+            ////dev.Save_CAL_into_EEPROM(0.01F, -0.01F, 0.9F, 1.1F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
+            //dev.Save_CAL_into_EEPROM(0.001F, -0.001F, 0.99F, 1.01F); // (offset_ch1, offset_ch2, gain_ch1, gain_ch2)
+            //dev.InitializePGU(10, 10, 7.650 / 10, 50); 
 
             //$$ case 2: init with cal_data from EEPROM
             //dev.Set_CAL_Mode(1);
@@ -2442,6 +2450,13 @@ namespace TopInstrument
             StepTime = new long[] { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
             StepLevel = new double[] { 0.0, 0.0, 1.0, 1.0, 2.0, 2.0, 0.5, 0.5, 0.0, 0.0 };
             ret = dev.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
+            ret = dev.SetSetupPGU(2, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
+
+            // test force 
+            dev.ForcePGU_ON(3,  true,  true); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(3,  true, false); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(3, false,  true); // (int CycleCount, bool Ch1, bool Ch2)
+
 
             //			// case2 BB // 1
             //			StepTime  = new long[]   {   0,  500, 2000, 3000, 4000, 5000, 6000, 7000, 8500, 9000 };

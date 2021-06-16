@@ -66,6 +66,7 @@ set_msg_config  -ruleid {11}  -id {DRC RTSTAT-10}  -suppress
 set_msg_config  -ruleid {12}  -id {[BD 41-1306]}  -suppress 
 set_msg_config  -ruleid {13}  -id {[BD 41-1271]}  -suppress 
 set_msg_config  -ruleid {14}  -id {Synth 8-295}  -new_severity {WARNING} 
+set_msg_config  -ruleid {15}  -id {[BD 41-1271]}  -suppress 
 set_msg_config  -ruleid {2}  -id {Common 17-1355}  -suppress 
 set_msg_config  -ruleid {3}  -id {DRC CHECK-3}  -suppress 
 set_msg_config  -ruleid {4}  -id {DRC DPIP-1}  -suppress 

@@ -1,0 +1,70 @@
+create_debug_core u_ila_0 ila
+set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
+set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
+set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
+set_property C_DATA_DEPTH 1024 [get_debug_cores u_ila_0]
+set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
+set_property C_INPUT_PIPE_STAGES 2 [get_debug_cores u_ila_0]
+set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
+set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
+set_property port_width 1 [get_debug_ports u_ila_0/clk]
+connect_debug_port u_ila_0/clk [get_nets [list clk_wiz_2_2_inst/inst/clk_out1_104M]]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
+set_property port_width 10 [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {master_spi_mth_brd__inst/i_frame_data_A[0]} {master_spi_mth_brd__inst/i_frame_data_A[1]} {master_spi_mth_brd__inst/i_frame_data_A[2]} {master_spi_mth_brd__inst/i_frame_data_A[3]} {master_spi_mth_brd__inst/i_frame_data_A[4]} {master_spi_mth_brd__inst/i_frame_data_A[5]} {master_spi_mth_brd__inst/i_frame_data_A[6]} {master_spi_mth_brd__inst/i_frame_data_A[7]} {master_spi_mth_brd__inst/i_frame_data_A[8]} {master_spi_mth_brd__inst/i_frame_data_A[9]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
+set_property port_width 6 [get_debug_ports u_ila_0/probe1]
+connect_debug_port u_ila_0/probe1 [get_nets [list {master_spi_mth_brd__inst/i_frame_data_C[0]} {master_spi_mth_brd__inst/i_frame_data_C[1]} {master_spi_mth_brd__inst/i_frame_data_C[2]} {master_spi_mth_brd__inst/i_frame_data_C[3]} {master_spi_mth_brd__inst/i_frame_data_C[4]} {master_spi_mth_brd__inst/i_frame_data_C[5]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
+set_property port_width 16 [get_debug_ports u_ila_0/probe2]
+connect_debug_port u_ila_0/probe2 [get_nets [list {master_spi_mth_brd__inst/i_frame_data_D[0]} {master_spi_mth_brd__inst/i_frame_data_D[1]} {master_spi_mth_brd__inst/i_frame_data_D[2]} {master_spi_mth_brd__inst/i_frame_data_D[3]} {master_spi_mth_brd__inst/i_frame_data_D[4]} {master_spi_mth_brd__inst/i_frame_data_D[5]} {master_spi_mth_brd__inst/i_frame_data_D[6]} {master_spi_mth_brd__inst/i_frame_data_D[7]} {master_spi_mth_brd__inst/i_frame_data_D[8]} {master_spi_mth_brd__inst/i_frame_data_D[9]} {master_spi_mth_brd__inst/i_frame_data_D[10]} {master_spi_mth_brd__inst/i_frame_data_D[11]} {master_spi_mth_brd__inst/i_frame_data_D[12]} {master_spi_mth_brd__inst/i_frame_data_D[13]} {master_spi_mth_brd__inst/i_frame_data_D[14]} {master_spi_mth_brd__inst/i_frame_data_D[15]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
+set_property port_width 16 [get_debug_ports u_ila_0/probe3]
+connect_debug_port u_ila_0/probe3 [get_nets [list {master_spi_mth_brd__inst/o_frame_data_B[0]} {master_spi_mth_brd__inst/o_frame_data_B[1]} {master_spi_mth_brd__inst/o_frame_data_B[2]} {master_spi_mth_brd__inst/o_frame_data_B[3]} {master_spi_mth_brd__inst/o_frame_data_B[4]} {master_spi_mth_brd__inst/o_frame_data_B[5]} {master_spi_mth_brd__inst/o_frame_data_B[6]} {master_spi_mth_brd__inst/o_frame_data_B[7]} {master_spi_mth_brd__inst/o_frame_data_B[8]} {master_spi_mth_brd__inst/o_frame_data_B[9]} {master_spi_mth_brd__inst/o_frame_data_B[10]} {master_spi_mth_brd__inst/o_frame_data_B[11]} {master_spi_mth_brd__inst/o_frame_data_B[12]} {master_spi_mth_brd__inst/o_frame_data_B[13]} {master_spi_mth_brd__inst/o_frame_data_B[14]} {master_spi_mth_brd__inst/o_frame_data_B[15]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
+set_property port_width 16 [get_debug_ports u_ila_0/probe4]
+connect_debug_port u_ila_0/probe4 [get_nets [list {master_spi_mth_brd__inst/o_frame_data_E[0]} {master_spi_mth_brd__inst/o_frame_data_E[1]} {master_spi_mth_brd__inst/o_frame_data_E[2]} {master_spi_mth_brd__inst/o_frame_data_E[3]} {master_spi_mth_brd__inst/o_frame_data_E[4]} {master_spi_mth_brd__inst/o_frame_data_E[5]} {master_spi_mth_brd__inst/o_frame_data_E[6]} {master_spi_mth_brd__inst/o_frame_data_E[7]} {master_spi_mth_brd__inst/o_frame_data_E[8]} {master_spi_mth_brd__inst/o_frame_data_E[9]} {master_spi_mth_brd__inst/o_frame_data_E[10]} {master_spi_mth_brd__inst/o_frame_data_E[11]} {master_spi_mth_brd__inst/o_frame_data_E[12]} {master_spi_mth_brd__inst/o_frame_data_E[13]} {master_spi_mth_brd__inst/o_frame_data_E[14]} {master_spi_mth_brd__inst/o_frame_data_E[15]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
+set_property port_width 1 [get_debug_ports u_ila_0/probe5]
+connect_debug_port u_ila_0/probe5 [get_nets [list slave_spi_mth_brd__M2_inst/i_SPI_CLK]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe6]
+set_property port_width 1 [get_debug_ports u_ila_0/probe6]
+connect_debug_port u_ila_0/probe6 [get_nets [list slave_spi_mth_brd__M2_inst/i_SPI_CS_B]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe7]
+set_property port_width 1 [get_debug_ports u_ila_0/probe7]
+connect_debug_port u_ila_0/probe7 [get_nets [list slave_spi_mth_brd__M2_inst/i_SPI_MOSI]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe8]
+set_property port_width 1 [get_debug_ports u_ila_0/probe8]
+connect_debug_port u_ila_0/probe8 [get_nets [list master_spi_mth_brd__inst/i_trig_frame]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe9]
+set_property port_width 1 [get_debug_ports u_ila_0/probe9]
+connect_debug_port u_ila_0/probe9 [get_nets [list master_spi_mth_brd__inst/i_trig_init]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe10]
+set_property port_width 1 [get_debug_ports u_ila_0/probe10]
+connect_debug_port u_ila_0/probe10 [get_nets [list master_spi_mth_brd__inst/o_done_frame]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe11]
+set_property port_width 1 [get_debug_ports u_ila_0/probe11]
+connect_debug_port u_ila_0/probe11 [get_nets [list master_spi_mth_brd__inst/o_done_init]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe12]
+set_property port_width 1 [get_debug_ports u_ila_0/probe12]
+connect_debug_port u_ila_0/probe12 [get_nets [list slave_spi_mth_brd__M2_inst/o_SPI_MISO]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe13]
+set_property port_width 1 [get_debug_ports u_ila_0/probe13]
+connect_debug_port u_ila_0/probe13 [get_nets [list slave_spi_mth_brd__M2_inst/o_SPI_MISO_EN]]
+set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
+set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
+set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
+connect_debug_port dbg_hub/clk [get_nets base_sspi_clk]

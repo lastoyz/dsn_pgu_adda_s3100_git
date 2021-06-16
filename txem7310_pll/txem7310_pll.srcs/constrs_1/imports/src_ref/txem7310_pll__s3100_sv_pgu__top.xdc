@@ -519,33 +519,33 @@ create_generated_clock  -name dac_test_clk    [get_pins  clk_wiz_1_2_inst/inst/p
 ## TODO: define clock - dac0_clk // replace clk_out1_400M_clk_wiz_1_0
 create_generated_clock  -name dac0_clk        [get_pins  clk_wiz_1_2_0_inst/inst/plle2_adv_inst/CLKOUT0]
 
-## TODO: define clock - dac0_clk_180 // replace clk_out5_400M_clk_wiz_1_0
-create_generated_clock  -name dac0_clk_180    [get_pins  clk_wiz_1_2_0_inst/inst/plle2_adv_inst/CLKOUT1]
+## TODO: define clock - dac0_dci_clk // replace clk_out5_400M_clk_wiz_1_0
+create_generated_clock  -name dac0_dci_clk    [get_pins  clk_wiz_1_2_0_inst/inst/plle2_adv_inst/CLKOUT1]
 
 ## TODO: define clock - dac1_clk // replace clk_out1_400M_clk_wiz_1_1
 create_generated_clock  -name dac1_clk        [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT2]
 
-## TODO: define clock - dac1_clk_180 // replace clk_out5_400M_clk_wiz_1_1
-create_generated_clock  -name dac1_clk_180    [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT0]
+## TODO: define clock - dac1_dci_clk // replace clk_out5_400M_clk_wiz_1_1
+create_generated_clock  -name dac1_dci_clk    [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT0]
 
 
 set_clock_groups -asynchronous -group [get_clocks  dac_test_clk] -group [get_clocks {sys_clk}]
 #
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_clk_180}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_dci_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {base_sspi_clk}]
 #
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk_180] -group [get_clocks {sys_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk_180] -group [get_clocks {mcs_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {sys_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {mcs_clk}]
 #
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_clk_180}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_dci_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {base_sspi_clk}]
 #
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk_180] -group [get_clocks {sys_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk_180] -group [get_clocks {mcs_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {sys_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {mcs_clk}]
 #
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks dac1_clk]
 #
@@ -661,60 +661,155 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o
 
 ## DAC0 data out : 400MHz case
 # 
-## 14.960 --> 15.460 --> 16.060
-set_max_delay   -to [get_ports o_B34D_L15P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L23P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L19P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L21P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L13P_MRCC ] 16.060
-set_max_delay   -to [get_ports o_B34D_L17P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L24P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L16P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L20P      ] 16.060
-set_max_delay   -to [get_ports o_B34D_L3P       ] 16.060
-set_max_delay   -to [get_ports o_B34D_L9P       ] 16.060
-set_max_delay   -to [get_ports o_B34D_L2P       ] 16.060
-set_max_delay   -to [get_ports o_B34D_L4P       ] 16.060
-set_max_delay   -to [get_ports o_B34D_L1P       ] 16.060
-set_max_delay   -to [get_ports o_B34D_L7P       ] 16.060
-set_max_delay   -to [get_ports o_B34D_L12P_MRCC ] 16.060
+set ports_dac0 [list o_B34D_L15P      \
+                     o_B34D_L23P      \
+                     o_B34D_L19P      \
+                     o_B34D_L21P      \
+                     o_B34D_L13P_MRCC \
+                     o_B34D_L17P      \
+                     o_B34D_L24P      \
+                     o_B34D_L16P      \
+                     o_B34D_L20P      \
+                     o_B34D_L3P       \
+                     o_B34D_L9P       \
+                     o_B34D_L2P       \
+                     o_B34D_L4P       \
+                     o_B34D_L1P       \
+                     o_B34D_L7P       \
+                     o_B34D_L12P_MRCC ]
 #
+set_property IOB TRUE [get_ports $ports_dac0 ]
+
+## try
+# 10ns period, setup 1ns, hold 0.5ns
+# 2.5ns period, setup 0.25ns, hold 0.125ns
+# add -0.550ns // 0.250-0.550=-0.300,  -0.125-0.550=-0.675
+
+##
+#set t_dac0_su_r           0.250 ;   # 0.250ns
+#set t_dac0_hd_r           0.125 ;   # 0.125ns
+#set t_dac0_su_f           0.250 ;   # 0.250ns
+#set t_dac0_hd_f           0.125 ;   # 0.125ns
+#set t_dac0_trc_dly_max   [expr -0.550 -2.500  +1.250 ] ; # -3.050 ;   # -0.550ns -2.5ns # +1.25ns
+#set t_dac0_trc_dly_min   [expr -0.600 -2.500  +1.250 ] ; # -3.100 ;   # -0.600ns -2.5ns # +1.25ns
+#
+#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay [expr $t_dac0_trc_dly_max + $t_dac0_su_r ] [get_ports $ports_dac0 ]
+#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay [expr $t_dac0_trc_dly_min - $t_dac0_hd_r ] [get_ports $ports_dac0 ]
+#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay [expr $t_dac0_trc_dly_max + $t_dac0_su_f ] [get_ports $ports_dac0 ] -clock_fall
+#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay [expr $t_dac0_trc_dly_min - $t_dac0_hd_f ] [get_ports $ports_dac0 ] -clock_fall
+
+##
+#set t_dac0_delay_max [expr 1.250 + 0.800 ] ; # 1.250 + 0.800 ns
+#
+#set_max_delay -datapath_only -from [get_pins {r_DAC0_DAT_reg[*]/C}] -to [get_ports $ports_dac0 ] $t_dac0_delay_max
+
+## 14.960 --> 15.460 --> 16.060 --> 17.000
+#
+set_max_delay    -to [get_ports $ports_dac0 ] 17.000
+
+
 
 ## DAC1 data out : 400MHz case
 #
-## 14.380 --> 14.910 --> 15.910 --> 16.650
-set_max_delay   -to [get_ports o_B35D_L12P_MRCC ] 16.650
-set_max_delay   -to [get_ports o_B35D_L13P_MRCC ] 16.650
-set_max_delay   -to [get_ports o_B35D_L1P       ] 16.650
-set_max_delay   -to [get_ports o_B35D_L2P       ] 16.650
-set_max_delay   -to [get_ports o_B35D_L3P       ] 16.650
-set_max_delay   -to [get_ports o_B35D_L5P       ] 16.650
-set_max_delay   -to [get_ports o_B35D_L8P       ] 16.650
-set_max_delay   -to [get_ports o_B35D_L10P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L24P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L22P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L20P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L16P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L21P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L19P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L18P      ] 16.650
-set_max_delay   -to [get_ports o_B35D_L23P      ] 16.650
+set ports_dac1 [list o_B35D_L12P_MRCC \
+                     o_B35D_L13P_MRCC \
+                     o_B35D_L1P       \
+                     o_B35D_L2P       \
+                     o_B35D_L3P       \
+                     o_B35D_L5P       \
+                     o_B35D_L8P       \
+                     o_B35D_L10P      \
+                     o_B35D_L24P      \
+                     o_B35D_L22P      \
+                     o_B35D_L20P      \
+                     o_B35D_L16P      \
+                     o_B35D_L21P      \
+                     o_B35D_L19P      \
+                     o_B35D_L18P      \
+                     o_B35D_L23P  ]   
 #
+set_property IOB TRUE [get_ports  $ports_dac1 ]
+
+##
+#set t_dac1_su_r           0.250 ;   # 0.250ns
+#set t_dac1_hd_r           0.125 ;   # 0.125ns
+#set t_dac1_su_f           0.250 ;   # 0.250ns
+#set t_dac1_hd_f           0.125 ;   # 0.125ns
+#set t_dac1_trc_dly_max   [expr -0.550 -2.500  +1.250 ] ; # -3.050 ;   # -0.550ns -2.5ns # +1.25ns
+#set t_dac1_trc_dly_min   [expr -0.600 -2.500  +1.250 ] ; # -3.100 ;   # -0.600ns -2.5ns # +1.25ns
+#
+#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay [expr $t_dac1_trc_dly_max + $t_dac1_su_r ] [get_ports $ports_dac1 ]
+#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay [expr $t_dac1_trc_dly_min - $t_dac1_hd_r ] [get_ports $ports_dac1 ]
+#set_output_delay -clock [get_clocks dac0_clk] -max -add_delay [expr $t_dac1_trc_dly_max + $t_dac1_su_f ] [get_ports $ports_dac1 ] -clock_fall
+#set_output_delay -clock [get_clocks dac0_clk] -min -add_delay [expr $t_dac1_trc_dly_min - $t_dac1_hd_f ] [get_ports $ports_dac1 ] -clock_fall
+
+##
+#set t_dac1_delay_max [expr 1.250 + 0.800 ] ; # 1.250 + 0.800 ns
+#
+#set_max_delay -datapath_only -from [get_pins {r_DAC1_DAT_reg[*]/C}] -to [get_ports $ports_dac1 ] $t_dac1_delay_max
+
+## 14.380 --> 14.910 --> 15.910 --> 16.650 --> 17.010
+#
+set_max_delay   -to [get_ports $ports_dac1 ] 17.010
 
 
 ## DCI out: 400MHz case
+#set t_su_r           0.250 ;   # 0.250ns
+#set t_hd_r           0.125 ;   # 0.125ns
+#set t_su_f           0.250 ;   # 0.250ns
+#set t_hd_f           0.125 ;   # 0.125ns
+#set t_trc_dly_max   [expr -0.550 -2.500  +1.250 ] ; # -3.050 ;   # -0.550ns -2.5ns # +1.25ns -1.25ns
+#set t_trc_dly_min   [expr -0.600 -2.500  +1.250 ] ; # -3.100 ;   # -0.600ns -2.5ns # +1.25ns
+#
+#[expr $t_trc_dly_max + $t_su_r ] # -0.550 -2.500  +1.250 + 0.250 -1.250 = -2.800 # -2.400 +(-0.400) = -3.000 +(+0.200)
+#[expr $t_trc_dly_min - $t_hd_r ] # -0.600 -2.500  +1.250 -0.125 = -1.975         # -2.400 -(-0.425) = -2.075 -(+0.100) # -1.975 -0.100
+#[expr $t_trc_dly_max + $t_su_f ] #
+#[expr $t_trc_dly_min - $t_hd_f ] #
+
+set t_dci_delay_max [expr 1.250 + 0.800 ] ; # 1.250 + 0.800 ns
+
+## dac0 dci
+#
+#set_output_delay -clock [get_clocks dac0_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_r ] [get_ports {o_B34D_L10P}]
+#set_output_delay -clock [get_clocks dac0_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_r ] [get_ports {o_B34D_L10P}]
+#set_output_delay -clock [get_clocks dac0_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_f ] [get_ports {o_B34D_L10P}] -clock_fall
+#set_output_delay -clock [get_clocks dac0_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_f ] [get_ports {o_B34D_L10P}] -clock_fall
+#
+set_max_delay -datapath_only -from [get_pins ODDR_dac0_dci_inst/C] -to [get_ports o_B34D_L10P] $t_dci_delay_max
+
+
+## dac1 dci
+#
+# add fall -2.5ns
+#set_output_delay -clock [get_clocks dac1_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_r] [get_ports {o_B35D_L17P}]
+#set_output_delay -clock [get_clocks dac1_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_r] [get_ports {o_B35D_L17P}]
+#set_output_delay -clock [get_clocks dac1_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_f] [get_ports {o_B35D_L17P}] -clock_fall
+#set_output_delay -clock [get_clocks dac1_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_f] [get_ports {o_B35D_L17P}] -clock_fall
+#
+set_max_delay -datapath_only -from [get_pins ODDR_dac1_dci_inst/C] -to [get_ports o_B35D_L17P ] $t_dci_delay_max
+
 # dac0 dci
 ## 8.000 --> 14.960
-set_max_delay   -to [get_ports o_B34D_L10P ] 14.960
+#set_max_delay   -to [get_ports o_B34D_L10P ] 14.960
 #
 # dac1 dci
 ## 8.000 --> 14.910
-set_max_delay   -to [get_ports o_B35D_L17P ] 14.910
+#set_max_delay   -to [get_ports o_B35D_L17P ] 14.910
 #
+
 
 ## false path for fifo reset
 set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[6]/C}] 
 set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[7]/C}] 
+
+## false path from flag_fcid_pulse_active_dac*
+#set_false_path -from [get_pins dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac0_reg/C] 
+#set_false_path -from [get_pins dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac1_reg/C] 
+
+## release path from flag_fcid_pulse_active_dac*
+#set_max_delay -datapath_only -from [get_pins dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac0_reg/C] 5.000
+#set_max_delay -datapath_only -from [get_pins dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac1_reg/C] 5.000
+
 
 
 ############################################################################
@@ -808,9 +903,12 @@ set_false_path -from [get_pins {lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_
 set_false_path -from [get_pins {lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__lan_wi_01/r_port_wi_00_reg[*]/C}] 
 
 
+############################################################################
+## test 
+############################################################################
 
-
-
+## IOB output register try for DAC outputs and all others
+#set_property IOB TRUE [all_outputs]
 
 
 

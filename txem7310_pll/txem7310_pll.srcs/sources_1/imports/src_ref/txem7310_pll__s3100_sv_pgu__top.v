@@ -55,76 +55,395 @@
 //   FRAME READ DATA  // [15:0]
 
 
-// ## TODO: S3100-PGU LAN-MCS endpoint address map
+// ## S3100-PGU LAN-MCS endpoint address map // GNDU --> PGU
 //
-// #define EP_ADRS__SW_BUILD_ID_WI     0x00  //$$ [TEST] SW_BUILD_ID_WI   
-// #define EP_ADRS__TEST_CON_WI        0x01  //$$ [TEST] TEST_CON_WI      
-//                                     0x02  //$$ [SSPI] SSPI_CON_WI      
-// #define EP_ADRS__BRD_CON_WI         0x03  //$$ [TEST] BRD_CON_WI       
-// #define EP_ADRS__MEM_FDAT_WI        0x12  //$$ [MEM]  MEM_FDAT_WI      
-// #define EP_ADRS__MEM_WI             0x13  //$$ [MEM]  MEM_WI           
-// #define EP_ADRS__MSPI_EN_CS_WI      0x16  //$$ [MSPI] MSPI_EN_CS_WI    
-// #define EP_ADRS__MSPI_CON_WI        0x17  //$$ [MSPI] MSPI_CON_WI      
-// #define EP_ADRS__MCS_SETUP_WI       0x19  //$$ [MCS]  MCS_SETUP_WI     
-// #define EP_ADRS__F_IMAGE_ID_WO      0x20  //$$ [TEST] F_IMAGE_ID_WO 
-// #define EP_ADRS__TEST_OUT_WO        0x21  //$$ [TEST] TEST_OUT_WO      
-// #define EP_ADRS__TIMESTAMP_WO       0x22  //$$ [TEST] TIMESTAMP_WO     
-//                                     0x23  //$$ [SSPI] SSPI_FLAG_WO
-// #define EP_ADRS__MSPI_FLAG_WO       0x24  //$$ [MSPI] MSPI_FLAG_WO     
-// #define EP_ADRS__XADC_TEMP_WO       0x3A  //$$ [XADC] XADC_TEMP_WO     
-// #define EP_ADRS__XADC_VOLT_WO       0x3B  //$$ [XADC] XADC_VOLT_WO     
-// #define EP_ADRS__TEST_TI            0x40  //$$ [TEST] TEST_TI          
-// #define EP_ADRS__MSPI_TI            0x42  //$$ [MSPI] MSPI_TI          
-// #define EP_ADRS__MEM_TI             0x53  //$$ [MEM]  MEM_TI           
-// #define EP_ADRS__TEST_TO            0x60  //$$ [TEST] TEST_TO          
-// #define EP_ADRS__MSPI_TO            0x62  //$$ [MSPI] MSPI_TO          
-// #define EP_ADRS__MEM_TO             0x73  //$$ [MEM]  MEM_TO           
-// #define EP_ADRS__MEM_PI             0x93  //$$ [MEM]  MEM_PI           
-// #define EP_ADRS__MEM_PO             0xB3  //$$ [MEM]  MEM_PO           
+// note: LAN access must have TEST, MCS, MEM and MSPI.
+// note: MEM device is connected via pin B34_L5N, net S_IO_0 in case of S3100-PGU and S3000-PGU.
+// note: MEM device is connected via pin IO_L11P_T1_SRCC_15, net SCIO_0 in case of S3100-CPU-BASE.
 //
-// | Group | EP name       | MCS adrs   | type/index | Description             | contents (32-bit)                 |
-// +=======+===============+============+======================================+===================================+
-// | TEST  | F_IMAGE_ID_WO | TBD        | wireout_20 | Return FPGA image ID.   | Image_ID[31:0]                    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// +=======+===============+============+=========================================+================================+
+// | Group | EP name       | MCS adrs   | type/index | Description                | contents (32-bit)              |
+// |       |               | (32-bit)   |            |                            |                                |
+// +=======+===============+============+=========================================+================================+
+// | TEST  | F_IMAGE_ID_WO | TBD        | wireout_20 | Return FPGA image ID.      | Image_ID[31:0]                 | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_TEMP_WO  | TBD        | wireout_3A | Return XADC values.[mC]    | MON_TEMP[31:0]                 | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_VOLT_WO  | TBD        | wireout_3B | Return XADC values.[mV]    | MON_VOLT[31:0] normial 1.1V    |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TIMESTAMP_WO  | TBD        | wireout_22 | Return time stamp. (10MHz) | TIME_STAMP[31:0]               | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_MON_WO   | TBD        | wireout_23 | Return PLL status.         | bit[18]=MCS pll locked         | 
+// |       |               |            |            |                            | bit[24]=DAC common pll locked  |
+// |       |               |            |            |                            | bit[25]=DAC0 pll locked        |
+// |       |               |            |            |                            | bit[26]=DAC1 pll locked        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_CON_WI   | TBD        | wireout_01 | Control test logics.       | bit[0]=count1_reset            | 
+// |       |               |            |            |                            | bit[1]=count1_disable          |
+// |       |               |            |            |                            | bit[2]=count2_auto_increase    |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_OUT_WO   | TBD        | wireout_21 | Return test values.        | bit[15:8]=count2[7:0]          |
+// |       |               |            |            |                            | bit[ 7:0]=count1[7:0]          |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_TI       | TBD        | wireout_40 | Trigger test functions.    | bit[0]=trigger_count2_reset    |
+// |       |               |            |            |                            | bit[1]=trigger_count2_up       |
+// |       |               |            |            |                            | bit[2]=trigger_count2_down     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_TO       | TBD        | wireout_60 | Check if trigger is done.  | bit[ 0]=done_count1eq00        |
+// |       |               |            |            |                            | bit[ 1]=done_count1eq80        |
+// |       |               |            |            |                            | bit[16]=done_count2eqFF        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | BRD_CON_WI    | TBD        | wire_in_03 | Control board from LAN.    | bit[ 0]=HW_reset               | 
+// |       |               |            |            |                            | bit[ 8]=mcs_ep_po_enable       |
+// |       |               |            |            |                            | bit[ 9]=mcs_ep_pi_enable       |
+// |       |               |            |            |                            | bit[10]=mcs_ep_to_enable       |
+// |       |               |            |            |                            | bit[11]=mcs_ep_ti_enable       |
+// |       |               |            |            |                            | bit[12]=mcs_ep_wo_enable       |
+// |       |               |            |            |                            | bit[13]=mcs_ep_wi_enable       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MCS   | MCS_SETUP_WI  | TBD        | wire_in_19 | Control board for MCS.     | bit[31:16]=board_id[15:0]      | 
+// |       |               |            |            |                            | bit[10]=lan_on_base_enable(NA) |
+// |       |               |            |            |                            | bit[ 9]=eeprom_on_tp_enable(NA)|
+// |       |               |            |            |                            | bit[ 8]=eeprom_lan_enable      |
+// |       |               |            |            |                            | bit[ 7: 0]=slot_id             |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
+// |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
+// |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_34 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+// |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
+// |       |               |            |            |                            | bit[1]=trigger_init            |
+// |       |               |            |            |                            | bit[2]=trigger_frame           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_TO       | TBD        | trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
+// |       |               |            |            |                            | bit[1]=done_init               |
+// |       |               |            |            |                            | bit[2]=done_frame              |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_WI        | TBD__      | wire_in_13 | Control EEPROM interface.  | bit[  15]=disable_SBP_packet   | 
+// |       |               |            |            |                            | bit[11:0]=num_bytes_DAT[11:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_FDAT_WI   | TBD__      | wire_in_12 | Control EEPROM frame data. | bit[31:24]=frame_data_ADH[7:0] |
+// |       |               |            |            |                            | bit[23:16]=frame_data_ADL[7:0] |
+// |       |               |            |            |                            | bit[15: 8]=frame_data_STA[7:0] |
+// |       |               |            |            |                            | bit[ 7: 0]=frame_data_CMD[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TI        | TBD__      | trig_in_53 | Trigger functions.         | bit[0]=trigger_reset           |
+// |       |               |            |            |                            | bit[1]=trigger_fifo_reset      |
+// |       |               |            |            |                            | bit[2]=trigger_frame           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TO        | TBD__      | trigout_73 | Check status.              | bit[0]=MEM_valid_latch         |
+// |       |               |            |            |                            | bit[1]=done_frame_latch        |
+// |       |               |            |            |                            | bit[2]=done_frame (one pulse)  |
+// |       |               |            |            |                            | bit[15:8]=frame_data_STA[7:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PI        | TBD__      | pipe_in_93 | Write data into pipe.      | bit[7:0]=frame_data_DAT_w[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PO        | TBD__      | pipeout_B3 | Read data from pipe.       | bit[7:0]=frame_data_DAT_r[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACX  | DACX_WI       | TBD__      | wire_in_05 | Control DAC IC interface.  | bit[30]   = dac1_dco_clk_rst   |
+// |       |               |            |            |                            | bit[29]   = dac0_dco_clk_rst   |
+// |       |               |            |            |                            | bit[28]   = clk_dac_clk_rst    |
+// |       |               |            |            |                            | bit[27]   = dac1_clk_dis       |
+// |       |               |            |            |                            | bit[26]   = dac0_clk_dis       |
+// |       |               |            |            |                            | bit[24]   = DACx_CS_id         |
+// |       |               |            |            |                            | bit[23]   = DACx_R_W_bar       |
+// |       |               |            |            |                            | bit[22:21]= DACx_byte_mode[1:0]|
+// |       |               |            |            |                            | bit[20:16]= DACx_reg_adrs [4:0]|
+// |       |               |            |            |                            | bit[7:0]  = DACx_wr_D[7:0]     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACX  | DACX_WO       | TBD__      | wireout_25 | Read DAC status.           | bit[25]   = done_DACx_SPI_frame|
+// |       |               |            |            |                            | bit[24]   = done_DACx_LNG_reset|
+// |       |               |            |            |                            | bit[7:0]  = DACx_rd_D[7:0]     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACX  | DACX_TI       | TBD__      | trig_in_45 | Trigger functions.         | bit[0]    = trig_DACx_LNG_reset|
+// |       |               |            |            |                            | bit[1]    = trig_DACx_SPI_frame|
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DACZ_DAT_WI   | TBD__      | wire_in_08 | Control pattern gen.       | wire_in__dacz_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DACZ_DAT_WO   | TBD__      | wireout_28 | Read pattern gen status.   | wire_out_dacz_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DACZ_DAT_TI   | TBD__      | trig_in_48 | Trigger dacz data func.    | bit[ 4] = write_control        |
+// |       |               |            |            |                            | bit[ 5] = read_status          |
+// |       |               |            |            |                            | bit[ 6] = write_repeat_period  |
+// |       |               |            |            |                            | bit[ 7] = read_repeat_period   |
+// |       |               |            |            |                            | bit[ 8] = trig_cid_adrs_wr     |
+// |       |               |            |            |                            | bit[ 9] = trig_cid_adrs_rd     |
+// |       |               |            |            |                            | bit[10] = trig_cid_data_wr     |
+// |       |               |            |            |                            | bit[11] = trig_cid_data_rd     |
+// |       |               |            |            |                            | bit[12] = trig_cid_ctrl_wr     |
+// |       |               |            |            |                            | bit[13] = trig_cid_ctrl_rd     |
+// |       |               |            |            |                            |                                |
+// |       |               |            |            |                            | bit[15] = trig_cid_stat_rd     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | CLKD  | CLKD_WI       | TBD__      | wire_in_06 | Control DAC IC interface.  | bit[   31]= CLKD_R_W_bar       |
+// |       |               |            |            |                            | bit[30:29]= CLKD_byte_mode[1:0]|
+// |       |               |            |            |                            | bit[25:16]= CLKD_reg_adrs[9:0] |
+// |       |               |            |            |                            | bit[ 7: 0]= CLKD_wr_D[7:0]     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | CLKD  | CLKD_WO       | TBD__      | wireout_26 | Read DAC status.           | bit[31]   = CLKD_LD            |
+// |       |               |            |            |                            | bit[30]   = CLKD_STAT          |
+// |       |               |            |            |                            | bit[29]   = CLKD_REFM          |
+// |       |               |            |            |                            | bit[28]   = CLKD_SDIO_rd       |
+// |       |               |            |            |                            | bit[25]   = done_CLKD_SPI_frame|
+// |       |               |            |            |                            | bit[24]   = done_CLKD_LNG_reset|
+// |       |               |            |            |                            | bit[7:0]  = CLKD_rd_D          |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | CLKD  | CLKD_TI       | TBD__      | trig_in_46 | Trigger functions.         | bit[0]    = trig_CLKD_LNG_reset|
+// |       |               |            |            |                            | bit[1]    = trig_CLKD_SPI_frame|
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SPIO  | SPIO_WI       | TBD__      | wire_in_07 | Control SPIO IC interface. | bit[28]   = SPIO_CS_id         |
+// |       |               |            |            |                            | bit[27:25]= SPIO_pin_adrs[2:0] |
+// |       |               |            |            |                            | bit[24]   = SPIO_R_W_bar       |
+// |       |               |            |            |                            | bit[23:16]= SPIO_reg_adrs[7:0] |
+// |       |               |            |            |                            | bit[15: 8]= SPIO_wr_DA   [7:0] |
+// |       |               |            |            |                            | bit[ 7: 0]= SPIO_wr_DB   [7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SPIO  | SPIO_WO       | TBD__      | wireout_27 | Read SPIO status.          | bit[25]   = done_SPIO_SPI_frame|
+// |       |               |            |            |                            | bit[24]   = done_SPIO_LNG_reset|
+// |       |               |            |            |                            | bit[15:8] = SPIO_rd_DA         |
+// |       |               |            |            |                            | bit[ 7:0] = SPIO_rd_DB         |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SPIO  | SPIO_TI       | TBD__      | trig_in_47 | Trigger functions.         | bit[0]    = trig_SPIO_LNG_reset|
+// |       |               |            |            |                            | bit[1]    = trig_SPIO_SPI_frame|
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TRIG  | TRIG_DAT_WI   | TBD__      | wire_in_09 | Control TRIG_DAT interface.| wire_in__trig_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TRIG  | TRIG_DAT_WO   | TBD__      | wireout_29 | Read TRIG_DAT status.      | wire_out_trig_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TRIG  | TRIG_DAT_TI   | TBD__      | trig_in_49 | Trigger TRIG_DAT func.     | bit[0] = trig_data_wr          |
+// |       |               |            |            | (reserved)                 | bit[1] = trig_data_rd          |
+// |       |               |            |            |                            | TBD (reserved)                 |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
 
 
-// ## TODO: S3100-PGU MTH slave SPI frame address map 
-//                           (10-bit)
-// | Group | EP name       | frame adrs | type/index | Description             | contents (32-bit)                 |
-// +=======+===============+============+============+=========================+===================================+
-// | SSPI  | SSPI_TEST_WO  | 0x380      | wireout_E0 | Return known frame data.| bit[31:16]=0x33AA                 | 
-// |       |               |            |            |                         | bit[15: 0]=0xCC55                 |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | SSPI  | SSPI_CON_WI   | 0x008      | wire_in_02 | Control slave SPI bus.  | bit[30:28]=miso_timing_control    | 
-// |       |               |            |            |                         | bit[25]   =miso_one_bit_ahead_en  |
-// |       |               |            |            |                         | bit[24]   =loopback_en            |
-// |       |               |            |            |                         | bit[3]    =HW_reset               |
-// |       |               |            |            |                         | bit[1]    =LED_ctrl_en_from_SSPI  |
-// |       |               |            |            |                         | bit[0]    =SSPI_ctrl_en_from_LAN  |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | TEST  | F_IMAGE_ID_WO | 0x080      | wireout_20 | Return FPGA image ID.   | Image_ID[31:0]                    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | TEST  | XADC_TEMP_WO  | 0x0E8      | wireout_3A | Return XADC values.[mC] | MON_TEMP[31:0]                    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_CON_WI  | 0x01C      | wire_in_07 | Control HRADC logics.   | bit[0]=HRADC_enable               | 
-// |       |               |            |            |                         | bit[1]=HRADC_mode_40bit_en        |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_FLAG_WO | 0x09C      | wireout_27 | Return HRADC status.    | bit[31:16]= avg info data[15:0]   | 
-// |       |               |            |            |                         | bit[1]    = adc_cnv_busy          |
-// |       |               |            |            |                         | bit[0]    = adc_sck_busy          |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_TRIG_TI | 0x11C      | trig_in_47 | Trigger functions.      | bit[0]= adc conversion trigger    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_TRIG_TO | 0x19C      | trigout_67 | Check trigger_done.     | bit[0]= adc conversion done       | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_DAT_WO  | 0x0A0      | wireout_28 | Return HRADC data.      | bit[31:16]= ADC_data[23:8]        | 
-// |       |               |            |            |                         | bit[15: 0]={ADC_data[ 7:0], 8'b0} |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-//
+// ## S3100-PGU MTH slave SPI frame address map // GNDU --> PGU
+//                           
+// +=======+===============+============+=========================================+================================+
+// | Group | EP name       | frame adrs | type/index | Description                | contents (32-bit)              |
+// |       |               | (10-bit)   |            |                            |                                |
+// +=======+===============+============+============+============================+================================+
+// | SSPI  | SSPI_TEST_WO  | 0x380      | wireout_E0 | Return known frame data.   | bit[31:16]=0x33AA              | 
+// |       |               |            |            |                            | bit[15: 0]=0xCC55              |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SSPI  | SSPI_CON_WI   | 0x008      | wire_in_02 | Control slave SPI bus.     | bit[30:28]=miso_timing_control | 
+// |       |               |            |            |                            | bit[25]=miso_one_bit_ahead_en  |
+// |       |               |            |            |                            | bit[24]=loopback_en            |
+// |       |               |            |            |                            | bit[ 3]=HW_reset               |
+// |       |               |            |            |                            | bit[ 0]=1'b0                   |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SSPI  | SSPI_FLAG_WO  | 0x0C8      | wire_in_32 | Control slave SPI bus.     | bit[31:24]=board_status[7:0]   | 
+// |       |               |            |            |                            | bit[23:16]=slot_id[7:0]        |
+// |       |               |            |            |                            | bit[15: 0]=16'b0               |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | F_IMAGE_ID_WO | 0x080      | wireout_20 | Return FPGA image ID.      | Image_ID[31:0]                 |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_TEMP_WO  | 0x0E8      | wireout_3A | Return XADC values.[mC]    | MON_TEMP[31:0]                 |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_VOLT_WO  | 0x0EC      | wireout_3B | Return XADC values.[mV]    | MON_VOLT[31:0] normial 1.1V    |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TIMESTAMP_WO  | 0x088      | wireout_22 | Return time stamp. (10MHz) | TIME_STAMP[31:0]               | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_MON_WO   | 0x08C      | wireout_23 | Return PLL status.         | bit[18]=MCS pll locked         | 
+// |       |               |            |            |                            | bit[24]=DAC common pll locked  |
+// |       |               |            |            |                            | bit[25]=DAC0 pll locked        |
+// |       |               |            |            |                            | bit[26]=DAC1 pll locked        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_WI        | 0x04C      | wire_in_13 | Control EEPROM interface.  | bit[  15]=disable_SBP_packet   | 
+// |       |               |            |            |                            | bit[11:0]=num_bytes_DAT[11:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_FDAT_WI   | 0x048      | wire_in_12 | Control EEPROM frame data. | bit[31:24]=frame_data_ADH[7:0] |
+// |       |               |            |            |                            | bit[23:16]=frame_data_ADL[7:0] |
+// |       |               |            |            |                            | bit[15: 8]=frame_data_STA[7:0] |
+// |       |               |            |            |                            | bit[ 7: 0]=frame_data_CMD[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TI        | 0x14C      | trig_in_53 | Trigger functions.         | bit[0]=trigger_reset           |
+// |       |               |            |            |                            | bit[1]=trigger_fifo_reset      |
+// |       |               |            |            |                            | bit[2]=trigger_frame           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TO        | 0x1CC      | trigout_73 | Check status.              | bit[0]=MEM_valid_latch         |
+// |       |               |            |            |                            | bit[1]=done_frame_latch        |
+// |       |               |            |            |                            | bit[2]=done_frame (one pulse)  |
+// |       |               |            |            |                            | bit[15:8]=frame_data_STA[7:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PI        | 0x24C      | pipe_in_93 | Write data into pipe.      | bit[7:0]=frame_data_DAT_w[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PO        | 0x2CC      | pipeout_B3 | Read data from pipe.       | bit[7:0]=frame_data_DAT_r[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACX  | DACX_WI       | 0x014      | wire_in_05 | Control DAC IC interface.  | bit[30]   = dac1_dco_clk_rst   |
+// |       |               |            |            |                            | bit[29]   = dac0_dco_clk_rst   |
+// |       |               |            |            |                            | bit[28]   = clk_dac_clk_rst    |
+// |       |               |            |            |                            | bit[27]   = dac1_clk_dis       |
+// |       |               |            |            |                            | bit[26]   = dac0_clk_dis       |
+// |       |               |            |            |                            | bit[24]   = DACx_CS_id         |
+// |       |               |            |            |                            | bit[23]   = DACx_R_W_bar       |
+// |       |               |            |            |                            | bit[22:21]= DACx_byte_mode[1:0]|
+// |       |               |            |            |                            | bit[20:16]= DACx_reg_adrs [4:0]|
+// |       |               |            |            |                            | bit[7:0]  = DACx_wr_D[7:0]     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACX  | DACX_WO       | 0x094      | wireout_25 | Read DAC status.           | bit[25]   = done_DACx_SPI_frame|
+// |       |               |            |            |                            | bit[24]   = done_DACx_LNG_reset|
+// |       |               |            |            |                            | bit[7:0]  = DACx_rd_D[7:0]     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACX  | DACX_TI       | 0x114      | trig_in_45 | Trigger functions.         | bit[0]    = trig_DACx_LNG_reset|
+// |       |               |            |            |                            | bit[1]    = trig_DACx_SPI_frame|
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DACZ_DAT_WI   | 0x020      | wire_in_08 | Control pattern gen.       | wire_in__dacz_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DACZ_DAT_WO   | 0x0A0      | wireout_28 | Read pattern gen status.   | wire_out_dacz_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DACZ_DAT_TI   | 0x120      | trig_in_48 | Trigger dacz data func.    | bit[ 4] = write_control        |
+// |       |               |            |            |                            | bit[ 5] = read_status          |
+// |       |               |            |            |                            | bit[ 6] = write_repeat_period  |
+// |       |               |            |            |                            | bit[ 7] = read_repeat_period   |
+// |       |               |            |            |                            | bit[ 8] = trig_cid_adrs_wr     |
+// |       |               |            |            |                            | bit[ 9] = trig_cid_adrs_rd     |
+// |       |               |            |            |                            | bit[10] = trig_cid_data_wr     |
+// |       |               |            |            |                            | bit[11] = trig_cid_data_rd     |
+// |       |               |            |            |                            | bit[12] = trig_cid_ctrl_wr     |
+// |       |               |            |            |                            | bit[13] = trig_cid_ctrl_rd     |
+// |       |               |            |            |                            |                                |
+// |       |               |            |            |                            | bit[15] = trig_cid_stat_rd     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | CLKD  | CLKD_WI       | 0x018      | wire_in_06 | Control DAC IC interface.  | bit[   31]= CLKD_R_W_bar       |
+// |       |               |            |            |                            | bit[30:29]= CLKD_byte_mode[1:0]|
+// |       |               |            |            |                            | bit[25:16]= CLKD_reg_adrs[9:0] |
+// |       |               |            |            |                            | bit[ 7: 0]= CLKD_wr_D[7:0]     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | CLKD  | CLKD_WO       | 0x098      | wireout_26 | Read DAC status.           | bit[31]   = CLKD_LD            |
+// |       |               |            |            |                            | bit[30]   = CLKD_STAT          |
+// |       |               |            |            |                            | bit[29]   = CLKD_REFM          |
+// |       |               |            |            |                            | bit[28]   = CLKD_SDIO_rd       |
+// |       |               |            |            |                            | bit[25]   = done_CLKD_SPI_frame|
+// |       |               |            |            |                            | bit[24]   = done_CLKD_LNG_reset|
+// |       |               |            |            |                            | bit[7:0]  = CLKD_rd_D          |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | CLKD  | CLKD_TI       | 0x118      | trig_in_46 | Trigger functions.         | bit[0]    = trig_CLKD_LNG_reset|
+// |       |               |            |            |                            | bit[1]    = trig_CLKD_SPI_frame|
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SPIO  | SPIO_WI       | 0x01C      | wire_in_07 | Control SPIO IC interface. | bit[28]   = SPIO_CS_id         |
+// |       |               |            |            |                            | bit[27:25]= SPIO_pin_adrs[2:0] |
+// |       |               |            |            |                            | bit[24]   = SPIO_R_W_bar       |
+// |       |               |            |            |                            | bit[23:16]= SPIO_reg_adrs[7:0] |
+// |       |               |            |            |                            | bit[15: 8]= SPIO_wr_DA   [7:0] |
+// |       |               |            |            |                            | bit[ 7: 0]= SPIO_wr_DB   [7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SPIO  | SPIO_WO       | 0x09C      | wireout_27 | Read SPIO status.          | bit[25]   = done_SPIO_SPI_frame|
+// |       |               |            |            |                            | bit[24]   = done_SPIO_LNG_reset|
+// |       |               |            |            |                            | bit[15:8] = SPIO_rd_DA         |
+// |       |               |            |            |                            | bit[ 7:0] = SPIO_rd_DB         |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SPIO  | SPIO_TI       | 0x11C      | trig_in_47 | Trigger functions.         | bit[0]    = trig_SPIO_LNG_reset|
+// |       |               |            |            |                            | bit[1]    = trig_SPIO_SPI_frame|
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TRIG  | TRIG_DAT_WI   | 0x024      | wire_in_09 | Control TRIG_DAT interface.| wire_in__trig_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TRIG  | TRIG_DAT_WO   | 0x0A4      | wireout_29 | Read TRIG_DAT status.      | wire_out_trig_data[31:0]       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TRIG  | TRIG_DAT_TI   | 0x124      | trig_in_49 | Trigger TRIG_DAT func.     | bit[0] = trig_data_wr          |
+// |       |               |            |            | (reserved)                 | bit[1] = trig_data_rd          |
+// |       |               |            |            |                            | TBD (reserved)                 |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+
+
+
+/* sub modules */
+
+//// TODO:  sub_buf_16b //{
+module sub_buf_16b (
+	input wire clk    ,
+	input wire reset_n,
+	//
+	input  wire [15:0] i_buf, // 
+	output wire [15:0] o_buf  // 
+	);
+
+wire [15:0] w_DAT = i_buf;
+reg  [15:0] r_DAT; // located at IOB
+reg  [15:0] r_DAT_smp0;
+reg  [15:0] r_DAT_smp1;
+
+always @(posedge clk, negedge reset_n) begin 
+	if (!reset_n) begin 
+		r_DAT        <=  16'b0;
+		r_DAT_smp0   <=  16'b0;
+		r_DAT_smp1   <=  16'b0;
+	end
+	else begin
+		r_DAT        <= r_DAT_smp0;
+		r_DAT_smp0   <= r_DAT_smp1;
+		r_DAT_smp1   <= w_DAT     ;
+	end
+end
+
+assign o_buf = r_DAT;
+
+endmodule
+
+//}
+
+
+//// TODO:  sub_trig_data //{
+module sub_trig_data (
+	input wire clk    ,
+	input wire reset_n,
+	//
+	input  wire [31:0] i_wire_in_trig_data, // 
+	input  wire [31:0] i_trig_in_trig_data, // 
+	output wire [31:0] o_wireout_trig_data  // 
+	);
+
+wire [31:0] w_data_in = i_wire_in_trig_data;
+wire [31:0] w_trig    = i_trig_in_trig_data;
+// bit[0] = trig_data_wr 
+// bit[1] = trig_data_rd 
+
+reg  [31:0] r_data    ;
+reg  [31:0] r_port_out;
+
+// mapping
+assign o_wireout_trig_data = r_port_out;
+
+always @(posedge clk, negedge reset_n) begin 
+	if (!reset_n) begin 
+		r_data     <=  32'b0;
+		r_port_out <=  32'b0;
+	end
+	else begin
+		//
+		if (w_trig[0])
+			r_data     <= w_data_in;
+		//
+		if (w_trig[1])
+			r_port_out <= r_data   ;
+		//
+	end
+end
+
+endmodule
+
+//}
 
 
 
@@ -526,15 +845,15 @@ module txem7310_pll__s3100_sv_pgu__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A4_21_0521   //{
+// TODO: FPGA_IMAGE_ID = h_A4_21_0611   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
 
 //}
 
-// check SW_BUILD_ID //{
-parameter REQ_SW_BUILD_ID = 32'h_A57E_183C; // 0 for bypass 
-//}
 
 //}
 
@@ -709,22 +1028,54 @@ IBUF ibuf_DACx_SDO_inst   (.I(i_B13_L3N  ), .O(DACx_SDO   ) ); //
 
 //// DAC0
 (* keep = "true" *) wire [15:0] DAC0_DAT; 
-OBUFDS obufds_DAC0_DAT15_inst 	(.O(o_B34D_L15P     ), .OB(o_B34D_L15N     ), .I(~DAC0_DAT[15])	); // PN swap
-OBUFDS obufds_DAC0_DAT14_inst 	(.O(o_B34D_L23P     ), .OB(o_B34D_L23N     ), .I(~DAC0_DAT[14])	); // PN swap
-OBUFDS obufds_DAC0_DAT13_inst 	(.O(o_B34D_L19P     ), .OB(o_B34D_L19N     ), .I(~DAC0_DAT[13])	); // PN swap
-OBUFDS obufds_DAC0_DAT12_inst 	(.O(o_B34D_L21P     ), .OB(o_B34D_L21N     ), .I(~DAC0_DAT[12])	); // PN swap
-OBUFDS obufds_DAC0_DAT11_inst 	(.O(o_B34D_L13P_MRCC), .OB(o_B34D_L13N_MRCC), .I( DAC0_DAT[11])	);
-OBUFDS obufds_DAC0_DAT10_inst 	(.O(o_B34D_L16P     ), .OB(o_B34D_L16N     ), .I(~DAC0_DAT[10])	); // PN swap
-OBUFDS obufds_DAC0_DAT9__inst 	(.O(o_B34D_L17P     ), .OB(o_B34D_L17N     ), .I(~DAC0_DAT[9 ])	); // PN swap 
-OBUFDS obufds_DAC0_DAT8__inst 	(.O(o_B34D_L24P     ), .OB(o_B34D_L24N     ), .I(~DAC0_DAT[8 ])	); // PN swap 
-OBUFDS obufds_DAC0_DAT7__inst 	(.O(o_B34D_L20P     ), .OB(o_B34D_L20N     ), .I( DAC0_DAT[7 ])	);
-OBUFDS obufds_DAC0_DAT6__inst 	(.O(o_B34D_L3P      ), .OB(o_B34D_L3N      ), .I( DAC0_DAT[6 ])	);
-OBUFDS obufds_DAC0_DAT5__inst 	(.O(o_B34D_L9P      ), .OB(o_B34D_L9N      ), .I( DAC0_DAT[5 ])	);
-OBUFDS obufds_DAC0_DAT4__inst 	(.O(o_B34D_L2P      ), .OB(o_B34D_L2N      ), .I( DAC0_DAT[4 ])	);
-OBUFDS obufds_DAC0_DAT3__inst 	(.O(o_B34D_L4P      ), .OB(o_B34D_L4N      ), .I( DAC0_DAT[3 ])	);
-OBUFDS obufds_DAC0_DAT2__inst 	(.O(o_B34D_L1P      ), .OB(o_B34D_L1N      ), .I( DAC0_DAT[2 ])	);
-OBUFDS obufds_DAC0_DAT1__inst 	(.O(o_B34D_L7P      ), .OB(o_B34D_L7N      ), .I( DAC0_DAT[1 ])	);
-OBUFDS obufds_DAC0_DAT0__inst 	(.O(o_B34D_L12P_MRCC), .OB(o_B34D_L12N_MRCC), .I( DAC0_DAT[0 ])	);
+
+// IOB consideration
+wire        w_DAC0_DAT__IOB_clk;
+wire        w_DAC0_DAT__IOB_rst_n;
+wire [15:0] w_DAC0_DAT__IOB_in ;
+wire [15:0] w_DAC0_DAT__IOB_out;
+
+sub_buf_16b  sub_buf_16b__DAC0__inst (
+	.clk      (w_DAC0_DAT__IOB_clk  ),
+	.reset_n  (w_DAC0_DAT__IOB_rst_n),
+	//
+	.i_buf    (w_DAC0_DAT__IOB_in ), // [15:0]
+	.o_buf    (w_DAC0_DAT__IOB_out)  // [15:0]
+	);
+
+assign w_DAC0_DAT__IOB_in[15] = ~DAC0_DAT[15]; // PN swap
+assign w_DAC0_DAT__IOB_in[14] = ~DAC0_DAT[14]; // PN swap
+assign w_DAC0_DAT__IOB_in[13] = ~DAC0_DAT[13]; // PN swap
+assign w_DAC0_DAT__IOB_in[12] = ~DAC0_DAT[12]; // PN swap
+assign w_DAC0_DAT__IOB_in[11] =  DAC0_DAT[11]; 
+assign w_DAC0_DAT__IOB_in[10] = ~DAC0_DAT[10]; // PN swap
+assign w_DAC0_DAT__IOB_in[9 ] = ~DAC0_DAT[9 ]; // PN swap 
+assign w_DAC0_DAT__IOB_in[8 ] = ~DAC0_DAT[8 ]; // PN swap 
+assign w_DAC0_DAT__IOB_in[7 ] =  DAC0_DAT[7 ];
+assign w_DAC0_DAT__IOB_in[6 ] =  DAC0_DAT[6 ];
+assign w_DAC0_DAT__IOB_in[5 ] =  DAC0_DAT[5 ];
+assign w_DAC0_DAT__IOB_in[4 ] =  DAC0_DAT[4 ];
+assign w_DAC0_DAT__IOB_in[3 ] =  DAC0_DAT[3 ];
+assign w_DAC0_DAT__IOB_in[2 ] =  DAC0_DAT[2 ];
+assign w_DAC0_DAT__IOB_in[1 ] =  DAC0_DAT[1 ];
+assign w_DAC0_DAT__IOB_in[0 ] =  DAC0_DAT[0 ];
+
+OBUFDS obufds_DAC0_DAT15_inst 	(.O(o_B34D_L15P     ), .OB(o_B34D_L15N     ), .I(w_DAC0_DAT__IOB_out[15])	); // PN swap
+OBUFDS obufds_DAC0_DAT14_inst 	(.O(o_B34D_L23P     ), .OB(o_B34D_L23N     ), .I(w_DAC0_DAT__IOB_out[14])	); // PN swap
+OBUFDS obufds_DAC0_DAT13_inst 	(.O(o_B34D_L19P     ), .OB(o_B34D_L19N     ), .I(w_DAC0_DAT__IOB_out[13])	); // PN swap
+OBUFDS obufds_DAC0_DAT12_inst 	(.O(o_B34D_L21P     ), .OB(o_B34D_L21N     ), .I(w_DAC0_DAT__IOB_out[12])	); // PN swap
+OBUFDS obufds_DAC0_DAT11_inst 	(.O(o_B34D_L13P_MRCC), .OB(o_B34D_L13N_MRCC), .I(w_DAC0_DAT__IOB_out[11])	);
+OBUFDS obufds_DAC0_DAT10_inst 	(.O(o_B34D_L16P     ), .OB(o_B34D_L16N     ), .I(w_DAC0_DAT__IOB_out[10])	); // PN swap
+OBUFDS obufds_DAC0_DAT9__inst 	(.O(o_B34D_L17P     ), .OB(o_B34D_L17N     ), .I(w_DAC0_DAT__IOB_out[9 ])	); // PN swap 
+OBUFDS obufds_DAC0_DAT8__inst 	(.O(o_B34D_L24P     ), .OB(o_B34D_L24N     ), .I(w_DAC0_DAT__IOB_out[8 ])	); // PN swap 
+OBUFDS obufds_DAC0_DAT7__inst 	(.O(o_B34D_L20P     ), .OB(o_B34D_L20N     ), .I(w_DAC0_DAT__IOB_out[7 ])	);
+OBUFDS obufds_DAC0_DAT6__inst 	(.O(o_B34D_L3P      ), .OB(o_B34D_L3N      ), .I(w_DAC0_DAT__IOB_out[6 ])	);
+OBUFDS obufds_DAC0_DAT5__inst 	(.O(o_B34D_L9P      ), .OB(o_B34D_L9N      ), .I(w_DAC0_DAT__IOB_out[5 ])	);
+OBUFDS obufds_DAC0_DAT4__inst 	(.O(o_B34D_L2P      ), .OB(o_B34D_L2N      ), .I(w_DAC0_DAT__IOB_out[4 ])	);
+OBUFDS obufds_DAC0_DAT3__inst 	(.O(o_B34D_L4P      ), .OB(o_B34D_L4N      ), .I(w_DAC0_DAT__IOB_out[3 ])	);
+OBUFDS obufds_DAC0_DAT2__inst 	(.O(o_B34D_L1P      ), .OB(o_B34D_L1N      ), .I(w_DAC0_DAT__IOB_out[2 ])	);
+OBUFDS obufds_DAC0_DAT1__inst 	(.O(o_B34D_L7P      ), .OB(o_B34D_L7N      ), .I(w_DAC0_DAT__IOB_out[1 ])	);
+OBUFDS obufds_DAC0_DAT0__inst 	(.O(o_B34D_L12P_MRCC), .OB(o_B34D_L12N_MRCC), .I(w_DAC0_DAT__IOB_out[0 ])	);
 //
 wire          DAC0_DCI;
 OBUFDS obufds_DAC0_DCI_inst 	(.O(o_B34D_L10P),      .OB(o_B34D_L10N),      .I(DAC0_DCI)	); //
@@ -764,23 +1115,55 @@ IOBUF iobuf_MEM_SIO_inst  (.IO(io_B34_L5N  ), .T(MEM_SIO_tri), .I(MEM_SIO_out ),
 
 //// DAC1 
 (* keep = "true" *) wire [15:0] DAC1_DAT;
+
+// IOB consideration
+wire        w_DAC1_DAT__IOB_clk;
+wire        w_DAC1_DAT__IOB_rst_n;
+wire [15:0] w_DAC1_DAT__IOB_in ;
+wire [15:0] w_DAC1_DAT__IOB_out;
+
+sub_buf_16b  sub_buf_16b__DAC1__inst (
+	.clk      (w_DAC1_DAT__IOB_clk  ),
+	.reset_n  (w_DAC1_DAT__IOB_rst_n),
+	//
+	.i_buf    (w_DAC1_DAT__IOB_in ), // [15:0]
+	.o_buf    (w_DAC1_DAT__IOB_out)  // [15:0]
+	);
+
+assign w_DAC1_DAT__IOB_in[15] = ~DAC1_DAT[15]; // PN swap
+assign w_DAC1_DAT__IOB_in[14] = ~DAC1_DAT[14]; // PN swap
+assign w_DAC1_DAT__IOB_in[13] = ~DAC1_DAT[13]; // PN swap
+assign w_DAC1_DAT__IOB_in[12] = ~DAC1_DAT[12]; // PN swap
+assign w_DAC1_DAT__IOB_in[11] = ~DAC1_DAT[11]; // PN swap
+assign w_DAC1_DAT__IOB_in[10] = ~DAC1_DAT[10]; // PN swap
+assign w_DAC1_DAT__IOB_in[9 ] = ~DAC1_DAT[9 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[8 ] = ~DAC1_DAT[8 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[7 ] =  DAC1_DAT[7 ];
+assign w_DAC1_DAT__IOB_in[6 ] =  DAC1_DAT[6 ];
+assign w_DAC1_DAT__IOB_in[5 ] =  DAC1_DAT[5 ];
+assign w_DAC1_DAT__IOB_in[4 ] =  DAC1_DAT[4 ];
+assign w_DAC1_DAT__IOB_in[3 ] =  DAC1_DAT[3 ];
+assign w_DAC1_DAT__IOB_in[2 ] =  DAC1_DAT[2 ];
+assign w_DAC1_DAT__IOB_in[1 ] =  DAC1_DAT[1 ];
+assign w_DAC1_DAT__IOB_in[0 ] =  DAC1_DAT[0 ];
+
 //
-OBUFDS obufds_DAC1_DAT15_inst 	(.O(o_B35D_L12P_MRCC), .OB(o_B35D_L12N_MRCC), .I(~DAC1_DAT[15])	); // PN swap
-OBUFDS obufds_DAC1_DAT14_inst 	(.O(o_B35D_L13P_MRCC), .OB(o_B35D_L13N_MRCC), .I(~DAC1_DAT[14])	); // PN swap
-OBUFDS obufds_DAC1_DAT13_inst 	(.O(o_B35D_L1P      ), .OB(o_B35D_L1N      ), .I(~DAC1_DAT[13])	); // PN swap
-OBUFDS obufds_DAC1_DAT12_inst 	(.O(o_B35D_L2P      ), .OB(o_B35D_L2N      ), .I(~DAC1_DAT[12])	); // PN swap
-OBUFDS obufds_DAC1_DAT11_inst 	(.O(o_B35D_L3P      ), .OB(o_B35D_L3N      ), .I(~DAC1_DAT[11])	); // PN swap
-OBUFDS obufds_DAC1_DAT10_inst 	(.O(o_B35D_L5P      ), .OB(o_B35D_L5N      ), .I(~DAC1_DAT[10])	); // PN swap
-OBUFDS obufds_DAC1_DAT9__inst 	(.O(o_B35D_L8P      ), .OB(o_B35D_L8N      ), .I(~DAC1_DAT[9 ])	); // PN swap
-OBUFDS obufds_DAC1_DAT8__inst 	(.O(o_B35D_L10P     ), .OB(o_B35D_L10N     ), .I(~DAC1_DAT[8 ])	); // PN swap
-OBUFDS obufds_DAC1_DAT7__inst 	(.O(o_B35D_L24P     ), .OB(o_B35D_L24N     ), .I( DAC1_DAT[7 ])	); 
-OBUFDS obufds_DAC1_DAT6__inst 	(.O(o_B35D_L22P     ), .OB(o_B35D_L22N     ), .I( DAC1_DAT[6 ])	); 
-OBUFDS obufds_DAC1_DAT5__inst 	(.O(o_B35D_L20P     ), .OB(o_B35D_L20N     ), .I( DAC1_DAT[5 ])	); 
-OBUFDS obufds_DAC1_DAT4__inst 	(.O(o_B35D_L16P     ), .OB(o_B35D_L16N     ), .I( DAC1_DAT[4 ])	); 
-OBUFDS obufds_DAC1_DAT3__inst 	(.O(o_B35D_L21P     ), .OB(o_B35D_L21N     ), .I( DAC1_DAT[3 ])	); 
-OBUFDS obufds_DAC1_DAT2__inst 	(.O(o_B35D_L19P     ), .OB(o_B35D_L19N     ), .I( DAC1_DAT[2 ])	); 
-OBUFDS obufds_DAC1_DAT1__inst 	(.O(o_B35D_L18P     ), .OB(o_B35D_L18N     ), .I( DAC1_DAT[1 ])	); 
-OBUFDS obufds_DAC1_DAT0__inst 	(.O(o_B35D_L23P     ), .OB(o_B35D_L23N     ), .I( DAC1_DAT[0 ])	); 
+OBUFDS obufds_DAC1_DAT15_inst 	(.O(o_B35D_L12P_MRCC), .OB(o_B35D_L12N_MRCC), .I(w_DAC1_DAT__IOB_out[15])	); // PN swap
+OBUFDS obufds_DAC1_DAT14_inst 	(.O(o_B35D_L13P_MRCC), .OB(o_B35D_L13N_MRCC), .I(w_DAC1_DAT__IOB_out[14])	); // PN swap
+OBUFDS obufds_DAC1_DAT13_inst 	(.O(o_B35D_L1P      ), .OB(o_B35D_L1N      ), .I(w_DAC1_DAT__IOB_out[13])	); // PN swap
+OBUFDS obufds_DAC1_DAT12_inst 	(.O(o_B35D_L2P      ), .OB(o_B35D_L2N      ), .I(w_DAC1_DAT__IOB_out[12])	); // PN swap
+OBUFDS obufds_DAC1_DAT11_inst 	(.O(o_B35D_L3P      ), .OB(o_B35D_L3N      ), .I(w_DAC1_DAT__IOB_out[11])	); // PN swap
+OBUFDS obufds_DAC1_DAT10_inst 	(.O(o_B35D_L5P      ), .OB(o_B35D_L5N      ), .I(w_DAC1_DAT__IOB_out[10])	); // PN swap
+OBUFDS obufds_DAC1_DAT9__inst 	(.O(o_B35D_L8P      ), .OB(o_B35D_L8N      ), .I(w_DAC1_DAT__IOB_out[9 ])	); // PN swap
+OBUFDS obufds_DAC1_DAT8__inst 	(.O(o_B35D_L10P     ), .OB(o_B35D_L10N     ), .I(w_DAC1_DAT__IOB_out[8 ])	); // PN swap
+OBUFDS obufds_DAC1_DAT7__inst 	(.O(o_B35D_L24P     ), .OB(o_B35D_L24N     ), .I(w_DAC1_DAT__IOB_out[7 ])	); 
+OBUFDS obufds_DAC1_DAT6__inst 	(.O(o_B35D_L22P     ), .OB(o_B35D_L22N     ), .I(w_DAC1_DAT__IOB_out[6 ])	); 
+OBUFDS obufds_DAC1_DAT5__inst 	(.O(o_B35D_L20P     ), .OB(o_B35D_L20N     ), .I(w_DAC1_DAT__IOB_out[5 ])	); 
+OBUFDS obufds_DAC1_DAT4__inst 	(.O(o_B35D_L16P     ), .OB(o_B35D_L16N     ), .I(w_DAC1_DAT__IOB_out[4 ])	); 
+OBUFDS obufds_DAC1_DAT3__inst 	(.O(o_B35D_L21P     ), .OB(o_B35D_L21N     ), .I(w_DAC1_DAT__IOB_out[3 ])	); 
+OBUFDS obufds_DAC1_DAT2__inst 	(.O(o_B35D_L19P     ), .OB(o_B35D_L19N     ), .I(w_DAC1_DAT__IOB_out[2 ])	); 
+OBUFDS obufds_DAC1_DAT1__inst 	(.O(o_B35D_L18P     ), .OB(o_B35D_L18N     ), .I(w_DAC1_DAT__IOB_out[1 ])	); 
+OBUFDS obufds_DAC1_DAT0__inst 	(.O(o_B35D_L23P     ), .OB(o_B35D_L23N     ), .I(w_DAC1_DAT__IOB_out[0 ])	); 
 //
 wire          DAC1_DCI ;
 OBUFDS obufds_DAC1_DCI_inst 	(.O(o_B35D_L17P     ), .OB(o_B35D_L17N     ), .I( DAC1_DCI  )	); // PN swap by PLL
@@ -1130,6 +1513,12 @@ wire reset		= ~reset_n;
 wire dac0_reset_n = dac0_dco_clk_locked;
 wire dac1_reset_n = dac1_dco_clk_locked;
 
+// for IOB registers
+assign w_DAC0_DAT__IOB_clk   = dac0_clk;
+assign w_DAC1_DAT__IOB_clk   = dac1_clk;
+assign w_DAC0_DAT__IOB_rst_n = reset_n;
+assign w_DAC1_DAT__IOB_rst_n = reset_n;
+
 
 
 // dac dci oddr output //{
@@ -1205,33 +1594,38 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 
 /* TODO: end-point wires */ //{
 
-// end-points : USB vs LAN 
-
-// wrapper modules : ok_endpoint_wrapper for USB  vs  lan_endpoint_wrapper for LAN
-// ok_endpoint_wrapper  : usb host interface <--> end-points
+// end-points : SSPI vs LAN 
+//
+// endpoint modules : ok_endpoint_wrapper for USB  vs  lan_endpoint_wrapper for LAN
+//
+// (USB) ok_endpoint_wrapper : usb host interface <--> end-points //$$ removed
 //    okHost okHI
 //    ok...
-// lan_endpoint_wrapper : lan spi  interface <--> end-points
+//
+// (LAN) lan_endpoint_wrapper : lan spi  interface <--> end-points
 //    microblaze_mcs_1  soft_cpu_mcs_inst
 //    mcs_io_bridge_ext  mcs_io_bridge_inst2
 //    master_spi_wz850_ext  master_spi_wz850_inst
 //    fifo_generator_3  LAN_fifo_wr_inst
 //    fifo_generator_3  LAN_fifo_rd_inst
+//
+// (SSPI) slave_spi_mth_brd : MTH slave SPI <--> end-points
+//   
 
 
-//// TODO: USB end-point wires: //{
+//// TODO: USB --> SSPI end-point wires: //{
 
 // Wire In 		0x00 - 0x1F //{
-wire [31:0] ep00wire; //$$ [TEST] SW_BUILD_ID 
-wire [31:0] ep01wire; //$$ [TEST] TEST_CON 
+wire [31:0] ep00wire; //
+wire [31:0] ep01wire; //
 wire [31:0] ep02wire; //$$ [SSPI] SSPI_CON_WI         //$$ S3100 // to revise
-wire [31:0] ep03wire; //$$ [TEST] BRD_CON
-wire [31:0] ep04wire; //$$ [DACX] DACX_DAT_WI         // PGU
+wire [31:0] ep03wire; // NA in S3100-PGU
+wire [31:0] ep04wire; 
 wire [31:0] ep05wire; //$$ [DACX] DACX_WI             // PGU
 wire [31:0] ep06wire; //$$ [CLKD] CLKD_WI             // PGU
 wire [31:0] ep07wire; //$$ [SPIO] SPIO_WI             // PGU
 wire [31:0] ep08wire; //$$ [DACZ] DACZ_DAT_WI         // PGU
-wire [31:0] ep09wire; //
+wire [31:0] ep09wire; //$$ [TRIG] TRIG_DAT_WI         // PGU reserved
 wire [31:0] ep0Awire; //
 wire [31:0] ep0Bwire; //
 wire [31:0] ep0Cwire; //
@@ -1244,10 +1638,10 @@ wire [31:0] ep12wire; //$$ [MEM] MEM_FDAT_WI
 wire [31:0] ep13wire; //$$ [MEM] MEM_WI
 wire [31:0] ep14wire; //
 wire [31:0] ep15wire; //
-wire [31:0] ep16wire; //$$ [MSPI] MSPI_EN_CS_WI //$$ S3100-CPU-BASE only // not in S3100-PGU
-wire [31:0] ep17wire; //$$ [MSPI] MSPI_CON_WI   //$$ S3100
+wire [31:0] ep16wire; //
+wire [31:0] ep17wire; //
 wire [31:0] ep18wire; //
-wire [31:0] ep19wire; //$$ [MCS] MCS_SETUP_WI   //$$ S3100
+wire [31:0] ep19wire; // NA in S3100-PGU
 wire [31:0] ep1Awire; //
 wire [31:0] ep1Bwire; //
 wire [31:0] ep1Cwire; //
@@ -1257,16 +1651,16 @@ wire [31:0] ep1Fwire; //
 //}
 
 // Wire Out 	0x20 - 0x3F //{
-wire [31:0] ep20wire;         //$$ [TEST] FPGA_IMAGE_ID       // PGU
-wire [31:0] ep21wire;         //$$ [TEST] TEST_OUT            // PGU
+wire [31:0] ep20wire;         //$$ [TEST] F_IMAGE_ID_WO       // PGU
+wire [31:0] ep21wire = 32'b0; //
 wire [31:0] ep22wire;         //$$ [TEST] TIMESTAMP_WO        // PGU
-wire [31:0] ep23wire;         //$$ [TEST] TEST_IO_MON         // PGU
-wire [31:0] ep24wire;         //$$ [DACX] DACX_DAT_WO         // PGU
+wire [31:0] ep23wire;         //$$ {TEST] TEST_IO_MON         // PGU
+wire [31:0] ep24wire = 32'b0; //
 wire [31:0] ep25wire;         //$$ [DACX] DACX_WO             // PGU
 wire [31:0] ep26wire;         //$$ [CLKD] CLKD_WO             // PGU
 wire [31:0] ep27wire;         //$$ [SPIO] SPIO_WO             // PGU
 wire [31:0] ep28wire;         //$$ [DACZ] DACZ_DAT_WO         // PGU
-wire [31:0] ep29wire = 32'b0; //
+wire [31:0] ep29wire;         //$$ [TRIG] TRIG_DAT_WO         // PGU reserved
 wire [31:0] ep2Awire = 32'b0; //
 wire [31:0] ep2Bwire = 32'b0; //
 wire [31:0] ep2Cwire = 32'b0; //
@@ -1277,7 +1671,7 @@ wire [31:0] ep30wire = 32'b0; //
 wire [31:0] ep31wire = 32'b0; //
 wire [31:0] ep32wire;         //$$ [SSPI] SSPI_FLAG_WO    //$$ S3100 // to revise
 wire [31:0] ep33wire = 32'b0; //
-wire [31:0] ep34wire;         //$$ [MSPI] MSPI_FLAG_WO    //$$ S3100 // or SSPI_TEST_WO 
+wire [31:0] ep34wire = 32'b0; //
 wire [31:0] ep35wire = 32'b0; //
 wire [31:0] ep36wire = 32'b0; //
 wire [31:0] ep37wire = 32'b0; //
@@ -1292,16 +1686,16 @@ wire [31:0] ep3Fwire = 32'b0; //
 //}
 
 // Trigger In 	0x40 - 0x5F //{
-wire ep40ck = sys_clk;          wire [31:0] ep40trig; //$$ [TEST] TEST_TI             // PGU
+wire ep40ck = 1'b0;             wire [31:0] ep40trig; //$$ removed in S3100-PGU
 wire ep41ck = 1'b0;             wire [31:0] ep41trig;
-wire ep42ck = base_sspi_clk;    wire [31:0] ep42trig; //$$ [MSPI] MSPI_TI  //$$ S3100
-wire ep43ck = sys_clk;          wire [31:0] ep43trig; //$$ [TEST] TEST_IO_TI          // PGU
-wire ep44ck = sys_clk;          wire [31:0] ep44trig; //$$ [DACX] DACX_DAT_TI         // PGU // to remove
+wire ep42ck = 1'b0;             wire [31:0] ep42trig;
+wire ep43ck = 1'b0;             wire [31:0] ep43trig; //$$ removed in S3100-PGU
+wire ep44ck = 1'b0;             wire [31:0] ep44trig;
 wire ep45ck = sys_clk;          wire [31:0] ep45trig; //$$ [DACX] DACX_TI             // PGU
 wire ep46ck = sys_clk;          wire [31:0] ep46trig; //$$ [CLKD] CLKD_TI             // PGU
 wire ep47ck = sys_clk;          wire [31:0] ep47trig; //$$ [SPIO] SPIO_TI             // PGU
 wire ep48ck = sys_clk;          wire [31:0] ep48trig; //$$ [DACZ] DACZ_DAT_TI         // PGU
-wire ep49ck = 1'b0;             wire [31:0] ep49trig;
+wire ep49ck = sys_clk;          wire [31:0] ep49trig; //$$ [TRIG] TRIG_DAT_TI         // PGU reserved
 wire ep4Ack = 1'b0;             wire [31:0] ep4Atrig;
 wire ep4Bck = 1'b0;             wire [31:0] ep4Btrig;
 wire ep4Cck = 1'b0;             wire [31:0] ep4Ctrig;
@@ -1327,9 +1721,9 @@ wire ep5Fck = 1'b0;             wire [31:0] ep5Ftrig;
 //}
 
 // Trigger Out 	0x60 - 0x7F //{
-wire ep60ck = sys_clk;          wire [31:0] ep60trig; //$$ [TEST] TEST_TO
+wire ep60ck = 1'b0;             wire [31:0] ep60trig = 32'b0;
 wire ep61ck = 1'b0;             wire [31:0] ep61trig = 32'b0;
-wire ep62ck = base_sspi_clk;    wire [31:0] ep62trig; //$$ [MSPI] MSPI_TO  //$$ S3100
+wire ep62ck = 1'b0;             wire [31:0] ep62trig = 32'b0;
 wire ep63ck = 1'b0;             wire [31:0] ep63trig = 32'b0;
 wire ep64ck = 1'b0;             wire [31:0] ep64trig = 32'b0;
 wire ep65ck = 1'b0;             wire [31:0] ep65trig = 32'b0;
@@ -1366,8 +1760,8 @@ wire ep80wr; wire [31:0] ep80pipe;
 wire ep81wr; wire [31:0] ep81pipe;
 wire ep82wr; wire [31:0] ep82pipe;
 wire ep83wr; wire [31:0] ep83pipe;
-wire ep84wr; wire [31:0] ep84pipe; //$$ [DACX] DAC0_DAT_PI
-wire ep85wr; wire [31:0] ep85pipe; //$$ [DACX] DAC1_DAT_PI
+wire ep84wr; wire [31:0] ep84pipe;
+wire ep85wr; wire [31:0] ep85pipe;
 wire ep86wr; wire [31:0] ep86pipe; //$$ [DACZ] DAC0_DAT_INC_PI
 wire ep87wr; wire [31:0] ep87pipe; //$$ [DACZ] DAC0_DUR_PI 
 wire ep88wr; wire [31:0] ep88pipe; //$$ [DACZ] DAC1_DAT_INC_PI
@@ -1444,13 +1838,13 @@ wire okClk;
 wire [31:0] w_port_wi_00_1; // PGU
 wire [31:0] w_port_wi_01_1; // PGU
 wire [31:0] w_port_wi_02_1;
-wire [31:0] w_port_wi_03_1; // PGU
+wire [31:0] w_port_wi_03_1; // S3100-PGU
 wire [31:0] w_port_wi_04_1; // PGU
 wire [31:0] w_port_wi_05_1; // PGU
 wire [31:0] w_port_wi_06_1; // PGU
 wire [31:0] w_port_wi_07_1; // PGU
 wire [31:0] w_port_wi_08_1; // PGU
-wire [31:0] w_port_wi_09_1;
+wire [31:0] w_port_wi_09_1; // PGU
 wire [31:0] w_port_wi_0A_1;
 wire [31:0] w_port_wi_0B_1;
 wire [31:0] w_port_wi_0C_1;
@@ -1466,7 +1860,7 @@ wire [31:0] w_port_wi_15_1;
 wire [31:0] w_port_wi_16_1;
 wire [31:0] w_port_wi_17_1;
 wire [31:0] w_port_wi_18_1;
-wire [31:0] w_port_wi_19_1;
+wire [31:0] w_port_wi_19_1; // S3100-PGU
 wire [31:0] w_port_wi_1A_1;
 wire [31:0] w_port_wi_1B_1;
 wire [31:0] w_port_wi_1C_1;
@@ -1478,14 +1872,14 @@ wire [31:0] w_port_wi_1F_1;
 // wire out //{
 wire [31:0] w_port_wo_20_1; // PGU
 wire [31:0] w_port_wo_21_1; // PGU
-wire [31:0] w_port_wo_22_1; // PGU
-wire [31:0] w_port_wo_23_1; // PGU
-wire [31:0] w_port_wo_24_1; // PGU
+wire [31:0] w_port_wo_22_1; // S3100-PGU
+wire [31:0] w_port_wo_23_1; // S3100-PGU
+wire [31:0] w_port_wo_24_1 = 32'b0; //
 wire [31:0] w_port_wo_25_1; // PGU
 wire [31:0] w_port_wo_26_1; // PGU
 wire [31:0] w_port_wo_27_1; // PGU
 wire [31:0] w_port_wo_28_1; // PGU
-wire [31:0] w_port_wo_29_1 = 32'b0; // not yet used
+wire [31:0] w_port_wo_29_1; // PGU
 wire [31:0] w_port_wo_2A_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_2B_1 = 32'b0; // not yet used
 wire [31:0] w_port_wo_2C_1 = 32'b0; // not yet used
@@ -1513,12 +1907,13 @@ wire [31:0] w_port_wo_3F_1 = 32'b0; // not yet used
 // trig in //{
 wire w_ck_40_1 = sys_clk       ; wire [31:0] w_port_ti_40_1; // PGU
 wire w_ck_42_1 = base_sspi_clk ; wire [31:0] w_port_ti_42_1; // S3100-PGU
-wire w_ck_43_1 = sys_clk       ; wire [31:0] w_port_ti_43_1; // PGU
+//wire w_ck_43_1 = sys_clk       ; wire [31:0] w_port_ti_43_1; // removed in S3100-PGU
 wire w_ck_44_1 = sys_clk       ; wire [31:0] w_port_ti_44_1; // PGU
 wire w_ck_45_1 = sys_clk       ; wire [31:0] w_port_ti_45_1; // PGU
 wire w_ck_46_1 = sys_clk       ; wire [31:0] w_port_ti_46_1; // PGU
 wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // PGU 
 wire w_ck_48_1 = sys_clk       ; wire [31:0] w_port_ti_48_1; // PGU
+wire w_ck_49_1 = sys_clk       ; wire [31:0] w_port_ti_49_1; // PGU reserved
 wire w_ck_53_1 = sys_clk       ; wire [31:0] w_port_ti_53_1; // MEM
 //}
 
@@ -1574,8 +1969,8 @@ wire w_ck_pipe; // not used // mcs_eeprom_fifo_clk vs epPPck from lan_endpoint_w
 
 wire [47:0] w_adrs_offset_mac_48b; // BASE = {8'h00,8'h08,8'hDC,8'h00,8'hAB,8'hCD}; // 00:08:DC:00:xx:yy ??48 bits
 wire [31:0] w_adrs_offset_ip_32b ; // BASE = {8'd192,8'd168,8'd168,8'd112}; // 192.168.168.112 or C0:A8:A8:70 ??32 bits
-wire [15:0] w_offset_lan_timeout_rtr_16b; //$$ = ep00wire[31:16]; // assign later 
-wire [15:0] w_offset_lan_timeout_rcr_16b; //$$ = ep00wire[15: 0]; // assign later 
+wire [15:0] w_offset_lan_timeout_rtr_16b; // assign later 
+wire [15:0] w_offset_lan_timeout_rcr_16b; // assign later 
 
 wire  EP_LAN_MOSI ; // rev 20210105
 wire  EP_LAN_SCLK ; // rev 20210105
@@ -1586,7 +1981,9 @@ wire  EP_LAN_MISO ; // rev 20210105
 
 lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
-	.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020
+	//.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020 or S3000-PGU
+	//.MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100-CPU-BASE
+	.MCS_IO_INST_OFFSET			(32'h_0007_0000), //$$ for S3100-PGU
 	.FPGA_IMAGE_ID              (FPGA_IMAGE_ID)  
 ) lan_endpoint_wrapper_inst (
 	
@@ -1693,13 +2090,13 @@ lan_endpoint_wrapper #(
 	.ep40ck (w_ck_40_1), .ep40trig (w_port_ti_40_1), // input wire, output wire [31:0],
 	.ep41ck (1'b0),      .ep41trig (), // input wire, output wire [31:0],
 	.ep42ck (w_ck_42_1), .ep42trig (w_port_ti_42_1), // input wire, output wire [31:0],
-	.ep43ck (w_ck_43_1), .ep43trig (w_port_ti_43_1), // input wire, output wire [31:0],
-	.ep44ck (w_ck_44_1), .ep44trig (w_port_ti_44_1), // input wire, output wire [31:0],
+	.ep43ck (1'b0),      .ep43trig (), // input wire, output wire [31:0],
+	.ep44ck (1'b0),      .ep44trig (), // input wire, output wire [31:0],
 	.ep45ck (w_ck_45_1), .ep45trig (w_port_ti_45_1), // input wire, output wire [31:0],
 	.ep46ck (w_ck_46_1), .ep46trig (w_port_ti_46_1), // input wire, output wire [31:0],
 	.ep47ck (w_ck_47_1), .ep47trig (w_port_ti_47_1), // input wire, output wire [31:0],
 	.ep48ck (w_ck_48_1), .ep48trig (w_port_ti_48_1), // input wire, output wire [31:0],
-	.ep49ck (1'b0),      .ep49trig (), // input wire, output wire [31:0],
+	.ep49ck (w_ck_49_1), .ep49trig (w_port_ti_49_1), // input wire, output wire [31:0],
 	.ep4Ack (1'b0),      .ep4Atrig (), // input wire, output wire [31:0],
 	.ep4Bck (1'b0),      .ep4Btrig (), // input wire, output wire [31:0],
 	.ep4Cck (1'b0),      .ep4Ctrig (), // input wire, output wire [31:0],
@@ -1886,36 +2283,24 @@ fifo_generator_4 TEST_fifo_inst (
 // most control in signals
 
 //// BRD_CON //{
-wire [31:0] w_BRD_CON = w_port_wi_03_1 | ep03wire; // board control // logic or
+wire [31:0] w_BRD_CON = w_port_wi_03_1; //$$ board control from LAN
 // reset wires 
-// endpoint mux enable : LAN(MCS) vs USB
-
-// sub wires 
-////wire w_HW_reset              = w_BRD_CON[0];
-////  wire w_time_stamp_disp_en    = w_BRD_CON[16];
+// endpoint mux enable : LAN(MCS) over SSPI
 
 // reset wires 
+//wire w_HW_reset     = w_BRD_CON[0];
 //wire w_rst_adc      = w_BRD_CON[1]; 
 //wire w_rst_dwave    = w_BRD_CON[2]; 
 //wire w_rst_bias     = w_BRD_CON[3]; 
 //wire w_rst_spo      = w_BRD_CON[4]; 
-////  wire w_rst_mcs_ep   = w_BRD_CON[]; 
-//// wire reset_sw_mcs1_n; // see ~w_rst_mcs_ep // not used
 
-// endpoint mux enable : LAN(MCS) vs USB
+// endpoint mux enable : LAN(MCS) vs SSPI
 wire w_mcs_ep_po_en = w_BRD_CON[ 8]; 
 wire w_mcs_ep_pi_en = w_BRD_CON[ 9]; 
 wire w_mcs_ep_to_en = w_BRD_CON[10]; 
 wire w_mcs_ep_ti_en = w_BRD_CON[11];  
 wire w_mcs_ep_wo_en = w_BRD_CON[12]; 
 wire w_mcs_ep_wi_en = w_BRD_CON[13]; 
-// mcs endpoint enables
-////wire w_mcs_ep_po_en = w_port_wi_10_0[5];
-////wire w_mcs_ep_pi_en = w_port_wi_10_0[4];
-////wire w_mcs_ep_to_en = w_port_wi_10_0[3];
-////wire w_mcs_ep_ti_en = w_port_wi_10_0[2]; 
-////wire w_mcs_ep_wo_en = w_port_wi_10_0[1];
-////wire w_mcs_ep_wi_en = w_port_wi_10_0[0];
 
 //}
 
@@ -1923,23 +2308,30 @@ wire w_mcs_ep_wi_en = w_BRD_CON[13];
 
 // MCS control 
 wire [31:0] w_MCS_SETUP_WI = w_port_wi_19_1; //$$ dedicated to MCS. updated by MCS boot-up.
-// bit[3:0]=slot_id, range of 00~99, set from EEPROM via MCS
+// bit[7:0]=slot_id, range of 00~99, set from EEPROM via MCS //$$ 4 --> 8 bits in S3100-PGU
 // ...
-// bit[8]=sel__H_LAN_for_EEPROM_fifo (or USB)
-// bit[9]=sel__H_EEPROM_on_TP (or on Base)
-// bit[10]=sel__H_LAN_on_BASE_BD (or on module)
+// bit[ 8]=sel__H_LAN_for_EEPROM_fifo (or SSPI)
+// bit[ 9]=sel__H_EEPROM_on_TP (or on Base)      //$$ to remove in S3100-PGU
+// bit[10]=sel__H_LAN_on_BASE_BD (or on module)  //$$ to remove in S3100-PGU
+// bit[15:11]=reserved
 // ...
 // bit[31:16]=board_id, range of 0000~9999, set from EEPROM via MCS
 
-wire [3:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   // not yet
-wire w_sel__H_LAN_for_EEPROM_fifo = w_MCS_SETUP_WI[8];
-wire w_sel__H_EEPROM_on_TP        = w_MCS_SETUP_WI[9];     // not yet
-wire w_sel__H_LAN_on_BASE_BD      = w_MCS_SETUP_WI[10];    // not yet
-wire [15:0] w_board_id            = w_MCS_SETUP_WI[31:16]; // not yet
+wire [7:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-PGU
+wire [7:0]  w_slot_id_8b          = w_MCS_SETUP_WI[7:0];   //$$ 8 bits in S3100-PGU
+//
+//$$ note ... need to protect MCS_SETUP_WI[15:8] by SDK
+//##wire w_sel__H_LAN_for_EEPROM_fifo = w_MCS_SETUP_WI[8];     //$$ removed in S3100-PGU 
+//##wire w_sel__H_EEPROM_on_TP        = w_MCS_SETUP_WI[9];     //$$ removed in S3100-PGU 
+//##wire w_sel__H_LAN_on_BASE_BD      = w_MCS_SETUP_WI[10];    //$$ removed in S3100-PGU 
+//
+wire [15:0] w_board_id            = w_MCS_SETUP_WI[31:16]; 
 
 // for dedicated LAN setup from MCS
-assign w_adrs_offset_mac_48b[15:0] = {8'h00, 4'h0, w_slot_id}; // assign low 16b
-assign w_adrs_offset_ip_32b [15:0] = {8'h00, 4'h0, w_slot_id}; // assign low 16b
+//$$assign w_adrs_offset_mac_48b[15:0] = {8'h00, 4'h0, w_slot_id}; // assign low 16b
+//$$assign w_adrs_offset_ip_32b [15:0] = {8'h00, 4'h0, w_slot_id}; // assign low 16b
+assign w_adrs_offset_mac_48b[15:0] = {8'h00, w_slot_id_8b}; // assign low 16b
+assign w_adrs_offset_ip_32b [15:0] = {8'h00, w_slot_id_8b}; // assign low 16b
 
 //}
 
@@ -1947,15 +2339,10 @@ assign w_adrs_offset_ip_32b [15:0] = {8'h00, 4'h0, w_slot_id}; // assign low 16b
 
 
 // check IDs end-point //{
-wire [31:0] w_SW_BUILD_ID_WI = (w_mcs_ep_wi_en)? w_port_wi_00_1 : ep00wire;
+wire [31:0] w_F_IMAGE_ID_WO = FPGA_IMAGE_ID ;
 //
-wire [31:0] w_F_IMAGE_ID_WO = 
-				(w_SW_BUILD_ID_WI==REQ_SW_BUILD_ID)? FPGA_IMAGE_ID : 
-				(w_SW_BUILD_ID_WI==32'b0          )? FPGA_IMAGE_ID : 
-				32'b0 ;
-//
-assign ep20wire       = (!w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC;
-assign w_port_wo_20_1 = ( w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC;
+assign ep20wire       = (!w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC; //$$ SSPI
+assign w_port_wo_20_1 = ( w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC; //$$ LAN
 //}
 
 // timestamp //{
@@ -1965,38 +2352,45 @@ assign w_port_wo_22_1 = (w_mcs_ep_wo_en)? w_TIMESTAMP_WO : 32'hACAC_ACAC;
 //}
 
 // TEST counter end-point //{
-wire [31:0] w_TEST_CON = (w_mcs_ep_wi_en)? w_port_wi_01_1 : ep01wire;
+wire [31:0] w_TEST_CON_WI = w_port_wi_01_1; //$$ (w_mcs_ep_wi_en)? w_port_wi_01_1 : ep01wire;
 //
-wire [31:0] w_TEST_OUT;
-assign ep21wire = (!w_mcs_ep_wo_en)? w_TEST_OUT : 32'hACAC_ACAC; // TEST_OUT
-assign w_port_wo_21_1 = (w_mcs_ep_wo_en)? w_TEST_OUT : 32'hACAC_ACAC;
+wire [31:0] w_TEST_OUT_WO;
+//assign ep21wire = (!w_mcs_ep_wo_en)? w_TEST_OUT_WO : 32'hACAC_ACAC; // TEST_OUT
+assign w_port_wo_21_1 = w_TEST_OUT_WO; //$$ (w_mcs_ep_wo_en)? w_TEST_OUT_WO : 32'hACAC_ACAC;
 //
-wire [31:0] w_TEST_TI = (w_mcs_ep_ti_en)? w_port_ti_40_1 : ep40trig;
+wire [31:0] w_TEST_TI = w_port_ti_40_1; //$$ (w_mcs_ep_ti_en)? w_port_ti_40_1 : ep40trig;
 //
 wire [31:0] w_TEST_TO;
-assign ep60trig = w_TEST_TO; //$$
-assign w_port_to_60_1 = (w_mcs_ep_to_en)? w_TEST_TO : 32'h0000_0000; //$$
+//assign ep60trig = w_TEST_TO; //$$
+assign w_port_to_60_1 = w_TEST_TO; //$$ (w_mcs_ep_to_en)? w_TEST_TO : 32'h0000_0000; //$$
 //}
 
 // TEST_IO end-point //{
-//
-//$$wire [31:0] w_TEST_IO_CON = (w_mcs_ep_wi_en)? w_port_wi_03_1 : ep03wire; //$$ not used in PGU // removed
-wire [31:0] w_TEST_IO_MON;
-assign ep23wire = (!w_mcs_ep_wo_en)? w_TEST_IO_MON : 32'hACAC_ACAC;
-assign w_port_wo_23_1 = (w_mcs_ep_wo_en)? w_TEST_IO_MON : 32'hACAC_ACAC;
-//
-wire [31:0] w_TEST_IO_TI = (w_mcs_ep_ti_en)? w_port_ti_43_1 : ep43trig;
-//
-assign w_TEST_IO_MON[28:27] =  2'b0;
-assign w_TEST_IO_MON[26] = dac1_dco_clk_locked;
-assign w_TEST_IO_MON[25] = dac0_dco_clk_locked;
-assign w_TEST_IO_MON[24] = clk_dac_locked;
-assign w_TEST_IO_MON[23:20] =  4'b0;
-assign w_TEST_IO_MON[19] = clk4_locked;
-assign w_TEST_IO_MON[18] = clk3_locked;
-assign w_TEST_IO_MON[17] = clk2_locked;
-assign w_TEST_IO_MON[16] = clk1_locked;
-assign w_TEST_IO_MON[15: 0] = 16'b0;
+
+wire [31:0] w_TEST_MON_WO; //$$ S3000-PGU // w_TEST_IO_MON --> w_TEST_MON_WO
+// check pll status
+assign ep23wire       = w_TEST_MON_WO;
+assign w_port_wo_23_1 = w_TEST_MON_WO;
+
+// assign ep23wire       = (!w_mcs_ep_wo_en)? w_TEST_MON_WO : 32'hACAC_ACAC;
+// assign w_port_wo_23_1 = ( w_mcs_ep_wo_en)? w_TEST_MON_WO : 32'hACAC_ACAC;
+// //
+// wire [31:0] w_TEST_IO_TI = (w_mcs_ep_ti_en)? w_port_ti_43_1 : ep43trig; ; //$$ removed in S3000-PGU
+// //
+assign w_TEST_MON_WO[31] = 1'b0;
+assign w_TEST_MON_WO[30] = 1'b0;
+assign w_TEST_MON_WO[29] = 1'b0;
+assign w_TEST_MON_WO[28:27] =  2'b0;
+assign w_TEST_MON_WO[26] = dac1_dco_clk_locked; //$$ DAC1 pll locked
+assign w_TEST_MON_WO[25] = dac0_dco_clk_locked; //$$ DAC0 pll locked
+assign w_TEST_MON_WO[24] = clk_dac_locked; //$$ DAC common pll locked
+assign w_TEST_MON_WO[23:20] =  4'b0;
+assign w_TEST_MON_WO[19] = clk4_locked; //$$ NA
+assign w_TEST_MON_WO[18] = clk3_locked; //$$ mcs pll locked
+assign w_TEST_MON_WO[17] = clk2_locked; //$$ NA
+assign w_TEST_MON_WO[16] = clk1_locked; //$$ NA
+assign w_TEST_MON_WO[15: 0] = 16'b0;
+
 //}
 
 
@@ -2007,32 +2401,33 @@ assign w_TEST_IO_MON[15: 0] = 16'b0;
 
 //$$ note : to revise SSPI control access from LAN or SSPI
 wire [31:0] w_SSPI_CON_WI  = ep02wire; // controls ... 
-			// w_SSPI_CON_WI[0] enables SSPI control ... USB vs LAN vs SSPI 
+			// w_SSPI_CON_WI[0] enables LAN control ... USB vs LAN vs SSPI 
 			// w_SSPI_CON_WI[1] ...
 wire [31:0] w_SSPI_FLAG_WO; 
 	assign ep32wire = w_SSPI_FLAG_WO; //$$ ep22wire --> ep23wire --> ep32wire
 
 // HW reset signal : MEM, TEST_COUNTER, XADC, TIMESTAMP // SPIO, DAC, ADC, TRIG_IO,
-wire w_HW_reset__ext; // from SSPI
-wire w_HW_reset = w_SSPI_CON_WI[3] | w_HW_reset__ext | w_BRD_CON[0] ; //$$
+//wire w_HW_reset__ext; // from SSPI
+//wire w_HW_reset = w_SSPI_CON_WI[3] | w_HW_reset__ext | w_BRD_CON[0] ; //$$
+wire w_HW_reset = w_SSPI_CON_WI[3] | w_BRD_CON[0] ; //$$
 
 wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_MTH_SPI_emulation__en ??
 
 
-wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
-//wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable //$$ only for S3100-CPU-BASE
+wire [31:0] w_MSPI_CON_WI   = w_port_wi_17_1; //$$ (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
+wire [31:0] w_MSPI_EN_CS_WI = w_port_wi_16_1; //$$ (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable //$$ only for S3100-CPU-BASE
 
 wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
-	assign ep34wire         =                   w_MSPI_FLAG_WO                ; //$$ ep24wire --> ep34wire
-	assign w_port_wo_34_1   = (w_mcs_ep_wo_en)? w_MSPI_FLAG_WO : 32'hACAC_ACAC; //$$ w_port_wo_24_1 --> w_port_wo_34_1
+//assign ep34wire         =                   w_MSPI_FLAG_WO                ; //$$ ep24wire --> ep34wire
+assign w_port_wo_34_1   = w_MSPI_FLAG_WO; //$$ (w_mcs_ep_wo_en)? w_MSPI_FLAG_WO : 32'hACAC_ACAC; //$$ w_port_wo_24_1 --> w_port_wo_34_1
 
 //$$ w_SSPI_TEST_TI --> w_MSPI_TI 
-wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : ep42trig;
+wire [31:0] w_MSPI_TI   = w_port_ti_42_1; //$$ ( w_mcs_ep_ti_en)? w_port_ti_42_1 : ep42trig;
 
 //$$ w_SSPI_TEST_TO --> w_MSPI_TO 
 wire [31:0] w_MSPI_TO;
-	assign ep62trig      =  (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
-	assign w_port_to_62_1 = ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
+//assign ep62trig      =  (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
+assign w_port_to_62_1 = w_MSPI_TO; //$$ ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
 
 
 //
@@ -2068,8 +2463,8 @@ wire [31:0] w_MSPI_TO;
 wire [31:0] w_SPIO_WI = (w_mcs_ep_wi_en)? w_port_wi_07_1 : ep07wire; 
 //
 wire [31:0] w_SPIO_WO; 
-assign ep27wire = (!w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC; 
-assign w_port_wo_27_1 = (w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC;
+assign ep27wire       = (!w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC; 
+assign w_port_wo_27_1 = ( w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC;
 //
 wire [31:0] w_SPIO_TI = (w_mcs_ep_ti_en)? w_port_ti_47_1 : ep47trig;
 
@@ -2084,17 +2479,33 @@ wire [31:0] w_SPIO_TI = (w_mcs_ep_ti_en)? w_port_ti_47_1 : ep47trig;
 (* keep = "true" *) wire [31:0] w_CLKD_WI = (w_mcs_ep_wi_en)? w_port_wi_06_1 : ep06wire;
 
 (* keep = "true" *) wire [31:0] w_CLKD_WO;
-assign ep26wire = (!w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC; 
-assign w_port_wo_26_1 = (w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC;
+assign ep26wire       = (!w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC; 
+assign w_port_wo_26_1 = ( w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC;
 
 (* keep = "true" *) wire [31:0] w_CLKD_TI = (w_mcs_ep_ti_en)? w_port_ti_46_1 : ep46trig;
 
 //}
 
-//// DACX wires //{
+//// TRIG wires //{
 
-// control for AD9783
+//// control for external trig in and out 
+// TRIG_DAT_WI @ ep09wire   
+// TRIG_DAT_WO @ ep29wire
+// TRIG_DAT_TI @ ep49trig
 
+wire [31:0] w_TRIG_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_09_1 : ep09wire; 
+//
+wire [31:0] w_TRIG_DAT_WO;
+assign ep29wire       = (!w_mcs_ep_wo_en)? w_TRIG_DAT_WO : 32'hACAC_ACAC; 
+assign w_port_wo_29_1 = ( w_mcs_ep_wo_en)? w_TRIG_DAT_WO : 32'hACAC_ACAC;
+//
+wire [31:0] w_TRIG_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_49_1 : ep49trig;
+
+//}
+
+//// DACX and DACZ wires //{
+
+//// control for AD9783
 // DACX_WI @ ep05wire = {1'b0,clk_rst[2:0], 3'b0,i_CS_id, i_R_W_bar, i_byte_mode_N, i_reg_adrs_A, 8'b0, i_wr_D}
 // DACX_WO @ ep25wire = {6'b0,o_done_SPI_frame,o_done_LNG_reset, 16'b0 , o_rd_D}
 // DACX_TI @ ep45trig
@@ -2123,6 +2534,7 @@ wire [31:0] w_DACX_TI = (w_mcs_ep_ti_en)? w_port_ti_45_1 : ep45trig;
 //  bit[1] = trig_DACx_SPI_frame 
 
 
+//// control for pattern generator
 // DACZ_DAT_WI @ ep08wire   //$$ rev .... = {DAC1_DAT[15:0], DAC0_DAT[15:0]}
 // DACZ_DAT_WO @ ep28wire
 // DACZ_DAT_TI @ ep48trig
@@ -2130,32 +2542,10 @@ wire [31:0] w_DACX_TI = (w_mcs_ep_ti_en)? w_port_ti_45_1 : ep45trig;
 wire [31:0] w_DACZ_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_08_1 : ep08wire; 
 //
 wire [31:0] w_DACZ_DAT_WO;
-assign ep28wire = (!w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC; 
-assign w_port_wo_28_1 = (w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC;
+assign ep28wire       = (!w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC; 
+assign w_port_wo_28_1 = ( w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC;
 //
 wire [31:0] w_DACZ_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_48_1 : ep48trig;
-
-
-// DACX_DAT_WI @ ep04wire   //$$ rev .... = {DAC1_DAT[15:0], DAC0_DAT[15:0]}
-// DACX_DAT_WO @ ep24wire
-// DACX_DAT_TI @ ep44trig
-
-wire [31:0] w_DACX_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_04_1 : ep04wire; 
-//
-wire [31:0] w_DACX_DAT_WO;
-assign ep24wire = (!w_mcs_ep_wo_en)? w_DACX_DAT_WO : 32'hACAC_ACAC; 
-assign w_port_wo_24_1 = (w_mcs_ep_wo_en)? w_DACX_DAT_WO : 32'hACAC_ACAC;
-//
-wire [31:0] w_DACX_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_44_1 : ep44trig; // remove
-
-
-// DAC0_DAT_PI @ ep84pipe // pipe in for DAC0 FIFO 
-// DAC1_DAT_PI @ ep85pipe // pipe in for DAC1 FIFO 
-
-wire [31:0] w_DAC0_DAT_PI    = (w_mcs_ep_pi_en)? w_port_pi_84_1 : ep84pipe;
-wire        w_DAC0_DAT_PI_WR = (w_mcs_ep_pi_en)? w_wr_84_1 : ep84wr  ;
-wire [31:0] w_DAC1_DAT_PI    = (w_mcs_ep_pi_en)? w_port_pi_85_1 : ep85pipe;
-wire        w_DAC1_DAT_PI_WR = (w_mcs_ep_pi_en)? w_wr_85_1 : ep85wr  ;
 
 
 // 'DAC0_DAT_INC_PI'    : 0x86, ##$$ new for DACZ CID style // data b16 + inc b16
@@ -2176,17 +2566,18 @@ wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en)?      w_wr_89_1 : ep89wr  ;
 //}
 
 //// EEPROM wires //{
-wire [31:0] w_MEM_WI      = (w_sel__H_LAN_for_EEPROM_fifo)? w_port_wi_13_1 : ep13wire;                                        
-wire [31:0] w_MEM_FDAT_WI = (w_sel__H_LAN_for_EEPROM_fifo)? w_port_wi_12_1 : ep12wire;                                        
+//$$ remove w_sel__H_LAN_for_EEPROM_fifo
+wire [31:0] w_MEM_WI      = (w_mcs_ep_wi_en)? w_port_wi_13_1 : ep13wire;                                        
+wire [31:0] w_MEM_FDAT_WI = (w_mcs_ep_wi_en)? w_port_wi_12_1 : ep12wire;                                        
 wire [31:0] w_MEM_TI      = w_port_ti_53_1 | ep53trig; 
 wire [31:0] w_MEM_TO; 
-	assign ep73trig       = w_MEM_TO; 
-	assign w_port_to_73_1 = w_MEM_TO; 
-wire [31:0] w_MEM_PI = (w_sel__H_LAN_for_EEPROM_fifo)? w_port_pi_93_1 : ep93pipe;
+assign ep73trig       = (~w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
+assign w_port_to_73_1 = ( w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
+wire [31:0] w_MEM_PI = (w_mcs_ep_pi_en)? w_port_pi_93_1 : ep93pipe;
 wire w_MEM_PI_wr = w_wr_93_1 | ep93wr;                  
 wire [31:0] w_MEM_PO; 
-	assign epB3pipe       = w_MEM_PO; 
-	assign w_port_po_B3_1 = w_MEM_PO; 
+assign epB3pipe       = (~w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
+assign w_port_po_B3_1 = ( w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
 wire w_MEM_PO_rd = w_rd_B3_1 | epB3rd; 
 
 //}
@@ -2234,12 +2625,12 @@ wire        autocount2;
 // assign //{
 
 // Counter 1:
-assign reset1     = w_TEST_CON[0]; 
-assign disable1   = w_TEST_CON[1]; 
-assign autocount2 = w_TEST_CON[2]; 
+assign reset1     = w_TEST_CON_WI[0]; 
+assign disable1   = w_TEST_CON_WI[1]; 
+assign autocount2 = w_TEST_CON_WI[2]; 
 //
-assign w_TEST_OUT[15:0] = {count2[7:0], count1[7:0]}; 
-assign w_TEST_OUT[31:16] = 16'b0; 
+assign w_TEST_OUT_WO[15:0] = {count2[7:0], count1[7:0]}; 
+assign w_TEST_OUT_WO[31:16] = 16'b0; 
 // Counter 2:
 assign reset2     = w_TEST_TI[0];
 assign up2        = w_TEST_TI[1];
@@ -2309,9 +2700,9 @@ wire [31:0] w_XADC_TEMP_WO;
 assign ep3Awire       = w_XADC_TEMP_WO; //$$
 assign w_port_wo_3A_1 = (w_mcs_ep_wo_en)? w_XADC_TEMP_WO : 32'hACAC_ACAC;
 //
-wire [31:0] w_XADC_VOLT; 
-assign ep3Bwire = w_XADC_VOLT; //$$
-assign w_port_wo_3B_1 = (w_mcs_ep_wo_en)? w_XADC_VOLT : 32'hACAC_ACAC;
+wire [31:0] w_XADC_VOLT_WO; 
+assign ep3Bwire       = w_XADC_VOLT_WO; //$$
+assign w_port_wo_3B_1 = (w_mcs_ep_wo_en)? w_XADC_VOLT_WO : 32'hACAC_ACAC;
 
 // XADC_DRP
 wire [31:0] MEASURED_TEMP_MC;
@@ -2348,25 +2739,28 @@ master_drp_ug480 master_drp_ug480_inst(
 //}
 
 // assign //{
-assign w_XADC_TEMP_WO	= MEASURED_TEMP_MC;
-//
-assign w_XADC_VOLT = 
-	(count2[7:6]==2'b00)? MEASURED_VCCINT_MV :
-	(count2[7:6]==2'b01)? MEASURED_VCCAUX_MV :
-	(count2[7:6]==2'b10)? MEASURED_VCCBRAM_MV :
-		32'b0;
-//}
+assign w_XADC_TEMP_WO = MEASURED_TEMP_MC;
+
+assign w_XADC_VOLT_WO = MEASURED_VCCINT_MV;
+
+//assign w_XADC_VOLT = 
+//	(count2[7:6]==2'b00)? MEASURED_VCCINT_MV :
+//	(count2[7:6]==2'b01)? MEASURED_VCCAUX_MV :
+//	(count2[7:6]==2'b10)? MEASURED_VCCBRAM_MV :
+//		32'b0;
 
 //}
 
+//}
 
-/* SPIO : MCP23S17 */ //{
+
+/* TODO: SPIO : MCP23S17 */ //{
 
 
 //end-points for SPIO //{
 //
-wire w_trig_SPIO_LNG_reset = w_SPIO_TI[0] | w_TEST_IO_TI[0]; // test 
-wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1] | w_TEST_IO_TI[1]; // test 
+wire w_trig_SPIO_LNG_reset = w_SPIO_TI[0];//$$ | w_TEST_IO_TI[0]; // test 
+wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1];//$$ | w_TEST_IO_TI[1]; // test 
 wire w_done_SPIO_LNG_reset ;
 wire w_done_SPIO_SPI_frame ;
 //
@@ -2427,7 +2821,7 @@ master_spi_mcp23s17  master_spi_mcp23s17_inst (
 //}
 
 
-/* CLKD : AD9516-1 */ //{
+/* TODO: CLKD : AD9516-1 */ //{
 
 // CLKD ports //{
 
@@ -2437,8 +2831,8 @@ assign clk_dac_clk_in = CLKD_COUT; // for DAC/CLK 400MHz pll
 
 //end-points for CLKD //{
 //
-wire w_trig_CLKD_LNG_reset = w_CLKD_TI[0] | w_TEST_IO_TI[2]; // test 
-wire w_trig_CLKD_SPI_frame = w_CLKD_TI[1] | w_TEST_IO_TI[3]; // test 
+wire w_trig_CLKD_LNG_reset = w_CLKD_TI[0];//$$ | w_TEST_IO_TI[2]; // test 
+wire w_trig_CLKD_SPI_frame = w_CLKD_TI[1];//$$ | w_TEST_IO_TI[3]; // test 
 wire w_done_CLKD_LNG_reset ;
 wire w_done_CLKD_SPI_frame ;
 //
@@ -2493,19 +2887,39 @@ master_spi_ad9516#(
 //}
 
 
-/* TRIG */ //{
+/* TODO: TRIG */ //{
+// control external trig in and out 
 
 // assign port //{
-
 assign TRIG_OUT_P = w_trig_p_oddr_out;
 assign TRIG_OUT_N = w_trig_n_oddr_out;
+//}
+
+// assign endpoint //{
+wire [31:0] w_wire_in_trig_data = w_TRIG_DAT_WI;
+wire [31:0] w_trig_in_trig_data = w_TRIG_DAT_TI;
+wire [31:0] w_wireout_trig_data ;
+assign w_TRIG_DAT_WO = w_wireout_trig_data;
+//}
+
+// call control module : sub_trig_data
+sub_trig_data  sub_trig_data__inst  (
+	.clk                 (sys_clk),
+	.reset_n             (reset_n),
+	//              
+	// trig data interface 
+	.i_wire_in_trig_data (w_wire_in_trig_data), // [31:0] // data-in
+	.i_trig_in_trig_data (w_trig_in_trig_data), // [31:0] // control trig
+	.o_wireout_trig_data (w_wireout_trig_data)  // [31:0] // data-out
+);
+
+
+
 
 //}
 
-//}
 
-
-/* DAC : AD9783 */ //{
+/* TODO: DAC : AD9783 */ //{
 
 // ports //{
 assign        DAC0_DCI = w_dac0_dci_oddr_out; // dac0_dco_clk_out1_400M; // 1'b0;
@@ -2588,10 +3002,6 @@ wire [31:0] w_wire_in__dacz_data = w_DACZ_DAT_WI;
 wire [31:0] w_wire_out_dacz_data;
 assign w_DACZ_DAT_WO = w_wire_out_dacz_data;
 
-wire [31:0] w_trig_dacx_ctrl     = w_DACX_DAT_TI; // to remove
-wire [31:0] w_wire_in__dacx_data = w_DACX_DAT_WI; // to remove
-wire [31:0] w_wire_out_dacx_data = 32'b0;         // to remove
-assign w_DACX_DAT_WO = w_wire_out_dacx_data;      // to remove
 
 // note clock mux
 // BUFGMUX in https://www.xilinx.com/support/documentation/user_guides/ug472_7Series_Clocking.pdf
@@ -2631,23 +3041,6 @@ wire         w_dac1_fifo_dur____wr_en  = w_DAC1_DUR_PI_WR    ; //
 wire [31:0]  w_dac1_fifo_dur____din    = w_DAC1_DUR_PI       ; // 
 
 
-//  // DAT_PI // remove
-//  wire [31:0] w_dac0_fifo_din        = w_DAC0_DAT_PI   ;
-//  wire        w_dac0_fifo_wr_en      = w_DAC0_DAT_PI_WR;
-//  wire        w_dac0_fifo_wr_clk     = w_DAC0_DAT_PI_CK;
-//  wire [31:0] w_dac1_fifo_din        = w_DAC1_DAT_PI   ;
-//  wire        w_dac1_fifo_wr_en      = w_DAC1_DAT_PI_WR;
-//  wire        w_dac1_fifo_wr_clk     = w_DAC1_DAT_PI_CK;
-
-//  // DACX_WO //$$ new assign  // remove
-//  wire        w_fifo_dac0_full ;
-//  wire        w_fifo_dac0_wrack;
-//  wire        w_fifo_dac0_empty;
-//  wire        w_fifo_dac0_valid; // not used
-//  wire        w_fifo_dac1_full ;
-//  wire        w_fifo_dac1_wrack;
-//  wire        w_fifo_dac1_empty;
-//  wire        w_fifo_dac1_valid; // not used
 
 // not used
 assign w_DACX_WO[31] = 1'b0; // w_fifo_dac1_empty; 
@@ -2760,9 +3153,9 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 /* S_IO */ //{
 
 //// assign 
-assign w_TEST_IO_MON[31] = S_IO_2; //
-assign w_TEST_IO_MON[30] = S_IO_1; //
-//assign w_TEST_IO_MON[29] = S_IO_0; //
+//assign w_TEST_MON_WO[31] = S_IO_2; //$$ removed in S3000-PGU
+//assign w_TEST_MON_WO[30] = S_IO_1; //$$ removed in S3000-PGU
+//assign w_TEST_MON_WO[29] = S_IO_0; //
 
 
 //}
@@ -2786,14 +3179,14 @@ assign w_TEST_IO_MON[30] = S_IO_1; //
 // fifo read clock //{
 wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 //
-BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
-	.O(c_eeprom_fifo_clk), 
-	//.I0(base_sspi_clk), // base_sspi_clk for slave_spi_mth_brd // 104MHz
-	.I0(okClk        ), // USB  // 100.8MHz
-	//.I1(w_ck_pipe    ), // LAN from lan_endpoint_wrapper_inst      // 72MHz
-	.I1(mcs_eeprom_fifo_clk), 
-	.S(w_sel__H_LAN_for_EEPROM_fifo) 
-);
+//  BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
+//  	.O(c_eeprom_fifo_clk), 
+//  	//.I0(base_sspi_clk), // base_sspi_clk for slave_spi_mth_brd // 104MHz
+//  	.I0(okClk        ), // USB  // 100.8MHz
+//  	//.I1(w_ck_pipe    ), // LAN from lan_endpoint_wrapper_inst      // 72MHz
+//  	.I1(mcs_eeprom_fifo_clk), 
+//  	.S(w_sel__H_LAN_for_EEPROM_fifo) 
+//  );
 
 // note BUFG issue : solved with duplicated clock  mcs_eeprom_fifo_clk
 //   without BUFGMUX : pre BUFG 35, post BUGF 26
@@ -2803,7 +3196,10 @@ BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
 //assign c_eeprom_fifo_clk = w_ck_pipe; // LAN test 
 
 //$$ note in S3100-GNDU
-//$$ assign c_eeprom_fifo_clk = (w_sel__H_LAN_for_EEPROM_fifo == 0)? okClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+//assign c_eeprom_fifo_clk = (w_sel__H_LAN_for_EEPROM_fifo == 0)? okClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+
+//$$ note in S3100-PGU
+assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? base_sspi_clk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
 
 
 //}
@@ -3125,18 +3521,62 @@ assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // mu
 
 
 //// slave spi address port:
+
+// wi
 wire [31:0] w_M2_port_wi_sadrs_h008; // SSPI_CON_WI		0x008	wi02
-//
+assign w_SSPI_CON_WI = w_M2_port_wi_sadrs_h008;
+
+wire [31:0] w_M2_port_wi_sadrs_h014; // new
+wire [31:0] w_M2_port_wi_sadrs_h018; // new
+wire [31:0] w_M2_port_wi_sadrs_h01C; // new
+wire [31:0] w_M2_port_wi_sadrs_h020; // new
+wire [31:0] w_M2_port_wi_sadrs_h024; // new
+wire [31:0] w_M2_port_wi_sadrs_h04C; // new
+wire [31:0] w_M2_port_wi_sadrs_h048; // new
+
+// wo
 wire [31:0] w_M2_port_wo_sadrs_h080 = w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
+wire [31:0] w_M2_port_wo_sadrs_h088 = w_TIMESTAMP_WO ; 
+wire [31:0] w_M2_port_wo_sadrs_h08C = w_TEST_MON_WO  ; 
+
+wire [31:0] w_M2_port_wo_sadrs_h094; // new
+wire [31:0] w_M2_port_wo_sadrs_h098; // new
+wire [31:0] w_M2_port_wo_sadrs_h09C; // new
+wire [31:0] w_M2_port_wo_sadrs_h0A0; // new
+wire [31:0] w_M2_port_wo_sadrs_h0A4; // new
+
+wire [31:0] w_M2_port_wo_sadrs_h0C8 = w_SSPI_FLAG_WO ;
 wire [31:0] w_M2_port_wo_sadrs_h0E8 = w_XADC_TEMP_WO ; // XADC_TEMP_WO		0x0E8	wo3A
+wire [31:0] w_M2_port_wo_sadrs_h0EC = w_XADC_VOLT_WO ; 
 wire [31:0] w_M2_port_wo_sadrs_h380 = 32'h33AA_CC55  ; // SSPI_TEST_WO		0x380	NA  // known pattern
+
+// ti 
+wire w_M2_ck__sadrs_h114;  wire [31:0] w_M2_port_ti_sadrs_h114; // new
+wire w_M2_ck__sadrs_h118;  wire [31:0] w_M2_port_ti_sadrs_h118; // new
+wire w_M2_ck__sadrs_h11C;  wire [31:0] w_M2_port_ti_sadrs_h11C; // new
+wire w_M2_ck__sadrs_h120;  wire [31:0] w_M2_port_ti_sadrs_h120; // new
+wire w_M2_ck__sadrs_h124;  wire [31:0] w_M2_port_ti_sadrs_h124; // new
+wire w_M2_ck__sadrs_h14C;  wire [31:0] w_M2_port_ti_sadrs_h14C; // new
+
+// to 
+wire w_M2_ck__sadrs_h1CC;  wire [31:0] w_M2_port_to_sadrs_h1CC; // new
+
+// pi 
+wire w_M2_wr__sadrs_h218;  wire [31:0] w_M2_port_pi_sadrs_h218; // new
+wire w_M2_wr__sadrs_h21C;  wire [31:0] w_M2_port_pi_sadrs_h21C; // new
+wire w_M2_wr__sadrs_h220;  wire [31:0] w_M2_port_pi_sadrs_h220; // new
+wire w_M2_wr__sadrs_h224;  wire [31:0] w_M2_port_pi_sadrs_h224; // new
+wire w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_pi_sadrs_h24C; // new
+
+// po
+wire w_M2_rd__sadrs_h2CC;  wire [31:0] w_M2_port_po_sadrs_h2CC; // new
 
 //}
 
 //// other wires //{
-wire       w_M2_loopback_en           = (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[24]    : w_SSPI_CON_WI[24]    ;
-wire       w_M2_MISO_one_bit_ahead_en = (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[25]    : w_SSPI_CON_WI[25]    ;
-wire [2:0] w_M2_slack_count_MISO      = (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[30:28] : w_SSPI_CON_WI[30:28] ;
+wire       w_M2_loopback_en           = w_SSPI_CON_WI[24]   ; //$$ (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[24]    : w_SSPI_CON_WI[24]    ;
+wire       w_M2_MISO_one_bit_ahead_en = w_SSPI_CON_WI[25]   ; //$$ (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[25]    : w_SSPI_CON_WI[25]    ;
+wire [2:0] w_M2_slack_count_MISO      = w_SSPI_CON_WI[30:28]; //$$ (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[30:28] : w_SSPI_CON_WI[30:28] ;
 //
 wire [7:0] w_board_status = 8'b0; // test
 
@@ -3144,7 +3584,7 @@ wire [7:0] w_board_status = 8'b0; // test
 
 
 slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
-	.clk     (base_sspi_clk), // base clock 72MHz or 104MHz
+	.clk     (base_sspi_clk), // base clock 104MHz
 	.reset_n (reset_n),
 	
 	//// slave SPI pins:
@@ -3159,23 +3599,48 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	
 	// wi
 	.o_port_wi_sadrs_h008    (w_M2_port_wi_sadrs_h008), 
+	.o_port_wi_sadrs_h014    (w_M2_port_wi_sadrs_h014),
+	.o_port_wi_sadrs_h018    (w_M2_port_wi_sadrs_h018),
+	.o_port_wi_sadrs_h01C    (w_M2_port_wi_sadrs_h01C),
+	.o_port_wi_sadrs_h020    (w_M2_port_wi_sadrs_h020),
+	.o_port_wi_sadrs_h024    (w_M2_port_wi_sadrs_h024),
+	.o_port_wi_sadrs_h04C    (w_M2_port_wi_sadrs_h04C),
+	.o_port_wi_sadrs_h048    (w_M2_port_wi_sadrs_h048),
 	
 	// wo
 	.i_port_wo_sadrs_h080    (w_M2_port_wo_sadrs_h080),
+	.i_port_wo_sadrs_h088    (w_M2_port_wo_sadrs_h088),
+	.i_port_wo_sadrs_h08C    (w_M2_port_wo_sadrs_h08C),
+	.i_port_wo_sadrs_h094    (w_M2_port_wo_sadrs_h094),
+	.i_port_wo_sadrs_h098    (w_M2_port_wo_sadrs_h098),
+	.i_port_wo_sadrs_h09C    (w_M2_port_wo_sadrs_h09C),
+	.i_port_wo_sadrs_h0A0    (w_M2_port_wo_sadrs_h0A0),
+	.i_port_wo_sadrs_h0A4    (w_M2_port_wo_sadrs_h0A4),
+	.i_port_wo_sadrs_h0C8    (w_M2_port_wo_sadrs_h0C8),
 	.i_port_wo_sadrs_h0E8    (w_M2_port_wo_sadrs_h0E8), 
+	.i_port_wo_sadrs_h0EC    (w_M2_port_wo_sadrs_h0EC), 
 	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
 	
 	// ti
-	//.i_ck__sadrs_h11C  (base_hradc_clk),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] // ADC_TRIG_TI		0x11C			ti47 // p_adc_clk
+	.i_ck__sadrs_h114  (w_M2_ck__sadrs_h114),    .o_port_ti_sadrs_h114  (w_M2_port_ti_sadrs_h114), // [31:0] 
+	.i_ck__sadrs_h118  (w_M2_ck__sadrs_h118),    .o_port_ti_sadrs_h118  (w_M2_port_ti_sadrs_h118), // [31:0] 
+	.i_ck__sadrs_h11C  (w_M2_ck__sadrs_h11C),    .o_port_ti_sadrs_h11C  (w_M2_port_ti_sadrs_h11C), // [31:0] 
+	.i_ck__sadrs_h120  (w_M2_ck__sadrs_h120),    .o_port_ti_sadrs_h120  (w_M2_port_ti_sadrs_h120), // [31:0] 
+	.i_ck__sadrs_h124  (w_M2_ck__sadrs_h124),    .o_port_ti_sadrs_h124  (w_M2_port_ti_sadrs_h124), // [31:0] 
+	.i_ck__sadrs_h14C  (w_M2_ck__sadrs_h14C),    .o_port_ti_sadrs_h14C  (w_M2_port_ti_sadrs_h14C), // [31:0] 
 
 	// to
-	//.i_ck__sadrs_h19C  (base_hradc_clk),    .i_port_to_sadrs_h19C  (w_M2_port_to_sadrs_h19C), // [31:0] // ADC_TRIG_TO		0x19C			to67 // p_adc_clk
+	.i_ck__sadrs_h1CC  (w_M2_ck__sadrs_h1CC),    .i_port_to_sadrs_h1CC  (w_M2_port_to_sadrs_h1CC), // [31:0] 
 
 	// pi
-	//.o_wr__sadrs_h24C (w_MEM_PI_wr_sspi_M2),   .o_port_po_sadrs_h24C (w_MEM_PI_sspi_M2), // [31:0]  // MEM_PI	0x24C	pi93 //$$
-	
+	.o_wr__sadrs_h218  (w_M2_wr__sadrs_h218),    .o_port_pi_sadrs_h218  (w_M2_port_pi_sadrs_h218), // [31:0]  
+	.o_wr__sadrs_h21C  (w_M2_wr__sadrs_h21C),    .o_port_pi_sadrs_h21C  (w_M2_port_pi_sadrs_h21C), // [31:0]  
+	.o_wr__sadrs_h220  (w_M2_wr__sadrs_h220),    .o_port_pi_sadrs_h220  (w_M2_port_pi_sadrs_h220), // [31:0]  
+	.o_wr__sadrs_h224  (w_M2_wr__sadrs_h224),    .o_port_pi_sadrs_h224  (w_M2_port_pi_sadrs_h224), // [31:0]  
+	.o_wr__sadrs_h24C  (w_M2_wr__sadrs_h24C),    .o_port_pi_sadrs_h24C  (w_M2_port_pi_sadrs_h24C), // [31:0]  
+	 
 	// po
-	//.o_rd__sadrs_h2CC (w_MEM_PO_rd_sspi_M2),   .i_port_po_sadrs_h2CC (        w_MEM_PO), // [31:0]  // MEM_PO	0x2CC	poB3 //$$
+	.o_rd__sadrs_h2CC  (w_M2_rd__sadrs_h2CC),    .i_port_po_sadrs_h2CC  (w_M2_port_po_sadrs_h2CC), // [31:0]  
 	
 	//}
 	
@@ -3196,23 +3661,26 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 // endpoints assignments //{
 
 // miso control M2
-assign w_M2_loopback_en       = (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[24]    : w_SSPI_CON_WI[24]    ;
-assign w_M2_slack_count_MISO  = (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[30:28] : w_SSPI_CON_WI[30:28] ;
+//assign w_M2_loopback_en       = ; (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[24]    : w_SSPI_CON_WI[24]    ;
+//assign w_M2_slack_count_MISO  = ; (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[30:28] : w_SSPI_CON_WI[30:28] ;
 
 // HW reset control 
-assign w_HW_reset__ext        = w_M2_port_wi_sadrs_h008[3]; //$$
+//assign w_HW_reset__ext        = w_M2_port_wi_sadrs_h008[3]; //$$
 
 
 // flag assignment 
-assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
-assign w_SSPI_FLAG_WO[1]     = 1'b0;  //$$ res_net_ctrl_ext_en; // enables res net control from SSPI
-assign w_SSPI_FLAG_WO[2]     = 1'b0; 
-assign w_SSPI_FLAG_WO[3]     = w_HW_reset; //$$ HW reset status
-assign w_SSPI_FLAG_WO[7:4]   = w_slot_id[3:0]     ; // show board slot id 
-assign w_SSPI_FLAG_WO[15:8]  = w_board_status[7:0]; // show board status
-assign w_SSPI_FLAG_WO[23:16] = 8'b0;
-assign w_SSPI_FLAG_WO[27:24] = {w_M2_slack_count_MISO[2:0], w_M2_loopback_en}; // miso control
-assign w_SSPI_FLAG_WO[31:28] = 4'b0; // {w_M1_slack_count_MISO[2:0], w_M1_loopback_en}; // miso control
+assign w_SSPI_FLAG_WO[31:24] = w_board_status[7:0];
+assign w_SSPI_FLAG_WO[23:16] = w_slot_id_8b[7:0];
+assign w_SSPI_FLAG_WO[15: 0] = 16'b0;
+//assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
+//assign w_SSPI_FLAG_WO[1]     = 1'b0;  //$$ res_net_ctrl_ext_en; // enables res net control from SSPI
+//assign w_SSPI_FLAG_WO[2]     = 1'b0; 
+//assign w_SSPI_FLAG_WO[3]     = w_HW_reset; //$$ HW reset status
+//assign w_SSPI_FLAG_WO[7:4]   =  4'b0; // w_slot_id[3:0]     ; // show board slot id 
+//assign w_SSPI_FLAG_WO[15:8]  = w_board_status[7:0]; // show board status
+//assign w_SSPI_FLAG_WO[23:16] = w_slot_id_8b;
+//assign w_SSPI_FLAG_WO[27:24] = 4'b0; // {w_M2_slack_count_MISO[2:0], w_M2_loopback_en}; // miso control
+//assign w_SSPI_FLAG_WO[31:28] = 4'b0; // {w_M1_slack_count_MISO[2:0], w_M1_loopback_en}; // miso control
 
 
 
@@ -3234,218 +3702,219 @@ assign w_SSPI_FLAG_WO[31:28] = 4'b0; // {w_M1_slack_count_MISO[2:0], w_M1_loopba
 // Pipe In 		0x80 - 0x9F
 // Pipe Out 	0xA0 - 0xBF
 
-ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
-//ok_endpoint_wrapper  ok_endpoint_wrapper_inst (
-	//$$  .okUH (okUH ), //input  wire [4:0]   okUH, // external pins
-	//$$  .okHU (okHU ), //output wire [2:0]   okHU, // external pins
-	//$$  .okUHU(okUHU), //inout  wire [31:0]  okUHU, // external pins
-	//$$  .okAA (okAA ), //inout  wire         okAA, // external pin
+//  ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
+//  //ok_endpoint_wrapper  ok_endpoint_wrapper_inst (
+//  	//$$  .okUH (okUH ), //input  wire [4:0]   okUH, // external pins
+//  	//$$  .okHU (okHU ), //output wire [2:0]   okHU, // external pins
+//  	//$$  .okUHU(okUHU), //inout  wire [31:0]  okUHU, // external pins
+//  	//$$  .okAA (okAA ), //inout  wire         okAA, // external pin
+//  	
+//  	//$$ for dummy
+//  	.clk    (sys_clk),
+//  	.reset_n(reset_n),
+//  	
+//  	// Wire In 		0x00 - 0x1F
+//  	.ep00wire(ep00wire), // output wire [31:0]
+//  	.ep01wire(ep01wire), // output wire [31:0]
+//  	.ep02wire(ep02wire), // output wire [31:0]
+//  	.ep03wire(ep03wire), // output wire [31:0]
+//  	.ep04wire(ep04wire), // output wire [31:0]
+//  	.ep05wire(ep05wire), // output wire [31:0]
+//  	.ep06wire(ep06wire), // output wire [31:0]
+//  	.ep07wire(ep07wire), // output wire [31:0]
+//  	.ep08wire(ep08wire), // output wire [31:0]
+//  	.ep09wire(ep09wire), // output wire [31:0]
+//  	.ep0Awire(ep0Awire), // output wire [31:0]
+//  	.ep0Bwire(ep0Bwire), // output wire [31:0]
+//  	.ep0Cwire(ep0Cwire), // output wire [31:0]
+//  	.ep0Dwire(ep0Dwire), // output wire [31:0]
+//  	.ep0Ewire(ep0Ewire), // output wire [31:0]
+//  	.ep0Fwire(ep0Fwire), // output wire [31:0]
+//  	.ep10wire(ep10wire), // output wire [31:0]
+//  	.ep11wire(ep11wire), // output wire [31:0]
+//  	.ep12wire(ep12wire), // output wire [31:0]
+//  	.ep13wire(ep13wire), // output wire [31:0]
+//  	.ep14wire(ep14wire), // output wire [31:0]
+//  	.ep15wire(ep15wire), // output wire [31:0]
+//  	.ep16wire(ep16wire), // output wire [31:0]
+//  	.ep17wire(ep17wire), // output wire [31:0]
+//  	.ep18wire(ep18wire), // output wire [31:0]
+//  	.ep19wire(ep19wire), // output wire [31:0]
+//  	.ep1Awire(ep1Awire), // output wire [31:0]
+//  	.ep1Bwire(ep1Bwire), // output wire [31:0]
+//  	.ep1Cwire(ep1Cwire), // output wire [31:0]
+//  	.ep1Dwire(ep1Dwire), // output wire [31:0]
+//  	.ep1Ewire(ep1Ewire), // output wire [31:0]
+//  	.ep1Fwire(ep1Fwire), // output wire [31:0]
+//  	// Wire Out 	0x20 - 0x3F
+//  	.ep20wire(ep20wire), // input wire [31:0]
+//  	.ep21wire(ep21wire), // input wire [31:0]
+//  	.ep22wire(ep22wire), // input wire [31:0]
+//  	.ep23wire(ep23wire), // input wire [31:0]
+//  	.ep24wire(ep24wire), // input wire [31:0]
+//  	.ep25wire(ep25wire), // input wire [31:0]
+//  	.ep26wire(ep26wire), // input wire [31:0]
+//  	.ep27wire(ep27wire), // input wire [31:0]
+//  	.ep28wire(ep28wire), // input wire [31:0]
+//  	.ep29wire(ep29wire), // input wire [31:0]
+//  	.ep2Awire(ep2Awire), // input wire [31:0]
+//  	.ep2Bwire(ep2Bwire), // input wire [31:0]
+//  	.ep2Cwire(ep2Cwire), // input wire [31:0]
+//  	.ep2Dwire(ep2Dwire), // input wire [31:0]
+//  	.ep2Ewire(ep2Ewire), // input wire [31:0]
+//  	.ep2Fwire(ep2Fwire), // input wire [31:0]
+//  	.ep30wire(ep30wire), // input wire [31:0]
+//  	.ep31wire(ep31wire), // input wire [31:0]
+//  	.ep32wire(ep32wire), // input wire [31:0]
+//  	.ep33wire(ep33wire), // input wire [31:0]
+//  	.ep34wire(ep34wire), // input wire [31:0]
+//  	.ep35wire(ep35wire), // input wire [31:0]
+//  	.ep36wire(ep36wire), // input wire [31:0]
+//  	.ep37wire(ep37wire), // input wire [31:0]
+//  	.ep38wire(ep38wire), // input wire [31:0]
+//  	.ep39wire(ep39wire), // input wire [31:0]
+//  	.ep3Awire(ep3Awire), // input wire [31:0]
+//  	.ep3Bwire(ep3Bwire), // input wire [31:0]
+//  	.ep3Cwire(ep3Cwire), // input wire [31:0]
+//  	.ep3Dwire(ep3Dwire), // input wire [31:0]
+//  	.ep3Ewire(ep3Ewire), // input wire [31:0]
+//  	.ep3Fwire(ep3Fwire), // input wire [31:0]
+//  	// Trigger In 	0x40 - 0x5F
+//  	.ep40ck(ep40ck), .ep40trig(ep40trig), // input wire, output wire [31:0],
+//  	.ep41ck(ep41ck), .ep41trig(ep41trig), // input wire, output wire [31:0],
+//  	.ep42ck(ep42ck), .ep42trig(ep42trig), // input wire, output wire [31:0],
+//  	.ep43ck(ep43ck), .ep43trig(ep43trig), // input wire, output wire [31:0],
+//  	.ep44ck(ep44ck), .ep44trig(ep44trig), // input wire, output wire [31:0],
+//  	.ep45ck(ep45ck), .ep45trig(ep45trig), // input wire, output wire [31:0],
+//  	.ep46ck(ep46ck), .ep46trig(ep46trig), // input wire, output wire [31:0],
+//  	.ep47ck(ep47ck), .ep47trig(ep47trig), // input wire, output wire [31:0],
+//  	.ep48ck(ep48ck), .ep48trig(ep48trig), // input wire, output wire [31:0],
+//  	.ep49ck(ep49ck), .ep49trig(ep49trig), // input wire, output wire [31:0],
+//  	.ep4Ack(ep4Ack), .ep4Atrig(ep4Atrig), // input wire, output wire [31:0],
+//  	.ep4Bck(ep4Bck), .ep4Btrig(ep4Btrig), // input wire, output wire [31:0],
+//  	.ep4Cck(ep4Cck), .ep4Ctrig(ep4Ctrig), // input wire, output wire [31:0],
+//  	.ep4Dck(ep4Dck), .ep4Dtrig(ep4Dtrig), // input wire, output wire [31:0],
+//  	.ep4Eck(ep4Eck), .ep4Etrig(ep4Etrig), // input wire, output wire [31:0],
+//  	.ep4Fck(ep4Fck), .ep4Ftrig(ep4Ftrig), // input wire, output wire [31:0],
+//  	.ep50ck(ep50ck), .ep50trig(ep50trig), // input wire, output wire [31:0],
+//  	.ep51ck(ep51ck), .ep51trig(ep51trig), // input wire, output wire [31:0],
+//  	.ep52ck(ep52ck), .ep52trig(ep52trig), // input wire, output wire [31:0],
+//  	.ep53ck(ep53ck), .ep53trig(ep53trig), // input wire, output wire [31:0],
+//  	.ep54ck(ep54ck), .ep54trig(ep54trig), // input wire, output wire [31:0],
+//  	.ep55ck(ep55ck), .ep55trig(ep55trig), // input wire, output wire [31:0],
+//  	.ep56ck(ep56ck), .ep56trig(ep56trig), // input wire, output wire [31:0],
+//  	.ep57ck(ep57ck), .ep57trig(ep57trig), // input wire, output wire [31:0],
+//  	.ep58ck(ep58ck), .ep58trig(ep58trig), // input wire, output wire [31:0],
+//  	.ep59ck(ep59ck), .ep59trig(ep59trig), // input wire, output wire [31:0],
+//  	.ep5Ack(ep5Ack), .ep5Atrig(ep5Atrig), // input wire, output wire [31:0],
+//  	.ep5Bck(ep5Bck), .ep5Btrig(ep5Btrig), // input wire, output wire [31:0],
+//  	.ep5Cck(ep5Cck), .ep5Ctrig(ep5Ctrig), // input wire, output wire [31:0],
+//  	.ep5Dck(ep5Dck), .ep5Dtrig(ep5Dtrig), // input wire, output wire [31:0],
+//  	.ep5Eck(ep5Eck), .ep5Etrig(ep5Etrig), // input wire, output wire [31:0],
+//  	.ep5Fck(ep5Fck), .ep5Ftrig(ep5Ftrig), // input wire, output wire [31:0],
+//  	// Trigger Out 	0x60 - 0x7F
+//  	.ep60ck(ep60ck), .ep60trig(ep60trig), // input wire, input wire [31:0],
+//  	.ep61ck(ep61ck), .ep61trig(ep61trig), // input wire, input wire [31:0],
+//  	.ep62ck(ep62ck), .ep62trig(ep62trig), // input wire, input wire [31:0],
+//  	.ep63ck(ep63ck), .ep63trig(ep63trig), // input wire, input wire [31:0],
+//  	.ep64ck(ep64ck), .ep64trig(ep64trig), // input wire, input wire [31:0],
+//  	.ep65ck(ep65ck), .ep65trig(ep65trig), // input wire, input wire [31:0],
+//  	.ep66ck(ep66ck), .ep66trig(ep66trig), // input wire, input wire [31:0],
+//  	.ep67ck(ep67ck), .ep67trig(ep67trig), // input wire, input wire [31:0],
+//  	.ep68ck(ep68ck), .ep68trig(ep68trig), // input wire, input wire [31:0],
+//  	.ep69ck(ep69ck), .ep69trig(ep69trig), // input wire, input wire [31:0],
+//  	.ep6Ack(ep6Ack), .ep6Atrig(ep6Atrig), // input wire, input wire [31:0],
+//  	.ep6Bck(ep6Bck), .ep6Btrig(ep6Btrig), // input wire, input wire [31:0],
+//  	.ep6Cck(ep6Cck), .ep6Ctrig(ep6Ctrig), // input wire, input wire [31:0],
+//  	.ep6Dck(ep6Dck), .ep6Dtrig(ep6Dtrig), // input wire, input wire [31:0],
+//  	.ep6Eck(ep6Eck), .ep6Etrig(ep6Etrig), // input wire, input wire [31:0],
+//  	.ep6Fck(ep6Fck), .ep6Ftrig(ep6Ftrig), // input wire, input wire [31:0],
+//  	.ep70ck(ep70ck), .ep70trig(ep70trig), // input wire, input wire [31:0],
+//  	.ep71ck(ep71ck), .ep71trig(ep71trig), // input wire, input wire [31:0],
+//  	.ep72ck(ep72ck), .ep72trig(ep72trig), // input wire, input wire [31:0],
+//  	.ep73ck(ep73ck), .ep73trig(ep73trig), // input wire, input wire [31:0],
+//  	.ep74ck(ep74ck), .ep74trig(ep74trig), // input wire, input wire [31:0],
+//  	.ep75ck(ep75ck), .ep75trig(ep75trig), // input wire, input wire [31:0],
+//  	.ep76ck(ep76ck), .ep76trig(ep76trig), // input wire, input wire [31:0],
+//  	.ep77ck(ep77ck), .ep77trig(ep77trig), // input wire, input wire [31:0],
+//  	.ep78ck(ep78ck), .ep78trig(ep78trig), // input wire, input wire [31:0],
+//  	.ep79ck(ep79ck), .ep79trig(ep79trig), // input wire, input wire [31:0],
+//  	.ep7Ack(ep7Ack), .ep7Atrig(ep7Atrig), // input wire, input wire [31:0],
+//  	.ep7Bck(ep7Bck), .ep7Btrig(ep7Btrig), // input wire, input wire [31:0],
+//  	.ep7Cck(ep7Cck), .ep7Ctrig(ep7Ctrig), // input wire, input wire [31:0],
+//  	.ep7Dck(ep7Dck), .ep7Dtrig(ep7Dtrig), // input wire, input wire [31:0],
+//  	.ep7Eck(ep7Eck), .ep7Etrig(ep7Etrig), // input wire, input wire [31:0],
+//  	.ep7Fck(ep7Fck), .ep7Ftrig(ep7Ftrig), // input wire, input wire [31:0],
+//  	// Pipe In 		0x80 - 0x9F
+//  	.ep80wr(ep80wr), .ep80pipe(ep80pipe), // output wire, output wire [31:0],
+//  	.ep81wr(ep81wr), .ep81pipe(ep81pipe), // output wire, output wire [31:0],
+//  	.ep82wr(ep82wr), .ep82pipe(ep82pipe), // output wire, output wire [31:0],
+//  	.ep83wr(ep83wr), .ep83pipe(ep83pipe), // output wire, output wire [31:0],
+//  	.ep84wr(ep84wr), .ep84pipe(ep84pipe), // output wire, output wire [31:0],
+//  	.ep85wr(ep85wr), .ep85pipe(ep85pipe), // output wire, output wire [31:0],
+//  	.ep86wr(ep86wr), .ep86pipe(ep86pipe), // output wire, output wire [31:0],
+//  	.ep87wr(ep87wr), .ep87pipe(ep87pipe), // output wire, output wire [31:0],
+//  	.ep88wr(ep88wr), .ep88pipe(ep88pipe), // output wire, output wire [31:0],
+//  	.ep89wr(ep89wr), .ep89pipe(ep89pipe), // output wire, output wire [31:0],
+//  	.ep8Awr(ep8Awr), .ep8Apipe(ep8Apipe), // output wire, output wire [31:0],
+//  	.ep8Bwr(ep8Bwr), .ep8Bpipe(ep8Bpipe), // output wire, output wire [31:0],
+//  	.ep8Cwr(ep8Cwr), .ep8Cpipe(ep8Cpipe), // output wire, output wire [31:0],
+//  	.ep8Dwr(ep8Dwr), .ep8Dpipe(ep8Dpipe), // output wire, output wire [31:0],
+//  	.ep8Ewr(ep8Ewr), .ep8Epipe(ep8Epipe), // output wire, output wire [31:0],
+//  	.ep8Fwr(ep8Fwr), .ep8Fpipe(ep8Fpipe), // output wire, output wire [31:0],
+//  	.ep90wr(ep90wr), .ep90pipe(ep90pipe), // output wire, output wire [31:0],
+//  	.ep91wr(ep91wr), .ep91pipe(ep91pipe), // output wire, output wire [31:0],
+//  	.ep92wr(ep92wr), .ep92pipe(ep92pipe), // output wire, output wire [31:0],
+//  	.ep93wr(ep93wr), .ep93pipe(ep93pipe), // output wire, output wire [31:0],
+//  	.ep94wr(ep94wr), .ep94pipe(ep94pipe), // output wire, output wire [31:0],
+//  	.ep95wr(ep95wr), .ep95pipe(ep95pipe), // output wire, output wire [31:0],
+//  	.ep96wr(ep96wr), .ep96pipe(ep96pipe), // output wire, output wire [31:0],
+//  	.ep97wr(ep97wr), .ep97pipe(ep97pipe), // output wire, output wire [31:0],
+//  	.ep98wr(ep98wr), .ep98pipe(ep98pipe), // output wire, output wire [31:0],
+//  	.ep99wr(ep99wr), .ep99pipe(ep99pipe), // output wire, output wire [31:0],
+//  	.ep9Awr(ep9Awr), .ep9Apipe(ep9Apipe), // output wire, output wire [31:0],
+//  	.ep9Bwr(ep9Bwr), .ep9Bpipe(ep9Bpipe), // output wire, output wire [31:0],
+//  	.ep9Cwr(ep9Cwr), .ep9Cpipe(ep9Cpipe), // output wire, output wire [31:0],
+//  	.ep9Dwr(ep9Dwr), .ep9Dpipe(ep9Dpipe), // output wire, output wire [31:0],
+//  	.ep9Ewr(ep9Ewr), .ep9Epipe(ep9Epipe), // output wire, output wire [31:0],
+//  	.ep9Fwr(ep9Fwr), .ep9Fpipe(ep9Fpipe), // output wire, output wire [31:0],
+//  	// Pipe Out 	0xA0 - 0xBF
+//  	.epA0rd(epA0rd), .epA0pipe(epA0pipe), // output wire, input wire [31:0],
+//  	.epA1rd(epA1rd), .epA1pipe(epA1pipe), // output wire, input wire [31:0],
+//  	.epA2rd(epA2rd), .epA2pipe(epA2pipe), // output wire, input wire [31:0],
+//  	.epA3rd(epA3rd), .epA3pipe(epA3pipe), // output wire, input wire [31:0],
+//  	.epA4rd(epA4rd), .epA4pipe(epA4pipe), // output wire, input wire [31:0],
+//  	.epA5rd(epA5rd), .epA5pipe(epA5pipe), // output wire, input wire [31:0],
+//  	.epA6rd(epA6rd), .epA6pipe(epA6pipe), // output wire, input wire [31:0],
+//  	.epA7rd(epA7rd), .epA7pipe(epA7pipe), // output wire, input wire [31:0],
+//  	.epA8rd(epA8rd), .epA8pipe(epA8pipe), // output wire, input wire [31:0],
+//  	.epA9rd(epA9rd), .epA9pipe(epA9pipe), // output wire, input wire [31:0],
+//  	.epAArd(epAArd), .epAApipe(epAApipe), // output wire, input wire [31:0],
+//  	.epABrd(epABrd), .epABpipe(epABpipe), // output wire, input wire [31:0],
+//  	.epACrd(epACrd), .epACpipe(epACpipe), // output wire, input wire [31:0],
+//  	.epADrd(epADrd), .epADpipe(epADpipe), // output wire, input wire [31:0],
+//  	.epAErd(epAErd), .epAEpipe(epAEpipe), // output wire, input wire [31:0],
+//  	.epAFrd(epAFrd), .epAFpipe(epAFpipe), // output wire, input wire [31:0],
+//  	.epB0rd(epB0rd), .epB0pipe(epB0pipe), // output wire, input wire [31:0],
+//  	.epB1rd(epB1rd), .epB1pipe(epB1pipe), // output wire, input wire [31:0],
+//  	.epB2rd(epB2rd), .epB2pipe(epB2pipe), // output wire, input wire [31:0],
+//  	.epB3rd(epB3rd), .epB3pipe(epB3pipe), // output wire, input wire [31:0],
+//  	.epB4rd(epB4rd), .epB4pipe(epB4pipe), // output wire, input wire [31:0],
+//  	.epB5rd(epB5rd), .epB5pipe(epB5pipe), // output wire, input wire [31:0],
+//  	.epB6rd(epB6rd), .epB6pipe(epB6pipe), // output wire, input wire [31:0],
+//  	.epB7rd(epB7rd), .epB7pipe(epB7pipe), // output wire, input wire [31:0],
+//  	.epB8rd(epB8rd), .epB8pipe(epB8pipe), // output wire, input wire [31:0],
+//  	.epB9rd(epB9rd), .epB9pipe(epB9pipe), // output wire, input wire [31:0],
+//  	.epBArd(epBArd), .epBApipe(epBApipe), // output wire, input wire [31:0],
+//  	.epBBrd(epBBrd), .epBBpipe(epBBpipe), // output wire, input wire [31:0],
+//  	.epBCrd(epBCrd), .epBCpipe(epBCpipe), // output wire, input wire [31:0],
+//  	.epBDrd(epBDrd), .epBDpipe(epBDpipe), // output wire, input wire [31:0],
+//  	.epBErd(epBErd), .epBEpipe(epBEpipe), // output wire, input wire [31:0],
+//  	.epBFrd(epBFrd), .epBFpipe(epBFpipe), // output wire, input wire [31:0],
+//  	// 
+//  	.okClk(okClk)//output wire okClk // sync with write/read of pipe
+//  	);
 	
-	//$$ for dummy
-	.clk    (sys_clk),
-	.reset_n(reset_n),
-	
-	// Wire In 		0x00 - 0x1F
-	.ep00wire(ep00wire), // output wire [31:0]
-	.ep01wire(ep01wire), // output wire [31:0]
-	.ep02wire(ep02wire), // output wire [31:0]
-	.ep03wire(ep03wire), // output wire [31:0]
-	.ep04wire(ep04wire), // output wire [31:0]
-	.ep05wire(ep05wire), // output wire [31:0]
-	.ep06wire(ep06wire), // output wire [31:0]
-	.ep07wire(ep07wire), // output wire [31:0]
-	.ep08wire(ep08wire), // output wire [31:0]
-	.ep09wire(ep09wire), // output wire [31:0]
-	.ep0Awire(ep0Awire), // output wire [31:0]
-	.ep0Bwire(ep0Bwire), // output wire [31:0]
-	.ep0Cwire(ep0Cwire), // output wire [31:0]
-	.ep0Dwire(ep0Dwire), // output wire [31:0]
-	.ep0Ewire(ep0Ewire), // output wire [31:0]
-	.ep0Fwire(ep0Fwire), // output wire [31:0]
-	.ep10wire(ep10wire), // output wire [31:0]
-	.ep11wire(ep11wire), // output wire [31:0]
-	.ep12wire(ep12wire), // output wire [31:0]
-	.ep13wire(ep13wire), // output wire [31:0]
-	.ep14wire(ep14wire), // output wire [31:0]
-	.ep15wire(ep15wire), // output wire [31:0]
-	.ep16wire(ep16wire), // output wire [31:0]
-	.ep17wire(ep17wire), // output wire [31:0]
-	.ep18wire(ep18wire), // output wire [31:0]
-	.ep19wire(ep19wire), // output wire [31:0]
-	.ep1Awire(ep1Awire), // output wire [31:0]
-	.ep1Bwire(ep1Bwire), // output wire [31:0]
-	.ep1Cwire(ep1Cwire), // output wire [31:0]
-	.ep1Dwire(ep1Dwire), // output wire [31:0]
-	.ep1Ewire(ep1Ewire), // output wire [31:0]
-	.ep1Fwire(ep1Fwire), // output wire [31:0]
-	// Wire Out 	0x20 - 0x3F
-	.ep20wire(ep20wire), // input wire [31:0]
-	.ep21wire(ep21wire), // input wire [31:0]
-	.ep22wire(ep22wire), // input wire [31:0]
-	.ep23wire(ep23wire), // input wire [31:0]
-	.ep24wire(ep24wire), // input wire [31:0]
-	.ep25wire(ep25wire), // input wire [31:0]
-	.ep26wire(ep26wire), // input wire [31:0]
-	.ep27wire(ep27wire), // input wire [31:0]
-	.ep28wire(ep28wire), // input wire [31:0]
-	.ep29wire(ep29wire), // input wire [31:0]
-	.ep2Awire(ep2Awire), // input wire [31:0]
-	.ep2Bwire(ep2Bwire), // input wire [31:0]
-	.ep2Cwire(ep2Cwire), // input wire [31:0]
-	.ep2Dwire(ep2Dwire), // input wire [31:0]
-	.ep2Ewire(ep2Ewire), // input wire [31:0]
-	.ep2Fwire(ep2Fwire), // input wire [31:0]
-	.ep30wire(ep30wire), // input wire [31:0]
-	.ep31wire(ep31wire), // input wire [31:0]
-	.ep32wire(ep32wire), // input wire [31:0]
-	.ep33wire(ep33wire), // input wire [31:0]
-	.ep34wire(ep34wire), // input wire [31:0]
-	.ep35wire(ep35wire), // input wire [31:0]
-	.ep36wire(ep36wire), // input wire [31:0]
-	.ep37wire(ep37wire), // input wire [31:0]
-	.ep38wire(ep38wire), // input wire [31:0]
-	.ep39wire(ep39wire), // input wire [31:0]
-	.ep3Awire(ep3Awire), // input wire [31:0]
-	.ep3Bwire(ep3Bwire), // input wire [31:0]
-	.ep3Cwire(ep3Cwire), // input wire [31:0]
-	.ep3Dwire(ep3Dwire), // input wire [31:0]
-	.ep3Ewire(ep3Ewire), // input wire [31:0]
-	.ep3Fwire(ep3Fwire), // input wire [31:0]
-	// Trigger In 	0x40 - 0x5F
-	.ep40ck(ep40ck), .ep40trig(ep40trig), // input wire, output wire [31:0],
-	.ep41ck(ep41ck), .ep41trig(ep41trig), // input wire, output wire [31:0],
-	.ep42ck(ep42ck), .ep42trig(ep42trig), // input wire, output wire [31:0],
-	.ep43ck(ep43ck), .ep43trig(ep43trig), // input wire, output wire [31:0],
-	.ep44ck(ep44ck), .ep44trig(ep44trig), // input wire, output wire [31:0],
-	.ep45ck(ep45ck), .ep45trig(ep45trig), // input wire, output wire [31:0],
-	.ep46ck(ep46ck), .ep46trig(ep46trig), // input wire, output wire [31:0],
-	.ep47ck(ep47ck), .ep47trig(ep47trig), // input wire, output wire [31:0],
-	.ep48ck(ep48ck), .ep48trig(ep48trig), // input wire, output wire [31:0],
-	.ep49ck(ep49ck), .ep49trig(ep49trig), // input wire, output wire [31:0],
-	.ep4Ack(ep4Ack), .ep4Atrig(ep4Atrig), // input wire, output wire [31:0],
-	.ep4Bck(ep4Bck), .ep4Btrig(ep4Btrig), // input wire, output wire [31:0],
-	.ep4Cck(ep4Cck), .ep4Ctrig(ep4Ctrig), // input wire, output wire [31:0],
-	.ep4Dck(ep4Dck), .ep4Dtrig(ep4Dtrig), // input wire, output wire [31:0],
-	.ep4Eck(ep4Eck), .ep4Etrig(ep4Etrig), // input wire, output wire [31:0],
-	.ep4Fck(ep4Fck), .ep4Ftrig(ep4Ftrig), // input wire, output wire [31:0],
-	.ep50ck(ep50ck), .ep50trig(ep50trig), // input wire, output wire [31:0],
-	.ep51ck(ep51ck), .ep51trig(ep51trig), // input wire, output wire [31:0],
-	.ep52ck(ep52ck), .ep52trig(ep52trig), // input wire, output wire [31:0],
-	.ep53ck(ep53ck), .ep53trig(ep53trig), // input wire, output wire [31:0],
-	.ep54ck(ep54ck), .ep54trig(ep54trig), // input wire, output wire [31:0],
-	.ep55ck(ep55ck), .ep55trig(ep55trig), // input wire, output wire [31:0],
-	.ep56ck(ep56ck), .ep56trig(ep56trig), // input wire, output wire [31:0],
-	.ep57ck(ep57ck), .ep57trig(ep57trig), // input wire, output wire [31:0],
-	.ep58ck(ep58ck), .ep58trig(ep58trig), // input wire, output wire [31:0],
-	.ep59ck(ep59ck), .ep59trig(ep59trig), // input wire, output wire [31:0],
-	.ep5Ack(ep5Ack), .ep5Atrig(ep5Atrig), // input wire, output wire [31:0],
-	.ep5Bck(ep5Bck), .ep5Btrig(ep5Btrig), // input wire, output wire [31:0],
-	.ep5Cck(ep5Cck), .ep5Ctrig(ep5Ctrig), // input wire, output wire [31:0],
-	.ep5Dck(ep5Dck), .ep5Dtrig(ep5Dtrig), // input wire, output wire [31:0],
-	.ep5Eck(ep5Eck), .ep5Etrig(ep5Etrig), // input wire, output wire [31:0],
-	.ep5Fck(ep5Fck), .ep5Ftrig(ep5Ftrig), // input wire, output wire [31:0],
-	// Trigger Out 	0x60 - 0x7F
-	.ep60ck(ep60ck), .ep60trig(ep60trig), // input wire, input wire [31:0],
-	.ep61ck(ep61ck), .ep61trig(ep61trig), // input wire, input wire [31:0],
-	.ep62ck(ep62ck), .ep62trig(ep62trig), // input wire, input wire [31:0],
-	.ep63ck(ep63ck), .ep63trig(ep63trig), // input wire, input wire [31:0],
-	.ep64ck(ep64ck), .ep64trig(ep64trig), // input wire, input wire [31:0],
-	.ep65ck(ep65ck), .ep65trig(ep65trig), // input wire, input wire [31:0],
-	.ep66ck(ep66ck), .ep66trig(ep66trig), // input wire, input wire [31:0],
-	.ep67ck(ep67ck), .ep67trig(ep67trig), // input wire, input wire [31:0],
-	.ep68ck(ep68ck), .ep68trig(ep68trig), // input wire, input wire [31:0],
-	.ep69ck(ep69ck), .ep69trig(ep69trig), // input wire, input wire [31:0],
-	.ep6Ack(ep6Ack), .ep6Atrig(ep6Atrig), // input wire, input wire [31:0],
-	.ep6Bck(ep6Bck), .ep6Btrig(ep6Btrig), // input wire, input wire [31:0],
-	.ep6Cck(ep6Cck), .ep6Ctrig(ep6Ctrig), // input wire, input wire [31:0],
-	.ep6Dck(ep6Dck), .ep6Dtrig(ep6Dtrig), // input wire, input wire [31:0],
-	.ep6Eck(ep6Eck), .ep6Etrig(ep6Etrig), // input wire, input wire [31:0],
-	.ep6Fck(ep6Fck), .ep6Ftrig(ep6Ftrig), // input wire, input wire [31:0],
-	.ep70ck(ep70ck), .ep70trig(ep70trig), // input wire, input wire [31:0],
-	.ep71ck(ep71ck), .ep71trig(ep71trig), // input wire, input wire [31:0],
-	.ep72ck(ep72ck), .ep72trig(ep72trig), // input wire, input wire [31:0],
-	.ep73ck(ep73ck), .ep73trig(ep73trig), // input wire, input wire [31:0],
-	.ep74ck(ep74ck), .ep74trig(ep74trig), // input wire, input wire [31:0],
-	.ep75ck(ep75ck), .ep75trig(ep75trig), // input wire, input wire [31:0],
-	.ep76ck(ep76ck), .ep76trig(ep76trig), // input wire, input wire [31:0],
-	.ep77ck(ep77ck), .ep77trig(ep77trig), // input wire, input wire [31:0],
-	.ep78ck(ep78ck), .ep78trig(ep78trig), // input wire, input wire [31:0],
-	.ep79ck(ep79ck), .ep79trig(ep79trig), // input wire, input wire [31:0],
-	.ep7Ack(ep7Ack), .ep7Atrig(ep7Atrig), // input wire, input wire [31:0],
-	.ep7Bck(ep7Bck), .ep7Btrig(ep7Btrig), // input wire, input wire [31:0],
-	.ep7Cck(ep7Cck), .ep7Ctrig(ep7Ctrig), // input wire, input wire [31:0],
-	.ep7Dck(ep7Dck), .ep7Dtrig(ep7Dtrig), // input wire, input wire [31:0],
-	.ep7Eck(ep7Eck), .ep7Etrig(ep7Etrig), // input wire, input wire [31:0],
-	.ep7Fck(ep7Fck), .ep7Ftrig(ep7Ftrig), // input wire, input wire [31:0],
-	// Pipe In 		0x80 - 0x9F
-	.ep80wr(ep80wr), .ep80pipe(ep80pipe), // output wire, output wire [31:0],
-	.ep81wr(ep81wr), .ep81pipe(ep81pipe), // output wire, output wire [31:0],
-	.ep82wr(ep82wr), .ep82pipe(ep82pipe), // output wire, output wire [31:0],
-	.ep83wr(ep83wr), .ep83pipe(ep83pipe), // output wire, output wire [31:0],
-	.ep84wr(ep84wr), .ep84pipe(ep84pipe), // output wire, output wire [31:0],
-	.ep85wr(ep85wr), .ep85pipe(ep85pipe), // output wire, output wire [31:0],
-	.ep86wr(ep86wr), .ep86pipe(ep86pipe), // output wire, output wire [31:0],
-	.ep87wr(ep87wr), .ep87pipe(ep87pipe), // output wire, output wire [31:0],
-	.ep88wr(ep88wr), .ep88pipe(ep88pipe), // output wire, output wire [31:0],
-	.ep89wr(ep89wr), .ep89pipe(ep89pipe), // output wire, output wire [31:0],
-	.ep8Awr(ep8Awr), .ep8Apipe(ep8Apipe), // output wire, output wire [31:0],
-	.ep8Bwr(ep8Bwr), .ep8Bpipe(ep8Bpipe), // output wire, output wire [31:0],
-	.ep8Cwr(ep8Cwr), .ep8Cpipe(ep8Cpipe), // output wire, output wire [31:0],
-	.ep8Dwr(ep8Dwr), .ep8Dpipe(ep8Dpipe), // output wire, output wire [31:0],
-	.ep8Ewr(ep8Ewr), .ep8Epipe(ep8Epipe), // output wire, output wire [31:0],
-	.ep8Fwr(ep8Fwr), .ep8Fpipe(ep8Fpipe), // output wire, output wire [31:0],
-	.ep90wr(ep90wr), .ep90pipe(ep90pipe), // output wire, output wire [31:0],
-	.ep91wr(ep91wr), .ep91pipe(ep91pipe), // output wire, output wire [31:0],
-	.ep92wr(ep92wr), .ep92pipe(ep92pipe), // output wire, output wire [31:0],
-	.ep93wr(ep93wr), .ep93pipe(ep93pipe), // output wire, output wire [31:0],
-	.ep94wr(ep94wr), .ep94pipe(ep94pipe), // output wire, output wire [31:0],
-	.ep95wr(ep95wr), .ep95pipe(ep95pipe), // output wire, output wire [31:0],
-	.ep96wr(ep96wr), .ep96pipe(ep96pipe), // output wire, output wire [31:0],
-	.ep97wr(ep97wr), .ep97pipe(ep97pipe), // output wire, output wire [31:0],
-	.ep98wr(ep98wr), .ep98pipe(ep98pipe), // output wire, output wire [31:0],
-	.ep99wr(ep99wr), .ep99pipe(ep99pipe), // output wire, output wire [31:0],
-	.ep9Awr(ep9Awr), .ep9Apipe(ep9Apipe), // output wire, output wire [31:0],
-	.ep9Bwr(ep9Bwr), .ep9Bpipe(ep9Bpipe), // output wire, output wire [31:0],
-	.ep9Cwr(ep9Cwr), .ep9Cpipe(ep9Cpipe), // output wire, output wire [31:0],
-	.ep9Dwr(ep9Dwr), .ep9Dpipe(ep9Dpipe), // output wire, output wire [31:0],
-	.ep9Ewr(ep9Ewr), .ep9Epipe(ep9Epipe), // output wire, output wire [31:0],
-	.ep9Fwr(ep9Fwr), .ep9Fpipe(ep9Fpipe), // output wire, output wire [31:0],
-	// Pipe Out 	0xA0 - 0xBF
-	.epA0rd(epA0rd), .epA0pipe(epA0pipe), // output wire, input wire [31:0],
-	.epA1rd(epA1rd), .epA1pipe(epA1pipe), // output wire, input wire [31:0],
-	.epA2rd(epA2rd), .epA2pipe(epA2pipe), // output wire, input wire [31:0],
-	.epA3rd(epA3rd), .epA3pipe(epA3pipe), // output wire, input wire [31:0],
-	.epA4rd(epA4rd), .epA4pipe(epA4pipe), // output wire, input wire [31:0],
-	.epA5rd(epA5rd), .epA5pipe(epA5pipe), // output wire, input wire [31:0],
-	.epA6rd(epA6rd), .epA6pipe(epA6pipe), // output wire, input wire [31:0],
-	.epA7rd(epA7rd), .epA7pipe(epA7pipe), // output wire, input wire [31:0],
-	.epA8rd(epA8rd), .epA8pipe(epA8pipe), // output wire, input wire [31:0],
-	.epA9rd(epA9rd), .epA9pipe(epA9pipe), // output wire, input wire [31:0],
-	.epAArd(epAArd), .epAApipe(epAApipe), // output wire, input wire [31:0],
-	.epABrd(epABrd), .epABpipe(epABpipe), // output wire, input wire [31:0],
-	.epACrd(epACrd), .epACpipe(epACpipe), // output wire, input wire [31:0],
-	.epADrd(epADrd), .epADpipe(epADpipe), // output wire, input wire [31:0],
-	.epAErd(epAErd), .epAEpipe(epAEpipe), // output wire, input wire [31:0],
-	.epAFrd(epAFrd), .epAFpipe(epAFpipe), // output wire, input wire [31:0],
-	.epB0rd(epB0rd), .epB0pipe(epB0pipe), // output wire, input wire [31:0],
-	.epB1rd(epB1rd), .epB1pipe(epB1pipe), // output wire, input wire [31:0],
-	.epB2rd(epB2rd), .epB2pipe(epB2pipe), // output wire, input wire [31:0],
-	.epB3rd(epB3rd), .epB3pipe(epB3pipe), // output wire, input wire [31:0],
-	.epB4rd(epB4rd), .epB4pipe(epB4pipe), // output wire, input wire [31:0],
-	.epB5rd(epB5rd), .epB5pipe(epB5pipe), // output wire, input wire [31:0],
-	.epB6rd(epB6rd), .epB6pipe(epB6pipe), // output wire, input wire [31:0],
-	.epB7rd(epB7rd), .epB7pipe(epB7pipe), // output wire, input wire [31:0],
-	.epB8rd(epB8rd), .epB8pipe(epB8pipe), // output wire, input wire [31:0],
-	.epB9rd(epB9rd), .epB9pipe(epB9pipe), // output wire, input wire [31:0],
-	.epBArd(epBArd), .epBApipe(epBApipe), // output wire, input wire [31:0],
-	.epBBrd(epBBrd), .epBBpipe(epBBpipe), // output wire, input wire [31:0],
-	.epBCrd(epBCrd), .epBCpipe(epBCpipe), // output wire, input wire [31:0],
-	.epBDrd(epBDrd), .epBDpipe(epBDpipe), // output wire, input wire [31:0],
-	.epBErd(epBErd), .epBEpipe(epBEpipe), // output wire, input wire [31:0],
-	.epBFrd(epBFrd), .epBFpipe(epBFpipe), // output wire, input wire [31:0],
-	// 
-	.okClk(okClk)//output wire okClk // sync with write/read of pipe
-	);
 //}
 
 
@@ -3453,6 +3922,16 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 
 
 /* TODO: BANK signals */
+
+//// LAN fixed in S3100-PGU
+assign PT_FMOD_EP_LAN_MOSI  = EP_LAN_MOSI ;
+assign PT_FMOD_EP_LAN_SCLK  = EP_LAN_SCLK ;
+assign PT_FMOD_EP_LAN_CS_B  = EP_LAN_CS_B ;
+assign PT_FMOD_EP_LAN_RST_B = EP_LAN_RST_B;
+//
+assign EP_LAN_INT_B = PT_FMOD_EP_LAN_INT_B;
+assign EP_LAN_MISO  = PT_FMOD_EP_LAN_MISO ;
+
 
 // LAN signals to mux //{
 
@@ -3462,16 +3941,16 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 //assign PT_BASE_EP_LAN_CS_B  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
 //assign PT_BASE_EP_LAN_RST_B = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
 
-assign PT_FMOD_EP_LAN_MOSI  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
-assign PT_FMOD_EP_LAN_SCLK  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
-assign PT_FMOD_EP_LAN_CS_B  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
-assign PT_FMOD_EP_LAN_RST_B = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
+//assign PT_FMOD_EP_LAN_MOSI  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
+//assign PT_FMOD_EP_LAN_SCLK  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
+//assign PT_FMOD_EP_LAN_CS_B  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
+//assign PT_FMOD_EP_LAN_RST_B = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
 
 // input mux
 //assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : PT_BASE_EP_LAN_INT_B;
 //assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : PT_BASE_EP_LAN_MISO;
-assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : 1'b1;
-assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : 1'b0;
+//assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : 1'b1;
+//assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : 1'b0;
 
 
 //}

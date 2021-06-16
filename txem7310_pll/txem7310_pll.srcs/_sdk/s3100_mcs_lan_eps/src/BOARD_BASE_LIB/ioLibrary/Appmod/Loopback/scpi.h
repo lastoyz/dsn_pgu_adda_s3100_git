@@ -15,6 +15,7 @@
 
 //#define _SCPI_CMD_PGU_
 //#define _SCPI_CMD_S3100_
+#define _SCPI_CMD_S3100_PGU_
 
 // MCS EP control
 //#define  MCS_EP_BASE  ADRS_BASE_PGU
@@ -24,7 +25,11 @@
 //#define _IDN_BOARD_NAME_  "MHVSU-BASE-R7000"
 //#define _IDN_BOARD_NAME_  "CMU-CPU-F5500-LAN"
 //#define _IDN_BOARD_NAME_  "PGU-CPU-F5500-LAN"
-#define _IDN_BOARD_NAME_    "S3100-CPU-BASE-LAN"
+//#define _IDN_BOARD_NAME_  "S3100-CPU-BASE-LAN"
+#define _IDN_BOARD_NAME_    "S3100-PGU-TLAN"  // test LAN
+//#define _IDN_BOARD_NAME_    "S3100-PGU-TSPI" // test SPI emulation
+
+
 
 //// buffer sizes //{
 
@@ -58,11 +63,8 @@
 //#define MAX_CNT_STAY_SOCK_ESTABLISHED 0 // for no time limit to stay established
 
 
-//  int32_t scpi_tcps(uint8_t sn, uint8_t* buf, uint16_t port); //$$ scpi server - normal
-
 int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port); //$$ scpi server - only low-level end-point
 
-int32_t scpi_tcps_ep_state(uint8_t sn, uint8_t* buf, uint16_t port); //$$ scpi server - state-machine operation
 
 
 #endif   // _SCPI_H_
