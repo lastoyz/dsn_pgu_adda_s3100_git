@@ -291,6 +291,14 @@ u32  pgu_dacx__read_status();
 void pgu_dacx__write_rep_period(u32 val_b32);
 u32  pgu_dacx__read_rep_period();
 
+
+// TODO: DACZ
+void pgu_dacz_dat_write(u32 dacx_dat, u32 bit_loc_trig);
+u32  pgu_dacz_dat_read(u32 bit_loc_trig);
+//
+u32  pgu_dacz__read_status();
+
+
 //}
 
 

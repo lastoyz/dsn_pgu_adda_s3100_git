@@ -36,7 +36,7 @@ uint8_t* cmd_str__EPS_PI   = (uint8_t*)":EPS:PI";
 uint8_t* cmd_str__EPS_PO   = (uint8_t*)":EPS:PO";
 
 
-#ifdef _SCPI_CMD_PGU_
+#ifdef _SCPI_CMD_S3100_PGU_// _SCPI_CMD_PGU_ --> _SCPI_CMD_S3100_PGU_
 
 // TODO: PGU command string 
 uint8_t* cmd_str__PGU_PWR            = (uint8_t*)":PGU:PWR";
@@ -51,16 +51,18 @@ uint8_t* cmd_str__PGU_AUX_GPIO       = (uint8_t*)":PGU:AUX:GPIO"; //$$ GPIO  (@r
 //
 uint8_t* cmd_str__PGU_MEMR           = (uint8_t*)":PGU:MEMR"; // ':PGU:MEMR #H00000058 \n'
 uint8_t* cmd_str__PGU_MEMW           = (uint8_t*)":PGU:MEMW"; // ':PGU:MEMW #H0000005C #H1234ABCD \n'
-//
-uint8_t* cmd_str__PGU_DCS_TRIG       = (uint8_t*)":PGU:DCS:TRIG";
-uint8_t* cmd_str__PGU_DCS_DAC0_PNT   = (uint8_t*)":PGU:DCS:DAC0:PNT";
-uint8_t* cmd_str__PGU_DCS_DAC1_PNT   = (uint8_t*)":PGU:DCS:DAC1:PNT";
-uint8_t* cmd_str__PGU_DCS_RPT        = (uint8_t*)":PGU:DCS:RPT";
-uint8_t* cmd_str__PGU_FDCS_TRIG      = (uint8_t*)":PGU:FDCS:TRIG";
-uint8_t* cmd_str__PGU_FDCS_DAC0      = (uint8_t*)":PGU:FDCS:DAC0";
-uint8_t* cmd_str__PGU_FDCS_DAC1      = (uint8_t*)":PGU:FDCS:DAC1";
-uint8_t* cmd_str__PGU_FDCS_RPT       = (uint8_t*)":PGU:FDCS:RPT";
-uint8_t* cmd_str__PGU_PRD            = (uint8_t*)":PGU:PRD"; //$$
+
+//// unused
+//uint8_t* cmd_str__PGU_DCS_TRIG       = (uint8_t*)":PGU:DCS:TRIG";
+//uint8_t* cmd_str__PGU_DCS_DAC0_PNT   = (uint8_t*)":PGU:DCS:DAC0:PNT";
+//uint8_t* cmd_str__PGU_DCS_DAC1_PNT   = (uint8_t*)":PGU:DCS:DAC1:PNT";
+//uint8_t* cmd_str__PGU_DCS_RPT        = (uint8_t*)":PGU:DCS:RPT";
+//uint8_t* cmd_str__PGU_FDCS_TRIG      = (uint8_t*)":PGU:FDCS:TRIG";
+//uint8_t* cmd_str__PGU_FDCS_DAC0      = (uint8_t*)":PGU:FDCS:DAC0";
+//uint8_t* cmd_str__PGU_FDCS_DAC1      = (uint8_t*)":PGU:FDCS:DAC1";
+//uint8_t* cmd_str__PGU_FDCS_RPT       = (uint8_t*)":PGU:FDCS:RPT";
+//uint8_t* cmd_str__PGU_PRD            = (uint8_t*)":PGU:PRD"; //$$
+
 //
 uint8_t* cmd_str__PGU_TRIG           = (uint8_t*)":PGU:TRIG" ;  //$$ new pattern gen
 uint8_t* cmd_str__PGU_FDAT0          = (uint8_t*)":PGU:FDAT0";  //$$ new pattern gen
@@ -100,7 +102,8 @@ uint8_t* cmd_str__PGU_GAIN_DAC1      = (uint8_t*)":PGU:GAIN:DAC1";
 
 
 
-#ifdef _SCPI_CMD_PGU_
+#ifdef _SCPI_CMD_S3100_PGU_// _SCPI_CMD_PGU_ --> _SCPI_CMD_S3100_PGU_
+
 //
 #define LEN_CMD_STR__PGU_PWR             (strlen((const char *) cmd_str__PGU_PWR          ))
 #define LEN_CMD_STR__PGU_OUTP            (strlen((const char *) cmd_str__PGU_OUTP         ))
@@ -114,16 +117,18 @@ uint8_t* cmd_str__PGU_GAIN_DAC1      = (uint8_t*)":PGU:GAIN:DAC1";
 // 
 #define LEN_CMD_STR__PGU_MEMR            (strlen((const char *) cmd_str__PGU_MEMR         ))
 #define LEN_CMD_STR__PGU_MEMW            (strlen((const char *) cmd_str__PGU_MEMW         ))
-// 
-#define LEN_CMD_STR__PGU_DCS_TRIG        (strlen((const char *) cmd_str__PGU_DCS_TRIG     ))
-#define LEN_CMD_STR__PGU_DCS_DAC0_PNT    (strlen((const char *) cmd_str__PGU_DCS_DAC0_PNT ))
-#define LEN_CMD_STR__PGU_DCS_DAC1_PNT    (strlen((const char *) cmd_str__PGU_DCS_DAC1_PNT ))
-#define LEN_CMD_STR__PGU_DCS_RPT         (strlen((const char *) cmd_str__PGU_DCS_RPT      ))
-#define LEN_CMD_STR__PGU_FDCS_TRIG       (strlen((const char *) cmd_str__PGU_FDCS_TRIG    ))
-#define LEN_CMD_STR__PGU_FDCS_DAC0       (strlen((const char *) cmd_str__PGU_FDCS_DAC0    ))
-#define LEN_CMD_STR__PGU_FDCS_DAC1       (strlen((const char *) cmd_str__PGU_FDCS_DAC1    ))
-#define LEN_CMD_STR__PGU_FDCS_RPT        (strlen((const char *) cmd_str__PGU_FDCS_RPT     ))
-#define LEN_CMD_STR__PGU_PRD             (strlen((const char *) cmd_str__PGU_PRD          ))
+
+//// unused
+//#define LEN_CMD_STR__PGU_DCS_TRIG        (strlen((const char *) cmd_str__PGU_DCS_TRIG     ))
+//#define LEN_CMD_STR__PGU_DCS_DAC0_PNT    (strlen((const char *) cmd_str__PGU_DCS_DAC0_PNT ))
+//#define LEN_CMD_STR__PGU_DCS_DAC1_PNT    (strlen((const char *) cmd_str__PGU_DCS_DAC1_PNT ))
+//#define LEN_CMD_STR__PGU_DCS_RPT         (strlen((const char *) cmd_str__PGU_DCS_RPT      ))
+//#define LEN_CMD_STR__PGU_FDCS_TRIG       (strlen((const char *) cmd_str__PGU_FDCS_TRIG    ))
+//#define LEN_CMD_STR__PGU_FDCS_DAC0       (strlen((const char *) cmd_str__PGU_FDCS_DAC0    ))
+//#define LEN_CMD_STR__PGU_FDCS_DAC1       (strlen((const char *) cmd_str__PGU_FDCS_DAC1    ))
+//#define LEN_CMD_STR__PGU_FDCS_RPT        (strlen((const char *) cmd_str__PGU_FDCS_RPT     ))
+//#define LEN_CMD_STR__PGU_PRD             (strlen((const char *) cmd_str__PGU_PRD          ))
+
 //
 #define LEN_CMD_STR__PGU_TRIG            (strlen((const char *) cmd_str__PGU_TRIG         ))
 #define LEN_CMD_STR__PGU_FDAT0           (strlen((const char *) cmd_str__PGU_FDAT0        ))
@@ -912,8 +917,8 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 			//}
 			
 
-			//// TODO: PGU command --------////
-#ifdef _SCPI_CMD_PGU_
+			//// TODO: S3100-PGU command --------////
+#ifdef _SCPI_CMD_S3100_PGU_// _SCPI_CMD_PGU_ --> _SCPI_CMD_S3100_PGU_
 
 			// TODO: case of  cmd_str__PGU_PWR //{
 			else if (0==strncmp((char*)cmd_str__PGU_PWR,(char*)buf,LEN_CMD_STR__PGU_PWR)) { // 0 means eq
@@ -993,7 +998,10 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					pgu_dacx_setup(); 
 					//
 					// DACX_PG setup
-					pgu_dacx_pg_setup();
+					//pgu_dacx_pg_setup(); //$$ previous DCS setup... not used in S3100-PGU
+					
+					// DACZ new pattern gen setup may come!!
+					
 					//
 					p_rsp_str = rsp_str__OK;
 				}
@@ -1121,7 +1129,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 			// TODO: case of  cmd_str__PGU_STAT //{
 			else if (0==strncmp((char*)cmd_str__PGU_STAT,(char*)buf,LEN_CMD_STR__PGU_STAT)) { // 0 means eq
 				// subfunctions:
-				//    u32  pgu_dacx__read_status() //$$
+				//    u32  pgu_dacz__read_status() //$$
 				//
 				u32 loc = LEN_CMD_STR__PGU_STAT;
 				u32 val;
@@ -1141,7 +1149,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				// make scpi response string
 				if (buf[loc]=='?') {
 					// wire [31:0] w_status_data = {30'b0, r_dac1_active_clk, r_dac0_active_clk};
-					val = pgu_dacx__read_status();
+					val = pgu_dacz__read_status();
 					val = val & 0x0003; // to check dac1/0 activity
 					if (val == 0) p_rsp_str = rsp_str__OFF;
 					else          p_rsp_str = rsp_str__ON;
@@ -1489,491 +1497,6 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 			}
 			//}
 			
-			
-			// TODO: case of  cmd_str__PGU_DCS_TRIG //{
-			else if (0==strncmp((char*)cmd_str__PGU_DCS_TRIG,(char*)buf,LEN_CMD_STR__PGU_DCS_TRIG)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dacx_dcs_run_test()
-				//    pgu_dacx_dcs_stop_test()
-				//
-				u32 loc = LEN_CMD_STR__PGU_DCS_TRIG;
-				//u32 val;
-				//
-				// skip spaces ' ' and tap //{
-				while (1) {
-					if      (buf[loc]==' ') loc++;
-					else if (buf[loc]=='\t') loc++;
-					else break;
-				}
-				//
-#ifdef _SCPI_DEBUG_
-				xil_printf("para:%s\n",(char*)buf+loc);
-#endif
-				//}
-				
-				// make scpi response string
-				if (buf[loc]=='?') {
-					// 
-					p_rsp_str = rsp_str__NG;
-				}
-				else if (0==strncmp("ON", (char*)&buf[loc], 2)) {
-					// trig on
-					pgu_dacx_dcs_run_test();
-					//
-					p_rsp_str = rsp_str__OK;
-				}
-				else if (0==strncmp("OFF", (char*)&buf[loc], 3)) {
-					// trig off
-					pgu_dacx_dcs_stop_test();
-					//
-					p_rsp_str = rsp_str__OK;
-				}
-				else {
-					p_rsp_str = rsp_str__NG;
-				}
-			}
-			//}
-
-			// TODO: case of  cmd_str__PGU_DCS_DAC0_PNT //{
-			else if (0==strncmp((char*)cmd_str__PGU_DCS_DAC0_PNT,(char*)buf,LEN_CMD_STR__PGU_DCS_DAC0_PNT)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dacx_dcs_write_adrs()
-				//    pgu_dacx_dcs_read_data_dac0()
-				//    pgu_dacx_dcs_write_data_dac0(u32 val_b32)
-				//
-				// # ":PGU:DCS:DAC0:PNT#H0001? \n"
-				// # ":PGU:DCS:DAC0:PNT#H0001 #H00040001 \n"
-				//
-				u32 loc = LEN_CMD_STR__PGU_DCS_DAC0_PNT; //$$
-				u32 val;
-				u32 ofs; 
-				//
-				// find offset 
-				if (0==strncmp("#H", (char*)&buf[loc], 2)) {
-					// read offset
-					loc = loc + 2; // locate the numeric parameter head
-					ofs = hexstr2data_u32((u8*)(buf+loc),4); //$$ length 4 char
-					loc = loc + 4; //		
-#ifdef _SCPI_DEBUG_
-					xil_printf("check: 0x%04X\n",(unsigned int)ofs); //$$ length 4 char
-#endif
-					// skip spaces ' ' and tap
-					while (1) {
-						if      (buf[loc]==' ') loc++;
-						else if (buf[loc]=='\t') loc++;
-						else break;
-					}
-					// read command 
-					if (buf[loc]=='?') { 
-						//
-						pgu_dacx_dcs_write_adrs(ofs);        //$$
-						val = pgu_dacx_dcs_read_data_dac0(); //$$
-						//
-						xil_sprintf((char*)rsp_str,"#H%08X\n",(unsigned int)val); // '\0' added. ex "#H00000002\n\0"
-						p_rsp_str = rsp_str;
-					}
-					// write command
-					else if (0==strncmp("#H", (char*)&buf[loc], 2)) {
-						loc = loc + 2; // locate the numeric parameter head
-						val = hexstr2data_u32((u8*)(buf+loc),8);
-#ifdef _SCPI_DEBUG_
-						xil_printf("check: 0x%08X\n",(unsigned int)val); 
-#endif
-						//
-						pgu_dacx_dcs_write_adrs(ofs);        //$$
-						pgu_dacx_dcs_write_data_dac0(val); //$$
-						//
-						p_rsp_str = rsp_str__OK;
-					}
-					else {
-						// return NG 
-						p_rsp_str = rsp_str__NG;
-					}
-				}
-				else {
-					// return NG 
-					p_rsp_str = rsp_str__NG;
-				}				
-			}
-			//}
-			
-			// TODO: case of  cmd_str__PGU_DCS_DAC1_PNT //{
-			else if (0==strncmp((char*)cmd_str__PGU_DCS_DAC1_PNT,(char*)buf,LEN_CMD_STR__PGU_DCS_DAC1_PNT)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dacx_dcs_write_adrs()
-				//    pgu_dacx_dcs_read_data_dac1()
-				//    pgu_dacx_dcs_write_data_dac1(u32 val_b32)
-				//
-				// # ":PGU:DCS:DAC1:PNT#H0001? \n"
-				// # ":PGU:DCS:DAC1:PNT#H0001 #H00040001 \n"
-				//
-				u32 loc = LEN_CMD_STR__PGU_DCS_DAC1_PNT; //$$
-				u32 val;
-				u32 ofs; 
-				//
-				// find offset 
-				if (0==strncmp("#H", (char*)&buf[loc], 2)) {
-					// read offset
-					loc = loc + 2; // locate the numeric parameter head
-					ofs = hexstr2data_u32((u8*)(buf+loc),4); //$$ length 4 char
-					loc = loc + 4; //		
-#ifdef _SCPI_DEBUG_
-					xil_printf("check: 0x%04X\n",(unsigned int)ofs); //$$ length 4 char
-#endif
-					// skip spaces ' ' and tap
-					while (1) {
-						if      (buf[loc]==' ') loc++;
-						else if (buf[loc]=='\t') loc++;
-						else break;
-					}
-					// read command 
-					if (buf[loc]=='?') { 
-						//
-						pgu_dacx_dcs_write_adrs(ofs);        //$$
-						val = pgu_dacx_dcs_read_data_dac1(); //$$
-						//
-						xil_sprintf((char*)rsp_str,"#H%08X\n",(unsigned int)val); // '\0' added. ex "#H00000002\n\0"
-						p_rsp_str = rsp_str;
-					}
-					// write command
-					else if (0==strncmp("#H", (char*)&buf[loc], 2)) {
-						loc = loc + 2; // locate the numeric parameter head
-						val = hexstr2data_u32((u8*)(buf+loc),8);
-#ifdef _SCPI_DEBUG_
-						xil_printf("check: 0x%08X\n",(unsigned int)val); 
-#endif
-						//
-						pgu_dacx_dcs_write_adrs(ofs);        //$$
-						pgu_dacx_dcs_write_data_dac1(val); //$$
-						//
-						p_rsp_str = rsp_str__OK;
-					}
-					else {
-						// return NG 
-						p_rsp_str = rsp_str__NG;
-					}
-				}
-				else {
-					// return NG 
-					p_rsp_str = rsp_str__NG;
-				}				
-			}			//}
-			
-			// TODO: case of  cmd_str__PGU_DCS_RPT //{
-			else if (0==strncmp((char*)cmd_str__PGU_DCS_RPT,(char*)buf,LEN_CMD_STR__PGU_DCS_RPT)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dacx_dcs_read_repeat()
-				//    pgu_dacx_dcs_write_repeat(u32 val_b32)
-				//
-				//    DACn repeat count = {16-bit DAC1 repeat count, 16-bit DAC0 repeat count}
-				//
-				// # ":PGU:DCS:RPT? \n"
-				// # ":PGU:DCS:RPT #H00040001 \n"
-				//
-				u32 loc = LEN_CMD_STR__PGU_DCS_RPT;
-				u32 val;
-				//
-				// skip spaces ' ' and tap //{
-				while (1) {
-					if      (buf[loc]==' ') loc++;
-					else if (buf[loc]=='\t') loc++;
-					else break;
-				}
-				//
-#ifdef _SCPI_DEBUG_
-				xil_printf("para:%s\n",(char*)buf+loc);
-#endif
-				//}
-				
-				// make scpi response string
-				if (buf[loc]=='?') {
-					// readback
-					val = pgu_dacx_dcs_read_repeat();
-					xil_sprintf((char*)rsp_str,"#H%08X\n",(unsigned int)val); // '\0' added. ex "H00000002\n"
-					//
-					p_rsp_str = rsp_str;
-				}
-				else if (0==strncmp("#H", (char*)&buf[loc], 2)) {
-					// read value 
-					loc = loc + 2; // locate the numeric parameter head
-					val = hexstr2data_u32((u8*)(buf+loc),8);
-					// set repeat data
-					pgu_dacx_dcs_write_repeat(val);
-				 	//
-				 	p_rsp_str = rsp_str__OK;
-				 }
-				else {
-					p_rsp_str = rsp_str__NG;
-				}
-			}
-			//}
-
-
-			// TODO: case of  cmd_str__PGU_FDCS_TRIG //{
-			else if (0==strncmp((char*)cmd_str__PGU_FDCS_TRIG,(char*)buf,LEN_CMD_STR__PGU_FDCS_TRIG)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dacx_fdcs_run_test()
-				//    pgu_dacx_fdcs_stop_test()
-				//
-				// # ":PGU:FDCS:TRIG ON \n"
-				// # ":PGU:FDCS:TRIG OFF \n"
-				//
-				u32 loc = LEN_CMD_STR__PGU_FDCS_TRIG;
-				u32 val;
-				//
-				// skip spaces ' ' and tap //{
-				while (1) {
-					if      (buf[loc]==' ') loc++;
-					else if (buf[loc]=='\t') loc++;
-					else break;
-				}
-				//
-#ifdef _SCPI_DEBUG_
-				xil_printf("para:%s\n",(char*)buf+loc);
-#endif
-				//}
-				
-				// make scpi response string
-				if (buf[loc]=='?') {
-					// 
-					p_rsp_str = rsp_str__NG;
-				}
-				else if (0==strncmp("ON", (char*)&buf[loc], 2)) {
-					// trig on
-					pgu_dacx_fdcs_run_test();
-					//
-					p_rsp_str = rsp_str__OK;
-				}
-				else if (0==strncmp("OFF", (char*)&buf[loc], 3)) {
-					// trig off
-					pgu_dacx_fdcs_stop_test();
-					//
-					p_rsp_str = rsp_str__OK;
-				}
-				else if (0==strncmp("AUTO", (char*)&buf[loc], 2)) {
-					
-					// sleep control: amp on
-					u32 OLAT;
-					OLAT = pgu_spio_ext__read_aux_IO_OLAT ();
-					pgu_spio_ext__send_aux_IO_OLAT  (OLAT | 0x0300); // 16 bit // loc sleeps
-					
-					// trig on
-					pgu_dacx_fdcs_run_test();
-					
-					//$$ status check 
-					// wire [31:0] w_status_data = {30'b0, r_dac1_active_clk, r_dac0_active_clk};
-					val = pgu_dacx__read_status();
-					xil_printf("dacx_status:0x%08X\r\n",(int)val);
-					
-					// find val!=0
-					u32 cnt_wait_one = 100;
-					while (1) {
-						if (val!=0) break;
-						cnt_wait_one--;
-						if (cnt_wait_one==0) break;
-						val = pgu_dacx__read_status();
-						xil_printf("dacx_status:0x%08X\r\n",(int)val);
-					}
-										
-					// find val==0
-					u32 cnt_one = 0;
-					while (1) {
-						if (val==0) break;
-						val = pgu_dacx__read_status();
-						xil_printf("dacx_status:0x%08X\r\n",(int)val);
-						cnt_one++;
-					}
-					xil_printf("count pulse status high:%d\r\n",(int)cnt_one);
-
-					// trig off
-					pgu_dacx_fdcs_stop_test();
-
-					// sleep control: amp off
-					pgu_spio_ext__send_aux_IO_OLAT  (OLAT & 0xFCFF); // 16 bit // loc sleeps
-					
-					
-					//
-					p_rsp_str = rsp_str__OK;
-				}
-				else {
-					p_rsp_str = rsp_str__NG;
-				}
-			}
-			//}
-			
-			// TODO: case of  cmd_str__PGU_FDCS_DAC0 //{
-			else if (0==strncmp((char*)cmd_str__PGU_FDCS_DAC0,(char*)buf,LEN_CMD_STR__PGU_FDCS_DAC0)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dac0_fifo_write_data(u32 val_b32)
-				//
-				// # :PGU:FDCS:DAC0 #H_nnnnnn_hhhhhhhh_hhhhhhhh_..._hhhhhhhh <NL>
-				// # :PGU:FDCS:DAC0 #4_nnnnnn_rrrrrrrr...rrrr <NL>
-				// 
-				// # :PGU:FDCS:DAC0 #H_000064_3FFF0002_7FFF0004_3FFF0002_00000001_C0000002_80000004_C0000002_00000001 <NL>
-				// # :PGU:FDCS:DAC0 #4_000032_rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr <NL>
-				//
-				// hexadecimal vs binary format (reserved)
-				//
-				u32 loc = LEN_CMD_STR__PGU_FDCS_DAC0; //$$
-				u32 val;
-				u32 len_byte;
-				//
-				// skip spaces ' ' and tap //{
-				while (1) {
-					if      (buf[loc]==' ') loc++;
-					else if (buf[loc]=='\t') loc++;
-					else break;
-				}
-				//
-#ifdef _SCPI_DEBUG_
-				xil_printf("para:%s\n",(char*)buf+loc);
-#endif
-				//}
-				
-				// make scpi response string
-				if (0==strncmp("#N_", (char*)&buf[loc], 3)) { // check the numeric block header of hexadecimal bytes
-					// read len_byte 
-					loc = loc + 3; // locate the numeric parameter head //$$
-					len_byte = decstr2data_u32((u8*)(buf+loc),6);
-					// locate the first byte of data
-					loc = loc + 7; // locate the numeric parameter head //$$
-					// read 8 bytes long data repeatly
-					while (len_byte > 0) {
-						len_byte = len_byte - 8;
-						// read data
-						val = hexstr2data_u32((u8*)(buf+loc),8);
-						loc = loc + 8;
-						// skip '_'
-						while (1) {
-							if      (buf[loc]=='_') loc++;
-							else break;
-						}
-						// set data
-						pgu_dac0_fifo_write_data(val);
-					}
-				 	//
-				 	p_rsp_str = rsp_str__OK;
-				}
-				else if (0==strncmp("#4_", (char*)&buf[loc], 3)) { // check the numeric block header of binary bytes
-					p_rsp_str = rsp_str__NG;
-				}
-				else {
-					p_rsp_str = rsp_str__NG;
-				}
-			}
-			//}
-			
-			// TODO: case of  cmd_str__PGU_FDCS_DAC1 //{
-			else if (0==strncmp((char*)cmd_str__PGU_FDCS_DAC1,(char*)buf,LEN_CMD_STR__PGU_FDCS_DAC1)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dac1_fifo_write_data(u32 val_b32)
-				//
-				// # :PGU:FDCS:DAC1 #H_nnnnnn_hhhhhhhh_hhhhhhhh_..._hhhhhhhh <NL>
-				// # :PGU:FDCS:DAC1 #4_nnnnnn_rrrrrrrr...rrrr <NL>
-				// 
-				// # :PGU:FDCS:DAC1 #N_000064_3FFF0008_7FFF0010_3FFF0008_00000004_C0000008_80000010_C0000008_00000004 <NL>
-				// # :PGU:FDCS:DAC1 #4_000032_rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr <NL>
-				//
-				// hexadecimal vs binary format (reserved)
-				//
-				u32 loc = LEN_CMD_STR__PGU_FDCS_DAC1; //$$
-				u32 val;
-				u32 len_byte;
-				//
-				// skip spaces ' ' and tap //{
-				while (1) {
-					if      (buf[loc]==' ') loc++;
-					else if (buf[loc]=='\t') loc++;
-					else break;
-				}
-				//
-#ifdef _SCPI_DEBUG_
-				xil_printf("para:%s\n",(char*)buf+loc);
-#endif
-				//}
-				
-				// make scpi response string
-				if (0==strncmp("#N_", (char*)&buf[loc], 3)) { // check the numeric block header of hexadecimal bytes
-					// read len_byte 
-					loc = loc + 3; // locate the numeric parameter head //$$
-					len_byte = decstr2data_u32((u8*)(buf+loc),6);
-					// locate the first byte of data
-					loc = loc + 7; // locate the numeric parameter head //$$
-					// read 8 bytes long data repeatly
-					while (len_byte > 0) {
-						len_byte = len_byte - 8;
-						// read data
-						val = hexstr2data_u32((u8*)(buf+loc),8);
-						loc = loc + 8;
-						// skip '_'
-						while (1) {
-							if      (buf[loc]=='_') loc++;
-							else break;
-						}
-						// set data
-						pgu_dac1_fifo_write_data(val);
-					}
-				 	//
-				 	p_rsp_str = rsp_str__OK;
-				}
-				else if (0==strncmp("#4_", (char*)&buf[loc], 3)) { // check the numeric block header of binary bytes
-					p_rsp_str = rsp_str__NG;
-				}
-				else {
-					p_rsp_str = rsp_str__NG;
-				}
-			}
-			//}
-			
-			// TODO: case of  cmd_str__PGU_FDCS_RPT //{
-			else if (0==strncmp((char*)cmd_str__PGU_FDCS_RPT,(char*)buf,LEN_CMD_STR__PGU_FDCS_RPT)) { // 0 means eq
-				// subfunctions:
-				//    pgu_dacx_fdcs_read_repeat()
-				//    pgu_dacx_fdcs_write_repeat(u32 val_b32)
-				//
-				//    DACn repeat count = {16-bit DAC1 repeat count, 16-bit DAC0 repeat count}
-				//
-				// # ":PGU:FDCS:RPT? \n"
-				// # ":PGU:FDCS:RPT #H00040001 \n"
-				//
-				u32 loc = LEN_CMD_STR__PGU_FDCS_RPT;
-				u32 val;
-				//
-				// skip spaces ' ' and tap //{
-				while (1) {
-					if      (buf[loc]==' ') loc++;
-					else if (buf[loc]=='\t') loc++;
-					else break;
-				}
-				//
-#ifdef _SCPI_DEBUG_
-				xil_printf("para:%s\n",(char*)buf+loc);
-#endif
-				//}
-				
-				// make scpi response string
-				if (buf[loc]=='?') {
-					// readback
-					val = pgu_dacx_fdcs_read_repeat();
-					xil_sprintf((char*)rsp_str,"#H%08X\n",(unsigned int)val); // '\0' added. ex "H00000002\n"
-					//
-					p_rsp_str = rsp_str;
-				}
-				else if (0==strncmp("#H", (char*)&buf[loc], 2)) {
-					// read value 
-					loc = loc + 2; // locate the numeric parameter head
-					val = hexstr2data_u32((u8*)(buf+loc),8);
-					// set repeat data
-					pgu_dacx_fdcs_write_repeat(val);
-				 	//
-				 	p_rsp_str = rsp_str__OK;
-				 }
-				else {
-					p_rsp_str = rsp_str__NG;
-				}
-			}
-			//}
-
 
 			// TODO: case of  cmd_str__PGU_TRIG  //{
 			else if (0==strncmp((char*)cmd_str__PGU_TRIG,(char*)buf,LEN_CMD_STR__PGU_TRIG)) { // 0 means eq
@@ -2028,9 +1551,9 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  	input  [31:0] data;
 					//  	begin
 					//  		@(posedge clk_10M);
-					//  		r_wire_dacx_data    = data;  // @EP_ADRS_PGU__DACZ_DAT_WI
+					//  		r_wire_dacx_data    = data;  // @EP_ADRS__DACZ_DAT_WI
 					//  		@(posedge clk_10M);
-					//  		r_trig_dacx_ctrl[12] = 1'b1; // @EP_ADRS_PGU__DACZ_DAT_TI
+					//  		r_trig_dacx_ctrl[12] = 1'b1; // @EP_ADRS__DACZ_DAT_TI
 					//  		@(posedge clk_10M);
 					//  		r_trig_dacx_ctrl[12] = 1'b0;
 					//  	end
@@ -2047,8 +1570,8 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					
 				 	//
 				 	p_rsp_str = rsp_str__OK;
@@ -2106,12 +1629,12 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					// 	 end
 					//  endtask
 					//// dac0 fifo reset 
-					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000040, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000040, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
 					//// set trig data
 					//  task CID_DAC0_NUM_FFDAT_WR; // (data)
@@ -2138,9 +1661,9 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  	input  [31:0] data;
 					//  	begin
 					//  		@(posedge clk_10M);
-					//  		r_wire_dacx_data    = data;  // @EP_ADRS_PGU__DACZ_DAT_WI
+					//  		r_wire_dacx_data    = data;  // @EP_ADRS__DACZ_DAT_WI
 					//  		@(posedge clk_10M);          
-					//  		r_trig_dacx_ctrl[10] = 1'b1; // @EP_ADRS_PGU__DACZ_DAT_TI
+					//  		r_trig_dacx_ctrl[10] = 1'b1; // @EP_ADRS__DACZ_DAT_TI
 					//  		@(posedge clk_10M);
 					//  		r_trig_dacx_ctrl[10] = 1'b0;
 					//  	end
@@ -2150,11 +1673,11 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
 					// on dac0
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00001000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00001000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					
 				 	//
 				 	p_rsp_str = rsp_str__OK;
@@ -2212,12 +1735,12 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					// 	 end
 					//  endtask
 					//// dac1 fifo reset 
-					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000080, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000080, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
 					//// set trig data
 					//  task CID_DAC1_NUM_FFDAT_WR; // (data)
@@ -2244,9 +1767,9 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  	input  [31:0] data;
 					//  	begin
 					//  		@(posedge clk_10M);
-					//  		r_wire_dacx_data    = data;  // @EP_ADRS_PGU__DACZ_DAT_WI
+					//  		r_wire_dacx_data    = data;  // @EP_ADRS__DACZ_DAT_WI
 					//  		@(posedge clk_10M);          
-					//  		r_trig_dacx_ctrl[10] = 1'b1; // @EP_ADRS_PGU__DACZ_DAT_TI
+					//  		r_trig_dacx_ctrl[10] = 1'b1; // @EP_ADRS__DACZ_DAT_TI
 					//  		@(posedge clk_10M);
 					//  		r_trig_dacx_ctrl[10] = 1'b0;
 					//  	end
@@ -2256,11 +1779,11 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
 					// on dac1
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00001010, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00001010, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					
 				 	//
 				 	p_rsp_str = rsp_str__OK;
@@ -2277,10 +1800,10 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				// subfunctions:
 				//    u32 write_mcs_ep_pi_data(u32 adrs_base, u32 offset, u32 data); // write data from a 32b-value to pipe-in(32b)
 				//
-				//    EP_ADRS_PGU__DAC0_DAT_INC_PI  0x86
-				//    EP_ADRS_PGU__DAC0_DUR_PI      0x87
-				//    EP_ADRS_PGU__DAC1_DAT_INC_PI  0x88
-				//    EP_ADRS_PGU__DAC1_DUR_PI      0x89
+				//    EP_ADRS__DAC0_DAT_INC_PI  0x86
+				//    EP_ADRS__DAC0_DUR_PI      0x87
+				//    EP_ADRS__DAC1_DAT_INC_PI  0x88
+				//    EP_ADRS__DAC1_DUR_PI      0x89
 				//
 				// #  `:PGU:FDAT0` + `#N8_dddddd_hhhhmmmmnnnnnnnn_hhhhmmmmnnnnnnnn_... ..._hhhhmmmmnnnnnnnn_hhhhmmmmnnnnnnnn` + `'\n'` , 
 				// #      `hhhh` for DAC value; `mmmm` for incremental step; `nnnnnnnn` for duration count for each DAC value.
@@ -2318,12 +1841,12 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					// // 	 end
 					// //  endtask
 					// //// dac0 fifo reset 
-					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000040, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000040, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					
 					//$$ read "16 byte long data" repeatly
 					while (len_byte > 0) {
@@ -2335,7 +1858,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 #endif
 						loc = loc + 8;
 						// send data
-						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS_PGU__DAC0_DAT_INC_PI,val); //(u32 adrs_base, u32 offset, u32 data);
+						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS__DAC0_DAT_INC_PI,val); //(u32 adrs_base, u32 offset, u32 data);
 						// read second data
 						val = hexstr2data_u32((u8*)(buf+loc),8);
 #ifdef _SCPI_DEBUG_
@@ -2343,7 +1866,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 #endif
 						loc = loc + 8;
 						// send  data
-						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS_PGU__DAC0_DUR_PI,val); //(u32 adrs_base, u32 offset, u32 data);
+						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS__DAC0_DUR_PI,val); //(u32 adrs_base, u32 offset, u32 data);
 						// skip '_'
 						while (1) {
 							if      (buf[loc]=='_') loc++;
@@ -2354,27 +1877,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				 	p_rsp_str = rsp_str__OK;					
 				}
 				else if (0==strncmp("#N_", (char*)&buf[loc], 3)) { // check the numeric block header of hexadecimal bytes
-					// read len_byte 
-					loc = loc + 3; // locate the numeric parameter head //$$
-					len_byte = decstr2data_u32((u8*)(buf+loc),6);
-					// locate the first byte of data
-					loc = loc + 7; // locate the numeric parameter head //$$
-					// read 8 bytes long data repeatly
-					while (len_byte > 0) {
-						len_byte = len_byte - 8;
-						// read data
-						val = hexstr2data_u32((u8*)(buf+loc),8);
-						loc = loc + 8;
-						// skip '_'
-						while (1) {
-							if      (buf[loc]=='_') loc++;
-							else break;
-						}
-						// send every data
-						pgu_dac0_fifo_write_data(val);
-					}
-				 	//
-				 	p_rsp_str = rsp_str__OK;
+					p_rsp_str = rsp_str__NG;
 				}
 				else if (0==strncmp("#4_", (char*)&buf[loc], 3)) { // check the numeric block header of binary bytes
 					p_rsp_str = rsp_str__NG;
@@ -2390,10 +1893,10 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				// subfunctions:
 				//    u32 write_mcs_ep_pi_data(u32 adrs_base, u32 offset, u32 data); // write data from a 32b-value to pipe-in(32b)
 				//
-				//    EP_ADRS_PGU__DAC0_DAT_INC_PI  0x86
-				//    EP_ADRS_PGU__DAC0_DUR_PI      0x87
-				//    EP_ADRS_PGU__DAC1_DAT_INC_PI  0x88
-				//    EP_ADRS_PGU__DAC1_DUR_PI      0x89
+				//    EP_ADRS__DAC0_DAT_INC_PI  0x86
+				//    EP_ADRS__DAC0_DUR_PI      0x87
+				//    EP_ADRS__DAC1_DAT_INC_PI  0x88
+				//    EP_ADRS__DAC1_DUR_PI      0x89
 				//
 				// #  `:PGU:FDAT0` + `#N8_dddddd_hhhhmmmmnnnnnnnn_hhhhmmmmnnnnnnnn_... ..._hhhhmmmmnnnnnnnn_hhhhmmmmnnnnnnnn` + `'\n'` , 
 				// #      `hhhh` for DAC value; `mmmm` for incremental step; `nnnnnnnn` for duration count for each DAC value.
@@ -2431,12 +1934,12 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  // 	 end
 					//  //  endtask
 					//  //// dac1 fifo reset 
-					//  write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000080, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					//  activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					//  write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					//  activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					//  write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					//  activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					//  write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000080, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					//  activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					//  write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					//  activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					//  write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					//  activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					
 					//$$ read "16 byte long data" repeatly
 					while (len_byte > 0) {
@@ -2448,7 +1951,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 #endif
 						loc = loc + 8;
 						// send data
-						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS_PGU__DAC1_DAT_INC_PI,val); //(u32 adrs_base, u32 offset, u32 data);
+						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS__DAC1_DAT_INC_PI,val); //(u32 adrs_base, u32 offset, u32 data);
 						// read second data
 						val = hexstr2data_u32((u8*)(buf+loc),8);
 #ifdef _SCPI_DEBUG_
@@ -2456,7 +1959,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 #endif
 						loc = loc + 8;
 						// send  data
-						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS_PGU__DAC1_DUR_PI,val); //(u32 adrs_base, u32 offset, u32 data);
+						write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS__DAC1_DUR_PI,val); //(u32 adrs_base, u32 offset, u32 data);
 						// skip '_'
 						while (1) {
 							if      (buf[loc]=='_') loc++;
@@ -2467,27 +1970,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				 	p_rsp_str = rsp_str__OK;					
 				}
 				else if (0==strncmp("#N_", (char*)&buf[loc], 3)) { // check the numeric block header of hexadecimal bytes
-					// read len_byte 
-					loc = loc + 3; // locate the numeric parameter head //$$
-					len_byte = decstr2data_u32((u8*)(buf+loc),6);
-					// locate the first byte of data
-					loc = loc + 7; // locate the numeric parameter head //$$
-					// read 8 bytes long data repeatly
-					while (len_byte > 0) {
-						len_byte = len_byte - 8;
-						// read data
-						val = hexstr2data_u32((u8*)(buf+loc),8);
-						loc = loc + 8;
-						// skip '_'
-						while (1) {
-							if      (buf[loc]=='_') loc++;
-							else break;
-						}
-						// send every data
-						pgu_dac1_fifo_write_data(val);
-					}
-				 	//
-				 	p_rsp_str = rsp_str__OK;
+					p_rsp_str = rsp_str__NG;
 				}
 				else if (0==strncmp("#4_", (char*)&buf[loc], 3)) { // check the numeric block header of binary bytes
 					p_rsp_str = rsp_str__NG;
@@ -2548,11 +2031,11 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
 					// on dac0
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000020, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000020, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					
 				 	//
 				 	p_rsp_str = rsp_str__OK;
@@ -2612,11 +2095,11 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
 					// on dac0
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, 0x00000030, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000030, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
-					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
+					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					
 				 	//
 				 	p_rsp_str = rsp_str__OK;
@@ -2978,6 +2461,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 			//}
 			
 #endif
+
 
 			//// TODO: unknown command --------////
 			
