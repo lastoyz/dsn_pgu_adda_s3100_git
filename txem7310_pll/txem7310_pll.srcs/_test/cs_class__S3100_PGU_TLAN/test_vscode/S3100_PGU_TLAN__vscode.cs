@@ -126,7 +126,7 @@ namespace TopInstrument
 
         public bool IsInit = false;
 
-        public string SysOpen(string HOST, int TIMEOUT)
+        public string SysOpen(string HOST, int TIMEOUT = 20000)
         {
             my_open(HOST, TIMEOUT);
 
@@ -215,7 +215,7 @@ namespace TopInstrument
 
             catch (Exception e)
             {
-                //$$Socket ss = null;
+                Socket ss = null;
                 throw new Exception(String.Format("Error in Open") + e.Message);
             }
 
@@ -329,7 +329,6 @@ namespace TopInstrument
             catch (Exception e)
             {
                 throw new Exception(String.Format("Error in sendall") + e.Message); //$$ for release
-
 				//$$ TODO:  print out command string for test
 				//Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
             }
@@ -1970,34 +1969,6 @@ namespace TopInstrument
             return ret;
         }
 
-        public string ForcePGU__no_socket_close (int CycleCount, bool Ch1, bool Ch2, int delay=3500)
-        {
-            //$$ update repeat info in member
-            this.__gui_cycle_count = CycleCount;
-            
-            //## initialize PGU //$$
-
-            //write_aux_io__direct(__gui_aux_io_control & 0xFFFF);
-            trig_pgu_output_Cid_ON(CycleCount, Ch1, Ch2);
-
-            Delay(delay); //delay 3.5s
-
-            trig_pgu_output_Cid_OFF();
-
-            //write_aux_io__direct(__gui_aux_io_control & 0xFCFF);
-
-			//$$ remove below for stable output
-			//$$ //### power off 
-            //$$ scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " OFF\n"));
-            //$$ scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + "?\n"));
-
-            string ret;
-            ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(":EPS:WMO#H3A #HFFFFFFFF\n"));
-            //## close socket
-            //scpi_close(ss);
-
-            return ret;
-        }
         public string ForcePGU_ON(int CycleCount, bool Ch1, bool Ch2)
         {
             trig_pgu_output_Cid_ON(CycleCount, Ch1, Ch2);
@@ -2010,6 +1981,21 @@ namespace TopInstrument
             return ret;
         }
 
+        public string ForcePGU_ON__delayed_OFF(int CycleCount, bool Ch1, bool Ch2, int delay_ms = 3500)
+        {
+            trig_pgu_output_Cid_ON(CycleCount, Ch1, Ch2);
+
+            Delay(delay_ms); //delay 3.5s
+
+            trig_pgu_output_Cid_OFF();
+
+            string ret;
+            ret = pgu_spio_ext__read_aux_IO_GPIO();
+            //ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(":EPS:WMO#H3A #HFFFFFFFF\n"));
+            //## close socket
+
+            return ret;
+        }
         public string Over_Detected()
         {
             string ret;
@@ -2186,9 +2172,18 @@ namespace TopInstrument
 
 
             //// sys_open
-            //Console.WriteLine(dev.SysOpen("192.168.100.112", 20000));
-            //Console.WriteLine(dev.SysOpen("192.168.100.115", 20000));
-            //Console.WriteLine(dev.SysOpen("192.168.100.127", 20000));
+            Console.WriteLine(">>> sys_open");
+            //Console.WriteLine(dev.SysOpen("192.168.100.112"));
+            //Console.WriteLine(dev.SysOpen("192.168.100.115"));
+            //Console.WriteLine(dev.SysOpen("192.168.100.127"));
+            //
+            //Console.WriteLine(dev.SysOpen("192.168.168.143")); // test 
+            //
+            //Console.WriteLine(dev.SysOpen("192.168.100.119")); // test S3000-PGU
+            //Console.WriteLine(dev.SysOpen("192.168.100.120")); // test S3000-PGU
+            //Console.WriteLine(dev.SysOpen("192.168.100.123"));
+            //Console.WriteLine(dev.SysOpen("192.168.100.122"));
+            //
             Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test
 
 
@@ -2472,18 +2467,17 @@ namespace TopInstrument
             Console.WriteLine(dev.__gui_out_ch1_gain );
             Console.WriteLine(dev.__gui_out_ch2_gain );
 
-            // case1 AA // 0
-            StepTime = new long[] { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
-            StepLevel = new double[] { 0.0, 0.0, 1.0, 1.0, 2.0, 2.0, 0.5, 0.5, 0.0, 0.0 };
+            // case0 __ // _
+            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
+            StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
             ret = dev.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
             ret = dev.SetSetupPGU(2, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
 
-            // test force 
-            //dev.ForcePGU_ON(3,  true,  true); // (int CycleCount, bool Ch1, bool Ch2)
-            //dev.ForcePGU_ON(3,  true, false); // (int CycleCount, bool Ch1, bool Ch2)
-            //dev.ForcePGU_ON(3, false,  true); // (int CycleCount, bool Ch1, bool Ch2)
-
-
+            //          // case1 AA // 0
+            //          StepTime = new long[] { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
+            //          StepLevel = new double[] { 0.0, 0.0, 1.0, 1.0, 2.0, 2.0, 0.5, 0.5, 0.0, 0.0 };
+            //          ret = dev.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
+            //          
             //			// case2 BB // 1
             //			StepTime  = new long[]   {   0,  500, 2000, 3000, 4000, 5000, 6000, 7000, 8500, 9000 };
             //			StepLevel = new double[] { 0.0,  0.0,  1.0,  1.0,  2.0,  2.0,  0.5,  0.5,  0.0,  0.0 };
@@ -2554,12 +2548,15 @@ namespace TopInstrument
             //			StepLevel = new double[] { 0.000,    0.000,    -4.43,    -4.43,     0.000,      0.000 }; 
             //			ret = dev.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
 
+
+            // test force 
+            dev.ForcePGU_ON__delayed_OFF(4,  true,  true, 3500); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(2,  true, true); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(3, true,  false); // (int CycleCount, bool Ch1, bool Ch2)
+
+
+
             Console.WriteLine("SetSetupPGU return Code = " + Convert.ToString(ret));
-
-
-            // force trigger : public string ForcePGU__no_socket_close(int CycleCount, bool Ch1, bool Ch2, int delay=3500)
-            dev.ForcePGU__no_socket_close(3, true, true, 3500);
-
 
             //dev.SysClose(); // close but all controls alive
             dev.SysClose__board_shutdown(); // close with board shutdown and clear init bit
