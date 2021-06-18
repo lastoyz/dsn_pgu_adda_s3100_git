@@ -2184,7 +2184,9 @@ namespace TopInstrument
             //Console.WriteLine(dev.SysOpen("192.168.100.123"));
             //Console.WriteLine(dev.SysOpen("192.168.100.122"));
             //
-            Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test
+            //Console.WriteLine(dev.SysOpen("192.168.100.61", 20000)); //$$ S3100-PGU-TLAN test // BD#1
+            Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test // BD#2
+            //Console.WriteLine(dev.SysOpen("192.168.100.63", 20000)); //$$ S3100-PGU-TLAN test // BD#3
 
 
             //// test eeprom access 
