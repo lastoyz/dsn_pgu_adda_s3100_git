@@ -302,7 +302,7 @@ class EPS_Dev:
 	#
 	def GetSerialNumber(self):
 		ret = EPS_Dev.f_scpi_cmd(self.ss, cmd_str__IDN).decode() # will revise
-		return ret # must come from board later 
+		return ret # must come from board later # such as board id on eeprom ...
 	def ConfigureFPGA(self, opt=[]):
 		# not support
 		pass
@@ -678,8 +678,6 @@ def set_host_ip_by_ping():
 ###########################################################################
 # TODO: test function
 
-
-
 def eps_test():
 	print('#################################################')
 
@@ -822,7 +820,7 @@ def eps_test():
 	##//  bit[15:0] = data_B // MISO data[15:0]	
 	
 
-	## reset 
+	## reset MSPI
 	dev.ActivateTriggerIn(0x42, 0) # reset_trig
 	cnt_loop = 0
 	while True:
@@ -832,7 +830,7 @@ def eps_test():
 			print('reset done !! @ ' + repr(cnt_loop))
 			break
 	
-	## init 
+	## init MSPI
 	dev.ActivateTriggerIn(0x42, 1) # init_trig
 	cnt_loop = 0
 	while True:
