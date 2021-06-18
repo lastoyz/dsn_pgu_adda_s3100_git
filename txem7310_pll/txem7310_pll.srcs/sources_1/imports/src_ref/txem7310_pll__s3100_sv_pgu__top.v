@@ -845,12 +845,14 @@ module txem7310_pll__s3100_sv_pgu__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A4_21_0611   //{
+// TODO: FPGA_IMAGE_ID = h_A4_21_0619   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
+
 
 //}
 
@@ -3526,7 +3528,7 @@ assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // mu
 wire [31:0] w_M2_port_wi_sadrs_h008; // SSPI_CON_WI		0x008	wi02
 	assign ep02wire = w_M2_port_wi_sadrs_h008;
 wire [31:0] w_M2_port_wi_sadrs_h014; // DACX_WI
-	assign ep06wire = w_M2_port_wi_sadrs_h014;
+	assign ep05wire = w_M2_port_wi_sadrs_h014;
 wire [31:0] w_M2_port_wi_sadrs_h018; // CLKD_WI
 	assign ep06wire = w_M2_port_wi_sadrs_h018;
 wire [31:0] w_M2_port_wi_sadrs_h01C; // SPIO_WI
