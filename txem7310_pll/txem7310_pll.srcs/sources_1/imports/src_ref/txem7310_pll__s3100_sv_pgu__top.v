@@ -3524,31 +3524,35 @@ assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // mu
 
 // wi
 wire [31:0] w_M2_port_wi_sadrs_h008; // SSPI_CON_WI		0x008	wi02
-assign w_SSPI_CON_WI = w_M2_port_wi_sadrs_h008;
-
-wire [31:0] w_M2_port_wi_sadrs_h014; // new
-wire [31:0] w_M2_port_wi_sadrs_h018; // new
-wire [31:0] w_M2_port_wi_sadrs_h01C; // new
-wire [31:0] w_M2_port_wi_sadrs_h020; // new
-wire [31:0] w_M2_port_wi_sadrs_h024; // new
-wire [31:0] w_M2_port_wi_sadrs_h04C; // new
-wire [31:0] w_M2_port_wi_sadrs_h048; // new
+	assign ep02wire = w_M2_port_wi_sadrs_h008;
+wire [31:0] w_M2_port_wi_sadrs_h014; // DACX_WI
+	assign ep06wire = w_M2_port_wi_sadrs_h014
+wire [31:0] w_M2_port_wi_sadrs_h018; // CLKD_WI
+	assign ep06wire = w_M2_port_wi_sadrs_h018
+wire [31:0] w_M2_port_wi_sadrs_h01C; // SPIO_WI
+	assign ep07wire = w_M2_port_wi_sadrs_h01C
+wire [31:0] w_M2_port_wi_sadrs_h020; // DACZ_DAT_WI
+	assign ep08wire = w_M2_port_wi_sadrs_h020
+wire [31:0] w_M2_port_wi_sadrs_h024; // TRIG_DAT_WI
+	assign ep09wire = w_M2_port_wi_sadrs_h024
+wire [31:0] w_M2_port_wi_sadrs_h04C; // MEM_WI 
+	assign ep13wire = w_M2_port_wi_sadrs_h04C
+wire [31:0] w_M2_port_wi_sadrs_h048; // MEM_FDAT_WI
+	assign ep12wire = w_M2_port_wi_sadrs_h048
 
 // wo
-wire [31:0] w_M2_port_wo_sadrs_h080 = w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
-wire [31:0] w_M2_port_wo_sadrs_h088 = w_TIMESTAMP_WO ; 
-wire [31:0] w_M2_port_wo_sadrs_h08C = w_TEST_MON_WO  ; 
-
-wire [31:0] w_M2_port_wo_sadrs_h094; // new
-wire [31:0] w_M2_port_wo_sadrs_h098; // new
-wire [31:0] w_M2_port_wo_sadrs_h09C; // new
-wire [31:0] w_M2_port_wo_sadrs_h0A0; // new
-wire [31:0] w_M2_port_wo_sadrs_h0A4; // new
-
-wire [31:0] w_M2_port_wo_sadrs_h0C8 = w_SSPI_FLAG_WO ;
-wire [31:0] w_M2_port_wo_sadrs_h0E8 = w_XADC_TEMP_WO ; // XADC_TEMP_WO		0x0E8	wo3A
-wire [31:0] w_M2_port_wo_sadrs_h0EC = w_XADC_VOLT_WO ; 
-wire [31:0] w_M2_port_wo_sadrs_h380 = 32'h33AA_CC55  ; // SSPI_TEST_WO		0x380	NA  // known pattern
+wire [31:0] w_M2_port_wo_sadrs_h080 = ep20wire; // w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
+wire [31:0] w_M2_port_wo_sadrs_h088 = ep22wire; // w_TIMESTAMP_WO ; 
+wire [31:0] w_M2_port_wo_sadrs_h08C = ep23wire; // w_TEST_MON_WO  ; 
+wire [31:0] w_M2_port_wo_sadrs_h094 = ep25wire; // DACX_WO
+wire [31:0] w_M2_port_wo_sadrs_h098 = ep26wire; // CLKD_WO
+wire [31:0] w_M2_port_wo_sadrs_h09C = ep27wire; // SPIO_WO
+wire [31:0] w_M2_port_wo_sadrs_h0A0 = ep28wire; // DACZ_DAT_WO
+wire [31:0] w_M2_port_wo_sadrs_h0A4 = ep29wire; // TRIG_DAT_WO
+wire [31:0] w_M2_port_wo_sadrs_h0C8 = ep32wire; // w_SSPI_FLAG_WO ;
+wire [31:0] w_M2_port_wo_sadrs_h0E8 = ep3Awire; // w_XADC_TEMP_WO ; // XADC_TEMP_WO		0x0E8	wo3A
+wire [31:0] w_M2_port_wo_sadrs_h0EC = ep3Bwire; // w_XADC_VOLT_WO ; 
+wire [31:0] w_M2_port_wo_sadrs_h380 = 32'h33AA_CC55  ; // 0x380	NA  // known pattern
 
 // ti 
 wire w_M2_ck__sadrs_h114;  wire [31:0] w_M2_port_ti_sadrs_h114; // new

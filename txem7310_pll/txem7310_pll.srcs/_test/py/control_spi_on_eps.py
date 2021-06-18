@@ -76,6 +76,15 @@ class control_spi (eps.EPS_Dev):
         #
         return ep_data # 32 bits
     #
+    #
+    def pgu_get_fpga_id(self):
+        ret = self.S3100_PGU_TSPI__read_ep_data(0x080)
+        return ret
+    #
+    def pgu_get_fpga_temp(self):
+        ret = self.S3100_PGU_TSPI__read_ep_data(0x0E8)
+        return ret # mC
+    #
     #  
     pass
 
@@ -108,7 +117,7 @@ def control_spi__test():
     ## init MSPI
     ctl.MSPI_init()
 
-    ## send MSPI frames
+    ## send test MSPI frame
     data_C = 0x10   ##// control data 6bit for read 
     data_A = 0x380  ##// address data 10bit for address of known pattern  0x_33AA_CC55
     data_D = 0x0000 ##// MOSI data 16bit for reading (XXXX)
@@ -118,11 +127,19 @@ def control_spi__test():
     print('>>> {} = 0x{:04X}'.format('data_D', data_D))
     print('>>> {} = 0x{:04X}'.format('data_B', data_B))
     
-    # call functions - 32 bits
+    ## call test ep_data functions - 32 bits
     ep_adrs = 0x380
     ep_data = ctl.S3100_PGU_TSPI__read_ep_data(ep_adrs)
-    print('>>> {} = 0x{:03X}'.format('data_C', ep_adrs))
-    print('>>> {} = 0x{:08X}'.format('data_A', ep_data))
+    print('>>> {} = 0x{:03X}'.format('ep_adrs', ep_adrs))
+    print('>>> {} = 0x{:08X}'.format('ep_data', ep_data))
+
+    ## pgu functions
+    fpga_id = ctl.pgu_get_fpga_id()
+    print('>>> {} = 0x{:08X}'.format('fpga_id', fpga_id))
+
+    fpga_temp = ctl.pgu_get_fpga_temp()
+    print('>>> {} = {}[C]'.format('fpga_temp', fpga_temp/1000))
+
 
     ## reset MSPI and control off MSPI
     ctl.MSPI_reset()
