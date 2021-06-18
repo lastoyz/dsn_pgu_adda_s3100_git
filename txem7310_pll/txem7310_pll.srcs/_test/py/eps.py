@@ -302,7 +302,7 @@ class EPS_Dev:
 	#
 	def GetSerialNumber(self):
 		ret = EPS_Dev.f_scpi_cmd(self.ss, cmd_str__IDN).decode() # will revise
-		return ret # must come from board later 
+		return ret # must come from board later # such as board id on eeprom ...
 	def ConfigureFPGA(self, opt=[]):
 		# not support
 		pass
@@ -592,9 +592,30 @@ _host_ips__PGU = [
 	'192.168.168.127',
 	'192.168.168.143']
 
+_host_ips__S3100_PGU = [	
+	'192.168.100.48',
+	'192.168.100.49',
+	'192.168.100.50',
+	'192.168.100.51',
+	'192.168.100.52',
+	'192.168.100.53',
+	'192.168.100.54',
+	'192.168.100.55',
+	'192.168.100.56',
+	'192.168.100.57',
+	'192.168.100.58',
+	'192.168.100.59',
+	'192.168.100.60',
+	'192.168.100.61',
+	'192.168.100.62',
+	'192.168.100.63',
+	'192.168.168.143']
+
+
 #_host_ips_ = _host_ips__MHVSU
-_host_ips_ = _host_ips__CMU
+#_host_ips_ = _host_ips__CMU
 #_host_ips_ = _host_ips__PGU
+_host_ips_ = _host_ips__S3100_PGU
 
 ###########################################################################
 ### ping ###
@@ -657,8 +678,6 @@ def set_host_ip_by_ping():
 ###########################################################################
 # TODO: test function
 
-
-
 def eps_test():
 	print('#################################################')
 
@@ -672,8 +691,9 @@ def eps_test():
 	#_host_,_port_ = set_host_ip_by_ping()
 	#
 
-	_host_ = '192.168.100.127' # PGU test
+	#_host_ = '192.168.100.127' # PGU test
 	#_host_ = '192.168.168.143' # test
+	_host_ = '192.168.100.62' # test S3100-PGU-TSPI
 
 	_port_ = 5025
 	#
@@ -800,7 +820,7 @@ def eps_test():
 	##//  bit[15:0] = data_B // MISO data[15:0]	
 	
 
-	## reset 
+	## reset MSPI
 	dev.ActivateTriggerIn(0x42, 0) # reset_trig
 	cnt_loop = 0
 	while True:
@@ -810,7 +830,7 @@ def eps_test():
 			print('reset done !! @ ' + repr(cnt_loop))
 			break
 	
-	## init 
+	## init MSPI
 	dev.ActivateTriggerIn(0x42, 1) # init_trig
 	cnt_loop = 0
 	while True:

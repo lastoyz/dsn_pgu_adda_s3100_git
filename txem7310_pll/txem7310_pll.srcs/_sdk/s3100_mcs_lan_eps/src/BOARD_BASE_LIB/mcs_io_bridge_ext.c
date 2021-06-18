@@ -1852,28 +1852,9 @@ u8 chk_all_zeros (u16 len_b16, u8 *p_data_b8) {
 //}
 
 
+// === TODO: S3100-PGU functions === //{
+#ifdef _S3100_PGU_
 
-// === TODO: PGU-CPU functions === //{
-#ifdef _PGU_CPU_
-
-// note : ADRS_BASE_PGU               --> MCS_EP_BASE
-// note : EP_ADRS__FPGA_IMAGE_ID__PGU --> EP_ADRS_PGU__FPGA_IMAGE_ID
-// note : EP_ADRS__XADC_TEMP__PGU     --> EP_ADRS_PGU__XADC_TEMP
-// note : EP_ADRS__SPIO_WI__PGU       --> EP_ADRS_PGU__SPIO_WI
-// note : EP_ADRS__SPIO_TI__PGU       --> EP_ADRS_PGU__SPIO_TI
-// note : EP_ADRS__SPIO_WO__PGU       --> EP_ADRS_PGU__SPIO_WO
-// note : EP_ADRS__CLKD_TI__PGU       --> EP_ADRS_PGU__CLKD_TI
-// note : EP_ADRS__CLKD_WO__PGU       --> EP_ADRS_PGU__CLKD_WO
-// note : EP_ADRS__CLKD_WI__PGU       --> EP_ADRS_PGU__CLKD_WI
-// note : EP_ADRS__DACX_TI__PGU       --> EP_ADRS_PGU__DACX_TI
-// note : EP_ADRS__DACX_WO__PGU       --> EP_ADRS_PGU__DACX_WO
-// note : EP_ADRS__DACX_WI__PGU       --> EP_ADRS_PGU__DACX_WI
-// note : EP_ADRS__TEST_IO_MON__PGU   --> EP_ADRS_PGU__TEST_IO_MON
-// note : EP_ADRS__DACX_DAT_WI__PGU   --> EP_ADRS_PGU__DACX_DAT_WI
-// note : EP_ADRS__DACX_DAT_TI__PGU   --> EP_ADRS_PGU__DACX_DAT_TI
-// note : EP_ADRS__DACX_DAT_WO__PGU   --> EP_ADRS_PGU__DACX_DAT_WO
-// note : EP_ADRS__DAC0_DAT_PI__PGU   --> EP_ADRS_PGU__DAC0_DAT_PI
-// note : EP_ADRS__DAC1_DAT_PI__PGU   --> EP_ADRS_PGU__DAC1_DAT_PI
 
 // common //{
 	
@@ -1890,7 +1871,6 @@ u32  pgu_read_fpga_temperature() {
 	return read_fpga_temperature();	
 }
 
-	
 //}
 
 
@@ -1898,7 +1878,7 @@ u32  pgu_read_fpga_temperature() {
 
 // for master_spi_mcp23s17.v
 
-u32  pgu_spio_send_spi_frame(u32 frame_data) {
+u32  pgu_spio_send_spi_frame(u32 frame_data) { // EP access
 	//dev = lib_ctrl.dev
 	//EP_ADRS = conf.OK_EP_ADRS_CONFIG
 	//#
@@ -1913,13 +1893,13 @@ u32  pgu_spio_send_spi_frame(u32 frame_data) {
 	//#
 	//# write control 
 	//dev.SetWireInValue(wi,frame_data,0xFFFFFFFF) # (ep,val,mask)
-	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__SPIO_WI, frame_data, MASK_ALL);
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__SPIO_WI, frame_data, MASK_ALL); // EP_ADRS_PGU__SPIO_WI 
 	//dev.UpdateWireIns()
 	//#
 	//# trig spi frame
 	//#   wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1];
 	//ret = dev.ActivateTriggerIn(ti, 1) # (ep,bit) 
-	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__SPIO_TI, 1);
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__SPIO_TI, 1); // EP_ADRS_PGU__SPIO_TI
 	//#
 	//# check spi frame done
 	//#   assign w_SPIO_WO[25] = w_done_SPIO_SPI_frame;
@@ -1932,7 +1912,7 @@ u32  pgu_spio_send_spi_frame(u32 frame_data) {
 	while (1) {
 		//dev.UpdateWireOuts()
 		//flag = dev.GetWireOutValue(wo)
-		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__SPIO_WO, MASK_ALL);
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__SPIO_WO, MASK_ALL); // EP_ADRS_PGU__SPIO_WO
 		
 		flag_done = (flag&(1<<bit_loc))>>bit_loc;
 		//#print('{} = {:#010x}'.format('flag',flag))
@@ -2046,7 +2026,7 @@ u32  pgu_spio_ext_relay_readback() {
 }
 
 
-// TODO: AUX IO controls
+//// TODO: AUX IO controls on 6-pin connector //{
 //
 // initialize   : pgu_spio_ext__aux_init() 
 // write outputs: pgu_spio_ext__aux_out ()
@@ -2358,6 +2338,1499 @@ void pgu_spio_ext__send_aux_IO_DIR  (u32 val_b16) {
 void pgu_spio_ext__send_aux_IO_GPIO (u32 val_b16) {
 	pgu_spio_ext__aux_reg_write_b16(0x12, val_b16);
 }
+
+//}
+
+
+//}
+
+
+// CLKD //{
+
+// reset signal to CLKD device
+u32  pgu_clkd_init() { // EP access
+	//
+	//ret = dev.ActivateTriggerIn(ti, 0) # (ep,bit) 
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__CLKD_TI, 0);
+	//
+	u32 cnt_done = 0    ;
+	u32 MAX_CNT  = 20000;
+	u32 bit_loc  = 24   ;
+	u32 flag            ;
+	u32 flag_done       ;
+	//
+	while (1) {
+		//flag = dev.GetWireOutValue(wo)
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__CLKD_WO, MASK_ALL);
+		flag_done = (flag&(1<<bit_loc))>>bit_loc;
+		if (flag_done==1)
+			break;
+		cnt_done += 1;
+		if (cnt_done>=MAX_CNT)
+			break;
+	}
+	//
+	return flag_done;
+}
+
+// clkd_send_spi_frame
+u32  pgu_clkd_send_spi_frame(u32 frame_data) { // EP access
+	//
+	// write control 
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__CLKD_WI, frame_data, MASK_ALL);
+	//
+	// trig spi frame
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__CLKD_TI, 1);
+	//
+	// check spi frame done
+	u32 cnt_done = 0    ;
+	u32 MAX_CNT  = 20000;
+	u32 bit_loc  = 25   ;
+	u32 flag;
+	u32 flag_done;
+	// check if done is low // when sclk is slow < 1MHz
+	while (1) {
+		//
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__CLKD_WO, MASK_ALL);
+		flag_done = (flag&(1<<bit_loc))>>bit_loc;
+		//
+		if (flag_done==0)
+			break;
+		cnt_done += 1;
+		if (cnt_done>=MAX_CNT)
+			break;
+	}
+	// check if done is high
+	while (1) {
+		//
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__CLKD_WO, MASK_ALL);
+		flag_done = (flag&(1<<bit_loc))>>bit_loc;
+		//
+		if (flag_done==1)
+			break;
+		cnt_done += 1;
+		if (cnt_done>=MAX_CNT)
+			break;
+	}
+	//
+	// copy received data
+	u32 val_recv = flag & 0x000000FF;
+	//
+	return val_recv;
+}
+
+// clkd_reg_write_b8
+u32  pgu_clkd_reg_write_b8(u32 reg_adrs_b10, u32 val_b8) {
+	//
+	u32 R_W_bar     = 0           ;
+	u32 byte_mode_W = 0x0         ;
+	u32 reg_adrs    = reg_adrs_b10;
+	u32 val         = val_b8      ;
+	//
+	u32 framedata = (R_W_bar<<31) + (byte_mode_W<<29) + (reg_adrs<<16) + val;
+	//
+	return pgu_clkd_send_spi_frame(framedata);
+}
+
+// clkd_reg_read_b8
+u32  pgu_clkd_reg_read_b8(u32 reg_adrs_b10) {
+	//
+	u32 R_W_bar     = 1           ;
+	u32 byte_mode_W = 0x0         ;
+	u32 reg_adrs    = reg_adrs_b10;
+	u32 val         = 0xFF        ;
+	//
+	u32 framedata = (R_W_bar<<31) + (byte_mode_W<<29) + (reg_adrs<<16) + val;
+	//
+	return pgu_clkd_send_spi_frame(framedata);
+}
+
+// write check 
+u32  pgu_clkd_reg_write_b8_check (u32 reg_adrs_b10, u32 val_b8) {
+	u32 tmp;
+	u32 retry_count = 0;
+	while(1) {
+		// write 
+		pgu_clkd_reg_write_b8(reg_adrs_b10, val_b8);
+		// readback
+		tmp = pgu_clkd_reg_read_b8(reg_adrs_b10); // readback 0x18
+		if (tmp == val_b8) 
+			break;
+		retry_count++;
+	}
+	return retry_count;
+}
+
+// read check 
+u32  pgu_clkd_reg_read_b8_check (u32 reg_adrs_b10, u32 val_b8) {
+	u32 tmp;
+	u32 retry_count = 0;
+	while(1) {
+		// read
+		tmp = pgu_clkd_reg_read_b8(reg_adrs_b10); // readback 0x18
+		if (tmp == val_b8) 
+			break;
+		retry_count++;
+	}
+	return retry_count;
+}
+
+// setup CLKD 
+u32  pgu_clkd_setup(u32 freq_preset) {
+	u32 ret = freq_preset;
+	u32 tmp = 0;
+	
+	// write conf : SDO active 0x99
+	tmp += pgu_clkd_reg_write_b8_check(0x000,0x99);
+
+	// read conf 
+	//tmp = pgu_clkd_reg_read_b8_check(0x000, 0x18); // readback 0x18
+	tmp += pgu_clkd_reg_read_b8_check(0x000, 0x99); // readback 0x99
+	
+	// read ID
+	tmp += pgu_clkd_reg_read_b8_check(0x003, 0x41); // read ID 0x41 
+	
+	
+	// power down for output ports
+	// ## LVPECL outputs:
+	// ##   0x0F0 OUT0 ... 0x0A for power down; 0x08 for power up.
+	// ##   0x0F1 OUT1 ... 0x0A for power down; 0x08 for power up.
+	// ##   0x0F2 OUT2 ... 0x0A for power down; 0x08 for power up. // TO DAC 
+	// ##   0x0F3 OUT3 ... 0x0A for power down; 0x08 for power up. // TO DAC 
+	// ##   0x0F4 OUT4 ... 0x0A for power down; 0x08 for power up.
+	// ##   0x0F5 OUT5 ... 0x0A for power down; 0x08 for power up.
+	// ## LVDS outputs:
+	// ##   0x140 OUT6 ... 0x43 for power down; 0x42 for power up. // TO REF OUT
+	// ##   0x141 OUT7 ... 0x43 for power down; 0x42 for power up.
+	// ##   0x142 OUT8 ... 0x43 for power down; 0x42 for power up. // TO FPGA
+	// ##   0x143 OUT9 ... 0x43 for power down; 0x42 for power up.
+	// ##
+	tmp += pgu_clkd_reg_write_b8_check(0x0F0,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F1,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F2,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F3,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F4,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F5,0x0A);
+	// ##
+	tmp += pgu_clkd_reg_write_b8_check(0x140,0x43);
+	tmp += pgu_clkd_reg_write_b8_check(0x141,0x43);
+	tmp += pgu_clkd_reg_write_b8_check(0x142,0x43);
+	tmp += pgu_clkd_reg_write_b8_check(0x143,0x43);
+
+	// update registers // no readback
+	pgu_clkd_reg_write_b8(0x232,0x01); 
+	//
+	
+	//// clock distribution setting
+	tmp += pgu_clkd_reg_write_b8_check(0x010,0x7D); //# PLL power-down
+	
+	if (freq_preset == 4000) { // 400MHz // OK
+		//# 400MHz common = 400MHz/1
+		tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x01); //# Bypass VCO divider # for 400MHz common clock 
+		//
+		tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+		tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+	}
+	else if (freq_preset == 2000) { // 200MHz // OK
+		//# 200MHz common = 400MHz/(2+0)
+		tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x00); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+		tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+		// ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+		tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+	}
+	else if (freq_preset == 1000) { // 100MHz // OK
+		//# 100MHz common = 400MHz/(2+2)
+		tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x02); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+		tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+		// ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+		tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+	}
+	else if (freq_preset == 800) { // 80MHz //OK
+		//# 80MHz common = 400MHz/(2+3)
+		tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x03); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+		tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+		// ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+		tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+	}
+	else if (freq_preset == 500) { // 50MHz //OK
+		//# 200MHz common = 400MHz/(2+0)
+		tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x00); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+		tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+		// ()/4
+		tmp += pgu_clkd_reg_write_b8_check(0x193,0x11); //# DVD1 div 2+1+1=4 --> DACx: ()/4 
+		tmp += pgu_clkd_reg_write_b8_check(0x194,0x00); //# DVD1 bypass off 
+		tmp += pgu_clkd_reg_write_b8_check(0x199,0x00); //# DVD3.1 div 2+0+0=2 
+		tmp += pgu_clkd_reg_write_b8_check(0x19B,0x00); //# DVD3.2 div 2+0+0=2  --> REFo: ()/4
+		tmp += pgu_clkd_reg_write_b8_check(0x19C,0x00); //# DVD3.1, DVD3.2 all bypass off
+		tmp += pgu_clkd_reg_write_b8_check(0x19E,0x00); //# DVD4.1 div 2+0+0=2 
+		tmp += pgu_clkd_reg_write_b8_check(0x1A0,0x00); //# DVD4.2 div 2+0+0=2  --> FPGA: ()/4
+		tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x00); //# DVD4.1, DVD4.2 all bypass off
+	}
+	else if (freq_preset == 200) { // 20MHz //OK
+		//# 80MHz common = 400MHz/(2+3)
+		tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x03); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+		tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+		// ()/4  
+		tmp += pgu_clkd_reg_write_b8_check(0x193,0x11); //# DVD1 div 2+1+1=4 --> DACx: ()/4 
+		tmp += pgu_clkd_reg_write_b8_check(0x194,0x00); //# DVD1 bypass off 
+		tmp += pgu_clkd_reg_write_b8_check(0x199,0x00); //# DVD3.1 div 2+0+0=2 
+		tmp += pgu_clkd_reg_write_b8_check(0x19B,0x00); //# DVD3.2 div 2+0+0=2  --> REFo: ()/4
+		tmp += pgu_clkd_reg_write_b8_check(0x19C,0x00); //# DVD3.1, DVD3.2 all bypass off
+		tmp += pgu_clkd_reg_write_b8_check(0x19E,0x00); //# DVD4.1 div 2+0+0=2 
+		tmp += pgu_clkd_reg_write_b8_check(0x1A0,0x00); //# DVD4.2 div 2+0+0=2  --> FPGA: ()/4
+		tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x00); //# DVD4.1, DVD4.2 all bypass off
+	}
+	//  else if (freq_preset == 100) { // 10MHz //NG
+	//  	//# 80MHz common = 400MHz/(2+3)
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x03); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+	//  	// ()/8
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x193,0x33); //# DVD1 div 2+3+3=8 --> DACx: ()/8
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x194,0x00); //# DVD1 bypass off 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x199,0x00); //# DVD3.1 div 2+0+0=2 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19B,0x11); //# DVD3.2 div 2+1+1=4  --> REFo: ()/8
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x00); //# DVD3.1, DVD3.2 all bypass off
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19E,0x00); //# DVD4.1 div 2+0+0=2 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1A0,0x11); //# DVD4.2 div 2+1+1=4  --> FPGA: ()/8
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x00); //# DVD4.1, DVD4.2 all bypass off
+	//  }
+	//  else if (freq_preset == 50) { // 5MHz //NG
+	//  	//# 80MHz common = 400MHz/(2+3)
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x03); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+	//  	// ()/16 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x193,0x77); //# DVD1 div 2+7+7=16 --> DACx: ()/16
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x194,0x00); //# DVD1 bypass off 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x199,0x00); //# DVD3.1 div 2+0+0=2 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19B,0x33); //# DVD3.2 div 2+3+3=8  --> REFo: ()/16
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x00); //# DVD3.1, DVD3.2 all bypass off
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19E,0x00); //# DVD4.1 div 2+0+0=2 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1A0,0x33); //# DVD4.2 div 2+3+3=8  --> FPGA: ()/16
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x00); //# DVD4.1, DVD4.2 all bypass off
+	//  }
+	//  else if (freq_preset == 25) { // 2.5MHz // NG
+	//  	//# 80MHz common = 400MHz/(2+3)
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x03); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+	//  	// ()/32
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x193,0xFF); //# DVD1 div 2+15+15=32 --> DACx: ()/32
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x194,0x00); //# DVD1 bypass off 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x199,0x11); //# DVD3.1 div 2+1+1=4 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19B,0x33); //# DVD3.2 div 2+3+3=8  --> REFo: ()/32
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x00); //# DVD3.1, DVD3.2 all bypass off
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x19E,0x11); //# DVD4.1 div 2+1+1=4 
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1A0,0x33); //# DVD4.2 div 2+3+3=8  --> FPGA: ()/32
+	//  	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x00); //# DVD4.1, DVD4.2 all bypass off
+	//  }
+	else {
+		// return 0
+		ret = 0;
+		//# 200MHz common = 400MHz/(2+0)
+		tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x00); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+		tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+		// ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+		tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+		tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+	}
+	
+	// power up for clock outs
+	tmp += pgu_clkd_reg_write_b8_check(0x0F0,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F1,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F2,0x08); //$$ power up
+	tmp += pgu_clkd_reg_write_b8_check(0x0F3,0x08); //$$ power up
+	tmp += pgu_clkd_reg_write_b8_check(0x0F4,0x0A);
+	tmp += pgu_clkd_reg_write_b8_check(0x0F5,0x0A);
+	// ##
+	tmp += pgu_clkd_reg_write_b8_check(0x140,0x42); //$$ power up
+	tmp += pgu_clkd_reg_write_b8_check(0x141,0x43);
+	tmp += pgu_clkd_reg_write_b8_check(0x142,0x42); //$$ power up
+	tmp += pgu_clkd_reg_write_b8_check(0x143,0x43);
+	
+	//// readbacks
+	//pgu_clkd_reg_read_b8(0x1E0);
+	//pgu_clkd_reg_read_b8(0x1E1);
+	//pgu_clkd_reg_read_b8(0x193);
+	//pgu_clkd_reg_read_b8(0x194);
+	//pgu_clkd_reg_read_b8(0x199);
+	//pgu_clkd_reg_read_b8(0x19B);
+	//pgu_clkd_reg_read_b8(0x19C);
+	//pgu_clkd_reg_read_b8(0x19E);
+	//pgu_clkd_reg_read_b8(0x1A0);
+	//pgu_clkd_reg_read_b8(0x1A1);
+	
+	
+	// update registers // no readback
+	pgu_clkd_reg_write_b8(0x232,0x01); 
+	
+	// check if retry count > 0
+	if (tmp>0) {
+		ret = 0;
+	}
+	
+	return ret;
+}
+
+//}
+
+
+// DACX //{
+
+// dacx_init
+u32  pgu_dacx_init() { // EP access
+	//
+	//ret = dev.ActivateTriggerIn(ti, 0) # (ep,bit) 
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACX_TI, 0);
+	//
+	u32 cnt_done = 0    ;
+	u32 MAX_CNT  = 20000;
+	u32 bit_loc  = 24   ;
+	u32 flag            ;
+	u32 flag_done       ;
+	//
+	while (1) {
+		//flag = dev.GetWireOutValue(wo)
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACX_WO, MASK_ALL);
+		flag_done = (flag&(1<<bit_loc))>>bit_loc;
+		if (flag_done==1)
+			break;
+		cnt_done += 1;
+		if (cnt_done>=MAX_CNT)
+			break;
+	}
+	//
+	return flag_done;
+}
+
+
+//  wire [31:0] w_DACX_WI = (w_mcs_ep_wi_en)? w_port_wi_05_1 : ep05wire; 
+//  //  bit[30]    = dac1_dco_clk_rst      
+//  //  bit[29]    = dac0_dco_clk_rst      
+//  //  bit[28]    = clk_dac_clk_rst       
+//  //  bit[27]    = dac1_clk_dis          
+//  //  bit[26]    = dac0_clk_dis          
+//  //  bit[24]    = DACx_CS_id            
+//  //  bit[23]    = DACx_R_W_bar          
+//  //  bit[22:21] = DACx_byte_mode_N[1:0] 
+//  //  bit[20:16] = DACx_reg_adrs_A [4:0] 
+//  //  bit[7:0]   = DACx_wr_D[7:0]        
+
+// dacx_fpga_pll_rst
+u32  pgu_dacx_fpga_pll_rst(u32 clkd_out_rst, u32 dac0_dco_rst, u32 dac1_dco_rst) { // EP access
+	u32 control_data;
+	u32 status_pll;
+	
+	// control data
+	control_data = (dac1_dco_rst<<30) + (dac0_dco_rst<<29) + (clkd_out_rst<<28);
+	
+	// write control 
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACX_WI, control_data, 0x70000000);
+	
+	// read status
+	//   assign w_TEST_IO_MON[31] = S_IO_2; //
+	//   assign w_TEST_IO_MON[30] = S_IO_1; //
+	//   assign w_TEST_IO_MON[29] = S_IO_0; //
+	//   assign w_TEST_IO_MON[28:27] =  2'b0;
+	//   assign w_TEST_IO_MON[26] = dac1_dco_clk_locked;
+	//   assign w_TEST_IO_MON[25] = dac0_dco_clk_locked;
+	//   assign w_TEST_IO_MON[24] = clk_dac_locked;
+	//
+	//   assign w_TEST_IO_MON[23:20] =  4'b0;
+	//   assign w_TEST_IO_MON[19] = clk4_locked;
+	//   assign w_TEST_IO_MON[18] = clk3_locked;
+	//   assign w_TEST_IO_MON[17] = clk2_locked;
+	//   assign w_TEST_IO_MON[16] = clk1_locked;
+	//
+	//   assign w_TEST_IO_MON[15: 0] = 16'b0;	
+	
+	status_pll = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_IO_MON, 0x07000000);
+	//
+	return status_pll;
+}
+
+u32  pgu_dacx_fpga_clk_dis(u32 dac0_clk_dis, u32 dac1_clk_dis) { // EP access
+	u32 ret = 0;
+	u32 control_data;
+	
+	// control data
+	control_data = (dac1_clk_dis<<27) + (dac0_clk_dis<<26);
+
+	// write control 
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACX_WI, control_data, (0x03 << 26));
+	
+	return ret;
+}
+
+
+// dacx_send_spi_frame
+u32  pgu_dacx_send_spi_frame(u32 frame_data) { // EP access
+	//
+	// write control 
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACX_WI, frame_data, MASK_ALL);
+	//
+	// trig spi frame
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACX_TI, 1);
+	//
+	// check spi frame done
+	u32 cnt_done = 0    ;
+	u32 MAX_CNT  = 20000;
+	u32 bit_loc  = 25   ;
+	u32 flag;
+	u32 flag_done;
+	//while True:
+	while (1) {
+		//
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACX_WO, MASK_ALL);
+		flag_done = (flag&(1<<bit_loc))>>bit_loc;
+		//
+		if (flag_done==1)
+			break;
+		cnt_done += 1;
+		if (cnt_done>=MAX_CNT)
+			break;
+	}
+	//
+	u32 val_recv = flag & 0x000000FF;
+	//
+	return val_recv;
+}
+
+// dac0_reg_write_b8
+u32  pgu_dac0_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
+	//
+	u32 CS_id       = 0          ;
+	u32 R_W_bar     = 0          ;
+	u32 byte_mode_N = 0x0        ;
+	u32 reg_adrs    = reg_adrs_b5;
+	u32 val         = val_b8     ;
+	//
+	u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+	//
+	return pgu_dacx_send_spi_frame(framedata);
+}
+
+// dac0_reg_read_b8
+u32  pgu_dac0_reg_read_b8(u32 reg_adrs_b5) {
+	//
+	u32 CS_id       = 0          ;
+	u32 R_W_bar     = 1          ;
+	u32 byte_mode_N = 0x0        ;
+	u32 reg_adrs    = reg_adrs_b5;
+	u32 val         = 0xFF       ;
+	//
+	u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+	//
+	return pgu_dacx_send_spi_frame(framedata);
+}
+
+// dac1_reg_write_b8
+u32  pgu_dac1_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
+	//
+	u32 CS_id       = 1          ;
+	u32 R_W_bar     = 0          ;
+	u32 byte_mode_N = 0x0        ;
+	u32 reg_adrs    = reg_adrs_b5;
+	u32 val         = val_b8     ;
+	//
+	u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+	//
+	return pgu_dacx_send_spi_frame(framedata);
+}
+
+// dac1_reg_read_b8
+u32  pgu_dac1_reg_read_b8(u32 reg_adrs_b5) {
+	//
+	u32 CS_id       = 1          ;
+	u32 R_W_bar     = 1          ;
+	u32 byte_mode_N = 0x0        ;
+	u32 reg_adrs    = reg_adrs_b5;
+	u32 val         = 0xFF       ;
+	//
+	u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+	//
+	return pgu_dacx_send_spi_frame(framedata);
+}
+
+//$$ dac input delay tap calibration
+//$$   set initial smp value for input delay tap : try 8
+//     https://www.analog.com/media/en/technical-documentation/data-sheets/AD9780_9781_9783.pdf
+//           
+//     The nominal step size for SET and HLD is 80 ps. 
+//     The nominal step size for SMP is 160 ps.
+//
+//     400MHz 2.5ns 2500ps  ... 1/3 position ... SMP 2500/160/3 ~ 7.8
+//     400MHz 2.5ns 2500ps  ... 1/2 position ... SMP 2500/160/3 ~ 5
+//     200MHz 5ns   5000ps  ... 1/3 position ... SMP 5000/160/3 ~ 10
+//     200MHz 5ns   5000ps  ... 1/4 position ... SMP 5000/160/4 ~ 7.8
+//
+//     build timing data array
+//       SMP n, SET 0, HLD 0, ... record SEEK
+//       SMP n, SET 0, HLD increasing until SEEK toggle ... to find the hold time 
+//       SMP n, HLD 0, SET increasing until SEEK toggle ... to find the setup time 
+//
+//
+//    simple method 
+//       SET 0, HLD 0, SMP increasing ... record SEEK bit
+//       find the center of SMP of the first SEEK high range.
+//   
+
+u32  pgu_dacx_cal_input_dtap() {
+	
+	// SET  = BIT[7:4] @ 0x04
+	// HLD  = BIT[3:0] @ 0x04
+	// SMP  = BIT[4:0] @ 0x05
+	// SEEK = BIT[0]   @ 0x06
+
+	u32 val;
+	u32 val_0_pre = 0;
+	u32 val_1_pre = 0;
+	u32 val_0 = 0;
+	u32 val_1 = 0;
+	u32 ii;
+	u32 val_0_seek_low = -1; // loc of rise
+	u32 val_0_seek_hi  = -1; // loc of fall
+	u32 val_1_seek_low = -1; // loc of rise
+	u32 val_1_seek_hi  = -1; // loc of fall
+	u32 val_0_center   = 0; 
+	u32 val_1_center   = 0; 
+	
+	//// new try: weighted sum approach
+	u32 val_0_seek_low_found = 0;
+	u32 val_0_seek_hi__found = 0;
+	u32 val_0_seek_w_sum     = 0;
+	u32 val_0_seek_w_sum_fin = 0;
+	u32 val_0_cnt_seek_hi    = 0;
+	u32 val_0_center_new     = 0;
+	u32 val_1_seek_low_found = 0;
+	u32 val_1_seek_hi__found = 0;
+	u32 val_1_seek_w_sum     = 0;
+	u32 val_1_seek_w_sum_fin = 0;
+	u32 val_1_cnt_seek_hi    = 0;
+	u32 val_1_center_new     = 0;
+	
+	xil_printf(">>>>>> pgu_dacx_cal_input_dtap: \r\n");
+	//xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_WI_b32, 0x13);
+	
+	ii=0;
+	
+	// make timing table:
+	//  SMP  DAC0_SEEK  DAC1_SEEK 
+	xil_printf("|------------------------------|\r\n");
+	xil_printf("| SMP || DAC0_SEEK | DAC1_SEEK |\r\n");
+	xil_printf("|-----||-----------|-----------|\r\n");
+	while (1) {
+		//
+		pgu_dac0_reg_write_b8(0x05, ii); // test SMP
+		pgu_dac1_reg_write_b8(0x05, ii); // test SMP
+		//
+		val       = pgu_dac0_reg_read_b8(0x06);
+		val_0_pre = val_0;
+		val_0     = val & 0x01;
+		//xil_printf("read dac0 reg: 0x%02X @ 0x%02X with SMP %02d \r\n", val, 0x06, ii);
+		val       = pgu_dac1_reg_read_b8(0x06);
+		val_1_pre = val_1;
+		val_1     = val & 0x01;
+		//xil_printf("read dac1 reg: 0x%02X @ 0x%02X with SMP %02d \r\n", val, 0x06, ii);
+		
+		// report
+		xil_printf("| %3d || %9d | %9d |\r\n", ii, val_0, val_1);
+		
+		// detection rise and fall
+		if (val_0_seek_low == -1 && val_0_pre==0 && val_0==1)
+			val_0_seek_low = ii;
+		if (val_0_seek_hi  == -1 && val_0_pre==1 && val_0==0)
+			val_0_seek_hi  = ii-1;
+		if (val_1_seek_low == -1 && val_1_pre==0 && val_1==1)
+			val_1_seek_low = ii;
+		if (val_1_seek_hi  == -1 && val_1_pre==1 && val_1==0)
+			val_1_seek_hi  = ii-1;
+		
+		//// new try 
+		if (val_0_seek_low_found == 0 && val_0==0)
+			val_0_seek_low_found = 1;
+		if (val_0_seek_low_found == 1 && val_0_seek_hi__found == 0 && val_0==1)
+			val_0_seek_hi__found = 1;
+		if (val_0_seek_low_found == 1 && val_0_seek_hi__found == 1 && val_0==0)
+			val_0_seek_w_sum_fin = 1;
+		if (val_0_seek_hi__found == 1 && val_0_seek_w_sum_fin == 0) {
+			val_0_seek_w_sum    += ii;
+			val_0_cnt_seek_hi   += 1;
+		}
+		if (val_1_seek_low_found == 0 && val_1==0)
+			val_1_seek_low_found = 1;
+		if (val_1_seek_low_found == 1 && val_1_seek_hi__found == 0 && val_1==1)
+			val_1_seek_hi__found = 1;
+		if (val_1_seek_low_found == 1 && val_1_seek_hi__found == 1 && val_1==0)
+			val_1_seek_w_sum_fin = 1;
+		if (val_1_seek_hi__found == 1 && val_1_seek_w_sum_fin == 0) {
+			val_1_seek_w_sum    += ii;
+			val_1_cnt_seek_hi   += 1;
+		}
+		
+		if (ii==31) 
+			break;
+		else 
+			ii=ii+1;
+	}
+	xil_printf("|------------------------------|\r\n");
+	
+	// check windows 
+	if (val_0_seek_low == -1) val_0_seek_low = 31;
+	if (val_0_seek_hi  == -1) val_0_seek_hi  = 31;
+	if (val_1_seek_low == -1) val_1_seek_low = 31;
+	if (val_1_seek_hi  == -1) val_1_seek_hi  = 31;
+	//
+	val_0_center = (val_0_seek_low + val_0_seek_hi)/2;
+	val_1_center = (val_1_seek_low + val_1_seek_hi)/2;
+	//
+	xil_printf(" > val_0_seek_low : %02d \r\n", val_0_seek_low);
+	xil_printf(" > val_0_seek_hi  : %02d \r\n", val_0_seek_hi );
+	xil_printf(" > val_0_center   : %02d \r\n", val_0_center  );
+	xil_printf(" > val_1_seek_low : %02d \r\n", val_1_seek_low);
+	xil_printf(" > val_1_seek_hi  : %02d \r\n", val_1_seek_hi );
+	xil_printf(" > val_1_center   : %02d \r\n", val_1_center  );
+		
+	//// new try 
+	if (val_0_cnt_seek_hi>0) val_0_center_new = val_0_seek_w_sum / val_0_cnt_seek_hi;
+	else                     val_0_center_new = val_0_seek_w_sum;
+	if (val_1_cnt_seek_hi>0) val_1_center_new = val_1_seek_w_sum / val_1_cnt_seek_hi;
+	else                     val_1_center_new = val_1_seek_w_sum;
+	
+	xil_printf(" >>>> weighted sum \r\n");
+	xil_printf(" > val_0_seek_w_sum  : %02d \r\n", val_0_seek_w_sum  );
+	xil_printf(" > val_0_cnt_seek_hi : %02d \r\n", val_0_cnt_seek_hi );
+	xil_printf(" > val_0_center_new  : %02d \r\n", val_0_center_new  );
+	xil_printf(" > val_1_seek_w_sum  : %02d \r\n", val_1_seek_w_sum  );
+	xil_printf(" > val_1_cnt_seek_hi : %02d \r\n", val_1_cnt_seek_hi );
+	xil_printf(" > val_1_center_new  : %02d \r\n", val_1_center_new  );
+	
+		
+	//$$ set initial smp value for input delay tap : try 9
+	//
+	// test run with 200MHz : common seek high range 12~26  ... 19
+	// test run with 400MHz : common seek high range  6~12  ...  9
+	
+	// pgu_dac0_reg_write_b8(0x05, 9);
+	// pgu_dac1_reg_write_b8(0x05, 9);
+	
+	// set center
+	//pgu_dac0_reg_write_b8(0x05, val_0_center);
+	//pgu_dac1_reg_write_b8(0x05, val_1_center);
+	pgu_dac0_reg_write_b8(0x05, val_0_center_new);
+	pgu_dac1_reg_write_b8(0x05, val_1_center_new);
+	
+	xil_printf(">>> DAC input delay taps are chosen at each center\r\n");
+	
+	return 0;
+}
+
+// setup DACX 
+u32  pgu_dacx_setup() {
+
+	// # pulse path  : full scale 28.1mA  @ 0x02D0 <<<<<< 21.6V / 13.5ns = 1600 V/us // best with 14V supply
+	// pgu.dac0_reg_write_b8(0x0F,0xD0)
+	// pgu.dac0_reg_write_b8(0x10,0x02)
+	// pgu.dac0_reg_write_b8(0x0B,0xD0)
+	// pgu.dac0_reg_write_b8(0x0C,0x02)
+	pgu_dac0_reg_write_b8(0x0F,0xD0);
+	pgu_dac0_reg_write_b8(0x10,0x02);
+	pgu_dac0_reg_write_b8(0x0B,0xD0);
+	pgu_dac0_reg_write_b8(0x0C,0x02);
+	// #
+	// pgu.dac1_reg_write_b8(0x0F,0xD0)
+	// pgu.dac1_reg_write_b8(0x10,0x02)
+	// pgu.dac1_reg_write_b8(0x0B,0xD0)
+	// pgu.dac1_reg_write_b8(0x0C,0x02)
+	pgu_dac1_reg_write_b8(0x0F,0xD0);
+	pgu_dac1_reg_write_b8(0x10,0x02);
+	pgu_dac1_reg_write_b8(0x0B,0xD0);
+	pgu_dac1_reg_write_b8(0x0C,0x02);
+	// 
+	// # offset DAC : 0x140 0.625mA, AUX2N active[7] (1) , sink current[6] (1) <<< offset 1.81mV
+	// pgu.dac0_reg_write_b8(0x11,0x40)
+	// pgu.dac0_reg_write_b8(0x12,0xC1)
+	// pgu.dac0_reg_write_b8(0x0D,0x40)
+	// pgu.dac0_reg_write_b8(0x0E,0xC1)
+	pgu_dac0_reg_write_b8(0x11,0x40);
+	pgu_dac0_reg_write_b8(0x12,0xC1);
+	pgu_dac0_reg_write_b8(0x0D,0x40);
+	pgu_dac0_reg_write_b8(0x0E,0xC1);
+	// #
+	// pgu.dac1_reg_write_b8(0x11,0x40)
+	// pgu.dac1_reg_write_b8(0x12,0xC1)
+	// pgu.dac1_reg_write_b8(0x0D,0x40)
+	// pgu.dac1_reg_write_b8(0x0E,0xC1)
+	pgu_dac1_reg_write_b8(0x11,0x40);
+	pgu_dac1_reg_write_b8(0x12,0xC1);
+	pgu_dac1_reg_write_b8(0x0D,0x40);
+	pgu_dac1_reg_write_b8(0x0E,0xC1);
+
+	
+	
+	
+	return 0;
+}
+
+//}
+
+
+// DACX_PG //{ // not used in S3100-PGU
+
+//  // subfunctions: dacx_dat_write
+//  void pgu_dacx_dat_write(u32 dacx_dat, u32 bit_loc_trig) { // EP access
+//  	// write control 
+//  	//dev.SetWireInValue(wi,dacx_dat,0xFFFFFFFF) # (ep,val,mask)
+//  
+//  	//write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__DACX_DAT_WI, dacx_dat, MASK_ALL);
+//  	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, dacx_dat, MASK_ALL); //$$ DACZ
+//  
+//  	//
+//  	// trig
+//  	//activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACX_DAT_TI, bit_loc_trig);
+//  	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
+//  
+//  }
+//  
+//  // subfunctions: dacx_dat_read
+//  u32  pgu_dacx_dat_read(u32 bit_loc_trig) { // EP access
+//  	// trig
+//  	//activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__DACX_DAT_TI, bit_loc_trig);
+//  	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
+//  
+//  	//
+//  	//return read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__DACX_DAT_WO, MASK_ALL);
+//  	return read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WO, MASK_ALL); //$$ DACZ
+//  }
+//  
+//  
+//  // dacx_dcs_write_adrs
+//  void pgu_dacx_dcs_write_adrs(u32 adrs) {
+//  	pgu_dacx_dat_write(adrs, 16);
+//  }
+//  
+//  // dacx_dcs_read_adrs
+//  u32  pgu_dacx_dcs_read_adrs() {
+//  	return pgu_dacx_dat_read(17);
+//  }
+//  
+//  // dacx_dcs_write_data_dac0
+//  void pgu_dacx_dcs_write_data_dac0(u32 val_b32) {
+//  	pgu_dacx_dat_write(val_b32, 18);
+//  }
+//  
+//  // dacx_dcs_read_data_dac0
+//  u32  pgu_dacx_dcs_read_data_dac0() {
+//  	return pgu_dacx_dat_read(19);
+//  }
+//  
+//  // dacx_dcs_write_data_dac1
+//  void pgu_dacx_dcs_write_data_dac1(u32 val_b32) {
+//  	pgu_dacx_dat_write(val_b32, 20);
+//  }
+//  
+//  // dacx_dcs_read_data_dac1
+//  u32  pgu_dacx_dcs_read_data_dac1() {
+//  	return pgu_dacx_dat_read(21);
+//  }
+//  
+//  
+//  // dacx_dcs_run_test
+//  void pgu_dacx_dcs_run_test() {
+//  	pgu_dacx_dat_write(0, 22);
+//  }
+//  
+//  
+//  // dacx_dcs_stop_test
+//  void pgu_dacx_dcs_stop_test() {
+//  	pgu_dacx_dat_write(0, 23);
+//  }
+//  
+//  
+//  // dacx_dcs_write_repeat
+//  void pgu_dacx_dcs_write_repeat(u32 val_b32) {
+//  	pgu_dacx_dat_write(val_b32, 24);
+//  }
+//  
+//  // dacx_dcs_read_repeat
+//  u32  pgu_dacx_dcs_read_repeat() {
+//  	return pgu_dacx_dat_read(25);
+//  }
+//  
+//  // dac0_fifo_write_data
+//  	// see // data_count =  dev.WriteToPipeIn(pi, bdata) # (ep, bdata)  in dac0_fifo_write_data()
+//  	// see // write_mcs_ep_pi_data 
+//  	// see // write_mcs_ep_pi_buf // for dac0_fifo_write_buf to be.
+//  void pgu_dac0_fifo_write_data(u32 val_b32) { // unused in S3100-PGU
+//  	// call pipe-in data 
+//  	write_mcs_ep_pi_data(MCS_EP_BASE, EP_ADRS_PGU__DAC0_DAT_PI, val_b32);
+//  }
+//  // dac1_fifo_write_data
+//  void pgu_dac1_fifo_write_data(u32 val_b32) { // unused in S3100-PGU
+//  	// call pipe-in data 
+//  	write_mcs_ep_pi_data(MCS_EP_BASE, EP_ADRS_PGU__DAC1_DAT_PI, val_b32);
+//  }
+//  
+//  // dacx_fdcs_run_test
+//  void pgu_dacx_fdcs_run_test() {
+//  	pgu_dacx_dat_write(0, 28);
+//  }
+//  // dacx_fdcs_stop_test
+//  void pgu_dacx_fdcs_stop_test() {
+//  	pgu_dacx_dat_write(0, 29);
+//  }
+//  
+//  // dacx_fdcs_write_repeat
+//  void pgu_dacx_fdcs_write_repeat(u32 val_b32) {
+//  	pgu_dacx_dat_write(val_b32, 30);
+//  }
+//  // dacx_fdcs_read_repeat
+//  u32  pgu_dacx_fdcs_read_repeat() {
+//  	return pgu_dacx_dat_read(31);
+//  }
+//  
+//  // TODO: pgu_dacx__write_control
+//  void pgu_dacx__write_control(u32 val_b32) {
+//  	pgu_dacx_dat_write(val_b32, 4);
+//  }
+//  
+//  // TODO: pgu_dacx__read_status
+//  u32  pgu_dacx__read_status() {
+//  	// in h_BC_20_0309
+//  	// wire w_write_control = i_trig_dacx_ctrl[4]; //$$
+//  	// wire w_read_status   = i_trig_dacx_ctrl[5]; //$$ <--
+//  	return pgu_dacx_dat_read(5); //$$ 4-->5 // not work with h_BC_20_0309
+//  	//$$return pgu_dacx_dat_read(4); //$$ only for AUX IO test image // OK with h_BC_20_0309
+//  }
+//  
+//  // dacx_fdcs_write_repeat
+//  void pgu_dacx__write_rep_period(u32 val_b32) {
+//  	pgu_dacx_dat_write(val_b32, 6);
+//  }
+//  // dacx_fdcs_read_repeat
+//  u32  pgu_dacx__read_rep_period() {
+//  	return pgu_dacx_dat_read(7);
+//  }
+//  
+//  
+//  // setup DACX 
+//  u32  pgu_dacx_pg_setup() { //$$ previous DCS setup... not used in S3100-PGU
+//  	
+//  	// ## setup DCS configuration and data 
+//  	// pgu.dacx_dcs_write_adrs     (0x00000000)
+//  	// pgu.dacx_dcs_write_data_dac0(0x3FFF0008)
+//  	// pgu.dacx_dcs_write_data_dac1(0x3FFF0002)
+//  	pgu_dacx_dcs_write_adrs(0);
+//  	pgu_dacx_dcs_write_data_dac0(0x3FFF0008);
+//  	pgu_dacx_dcs_write_data_dac1(0x3FFF0002);
+//  	// #
+//  	// pgu.dacx_dcs_write_adrs     (0x00000001)
+//  	// pgu.dacx_dcs_write_data_dac0(0x7FFF0010)
+//  	// pgu.dacx_dcs_write_data_dac1(0x7FFF0004)
+//  	pgu_dacx_dcs_write_adrs(1);
+//  	pgu_dacx_dcs_write_data_dac0(0x7FFF0010);
+//  	pgu_dacx_dcs_write_data_dac1(0x7FFF0004);
+//  	// #
+//  	// pgu.dacx_dcs_write_adrs     (0x00000002)
+//  	// pgu.dacx_dcs_write_data_dac0(0x3FFF0008)
+//  	// pgu.dacx_dcs_write_data_dac1(0x3FFF0002)
+//  	pgu_dacx_dcs_write_adrs(2);
+//  	pgu_dacx_dcs_write_data_dac0(0x3FFF0008);
+//  	pgu_dacx_dcs_write_data_dac1(0x3FFF0002);
+//  	// #
+//  	// pgu.dacx_dcs_write_adrs     (0x00000003)
+//  	// pgu.dacx_dcs_write_data_dac0(0x00000004)
+//  	// pgu.dacx_dcs_write_data_dac1(0x00000001)
+//  	pgu_dacx_dcs_write_adrs(3);
+//  	pgu_dacx_dcs_write_data_dac0(0x00000004);
+//  	pgu_dacx_dcs_write_data_dac1(0x00000001);
+//  	// #
+//  	// pgu.dacx_dcs_write_adrs     (0x00000004)
+//  	// pgu.dacx_dcs_write_data_dac0(0xC0000008)
+//  	// pgu.dacx_dcs_write_data_dac1(0xC0000002)
+//  	pgu_dacx_dcs_write_adrs(4);
+//  	pgu_dacx_dcs_write_data_dac0(0xC0000008);
+//  	pgu_dacx_dcs_write_data_dac1(0xC0000002);
+//  	// #
+//  	// pgu.dacx_dcs_write_adrs     (0x00000005)
+//  	// pgu.dacx_dcs_write_data_dac0(0x80000010)
+//  	// pgu.dacx_dcs_write_data_dac1(0x80000004)
+//  	pgu_dacx_dcs_write_adrs(5);
+//  	pgu_dacx_dcs_write_data_dac0(0x80000010);
+//  	pgu_dacx_dcs_write_data_dac1(0x80000004);
+//  	// #
+//  	// pgu.dacx_dcs_write_adrs     (0x00000006)
+//  	// pgu.dacx_dcs_write_data_dac0(0xC0000008)
+//  	// pgu.dacx_dcs_write_data_dac1(0xC0000002)
+//  	pgu_dacx_dcs_write_adrs(6);
+//  	pgu_dacx_dcs_write_data_dac0(0xC0000008);
+//  	pgu_dacx_dcs_write_data_dac1(0xC0000002);
+//  	// #
+//  	// pgu.dacx_dcs_write_adrs     (0x00000007)
+//  	// pgu.dacx_dcs_write_data_dac0(0x00000004)
+//  	// pgu.dacx_dcs_write_data_dac1(0x00000001)
+//  	pgu_dacx_dcs_write_adrs(7);
+//  	pgu_dacx_dcs_write_data_dac0(0x00000004);
+//  	pgu_dacx_dcs_write_data_dac1(0x00000001);
+//  	// #
+//  	// 
+//  	// ## DCS test repeat setup 
+//  	// #pgu.dacx_dcs_write_repeat  (0x00000000)
+//  	// pgu.dacx_dcs_write_repeat  (0x00040001)	
+//  	pgu_dacx_dcs_write_repeat(0x00040001);
+//  	
+//  	return 0;
+//  }
+//  
+
+//}
+
+
+// DACZ //{
+
+//$$ new subfunctions may come for S3100-PGU
+
+// subfunctions: dacz_dat_write
+void pgu_dacz_dat_write(u32 dacx_dat, u32 bit_loc_trig) { // EP access
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, dacx_dat, MASK_ALL); //$$ DACZ
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
+}
+
+// subfunctions: dacz_dat_read
+u32  pgu_dacz_dat_read(u32 bit_loc_trig) { // EP access
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
+	return read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WO, MASK_ALL); //$$ DACZ
+}
+
+// TODO: pgu_dacz__read_status
+u32  pgu_dacz__read_status() {
+	// return status : 
+	// wire w_read_status   = i_trig_dacz_ctrl[5]; //$$
+	// wire [31:0] w_status_data = {r_control_pulse[31:2], r_dac1_active_clk, r_dac0_active_clk};
+	return pgu_dacz_dat_read(5); 
+}
+
+	
+//}
+
+#endif
+//}
+
+
+// === TODO: PGU-CPU functions === //{
+#ifdef _PGU_CPU_
+
+// note : ADRS_BASE_PGU               --> MCS_EP_BASE
+// note : EP_ADRS__FPGA_IMAGE_ID__PGU --> EP_ADRS_PGU__FPGA_IMAGE_ID
+// note : EP_ADRS__XADC_TEMP__PGU     --> EP_ADRS_PGU__XADC_TEMP
+// note : EP_ADRS__SPIO_WI__PGU       --> EP_ADRS_PGU__SPIO_WI
+// note : EP_ADRS__SPIO_TI__PGU       --> EP_ADRS_PGU__SPIO_TI
+// note : EP_ADRS__SPIO_WO__PGU       --> EP_ADRS_PGU__SPIO_WO
+// note : EP_ADRS__CLKD_TI__PGU       --> EP_ADRS_PGU__CLKD_TI
+// note : EP_ADRS__CLKD_WO__PGU       --> EP_ADRS_PGU__CLKD_WO
+// note : EP_ADRS__CLKD_WI__PGU       --> EP_ADRS_PGU__CLKD_WI
+// note : EP_ADRS__DACX_TI__PGU       --> EP_ADRS_PGU__DACX_TI
+// note : EP_ADRS__DACX_WO__PGU       --> EP_ADRS_PGU__DACX_WO
+// note : EP_ADRS__DACX_WI__PGU       --> EP_ADRS_PGU__DACX_WI
+// note : EP_ADRS__TEST_IO_MON__PGU   --> EP_ADRS_PGU__TEST_IO_MON
+// note : EP_ADRS__DACX_DAT_WI__PGU   --> EP_ADRS_PGU__DACX_DAT_WI
+// note : EP_ADRS__DACX_DAT_TI__PGU   --> EP_ADRS_PGU__DACX_DAT_TI
+// note : EP_ADRS__DACX_DAT_WO__PGU   --> EP_ADRS_PGU__DACX_DAT_WO
+// note : EP_ADRS__DAC0_DAT_PI__PGU   --> EP_ADRS_PGU__DAC0_DAT_PI
+// note : EP_ADRS__DAC1_DAT_PI__PGU   --> EP_ADRS_PGU__DAC1_DAT_PI
+
+// common //{
+	
+u32 pgu_test(u32 opt) {
+	return opt;
+}
+
+u32  pgu_read_fpga_image_id() {
+	return read_fpga_image_id();	
+}
+
+// pgu_read_fpga_temperature() --> read_fpga_temperature()
+u32  pgu_read_fpga_temperature() {
+	return read_fpga_temperature();	
+}
+
+	
+//}
+
+
+// SPIO //{
+
+// for master_spi_mcp23s17.v
+
+u32  pgu_spio_send_spi_frame(u32 frame_data) {
+	//dev = lib_ctrl.dev
+	//EP_ADRS = conf.OK_EP_ADRS_CONFIG
+	//#
+	//print('>> {}'.format('Send SPIO frame'))
+	//#
+	//wi = EP_ADRS['SPIO_WI']
+	//wo = EP_ADRS['SPIO_WO']
+	//ti = EP_ADRS['SPIO_TI']
+	//#
+	//#frame_data = (ctrl_b16<<16) + val_b16
+	//print('{} = 0x{:08X}'.format('frame_data',frame_data))#
+	//#
+	//# write control 
+	//dev.SetWireInValue(wi,frame_data,0xFFFFFFFF) # (ep,val,mask)
+	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS_PGU__SPIO_WI, frame_data, MASK_ALL);
+	//dev.UpdateWireIns()
+	//#
+	//# trig spi frame
+	//#   wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1];
+	//ret = dev.ActivateTriggerIn(ti, 1) # (ep,bit) 
+	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS_PGU__SPIO_TI, 1);
+	//#
+	//# check spi frame done
+	//#   assign w_SPIO_WO[25] = w_done_SPIO_SPI_frame;
+	u32 cnt_done = 0    ;
+	u32 MAX_CNT  = 20000;
+	u32 bit_loc  = 25   ;
+	u32 flag;
+	u32 flag_done;
+	//while True:
+	while (1) {
+		//dev.UpdateWireOuts()
+		//flag = dev.GetWireOutValue(wo)
+		flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS_PGU__SPIO_WO, MASK_ALL);
+		
+		flag_done = (flag&(1<<bit_loc))>>bit_loc;
+		//#print('{} = {:#010x}'.format('flag',flag))
+		if (flag_done==1)
+			break;
+		cnt_done += 1;
+		if (cnt_done>=MAX_CNT)
+			break;
+	}
+	//#  
+	//print('{} = {}'.format('cnt_done',cnt_done))#
+	//print('{} = {}'.format('flag_done',flag_done))
+	//#
+	//# read received data 
+	//#   assign w_SPIO_WO[15:8] = w_SPIO_rd_DA;
+	//#   assign w_SPIO_WO[ 7:0] = w_SPIO_rd_DB;
+	u32 val_recv = flag & 0x0000FFFF;
+	//#
+	//print('{} = 0x{:02X}'.format('val_recv',val_recv))#
+	//#
+	return val_recv;
+}
+
+u32  pgu_sp_1_reg_read_b16(u32 reg_adrs_b8) {
+	//#
+	u32 val_b16 =0;
+	//
+	u32 CS_id      = 1;
+	u32 pin_adrs_A = 0; 
+	u32 R_W_bar    = 1;
+	u32 reg_adrs_A = reg_adrs_b8;
+	//#
+	u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+	//#
+	return pgu_spio_send_spi_frame(framedata);
+}
+
+u32  pgu_sp_1_reg_write_b16(u32 reg_adrs_b8, u32 val_b16) {
+	//#
+	u32 CS_id      = 1;
+	u32 pin_adrs_A = 0;
+	u32 R_W_bar    = 0;
+	u32 reg_adrs_A = reg_adrs_b8;
+	//#
+	u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+	//#
+	return pgu_spio_send_spi_frame(framedata);
+}
+
+
+//$$ power control : pwd_amp removed in PGU-S3000
+void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+	//
+	u32 dir_read;
+	u32 lat_read;
+	//
+	//# read IO direction 
+	//# check IO direction : 0xFFX0 where (SPA,SPB)
+	dir_read = pgu_sp_1_reg_read_b16(0x00); // unused
+	//print('>>>{} = {}'.format('dir_read',form_hex_32b(dir_read)))
+	//# read output Latch
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//print('>>>{} = {}'.format('lat_read',form_hex_32b(lat_read)))
+	
+	//# set IO direction for SP1 PB[3:0] - all output
+	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
+	//# set IO for SP1 PB[3:0]
+	u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+	pgu_sp_1_reg_write_b16(0x12,val);
+}
+
+u32  pgu_spio_ext_pwr_led_readback() {
+	//
+	u32 lat_read;
+	//
+	//# read output Latch
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//
+	return lat_read & 0x000F;
+}
+
+//$$ output relay control : added in PGU-S3000
+void pgu_spio_ext_relay(u32 sw_rl_k1, u32 sw_rl_k2) {
+	//
+	u32 dir_read;
+	u32 lat_read;
+	//
+	//# read IO direction 
+	//# check IO direction : 0xFFX0 where (SPA,SPB)
+	dir_read = pgu_sp_1_reg_read_b16(0x00); // unused
+	//print('>>>{} = {}'.format('dir_read',form_hex_32b(dir_read)))
+	//# read output Latch
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//print('>>>{} = {}'.format('lat_read',form_hex_32b(lat_read)))
+	
+	//# set IO direction for SP1 PA[1:0] - all output
+	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFCFF);
+	//# set IO for SP1 PA[1:0]
+	u32 val = (lat_read & 0xFCFF) | ( (sw_rl_k2<<9) + (sw_rl_k1<<8) );
+	pgu_sp_1_reg_write_b16(0x12,val);
+}
+
+u32  pgu_spio_ext_relay_readback() {
+	//
+	u32 lat_read;
+	//
+	//# read output Latch // where (SPA,SPB)
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	//
+	return (lat_read & 0x0300)>>8; //$$ {SW_RL_K2,SW_RL_K1}
+}
+
+
+//// TODO: AUX IO controls on 6-pin connector //{
+//
+// initialize   : pgu_spio_ext__aux_init() 
+// write outputs: pgu_spio_ext__aux_out ()
+// read inputs  : pgu_spio_ext__aux_in  ()
+//
+// bit locations: 
+//   AUX_CS_B = GPB[7]
+//   AUX_SCLK = GPB[6]
+//   AUX_MOSI = GPB[5]
+//   AUX_MISO = GPB[4]
+//   
+//   self check possible 
+//   GPIO port address : 0x12
+// 
+
+u32 pgu_spio_ext__aux_init() {
+	u32 dir_read;
+	u32 lat_read;
+	
+	//  //// set safe IO direction: all inputs
+	//  // read previous value
+	//  dir_read = pgu_sp_1_reg_read_b16(0x00);
+	//  // set GPB[7:4] as inputs for safe
+	//  dir_read = dir_read | 0x00F0;
+	//  //
+	//  pgu_sp_1_reg_write_b16(0x00,dir_read);
+	//  //
+	//  //dir_read = pgu_sp_1_reg_read_b16(0x00);
+
+	//// set the safe output values:
+	//   AUX_CS_B = 1          @ GPB[7]
+	//   AUX_SCLK = 0          @ GPB[6]
+	//   AUX_MOSI = 0          @ GPB[5]
+	//   AUX_MISO = input (0)  @ GPB[4]
+	//
+	// read previous value
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	// update new value
+	lat_read = lat_read & 0xFF0F;
+	lat_read = lat_read | 0x0080;
+	// update latch
+	pgu_sp_1_reg_write_b16(0x14,lat_read);
+
+	//// setup IO direction : 0xFF1F
+	// read previous value
+	dir_read = pgu_sp_1_reg_read_b16(0x00);
+	// set GPB[7:5] as outputs //$$ set GPA[1:0] GPB[3:0] as outputs
+	//dir_read = dir_read & 0xFF1F;
+	dir_read = dir_read & 0xFC10;
+	// set GPB[4] as input 
+	dir_read = dir_read | 0x0010;
+	//
+	pgu_sp_1_reg_write_b16(0x00,dir_read);
+	//
+	dir_read = pgu_sp_1_reg_read_b16(0x00);
+	
+	return dir_read;
+}
+
+void pgu_spio_ext__aux_idle() {
+	u32 lat_read;
+	
+	//// set the safe output values:
+	//   AUX_CS_B = 1          @ GPB[7]
+	//   AUX_SCLK = 0          @ GPB[6]
+	//   AUX_MOSI = 0          @ GPB[5]
+	//   AUX_MISO = input (0)  @ GPB[4]
+	//
+	// read previous value
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	// update new value
+	lat_read = lat_read & 0xFF0F;
+	lat_read = lat_read | 0x0080;
+	// update latch
+	pgu_sp_1_reg_write_b16(0x14,lat_read);
+
+}
+
+void pgu_spio_ext__aux_out (u32 val_b4) {
+	u32 lat_read;
+	// read previous value
+	lat_read = pgu_sp_1_reg_read_b16(0x14);
+	// update new value
+	lat_read = lat_read & 0xFF0F;
+	lat_read = lat_read | ( (val_b4&0x000F)<<4 );
+	// update latch
+	pgu_sp_1_reg_write_b16(0x14,lat_read);
+}
+
+u32 pgu_spio_ext__aux_in () {
+	u32 port_read;
+	// read gpio
+	port_read = pgu_sp_1_reg_read_b16(0x12);
+	// find value
+	return (port_read & 0x00F0 )>>4;
+}
+
+
+// spi control emulation
+u32 pgu_spio_ext__aux_send_spi_frame (u32 R_W_bar, u32 reg_adrs_b8, u32 val_b16) {
+	u32 val_recv = 0;
+	u32 framedata = 0x00000000;
+	u32 f_count;
+	u32 val;
+	
+	// make a frame for MCP23S17T-E/ML
+	
+	// - SPI frame format: 16 bit long data
+	//		<write> 
+	//		  o_SPIOx_CS_B -________________________________________________________________---
+	//		  o_SPIOx_SCLK __-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+	//		  o_SPIOx_MOSI _C7C6C5C4C3C2C1C0A7A6A5A4A3A2A1A0D7D6D5D4D3D2D1D0E7E6E5E4E3E2E1E0___
+	//        f_count_high  0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3
+	//        f_count_low   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+	//                     
+	//		<read>           
+	//		  o_SPIOx_CS_B -________________________________________________________________---
+	//		  o_SPIOx_SCLK __-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-___
+	//		  o_SPIOx_MOSI _C7C6C5C4C3C2C1C0A7A6A5A4A3A2A1A0___________________________________
+	//		  o_SPIOx_MISO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~D7D6D5D4D3D2D1D0E7E6E5E4E3E2E1E0~~
+	//        f_count_high  0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3
+	//        f_count_low   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+	//
+	//		control bits      : C[7:0]
+	//			C7 0
+	//			C6 1
+	//			C5 0
+	//			C4 0
+	//			C3 HW_A2
+	//			C2 HW_A1
+	//			C1 HW_A0
+	//			C0 R_W_bar
+	//		address bits      : A[7:0]
+	//		data bits for GPA : D[7:0]
+	//		data bits for GPB : E[7:0]
+
+	// C = 0x40 or 0x41
+	// A = reg_adrs_b8
+	// D = val_b16 // {GPA,GPB}
+	
+	if (R_W_bar==0) {
+		framedata = (0x40<<24) | (reg_adrs_b8<<16) | val_b16;
+	}
+	else {
+		framedata = (0x41<<24) | (reg_adrs_b8<<16) | val_b16;
+	}
+	//
+	
+	// generate a frame
+	// ...
+	//// frame start
+	// AUX_CS_B, AUX_SCLK, AUX_MOSI,0 = 1,0,0,0
+	pgu_spio_ext__aux_out(0x8);
+	
+	for (f_count=0;f_count<33;f_count++) {
+		u32 val_AUX_CS_B;
+		u32 val_AUX_SCLK;
+		
+		if (f_count==32) val_AUX_CS_B = 0x8;
+		else             val_AUX_CS_B = 0x0;
+		
+		if ((f_count==32)&&(R_W_bar==1)) val_AUX_SCLK = 0x0;
+		else                             val_AUX_SCLK = 0x4;
+		
+		// read //{
+		if (R_W_bar==1) {
+			// shift val_recv
+			val_recv  = val_recv<<1;
+			
+			// read MISO
+			val = pgu_spio_ext__aux_in();
+			val_recv = val_recv | (val & 0x0001);
+		}
+			
+		//}
+		
+		
+		// write //{
+			
+		// check framedata[31]
+		if ( (framedata & 0x80000000) == 0) {
+			// AUX_CS_B, AUX_SCLK, AUX_MOSI,0 = 0,0,0,0 // clock low 
+			pgu_spio_ext__aux_out(val_AUX_CS_B|0x0);
+			// AUX_CS_B, AUX_SCLK, AUX_MOSI,0 = 0,1,0,0 // clock high
+			pgu_spio_ext__aux_out(val_AUX_CS_B|val_AUX_SCLK);	
+		} else {
+			// AUX_CS_B, AUX_SCLK, AUX_MOSI,0 = 0,0,1,0 // clock low 
+			pgu_spio_ext__aux_out(val_AUX_CS_B|0x2);
+			// AUX_CS_B, AUX_SCLK, AUX_MOSI,0 = 0,1,1,0 // clock high
+			pgu_spio_ext__aux_out(val_AUX_CS_B|val_AUX_SCLK|0x2);	
+		}
+		
+		// shift framedata
+		framedata = framedata<<1;
+		
+		//}
+
+		// // check if write frame...
+		// if (R_W_bar==0) continue;
+		// 
+		// // no recv at last f_count
+		// if (f_count==32) continue;
+		// 
+		// // shift val_recv
+		// val_recv  = val_recv<<1;
+		// 
+		// // read MISO
+		// val = pgu_spio_ext__aux_in();
+		// val_recv = val_recv | (val & 0x0001);
+		
+		
+	}
+	
+	//// frame stop
+	// AUX_CS_B, AUX_SCLK, AUX_MOSI,0 = 1,0,0,0
+	pgu_spio_ext__aux_out(0x8);
+	// 
+	return val_recv & 0x0000FFFF;
+}
+
+void pgu_spio_ext__aux_reg_write_b16(u32 reg_adrs_b8, u32 val_b16) {
+	//pgu_spio_ext__aux_init(); //$$ to check 
+	pgu_spio_ext__aux_send_spi_frame(0, reg_adrs_b8, val_b16);
+	pgu_spio_ext__aux_idle();
+}
+
+u32  pgu_spio_ext__aux_reg_read_b16(u32 reg_adrs_b8) {
+	u32 ret;
+	//pgu_spio_ext__aux_init(); //$$ to check 
+	ret = pgu_spio_ext__aux_send_spi_frame(1, reg_adrs_b8, 0x0000);
+	pgu_spio_ext__aux_idle();
+	return ret;
+}
+
+//
+u32 pgu_spio_ext__aux_IO_init(u32 conf_iodir_AB, u32 conf_out_init_AB) {
+	u32 ret;
+	
+	// init io 
+	ret = pgu_spio_ext__aux_init(); // 0xFF10 expected for aux spio and led control
+	
+	//// set safe IO direction: all inputs
+	pgu_spio_ext__aux_reg_write_b16(0x00, 0xFFFF);
+	
+	//// set the safe output valueas in latch // subboard v1
+	//   GPA[7] ch2_gain_con = 0 
+	//   GPA[6] ch1_gain_con = 0
+	//   GPA[5] ch2_be_con   = 0
+	//   GPA[4] ch2_fe_con   = 0
+	//   GPA[3] ch1_be_con   = 0
+	//   GPA[2] ch1_fe_con   = 0
+	//   GPA[1] sleep_n_2    = 0
+	//   GPA[0] sleep_n_1    = 0
+	//
+	//   GPB[7:0] = 0x00
+	//
+	// pgu_spio_ext__aux_IO_init(0x00FF, 0x0000)
+
+	//pgu_spio_ext__aux_reg_write_b16(0x14, 0x0300); // safe for sleep
+	//pgu_spio_ext__aux_reg_write_b16(0x14, 0x0000); // safe for sleep_n // subboard v1
+	pgu_spio_ext__aux_reg_write_b16(0x14, conf_out_init_AB); 
+	
+	//// set IO direction
+	//pgu_spio_ext__aux_reg_write_b16(0x00, 0x00FF); // subboard v1
+	pgu_spio_ext__aux_reg_write_b16(0x00, conf_iodir_AB); 
+	
+	ret = pgu_spio_ext__aux_reg_read_b16(0x00);
+	
+	return ret;
+}
+
+void pgu_spio_ext__aux_IO_write_b16 (u32 val_b16) {
+	// val_b16 = {GPA,GPB}
+	pgu_spio_ext__aux_reg_write_b16(0x14, val_b16);
+}
+
+u32 pgu_spio_ext__aux_IO_read_b16() {
+	//return pgu_spio_ext__aux_reg_read_b16(0x14); // read latch
+	return pgu_spio_ext__aux_reg_read_b16(0x12); // read port
+}
+
+//$$ new command for subboard v2
+//$$ IOCON (@reg 0x0A)   `':PGU:AUX:CON?'`     `':PGU:AUX:CON #H0000'`
+//$$ OLAT  (@reg 0x14)   `':PGU:AUX:OLAT?'`    `':PGU:AUX:OLAT #H0000'`
+//$$ IODIR (@reg 0x00)   `':PGU:AUX:DIR?'`     `':PGU:AUX:DIR #H0000'`
+//$$ GPIO  (@reg 0x12)   `':PGU:AUX:GPIO?'`    `':PGU:AUX:GPIO #H0000'`
+u32  pgu_spio_ext__read_aux_IO_CON  () {
+	return pgu_spio_ext__aux_reg_read_b16(0x0A);
+}
+u32  pgu_spio_ext__read_aux_IO_OLAT () {
+	return pgu_spio_ext__aux_reg_read_b16(0x14);
+}
+u32  pgu_spio_ext__read_aux_IO_DIR  () {
+	return pgu_spio_ext__aux_reg_read_b16(0x00);
+}
+u32  pgu_spio_ext__read_aux_IO_GPIO () {
+	return pgu_spio_ext__aux_reg_read_b16(0x12);
+}
+//
+void pgu_spio_ext__send_aux_IO_CON  (u32 val_b16) {
+	pgu_spio_ext__aux_reg_write_b16(0x0A, val_b16);
+}
+void pgu_spio_ext__send_aux_IO_OLAT (u32 val_b16) {
+	pgu_spio_ext__aux_reg_write_b16(0x14, val_b16);
+}
+void pgu_spio_ext__send_aux_IO_DIR  (u32 val_b16) {
+	pgu_spio_ext__aux_reg_write_b16(0x00, val_b16);
+}
+void pgu_spio_ext__send_aux_IO_GPIO (u32 val_b16) {
+	pgu_spio_ext__aux_reg_write_b16(0x12, val_b16);
+}
+
+//}
+
 
 //}
 
