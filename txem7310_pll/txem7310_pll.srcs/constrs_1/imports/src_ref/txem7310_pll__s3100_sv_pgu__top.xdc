@@ -538,6 +538,7 @@ set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks 
 #
 set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {mcs_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {base_sspi_clk}]
 #
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_dci_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {sys_clk}]
@@ -546,6 +547,7 @@ set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks 
 #
 set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {mcs_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {base_sspi_clk}]
 #
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks dac1_clk]
 #
