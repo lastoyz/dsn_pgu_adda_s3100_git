@@ -3526,19 +3526,19 @@ assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // mu
 wire [31:0] w_M2_port_wi_sadrs_h008; // SSPI_CON_WI		0x008	wi02
 	assign ep02wire = w_M2_port_wi_sadrs_h008;
 wire [31:0] w_M2_port_wi_sadrs_h014; // DACX_WI
-	assign ep06wire = w_M2_port_wi_sadrs_h014
+	assign ep06wire = w_M2_port_wi_sadrs_h014;
 wire [31:0] w_M2_port_wi_sadrs_h018; // CLKD_WI
-	assign ep06wire = w_M2_port_wi_sadrs_h018
+	assign ep06wire = w_M2_port_wi_sadrs_h018;
 wire [31:0] w_M2_port_wi_sadrs_h01C; // SPIO_WI
-	assign ep07wire = w_M2_port_wi_sadrs_h01C
+	assign ep07wire = w_M2_port_wi_sadrs_h01C;
 wire [31:0] w_M2_port_wi_sadrs_h020; // DACZ_DAT_WI
-	assign ep08wire = w_M2_port_wi_sadrs_h020
+	assign ep08wire = w_M2_port_wi_sadrs_h020;
 wire [31:0] w_M2_port_wi_sadrs_h024; // TRIG_DAT_WI
-	assign ep09wire = w_M2_port_wi_sadrs_h024
+	assign ep09wire = w_M2_port_wi_sadrs_h024;
 wire [31:0] w_M2_port_wi_sadrs_h04C; // MEM_WI 
-	assign ep13wire = w_M2_port_wi_sadrs_h04C
+	assign ep13wire = w_M2_port_wi_sadrs_h04C;
 wire [31:0] w_M2_port_wi_sadrs_h048; // MEM_FDAT_WI
-	assign ep12wire = w_M2_port_wi_sadrs_h048
+	assign ep12wire = w_M2_port_wi_sadrs_h048;
 
 // wo
 wire [31:0] w_M2_port_wo_sadrs_h080 = ep20wire; // w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
@@ -3560,7 +3560,7 @@ wire w_M2_ck__sadrs_h118;  wire [31:0] w_M2_port_ti_sadrs_h118; // new
 wire w_M2_ck__sadrs_h11C;  wire [31:0] w_M2_port_ti_sadrs_h11C; // new
 wire w_M2_ck__sadrs_h120;  wire [31:0] w_M2_port_ti_sadrs_h120; // new
 wire w_M2_ck__sadrs_h124;  wire [31:0] w_M2_port_ti_sadrs_h124; // new
-wire w_M2_ck__sadrs_h14C;  wire [31:0] w_M2_port_ti_sadrs_h14C; // new
+wire w_M2_ck__sadrs_h14C = ep53ck;  wire [31:0] w_M2_port_ti_sadrs_h14C; assign ep53trig = w_M2_port_ti_sadrs_h14C; // MEM_TI
 
 // to 
 wire w_M2_ck__sadrs_h1CC;  wire [31:0] w_M2_port_to_sadrs_h1CC; // new
