@@ -17,9 +17,9 @@ namespace TopInstrument
     {
         public int __test_int = 0;
 
-        public static int __test() {
+        public static int __test_eps_dev() {
             EPS_Dev dev_eps = new EPS_Dev();
-            dev_eps.__test_int = -1;
+            dev_eps.__test_int = dev_eps.__test_int - 1;
             return dev_eps.__test_int;
         }
         
@@ -113,10 +113,10 @@ namespace TopInstrument
         public string cmd_str__PGU_FRPT0 = ":PGU:FRPT0";
         public string cmd_str__PGU_FRPT1 = ":PGU:FRPT1";
 
-        public string cmd_str__PGU_FDCS_TRIG = ":PGU:FDCS:TRIG";
-        public string cmd_str__PGU_FDCS_DAC0 = ":PGU:FDCS:DAC0";
-        public string cmd_str__PGU_FDCS_DAC1 = ":PGU:FDCS:DAC1";
-        public string cmd_str__PGU_FDCS_RPT = ":PGU:FDCS:RPT";
+        //$$ public string cmd_str__PGU_FDCS_TRIG = ":PGU:FDCS:TRIG";
+        //$$ public string cmd_str__PGU_FDCS_DAC0 = ":PGU:FDCS:DAC0";
+        //$$ public string cmd_str__PGU_FDCS_DAC1 = ":PGU:FDCS:DAC1";
+        //$$ public string cmd_str__PGU_FDCS_RPT  = ":PGU:FDCS:RPT";
 
         public string cmd_str__PGU_FREQ = ":PGU:FREQ";
         public string cmd_str__PGU_OFST_DAC0 = ":PGU:OFST:DAC0";
@@ -1563,6 +1563,7 @@ namespace TopInstrument
 
         }
 
+        /*
         public void load_pgu_waveform(int Ch, int[] num_block_str__sample_code__list)
         {
             ////// Console.WriteLine(String.Format("\n>>>>>> load_pgu_waveform()"));
@@ -1591,7 +1592,9 @@ namespace TopInstrument
 
 
         }
+        */
 
+        /*
         public void trig_pgu_output(int pgu_repeat_num, int delay) //$$ unused
         {
             __gui_cycle_count = pgu_repeat_num;
@@ -1624,6 +1627,7 @@ namespace TopInstrument
             scpi_comm_resp_ss(ss, PGU_FDCS_TRIG_OFF_CMD);
 
         }
+        */
 
         /*
 		public Tuple<string, string> set_setup_pgu_Cid(int Ch, int[] time_ns_list, double[] level_volt_list)
@@ -2150,7 +2154,7 @@ namespace TopInstrument
         }
 
 		
-		public static int _test()
+		public static int __test_top_pgu()
         {
             Console.WriteLine("Hello, TopInstrument!");
 
@@ -2631,21 +2635,16 @@ namespace __test__
     {
         public static void Main(string[] args)
         {
-        	//Your code goes hereafter
-        	Console.WriteLine("Hello, world!");
+            //Your code goes hereafter
+            Console.WriteLine("Hello, world!");
 
-			//call something in TopInstrument
+            //call something in TopInstrument
             int ret = 0;
-            ret = TopInstrument.EPS_Dev.__test();
-			ret = TopInstrument.TOP_PGU._test();
+            ret = TopInstrument.EPS_Dev.__test_eps_dev();
+            ret = TopInstrument.TOP_PGU.__test_eps_dev();
 
-			// // test more 
-			// TopInstrument.TOP_PGU dev = new TopInstrument.TOP_PGU();
-			// string ret;
-			// 
-			// ret = dev.pgu_spio_ext__send_aux_IO_GPIO__cmd_str(0x0000);
-			// Console.WriteLine(ret);
-			
+            ret = TopInstrument.TOP_PGU.__test_top_pgu();
+            Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
     }

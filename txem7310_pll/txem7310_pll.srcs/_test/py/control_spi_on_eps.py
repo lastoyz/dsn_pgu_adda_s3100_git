@@ -90,7 +90,36 @@ class control_spi (eps.EPS_Dev):
 
     ## pgu LAN commands examples
     # 
-
+    # public string cmd_str__IDN           = "*IDN?\n";
+    def pgu_get_idn_str(self):
+        ret = self.GetSerialNumber()
+        return ret
+    #
+    # public string cmd_str__RST           = "*RST\n";
+    # public string cmd_str__FPGA_FID      = ":FPGA:FID?\n";
+    # public string cmd_str__FPGA_TMP      = ":FPGA:TMP?\n";
+    # public string cmd_str__EPS_EN        = ":EPS:EN";
+    # public string cmd_str__PGU_PWR       = ":PGU:PWR";
+    # public string cmd_str__PGU_OUTP      = ":PGU:OUTP";
+    # public string cmd_str__PGU_STAT      = ":PGU:STAT"; // output activity check
+    # public string cmd_str__PGU_AUX_CON   = ":PGU:AUX:CON";  //new
+    # public string cmd_str__PGU_AUX_OLAT  = ":PGU:AUX:OLAT"; //new
+    # public string cmd_str__PGU_AUX_DIR   = ":PGU:AUX:DIR";  //new
+    # public string cmd_str__PGU_AUX_GPIO  = ":PGU:AUX:GPIO"; //new
+    # public string cmd_str__PGU_TRIG      = ":PGU:TRIG";
+    # public string cmd_str__PGU_NFDT0     = ":PGU:NFDT0";
+    # public string cmd_str__PGU_NFDT1     = ":PGU:NFDT1";
+    # public string cmd_str__PGU_FDAC0     = ":PGU:FDAT0";
+    # public string cmd_str__PGU_FDAC1     = ":PGU:FDAT1";
+    # public string cmd_str__PGU_FRPT0     = ":PGU:FRPT0";
+    # public string cmd_str__PGU_FRPT1     = ":PGU:FRPT1";
+    # public string cmd_str__PGU_FREQ      = ":PGU:FREQ";
+    # public string cmd_str__PGU_OFST_DAC0 = ":PGU:OFST:DAC0";
+    # public string cmd_str__PGU_OFST_DAC1 = ":PGU:OFST:DAC1";
+    # public string cmd_str__PGU_GAIN_DAC0 = ":PGU:GAIN:DAC0";
+    # public string cmd_str__PGU_GAIN_DAC1 = ":PGU:GAIN:DAC1";
+    # public string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
+    # public string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
 
     #  
     pass
@@ -140,12 +169,15 @@ def control_spi__test():
     print('>>> {} = 0x{:03X}'.format('ep_adrs', ep_adrs))
     print('>>> {} = 0x{:08X}'.format('ep_data', ep_data))
 
-    ## pgu functions
+    ## pgu subfunctions
     fpga_id = ctl.pgu_get_fpga_id()
     print('>>> {} = 0x{:08X}'.format('fpga_id', fpga_id))
 
     fpga_temp = ctl.pgu_get_fpga_temp()
     print('>>> {} = {}[C]'.format('fpga_temp', fpga_temp/1000))
+
+    idn_str = ctl.pgu_get_idn_str()
+    print('>>> {} = {}'.format('idn_str', idn_str))
 
 
     ## reset MSPI and control off MSPI
