@@ -13,7 +13,19 @@ using System.Threading.Tasks;
 
 namespace TopInstrument
 {
-    public class TOP_PGU
+    public class EPS_Dev
+    {
+        public int __test_int = 0;
+
+        public static int __test() {
+            EPS_Dev dev_eps = new EPS_Dev();
+            dev_eps.__test_int = -1;
+            return dev_eps.__test_int;
+        }
+        
+    }
+    
+    public class TOP_PGU : EPS_Dev
     {
         
         //// TCPIP
@@ -82,7 +94,7 @@ namespace TopInstrument
 
         public string cmd_str__PGU_STAT = ":PGU:STAT"; // output activity check
 
-        public string cmd_str__PGU_AUX_OUTP = ":PGU:AUX:OUTP";  //Remove        
+        //$$ public string cmd_str__PGU_AUX_OUTP = ":PGU:AUX:OUTP";  //Remove        
                                                     
         public string cmd_str__PGU_AUX_CON        = ":PGU:AUX:CON";  //new
         public string cmd_str__PGU_AUX_OLAT       = ":PGU:AUX:OLAT"; //new
@@ -215,7 +227,7 @@ namespace TopInstrument
 
             catch (Exception e)
             {
-                Socket ss = null;
+                //$$ Socket ss = null;
                 throw new Exception(String.Format("Error in Open") + e.Message);
             }
 
@@ -629,6 +641,7 @@ namespace TopInstrument
 
       
 
+        /*
         public string initialize_aux_io()
         {
             //// Console.WriteLine(String.Format("\n>>>>>"));
@@ -643,7 +656,9 @@ namespace TopInstrument
             return rsp;
 
         }
+        */
 
+        /*
         public void write_aux_io__direct(int para_ctrl)
         {
             //// Console.WriteLine(String.Format("\n>>>>>> write_aux_io__direct"));
@@ -665,6 +680,7 @@ namespace TopInstrument
             //scpi_comm_resp_ss(ss, cmd_str__PGU_AUX_OUTP+ b' ' +para_ctrl_str + b'\n')
             //-> :PGU:AUX:OUTP 0x000'\n
         }
+        */
 
 
 
@@ -2184,7 +2200,9 @@ namespace TopInstrument
             //Console.WriteLine(dev.SysOpen("192.168.100.123"));
             //Console.WriteLine(dev.SysOpen("192.168.100.122"));
             //
-            Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test
+            //Console.WriteLine(dev.SysOpen("192.168.100.61", 20000)); //$$ S3100-PGU-TLAN test // BD#1
+            Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test // BD#2
+            //Console.WriteLine(dev.SysOpen("192.168.100.63", 20000)); //$$ S3100-PGU-TLAN test // BD#3
 
 
             //// test eeprom access 
@@ -2617,7 +2635,9 @@ namespace __test__
         	Console.WriteLine("Hello, world!");
 
 			//call something in TopInstrument
-			TopInstrument.TOP_PGU._test();
+            int ret = 0;
+            ret = TopInstrument.EPS_Dev.__test();
+			ret = TopInstrument.TOP_PGU._test();
 
 			// // test more 
 			// TopInstrument.TOP_PGU dev = new TopInstrument.TOP_PGU();

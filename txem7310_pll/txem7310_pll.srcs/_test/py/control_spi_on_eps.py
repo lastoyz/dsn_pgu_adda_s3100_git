@@ -76,6 +76,8 @@ class control_spi (eps.EPS_Dev):
         #
         return ep_data # 32 bits
     #
+
+    ## pgu subfunctions:
     #
     def pgu_get_fpga_id(self):
         ret = self.S3100_PGU_TSPI__read_ep_data(0x080)
@@ -85,6 +87,11 @@ class control_spi (eps.EPS_Dev):
         ret = self.S3100_PGU_TSPI__read_ep_data(0x0E8)
         return ret # mC
     #
+
+    ## pgu LAN commands examples
+    # 
+
+
     #  
     pass
 
