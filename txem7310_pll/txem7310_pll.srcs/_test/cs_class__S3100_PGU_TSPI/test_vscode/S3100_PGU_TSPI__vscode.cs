@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 // for my base classes
 using mybaseclass_EPS_Dev     = TopInstrument.EPS_Dev;
-using mybaseclass_control_lan = TopInstrument.control_lan;
+using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan;
+// note ... PGU_control_by_lan_spi_emul ... to come
 
 namespace TopInstrument
 {
@@ -27,14 +28,29 @@ namespace TopInstrument
         //private int TIMEOUT = 5000;                      // socket timeout
         private int SO_SNDBUF = 2048;
         private int SO_RCVBUF = 32768;
-        private int INTVAL = 100;                       // Milli Second
-        private int BUF_SIZE_NORMAL = 2048;
-        private int BUF_SIZE_LARGE = 16384;
+        //private int INTVAL = 100;                       // Milli Second
+        //private int BUF_SIZE_NORMAL = 2048;
+        //private int BUF_SIZE_LARGE = 16384;
         //private string HOST = "192.168.100.119";
         private int PORT = 5025;
         private Socket ss = null;
 
+        //// EPS LAN commands
+        public string cmd_str__IDN = "*IDN?\n"; // note EPS
+        public string cmd_str__RST = "*RST\n"; // note EPS
+        public string cmd_str__FPGA_FID = ":FPGA:FID?\n"; // note EPS
+        public string cmd_str__FPGA_TMP = ":FPGA:TMP?\n"; // note EPS
+        public string cmd_str__EPS_EN = ":EPS:EN"; // note EPS
+        //
+        //private string cmd_str__EPS_WMI  = ":EPS:WMI";
+        //private string cmd_str__EPS_WMO  = ":EPS:WMO";
+        //private string cmd_str__EPS_TAC  = ":EPS:TAC";
+        //private string cmd_str__EPS_TMO  = ":EPS:TMO";
+        //private string cmd_str__EPS_TWO  = ":EPS:TWO";
+        //private string cmd_str__EPS_PI   = ":EPS:PI";
+        //private string cmd_str__EPS_PO   = ":EPS:PO";
 
+        //// common subfunctions
         public DateTime Delay(int S) //$$ ms
         {
             DateTime ThisMoment = DateTime.Now;
@@ -49,9 +65,7 @@ namespace TopInstrument
             return DateTime.Now;
         }
 
-        // lan subfunctions
-
-        
+        //// lan subfunctions        
         public bool scpi_is_available(){
             bool ret = false;
             if (ss != null) ret = true;
@@ -135,7 +149,7 @@ namespace TopInstrument
             return ss;
         }
 
-        public string scpi_comm_resp_ss(byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 100)
+        public string scpi_comm_resp_ss(byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 1)
         {
 
             byte[] receiverBuff = new byte[BUF_SIZE_NORMAL];
@@ -160,7 +174,7 @@ namespace TopInstrument
             //    print('error in sendall')
             //    raise
 
-            Delay(1);
+            Delay(INTVAL);
 
             int nRecvSize;
             string data;
@@ -223,16 +237,11 @@ namespace TopInstrument
         
     }
 
-    public class control_lan : mybaseclass_EPS_Dev
+    public class PGU_control_by_lan : mybaseclass_EPS_Dev
     {
         //## lan command access
 
-        //// LAN command string headers
-        public string cmd_str__IDN = "*IDN?\n"; // note EPS
-        public string cmd_str__RST = "*RST\n"; // note EPS
-        public string cmd_str__FPGA_FID = ":FPGA:FID?\n"; // note EPS
-        public string cmd_str__FPGA_TMP = ":FPGA:TMP?\n"; // note EPS
-        public string cmd_str__EPS_EN = ":EPS:EN"; // note EPS
+        //// PGU LAN command string headers
         public string cmd_str__PGU_PWR = ":PGU:PWR";
         public string cmd_str__PGU_OUTP = ":PGU:OUTP";
         public string cmd_str__PGU_STAT = ":PGU:STAT"; // output activity check
@@ -252,11 +261,72 @@ namespace TopInstrument
         public string cmd_str__PGU_OFST_DAC1 = ":PGU:OFST:DAC1";
         public string cmd_str__PGU_GAIN_DAC0 = ":PGU:GAIN:DAC0";
         public string cmd_str__PGU_GAIN_DAC1 = ":PGU:GAIN:DAC1";
-        public string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
-        public string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
+        private string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
+        private string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
         //public string cmd_str__DC_BIAS = ":PGU:BIAS"; //$$ to come
 
 
+        //$$ EEPROM access
+
+        public int pgu_eeprom__read__data_4byte(int adrs_b32) {
+        //  def pgu_eeprom__read__data_4byte (adrs_b32):
+        //  	print('\n>>>>>> pgu_eeprom__read__data_4byte')
+        //  	#
+        //  	cmd_str = cmd_str__PGU_MEMR + (' #H{:08X}\n'.format(adrs_b32)).encode()
+        //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
+        //  	rsp = rsp_str.decode()
+        //  	# assume hex decimal response: #HF3190306<NL>
+        //  	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
+        //  	rsp = int(rsp,16) # convert hex into int
+        //  	return rsp
+
+            string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
+            byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
+
+            string ret;
+            
+            try {
+                ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
+            }
+
+            catch {
+                ret = "#H00000000\n";
+            }
+            return (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
+        }
+
+        public int pgu_eeprom__write_data_4byte(int adrs_b32, uint val_b32, int interval_ms = 10) {
+        //  def pgu_eeprom__write_data_4byte (adrs_b32, val_b32):
+        //  	print('\n>>>>>> pgu_eeprom__write_data_4byte')
+        //  	#
+        //  	cmd_str = cmd_str__PGU_MEMW + (' #H{:08X} #H{:08X}\n'.format(adrs_b32, val_b32)).encode()
+        //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
+        //  	print('string rcvd: ' + repr(rsp))
+        //  	print('rsp: ' + rsp.decode())
+        //  	return rsp.decode()[0:2] # OK or NG
+        //  
+            string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
+                            + string.Format(" #H{0,8:X8}"  , adrs_b32)
+                            + string.Format(" #H{0,8:X8}\n", val_b32 );
+            byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
+
+            string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
+
+            //Delay(1); //$$ 1ms wait for write done // NG  read right after write
+            //Delay(2); //$$ 2ms wait for write done // some NG 
+            //Delay(10); //$$ 10ms wait for write done 
+            Delay(interval_ms); //$$ ms wait for write done 
+
+            var val = 0;
+            if (ret.Substring(0,2)=="OK") {
+                val = 0;
+            }
+            else {
+                val = -1;
+            }
+
+            return val;
+        }
 
 
         // test var
@@ -264,12 +334,12 @@ namespace TopInstrument
         
         // test function
         public new static string _test() {
-            string ret = mybaseclass_EPS_Dev._test() + ":_class__control_lan_";
+            string ret = mybaseclass_EPS_Dev._test() + ":_PGU_control_by_lan_";
             return ret;
         }
         public static int __test_control_lan() {
             // test member
-            control_lan dev_lan = new control_lan();
+            PGU_control_by_lan dev_lan = new PGU_control_by_lan();
             dev_lan.__test_int = dev_lan.__test_int - 1;
 
             // test LAN -- open
@@ -280,7 +350,7 @@ namespace TopInstrument
         }
     }
 
-    public class TOP_PGU : mybaseclass_control_lan
+    public class TOP_PGU : mybaseclass_PGU_control
     {
         
 
@@ -686,68 +756,6 @@ namespace TopInstrument
         }
         */
 
-
-
-        //$$ EEPROM access
-
-        public int pgu_eeprom__read__data_4byte(int adrs_b32) {
-        //  def pgu_eeprom__read__data_4byte (adrs_b32):
-        //  	print('\n>>>>>> pgu_eeprom__read__data_4byte')
-        //  	#
-        //  	cmd_str = cmd_str__PGU_MEMR + (' #H{:08X}\n'.format(adrs_b32)).encode()
-        //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
-        //  	rsp = rsp_str.decode()
-        //  	# assume hex decimal response: #HF3190306<NL>
-        //  	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
-        //  	rsp = int(rsp,16) # convert hex into int
-        //  	return rsp
-
-            string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
-            byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
-
-            string ret;
-            
-            try {
-                ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
-            }
-
-            catch {
-                ret = "#H00000000\n";
-            }
-            return (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
-        }
-
-        public int pgu_eeprom__write_data_4byte(int adrs_b32, uint val_b32) {
-        //  def pgu_eeprom__write_data_4byte (adrs_b32, val_b32):
-        //  	print('\n>>>>>> pgu_eeprom__write_data_4byte')
-        //  	#
-        //  	cmd_str = cmd_str__PGU_MEMW + (' #H{:08X} #H{:08X}\n'.format(adrs_b32, val_b32)).encode()
-        //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
-        //  	print('string rcvd: ' + repr(rsp))
-        //  	print('rsp: ' + rsp.decode())
-        //  	return rsp.decode()[0:2] # OK or NG
-        //  
-            string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
-                            + string.Format(" #H{0,8:X8}"  , adrs_b32)
-                            + string.Format(" #H{0,8:X8}\n", val_b32 );
-            byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
-
-            string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
-
-            //Delay(1); //$$ 1ms wait for write done // NG  read right after write
-            //Delay(2); //$$ 2ms wait for write done // some NG 
-            Delay(10); //$$ 10ms wait for write done 
-
-            var val = 0;
-            if (ret.Substring(0,2)=="OK") {
-                val = 0;
-            }
-            else {
-                val = -1;
-            }
-
-            return val;
-        }
 
         public int conv__flt32__raw_int32(float flt32) {
         //  def conv__flt32__raw_int32(flt32):
@@ -2159,7 +2167,7 @@ namespace TopInstrument
 
 		//// test functions 
         public new static string _test() {
-            string ret = mybaseclass_control_lan._test() + ":_class__TOP_PGU_";
+            string ret = mybaseclass_PGU_control._test() + ":_class__TOP_PGU_";
             return ret;
         }
 
@@ -2649,7 +2657,7 @@ namespace __test__
 
             //call something in TopInstrument
             Console.WriteLine(string.Format(">>> {0}", TopInstrument.EPS_Dev._test()));
-            Console.WriteLine(string.Format(">>> {0}", TopInstrument.control_lan._test()));
+            Console.WriteLine(string.Format(">>> {0}", TopInstrument.PGU_control_by_lan._test()));
             Console.WriteLine(string.Format(">>> {0}", TopInstrument.TOP_PGU._test()));
 
             int ret = 0;
