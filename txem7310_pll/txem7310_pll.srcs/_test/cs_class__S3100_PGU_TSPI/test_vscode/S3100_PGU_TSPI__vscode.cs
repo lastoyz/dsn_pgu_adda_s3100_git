@@ -1,5 +1,6 @@
 //$$ test with vs code
 
+// generic
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,209 +12,54 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+// for my base classes
+using mybaseclass_EPS_Dev     = TopInstrument.EPS_Dev;
+using mybaseclass_control_lan = TopInstrument.control_lan;
+
 namespace TopInstrument
 {
     public class EPS_Dev
     {
-        public int __test_int = 0;
+        //## socket access
+        //## eps command access
 
-        public static int __test_eps_dev() {
-            EPS_Dev dev_eps = new EPS_Dev();
-            dev_eps.__test_int = dev_eps.__test_int - 1;
-            return dev_eps.__test_int;
-        }
-        
-    }
-    
-    public class TOP_PGU : EPS_Dev
-    {
-        
-        //// TCPIP
-        //public int TIMEOUT = 5000;                      // socket timeout
-        public int SO_SNDBUF = 2048;
-        public int SO_RCVBUF = 32768;
-        public int INTVAL = 100;                       // Milli Second
-        public int BUF_SIZE_NORMAL = 2048;
-        public int BUF_SIZE_LARGE = 16384;
-
-        //public string HOST = "192.168.100.119";
-        public int PORT = 5025;
-
-        public Socket ss = null;
-
-        //// default setting for PGU
-        public double time_ns__dac_update = 10; // 2.5, 5, 10
-        public int time_ns__code_duration = 10;    //$$ consider int --> double
-        public double scale_voltage_10V_mode = 7.650 / 10;
-        public double scale_voltage_40V_mode = 6.950 / 10;
-        public double output_impedance_ohm = 50;
-
-        public int __gui_ch_info;
-        public int __gui_aux_io_control;
-        public double __gui_load_impedance_ohm;
-        public int __gui_cycle_count;
-        //public int __gui_min_num_interpol;
-        //public int __gui_num_points;
-
-        //// cal_data from EEPROM
-        public int __gui_use_caldata = 1; // 1 to use calibration data.
-        public float __gui_out_ch1_offset = 0.0F; //$$ EEPROM float32 location @ 0x040
-        public float __gui_out_ch2_offset = 0.0F; //$$ EEPROM float32 location @ 0x044
-        public float __gui_out_ch1_gain  = 1.0F; //$$ EEPROM float32 location @ 0x048
-        public float __gui_out_ch2_gain  = 1.0F; //$$ EEPROM float32 location @ 0x04C
+        //// TCPIP socket parameters
+        //private int TIMEOUT = 5000;                      // socket timeout
+        private int SO_SNDBUF = 2048;
+        private int SO_RCVBUF = 32768;
+        private int INTVAL = 100;                       // Milli Second
+        private int BUF_SIZE_NORMAL = 2048;
+        private int BUF_SIZE_LARGE = 16384;
+        //private string HOST = "192.168.100.119";
+        private int PORT = 5025;
+        private Socket ss = null;
 
 
-        // board INFO from EEPROM 
-        public char[] __gui_pgu_idn_txt = new char[60]; //$$ not inside EEPROM
-
-        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F
-        public char[] __gui_pgu_ip_adrs = new char[16]; //$$ location @ 0x10-0x13
-        public char[] __gui_pgu_sm_adrs = new char[16]; //$$ location @ 0x14-0x17
-        public char[] __gui_pgu_ga_adrs = new char[16]; //$$ location @ 0x18-0x1B
-        public char[] __gui_pgu_dns_adrs= new char[16]; //$$ location @ 0x1C-0x1F
-        public char[] __gui_pgu_mac_adrs= new char[12]; //$$ location @ 0x20-0x2B
-        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D
-        public byte __gui_pgu_user_id           ;       //$$ location @ 0x2E
-        public byte __gui_pgu_check_sum         ;       //$$ location @ 0x2F
-        public byte __gui_pgu_check_sum_residual;       //$$ not inside EEPROM
-        public char[] __gui_pgu_user_txt = new char[16];//$$ location @ 0x30-0x3F
-
-
-
-        // LAN command string headers
-        public string cmd_str__IDN = "*IDN?\n";
-        public string cmd_str__RST = "*RST\n";
-
-        public string cmd_str__FPGA_FID = ":FPGA:FID?\n";
-        public string cmd_str__FPGA_TMP = ":FPGA:TMP?\n";
-
-        public string cmd_str__EPS_EN = ":EPS:EN";
-
-        public string cmd_str__PGU_PWR = ":PGU:PWR";
-        public string cmd_str__PGU_OUTP = ":PGU:OUTP";
-
-        public string cmd_str__PGU_STAT = ":PGU:STAT"; // output activity check
-
-        //$$ public string cmd_str__PGU_AUX_OUTP = ":PGU:AUX:OUTP";  //Remove        
-                                                    
-        public string cmd_str__PGU_AUX_CON        = ":PGU:AUX:CON";  //new
-        public string cmd_str__PGU_AUX_OLAT       = ":PGU:AUX:OLAT"; //new
-        public string cmd_str__PGU_AUX_DIR        = ":PGU:AUX:DIR";  //new
-        public string cmd_str__PGU_AUX_GPIO       = ":PGU:AUX:GPIO"; //new
-
-        //public string cmd_str__PGU_DCS_TRIG = ":PGU:DCS:TRIG";
-        //public string cmd_str__PGU_DCS_DAC0_PNT = ":PGU:DCS:DAC0:PNT";
-        //public string cmd_str__PGU_DCS_DAC1_PNT = ":PGU:DCS:DAC1:PNT";
-        //public string cmd_str__PGU_DCS_RPT = ":PGU:DCS:RPT";
-        public string cmd_str__PGU_TRIG = ":PGU:TRIG";
-        public string cmd_str__PGU_NFDT0 = ":PGU:NFDT0";
-        public string cmd_str__PGU_NFDT1 = ":PGU:NFDT1";
-        public string cmd_str__PGU_FDAC0 = ":PGU:FDAT0";
-        public string cmd_str__PGU_FDAC1 = ":PGU:FDAT1";
-        public string cmd_str__PGU_FRPT0 = ":PGU:FRPT0";
-        public string cmd_str__PGU_FRPT1 = ":PGU:FRPT1";
-
-        //$$ public string cmd_str__PGU_FDCS_TRIG = ":PGU:FDCS:TRIG";
-        //$$ public string cmd_str__PGU_FDCS_DAC0 = ":PGU:FDCS:DAC0";
-        //$$ public string cmd_str__PGU_FDCS_DAC1 = ":PGU:FDCS:DAC1";
-        //$$ public string cmd_str__PGU_FDCS_RPT  = ":PGU:FDCS:RPT";
-
-        public string cmd_str__PGU_FREQ = ":PGU:FREQ";
-        public string cmd_str__PGU_OFST_DAC0 = ":PGU:OFST:DAC0";
-        public string cmd_str__PGU_OFST_DAC1 = ":PGU:OFST:DAC1";
-        public string cmd_str__PGU_GAIN_DAC0 = ":PGU:GAIN:DAC0";
-        public string cmd_str__PGU_GAIN_DAC1 = ":PGU:GAIN:DAC1";
-
-        //$$ new for EEPROM
-        public string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
-        public string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
-
-        //public string cmd_str__DC_BIAS = ":PGU:BIAS";
-        
-        //----//
-
-        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
-		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
-        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
-
-        public bool IsInit = false;
-
-        public string SysOpen(string HOST, int TIMEOUT = 20000)
+        public DateTime Delay(int S) //$$ ms
         {
-            my_open(HOST, TIMEOUT);
+            DateTime ThisMoment = DateTime.Now;
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S);
+            DateTime AfterWards = ThisMoment.Add(duration);
 
-            string ret;
-
-            if (IsInit == false)
-            {            
-
-                //### :PGEP:EN
-                ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__EPS_EN + " ON\n"));
-
-                //### scpi command: ":PGU:PWR"
-                //### power on (DAC IC)
-                ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " ON\n"));
-                Delay(10); //$$ 10ms wait for electrical power stabilty
-
-                ////### output on or off //$$ PGU-CPU-S3000 relay on or off 
-                ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_OUTP + " ON\n"));
-
-                Read_IDN();
-                Load_CAL_from_EEPROM();
-                Load_INFO_from_EEPROM();
-
-                IsInit = true;     
+            while (AfterWards >= ThisMoment)
+            {
+                ThisMoment = DateTime.Now;
             }
 
-            //### scpi : *IDN?
-            return scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__IDN));  
+            return DateTime.Now;
         }
 
+        // lan subfunctions
 
-        public void SysClose()
-        {
-            if (ss != null) scpi_close(ss);
-        }
-
-        public void SysClose__board_shutdown() 
-        {
-            //$$ shutdown board 
-            IsInit = false; 
-
-            scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_OUTP + " OFF\n"));
-            Delay(10); //$$ 10ms wait for mechanical relay done 
-            scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR  + " OFF\n"));
-            scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__EPS_EN   + " OFF\n"));
-
-
-            if (ss != null) scpi_close(ss);
-        }
         
-        public Socket my_open(string HOST, int TIMEOUT)
-        {
-            if (ss != null) scpi_close(ss);
-            //
-            ss = scpi_open(HOST, PORT, TIMEOUT, SO_SNDBUF, SO_RCVBUF);
-            scpi_connect(ss, HOST, PORT);
-                        
-            return ss;
-
-            //def my_open(host, port):
-            //#
-            //ss = scpi_open()
-            //try:
-            //    print('>> try to connect : {}:{}'.format(host, port))
-            //    scpi_connect(ss, host, port)
-            //except socket.timeout:
-            //    ss = None
-            //except:
-            //    raise
-            //return ss
+        public bool scpi_is_available(){
+            bool ret = false;
+            if (ss != null) ret = true;
+            return ret;
         }
 
-        private static Socket scpi_open(string HOST, int PORT, int TIMEOUT, int SO_SNDBUF, int SO_RCVBUF)
+        public Socket scpi_open(int TIMEOUT, int SO_SNDBUF, int SO_RCVBUF)
         {
-
             try
             {
                 Socket ss = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -245,7 +91,7 @@ namespace TopInstrument
 
         }
 
-        private Socket scpi_connect(Socket ss, string HOST, int PORT)
+        public Socket scpi_connect(string HOST, int PORT)
         {
             var result = ss.BeginConnect(HOST, PORT, null, null);
             bool success = result.AsyncWaitHandle.WaitOne(2000, true);
@@ -259,35 +105,10 @@ namespace TopInstrument
                 ss = null;
                 throw new SocketException(10060); // Connection timed out.                 
             }
-
             return ss;
-
-            //try
-            //{
-            //    var ep = new IPEndPoint(IPAddress.Parse(HOST), PORT);
-            //    ss.Connect(ep);
-
-            //}
-
-            //catch (Exception e)
-            //{
-            //    ss.Close();
-            //    //// Console.WriteLine(String.Format("Error in Open") + e.Message);
-            //}
-
-            //return ss;
-
-            //def scpi_connect (ss, HOST, PORT):
-            //  try:
-            //      ss.connect((HOST, PORT))
-            //  except OSError as msg:
-            //      ss.close()
-            //      ss = None
-            //      print('error in connect: ', msg)
-            //      raise
         }
 
-        private Socket scpi_close(Socket ss)
+        public Socket scpi_close()
         {
             try
             {
@@ -302,32 +123,19 @@ namespace TopInstrument
             }
 
             return ss;
-
-            //def scpi_close (ss):
-            //    try:
-            //        ss.close()
-            //    except:
-            //        if ss == None:
-            //            print('error: ss==None')
-            //        raise
         }
 
-
-        private static DateTime Delay(int S) //$$ ms
+        public Socket my_open(string HOST, int TIMEOUT)
         {
-            DateTime ThisMoment = DateTime.Now;
-            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S);
-            DateTime AfterWards = ThisMoment.Add(duration);
-
-            while (AfterWards >= ThisMoment)
-            {
-                ThisMoment = DateTime.Now;
-            }
-
-            return DateTime.Now;
+            if ( scpi_is_available() ) scpi_close();
+            //
+            ss = scpi_open(TIMEOUT, SO_SNDBUF, SO_RCVBUF); // save socket
+            scpi_connect(HOST, PORT);
+                        
+            return ss;
         }
 
-        public string scpi_comm_resp_ss(Socket ss, byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 100)
+        public string scpi_comm_resp_ss(byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 100)
         {
 
             byte[] receiverBuff = new byte[BUF_SIZE_NORMAL];
@@ -393,6 +201,202 @@ namespace TopInstrument
             return data;
 
         }
+
+
+        // test var
+        public int __test_int = 0;
+
+        // test function
+        public static string _test() {
+            string ret = "_class__EPS_Dev_";
+            return ret;
+        }
+        public static int __test_eps_dev() {
+            // test member
+            EPS_Dev dev_eps = new EPS_Dev();
+            dev_eps.__test_int = dev_eps.__test_int - 1;
+
+            // test EPS
+
+            return dev_eps.__test_int;
+        }
+        
+    }
+
+    public class control_lan : mybaseclass_EPS_Dev
+    {
+        //## lan command access
+
+        //// LAN command string headers
+        public string cmd_str__IDN = "*IDN?\n"; // note EPS
+        public string cmd_str__RST = "*RST\n"; // note EPS
+        public string cmd_str__FPGA_FID = ":FPGA:FID?\n"; // note EPS
+        public string cmd_str__FPGA_TMP = ":FPGA:TMP?\n"; // note EPS
+        public string cmd_str__EPS_EN = ":EPS:EN"; // note EPS
+        public string cmd_str__PGU_PWR = ":PGU:PWR";
+        public string cmd_str__PGU_OUTP = ":PGU:OUTP";
+        public string cmd_str__PGU_STAT = ":PGU:STAT"; // output activity check
+        public string cmd_str__PGU_AUX_CON        = ":PGU:AUX:CON";  //new
+        public string cmd_str__PGU_AUX_OLAT       = ":PGU:AUX:OLAT"; //new
+        public string cmd_str__PGU_AUX_DIR        = ":PGU:AUX:DIR";  //new
+        public string cmd_str__PGU_AUX_GPIO       = ":PGU:AUX:GPIO"; //new
+        public string cmd_str__PGU_TRIG = ":PGU:TRIG";
+        public string cmd_str__PGU_NFDT0 = ":PGU:NFDT0";
+        public string cmd_str__PGU_NFDT1 = ":PGU:NFDT1";
+        public string cmd_str__PGU_FDAC0 = ":PGU:FDAT0";
+        public string cmd_str__PGU_FDAC1 = ":PGU:FDAT1";
+        public string cmd_str__PGU_FRPT0 = ":PGU:FRPT0";
+        public string cmd_str__PGU_FRPT1 = ":PGU:FRPT1";
+        public string cmd_str__PGU_FREQ = ":PGU:FREQ";
+        public string cmd_str__PGU_OFST_DAC0 = ":PGU:OFST:DAC0";
+        public string cmd_str__PGU_OFST_DAC1 = ":PGU:OFST:DAC1";
+        public string cmd_str__PGU_GAIN_DAC0 = ":PGU:GAIN:DAC0";
+        public string cmd_str__PGU_GAIN_DAC1 = ":PGU:GAIN:DAC1";
+        public string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
+        public string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
+        //public string cmd_str__DC_BIAS = ":PGU:BIAS"; //$$ to come
+
+
+
+
+        // test var
+        public new int __test_int = 0;
+        
+        // test function
+        public new static string _test() {
+            string ret = mybaseclass_EPS_Dev._test() + ":_class__control_lan_";
+            return ret;
+        }
+        public static int __test_control_lan() {
+            // test member
+            control_lan dev_lan = new control_lan();
+            dev_lan.__test_int = dev_lan.__test_int - 1;
+
+            // test LAN -- open
+
+            // test LAN -- MSPI control ??
+
+            return dev_lan.__test_int;
+        }
+    }
+
+    public class TOP_PGU : mybaseclass_control_lan
+    {
+        
+
+        //// default setting for PGU
+        public double time_ns__dac_update = 10; // 2.5, 5, 10
+        public int time_ns__code_duration = 10;    //$$ consider int --> double
+        public double scale_voltage_10V_mode = 7.650 / 10;
+        public double scale_voltage_40V_mode = 6.950 / 10;
+        public double output_impedance_ohm = 50;
+
+        public int __gui_ch_info;
+        public int __gui_aux_io_control;
+        public double __gui_load_impedance_ohm;
+        public int __gui_cycle_count;
+        //public int __gui_min_num_interpol;
+        //public int __gui_num_points;
+
+        //// cal_data from EEPROM
+        public int __gui_use_caldata = 1; // 1 to use calibration data.
+        public float __gui_out_ch1_offset = 0.0F; //$$ EEPROM float32 location @ 0x040
+        public float __gui_out_ch2_offset = 0.0F; //$$ EEPROM float32 location @ 0x044
+        public float __gui_out_ch1_gain  = 1.0F; //$$ EEPROM float32 location @ 0x048
+        public float __gui_out_ch2_gain  = 1.0F; //$$ EEPROM float32 location @ 0x04C
+
+
+        // board INFO from EEPROM 
+        public char[] __gui_pgu_idn_txt = new char[60]; //$$ not inside EEPROM
+
+        public char[] __gui_pgu_model_name  = new char[16]; //$$ location @ 0x00-0x0F
+        public char[] __gui_pgu_ip_adrs = new char[16]; //$$ location @ 0x10-0x13
+        public char[] __gui_pgu_sm_adrs = new char[16]; //$$ location @ 0x14-0x17
+        public char[] __gui_pgu_ga_adrs = new char[16]; //$$ location @ 0x18-0x1B
+        public char[] __gui_pgu_dns_adrs= new char[16]; //$$ location @ 0x1C-0x1F
+        public char[] __gui_pgu_mac_adrs= new char[12]; //$$ location @ 0x20-0x2B
+        public char[] __gui_pgu_slot_id = new char[2];  //$$ location @ 0x2C-0x2D
+        public byte __gui_pgu_user_id           ;       //$$ location @ 0x2E
+        public byte __gui_pgu_check_sum         ;       //$$ location @ 0x2F
+        public byte __gui_pgu_check_sum_residual;       //$$ not inside EEPROM
+        public char[] __gui_pgu_user_txt = new char[16];//$$ location @ 0x30-0x3F
+
+        //----//
+
+        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
+		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
+        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
+        
+        /*
+        private static DateTime Delay(int S) //$$ ms
+        {
+            DateTime ThisMoment = DateTime.Now;
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S);
+            DateTime AfterWards = ThisMoment.Add(duration);
+
+            while (AfterWards >= ThisMoment)
+            {
+                ThisMoment = DateTime.Now;
+            }
+
+            return DateTime.Now;
+        }
+        */
+
+        public bool IsInit = false;
+
+        public string SysOpen(string HOST, int TIMEOUT = 20000)
+        {
+            my_open(HOST, TIMEOUT);
+
+            string ret;
+
+            if (IsInit == false)
+            {            
+
+                //### :PGEP:EN
+                ret = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__EPS_EN + " ON\n"));
+
+                //### scpi command: ":PGU:PWR"
+                //### power on (DAC IC)
+                ret = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " ON\n"));
+                Delay(10); //$$ 10ms wait for electrical power stabilty
+
+                ////### output on or off //$$ PGU-CPU-S3000 relay on or off 
+                ret = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_OUTP + " ON\n"));
+
+                Read_IDN();
+                Load_CAL_from_EEPROM();
+                Load_INFO_from_EEPROM();
+
+                IsInit = true;     
+            }
+
+            //### scpi : *IDN?
+            return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__IDN));  
+        }
+
+        public void SysClose()
+        {
+            if ( scpi_is_available() ) scpi_close();
+        }
+
+        public void SysClose__board_shutdown() 
+        {
+            //$$ shutdown board 
+            IsInit = false; 
+
+            scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_OUTP + " OFF\n"));
+            Delay(10); //$$ 10ms wait for mechanical relay done 
+            scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR  + " OFF\n"));
+            scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__EPS_EN   + " OFF\n"));
+
+            if ( scpi_is_available() ) scpi_close();
+        }
+        
+
+
+
 
         public long conv_dec_to_bit_2s_comp_16bit(double dec, double full_scale = 20) //$$ int to double
         {
@@ -704,7 +708,7 @@ namespace TopInstrument
             string ret;
             
             try {
-                ret = scpi_comm_resp_ss(ss, PGU_MEMR_CMD);
+                ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
             }
 
             catch {
@@ -728,7 +732,7 @@ namespace TopInstrument
                             + string.Format(" #H{0,8:X8}\n", val_b32 );
             byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
 
-            string ret = scpi_comm_resp_ss(ss, PGU_MEMW_CMD);
+            string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
 
             //Delay(1); //$$ 1ms wait for write done // NG  read right after write
             //Delay(2); //$$ 2ms wait for write done // some NG 
@@ -934,7 +938,7 @@ namespace TopInstrument
 
         public int Read_IDN() 
         {
-            var idn_str = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__IDN));
+            var idn_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__IDN));
             this.__gui_pgu_idn_txt = idn_str.ToCharArray();
             return 0;
         }
@@ -1061,7 +1065,7 @@ namespace TopInstrument
 
             // copy to members
             //...
-            this.__gui_pgu_model_name              = new string(model_name  ).ToCharArray(); // (1)
+            this.__gui_pgu_model_name          = new string(model_name  ).ToCharArray(); // (1)
             this.__gui_pgu_ip_adrs             = new string(pgu_ip_adrs ).ToCharArray(); // (2)
             this.__gui_pgu_sm_adrs             = new string(pgu_sm_adrs ).ToCharArray(); // (3)
             this.__gui_pgu_ga_adrs             = new string(pgu_ga_adrs ).ToCharArray(); // (4)
@@ -1246,7 +1250,7 @@ namespace TopInstrument
             //print('pgu_freq_in_100kHz_str:', repr(pgu_freq_in_100kHz_str))
 
             byte[] PGU_FREQ_100kHz_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_FREQ + pgu_freq_in_100kHz_str);
-            scpi_comm_resp_ss(ss, PGU_FREQ_100kHz_STR);
+            scpi_comm_resp_ss(PGU_FREQ_100kHz_STR);
 
 
             double DAC_full_scale_current__mA = 25.5; // 20.1Vpp
@@ -1290,15 +1294,15 @@ namespace TopInstrument
             string pgu_offset_con_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_offset, DAC_offset);
 
             byte[] PGU_OFST_DAC0_OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC0 + pgu_offset_con_str);
-            scpi_comm_resp_ss(ss, PGU_OFST_DAC0_OFFSET_STR);
+            scpi_comm_resp_ss(PGU_OFST_DAC0_OFFSET_STR);
             byte[] PGU_OFST_DAC1_OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC1 + pgu_offset_con_str);
-            scpi_comm_resp_ss(ss, PGU_OFST_DAC1_OFFSET_STR);
+            scpi_comm_resp_ss(PGU_OFST_DAC1_OFFSET_STR);
 
 
             byte[] PGU_GAIN_DAC0_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC0 + pgu_fsc_gain_str);
-            scpi_comm_resp_ss(ss, PGU_GAIN_DAC0_STR);
+            scpi_comm_resp_ss(PGU_GAIN_DAC0_STR);
             byte[] PGU_GAIN_DAC1_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC1 + pgu_fsc_gain_str);
-            scpi_comm_resp_ss(ss, PGU_GAIN_DAC1_STR);
+            scpi_comm_resp_ss(PGU_GAIN_DAC1_STR);
 
             //write_aux_io__direct(0x3F00 & 0xFCFF);
         }
@@ -1769,7 +1773,7 @@ namespace TopInstrument
             {
                 string PGU_NFDT0 = Convert.ToString(cmd_str__PGU_NFDT0 + len_fifo_data_str + " \n");
                 byte[] PGU_NFDT0_CMD = Encoding.UTF8.GetBytes(PGU_NFDT0);
-                scpi_comm_resp_ss(ss, PGU_NFDT0_CMD);
+                scpi_comm_resp_ss(PGU_NFDT0_CMD);
 
                 using (StreamWriter ws = new StreamWriter(LogFileName, true))
                     ws.WriteLine("## " + PGU_NFDT0);
@@ -1778,7 +1782,7 @@ namespace TopInstrument
                 {
                     string PGU_FDAC0 = Convert.ToString(cmd_str__PGU_FDAC0 + pulse_info_num_block_str[i]);
                     byte[] PGU_FDAC0_CMD = Encoding.UTF8.GetBytes(PGU_FDAC0);
-                    scpi_comm_resp_ss(ss, PGU_FDAC0_CMD);
+                    scpi_comm_resp_ss(PGU_FDAC0_CMD);
 
                     using (StreamWriter ws = new StreamWriter(LogFileName, true))
                         ws.WriteLine("## " + PGU_FDAC0);
@@ -1790,7 +1794,7 @@ namespace TopInstrument
             {
                 string PGU_NFDT1 = Convert.ToString(cmd_str__PGU_NFDT1 + len_fifo_data_str + " \n");
                 byte[] PGU_NFDT1_CMD = Encoding.UTF8.GetBytes(PGU_NFDT1);
-                scpi_comm_resp_ss(ss, PGU_NFDT1_CMD);
+                scpi_comm_resp_ss(PGU_NFDT1_CMD);
 
                 using (StreamWriter ws = new StreamWriter(LogFileName, true))
                     ws.WriteLine("## " + PGU_NFDT1);
@@ -1799,7 +1803,7 @@ namespace TopInstrument
                 {
                     string PGU_FDAC1 = Convert.ToString(cmd_str__PGU_FDAC1 + pulse_info_num_block_str[i]);
                     byte[] PGU_FDAC1_CMD = Encoding.UTF8.GetBytes(PGU_FDAC1);
-                    scpi_comm_resp_ss(ss, PGU_FDAC1_CMD);
+                    scpi_comm_resp_ss(PGU_FDAC1_CMD);
 
                     using (StreamWriter ws = new StreamWriter(LogFileName, true))
                         ws.WriteLine("## " + PGU_FDAC1);
@@ -1818,11 +1822,11 @@ namespace TopInstrument
 
             string PGU_FRPT0 = Convert.ToString(cmd_str__PGU_FRPT0 + pgu_repeat_num_str);
             byte[] PGU_FRPT0_CMD = Encoding.UTF8.GetBytes(PGU_FRPT0);
-            scpi_comm_resp_ss(ss, PGU_FRPT0_CMD);
+            scpi_comm_resp_ss(PGU_FRPT0_CMD);
 
             string PGU_FRPT1 = Convert.ToString(cmd_str__PGU_FRPT1 + pgu_repeat_num_str);
             byte[] PGU_FRPT1_CMD = Encoding.UTF8.GetBytes(PGU_FRPT1);
-            scpi_comm_resp_ss(ss, PGU_FRPT1_CMD);
+            scpi_comm_resp_ss(PGU_FRPT1_CMD);
 
             //write_aux_io__direct(__gui_aux_io_control & 0xFFFF);  // #Only, Use to 10V PGU
             string ret;
@@ -1858,7 +1862,7 @@ namespace TopInstrument
             //$$ byte[] cmd_str__PGU_TRIG_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
             //$$ scpi_comm_resp_ss(ss, cmd_str__PGU_TRIG_CMD);
             byte[] PGU_TRIG_ON_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
-            scpi_comm_resp_ss(ss, PGU_TRIG_ON_CMD);
+            scpi_comm_resp_ss(PGU_TRIG_ON_CMD);
 
             // log
             using (StreamWriter ws = new StreamWriter(LogFileName, true))
@@ -1872,7 +1876,7 @@ namespace TopInstrument
         {          
             string PGU_TRIG_OFF = Convert.ToString(cmd_str__PGU_TRIG + " #H00000000 \n");
             byte[] cmd_str__PGU_TRIG_OFF_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_OFF);
-            scpi_comm_resp_ss(ss, cmd_str__PGU_TRIG_OFF_CMD);
+            scpi_comm_resp_ss(cmd_str__PGU_TRIG_OFF_CMD);
 
             // 40V-amp control latch reset off
             pgu_spio_ext__send_aux_IO_OLAT(0x0000);
@@ -1982,9 +1986,9 @@ namespace TopInstrument
             //$$ scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + "?\n"));
 
             string ret;
-            ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(":EPS:WMO#H3A #HFFFFFFFF\n"));
+            ret = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(":EPS:WMO#H3A #HFFFFFFFF\n"));
             //## close socket
-            scpi_close(ss);
+            scpi_close();
 
             return ret;
         }
@@ -2029,7 +2033,7 @@ namespace TopInstrument
         {
             string ret;
             // # Board Temp Check CMD
-            ret = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(":EPS:WMO#H3A #HFFFFFFFF\n"));
+            ret = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(":EPS:WMO#H3A #HFFFFFFFF\n"));
 
             trig_pgu_output_Cid_OFF();
             
@@ -2039,7 +2043,7 @@ namespace TopInstrument
             //$$ scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + "?\n"));
 
             //## close socket
-            scpi_close(ss);
+            scpi_close();
 
             return ret;
         }
@@ -2048,7 +2052,7 @@ namespace TopInstrument
         {
             string ret_str;
             //int ret;
-            ret_str = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_CON + "?\n"));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_CON + "?\n"));
 
             //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 5));
 
@@ -2059,7 +2063,7 @@ namespace TopInstrument
         {
             string ret_str;
             //int ret;
-            ret_str = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_OLAT + "?\n"));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_OLAT + "?\n"));
 
             //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 8));
 
@@ -2074,7 +2078,7 @@ namespace TopInstrument
         {
             string ret_str;
             //int ret;
-            ret_str = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_DIR + "?\n"));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_DIR + "?\n"));
 
             //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 8));
 
@@ -2085,7 +2089,7 @@ namespace TopInstrument
         {
             string ret_str;
             //int ret;
-            ret_str = scpi_comm_resp_ss(ss, Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_GPIO + "?\n"));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_GPIO + "?\n"));
 
             //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 8));
 
@@ -2099,7 +2103,7 @@ namespace TopInstrument
 
             string PGU_AUX_CON = Convert.ToString(cmd_str__PGU_AUX_CON + val_b16_str);
             byte[] PGU_AUX_CON_CMD = Encoding.UTF8.GetBytes(PGU_AUX_CON);
-            ret = scpi_comm_resp_ss(ss, PGU_AUX_CON_CMD);
+            ret = scpi_comm_resp_ss(PGU_AUX_CON_CMD);
 
             return ret;
         }
@@ -2112,7 +2116,7 @@ namespace TopInstrument
 
             string PGU_AUX_OLAT = Convert.ToString(cmd_str__PGU_AUX_OLAT + val_b16_str);
             byte[] PGU_AUX_OLAT_CMD = Encoding.UTF8.GetBytes(PGU_AUX_OLAT);
-            ret = scpi_comm_resp_ss(ss, PGU_AUX_OLAT_CMD);
+            ret = scpi_comm_resp_ss(PGU_AUX_OLAT_CMD);
 
             return ret;
         }
@@ -2125,7 +2129,7 @@ namespace TopInstrument
 
             string PGU_AUX_DIR = Convert.ToString(cmd_str__PGU_AUX_DIR + val_b16_str);
             byte[] PPGU_AUX_DIR_CMD = Encoding.UTF8.GetBytes(PGU_AUX_DIR);
-            ret = scpi_comm_resp_ss(ss, PPGU_AUX_DIR_CMD);
+            ret = scpi_comm_resp_ss(PPGU_AUX_DIR_CMD);
 
             return ret;
         }
@@ -2146,14 +2150,19 @@ namespace TopInstrument
 
             string PGU_AUX_GPIO = Convert.ToString(cmd_str__PGU_AUX_GPIO + val_b16_str);
             byte[] PGU_AUX_GPIO_CMD = Encoding.UTF8.GetBytes(PGU_AUX_GPIO);
-            ret = scpi_comm_resp_ss(ss, PGU_AUX_GPIO_CMD);
+            ret = scpi_comm_resp_ss(PGU_AUX_GPIO_CMD);
 
             return ret;
 
             //return rsp.decode()[0:2] # OK or NG
         }
 
-		
+		//// test functions 
+        public new static string _test() {
+            string ret = mybaseclass_control_lan._test() + ":_class__TOP_PGU_";
+            return ret;
+        }
+
 		public static int __test_top_pgu()
         {
             Console.WriteLine("Hello, TopInstrument!");
@@ -2639,9 +2648,14 @@ namespace __test__
             Console.WriteLine("Hello, world!");
 
             //call something in TopInstrument
+            Console.WriteLine(string.Format(">>> {0}", TopInstrument.EPS_Dev._test()));
+            Console.WriteLine(string.Format(">>> {0}", TopInstrument.control_lan._test()));
+            Console.WriteLine(string.Format(">>> {0}", TopInstrument.TOP_PGU._test()));
+
             int ret = 0;
-            ret = TopInstrument.EPS_Dev.__test_eps_dev();
+            //ret = TopInstrument.EPS_Dev.__test_eps_dev();
             ret = TopInstrument.TOP_PGU.__test_eps_dev();
+            ret = TopInstrument.TOP_PGU.__test_control_lan();
 
             ret = TopInstrument.TOP_PGU.__test_top_pgu();
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
