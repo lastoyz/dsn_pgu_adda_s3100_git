@@ -17,9 +17,6 @@
 // # B35 : MTH M2_SPI, CAL_SPI, EXT_TRIG               (prev. in MC2) // 3.3V
 // # B216: not used
 
-////
-
-
 
 /* top module integration */
 module txem7310_pll__s3100_ms__top ( 
@@ -480,10 +477,7 @@ OBUF obuf__FPGA_TRIG_TX_EN__________inst(.O( o_B14_L10P ), .I( FPGA_TRIG_TX_EN  
 //$$ S3100 vs TXEM7310
 //// note: fpga module    in B16 uses high-Z output // 7..0 ... B17,B16,A16,B15,A15,A14,B13,A13
 //// note: S3100-CPU-BASE in B14 uses high-Z output // 7..0 ... V19,V18,Y19,Y18,W20,W19,V20,U20
-//  led[0:7] = 1    'Z' LED OFF
-//  led[0:7] = 0    '0' LED ON
- 
-wire [7:0] led; //$$
+(* keep = "true" *) wire [7:0] led; //$$
 wire FPGA_LED0_tri = led[0];  wire FPGA_LED0_out = 1'b0;  wire FPGA_LED0_in; // *_in unused
 wire FPGA_LED1_tri = led[1];  wire FPGA_LED1_out = 1'b0;  wire FPGA_LED1_in; // *_in unused
 wire FPGA_LED2_tri = led[2];  wire FPGA_LED2_out = 1'b0;  wire FPGA_LED2_in; // *_in unused
@@ -501,7 +495,6 @@ IOBUF iobuf__FPGA_LED4__inst(.IO(io_B14_L13P_MRCC ), .T( FPGA_LED4_tri ) , .I( F
 IOBUF iobuf__FPGA_LED5__inst(.IO(io_B14_L13N_MRCC ), .T( FPGA_LED5_tri ) , .I( FPGA_LED5_out ), .O( FPGA_LED5_in  ) ); 
 IOBUF iobuf__FPGA_LED6__inst(.IO(io_B14_L14P_SRCC ), .T( FPGA_LED6_tri ) , .I( FPGA_LED6_out ), .O( FPGA_LED6_in  ) ); 
 IOBUF iobuf__FPGA_LED7__inst(.IO(io_B14_L14N_SRCC ), .T( FPGA_LED7_tri ) , .I( FPGA_LED7_out ), .O( FPGA_LED7_in  ) ); 
-
 
 
 wire FPGA_GPIO_PB5 ;
@@ -551,7 +544,7 @@ wire BUF_FMC_CLK ;
 OBUF obuf__F_RDY__inst      ( .O( o_B15_0_ ), .I( F_RDY        ) );
 IBUF ibuf__BUF_FMC_CLK__inst( .I( i_B15_25 ), .O( BUF_FMC_CLK  ) );
 
-wire [7:0] test_point = 8'b0; //$$
+(* keep = "true" *) wire [7:0] test_point;               //$$
 wire  F_TP0 = test_point[0] ;
 wire  F_TP1 = test_point[1] ;
 wire  F_TP2 = test_point[2] ;
@@ -560,14 +553,16 @@ wire  F_TP4 = test_point[4] ;
 wire  F_TP5 = test_point[5] ;
 wire  F_TP6 = test_point[6] ;
 wire  F_TP7 = test_point[7] ;
-OBUF obuf__F_TP0__inst(.O( o_B15_L1P_AD0P ), .I( F_TP0 ) );
-OBUF obuf__F_TP1__inst(.O( o_B15_L1N_AD0N ), .I( F_TP1 ) );
-OBUF obuf__F_TP2__inst(.O( o_B15_L2P_AD8P ), .I( F_TP2 ) );
-OBUF obuf__F_TP3__inst(.O( o_B15_L2N_AD8N ), .I( F_TP3 ) );
+
+OBUF obuf__F_TP0__inst(.O( o_B15_L2N_AD8N ), .I( F_TP0 ) );
+OBUF obuf__F_TP1__inst(.O( o_B15_L5P_AD9P ), .I( F_TP1 ) );
+OBUF obuf__F_TP2__inst(.O( o_B15_L5N_AD9N ), .I( F_TP2 ) );
+OBUF obuf__F_TP3__inst(.O( o_B15_L2P_AD8P ), .I( F_TP3 ) );
+
 OBUF obuf__F_TP4__inst(.O( o_B15_L3P_AD1P ), .I( F_TP4 ) );
 OBUF obuf__F_TP5__inst(.O( o_B15_L3N_AD1N ), .I( F_TP5 ) );
-OBUF obuf__F_TP6__inst(.O( o_B15_L5P_AD9P ), .I( F_TP6 ) );
-OBUF obuf__F_TP7__inst(.O( o_B15_L5N_AD9N ), .I( F_TP7 ) );
+OBUF obuf__F_TP6__inst(.O( o_B15_L1P_AD0P ), .I( F_TP6 ) );
+OBUF obuf__F_TP7__inst(.O( o_B15_L1N_AD0N ), .I( F_TP7 ) );
 
 wire EXT_I2C_4_SCL_in  ;
 wire EXT_I2C_4_SDA_tri ; wire EXT_I2C_4_SDA_out ; wire EXT_I2C_4_SDA_in  ;
@@ -678,7 +673,6 @@ wire  BUF_nRESET     ;
 OBUF obuf__BASE_F_LED_ERR__inst(.O( o_B16_0_   ), .I( BASE_F_LED_ERR ) );
 OBUF obuf__RUN_FPGA_LED____inst(.O( o_B16_25   ), .I( RUN_FPGA_LED   ) );
 IBUF ibuf__BUF_nRESET______inst( .I( i_B16_L24N ), .O( BUF_nRESET     ) );
-	
 	
 wire BD0__tri ;  wire BD0__out ;  wire BD0__in ;
 wire BD1__tri ;  wire BD1__out ;  wire BD1__in ;
@@ -1100,8 +1094,8 @@ OBUF obuf__EXT_TRIG_BYPASS_______inst(.O( o_B35_L24N ), .I( EXT_TRIG_BYPASS     
 // clock pll0 //{
 wire clk_out1_200M ; // REFCLK 200MHz for IDELAYCTRL // for pll1
 wire clk_out2_140M ; // for pll2 ... 140M
-wire clk_out3_10M  ; // for slow logic / I2C 
-wire clk_out4_10M ; // for XADC //FPGA_RUN_LED
+wire clk_out3_10M  ; // for slow logic / I2C //
+wire clk_out4_10M ; // for XADC 
 //
 wire clk_locked_pre;
 clk_wiz_0  clk_wiz_0_inst(
@@ -1191,7 +1185,7 @@ wire lan_clk              = clk3_out2_144M;
 wire mcs_eeprom_fifo_clk  = clk3_out4_72M;
 //
 wire xadc_clk             =  clk_out4_10M;
-wire fpga_run_led_clk     =  clk_out4_10M;
+
 
 // clock for MTH SPI //{
 
@@ -2145,8 +2139,6 @@ assign w_TEST_TO   = {15'b0, count2eqFF, 14'b0, count1eq80, count1eq00};
 // xem7310_led:
 //   1 in --> 0 out // tri_0, out_0
 //   0 in --> Z out // tri_1, out_X
-
-
 function [7:0] xem7310_led;
 input [7:0] a;
 integer i;
@@ -3462,11 +3454,9 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 //}
 
 
-
-
-
-
 ///TODO: //-------------------------------------------------------//
+
+/* TODO: FPGA_RUN_LED assign */
 
 wire FPGA_LED_RUN_STATUS;
 
@@ -3475,30 +3465,37 @@ led_test  led_test__inst (
 	.reset_n   (reset_n            ),
 	.o_run_led (FPGA_LED_RUN_STATUS), // 
 	.valid     (                   )
-	);
+	);	
 
+assign RUN_FPGA_LED = FPGA_LED_RUN_STATUS;
 
+/* TODO: LED assign */
 
-assign RUN_FPGA_LED = (FPGA_LED_RUN_STATUS == 1'b1) ?  1'b1 : 1'b0;    
-
-
-assign led[0] = (FPGA_LED_RUN_STATUS == 1'b1) ?  1'b1 : 1'b0; 
-assign led[1] = (FPGA_LED_RUN_STATUS == 1'b1) ?  1'b1 : 1'b0; 
+assign led[0] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b1 : 1'b0;
+assign led[1] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b0 : 1'b1; 
 assign led[2] = 1'b0;
 assign led[3] = 1'b1;
+ 
 
-assign led[4] = 1'b0;
-assign led[5] = 1'b1;
-assign led[6] = 1'b0;
-assign led[7] = 1'b1;
-
-
-
+assign led[4] = 1'b1; 
+assign led[5] = 1'b0;
+assign led[6] = 1'b1; 
+assign led[7] = FPGA_LED_RUN_STATUS;
 
 /* TODO: TP assign */
-	
 
+//assign test_point[0] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b1 : 1'b0; 
+//assign test_point[1] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b0 : 1'b1;      // L?? ?? LED¬³ ?[ X    ? ???????
 
+assign test_point[0] = w_SSPI_TEST_MCLK;
+assign test_point[1] = w_SSPI_TEST_MOSI; 
+assign test_point[2] = w_SSPI_TEST_SS_B;
+assign test_point[3] = 1'b0; 
+
+assign test_point[4] = 1'b1; 
+assign test_point[5] = 1'b0; 
+assign test_point[6] = 1'b1;  
+assign test_point[7] = 1'b0; 
 
 
 //}
