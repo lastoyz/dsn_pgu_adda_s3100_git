@@ -14,8 +14,9 @@ using System.Threading.Tasks;
 
 // for my base classes
 using mybaseclass_EPS_Dev     = TopInstrument.EPS_Dev;
-using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan;
-// note ... PGU_control_by_lan_spi_emul ... to come
+using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //## for S3000-PGU and S3100-PGU-TLAN
+// note ... PGU_control_by_lan_spi_emul ... to come 
+// using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan_spi_emul; //## for S3100-PGU-TSPI
 
 namespace TopInstrument
 {
@@ -216,6 +217,149 @@ namespace TopInstrument
 
         }
 
+        //  # scpi command for numeric block response
+        //  def scpi_comm_resp_numb_ss (ss, cmd_str, buf_size=BUF_SIZE_LARGE, intval=INTVAL, timeout_large=TIMEOUT_LARGE) :
+        public string scpi_comm_resp_numb_ss(byte[] cmd_str, int BUF_SIZE_LARGE = 16384, int INTVAL = 1, int timeout_large=20000) {
+            byte[] receiverBuff = new byte[BUF_SIZE_LARGE];
+        //  	try:
+        //  		if __debug__:print('Send:', repr(cmd_str))
+        //  		ss.sendall(cmd_str)
+        //  	except:
+        //  		if __debug__:print('error in sendall')
+        //  		raise
+            try
+            {
+                //Console.WriteLine(String.Format("Send:", cmd_str));
+                int Sent = ss.Send(cmd_str);
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(String.Format("Error in sendall") + e.Message); //$$ for release
+				//$$ TODO:  print out command string for test
+				//Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
+            }
+
+        //  	##
+        //  	sleep(intval)
+            Delay(INTVAL);
+
+            int nRecvSize;
+            string data;
+            int count_to_recv;
+        //  	#
+        //  	# cmd: ":PGEP:PO#HBC 524288\n"
+        //  	# rsp: "#4_001024_rrrrrrrrrr...rrrrrrrrrr\n"
+        //  	#
+        //  	# recv data until finding the sentinel '\n' 
+        //  	# but check the sentinel after the data byte count is met.
+        //  	#
+
+        //  	# read timeout
+        //  	to = ss.gettimeout()
+        //  	#print(to)
+        //  	# increase timeout
+        //  	ss.settimeout(timeout_large)
+            int rx_timeout_prev = ss.ReceiveTimeout;
+            ss.ReceiveTimeout = timeout_large;
+
+        //  	#
+        //  	try:
+        //  		# find the numeric head : must 10 in data 
+        //  		data = ss.recv(buf_size)
+        //  		while True:
+        //  			if len(data)>=10:
+        //  				break
+        //  			data = data + ss.recv(buf_size)
+        //  		#
+        //  		#print('header: ', repr(data[0:10])) # header
+        //  		#
+        //  		# find byte count 
+        //  		byte_count = int(data[3:9])
+        //  		#print('byte_count=', repr(byte_count)) 
+        //  		#
+        //  		# collect all data by byte count
+        //  		count_to_recv = byte_count + 10 + 1# add header count #add /n
+        //  		while True:
+        //  			if len(data)>=count_to_recv:
+        //  				break
+        //  			data = data + ss.recv(buf_size)
+        //  		#
+        //  		# check the sentinel 
+        //  		while True:
+        //  			if (chr(data[-1])=='\n'): # check the sentinel '\n' 
+        //  				break
+        //  			data = data + ss.recv(buf_size)
+        //  		#
+        //  	except:
+        //  		if __debug__:print('error in recv')
+        //  		raise
+        //  	#
+        //  	if (len(data)>20):
+        //  		if __debug__:print('Received:', repr(data[0:20]),  ' (first 20 bytes)')
+        //  	else:
+        //  		if __debug__:print('Received:', repr(data))
+        //  	#
+            int byte_count;
+            try // to revise
+            {
+                nRecvSize = ss.Receive(receiverBuff);
+                data = new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                // find the numeric head : must 10 in data 
+                while (true)
+                {
+                    if (data.Length >= 10) 
+                    {
+                        break;
+                    }
+                    nRecvSize = ss.Receive(receiverBuff);
+                    data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+
+                }
+                // find byte count in header
+                byte_count = (int)Convert.ToInt32(data.Substring(3,6));
+                // collect all data by byte count
+                count_to_recv = byte_count + 10 + 1; //# add header count #add /n
+                while (true)
+                {
+                    if (data.Length>=count_to_recv)
+                        break;
+                    nRecvSize = ss.Receive(receiverBuff);
+                    data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                }
+                // check the sentinel
+                while (true)
+                {
+                    if (receiverBuff[nRecvSize - 1] == '\n')
+                    {
+                        break;
+                    }
+                    nRecvSize = ss.Receive(receiverBuff);
+                    data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                }
+            }
+            catch
+            {
+                //Console.WriteLine(String.Format("Error in Recive"));
+                //$$data = "";
+                //data = "#H00000000\n";
+                data = "NG\n";
+                //raise
+            }
+
+        //  	# timeout back to prev
+        //  	ss.settimeout(to)
+            ss.ReceiveTimeout = rx_timeout_prev;
+
+        //  	#
+        //  	data = data[10:(10+byte_count)]
+        //  	if __debug__:print('data:', data[0:20].hex(),  ' (first 20 bytes)')
+        //  	#
+        //  	return [byte_count, data]
+        //      
+            return data;
+        }
+
         //$$ scpi commands
 
         public string get_IDN(){
@@ -249,10 +393,13 @@ namespace TopInstrument
             return ret;
         }
 
-        public int GetWireOutValue(int adrs, uint mask = 0xFFFFFFFF) {
+        // endpoint functions
+        public uint GetWireOutValue(uint adrs, uint mask = 0xFFFFFFFF) {
+            //# cmd: ":EPS:WMO#Hnn #Hmmmmmmmm\n"
+            //# rsp: "#H000O3245\n" 
             string cmd_str = cmd_str__EPS_WMO + string.Format("#H{0,2:X2} #H{1,8:X8}\n", adrs, mask);
             string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
-            return (int)Convert.ToInt32(rsp_str.Substring(2,8),16); // convert hex into int32;
+            return (uint)Convert.ToUInt32(rsp_str.Substring(2,8),16); // convert hex into uint32;
         }
 
         public void UpdateWireOuts() {
@@ -260,7 +407,8 @@ namespace TopInstrument
         }
 
 	    public void SetWireInValue(uint adrs, uint data, uint mask = 0xFFFFFFFF) {
-		    // # :EPS:WMI#Hnn  #Hnnnnnnnn #Hmmmmmmmm<NL>
+            //# cmd: ":EPS:WMI#Hnn #Hnnnnnnnn #Hmmmmmmmm\n"
+            //# rsp: "OK\n" or "NG\n"
             string cmd_str = cmd_str__EPS_WMI + string.Format("#H{0,2:X2} #H{1,8:X8} #H{2,8:X8}\n", adrs, data, mask);
 		    string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
         }
@@ -268,6 +416,155 @@ namespace TopInstrument
         public void UpdateWireIns() {
             // NOP
         }
+
+        public void ActivateTriggerIn(uint adrs, uint loc_bit) {
+            //# cmd: ":EPS:TAC#Hnn  #Hnn\n"
+            //# rsp: "OK\n" or "NG\n"
+            string cmd_str = cmd_str__EPS_TAC + string.Format("#H{0,2:X2} #H{1,2:X2}\n",adrs,loc_bit);
+            string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
+        }
+
+        public void UpdateTriggerOuts() {
+            // NOP
+        }
+
+        public bool IsTriggered(uint adrs, uint mask) {
+            //# cmd: ":EPS:TMO#H60 #H0000FFFF\n"
+            //# rsp: "ON\n" or "OFF\n"
+            string cmd_str = cmd_str__EPS_TMO + string.Format("#H{0,2:X2} #H{1,8:X8}\n", adrs, mask);
+            string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
+            bool ret;
+            if (rsp_str.Substring(0,3)=="OFF") {
+                ret = false;
+            }
+            else if (rsp_str.Substring(0,2)=="ON") {
+                ret = true;
+            } else {
+                ret = false; // error in response string
+            }
+            return ret;
+        }
+
+        public uint GetTriggerOutVector(uint adrs, uint mask = 0xFFFFFFFF) {
+            //# cmd: ":EPS:TWO#H60 #H0000FFFF\n"
+            //# rsp: "#H000O3245\n"
+            string cmd_str = cmd_str__EPS_TWO + string.Format("#H{0,2:X2} #H{1,8:X8}\n", adrs, mask);
+            string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
+            return (uint)Convert.ToUInt32(rsp_str.Substring(2,8),16); // convert hex into uint32;
+        }
+
+        public long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray) {
+            //## read pipeout
+            //# cmd: ":EPS:PO#HAA 001024\n"
+            //# rsp: "#4_001024_rrrrrrrrrr...rrrrrrrrrr\n"		
+            int byte_count = data_bytearray.Length;
+            string cmd_str = cmd_str__EPS_PO + string.Format("#H{0,2:X2} {1,6:d6}\n", adrs, byte_count);
+            string rsp_str = scpi_comm_resp_numb_ss(Encoding.UTF8.GetBytes(cmd_str));
+            //# remove header
+            string data_str = rsp_str.Substring(10, (int)byte_count);
+            //# copy data
+            data_bytearray =  Encoding.UTF8.GetBytes(data_str); 
+            return (long)byte_count;
+        }
+
+        public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray) {
+            //## write pipein
+            //# cmd: ":EPS:PI#H8A #4_001024_rrrrrrrrrr...rrrrrrrrrr\n"
+            //# rsp: "OK\n"		
+            int byte_count = data_bytearray.Length;
+            //cmd_str = cmd_str__EPS_PI + ('#H{:02X} #4_{:06d}_'.format(adrs,byte_count)).encode() + data_bytearray + b'\n'
+            //string cmd_str = cmd_str__EPS_PI + string.Format("#H{0,2:X2} #4_{1,6:d6}_{2}\n", adrs, byte_count, Encoding.UTF8.GetString(data_bytearray).ToCharArray());
+            string cmd_str = cmd_str__EPS_PI + string.Format("#H{0,2:X2} #4_{1,6:d6}_{2}\n", adrs, byte_count, 
+                Encoding.UTF8.GetString(data_bytearray));
+            string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
+            return (long)byte_count;
+        }
+
+
+
+        // master SPI emulation functions
+        public uint _test__reset_spi_emul() {
+            //## trigger reset 
+            uint adrs_MSPI_TI = 0x42;
+            uint loc_bit_MSPI_reset_trig = 0;
+            uint adrs_MSPI_TO = 0x62;
+            uint mask_MSPI_reset_done = 0x00000001;
+            ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_reset_trig);
+            uint cnt_loop = 0;
+            bool done_trig = false;
+            while (true) {
+                done_trig = IsTriggered(adrs_MSPI_TO, mask_MSPI_reset_done);
+                cnt_loop++;
+                if (done_trig) {
+                    // print
+                    //Console.WriteLine(string.Format("> done !! @ cnt_loop=", cnt_loop)); // test
+                    break;
+                }
+            }
+            return cnt_loop;
+        }
+        
+        public uint _test__init__spi_emul() {
+            //## trigger init 
+            uint adrs_MSPI_TI = 0x42;
+            uint loc_bit_MSPI_init_trig = 1;
+            uint adrs_MSPI_TO = 0x62;
+            uint mask_MSPI_init_done = 0x00000002;
+            ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_init_trig);
+            uint cnt_loop = 0;
+            bool done_trig = false;
+            while (true) {
+                done_trig = IsTriggered(adrs_MSPI_TO, mask_MSPI_init_done);
+                cnt_loop++;
+                if (done_trig) {
+                    // print
+                    //Console.WriteLine(string.Format("> done !! @ cnt_loop=", cnt_loop)); // test
+                    break;
+                }
+            }
+            return cnt_loop;
+        }
+
+        public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF) {
+            //## set spi frame data (example)
+            //#data_C = 0x10   ##// for read 
+            //#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
+            //#data_D = 0x0000 ##// for reading (XXXX)
+            uint data_MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D;
+            uint adrs_MSPI_CON_WI = 0x17;
+            SetWireInValue(adrs_MSPI_CON_WI, data_MSPI_CON_WI);
+
+            //## set spi enable signals
+            uint data_MSPI_EN_CS_WI = enable_CS_bits;
+            uint adrs_MSPI_EN_CS_WI = 0x16;
+            SetWireInValue(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
+
+            //## trigger frame 
+            uint adrs_MSPI_TI = 0x42;
+            uint loc_bit_MSPI_frame_trig = 2;
+            uint adrs_MSPI_TO = 0x62;
+            uint mask_MSPI_frame_done = 0x00000004;
+            ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_frame_trig);
+            uint cnt_loop = 0;
+            bool done_trig = false;
+            while (true) {
+                done_trig = IsTriggered(adrs_MSPI_TO, mask_MSPI_frame_done);
+                cnt_loop++;
+                if (done_trig) {
+                    // print
+                    Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
+                    break;
+                }
+            }
+
+            //## read miso data
+            uint data_B;
+            uint adrs_MSPI_FLAG_WO = 0x34;
+            data_B = GetWireOutValue(adrs_MSPI_FLAG_WO);
+            data_B = data_B & 0xFFFF; // mask on low 16 bits
+            return data_B;
+        }
+
 
         // test var
         public int __test_int = 0;
@@ -304,10 +601,42 @@ namespace TopInstrument
             // MSPI emulation test
             // 
             // more endpoint access test : PI, PO
-            // ReadFromPipeOut()
+            // scpi_comm_resp_numb_ss
+            //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
+
+            // test fifo : pipein at 0x8A; pipeout at 0xAA.
+            byte[] data_bytearray;
+            data_bytearray = new byte[] { 
+                (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+                (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
+                (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+                (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
+                };
+            Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref data_bytearray));
+            data_bytearray = new byte[16];
+            Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref data_bytearray));
             // WriteToPipeIn()
             //
-            // MSPI test : _test__send_spi_frame
+            // MSPI test : 
+            //  _test__reset_spi_emul
+            //  _test__init__spi_emul
+            //  _test__send_spi_frame
+            //
+            // reset spi emulation
+            dev_eps._test__reset_spi_emul();
+            // init  spi emulation
+            dev_eps._test__init__spi_emul();
+            // send frame
+            uint data_C = 0x10  ; // for read // 6 bits
+            uint data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
+            uint data_D = 0x0000; // for reading (XXXX) // 16bits
+            uint data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D);
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+            // reset spi emulation
+            dev_eps._test__reset_spi_emul();
             //
             Console.WriteLine(dev_eps.eps_disable());
             dev_eps.scpi_close();

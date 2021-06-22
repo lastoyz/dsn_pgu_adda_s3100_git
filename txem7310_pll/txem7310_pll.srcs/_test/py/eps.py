@@ -442,11 +442,11 @@ class EPS_Dev:
 		MSPI_EN_CS_WI = enable_CS_bits
 		EPS_Dev.SetWireInValue(self,0x16, MSPI_EN_CS_WI)
 
-		## frame 
+		## trigger frame 
 		EPS_Dev.ActivateTriggerIn(self,0x42, 2) # frame_trig
 		cnt_loop = 0
 		while True:
-			ret=EPS_Dev.IsTriggered(self,0x62,0x00000002) # frame_done
+			ret=EPS_Dev.IsTriggered(self,0x62,0x00000004) # frame_done
 			cnt_loop += 1
 			if ret:
 				print('frame done !! @ ' + repr(cnt_loop))

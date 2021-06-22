@@ -31,9 +31,9 @@ class control_spi (eps.EPS_Dev):
             ret = self.IsTriggered(0x62,0x00000001) # reset_done
             cnt_loop += 1
             if ret:
-                print('reset done !! @ ' + repr(cnt_loop))
+                #print('reset done !! @ ' + repr(cnt_loop))
                 break
-        pass
+        return cnt_loop
     #
     def MSPI_init(self):
         self.ActivateTriggerIn(0x42, 1) # init_trig
@@ -42,9 +42,9 @@ class control_spi (eps.EPS_Dev):
             ret = self.IsTriggered(0x62,0x00000002) # init_done
             cnt_loop += 1
             if ret:
-                print('init done !! @ ' + repr(cnt_loop))
+                #print('init done !! @ ' + repr(cnt_loop))
                 break        
-        pass
+        return cnt_loop
     #
     def MSPI_send_frame(self, data_C, data_A, data_D):
         ret = self._test__send_spi_frame(data_C, data_A, data_D)
