@@ -433,7 +433,7 @@ set_property IOSTANDARD LVDS_25 [get_ports sys_clkp]
 set_property IOSTANDARD LVDS_25 [get_ports sys_clkn]
 
 ##$$ 200MHz 5ns // clock-in
-create_clock -period 5.000 -name sys_clk [get_ports sys_clkp]
+##create_clock -period 5.000 -name sys_clk [get_ports sys_clkp]
 
 ## TODO: define clock - sys_clk // from pll // clk_out3_10M_clk_wiz_0
 create_generated_clock  -name sys_clk         [get_pins  clk_wiz_0_0_1_inst/inst/plle2_adv_inst/CLKOUT0]
@@ -450,6 +450,10 @@ create_generated_clock  -name lan_clk         [get_pins  clk_wiz_0_3_1_inst/inst
 ## TODO: define clock - mcs_eeprom_fifo_clk
 create_generated_clock  -name mcs_eeprom_fifo_clk      [get_pins  clk_wiz_0_3_1_inst/inst/plle2_adv_inst/CLKOUT3]
 
+## TODO: define clock - base_sspi_clk
+create_generated_clock  -name base_sspi_clk   [get_pins  clk_wiz_2_2_inst/inst/plle2_adv_inst/CLKOUT0]
+
+
 ## for eeprom
 set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
 
@@ -461,6 +465,11 @@ set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks sy
 set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks sys_clk]
 set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks mcs_clk]
 
+## for base_sspi_clk
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks sys_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_eeprom_fifo_clk]
+  
 
 ############################################################################
 ## TODO: IO property 
@@ -483,6 +492,7 @@ set_property IOSTANDARD LVCMOS33  [get_ports  *_B35_*]
 
 ## PULLUP ##
 set_property PULLUP true [get_ports io_B13_*]
+set_property PULLUP true [get_ports io_B14_*]
 set_property PULLUP true [get_ports io_B15_*]
 set_property PULLUP true [get_ports io_B16_*]
 
@@ -561,7 +571,8 @@ set_min_delay   0.000  -from [get_ports i_B15_L8N]
 set_max_delay  18.000    -to [get_ports {{o_B15_L9P} {o_B15_L6P}}]  
 
 # LAN_SCLK   LAN_SSN_B LAN_SSAUX_B
-set_max_delay   6.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
+##set_max_delay   6.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
+set_max_delay   12.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
 
 ## relax wires
 set_false_path -from [get_pins {lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__lan_wi_00/r_port_wi_00_reg[*]/C}] 
