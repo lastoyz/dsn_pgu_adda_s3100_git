@@ -1636,7 +1636,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
 					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
-					//// set trig data
+					//// set trig data //{
 					//  task CID_DAC0_NUM_FFDAT_WR; // (data)
 					//  	input  [31:0] data;
 					//  	begin
@@ -1668,9 +1668,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  		r_trig_dacx_ctrl[10] = 1'b0;
 					//  	end
 					//  endtask
-					//
-					
-					//xil_printf("val = 0x%08X\r\n", val); // test
+					//}
 					
 					// on dac0
 					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00001000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
@@ -1831,23 +1829,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					len_byte = decstr2data_u32((u8*)(buf+loc),6);
 					// locate the first byte of data
 					loc = loc + 7; // locate the numeric parameter head //$$
-					
-					// //$$ fifo reset --> move
-					// //  task CID_FIFO_RESET;
-					// // 	 begin
-					// // 	 	CID_CTRL_WR(32'h0000_00C0);
-					// // 	 	CID_CTRL_WR(32'h0000_0000); // wair for reset done
-					// // 	 	CID_CTRL_WR(32'h0000_0000); // wair for reset done
-					// // 	 end
-					// //  endtask
-					// //// dac0 fifo reset 
-					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000040, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					// write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
-					// activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
-					
+										
 					//$$ read "16 byte long data" repeatly
 					while (len_byte > 0) {
 						len_byte = len_byte - 16;

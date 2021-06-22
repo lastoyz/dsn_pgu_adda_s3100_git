@@ -105,7 +105,7 @@
 // | MCS   | MCS_SETUP_WI  | TBD        | wire_in_19 | Control board for MCS.     | bit[31:16]=board_id[15:0]      | 
 // |       |               |            |            |                            | bit[10]=lan_on_base_enable(NA) |
 // |       |               |            |            |                            | bit[ 9]=eeprom_on_tp_enable(NA)|
-// |       |               |            |            |                            | bit[ 8]=eeprom_lan_enable      |
+// |       |               |            |            |                            | bit[ 8]=eeprom_lan_enable(NA)  |
 // |       |               |            |            |                            | bit[ 7: 0]=slot_id             |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
@@ -184,6 +184,14 @@
 // |       |               |            |            |                            | bit[13] = trig_cid_ctrl_rd     |
 // |       |               |            |            |                            |                                |
 // |       |               |            |            |                            | bit[15] = trig_cid_stat_rd     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC0_DAT_PI   | TBD__      | pipe_in_86 | Write pattern data in fifo.| w_DAC0_DAT_INC_PI[31:0]        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC0_DUR_PI   | TBD__      | pipe_in_87 | Write pattern data in fifo.| w_DAC0_DUR_PI[31:0]            |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC1_DAT_PI   | TBD__      | pipe_in_88 | Write pattern data in fifo.| w_DAC1_DAT_INC_PI[31:0]        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC1_DUR_PI   | TBD__      | pipe_in_89 | Write pattern data in fifo.| w_DAC1_DUR_PI[31:0]            |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | CLKD  | CLKD_WI       | TBD__      | wire_in_06 | Control DAC IC interface.  | bit[   31]= CLKD_R_W_bar       |
@@ -322,6 +330,14 @@
 // |       |               |            |            |                            |                                |
 // |       |               |            |            |                            | bit[15] = trig_cid_stat_rd     |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC0_DAT_PI   | 0x218      | pipe_in_86 | Write pattern data in fifo.| w_DAC0_DAT_INC_PI[31:0]        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC0_DUR_PI   | 0x21C      | pipe_in_87 | Write pattern data in fifo.| w_DAC0_DUR_PI[31:0]            |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC1_DAT_PI   | 0x220      | pipe_in_88 | Write pattern data in fifo.| w_DAC1_DAT_INC_PI[31:0]        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | DACZ  | DAC1_DUR_PI   | 0x224      | pipe_in_89 | Write pattern data in fifo.| w_DAC1_DUR_PI[31:0]            |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | CLKD  | CLKD_WI       | 0x018      | wire_in_06 | Control DAC IC interface.  | bit[   31]= CLKD_R_W_bar       |
 // |       |               |            |            |                            | bit[30:29]= CLKD_byte_mode[1:0]|
@@ -365,7 +381,6 @@
 // |       |               |            |            |                            | TBD (reserved)                 |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-
 
 
 /* sub modules */
@@ -845,12 +860,14 @@ module txem7310_pll__s3100_sv_pgu__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A4_21_0611   //{
+// TODO: FPGA_IMAGE_ID = h_A4_21_0619   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
+
 
 //}
 
@@ -3524,52 +3541,56 @@ assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // mu
 
 // wi
 wire [31:0] w_M2_port_wi_sadrs_h008; // SSPI_CON_WI		0x008	wi02
-assign w_SSPI_CON_WI = w_M2_port_wi_sadrs_h008;
-
-wire [31:0] w_M2_port_wi_sadrs_h014; // new
-wire [31:0] w_M2_port_wi_sadrs_h018; // new
-wire [31:0] w_M2_port_wi_sadrs_h01C; // new
-wire [31:0] w_M2_port_wi_sadrs_h020; // new
-wire [31:0] w_M2_port_wi_sadrs_h024; // new
-wire [31:0] w_M2_port_wi_sadrs_h04C; // new
-wire [31:0] w_M2_port_wi_sadrs_h048; // new
+	assign ep02wire = w_M2_port_wi_sadrs_h008;
+wire [31:0] w_M2_port_wi_sadrs_h014; // DACX_WI
+	assign ep05wire = w_M2_port_wi_sadrs_h014;
+wire [31:0] w_M2_port_wi_sadrs_h018; // CLKD_WI
+	assign ep06wire = w_M2_port_wi_sadrs_h018;
+wire [31:0] w_M2_port_wi_sadrs_h01C; // SPIO_WI
+	assign ep07wire = w_M2_port_wi_sadrs_h01C;
+wire [31:0] w_M2_port_wi_sadrs_h020; // DACZ_DAT_WI
+	assign ep08wire = w_M2_port_wi_sadrs_h020;
+wire [31:0] w_M2_port_wi_sadrs_h024; // TRIG_DAT_WI
+	assign ep09wire = w_M2_port_wi_sadrs_h024;
+wire [31:0] w_M2_port_wi_sadrs_h04C; // MEM_WI 
+	assign ep13wire = w_M2_port_wi_sadrs_h04C;
+wire [31:0] w_M2_port_wi_sadrs_h048; // MEM_FDAT_WI
+	assign ep12wire = w_M2_port_wi_sadrs_h048;
 
 // wo
-wire [31:0] w_M2_port_wo_sadrs_h080 = w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
-wire [31:0] w_M2_port_wo_sadrs_h088 = w_TIMESTAMP_WO ; 
-wire [31:0] w_M2_port_wo_sadrs_h08C = w_TEST_MON_WO  ; 
-
-wire [31:0] w_M2_port_wo_sadrs_h094; // new
-wire [31:0] w_M2_port_wo_sadrs_h098; // new
-wire [31:0] w_M2_port_wo_sadrs_h09C; // new
-wire [31:0] w_M2_port_wo_sadrs_h0A0; // new
-wire [31:0] w_M2_port_wo_sadrs_h0A4; // new
-
-wire [31:0] w_M2_port_wo_sadrs_h0C8 = w_SSPI_FLAG_WO ;
-wire [31:0] w_M2_port_wo_sadrs_h0E8 = w_XADC_TEMP_WO ; // XADC_TEMP_WO		0x0E8	wo3A
-wire [31:0] w_M2_port_wo_sadrs_h0EC = w_XADC_VOLT_WO ; 
-wire [31:0] w_M2_port_wo_sadrs_h380 = 32'h33AA_CC55  ; // SSPI_TEST_WO		0x380	NA  // known pattern
+wire [31:0] w_M2_port_wo_sadrs_h080 = ep20wire; // w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
+wire [31:0] w_M2_port_wo_sadrs_h088 = ep22wire; // w_TIMESTAMP_WO ; 
+wire [31:0] w_M2_port_wo_sadrs_h08C = ep23wire; // w_TEST_MON_WO  ; 
+wire [31:0] w_M2_port_wo_sadrs_h094 = ep25wire; // DACX_WO
+wire [31:0] w_M2_port_wo_sadrs_h098 = ep26wire; // CLKD_WO
+wire [31:0] w_M2_port_wo_sadrs_h09C = ep27wire; // SPIO_WO
+wire [31:0] w_M2_port_wo_sadrs_h0A0 = ep28wire; // DACZ_DAT_WO
+wire [31:0] w_M2_port_wo_sadrs_h0A4 = ep29wire; // TRIG_DAT_WO
+wire [31:0] w_M2_port_wo_sadrs_h0C8 = ep32wire; // w_SSPI_FLAG_WO ;
+wire [31:0] w_M2_port_wo_sadrs_h0E8 = ep3Awire; // w_XADC_TEMP_WO ; // XADC_TEMP_WO		0x0E8	wo3A
+wire [31:0] w_M2_port_wo_sadrs_h0EC = ep3Bwire; // w_XADC_VOLT_WO ; 
+wire [31:0] w_M2_port_wo_sadrs_h380 = 32'h33AA_CC55  ; // 0x380	NA  // known pattern
 
 // ti 
-wire w_M2_ck__sadrs_h114;  wire [31:0] w_M2_port_ti_sadrs_h114; // new
-wire w_M2_ck__sadrs_h118;  wire [31:0] w_M2_port_ti_sadrs_h118; // new
-wire w_M2_ck__sadrs_h11C;  wire [31:0] w_M2_port_ti_sadrs_h11C; // new
-wire w_M2_ck__sadrs_h120;  wire [31:0] w_M2_port_ti_sadrs_h120; // new
-wire w_M2_ck__sadrs_h124;  wire [31:0] w_M2_port_ti_sadrs_h124; // new
-wire w_M2_ck__sadrs_h14C;  wire [31:0] w_M2_port_ti_sadrs_h14C; // new
+wire w_M2_ck__sadrs_h114 = ep45ck;  wire [31:0] w_M2_port_ti_sadrs_h114; assign ep45trig = w_M2_port_ti_sadrs_h114; // DACX_TI
+wire w_M2_ck__sadrs_h118 = ep46ck;  wire [31:0] w_M2_port_ti_sadrs_h118; assign ep46trig = w_M2_port_ti_sadrs_h118; // CLKD_TI
+wire w_M2_ck__sadrs_h11C = ep47ck;  wire [31:0] w_M2_port_ti_sadrs_h11C; assign ep47trig = w_M2_port_ti_sadrs_h11C; // SPIO_TI
+wire w_M2_ck__sadrs_h120 = ep48ck;  wire [31:0] w_M2_port_ti_sadrs_h120; assign ep48trig = w_M2_port_ti_sadrs_h120; // DACZ_DAT_TI   
+wire w_M2_ck__sadrs_h124 = ep49ck;  wire [31:0] w_M2_port_ti_sadrs_h124; assign ep49trig = w_M2_port_ti_sadrs_h124; // TRIG_DAT_TI
+wire w_M2_ck__sadrs_h14C = ep53ck;  wire [31:0] w_M2_port_ti_sadrs_h14C; assign ep53trig = w_M2_port_ti_sadrs_h14C; // MEM_TI
 
 // to 
-wire w_M2_ck__sadrs_h1CC;  wire [31:0] w_M2_port_to_sadrs_h1CC; // new
+wire w_M2_ck__sadrs_h1CC = ep73ck;  wire [31:0] w_M2_port_to_sadrs_h1CC = ep73trig; // MEM_TO
 
 // pi 
-wire w_M2_wr__sadrs_h218;  wire [31:0] w_M2_port_pi_sadrs_h218; // new
-wire w_M2_wr__sadrs_h21C;  wire [31:0] w_M2_port_pi_sadrs_h21C; // new
-wire w_M2_wr__sadrs_h220;  wire [31:0] w_M2_port_pi_sadrs_h220; // new
-wire w_M2_wr__sadrs_h224;  wire [31:0] w_M2_port_pi_sadrs_h224; // new
-wire w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_pi_sadrs_h24C; // new
+wire w_M2_wr__sadrs_h218; assign ep86wr = w_M2_wr__sadrs_h218;  wire [31:0] w_M2_port_pi_sadrs_h218; assign ep86pipe = w_M2_port_pi_sadrs_h218; // DAC0_DAT_PI // pipe_in_86
+wire w_M2_wr__sadrs_h21C; assign ep87wr = w_M2_wr__sadrs_h21C;  wire [31:0] w_M2_port_pi_sadrs_h21C; assign ep87pipe = w_M2_port_pi_sadrs_h21C; // DAC0_DUR_PI // pipe_in_87
+wire w_M2_wr__sadrs_h220; assign ep88wr = w_M2_wr__sadrs_h220;  wire [31:0] w_M2_port_pi_sadrs_h220; assign ep88pipe = w_M2_port_pi_sadrs_h220; // DAC1_DAT_PI // pipe_in_88
+wire w_M2_wr__sadrs_h224; assign ep89wr = w_M2_wr__sadrs_h224;  wire [31:0] w_M2_port_pi_sadrs_h224; assign ep89pipe = w_M2_port_pi_sadrs_h224; // DAC1_DUR_PI // pipe_in_89
+wire w_M2_wr__sadrs_h24C; assign ep93wr = w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_pi_sadrs_h24C; assign ep93pipe = w_M2_port_pi_sadrs_h24C; // MEM_PI      // pipe_in_93
 
 // po
-wire w_M2_rd__sadrs_h2CC;  wire [31:0] w_M2_port_po_sadrs_h2CC; // new
+wire w_M2_rd__sadrs_h2CC; assign epB3rd = w_M2_rd__sadrs_h2CC;  wire [31:0] w_M2_port_po_sadrs_h2CC = epB3pipe; // MEM_PO // pipeout_B3 
 
 //}
 
@@ -3921,9 +3942,9 @@ assign w_SSPI_FLAG_WO[15: 0] = 16'b0;
 ///TODO: //-------------------------------------------------------//
 
 
-/* TODO: BANK signals */
+/* TODO: other BANK signals */ //{
 
-//// LAN fixed in S3100-PGU
+//// LAN fixed in S3100-PGU //{
 assign PT_FMOD_EP_LAN_MOSI  = EP_LAN_MOSI ;
 assign PT_FMOD_EP_LAN_SCLK  = EP_LAN_SCLK ;
 assign PT_FMOD_EP_LAN_CS_B  = EP_LAN_CS_B ;
@@ -3931,7 +3952,7 @@ assign PT_FMOD_EP_LAN_RST_B = EP_LAN_RST_B;
 //
 assign EP_LAN_INT_B = PT_FMOD_EP_LAN_INT_B;
 assign EP_LAN_MISO  = PT_FMOD_EP_LAN_MISO ;
-
+//}
 
 // LAN signals to mux //{
 
@@ -3955,6 +3976,6 @@ assign EP_LAN_MISO  = PT_FMOD_EP_LAN_MISO ;
 
 //}
 
-
+//}
 
 endmodule
