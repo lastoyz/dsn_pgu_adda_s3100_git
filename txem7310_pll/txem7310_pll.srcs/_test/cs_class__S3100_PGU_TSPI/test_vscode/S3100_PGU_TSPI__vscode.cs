@@ -13,11 +13,20 @@ using System.Threading;
 using System.Threading.Tasks;
 
 // for my base classes
-using mybaseclass_EPS_Dev     = TopInstrument.EPS_Dev;
+using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;
+//using mybaseclass_EPS_control     = TopInstrument.EPS_Dev_by_spi_emul; //     support EPS-SPI emulation commands
+
 using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //## for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
-// note ... PGU_control_by_lan_eps      ... to come // may support PGU-EPS command // review mcs_io_bridge_ext.c in xsdk firmware
-// note ... PGU_control_by_lan_spi_emul ... to come // may support PGU-SPI command
-// using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan_spi_emul; //## for S3100-PGU-TSPI 
+// using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //## for S3100-PGU-TSPI 
+
+
+// note ... class SCPI_base                         //     support SCPI commands
+// note ... class EPS_Dev                           //     support EPS commands
+// note ... class EPS_Dev_by_spi_emul               //     support EPS-SPI emulation commands
+// note ... class PGU_control_by_lan                //     support PGU-LAN commands
+// note ... class PGU_control_by_lan_eps ... coming //     support PGU-EPS commands // review mcs_io_bridge_ext.c in xsdk firmware
+// note ... class PGU_control_by_lan_spi_emul ... to come // may support PGU-SPI command
+
 
 namespace TopInstrument
 {
@@ -51,6 +60,9 @@ namespace TopInstrument
         private string cmd_str__EPS_TWO  = ":EPS:TWO";
         private string cmd_str__EPS_PI   = ":EPS:PI";
         private string cmd_str__EPS_PO   = ":EPS:PO";
+
+        //// EPS common parameters
+        //private uint MASK_ALL    = 0xFFFFFFFF;
 
         //// common subfunctions
         public DateTime Delay(int S) //$$ ms
@@ -648,7 +660,7 @@ namespace TopInstrument
         
     }
 
-    public class PGU_control_by_lan : mybaseclass_EPS_Dev
+    public class PGU_control_by_lan : mybaseclass_EPS_control
     {
         //## lan command access
 
@@ -680,11 +692,11 @@ namespace TopInstrument
         //$$ PWR access
 
         public string pgu_pwr__on() {
-            return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " ON\n"));;
+            return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " ON\n"));
         }
 
         public string pgu_pwr__off() {
-            return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " OFF\n"));;
+            return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " OFF\n"));
         }
 
         //$$ OUTPUT access
@@ -1053,7 +1065,7 @@ namespace TopInstrument
         
         // test function
         public new static string _test() {
-            string ret = mybaseclass_EPS_Dev._test() + ":_PGU_control_by_lan_";
+            string ret = mybaseclass_EPS_control._test() + ":_class__PGU_control_by_lan_";
             return ret;
         }
         public static int __test_PGU_control_by_lan() {
@@ -1087,14 +1099,16 @@ namespace TopInstrument
     }
 
 
-public class PGU_control_by_lan_eps : mybaseclass_EPS_Dev
+public class PGU_control_by_eps : mybaseclass_EPS_control
     {
         //## lan command access
+        //   not use PGU LAN command string
+        //   use EPS command
 
-        //// PGU LAN command string headers
+        //// PGU LAN command string headers //$$ to remove
         private string cmd_str__PGU_PWR        = ":PGU:PWR";
         private string cmd_str__PGU_OUTP       = ":PGU:OUTP";
-        public string cmd_str__PGU_STAT       = ":PGU:STAT"; // output activity check
+        
         private string cmd_str__PGU_AUX_CON    = ":PGU:AUX:CON";
         private string cmd_str__PGU_AUX_OLAT   = ":PGU:AUX:OLAT";
         private string cmd_str__PGU_AUX_DIR    = ":PGU:AUX:DIR";
@@ -1115,15 +1129,207 @@ public class PGU_control_by_lan_eps : mybaseclass_EPS_Dev
         private string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
         //public string cmd_str__DC_BIAS = ":PGU:BIAS"; //$$ to come
 
+        //// PGU EPS address map info ......
+        private string EP_ADRS__GROUP_STR          = "_S3100_PGU_";
+        private uint   EP_ADRS__FPGA_IMAGE_ID_WO   = 0x20;
+        private uint   EP_ADRS__XADC_TEMP_WO       = 0x3A;
+        private uint   EP_ADRS__XADC_VOLT          = 0x3B;
+        private uint   EP_ADRS__TIMESTAMP_WO       = 0x22;
+        private uint   EP_ADRS__TEST_IO_MON        = 0x23;
+        private uint   EP_ADRS__TEST_CON_WI        = 0x01;
+        private uint   EP_ADRS__TEST_OUT_WO        = 0x21;
+        private uint   EP_ADRS__TEST_TI            = 0x40;
+        private uint   EP_ADRS__TEST_TO            = 0x60;
+        private uint   EP_ADRS__BRD_CON_WI         = 0x03;
+        private uint   EP_ADRS__MCS_SETUP_WI       = 0x19;
+        private uint   EP_ADRS__MSPI_EN_CS_WI      = 0x16;
+        private uint   EP_ADRS__MSPI_CON_WI        = 0x17;
+        private uint   EP_ADRS__MSPI_FLAG_WO       = 0x34;
+        private uint   EP_ADRS__MSPI_TI            = 0x42;
+        private uint   EP_ADRS__MSPI_TO            = 0x62;
+        private uint   EP_ADRS__MEM_FDAT_WI        = 0x12;
+        private uint   EP_ADRS__MEM_WI             = 0x13;
+        private uint   EP_ADRS__MEM_TI             = 0x53;
+        private uint   EP_ADRS__MEM_TO             = 0x73;
+        private uint   EP_ADRS__MEM_PI             = 0x93;
+        private uint   EP_ADRS__MEM_PO             = 0xB3;
+        private uint   EP_ADRS__DACX_WI            = 0x05;
+        private uint   EP_ADRS__DACX_WO            = 0x25;
+        private uint   EP_ADRS__DACX_TI            = 0x45;
+        private uint   EP_ADRS__DACZ_DAT_WI        = 0x08;
+        private uint   EP_ADRS__DACZ_DAT_WO        = 0x28;
+        private uint   EP_ADRS__DACZ_DAT_TI        = 0x48;
+        private uint   EP_ADRS__DAC0_DAT_INC_PI    = 0x86;
+        private uint   EP_ADRS__DAC0_DUR_PI        = 0x87;
+        private uint   EP_ADRS__DAC1_DAT_INC_PI    = 0x88;
+        private uint   EP_ADRS__DAC1_DUR_PI        = 0x89;
+        private uint   EP_ADRS__CLKD_WI            = 0x06;
+        private uint   EP_ADRS__CLKD_WO            = 0x26;
+        private uint   EP_ADRS__CLKD_TI            = 0x46;
+        private uint   EP_ADRS__SPIO_WI            = 0x07;
+        private uint   EP_ADRS__SPIO_WO            = 0x27;
+        private uint   EP_ADRS__SPIO_TI            = 0x47;
+        private uint   EP_ADRS__TRIG_DAT_WI        = 0x09;
+        private uint   EP_ADRS__TRIG_DAT_WO        = 0x29;
+        private uint   EP_ADRS__TRIG_DAT_TI        = 0x49;
+
+
+        //// PGU subfunctions with EPS commands
+        private void enable_mcs_ep() {
+            //...
+            eps_enable();
+        }
+
+        private void disable_mcs_ep() {
+            //...
+            eps_disable();
+        }
+
+
+        // SPIO ......
+        
+        private uint pgu_spio_send_spi_frame(uint frame_data) {
+            //# write control 
+            SetWireInValue(EP_ADRS__SPIO_WI, frame_data);  //# (ep,val,mask)
+
+            //# trig spi frame
+            //#   wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1];
+            ActivateTriggerIn(EP_ADRS__SPIO_TI, 1); //# (ep,bit) 
+            
+            //# check spi frame done
+            //#   assign w_SPIO_WO[25] = w_done_SPIO_SPI_frame;
+            uint cnt_done = 0    ;
+            uint MAX_CNT  = 20000;
+            int  bit_loc  = 25   ;
+            uint flag;
+            uint flag_done;
+            while (true) {
+            	flag = GetWireOutValue(EP_ADRS__SPIO_WO);
+            	flag_done = (flag>>bit_loc) & 0x0000001;
+            	if (flag_done==1)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+
+            //# read received data 
+            //#   assign w_SPIO_WO[15:8] = w_SPIO_rd_DA;
+            //#   assign w_SPIO_WO[ 7:0] = w_SPIO_rd_DB;
+            uint val_recv = flag & 0x0000FFFF;
+            return val_recv;
+        }
+        private uint pgu_sp_1_reg_read_b16(uint reg_adrs_b8) {
+            uint val_b16    = 0;
+            //
+            uint CS_id      = 1;
+            uint pin_adrs_A = 0; 
+            uint R_W_bar    = 1; // read
+            uint reg_adrs_A = reg_adrs_b8;
+            //#
+            uint framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+            //#
+            return pgu_spio_send_spi_frame(framedata);
+        }
+        private uint pgu_sp_1_reg_write_b16(uint reg_adrs_b8, uint val_b16) {
+            //
+            uint CS_id      = 1;
+            uint pin_adrs_A = 0; 
+            uint R_W_bar    = 0; // write
+            uint reg_adrs_A = reg_adrs_b8;
+            //#
+            uint framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+            //#
+            return pgu_spio_send_spi_frame(framedata);
+        }
+
+        private void pgu_spio_ext_pwr_led(uint led, uint pwr_dac, uint pwr_adc, uint pwr_amp) {
+            //...
+            uint dir_read;
+            uint lat_read;
+            //
+            //# read IO direction 
+            //# check IO direction : 0xFFX0 where (SPA,SPB)
+            dir_read = pgu_sp_1_reg_read_b16(0x00); // unused
+            
+            //# read output Latch
+            lat_read = pgu_sp_1_reg_read_b16(0x14);
+            
+            //# set IO direction for SP1 PB[3:0] - all output
+            pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
+            
+            //# set IO for SP1 PB[3:0]
+            uint val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            pgu_sp_1_reg_write_b16(0x12,val);
+        }
+
+        private uint pgu_spio_ext_pwr_led_readback() {
+            //...
+            uint lat_read;
+            //# read output Latch
+            lat_read = pgu_sp_1_reg_read_b16(0x14);
+            return lat_read & 0x000F;
+        }
+
 
         //$$ PWR access
 
         public string pgu_pwr__on() {
-            return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " ON\n"));;
+            //## string ret = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " ON\n")); // equivalent PGU LAN command
+            
+            string ret = "OK\n"; // or "NG\n"
+            uint val;
+            uint val_s0;
+            uint val_s1;
+
+            // force to enable LAN endpoint
+            enable_mcs_ep(); // just in case // not necessary in S3100-PGu
+
+            // read power control status
+            val = pgu_spio_ext_pwr_led_readback();
+            val_s0 = (val>>0) & 0x0001;
+            val_s1 = (val>>1) & 0x0001;
+
+            // DAC power on // without changing pwr_adc and pwr_amp
+            pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+
+            // power stability delay 1ms or more.
+            Delay(1);
+
+            // DACX fpga pll reset
+            //pgu_dacx_fpga_pll_rst(1, 1, 1);
+
+            // CLKD init
+            //pgu_clkd_init();
+
+            // CLKD setup
+            //pgu_clkd_setup(2000); // preset 200MHz
+
+            // DACX init 
+            //pgu_dacx_init();
+
+            // DACX fpga pll run
+            //pgu_dacx_fpga_pll_rst(0, 0, 0);
+            //pgu_dacx_fpga_clk_dis(0, 0);
+
+            // update input delay tap inside DAC IC
+            //pgu_dacx_cal_input_dtap();
+
+            return ret;
         }
 
         public string pgu_pwr__off() {
-            return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " OFF\n"));;
+            //return scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_PWR + " OFF\n")); // equivalent PGU LAN command
+
+            string ret = "OK\n"; // or "NG\n"
+            // DAC power off
+            pgu_spio_ext_pwr_led(0, 0, 0, 0);
+
+            // TODO: consider pll off by reset  vs  clock disable
+            ////pgu_dacx_fpga_pll_rst(1, 1, 1); // DAC pll off by reset
+            //pgu_dacx_fpga_clk_dis(1, 1); // DAC clock output disable
+
+            return ret;
         }
 
         //$$ OUTPUT access
@@ -1492,14 +1698,14 @@ public class PGU_control_by_lan_eps : mybaseclass_EPS_Dev
         
         // test function
         public new static string _test() {
-            string ret = mybaseclass_EPS_Dev._test() + ":_PGU_control_by_lan_eps";
+            string ret = mybaseclass_EPS_control._test() + ":_class__PGU_control_by_eps";
             return ret;
         }
-        public static int __test_PGU_control_by_lan_eps() {
-            Console.WriteLine(">>>>>> test: __test_PGU_control_by_lan_eps");
+        public static int __test_PGU_control_by_eps() {
+            Console.WriteLine(">>>>>> test: __test_PGU_control_by_eps");
 
             // test member
-            PGU_control_by_lan_eps dev_lan_eps = new PGU_control_by_lan_eps();
+            PGU_control_by_eps dev_lan_eps = new PGU_control_by_eps();
             dev_lan_eps.__test_int = dev_lan_eps.__test_int - 1;
 
             // test LAN
@@ -2226,7 +2432,7 @@ public class PGU_control_by_lan_eps : mybaseclass_EPS_Dev
             Array.Copy(eeprom_data_at_2X__bytes,0xC,pgu_slot_id,0, 2);
             //(8)
             var pgu_user_id   = eeprom_data_at_2X__bytes[0xE]; // located at 0x2E 
-            var pgu_check_sum = eeprom_data_at_2X__bytes[0xF];;// located at 0x2F
+            var pgu_check_sum = eeprom_data_at_2X__bytes[0xF]; // located at 0x2F
             byte pgu_check_sum_residual = calc_check_sum(eeprom_LAN_data__bytes); // byte sum at 0x10 - 0x2F // for network setup integrity
             //(9)
             var pgu_user_txt = new char[16];
@@ -3623,7 +3829,7 @@ namespace __test__
             //call something in TopInstrument
             Console.WriteLine(string.Format(">>> {0}", TopInstrument.EPS_Dev._test()));
             Console.WriteLine(string.Format(">>> {0}", TopInstrument.PGU_control_by_lan._test()));
-            Console.WriteLine(string.Format(">>> {0}", TopInstrument.PGU_control_by_lan_eps._test()));
+            Console.WriteLine(string.Format(">>> {0}", TopInstrument.PGU_control_by_eps._test()));
             Console.WriteLine(string.Format(">>> {0}", TopInstrument.TOP_PGU._test()));
 
             int ret = 0;
@@ -3631,7 +3837,7 @@ namespace __test__
             ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
 
             ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
-            ret = TopInstrument.PGU_control_by_lan_eps.__test_PGU_control_by_lan_eps(); // test
+            ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
 
             ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));

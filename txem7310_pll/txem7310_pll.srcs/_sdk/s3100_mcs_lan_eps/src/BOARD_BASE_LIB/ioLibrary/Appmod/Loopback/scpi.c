@@ -995,7 +995,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					pgu_dacx_cal_input_dtap();
 					
 					// DACX setup 
-					pgu_dacx_setup(); 
+					pgu_dacx_setup(); //$$ DAC IC scale,offset preset ... not necessary 
 					//
 					// DACX_PG setup
 					//pgu_dacx_pg_setup(); //$$ previous DCS setup... not used in S3100-PGU
