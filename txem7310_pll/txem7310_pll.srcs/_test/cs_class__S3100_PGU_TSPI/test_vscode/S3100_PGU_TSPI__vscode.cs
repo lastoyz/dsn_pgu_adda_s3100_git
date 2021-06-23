@@ -69,6 +69,14 @@ namespace TopInstrument
         public string cmd_str__FPGA_FID = ":FPGA:FID?\n"; // note EPS
         public string cmd_str__FPGA_TMP = ":FPGA:TMP?\n"; // note EPS
 
+        private int cnt_call_scpi_comm_resp = 0;
+        private void increase_count_call_scpi() {
+            cnt_call_scpi_comm_resp++;
+        }
+
+        public int show_count_call_scpi() {
+            return cnt_call_scpi_comm_resp;
+        }
 
         //// common subfunctions
         public DateTime Delay(int S) //$$ ms
@@ -160,6 +168,7 @@ namespace TopInstrument
 
         public string scpi_comm_resp_ss(byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 0)
         {
+            increase_count_call_scpi(); // monitoring count up
 
             byte[] receiverBuff = new byte[BUF_SIZE_NORMAL];
 
@@ -208,6 +217,8 @@ namespace TopInstrument
 
         //  # scpi command for numeric block response
         public string scpi_comm_resp_numb_ss(byte[] cmd_str, int BUF_SIZE_LARGE = 16384, int INTVAL = 1, int timeout_large=20000) {
+            increase_count_call_scpi(); // monitoring count up
+
             byte[] receiverBuff = new byte[BUF_SIZE_LARGE];
             try
             {
@@ -712,7 +723,7 @@ namespace TopInstrument
             return ret_str;
         }
 
-        public string pgu_aux_con__send(int val_b16)
+        public string pgu_aux_con__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
             string ret;
@@ -724,7 +735,7 @@ namespace TopInstrument
             return ret;
         }
 
-        public string pgu_aux_olat__send(int val_b16)
+        public string pgu_aux_olat__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
             string ret;
@@ -736,7 +747,7 @@ namespace TopInstrument
             return ret;
         }
 
-        public string pgu_aux_dir__send(int val_b16)
+        public string pgu_aux_dir__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
             string ret;
@@ -748,7 +759,7 @@ namespace TopInstrument
             return ret;
         }
 
-        public string pgu_aux_gpio__send(int val_b16)
+        public string pgu_aux_gpio__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
             string ret;
@@ -1051,15 +1062,15 @@ namespace TopInstrument
 
         //// PGU LAN command string headers //$$ to remove
         
-        //private new string scpi_comm_resp_ss(byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 0) {
-        //    // NOP // to replace by EPS
-        //    return "";
-        //}
+        private int cnt_call_unintended = 0;
 
-        private string cmd_str__PGU_AUX_CON    = ":PGU:AUX:CON";
-        private string cmd_str__PGU_AUX_OLAT   = ":PGU:AUX:OLAT";
-        private string cmd_str__PGU_AUX_DIR    = ":PGU:AUX:DIR";
-        private string cmd_str__PGU_AUX_GPIO   = ":PGU:AUX:GPIO";        
+        public string scpi_comm_resp_ss(byte[] cmd_str) {
+            // NOP // to replace by EPS
+            cnt_call_unintended++;
+            Console.WriteLine(">>> NO ONE MUST NOT CALL THIS!" + string.Format("_{0}_", cnt_call_unintended));
+            return base.scpi_comm_resp_ss(cmd_str);
+        }
+
         private string cmd_str__PGU_TRIG       = ":PGU:TRIG";
         private string cmd_str__PGU_NFDT0      = ":PGU:NFDT0";
         private string cmd_str__PGU_NFDT1      = ":PGU:NFDT1";
@@ -1074,7 +1085,7 @@ namespace TopInstrument
         private string cmd_str__PGU_GAIN_DAC1  = ":PGU:GAIN:DAC1";
         private string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
         private string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
-        //public string cmd_str__DC_BIAS = ":PGU:BIAS"; //$$ to come
+        
 
         //// PGU EPS address map info ......
         private string EP_ADRS__GROUP_STR         = "_S3100_PGU_";
@@ -1640,61 +1651,85 @@ namespace TopInstrument
             return ret_str;
         }
 
-        public string pgu_aux_con__send(int val_b16)
+        public string pgu_aux_con__send(uint val_b16)
         {
-            string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            //string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
+            string ret = "OK\n";
 
-            string PGU_AUX_CON = Convert.ToString(cmd_str__PGU_AUX_CON + val_b16_str);
-            byte[] PGU_AUX_CON_CMD = Encoding.UTF8.GetBytes(PGU_AUX_CON);
-            ret = scpi_comm_resp_ss(PGU_AUX_CON_CMD);
+            //string PGU_AUX_CON = Convert.ToString(cmd_str__PGU_AUX_CON + val_b16_str);
+            //byte[] PGU_AUX_CON_CMD = Encoding.UTF8.GetBytes(PGU_AUX_CON);
+            //ret = scpi_comm_resp_ss(PGU_AUX_CON_CMD);
+
+            pgu_spio_ext__send_aux_IO_CON(val_b16);
 
             return ret;
         }
 
-        public string pgu_aux_olat__send(int val_b16)
+        public string pgu_aux_olat__send(uint val_b16)
         {
-            string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            //string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
+            string ret = "OK\n";
 
-            string PGU_AUX_OLAT = Convert.ToString(cmd_str__PGU_AUX_OLAT + val_b16_str);
-            byte[] PGU_AUX_OLAT_CMD = Encoding.UTF8.GetBytes(PGU_AUX_OLAT);
-            ret = scpi_comm_resp_ss(PGU_AUX_OLAT_CMD);
+            //string PGU_AUX_OLAT = Convert.ToString(cmd_str__PGU_AUX_OLAT + val_b16_str);
+            //byte[] PGU_AUX_OLAT_CMD = Encoding.UTF8.GetBytes(PGU_AUX_OLAT);
+            //ret = scpi_comm_resp_ss(PGU_AUX_OLAT_CMD);
+
+            pgu_spio_ext__send_aux_IO_OLAT(val_b16);
 
             return ret;
         }
 
-        public string pgu_aux_dir__send(int val_b16)
+        public string pgu_aux_dir__send(uint val_b16)
         {
-            string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            //string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
+            string ret = "OK\n";
 
-            string PGU_AUX_DIR = Convert.ToString(cmd_str__PGU_AUX_DIR + val_b16_str);
-            byte[] PPGU_AUX_DIR_CMD = Encoding.UTF8.GetBytes(PGU_AUX_DIR);
-            ret = scpi_comm_resp_ss(PPGU_AUX_DIR_CMD);
+            //string PGU_AUX_DIR = Convert.ToString(cmd_str__PGU_AUX_DIR + val_b16_str);
+            //byte[] PPGU_AUX_DIR_CMD = Encoding.UTF8.GetBytes(PGU_AUX_DIR);
+            //ret = scpi_comm_resp_ss(PPGU_AUX_DIR_CMD);
+
+            pgu_spio_ext__send_aux_IO_DIR(val_b16);
 
             return ret;
         }
 
 
-        public string pgu_aux_gpio__send(int val_b16)
+        public string pgu_aux_gpio__send(uint val_b16)
         {
-            string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            //string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
+            string ret = "OK\n";
 
-            string PGU_AUX_GPIO = Convert.ToString(cmd_str__PGU_AUX_GPIO + val_b16_str);
-            byte[] PGU_AUX_GPIO_CMD = Encoding.UTF8.GetBytes(PGU_AUX_GPIO);
-            ret = scpi_comm_resp_ss(PGU_AUX_GPIO_CMD);
+            //string PGU_AUX_GPIO = Convert.ToString(cmd_str__PGU_AUX_GPIO + val_b16_str);
+            //byte[] PGU_AUX_GPIO_CMD = Encoding.UTF8.GetBytes(PGU_AUX_GPIO);
+            //ret = scpi_comm_resp_ss(PGU_AUX_GPIO_CMD);
+
+            pgu_spio_ext__send_aux_IO_GPIO(val_b16);
 
             return ret;
-
-            //return rsp.decode()[0:2] # OK or NG
         }
 
         //$$ PGU control access
 
         public string pgu_trig__on_log(bool Ch1, bool Ch2, string LogFileName) {
-            string ret;
+            string ret = "OK\n";
+
+            //$$ if      (val == 0x00000001) val = 0x00000010;
+            //$$ else if (val == 0x00010000) val = 0x00000020;
+            //$$ else if (val == 0x00010001) val = 0x00000030;
+            //$$ else                        val = 0x00000000;
+            //$$ write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+            //$$ activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
+
+            u32 val;
+            if (Ch1 && Ch2)
+                val = 0x00000030;
+            else if ( (Ch1 == true) && (Ch2 == false) )
+                val = 0x00000010;
+            else
+                val = 0x00000020;
+            //
+            SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
+            ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
 
             string PGU_TRIG_ON;
             if (Ch1 && Ch2)
@@ -1704,10 +1739,8 @@ namespace TopInstrument
             else
                 PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010000 \n");
             
-            //$$ byte[] cmd_str__PGU_TRIG_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
-            //$$ scpi_comm_resp_ss(ss, cmd_str__PGU_TRIG_CMD);
-            byte[] PGU_TRIG_ON_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
-            ret = scpi_comm_resp_ss(PGU_TRIG_ON_CMD);            
+            //$$byte[] PGU_TRIG_ON_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
+            //$$ret = scpi_comm_resp_ss(PGU_TRIG_ON_CMD);            
 
             // log
             using (StreamWriter ws = new StreamWriter(LogFileName, true))
@@ -1718,9 +1751,14 @@ namespace TopInstrument
         
         public string pgu_trig__off()
         {
-            string PGU_TRIG_OFF = Convert.ToString(cmd_str__PGU_TRIG + " #H00000000 \n");
-            byte[] cmd_str__PGU_TRIG_OFF_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_OFF);
-            return scpi_comm_resp_ss(cmd_str__PGU_TRIG_OFF_CMD);
+            string ret = "OK\n";
+            u32 val = 0x00000000;
+            SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
+            ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            return ret;
+            //$$string PGU_TRIG_OFF = Convert.ToString(cmd_str__PGU_TRIG + " #H00000000 \n");
+            //$$byte[] cmd_str__PGU_TRIG_OFF_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_OFF);
+            //$$return scpi_comm_resp_ss(cmd_str__PGU_TRIG_OFF_CMD);
         }
 
         public string pgu_nfdt__send_log(int Ch, long fifo_data, string LogFileName) {
@@ -1947,6 +1985,7 @@ namespace TopInstrument
             // test member
             PGU_control_by_eps dev_eps = new PGU_control_by_eps();
             dev_eps.__test_int = dev_eps.__test_int - 1;
+            Console.WriteLine(">>> EP_ADRS__GROUP_STR = " + dev_eps.EP_ADRS__GROUP_STR);
 
             // test LAN
             dev_eps.my_open(__test__.Program.test_host_ip);
@@ -2018,22 +2057,6 @@ namespace TopInstrument
 		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
         public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
         
-        /*
-        private static DateTime Delay(int S) //$$ ms
-        {
-            DateTime ThisMoment = DateTime.Now;
-            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S);
-            DateTime AfterWards = ThisMoment.Add(duration);
-
-            while (AfterWards >= ThisMoment)
-            {
-                ThisMoment = DateTime.Now;
-            }
-
-            return DateTime.Now;
-        }
-        */
-
         public bool IsInit = false;
 
         public string SysOpen(string HOST, int TIMEOUT = 20000)
@@ -2834,13 +2857,13 @@ namespace TopInstrument
                     ws.WriteLine("## Debuger Start"); //$$ add python comment header
             }
 
-            int val_b16 = 0x0808;
+            uint val_b16 = 0x0808;
 
             pgu_aux_con__send(val_b16);
             string ret = pgu_aux_con__read();
 
-            int OLAT = 0x0000;
-            int IODIR = 0x000F;
+            uint OLAT = 0x0000;
+            uint IODIR = 0x000F;
             pgu_aux_olat__send(OLAT);
             pgu_aux_dir__send(IODIR);
             
@@ -3998,10 +4021,14 @@ namespace TopInstrument
             //dev.ForcePGU_ON(2,  true, true); // (int CycleCount, bool Ch1, bool Ch2)
             //dev.ForcePGU_ON(3, true,  false); // (int CycleCount, bool Ch1, bool Ch2)
 
+            Console.WriteLine(">>>>> count_call_scpi = " + Convert.ToString(dev.show_count_call_scpi()));
+
             // test force again
             dev.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
             dev.SetSetupPGU(2, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
             dev.ForcePGU_ON__delayed_OFF(2,  true,  true, 3500); // (int CycleCount, bool Ch1, bool Ch2)
+
+            Console.WriteLine(">>>>> count_call_scpi = " + Convert.ToString(dev.show_count_call_scpi()));
 
             //Console.WriteLine("SetSetupPGU return Code = " + Convert.ToString(ret));
 
