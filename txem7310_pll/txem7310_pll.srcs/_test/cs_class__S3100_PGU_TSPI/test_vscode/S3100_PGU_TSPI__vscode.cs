@@ -56,7 +56,7 @@ namespace TopInstrument
         public DateTime Delay(int S) //$$ ms
         {
             DateTime ThisMoment = DateTime.Now;
-            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S);
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S); // days, hours, minutes, seconds, and milliseconds
             DateTime AfterWards = ThisMoment.Add(duration);
 
             while (AfterWards >= ThisMoment)
@@ -151,7 +151,7 @@ namespace TopInstrument
             return ss;
         }
 
-        public string scpi_comm_resp_ss(byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 1)
+        public string scpi_comm_resp_ss(byte[] cmd_str, int BUF_SIZE_NORMAL = 2048, int INTVAL = 0)
         {
 
             byte[] receiverBuff = new byte[BUF_SIZE_NORMAL];
