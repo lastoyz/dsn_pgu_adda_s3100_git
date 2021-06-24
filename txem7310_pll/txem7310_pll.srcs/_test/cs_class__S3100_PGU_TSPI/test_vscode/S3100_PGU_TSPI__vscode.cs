@@ -633,15 +633,18 @@ namespace TopInstrument
             datain_bytearray = new byte[] { 
                 (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
                 (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
-                (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+                (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
                 (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
                 };
             Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
             //
             byte[] dataout_bytearray = new byte[16];
             Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
-            // WriteToPipeIn()
-            //
+            // compare
+            Console.WriteLine(BitConverter.ToString(datain_bytearray));
+            Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+            Console.WriteLine(datain_bytearray.SequenceEqual(dataout_bytearray));
+
             // MSPI test : 
             //  _test__reset_spi_emul
             //  _test__init__spi_emul
@@ -2075,21 +2078,49 @@ namespace TopInstrument
         }
 
         public string pgu_frpt__send_log(int Ch, int CycleCount, string LogFileName) {
-            string ret;
+            string ret = "OK\n";
+
+            u32 val = (u32)CycleCount;
+
+            //// on dac0 repeat number set
+            //write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000020, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+            //activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
+            //write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+            //activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
+            //// on dac1 repeat number set
+            //write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000030, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+            //activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
+            //write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
+            //activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);
+
+
+            if (Ch == 1) { // Ch == 1 or DAC0
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000020); // cid_adrs for r_cid_reg_dac0_num_repeat
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+            } else { // Ch == 2 or DAC1
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000030); // cid_adrs for r_cid_reg_dac1_num_repeat
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+            }
+
+             // for log data
             string PGU_FRPT__;
-
+            //
             string pgu_repeat_num_str = string.Format(" #H{0,8:X8} \n", CycleCount);
-
+            //
             if (Ch == 1) {
                 PGU_FRPT__ = Convert.ToString(cmd_str__PGU_FRPT0 + pgu_repeat_num_str);
             } 
             else {
                 PGU_FRPT__ = Convert.ToString(cmd_str__PGU_FRPT1 + pgu_repeat_num_str);
             }
-            
-            byte[] PGU_FRPT__CMD = Encoding.UTF8.GetBytes(PGU_FRPT__);
-            ret = scpi_comm_resp_ss(PGU_FRPT__CMD);
-
+            //
+            //$$byte[] PGU_FRPT__CMD = Encoding.UTF8.GetBytes(PGU_FRPT__);
+            //$$ret = scpi_comm_resp_ss(PGU_FRPT__CMD);
+            // log
             using (StreamWriter ws = new StreamWriter(LogFileName, true))
                 ws.WriteLine("## " + PGU_FRPT__); //$$ add py comment heeder
 
@@ -2098,80 +2129,158 @@ namespace TopInstrument
 
         public string pgu_freq__send(double time_ns__dac_update) {
             //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
-            string ret;
+            string ret = "OK\n";
 
             int pgu_freq_in_100kHz = Convert.ToInt32(1 / (time_ns__dac_update * 1e-9) / 100000);
+
+            u32 val = (u32)pgu_freq_in_100kHz;
+
+            //// DACX fpga pll reset
+            //pgu_dacx_fpga_pll_rst(1, 1, 1);
+            //
+            //usleep(500); // 500us
+            Delay(1); // 1ms
+            //// set freq parameter
+            //val_ret = pgu_clkd_setup(val);
+            //
+            //usleep(500); // 500us
+            Delay(1); // 1ms
+            //
+            //// DACX fpga pll run : all clock work again.
+            //pgu_dacx_fpga_pll_rst(0, 0, 0);
+            //
+            //usleep(500); // 500us
+            Delay(1); // 1ms
+
+            //$$ DAC input delay tap calibration
+            //pgu_dacx_cal_input_dtap();
+
+
+            //// previous LAN command for freq setting
             string pgu_freq_in_100kHz_str = string.Format(" {0,4:D4} \n", pgu_freq_in_100kHz);
-
-            //pgu_freq_in_100kHz_str = ' {:04d} \n'.format(pgu_freq_in_100kHz).encode()
-            //print('pgu_freq_in_100kHz_str:', repr(pgu_freq_in_100kHz_str))
-
             byte[] PGU_FREQ_100kHz_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_FREQ + pgu_freq_in_100kHz_str);
-
             ret = scpi_comm_resp_ss(PGU_FREQ_100kHz_STR);
 
             return ret;
         }
 
         public string pgu_gain__send(int Ch, double DAC_full_scale_current__mA = 25.5) {
-            string ret;
+            string ret = "OK\n";
 
+            //// calculate parameters
             double I_FS__mA = DAC_full_scale_current__mA;
-            double R_FS__ohm = 10e3;
+            double R_FS__ohm = 10e3; // from schematic
             int DAC_gain = Convert.ToInt32((I_FS__mA / 1000 * R_FS__ohm - 86.6) / 0.220 + 0.5);
+            // ((25.5 / 1000 * 10e3 - 86.6) / 0.220 + 0.5) = 765.954545455 ~ 0x2FD
 
+            //// for firmware
+            u32 val       = (u32)DAC_gain;
+            u32 val1_high;
+            u32 val1_low;
+            u32 val0_high;
+            u32 val0_low;
+            // resolve data
+            val1_high = (val>>24) & 0x000000FF;
+            val1_low  = (val>>16) & 0x000000FF;
+            val0_high = (val>> 8) & 0x000000FF;
+            val0_low  = (val>> 0) & 0x000000FF;
+
+            // set data
+            if (Ch == 1) { // Ch == 1 or DAC0
+                //pgu_dac0_reg_write_b8(0x0C, val1_high);
+                //pgu_dac0_reg_write_b8(0x0B, val1_low );
+                //pgu_dac0_reg_write_b8(0x10, val0_high);
+                //pgu_dac0_reg_write_b8(0x0F, val0_low );
+            } else {
+                //pgu_dac1_reg_write_b8(0x0C, val1_high);
+                //pgu_dac1_reg_write_b8(0x0B, val1_low );
+                //pgu_dac1_reg_write_b8(0x10, val0_high);
+                //pgu_dac1_reg_write_b8(0x0F, val0_low );
+            }
+
+            //// previous LAN command for DAC IC gain setting
+            // # ":PGU:GAIN:DAC0? \n" 
+            // # ":PGU:GAIN:DAC0 #H02D002D0 \n" 
+            //
+            // data = {DAC_ch1_fsc, DAC_ch2_fsc}
+            // DAC_ch#_fsc = {000000, 10 bit data}
+            //
             string pgu_fsc_gain_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_gain, DAC_gain);
-            //pgu_fsc_gain_str = ' #H{:04X}{:04X} \n'.format(DAC_gain,DAC_gain).encode()
-            //#
-            //print('pgu_fsc_gain_str:', repr(pgu_fsc_gain_str))
-            //#
-            //if DAC_gain>0x3FF or DAC_gain<0 :
-            //    print('>>> please check the full scale current: {}'.format(DAC_full_scale_current__mA))
-            //    raise
-
             byte[] PGU_GAIN_DAC__STR;
             if (Ch == 1)
                 PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC0 + pgu_fsc_gain_str);
             else
                 PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC1 + pgu_fsc_gain_str);
-            
             ret = scpi_comm_resp_ss(PGU_GAIN_DAC__STR);
-
+            //
             return ret;
         }
 
 
 
         public string pgu_ofst__send(int Ch, float DAC_offset_current__mA = 0, int N_pol_sel = 1, int Sink_sel = 1) {
-            string ret;
+            string ret = "OK\n";
 
+            //// calculate parameters
             //int DAC_offset_current__code = Convert.ToInt32(DAC_offset_current__mA * 0x200 + 0.5);
             int DAC_offset_current__code = Convert.ToInt32(DAC_offset_current__mA * 0x200);
             // 0x3FF, sets output current to 2.0 mA.
             // 0x200, sets output current to 1.0 mA.
             // 0x000, sets output current to 0.0 mA.
-
+            //
             //if DAC_offset_current__code > 0x3FF :
             //print('>>> please check the offset current: {}'.format(DAC_offset_current__mA))
             //raise
             if (DAC_offset_current__code > 0x3FF) {
                 DAC_offset_current__code = 0x3FF; // max
             }
-
             // compose
             int DAC_offset = (N_pol_sel << 15) + (Sink_sel << 14) + DAC_offset_current__code;
 
+            //// for firmware
+            u32 val       = (u32)DAC_offset;
+            u32 val1_high;
+            u32 val1_low;
+            u32 val0_high;
+            u32 val0_low;
+            // resolve data
+            val1_high = (val>>24) & 0x000000FF;
+            val1_low  = (val>>16) & 0x000000FF;
+            val0_high = (val>> 8) & 0x000000FF;
+            val0_low  = (val>> 0) & 0x000000FF;
+
+            // set data
+            if (Ch == 1) { // Ch == 1 or DAC0
+                //pgu_dac0_reg_write_b8(0x0E, val1_high);
+                //pgu_dac0_reg_write_b8(0x0D, val1_low );
+                //pgu_dac0_reg_write_b8(0x12, val0_high);
+                //pgu_dac0_reg_write_b8(0x11, val0_low );
+            } else {
+                //pgu_dac1_reg_write_b8(0x0E, val1_high);
+                //pgu_dac1_reg_write_b8(0x0D, val1_low );
+                //pgu_dac1_reg_write_b8(0x12, val0_high);
+                //pgu_dac1_reg_write_b8(0x11, val0_low );
+            }
+
+            //// previous LAN command for DAC IC offset setting
+            // # ":PGU:OFST:DAC0? \n" 
+            // # ":PGU:OFST:DAC0 #HC140C140 \n" 
+            //
+            // data = {DAC_ch1_aux, DAC_ch2_aux}
+            // DAC_ch#_aux = {PN_Pol_sel, Source_Sink_sel, 0000, 10 bit data}
+            //                PN_Pol_sel      = 0/1 for P/N
+            //                Source_Sink_sel = 0/1 for Source/Sink
+            //
+            // # offset DAC : 0x140 0.625mA, AUX2N active[7] (1) , sink current[6] (1)
+            //
             string pgu_offset_con_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_offset, DAC_offset); // set subchannel as well
-
             byte[] PGU_OFST_DAC__OFFSET_STR;
-
             if (Ch == 1)
                 PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC0 + pgu_offset_con_str);
             else
                 PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC1 + pgu_offset_con_str);
-
             ret = scpi_comm_resp_ss(PGU_OFST_DAC__OFFSET_STR);
-
+            //
             return ret;
         }
 
@@ -2180,63 +2289,78 @@ namespace TopInstrument
         //$$ EEPROM access
 
         public int pgu_eeprom__read__data_4byte(int adrs_b32) {
-        //  def pgu_eeprom__read__data_4byte (adrs_b32):
-        //  	print('\n>>>>>> pgu_eeprom__read__data_4byte')
-        //  	#
-        //  	cmd_str = cmd_str__PGU_MEMR + (' #H{:08X}\n'.format(adrs_b32)).encode()
-        //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
-        //  	rsp = rsp_str.decode()
-        //  	# assume hex decimal response: #HF3190306<NL>
-        //  	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
-        //  	rsp = int(rsp,16) # convert hex into int
-        //  	return rsp
+            //  def pgu_eeprom__read__data_4byte (adrs_b32):
+            //  	print('\n>>>>>> pgu_eeprom__read__data_4byte')
+            //  	#
+            //  	cmd_str = cmd_str__PGU_MEMR + (' #H{:08X}\n'.format(adrs_b32)).encode()
+            //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
+            //  	rsp = rsp_str.decode()
+            //  	# assume hex decimal response: #HF3190306<NL>
+            //  	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
+            //  	rsp = int(rsp,16) # convert hex into int
+            //  	return rsp
 
+            //// for firmware
+            
+            //// previous LAN commmand for eeprom read
             string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
             byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
-
             string ret;
-            
             try {
                 ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
             }
-
             catch {
                 ret = "#H00000000\n";
             }
-            return (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
+            int ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
+
+            //
+            return ret_int;
         }
 
         public int pgu_eeprom__write_data_4byte(int adrs_b32, uint val_b32, int interval_ms = 10) {
-        //  def pgu_eeprom__write_data_4byte (adrs_b32, val_b32):
-        //  	print('\n>>>>>> pgu_eeprom__write_data_4byte')
-        //  	#
-        //  	cmd_str = cmd_str__PGU_MEMW + (' #H{:08X} #H{:08X}\n'.format(adrs_b32, val_b32)).encode()
-        //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
-        //  	print('string rcvd: ' + repr(rsp))
-        //  	print('rsp: ' + rsp.decode())
-        //  	return rsp.decode()[0:2] # OK or NG
-        //  
+            //  def pgu_eeprom__write_data_4byte (adrs_b32, val_b32):
+            //  	print('\n>>>>>> pgu_eeprom__write_data_4byte')
+            //  	#
+            //  	cmd_str = cmd_str__PGU_MEMW + (' #H{:08X} #H{:08X}\n'.format(adrs_b32, val_b32)).encode()
+            //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
+            //  	print('string rcvd: ' + repr(rsp))
+            //  	print('rsp: ' + rsp.decode())
+            //  	return rsp.decode()[0:2] # OK or NG
+            //  
+
+            //// for firmware
+            u32 val  = (u32)val_b32;
+            u32 adrs = (u32)adrs_b32; 
+
+            byte[] buf_bytearray = BitConverter.GetBytes(val);
+            char[] buf = new char[buf_bytearray.Length];
+            buf_bytearray.CopyTo(buf, 0);
+
+            //eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom // byte array
+            //eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom 
+
+            //// previous LAN commmand for eeprom write
             string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
                             + string.Format(" #H{0,8:X8}"  , adrs_b32)
                             + string.Format(" #H{0,8:X8}\n", val_b32 );
             byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
-
             string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
-
             //Delay(1); //$$ 1ms wait for write done // NG  read right after write
             //Delay(2); //$$ 2ms wait for write done // some NG 
             //Delay(10); //$$ 10ms wait for write done 
             Delay(interval_ms); //$$ ms wait for write done 
-
-            var val = 0;
+            //
+            int ret_int = 0;
             if (ret.Substring(0,2)=="OK") {
-                val = 0;
+                ret_int = 0;
             }
             else {
-                val = -1;
+                ret_int = -1;
             }
 
-            return val;
+            //
+            return ret_int;
         }
 
 
@@ -4130,6 +4254,11 @@ namespace TopInstrument
             //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0x03020100));
             //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0xFFFFFFFF));
             //Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x40));
+            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8")); //0x30313353
+            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0xFEDCBA98));    // 0x01234567 or 0xFEDCBA98
+            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8"));
+            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0x30313353));
+            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8"));
 
             // data converter test
             Console.WriteLine(dev.conv__raw_int32__flt32((int)0x00000000));

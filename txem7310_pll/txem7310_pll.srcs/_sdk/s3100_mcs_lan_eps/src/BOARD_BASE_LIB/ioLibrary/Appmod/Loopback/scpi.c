@@ -1481,7 +1481,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 #endif
 					
 						// process
-						eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ read eeprom 
+						eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom 
 						p_rsp_str = rsp_str__OK;
 					
 					}
@@ -2076,7 +2076,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
-					// on dac0
+					// on dac1
 					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000030, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
 					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
