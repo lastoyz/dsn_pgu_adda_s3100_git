@@ -1740,7 +1740,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
 					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
-					//// set trig data
+					//// set trig data //{
 					//  task CID_DAC1_NUM_FFDAT_WR; // (data)
 					//  	input  [31:0] data;
 					//  	begin
@@ -1772,7 +1772,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  		r_trig_dacx_ctrl[10] = 1'b0;
 					//  	end
 					//  endtask
-					//
+					//}
 					
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					

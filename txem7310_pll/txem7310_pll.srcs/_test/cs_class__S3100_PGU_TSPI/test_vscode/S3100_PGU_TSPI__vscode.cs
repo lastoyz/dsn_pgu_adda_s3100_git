@@ -42,6 +42,12 @@ using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //## for S3100
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_spi_emul_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_spi_emul_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-SPI emulation commands
 
+// alternatively ... spi_frame generation
+// >>> SCPI_base          - _class__SCPI_base_ 
+// >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_
+// >>> PGU_control_by_spi - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_spi_ 
+// >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_spi_:_class__TOP_PGU_  // support PGU-SPI emulation commands
+
 
 using u32 = System.UInt32; // for converting firmware
 using s32 = System.Int32; // for converting firmware
@@ -215,8 +221,14 @@ namespace TopInstrument
             return data;
         }
 
-        //  # scpi command for numeric block response
-        public string scpi_comm_resp_numb_ss(byte[] cmd_str, int BUF_SIZE_LARGE = 16384, int INTVAL = 1, int timeout_large=20000) {
+
+
+        //  # scpi command for numeric block response -- return bytearray
+        //## read pipeout
+        //# cmd: ":EPS:PO#HAA 001024\n"
+        //# rsp: "#4_001024_rrrrrrrrrr...rrrrrrrrrr\n"		
+
+        public byte[] scpi_comm_resp_numb_ss__bytearray(byte[] cmd_str, int BUF_SIZE_LARGE = 16384, int INTVAL = 1, int timeout_large=20000) {
             increase_count_call_scpi(); // monitoring count up
 
             byte[] receiverBuff = new byte[BUF_SIZE_LARGE];
@@ -236,7 +248,8 @@ namespace TopInstrument
             Delay(INTVAL);
             //
             int nRecvSize;
-            string data;
+            //string data;
+            byte[] data_bytearry = new byte[BUF_SIZE_LARGE];
             int count_to_recv;
 
             //# read timeout
@@ -247,28 +260,35 @@ namespace TopInstrument
             try
             {
                 nRecvSize = ss.Receive(receiverBuff);
-                data = new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                //data = new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                data_bytearry = receiverBuff.Take(nRecvSize).ToArray();
                 // find the numeric head : must 10 in data 
                 while (true)
                 {
-                    if (data.Length >= 10) 
+                    if (data_bytearry.Length >= 10) 
                     {
                         break;
                     }
                     nRecvSize = ss.Receive(receiverBuff);
-                    data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                    //data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                    data_bytearry = data_bytearry.Concat(receiverBuff.Take(nRecvSize)).ToArray();
 
                 }
                 // find byte count in header
-                byte_count = (int)Convert.ToInt32(data.Substring(3,6));
+                //byte_count = (int)Convert.ToInt32(data.Substring(3,6));
+                byte[] byte_count__array = data_bytearry.Skip(3).Take(6).ToArray();
+                string byte_count__str   = Encoding.UTF8.GetString(byte_count__array);
+                byte_count = (int)Convert.ToInt32(byte_count__str);
+
                 // collect all data by byte count
                 count_to_recv = byte_count + 10 + 1; //# add header count #add /n
                 while (true)
                 {
-                    if (data.Length>=count_to_recv)
+                    if (data_bytearry.Length>=count_to_recv)
                         break;
                     nRecvSize = ss.Receive(receiverBuff);
-                    data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                    //data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                    data_bytearry = data_bytearry.Concat(receiverBuff.Take(nRecvSize)).ToArray();
                 }
                 // check the sentinel
                 while (true)
@@ -278,19 +298,22 @@ namespace TopInstrument
                         break;
                     }
                     nRecvSize = ss.Receive(receiverBuff);
-                    data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                    //data      = data + new string(Encoding.Default.GetChars(receiverBuff, 0, nRecvSize));
+                    data_bytearry = data_bytearry.Concat(receiverBuff.Take(nRecvSize)).ToArray();
                 }
             }
             catch
             {
                 //Console.WriteLine(String.Format("Error in Recive"));
                 //data = "#H00000000\n";
-                data = "NG\n";
+                //data = "NG\n";
+                data_bytearry = Encoding.UTF8.GetBytes("NG\n");
             }
 
             //# timeout back to prev
             ss.ReceiveTimeout = rx_timeout_prev;
-            return data;
+            //return data;
+            return data_bytearry;
         }
 
 
@@ -436,12 +459,25 @@ namespace TopInstrument
             //# rsp: "#4_001024_rrrrrrrrrr...rrrrrrrrrr\n"		
             int byte_count = data_bytearray.Length;
             string cmd_str = cmd_str__EPS_PO + string.Format("#H{0,2:X2} {1,6:d6}\n", adrs, byte_count);
-            string rsp_str = scpi_comm_resp_numb_ss(Encoding.UTF8.GetBytes(cmd_str));
+
+            //// return string 
+            //string rsp_str = scpi_comm_resp_numb_ss(Encoding.UTF8.GetBytes(cmd_str)); 
             //# remove header
-            string data_str = rsp_str.Substring(10, (int)byte_count);
+            //string data_str = rsp_str.Substring(10, (int)byte_count); 
             //# copy data
-            data_bytearray =  Encoding.UTF8.GetBytes(data_str); 
-            return (long)byte_count;
+            //data_bytearray =  Encoding.UTF8.GetBytes(data_str); //$$ must check NOT UTF8 
+
+            //// return binary array
+            byte[] rsp_bytearray = scpi_comm_resp_numb_ss__bytearray(Encoding.UTF8.GetBytes(cmd_str)); 
+            //# remove header such as "#4_001024_" and tail such as '\n'
+            rsp_bytearray = rsp_bytearray.Skip(10).SkipLast(1).ToArray();
+            
+            //# copy data
+            rsp_bytearray.CopyTo(data_bytearray, 0);
+
+            //$$ scpi_comm_resp_numb_ss may return binary data ... 
+            //return (long)byte_count;
+            return (long)data_bytearray.Length;
         }
 
         public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray) {
@@ -451,21 +487,29 @@ namespace TopInstrument
             int byte_count = data_bytearray.Length;
             //cmd_str = cmd_str__EPS_PI + ('#H{:02X} #4_{:06d}_'.format(adrs,byte_count)).encode() + data_bytearray + b'\n'
             //string cmd_str = cmd_str__EPS_PI + string.Format("#H{0,2:X2} #4_{1,6:d6}_{2}\n", adrs, byte_count, Encoding.UTF8.GetString(data_bytearray).ToCharArray());
-            string cmd_str = cmd_str__EPS_PI + string.Format("#H{0,2:X2} #4_{1,6:d6}_{2}\n", adrs, byte_count, 
-                Encoding.UTF8.GetString(data_bytearray));
-            string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
+            //string cmd_str = cmd_str__EPS_PI + string.Format("#H{0,2:X2} #4_{1,6:d6}_{2}\n", adrs, byte_count, 
+            //    Encoding.UTF8.GetString(data_bytearray)); // NG //$$ must check NOT UTF8
+            
+            byte[] cmd_bytearray =                      Encoding.UTF8.GetBytes(cmd_str__EPS_PI);
+            cmd_bytearray        = cmd_bytearray.Concat(Encoding.UTF8.GetBytes(string.Format("#H{0,2:X2} #4_{1,6:d6}_", adrs, byte_count))).ToArray();
+            cmd_bytearray        = cmd_bytearray.Concat(data_bytearray).ToArray(); // binary data
+            cmd_bytearray        = cmd_bytearray.Concat(Encoding.UTF8.GetBytes("\n")).ToArray();
+
+            //$$ note that #4 format uses binary format. thus, UTF8 encoding may lose bits. instead, use byte array directly.
+            string rsp_str = scpi_comm_resp_ss(cmd_bytearray);
             return (long)byte_count;
         }
 
 
 
         // master SPI emulation functions
-        public uint _test__reset_spi_emul() {
+        public uint _test__reset_spi_emul(uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62,
+            uint loc_bit_MSPI_reset_trig = 0, uint mask_MSPI_reset_done = 0x00000001) {
             //## trigger reset 
-            uint adrs_MSPI_TI = 0x42;
-            uint loc_bit_MSPI_reset_trig = 0;
-            uint adrs_MSPI_TO = 0x62;
-            uint mask_MSPI_reset_done = 0x00000001;
+            //uint adrs_MSPI_TI = 0x42;
+            //uint loc_bit_MSPI_reset_trig = 0;
+            //uint adrs_MSPI_TO = 0x62;
+            //uint mask_MSPI_reset_done = 0x00000001;
             ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_reset_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
@@ -481,12 +525,13 @@ namespace TopInstrument
             return cnt_loop;
         }
         
-        public uint _test__init__spi_emul() {
+        public uint _test__init__spi_emul(uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62,
+            uint loc_bit_MSPI_init_trig = 1, uint mask_MSPI_init_done = 0x00000002) {
             //## trigger init 
-            uint adrs_MSPI_TI = 0x42;
-            uint loc_bit_MSPI_init_trig = 1;
-            uint adrs_MSPI_TO = 0x62;
-            uint mask_MSPI_init_done = 0x00000002;
+            //uint adrs_MSPI_TI = 0x42;
+            //uint loc_bit_MSPI_init_trig = 1;
+            //uint adrs_MSPI_TO = 0x62;
+            //uint mask_MSPI_init_done = 0x00000002;
             ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_init_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
@@ -502,25 +547,27 @@ namespace TopInstrument
             return cnt_loop;
         }
 
-        public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF) {
+        public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF,
+            uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x34, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
+            uint adrs_MSPI_EN_CS_WI = 0x16, uint loc_bit_MSPI_frame_trig = 2, uint mask_MSPI_frame_done = 0x00000004) {
             //## set spi frame data (example)
             //#data_C = 0x10   ##// for read 
             //#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
             //#data_D = 0x0000 ##// for reading (XXXX)
             uint data_MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D;
-            uint adrs_MSPI_CON_WI = 0x17;
+            //uint adrs_MSPI_CON_WI = 0x17;
             SetWireInValue(adrs_MSPI_CON_WI, data_MSPI_CON_WI);
 
             //## set spi enable signals
             uint data_MSPI_EN_CS_WI = enable_CS_bits;
-            uint adrs_MSPI_EN_CS_WI = 0x16;
+            //uint adrs_MSPI_EN_CS_WI = 0x16;
             SetWireInValue(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
 
             //## trigger frame 
-            uint adrs_MSPI_TI = 0x42;
-            uint loc_bit_MSPI_frame_trig = 2;
-            uint adrs_MSPI_TO = 0x62;
-            uint mask_MSPI_frame_done = 0x00000004;
+            //uint adrs_MSPI_TI = 0x42;
+            //uint loc_bit_MSPI_frame_trig = 2;
+            //uint adrs_MSPI_TO = 0x62;
+            //uint mask_MSPI_frame_done = 0x00000004;
             ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_frame_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
@@ -536,7 +583,7 @@ namespace TopInstrument
 
             //## read miso data
             uint data_B;
-            uint adrs_MSPI_FLAG_WO = 0x34;
+            //uint adrs_MSPI_FLAG_WO = 0x34;
             data_B = GetWireOutValue(adrs_MSPI_FLAG_WO);
             data_B = data_B & 0xFFFF; // mask on low 16 bits
             return data_B;
@@ -582,16 +629,17 @@ namespace TopInstrument
             //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
 
             // test fifo : pipein at 0x8A; pipeout at 0xAA.
-            byte[] data_bytearray;
-            data_bytearray = new byte[] { 
+            byte[] datain_bytearray;
+            datain_bytearray = new byte[] { 
                 (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
                 (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
                 (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
                 (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
                 };
-            Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref data_bytearray));
-            data_bytearray = new byte[16];
-            Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref data_bytearray));
+            Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
+            //
+            byte[] dataout_bytearray = new byte[16];
+            Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
             // WriteToPipeIn()
             //
             // MSPI test : 
@@ -1131,6 +1179,72 @@ namespace TopInstrument
         private u32   EP_ADRS__TRIG_DAT_WO        = 0x29;
         private u32   EP_ADRS__TRIG_DAT_TI        = 0x49;
 
+        //// common functions
+        private u32 hexchr2data_u32(char hexchr) { // u8 --> char
+            // '0' -->  0
+            // 'A' --> 10
+            u32 val;
+            s32 val_L;
+            s32 val_H;
+            //
+            val_L = (s32)hexchr - (s32)'0';
+            //
+            if (val_L < 10) {
+            	val = (u32)val_L;
+            }
+            else {
+            	val_H = (s32)hexchr - (s32)'A' + 10;
+            	//
+            	if (val_H > 15) {
+                    val_H = (s32)hexchr - (s32)'a' + 10;
+            	}
+                val = (u32)val_H;
+            }
+            //
+            return val; 
+        }
+
+        private u32 hexstr2data_u32(char[] hexstr, u32 len) { // u8* hexstr --> char[] hexstr
+            u32 val;
+            u32 loc;
+            u32 ii;
+            loc = 0;
+            val = 0;
+            for (ii=0;ii<len;ii++) {
+                val = (val<<4) + hexchr2data_u32(hexstr[loc++]);
+            }
+            return val;
+        }
+
+        private u32 decchr2data_u32(char decchr) { // u8 --> char
+            // '0' -->  0
+            u32 val;
+            s32 val_t;
+            //
+            val_t = (s32)decchr - (s32)'0';
+            if (val_t<10) {
+                val = (u32)val_t;
+            }
+            else {
+                //$$val = (u32)(-1); // no valid code.
+                val = (u32)(0xFFFFFFFF); // no valid code.
+            }
+            //
+            return val; 
+        }
+
+        private u32 decstr2data_u32(char[] decstr, u32 len) { // u8* hexstr --> char[] hexstr
+            u32 val;
+            u32 loc;
+            u32 ii;
+            loc = 0;
+            val = 0;
+            for (ii=0;ii<len;ii++) {
+                val = (val*10) + decchr2data_u32(decstr[loc++]);
+            }
+            return val;
+        }
+
 
         //// PGU subfunctions with EPS commands
         private void enable_mcs_ep() {
@@ -1142,7 +1256,6 @@ namespace TopInstrument
             //...
             eps_disable();
         }
-
 
         // SPIO ......
         
@@ -1731,6 +1844,7 @@ namespace TopInstrument
             SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
             ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
 
+            // for log data
             string PGU_TRIG_ON;
             if (Ch1 && Ch2)
                 PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010001 \n");
@@ -1738,10 +1852,10 @@ namespace TopInstrument
                 PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00000001 \n");
             else
                 PGU_TRIG_ON = Convert.ToString(cmd_str__PGU_TRIG + " #H00010000 \n");
-            
+            //
             //$$byte[] PGU_TRIG_ON_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_ON);
-            //$$ret = scpi_comm_resp_ss(PGU_TRIG_ON_CMD);            
-
+            //$$ret = scpi_comm_resp_ss(PGU_TRIG_ON_CMD);
+            //
             // log
             using (StreamWriter ws = new StreamWriter(LogFileName, true))
                 ws.WriteLine("## " + PGU_TRIG_ON); 
@@ -1762,22 +1876,79 @@ namespace TopInstrument
         }
 
         public string pgu_nfdt__send_log(int Ch, long fifo_data, string LogFileName) {
-            string ret;
+            // send the number of fifo_data
+            string ret = "OK\n";
 
+            u32 val = (u32)fifo_data;
+
+            //$$//// dac0 fifo reset 
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000040, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // w_rst_dac0_fifo
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_ctrl_wr
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // clear bit
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_ctrl_wr
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // clear bit again
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_ctrl_wr
+            //$$// on dac0 fifo length set
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00001000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // cid_adrs for r_cid_reg_dac0_num_ffdat
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);                            // w_trig_cid_adrs_wr
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);        // data for cid_data
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_data_wr
+
+            //$$//// dac1 fifo reset 
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000080, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // w_rst_dac1_fifo
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_ctrl_wr
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // clear bit
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_ctrl_wr
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // clear bit again
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_ctrl_wr
+            //$$// on dac1 fifo length set
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00001010, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask); // cid_adrs for r_cid_reg_dac1_num_ffdat
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);                            // w_trig_cid_adrs_wr
+            //$$write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);        // data for cid_data
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 10); //(u32 adrs_base, u32 offset, u32 bit_loc);                           // w_trig_cid_data_wr 
+
+            if (Ch == 1) { // Ch == 1 or DAC0
+                //// dac0 fifo reset 
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000040); // w_rst_dac0_fifo   
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit again
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                // on dac0 fifo length set
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00001000); // cid_adrs for r_cid_reg_dac0_num_ffdat
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr
+            }
+            else { // Ch == 2 or DAC1
+                //// dac1 fifo reset 
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000080); // w_rst_dac1_fifo
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit again
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                // on dac1 fifo length set
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00001010); // cid_adrs for r_cid_reg_dac1_num_ffdat
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+            }
+
+            // for log data
             string len_fifo_data_str = string.Format(" #H{0,8:X8}", fifo_data);
             string PGU_NFDT__;
-
+            //
             if (Ch == 1) {
                 PGU_NFDT__ = Convert.ToString(cmd_str__PGU_NFDT0 + len_fifo_data_str + " \n");
             }
             else {
                 PGU_NFDT__ = Convert.ToString(cmd_str__PGU_NFDT1 + len_fifo_data_str + " \n");
             }
-
-            byte[] PGU_NFDT__CMD = Encoding.UTF8.GetBytes(PGU_NFDT__);
-                
-            ret = scpi_comm_resp_ss(PGU_NFDT__CMD);
-
+            //
+            //$$byte[] PGU_NFDT__CMD = Encoding.UTF8.GetBytes(PGU_NFDT__);
+            //$$ret = scpi_comm_resp_ss(PGU_NFDT__CMD);
             // log
             using (StreamWriter ws = new StreamWriter(LogFileName, true))
                 ws.WriteLine("## " + PGU_NFDT__);
@@ -1786,19 +1957,117 @@ namespace TopInstrument
         }
 
         public string pgu_fdac__send_log(int Ch, string pulse_info_num_block_str, string LogFileName) {
-            string ret;
-            string PGU_FDAC__;
+            string ret = "OK\n";
 
+            //## generate EP commands for numeric block string
+            // #  `:PGU:FDAT0` + `#N8_dddddd_hhhhmmmmnnnnnnnn_hhhhmmmmnnnnnnnn_... ..._hhhhmmmmnnnnnnnn_hhhhmmmmnnnnnnnn` + `'\n'` , 
+            // #      `hhhh` for DAC value; `mmmm` for incremental step; `nnnnnnnn` for duration count for each DAC value.
+            // 
+            // send data - first part
+            //write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS__DACx_DAT_INC_PI,val); //(u32 adrs_base, u32 offset, u32 data);
+            // send data - second part
+            //write_mcs_ep_pi_data(MCS_EP_BASE,EP_ADRS__DACx_DUR_PI,val); //(u32 adrs_base, u32 offset, u32 data);
+            // // skip '_' and repeat 
+
+            //// collect data from numberic block string
+            char[] buf = pulse_info_num_block_str.ToCharArray();
+            s32 loc;
+            u32 flag_found__hdr_N8 = 0;
+            u32 len_byte;
+            u32 val_dat;
+            u32 val_dur;
+            u32[] buf_val_dat;
+            u32[] buf_val_dur;
+            u32 idx_buf;
+            char[] buf_tmp_dat;
+            char[] buf_tmp_dur;
+            
+
+            // skip space in buf
+            loc = 0;
+            while (true) {
+                if      (buf[loc]==' ' ) loc++;
+                else if (buf[loc]=='\t') loc++;
+                else break;
+            }            
+
+            // find header in buf : "#N8_"
+            if (buf.Skip(loc).Take(4).SequenceEqual("#N8_")) {
+                //...
+                loc += 4; // skip for header
+                // find len_byte in 6-bytes
+                //$$len_byte = decstr2data_u32((u8*)(buf+loc),6);
+                len_byte = decstr2data_u32(buf.Skip(loc).Take(6).ToArray(), 6);
+                loc += 7; // skip for 6 bytes + '_'
+                // set flag
+                flag_found__hdr_N8 = 1;
+            } else {
+                // ...
+                ret = "NG\n";
+                return ret;
+            }
+
+            // collect data and repeat
+            if (flag_found__hdr_N8 == 1) {
+                //...
+                // define buffers to collect
+                buf_val_dat = new u32[len_byte/16]; // len_byte/2/8
+                buf_val_dur = new u32[len_byte/16];
+                // loop
+                idx_buf = 0;
+                while (len_byte > 0) {
+                    // collect data in 16 bytes
+                    len_byte -= 16;
+                    // first part - collect 8 bytes for val_DAT
+                    buf_tmp_dat = buf.Skip(loc).Take(8).ToArray();
+                    val_dat = hexstr2data_u32(buf.Skip(loc).Take(8).ToArray(), 8);
+                    loc += 8;
+                    // second part - collect 8 bytes for val_DUR
+                    buf_tmp_dur = buf.Skip(loc).Take(8).ToArray();
+                    val_dur = hexstr2data_u32(buf.Skip(loc).Take(8).ToArray(), 8);
+                    loc += 8;
+                    // save in buffers
+                    buf_val_dat[idx_buf] = val_dat;
+                    buf_val_dur[idx_buf] = val_dur;
+                    idx_buf++;
+                    // skip '_'
+                    while (true) {
+                        if (buf[loc]=='_' ) loc++;
+                        else break;
+                    }            
+                }
+            } else {
+                // ...
+                ret = "NG\n";
+                return ret;
+            }
+
+            //// send at once.
+            byte[] dat_bytearray = buf_val_dat.SelectMany(BitConverter.GetBytes).ToArray();
+            byte[] dur_bytearray = buf_val_dur.SelectMany(BitConverter.GetBytes).ToArray();
+            //
+            if (Ch == 1) { // Ch == 1 or DAC0
+                WriteToPipeIn(EP_ADRS__DAC0_DAT_INC_PI, ref dat_bytearray);
+                WriteToPipeIn(EP_ADRS__DAC0_DUR_PI    , ref dur_bytearray);
+            }
+            else { // Ch == 2 or DAC1
+                WriteToPipeIn(EP_ADRS__DAC1_DAT_INC_PI, ref dat_bytearray);
+                WriteToPipeIn(EP_ADRS__DAC1_DUR_PI    , ref dur_bytearray);
+            }
+
+            // for log data
+            string PGU_FDAC__;
+            //
             if (Ch == 1) {
                 PGU_FDAC__ = Convert.ToString(cmd_str__PGU_FDAC0 + pulse_info_num_block_str);
             }
             else {
                 PGU_FDAC__ = Convert.ToString(cmd_str__PGU_FDAC1 + pulse_info_num_block_str);
             }
-
-            byte[] PGU_FDAC__CMD = Encoding.UTF8.GetBytes(PGU_FDAC__);
-            ret = scpi_comm_resp_ss(PGU_FDAC__CMD);
-
+            //
+            //$$byte[] PGU_FDAC__CMD = Encoding.UTF8.GetBytes(PGU_FDAC__);
+            //$$ret = scpi_comm_resp_ss(PGU_FDAC__CMD);
+            // log
             using (StreamWriter ws = new StreamWriter(LogFileName, true))
                 ws.WriteLine("## " + PGU_FDAC__);
             
