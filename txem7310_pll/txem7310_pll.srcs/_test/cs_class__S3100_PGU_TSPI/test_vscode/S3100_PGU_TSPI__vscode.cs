@@ -12,12 +12,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-// for my base classes
-using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;
-//using mybaseclass_EPS_control     = TopInstrument.EPS_Dev_by_spi_emul; //     support EPS-SPI emulation commands
-
-//using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //## for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
-using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //## for S3100-PGU-TSPI // support PGU-EPS command
 
 
 // note ... class SCPI_base                         //     support SCPI commands
@@ -48,12 +42,22 @@ using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //## for S3100
 // >>> PGU_control_by_spi - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_spi_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_spi_:_class__TOP_PGU_  // support PGU-SPI emulation commands
 
-
-using u32 = System.UInt32; // for converting firmware
-using s32 = System.Int32; // for converting firmware
-
 namespace TopInstrument
 {
+
+    // for my base classes
+    using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;
+    //using mybaseclass_EPS_control     = TopInstrument.EPS_Dev_by_spi_emul; //     support EPS-SPI emulation commands
+
+    //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //## for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
+    using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //## for S3100-PGU-TSPI // support PGU-EPS command
+
+    using u32 = System.UInt32; // for converting firmware
+    using s32 = System.Int32; // for converting firmware
+    using u16 = System.UInt16; // for converting firmware
+    using s16 = System.Int16; // for converting firmware
+    using u8  = System.Byte; // for converting firmware
+
     public class SCPI_base
     {
         //## TCP socket access for SCPI commands
@@ -1129,8 +1133,8 @@ namespace TopInstrument
         private string cmd_str__PGU_FDAC1      = ":PGU:FDAT1";
         private string cmd_str__PGU_FRPT0      = ":PGU:FRPT0";
         private string cmd_str__PGU_FRPT1      = ":PGU:FRPT1";
-        private string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
-        private string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
+        //private string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
+        //private string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
         
 
         //// PGU EPS address map info ......
@@ -2062,10 +2066,15 @@ namespace TopInstrument
         }
 
         private void xil_printf(string fmt, s32 val) { // for test print
-            // remove "%02d \r\n"
+            // check "%02d \r\n"
             if (fmt.Substring(fmt.Length-7)=="%02d \r\n") {
                 string tmp = fmt.Substring(0, fmt.Length-7);
                 fmt = tmp + string.Format("{0,2:d2} ", val); //
+            }
+            // check "%d \r\n"
+            else if (fmt.Substring(fmt.Length-5)=="%d \r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-5);
+                fmt = tmp + string.Format("{0} ", val); //
             }
             Console.WriteLine(fmt);
         }
@@ -2272,7 +2281,164 @@ namespace TopInstrument
             return pgu_dacz_dat_read(5); 
         }
 
+        // EEPROM control ...
 
+        private u32  eeprom_send_frame_ep (u32 MEM_WI_b32, u32 MEM_FDAT_WI_b32) {
+            //  def eeprom_send_frame_ep (MEM_WI, MEM_FDAT_WI):
+            //  	## //// end-point map :
+            //  	## // wire [31:0] w_MEM_WI      = ep13wire;
+            //  	## // wire [31:0] w_MEM_FDAT_WI = ep12wire;
+            //  	## // wire [31:0] w_MEM_TI = ep53trig; assign ep53ck = sys_clk;
+            //  	## // wire [31:0] w_MEM_TO; assign ep73trig = w_MEM_TO; assign ep73ck = sys_clk;
+            //  	## // wire [31:0] w_MEM_PI = ep93pipe; wire w_MEM_PI_wr = ep93wr; 
+            //  	## // wire [31:0] w_MEM_PO; assign epB3pipe = w_MEM_PO; wire w_MEM_PO_rd = epB3rd; 	
+
+            bool ret_bool;
+            s32 cnt_loop;
+
+            SetWireInValue(EP_ADRS__MEM_WI,      MEM_WI_b32); 
+            SetWireInValue(EP_ADRS__MEM_FDAT_WI, MEM_FDAT_WI_b32); 
+            //  	# clear TO
+            GetTriggerOutVector(EP_ADRS__MEM_TO);
+            //  	# act TI
+            ActivateTriggerIn(EP_ADRS__MEM_TI, 2);
+            cnt_loop = 0;
+            while (true) {
+                ret_bool = IsTriggered(EP_ADRS__MEM_TO, 0x04);
+                if (ret_bool==true) {
+                    break;
+                }
+                cnt_loop += 1;
+            }
+            if (cnt_loop>0) xil_printf("cnt_loop = %d \r\n", cnt_loop);
+            return 0;
+        }
+
+        private u32  eeprom_send_frame (u8 CMD_b8, u8 STA_in_b8, u8 ADL_b8, u8 ADH_b8, u16 num_bytes_DAT_b16, u8 con_disable_SBP_b8) {
+            u32 ret;
+            u32 set_data_WI = ((u32)con_disable_SBP_b8<<15) + ((u32)num_bytes_DAT_b16);
+            u32 set_data_FDAT_WI = ((u32)ADH_b8<<24) + ((u32)ADL_b8<<16) + ((u32)STA_in_b8<<8) + (u32)CMD_b8;
+            ret = eeprom_send_frame_ep (set_data_WI, set_data_FDAT_WI);
+            return ret;
+        }
+
+        private void eeprom_reset_fifo() {
+            ActivateTriggerIn(EP_ADRS__MEM_TI, 1);
+        }
+
+        private u16 eeprom_read_fifo (u16 num_bytes_DAT_b16, u8[] buf_dataout) {
+            u16 ret;
+           	//dcopy_pipe8_to_buf8 (ADRS__MEM_PO, buf_dataout, num_bytes_DAT_b16); // (u32 adrs_p8, u8 *p_buf_u8, u32 len)
+            // read 32-bit width pipe and collect 8-bit width data
+            
+            u32 adrs = EP_ADRS__MEM_PO;
+            u8[] buf_pipe = new u8[num_bytes_DAT_b16*4]; // *4 for 32-bit pipe 
+            
+            ret = (u16)ReadFromPipeOut(adrs, ref buf_pipe);
+
+            // collect and copy data : buf => buf_dataout
+            s32 ii;
+            s32 tmp;
+            for (ii=0;ii<num_bytes_DAT_b16;ii++) {
+                tmp = BitConverter.ToInt32(buf_pipe, ii*4); // read one pipe data every 4 bytes
+                buf_dataout[ii] = (u8) (tmp & 0x000000FF); 
+            }
+
+            return ret;
+        }
+
+        private u16 eeprom_write_fifo (u16 num_bytes_DAT_b16, u8[] buf_datain) {
+            u16 ret;
+            // memory copy from 8-bit width buffer to 32-bit width pipe // ADRS_BASE_MHVSU or MCS_EP_BASE
+            //dcopy_buf8_to_pipe8  (buf_datain, ADRS__MEM_PI, num_bytes_DAT_b16); //  (u8 *p_buf_u8, u32 adrs_p8, u32 len)
+
+            u32 adrs = EP_ADRS__MEM_PI;
+            
+            //u32[] buf_pipe_data = new u32[buf_datain.Length];
+            u32[] buf_pipe_data = Array.ConvertAll(buf_datain, x => (u32)x );
+
+            u8[] buf_pipe = buf_pipe_data.SelectMany(BitConverter.GetBytes).ToArray();
+
+            ret = (u16)WriteToPipeIn(adrs, ref buf_pipe);
+
+            return ret;
+        }
+
+
+        private u16 eeprom_read_data (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8[] buf_dataout) {
+            
+            //buf_dataout[0] = (char)0x01; // test
+            //buf_dataout[1] = (char)0x02; // test
+            //buf_dataout[2] = (char)0x03; // test
+            //buf_dataout[3] = (char)0x04; // test
+
+            //byte[] buf_bytearray = BitConverter.GetBytes(0xFEDCBA98); // test
+            //buf_bytearray.CopyTo(buf_dataout, 0); //test
+
+            u16 ret;
+
+            eeprom_reset_fifo();
+
+            u8 ADL = (u8) ((ADRS_b16>>0) & 0x00FF);
+            u8 ADH = (u8) ((ADRS_b16>>8) & 0x00FF);
+
+            //  	## // CMD_READ__03 
+            //  	eeprom_send_frame (CMD=0x03, ADL=ADL, ADH=ADH, num_bytes_DAT=num_bytes_DAT)
+            eeprom_send_frame (0x03, 0, ADL, ADH, num_bytes_DAT_b16, 0);
+
+            ret = eeprom_read_fifo (num_bytes_DAT_b16, buf_dataout);
+            
+            return ret;
+        }
+
+        private void eeprom_write_enable() {
+            //  	## // CMD_WREN__96 
+            //  	print('\n>>> CMD_WREN__96')
+            //  	eeprom_send_frame (CMD=0x96, con_disable_SBP=1)
+        	eeprom_send_frame (0x96, 0, 0, 0, 1, 1); // (CMD=0x96, con_disable_SBP=1)
+        }
+
+        private u16 eeprom_write_data_16B (u16 ADRS_b16, u16 num_bytes_DAT_b16) {
+            eeprom_write_enable();
+            u8 ADL = (u8) ((ADRS_b16>>0) & 0x00FF);
+            u8 ADH = (u8) ((ADRS_b16>>8) & 0x00FF);
+            //  	
+            //  	## // CMD_WRITE_6C 
+            //  	eeprom_send_frame (CMD=0x6C, ADL=ADL, ADH=ADH, num_bytes_DAT=num_bytes_DAT, con_disable_SBP=1)
+        	eeprom_send_frame (0x6C, 0, ADL, ADH, num_bytes_DAT_b16, 1);
+        	return num_bytes_DAT_b16;
+        }
+
+        private u16 eeprom_write_data (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8[] buf_datain) {
+            u16 ret = num_bytes_DAT_b16;
+
+            eeprom_reset_fifo();
+
+            if (num_bytes_DAT_b16 <= 16) {
+                eeprom_write_fifo (num_bytes_DAT_b16, buf_datain);
+                eeprom_write_data_16B (ADRS_b16, num_bytes_DAT_b16);
+                ret = 0; // sent all
+            }
+            else {
+                eeprom_write_fifo (num_bytes_DAT_b16, buf_datain);
+
+                while (true) {
+                    eeprom_write_data_16B (ADRS_b16, 16);
+                    //
+                    ADRS_b16          += 16;
+                    ret               -= 16;
+                    //
+                    if (num_bytes_DAT_b16 <= 16) {
+                        eeprom_write_data_16B (ADRS_b16, num_bytes_DAT_b16);
+                        ret            = 0;
+                        break;
+                    }
+                }
+
+            }
+            return ret;
+        }
+        
 
         //$$ PWR access
 
@@ -2972,75 +3138,73 @@ namespace TopInstrument
         //$$ EEPROM access
 
         public int pgu_eeprom__read__data_4byte(int adrs_b32) {
-            //  def pgu_eeprom__read__data_4byte (adrs_b32):
-            //  	print('\n>>>>>> pgu_eeprom__read__data_4byte')
-            //  	#
-            //  	cmd_str = cmd_str__PGU_MEMR + (' #H{:08X}\n'.format(adrs_b32)).encode()
-            //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
-            //  	rsp = rsp_str.decode()
-            //  	# assume hex decimal response: #HF3190306<NL>
-            //  	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
-            //  	rsp = int(rsp,16) # convert hex into int
-            //  	return rsp
+            int ret_int;
 
             //// for firmware
+            u16 adrs = (u16)adrs_b32; 
+            u8[] buf = new u8[4]; // sizeof(int) : 4
             
+            //eeprom_read_data((u16)adrs, 4, (u8*)&val); //$$ read eeprom
+            eeprom_read_data(adrs, 4, buf); // num of bytes : 4 for int
+            
+            // reconstruct int from char[]
+            byte[] buf_bytearray = Array.ConvertAll(buf, x => (byte)x );
+            ret_int = BitConverter.ToInt32(buf_bytearray,0);  
+
             //// previous LAN commmand for eeprom read
-            string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
-            byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
-            string ret;
-            try {
-                ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
-            }
-            catch {
-                ret = "#H00000000\n";
-            }
-            int ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
+            // # ':PGU:MEMR' # new ':PGU:MEMR #H00000058 \n'
+            //
+            //string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
+            //byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
+            //string ret;
+            //try {
+            //    ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
+            //}
+            //catch {
+            //    ret = "#H00000000\n";
+            //}
+            //ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
 
             //
             return ret_int;
         }
 
         public int pgu_eeprom__write_data_4byte(int adrs_b32, uint val_b32, int interval_ms = 10) {
-            //  def pgu_eeprom__write_data_4byte (adrs_b32, val_b32):
-            //  	print('\n>>>>>> pgu_eeprom__write_data_4byte')
-            //  	#
-            //  	cmd_str = cmd_str__PGU_MEMW + (' #H{:08X} #H{:08X}\n'.format(adrs_b32, val_b32)).encode()
-            //  	rsp_str = scpi_comm_resp_ss(ss, cmd_str)
-            //  	print('string rcvd: ' + repr(rsp))
-            //  	print('rsp: ' + rsp.decode())
-            //  	return rsp.decode()[0:2] # OK or NG
-            //  
+            int ret_int = 0;
 
             //// for firmware
             u32 val  = (u32)val_b32;
-            u32 adrs = (u32)adrs_b32; 
+            u16 adrs = (u16)adrs_b32; 
 
             byte[] buf_bytearray = BitConverter.GetBytes(val);
-            char[] buf = new char[buf_bytearray.Length];
-            buf_bytearray.CopyTo(buf, 0);
+            u8[] buf = Array.ConvertAll(buf_bytearray, x => (u8)x );
 
-            //eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom 
-            //eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom 
+            eeprom_write_data(adrs, 4, buf); //$$ write eeprom 
+
+            Delay(interval_ms); //$$ ms wait for write done 
+            
 
             //// previous LAN commmand for eeprom write
-            string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
-                            + string.Format(" #H{0,8:X8}"  , adrs_b32)
-                            + string.Format(" #H{0,8:X8}\n", val_b32 );
-            byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
-            string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
-            //Delay(1); //$$ 1ms wait for write done // NG  read right after write
-            //Delay(2); //$$ 2ms wait for write done // some NG 
-            //Delay(10); //$$ 10ms wait for write done 
-            Delay(interval_ms); //$$ ms wait for write done 
+            // # ':PGU:MEMW' # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
             //
-            int ret_int = 0;
-            if (ret.Substring(0,2)=="OK") {
-                ret_int = 0;
-            }
-            else {
-                ret_int = -1;
-            }
+            //string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
+            //                + string.Format(" #H{0,8:X8}"  , adrs_b32)
+            //                + string.Format(" #H{0,8:X8}\n", val_b32 );
+            //byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
+            //string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
+            //
+            ////Delay(1); //$$ 1ms wait for write done // NG  read right after write
+            ////Delay(2); //$$ 2ms wait for write done // some NG 
+            ////Delay(10); //$$ 10ms wait for write done 
+            //Delay(interval_ms); //$$ ms wait for write done 
+            ////
+            //int ret_int = 0;
+            //if (ret.Substring(0,2)=="OK") {
+            //    ret_int = 0;
+            //}
+            //else {
+            //    ret_int = -1;
+            //}
 
             //
             return ret_int;
@@ -4928,19 +5092,19 @@ namespace TopInstrument
             //}
 
             ////
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x40));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x44));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x48));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x4C));
+            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x40).ToString("X8"));
+            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x44).ToString("X8"));
+            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x48).ToString("X8"));
+            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x4C).ToString("X8"));
 
             // eeprom write test
             //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0x03020100));
             //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0xFFFFFFFF));
             //Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x40));
             Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8")); //0x30313353
-            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0xFEDCBA98));    // 0x01234567 or 0xFEDCBA98
+            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x30, 0xFEDCBA98));    // 0x01234567 or 0xFEDCBA98
             Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8"));
-            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0x30313353));
+            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x30, 0x30313353));
             Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8"));
 
             // data converter test
