@@ -1111,7 +1111,7 @@ namespace TopInstrument
         //   not use PGU LAN command string
         //   use EPS command
 
-        //// PGU LAN command string headers //$$ to remove
+        //// PGU LAN command string headers //$$ for de bug
         
         private int cnt_call_unintended = 0;
 
@@ -1129,33 +1129,28 @@ namespace TopInstrument
         private string cmd_str__PGU_FDAC1      = ":PGU:FDAT1";
         private string cmd_str__PGU_FRPT0      = ":PGU:FRPT0";
         private string cmd_str__PGU_FRPT1      = ":PGU:FRPT1";
-        private string cmd_str__PGU_FREQ       = ":PGU:FREQ";
-        private string cmd_str__PGU_OFST_DAC0  = ":PGU:OFST:DAC0";
-        private string cmd_str__PGU_OFST_DAC1  = ":PGU:OFST:DAC1";
-        private string cmd_str__PGU_GAIN_DAC0  = ":PGU:GAIN:DAC0";
-        private string cmd_str__PGU_GAIN_DAC1  = ":PGU:GAIN:DAC1";
         private string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
         private string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
         
 
         //// PGU EPS address map info ......
         private string EP_ADRS__GROUP_STR         = "_S3100_PGU_";
-        private u32   EP_ADRS__FPGA_IMAGE_ID_WO   = 0x20;
-        private u32   EP_ADRS__XADC_TEMP_WO       = 0x3A;
-        private u32   EP_ADRS__XADC_VOLT          = 0x3B;
-        private u32   EP_ADRS__TIMESTAMP_WO       = 0x22;
+        //private u32   EP_ADRS__FPGA_IMAGE_ID_WO   = 0x20;
+        //private u32   EP_ADRS__XADC_TEMP_WO       = 0x3A;
+        //private u32   EP_ADRS__XADC_VOLT          = 0x3B;
+        //private u32   EP_ADRS__TIMESTAMP_WO       = 0x22;
         private u32   EP_ADRS__TEST_IO_MON        = 0x23;
-        private u32   EP_ADRS__TEST_CON_WI        = 0x01;
-        private u32   EP_ADRS__TEST_OUT_WO        = 0x21;
-        private u32   EP_ADRS__TEST_TI            = 0x40;
-        private u32   EP_ADRS__TEST_TO            = 0x60;
-        private u32   EP_ADRS__BRD_CON_WI         = 0x03;
-        private u32   EP_ADRS__MCS_SETUP_WI       = 0x19;
-        private u32   EP_ADRS__MSPI_EN_CS_WI      = 0x16;
-        private u32   EP_ADRS__MSPI_CON_WI        = 0x17;
-        private u32   EP_ADRS__MSPI_FLAG_WO       = 0x34;
-        private u32   EP_ADRS__MSPI_TI            = 0x42;
-        private u32   EP_ADRS__MSPI_TO            = 0x62;
+        //private u32   EP_ADRS__TEST_CON_WI        = 0x01;
+        //private u32   EP_ADRS__TEST_OUT_WO        = 0x21;
+        //private u32   EP_ADRS__TEST_TI            = 0x40;
+        //private u32   EP_ADRS__TEST_TO            = 0x60;
+        //private u32   EP_ADRS__BRD_CON_WI         = 0x03;
+        //private u32   EP_ADRS__MCS_SETUP_WI       = 0x19;
+        //private u32   EP_ADRS__MSPI_EN_CS_WI      = 0x16;
+        //private u32   EP_ADRS__MSPI_CON_WI        = 0x17;
+        //private u32   EP_ADRS__MSPI_FLAG_WO       = 0x34;
+        //private u32   EP_ADRS__MSPI_TI            = 0x42;
+        //private u32   EP_ADRS__MSPI_TO            = 0x62;
         private u32   EP_ADRS__MEM_FDAT_WI        = 0x12;
         private u32   EP_ADRS__MEM_WI             = 0x13;
         private u32   EP_ADRS__MEM_TI             = 0x53;
@@ -1178,9 +1173,9 @@ namespace TopInstrument
         private u32   EP_ADRS__SPIO_WI            = 0x07;
         private u32   EP_ADRS__SPIO_WO            = 0x27;
         private u32   EP_ADRS__SPIO_TI            = 0x47;
-        private u32   EP_ADRS__TRIG_DAT_WI        = 0x09;
-        private u32   EP_ADRS__TRIG_DAT_WO        = 0x29;
-        private u32   EP_ADRS__TRIG_DAT_TI        = 0x49;
+        //private u32   EP_ADRS__TRIG_DAT_WI        = 0x09;
+        //private u32   EP_ADRS__TRIG_DAT_WO        = 0x29;
+        //private u32   EP_ADRS__TRIG_DAT_TI        = 0x49;
 
         //// common functions
         private u32 hexchr2data_u32(char hexchr) { // u8 --> char
@@ -1279,7 +1274,7 @@ namespace TopInstrument
             u32 flag_done;
             while (true) {
             	flag = GetWireOutValue(EP_ADRS__SPIO_WO);
-            	flag_done = (flag>>bit_loc) & 0x0000001;
+            	flag_done = (flag>>bit_loc) & 0x00000001;
             	if (flag_done==1)
             		break;
             	cnt_done += 1;
@@ -1608,6 +1603,677 @@ namespace TopInstrument
         }
 
 
+        // CLKD control ...
+        private u32  pgu_clkd_init() {
+            //
+            //activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__CLKD_TI, 0);
+            ActivateTriggerIn(EP_ADRS__CLKD_TI, 0);
+            //
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            s32 bit_loc  = 24   ;
+            u32 flag            ;
+            u32 flag_done       ;
+            //
+            while (true) {
+            	flag = GetWireOutValue(EP_ADRS__CLKD_WO);
+            	//flag_done = (flag&(1<<bit_loc))>>bit_loc;
+                flag_done = (flag>>bit_loc) & 0x00000001;
+            	if (flag_done==1)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+            //
+            return flag_done;
+        }
+
+        private u32  pgu_clkd_send_spi_frame(u32 frame_data) {
+            //
+            // write control 
+            SetWireInValue(EP_ADRS__CLKD_WI, frame_data);
+            //
+            // trig spi frame
+            ActivateTriggerIn(EP_ADRS__CLKD_TI, 1);
+            //
+            // check spi frame done
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            s32 bit_loc  = 25   ;
+            u32 flag;
+            u32 flag_done;
+            
+            //$$ note clkd frame done is poorly implemented by checking two levels.
+            //$$ must revise this ... to check triggered output...
+
+            // check if done is low // when sclk is slow < 1MHz
+            //$$ while (true) {
+            //$$ 	//
+            //$$ 	flag = GetWireOutValue(EP_ADRS__CLKD_WO);
+            //$$ 	flag_done = (flag>>bit_loc) & 0x00000001;
+            //$$ 	//
+            //$$ 	if (flag_done==0)
+            //$$ 		break;
+            //$$ 	cnt_done += 1;
+            //$$ 	if (cnt_done>=MAX_CNT)
+            //$$ 		break;
+            //$$ }
+            // check if done is high
+            while (true) {
+            	//
+            	flag = GetWireOutValue(EP_ADRS__CLKD_WO);
+            	flag_done = (flag>>bit_loc) & 0x00000001;
+            	//
+            	if (flag_done==1)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+
+            //
+            // copy received data
+            u32 val_recv = flag & 0x000000FF;
+            //
+            return val_recv;
+        }
+        
+        private u32  pgu_clkd_reg_write_b8(u32 reg_adrs_b10, u32 val_b8) {
+            //
+            u32 R_W_bar     = 0           ;
+            u32 byte_mode_W = 0x0         ;
+            u32 reg_adrs    = reg_adrs_b10;
+            u32 val         = val_b8      ;
+            //
+            u32 framedata = (R_W_bar<<31) + (byte_mode_W<<29) + (reg_adrs<<16) + val;
+            //
+            return pgu_clkd_send_spi_frame(framedata);        
+        }
+
+        private u32  pgu_clkd_reg_read_b8(u32 reg_adrs_b10) {
+            //
+            u32 R_W_bar     = 1           ;
+            u32 byte_mode_W = 0x0         ;
+            u32 reg_adrs    = reg_adrs_b10;
+            u32 val         = 0xFF        ;
+            //
+            u32 framedata = (R_W_bar<<31) + (byte_mode_W<<29) + (reg_adrs<<16) + val;
+            //
+            return pgu_clkd_send_spi_frame(framedata);
+        }
+        
+        private u32  pgu_clkd_reg_write_b8_check (u32 reg_adrs_b10, u32 val_b8) {
+            u32 tmp;
+            u32 retry_count = 0;
+            while(true) {
+            	// write 
+            	pgu_clkd_reg_write_b8(reg_adrs_b10, val_b8);
+            	// readback
+            	tmp = pgu_clkd_reg_read_b8(reg_adrs_b10); // readback 0x18
+            	if (tmp == val_b8) 
+            		break;
+            	retry_count++;
+            }
+            return retry_count;
+        }
+        
+        private u32  pgu_clkd_reg_read_b8_check (u32 reg_adrs_b10, u32 val_b8) {
+            u32 tmp;
+            u32 retry_count = 0;
+            while(true) {
+            	// read
+            	tmp = pgu_clkd_reg_read_b8(reg_adrs_b10); // readback 0x18
+            	if (tmp == val_b8) 
+            		break;
+            	retry_count++;
+            }
+            return retry_count;
+        }
+
+        private u32  pgu_clkd_setup(u32 freq_preset) {
+            u32 ret = freq_preset;
+            u32 tmp = 0;
+
+            // write conf : SDO active 0x99
+            tmp += pgu_clkd_reg_write_b8_check(0x000,0x99);
+            // read conf 
+            //tmp = pgu_clkd_reg_read_b8_check(0x000, 0x18); // readback 0x18
+            tmp += pgu_clkd_reg_read_b8_check(0x000, 0x99); // readback 0x99
+
+            // read ID
+            tmp += pgu_clkd_reg_read_b8_check(0x003, 0x41); // read ID 0x41 
+
+            // power down for output ports
+            // ## LVPECL outputs:
+            // ##   0x0F0 OUT0 ... 0x0A for power down; 0x08 for power up.
+            // ##   0x0F1 OUT1 ... 0x0A for power down; 0x08 for power up.
+            // ##   0x0F2 OUT2 ... 0x0A for power down; 0x08 for power up. // TO DAC 
+            // ##   0x0F3 OUT3 ... 0x0A for power down; 0x08 for power up. // TO DAC 
+            // ##   0x0F4 OUT4 ... 0x0A for power down; 0x08 for power up.
+            // ##   0x0F5 OUT5 ... 0x0A for power down; 0x08 for power up.
+            // ## LVDS outputs:
+            // ##   0x140 OUT6 ... 0x43 for power down; 0x42 for power up. // TO REF OUT
+            // ##   0x141 OUT7 ... 0x43 for power down; 0x42 for power up.
+            // ##   0x142 OUT8 ... 0x43 for power down; 0x42 for power up. // TO FPGA
+            // ##   0x143 OUT9 ... 0x43 for power down; 0x42 for power up.
+            // ##
+            tmp += pgu_clkd_reg_write_b8_check(0x0F0,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F1,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F2,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F3,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F4,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F5,0x0A);
+            // ##
+            tmp += pgu_clkd_reg_write_b8_check(0x140,0x43);
+            tmp += pgu_clkd_reg_write_b8_check(0x141,0x43);
+            tmp += pgu_clkd_reg_write_b8_check(0x142,0x43);
+            tmp += pgu_clkd_reg_write_b8_check(0x143,0x43);
+            // update registers // no readback
+            pgu_clkd_reg_write_b8(0x232,0x01); 
+            //
+
+            //// clock distribution setting
+            tmp += pgu_clkd_reg_write_b8_check(0x010,0x7D); //# PLL power-down
+
+            if (freq_preset == 4000) { // 400MHz // OK
+            	//# 400MHz common = 400MHz/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x01); //# Bypass VCO divider # for 400MHz common clock 
+            	//
+            	tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+            	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+            }
+            else if (freq_preset == 2000) { // 200MHz // OK
+            	//# 200MHz common = 400MHz/(2+0)
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x00); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+            	// ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+            	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+            }
+            else if (freq_preset == 1000) { // 100MHz // OK
+            	//# 100MHz common = 400MHz/(2+2)
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x02); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+            	// ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+            	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+            }
+            else if (freq_preset == 800) { // 80MHz //OK
+            	//# 80MHz common = 400MHz/(2+3)
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x03); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+            	// ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+            	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+            }
+            else if (freq_preset == 500) { // 50MHz //OK
+            	//# 200MHz common = 400MHz/(2+0)
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x00); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+            	// ()/4
+            	tmp += pgu_clkd_reg_write_b8_check(0x193,0x11); //# DVD1 div 2+1+1=4 --> DACx: ()/4 
+            	tmp += pgu_clkd_reg_write_b8_check(0x194,0x00); //# DVD1 bypass off 
+            	tmp += pgu_clkd_reg_write_b8_check(0x199,0x00); //# DVD3.1 div 2+0+0=2 
+            	tmp += pgu_clkd_reg_write_b8_check(0x19B,0x00); //# DVD3.2 div 2+0+0=2  --> REFo: ()/4
+            	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x00); //# DVD3.1, DVD3.2 all bypass off
+            	tmp += pgu_clkd_reg_write_b8_check(0x19E,0x00); //# DVD4.1 div 2+0+0=2 
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A0,0x00); //# DVD4.2 div 2+0+0=2  --> FPGA: ()/4
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x00); //# DVD4.1, DVD4.2 all bypass off
+            }
+            else if (freq_preset == 200) { // 20MHz //OK
+            	//# 80MHz common = 400MHz/(2+3)
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x03); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+            	// ()/4  
+            	tmp += pgu_clkd_reg_write_b8_check(0x193,0x11); //# DVD1 div 2+1+1=4 --> DACx: ()/4 
+            	tmp += pgu_clkd_reg_write_b8_check(0x194,0x00); //# DVD1 bypass off 
+            	tmp += pgu_clkd_reg_write_b8_check(0x199,0x00); //# DVD3.1 div 2+0+0=2 
+            	tmp += pgu_clkd_reg_write_b8_check(0x19B,0x00); //# DVD3.2 div 2+0+0=2  --> REFo: ()/4
+            	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x00); //# DVD3.1, DVD3.2 all bypass off
+            	tmp += pgu_clkd_reg_write_b8_check(0x19E,0x00); //# DVD4.1 div 2+0+0=2 
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A0,0x00); //# DVD4.2 div 2+0+0=2  --> FPGA: ()/4
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x00); //# DVD4.1, DVD4.2 all bypass off
+            }
+            else {
+            	// return 0
+            	ret = 0;
+            	//# 200MHz common = 400MHz/(2+0)
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E0,0x00); //# Set VCO divider # [0,1,2,3,4] for [/2,/3,/4,/5,/6]
+            	tmp += pgu_clkd_reg_write_b8_check(0x1E1,0x00); //# Use VCO divider # for 400MHz/X common clock 
+            	// ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x194,0x80); //# DVD1 bypass --> DACx: ()/1 
+            	tmp += pgu_clkd_reg_write_b8_check(0x19C,0x30); //# DVD3.1, DVD3.2 all bypass --> REFo: ()/1
+            	tmp += pgu_clkd_reg_write_b8_check(0x1A1,0x30); //# DVD4.1, DVD4.2 all bypass --> FPGA: ()/1 = 400MHz
+            }
+
+            // power up for clock outs
+            tmp += pgu_clkd_reg_write_b8_check(0x0F0,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F1,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F2,0x08); //$$ power up
+            tmp += pgu_clkd_reg_write_b8_check(0x0F3,0x08); //$$ power up
+            tmp += pgu_clkd_reg_write_b8_check(0x0F4,0x0A);
+            tmp += pgu_clkd_reg_write_b8_check(0x0F5,0x0A);
+            // ##
+            tmp += pgu_clkd_reg_write_b8_check(0x140,0x42); //$$ power up
+            tmp += pgu_clkd_reg_write_b8_check(0x141,0x43);
+            tmp += pgu_clkd_reg_write_b8_check(0x142,0x42); //$$ power up
+            tmp += pgu_clkd_reg_write_b8_check(0x143,0x43);
+
+            //// readbacks
+            //pgu_clkd_reg_read_b8(0x1E0);
+            //pgu_clkd_reg_read_b8(0x1E1);
+            //pgu_clkd_reg_read_b8(0x193);
+            //pgu_clkd_reg_read_b8(0x194);
+            //pgu_clkd_reg_read_b8(0x199);
+            //pgu_clkd_reg_read_b8(0x19B);
+            //pgu_clkd_reg_read_b8(0x19C);
+            //pgu_clkd_reg_read_b8(0x19E);
+            //pgu_clkd_reg_read_b8(0x1A0);
+            //pgu_clkd_reg_read_b8(0x1A1);
+
+            // update registers // no readback
+            pgu_clkd_reg_write_b8(0x232,0x01); 
+
+            // check if retry count > 0
+            if (tmp>0) {
+            	ret = 0;
+            }
+
+            return ret;
+        }
+
+
+        // DACX DAC IC control ...
+
+        // dacx_init
+        private u32  pgu_dacx_init() { // EP access
+            //
+            //activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACX_TI, 0);
+            ActivateTriggerIn(EP_ADRS__DACX_TI, 0);
+            //
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            s32 bit_loc  = 24   ;
+            u32 flag            ;
+            u32 flag_done       ;
+            //
+            while (true) {
+            	//flag = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACX_WO, MASK_ALL);
+                flag = GetWireOutValue(EP_ADRS__DACX_WO);
+            	//flag_done = (flag&(1<<bit_loc))>>bit_loc;
+                //flag_done = (flag&(1<<bit_loc))>>bit_loc;
+                flag_done = (flag>>bit_loc) & 0x00000001;
+            	if (flag_done==1)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+            //
+            return flag_done;
+        }
+
+        private u32  pgu_dacx_fpga_pll_rst(u32 clkd_out_rst, u32 dac0_dco_rst, u32 dac1_dco_rst) {
+            u32 control_data;
+            u32 status_pll;
+
+            // control data
+            control_data = (dac1_dco_rst<<30) + (dac0_dco_rst<<29) + (clkd_out_rst<<28);
+
+            // write control 
+            //write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACX_WI, control_data, 0x70000000);
+            SetWireInValue(EP_ADRS__DACX_WI, control_data, 0x70000000);
+
+            // read status
+            //   assign w_TEST_IO_MON[31] = S_IO_2; //
+            //   assign w_TEST_IO_MON[30] = S_IO_1; //
+            //   assign w_TEST_IO_MON[29] = S_IO_0; //
+            //   assign w_TEST_IO_MON[28:27] =  2'b0;
+            //   assign w_TEST_IO_MON[26] = dac1_dco_clk_locked;
+            //   assign w_TEST_IO_MON[25] = dac0_dco_clk_locked;
+            //   assign w_TEST_IO_MON[24] = clk_dac_locked;
+            //
+            //   assign w_TEST_IO_MON[23:20] =  4'b0;
+            //   assign w_TEST_IO_MON[19] = clk4_locked;
+            //   assign w_TEST_IO_MON[18] = clk3_locked;
+            //   assign w_TEST_IO_MON[17] = clk2_locked;
+            //   assign w_TEST_IO_MON[16] = clk1_locked;
+            //
+            //   assign w_TEST_IO_MON[15: 0] = 16'b0;	
+
+            //status_pll = read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__TEST_IO_MON, 0x07000000);
+            status_pll = GetWireOutValue(EP_ADRS__TEST_IO_MON, 0x07000000);
+            //
+            return status_pll;
+        }
+
+        private u32  pgu_dacx_fpga_clk_dis(u32 dac0_clk_dis, u32 dac1_clk_dis) {
+            u32 ret = 0;
+            u32 control_data;
+
+            // control data
+            control_data = (dac1_clk_dis<<27) + (dac0_clk_dis<<26);
+
+            // write control 
+            //write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACX_WI, control_data, (0x03 << 26));
+            SetWireInValue(EP_ADRS__DACX_WI, control_data, (0x03 << 26));
+
+            return ret;
+        }
+
+        private u32  pgu_dacx_send_spi_frame(u32 frame_data) { // EP access
+            //
+            // write control 
+            SetWireInValue(EP_ADRS__DACX_WI, frame_data);
+            //
+            // trig spi frame
+            ActivateTriggerIn(EP_ADRS__DACX_TI, 1);
+            //
+            // check spi frame done
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            s32 bit_loc  = 25   ;
+            u32 flag;
+            u32 flag_done;
+            //while True:
+            while (true) {
+            	//
+            	flag = GetWireOutValue(EP_ADRS__DACX_WO);
+            	//flag_done = (flag&(1<<bit_loc))>>bit_loc;
+                flag_done = (flag>>bit_loc) & 0x00000001;
+            	//
+            	if (flag_done==1)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+            //
+            u32 val_recv = flag & 0x000000FF;
+            //
+            return val_recv;
+        }
+
+        private u32  pgu_dac0_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
+            //
+            u32 CS_id       = 0          ;
+            u32 R_W_bar     = 0          ;
+            u32 byte_mode_N = 0x0        ;
+            u32 reg_adrs    = reg_adrs_b5;
+            u32 val         = val_b8     ;
+            //
+            u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+            //
+            return pgu_dacx_send_spi_frame(framedata);
+        }
+
+        private u32  pgu_dac0_reg_read_b8(u32 reg_adrs_b5) {
+            //
+            u32 CS_id       = 0          ;
+            u32 R_W_bar     = 1          ;
+            u32 byte_mode_N = 0x0        ;
+            u32 reg_adrs    = reg_adrs_b5;
+            u32 val         = 0xFF       ;
+            //
+            u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+            //
+            return pgu_dacx_send_spi_frame(framedata);
+        }
+
+        private u32  pgu_dac1_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
+            //
+            u32 CS_id       = 1          ;
+            u32 R_W_bar     = 0          ;
+            u32 byte_mode_N = 0x0        ;
+            u32 reg_adrs    = reg_adrs_b5;
+            u32 val         = val_b8     ;
+            //
+            u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+            //
+            return pgu_dacx_send_spi_frame(framedata);
+        }
+        
+        private u32  pgu_dac1_reg_read_b8(u32 reg_adrs_b5) {
+            //
+            u32 CS_id       = 1          ;
+            u32 R_W_bar     = 1          ;
+            u32 byte_mode_N = 0x0        ;
+            u32 reg_adrs    = reg_adrs_b5;
+            u32 val         = 0xFF       ;
+            //
+            u32 framedata = (CS_id<<24) + (R_W_bar<<23) + (byte_mode_N<<21) + (reg_adrs<<16) + val;
+            //
+            return pgu_dacx_send_spi_frame(framedata);
+        }
+
+
+        private void xil_printf(string fmt) { // for test print
+            // remove "\r\n" 
+            if (fmt.Substring(fmt.Length-2)=="\r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-2);
+                fmt = tmp; //
+            }
+            Console.WriteLine(fmt);
+        }
+
+        private void xil_printf(string fmt, s32 val) { // for test print
+            // remove "%02d \r\n"
+            if (fmt.Substring(fmt.Length-7)=="%02d \r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-7);
+                fmt = tmp + string.Format("{0,2:d2} ", val); //
+            }
+            Console.WriteLine(fmt);
+        }
+
+        private void xil_printf(string fmt, s32 val1 , s32 val2 , s32 val3) { // for test print
+            // remove "| %3d || %9d | %9d |\r\n" 
+            if (fmt.Substring(fmt.Length-22)=="| %3d || %9d | %9d |\r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-22);
+                fmt = tmp + string.Format("| {0,3:d} || {1,9:d} | {2,9:d} |", val1, val2, val3); //
+            }
+            Console.WriteLine(fmt);
+        }
+
+        private u32  pgu_dacx_cal_input_dtap() {
+            //$$ dac input delay tap calibration
+            //$$   set initial smp value for input delay tap : try 8
+            //     https://www.analog.com/media/en/technical-documentation/data-sheets/AD9780_9781_9783.pdf
+            //           
+            //     The nominal step size for SET and HLD is 80 ps. 
+            //     The nominal step size for SMP is 160 ps.
+            //
+            //     400MHz 2.5ns 2500ps  ... 1/3 position ... SMP 2500/160/3 ~ 7.8
+            //     400MHz 2.5ns 2500ps  ... 1/2 position ... SMP 2500/160/3 ~ 5
+            //     200MHz 5ns   5000ps  ... 1/3 position ... SMP 5000/160/3 ~ 10
+            //     200MHz 5ns   5000ps  ... 1/4 position ... SMP 5000/160/4 ~ 7.8
+            //
+            //     build timing data array
+            //       SMP n, SET 0, HLD 0, ... record SEEK
+            //       SMP n, SET 0, HLD increasing until SEEK toggle ... to find the hold time 
+            //       SMP n, HLD 0, SET increasing until SEEK toggle ... to find the setup time 
+            //
+            //    simple method 
+            //       SET 0, HLD 0, SMP increasing ... record SEEK bit
+            //       find the center of SMP of the first SEEK high range.
+
+            // SET  = BIT[7:4] @ 0x04
+            // HLD  = BIT[3:0] @ 0x04
+            // SMP  = BIT[4:0] @ 0x05
+            // SEEK = BIT[0]   @ 0x06
+            s32 val;
+            s32 val_0_pre = 0;
+            s32 val_1_pre = 0;
+            s32 val_0 = 0;
+            s32 val_1 = 0;
+            s32 ii;
+            s32 val_0_seek_low = -1; // loc of rise
+            s32 val_0_seek_hi  = -1; // loc of fall
+            s32 val_1_seek_low = -1; // loc of rise
+            s32 val_1_seek_hi  = -1; // loc of fall
+            s32 val_0_center   = 0; 
+            s32 val_1_center   = 0; 
+
+            //// new try: weighted sum approach
+            u32 val_0_seek_low_found = 0;
+            u32 val_0_seek_hi__found = 0;
+            s32 val_0_seek_w_sum     = 0;
+            s32 val_0_seek_w_sum_fin = 0;
+            s32 val_0_cnt_seek_hi    = 0;
+            s32 val_0_center_new     = 0;
+            u32 val_1_seek_low_found = 0;
+            u32 val_1_seek_hi__found = 0;
+            s32 val_1_seek_w_sum     = 0;
+            s32 val_1_seek_w_sum_fin = 0;
+            s32 val_1_cnt_seek_hi    = 0;
+            s32 val_1_center_new     = 0;
+
+            xil_printf(">>>>>> pgu_dacx_cal_input_dtap: \r\n");
+
+            //xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_WI_b32, 0x13);
+
+            ii=0;
+
+            // make timing table:
+            //  SMP  DAC0_SEEK  DAC1_SEEK 
+            xil_printf("+-----++-----------+-----------+\r\n");
+            xil_printf("| SMP || DAC0_SEEK | DAC1_SEEK |\r\n");
+            xil_printf("+-----++-----------+-----------+\r\n");
+
+            while (true) {
+            	//
+            	pgu_dac0_reg_write_b8(0x05, (u32)ii); // test SMP
+            	pgu_dac1_reg_write_b8(0x05, (u32)ii); // test SMP
+            	//
+            	val       = (s32)pgu_dac0_reg_read_b8(0x06);
+            	val_0_pre = val_0;
+            	val_0     = val & 0x01;
+            	//xil_printf("read dac0 reg: 0x%02X @ 0x%02X with SMP %02d \r\n", val, 0x06, ii);
+            	val       = (s32)pgu_dac1_reg_read_b8(0x06);
+            	val_1_pre = val_1;
+            	val_1     = val & 0x01;
+            	//xil_printf("read dac1 reg: 0x%02X @ 0x%02X with SMP %02d \r\n", val, 0x06, ii);
+
+            	// report
+            	xil_printf("| %3d || %9d | %9d |\r\n", ii, val_0, val_1);
+
+            	// detection rise and fall
+            	if (val_0_seek_low == -1 && val_0_pre==0 && val_0==1)
+            		val_0_seek_low = ii;
+            	if (val_0_seek_hi  == -1 && val_0_pre==1 && val_0==0)
+            		val_0_seek_hi  = ii-1;
+            	if (val_1_seek_low == -1 && val_1_pre==0 && val_1==1)
+            		val_1_seek_low = ii;
+            	if (val_1_seek_hi  == -1 && val_1_pre==1 && val_1==0)
+            		val_1_seek_hi  = ii-1;
+
+            	//// new try 
+            	if (val_0_seek_low_found == 0 && val_0==0)
+            		val_0_seek_low_found = 1;
+            	if (val_0_seek_low_found == 1 && val_0_seek_hi__found == 0 && val_0==1)
+            		val_0_seek_hi__found = 1;
+            	if (val_0_seek_low_found == 1 && val_0_seek_hi__found == 1 && val_0==0)
+            		val_0_seek_w_sum_fin = 1;
+            	if (val_0_seek_hi__found == 1 && val_0_seek_w_sum_fin == 0) {
+            		val_0_seek_w_sum    += ii;
+            		val_0_cnt_seek_hi   += 1;
+            	}
+            	if (val_1_seek_low_found == 0 && val_1==0)
+            		val_1_seek_low_found = 1;
+            	if (val_1_seek_low_found == 1 && val_1_seek_hi__found == 0 && val_1==1)
+            		val_1_seek_hi__found = 1;
+            	if (val_1_seek_low_found == 1 && val_1_seek_hi__found == 1 && val_1==0)
+            		val_1_seek_w_sum_fin = 1;
+            	if (val_1_seek_hi__found == 1 && val_1_seek_w_sum_fin == 0) {
+            		val_1_seek_w_sum    += ii;
+            		val_1_cnt_seek_hi   += 1;
+            	}
+
+            	if (ii==31) 
+            		break;
+            	else 
+            		ii=ii+1;
+            }
+            xil_printf("+-----++-----------+-----------+\r\n");
+
+            // check windows 
+            if (val_0_seek_low == -1) val_0_seek_low = 31;
+            if (val_0_seek_hi  == -1) val_0_seek_hi  = 31;
+            if (val_1_seek_low == -1) val_1_seek_low = 31;
+            if (val_1_seek_hi  == -1) val_1_seek_hi  = 31;
+            //
+            val_0_center = (val_0_seek_low + val_0_seek_hi)/2;
+            val_1_center = (val_1_seek_low + val_1_seek_hi)/2;
+            //
+            xil_printf(" > val_0_seek_low : %02d \r\n", val_0_seek_low);
+            xil_printf(" > val_0_seek_hi  : %02d \r\n", val_0_seek_hi );
+            xil_printf(" > val_0_center   : %02d \r\n", val_0_center  );
+            xil_printf(" > val_1_seek_low : %02d \r\n", val_1_seek_low);
+            xil_printf(" > val_1_seek_hi  : %02d \r\n", val_1_seek_hi );
+            xil_printf(" > val_1_center   : %02d \r\n", val_1_center  );
+
+            //// new try 
+            if (val_0_cnt_seek_hi>0) val_0_center_new = val_0_seek_w_sum / val_0_cnt_seek_hi;
+            else                     val_0_center_new = val_0_seek_w_sum;
+            if (val_1_cnt_seek_hi>0) val_1_center_new = val_1_seek_w_sum / val_1_cnt_seek_hi;
+            else                     val_1_center_new = val_1_seek_w_sum;
+
+            xil_printf(" >>>> weighted sum \r\n");
+            xil_printf(" > val_0_seek_w_sum  : %02d \r\n", val_0_seek_w_sum  );
+            xil_printf(" > val_0_cnt_seek_hi : %02d \r\n", val_0_cnt_seek_hi );
+            xil_printf(" > val_0_center_new  : %02d \r\n", val_0_center_new  );
+            xil_printf(" > val_1_seek_w_sum  : %02d \r\n", val_1_seek_w_sum  );
+            xil_printf(" > val_1_cnt_seek_hi : %02d \r\n", val_1_cnt_seek_hi );
+            xil_printf(" > val_1_center_new  : %02d \r\n", val_1_center_new  );
+
+
+            //$$ set initial smp value for input delay tap : try 9
+            //
+            // test run with 200MHz : common seek high range 12~26  ... 19
+            // test run with 400MHz : common seek high range  6~12  ...  9
+
+            // pgu_dac0_reg_write_b8(0x05, 9);
+            // pgu_dac1_reg_write_b8(0x05, 9);
+
+            // set center
+            //pgu_dac0_reg_write_b8(0x05, val_0_center);
+            //pgu_dac1_reg_write_b8(0x05, val_1_center);
+            pgu_dac0_reg_write_b8(0x05, (u32)val_0_center_new);
+            pgu_dac1_reg_write_b8(0x05, (u32)val_1_center_new);
+
+            xil_printf(">>> DAC input delay taps are chosen at each center\r\n");
+
+            return 0;
+        }
+
+        // DACZ pattern gen control ...
+        private void pgu_dacz_dat_write(u32 dacx_dat, u32 bit_loc_trig) { // EP access
+            //$$write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, dacx_dat, MASK_ALL); //$$ DACZ
+            //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
+            SetWireInValue   (EP_ADRS__DACZ_DAT_WI, dacx_dat    );
+            ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
+        }
+
+        private u32  pgu_dacz_dat_read(u32 bit_loc_trig) { // EP access
+	        //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
+            //$$return read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WO, MASK_ALL); //$$ DACZ
+            ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
+            return (u32)GetWireOutValue(EP_ADRS__DACZ_DAT_WO);
+        }
+
+        private u32  pgu_dacz__read_status() {
+            // return status : 
+            // wire w_read_status   = i_trig_dacz_ctrl[5]; //$$
+            // wire [31:0] w_status_data = {r_control_pulse[31:2], r_dac1_active_clk, r_dac0_active_clk};
+            return pgu_dacz_dat_read(5); 
+        }
+
+
+
         //$$ PWR access
 
         public string pgu_pwr__on() {
@@ -1633,23 +2299,23 @@ namespace TopInstrument
             Delay(1);
 
             // DACX fpga pll reset
-            //pgu_dacx_fpga_pll_rst(1, 1, 1);
+            pgu_dacx_fpga_pll_rst(1, 1, 1);
 
             // CLKD init
-            //pgu_clkd_init();
+            pgu_clkd_init();
 
             // CLKD setup
-            //pgu_clkd_setup(2000); // preset 200MHz
+            pgu_clkd_setup(2000); // preset 200MHz
 
             // DACX init 
-            //pgu_dacx_init();
+            pgu_dacx_init();
 
             // DACX fpga pll run
-            //pgu_dacx_fpga_pll_rst(0, 0, 0);
-            //pgu_dacx_fpga_clk_dis(0, 0);
+            pgu_dacx_fpga_pll_rst(0, 0, 0);
+            pgu_dacx_fpga_clk_dis(0, 0);
 
             // update input delay tap inside DAC IC
-            //pgu_dacx_cal_input_dtap();
+            pgu_dacx_cal_input_dtap();
 
             return ret;
         }
@@ -1662,8 +2328,8 @@ namespace TopInstrument
             pgu_spio_ext_pwr_led(0, 0, 0, 0);
 
             // TODO: consider pll off by reset  vs  clock disable
-            ////pgu_dacx_fpga_pll_rst(1, 1, 1); // DAC pll off by reset
-            //pgu_dacx_fpga_clk_dis(1, 1); // DAC clock output disable
+            //pgu_dacx_fpga_pll_rst(1, 1, 1); // DAC pll off by reset
+            pgu_dacx_fpga_clk_dis(1, 1); // DAC clock output disable
 
             return ret;
         }
@@ -1829,7 +2495,7 @@ namespace TopInstrument
         public string pgu_trig__on_log(bool Ch1, bool Ch2, string LogFileName) {
             string ret = "OK\n";
 
-            //$$ if      (val == 0x00000001) val = 0x00000010;
+            //$$ if      (val == 0x00000001) val = 0x000000010;
             //$$ else if (val == 0x00010000) val = 0x00000020;
             //$$ else if (val == 0x00010001) val = 0x00000030;
             //$$ else                        val = 0x00000000;
@@ -1840,12 +2506,13 @@ namespace TopInstrument
             if (Ch1 && Ch2)
                 val = 0x00000030;
             else if ( (Ch1 == true) && (Ch2 == false) )
-                val = 0x00000010;
+                val = 0x000000010;
             else
                 val = 0x00000020;
             //
-            SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
-            ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
+            //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            pgu_dacz_dat_write(val, 12); // trig control
 
             // for log data
             string PGU_TRIG_ON;
@@ -1870,8 +2537,9 @@ namespace TopInstrument
         {
             string ret = "OK\n";
             u32 val = 0x00000000;
-            SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
-            ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
+            //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            pgu_dacz_dat_write(val, 12); // trig control
             return ret;
             //$$string PGU_TRIG_OFF = Convert.ToString(cmd_str__PGU_TRIG + " #H00000000 \n");
             //$$byte[] cmd_str__PGU_TRIG_OFF_CMD = Encoding.UTF8.GetBytes(PGU_TRIG_OFF);
@@ -1912,31 +2580,41 @@ namespace TopInstrument
 
             if (Ch == 1) { // Ch == 1 or DAC0
                 //// dac0 fifo reset 
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000040); // w_rst_dac0_fifo   
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit again
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000040); // w_rst_dac0_fifo   
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                pgu_dacz_dat_write(0x00000040, 12); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                pgu_dacz_dat_write(0x00000000, 12); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit again
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                pgu_dacz_dat_write(0x00000000, 12); // trig control
                 // on dac0 fifo length set
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00001000); // cid_adrs for r_cid_reg_dac0_num_ffdat
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00001000); // cid_adrs for r_cid_reg_dac0_num_ffdat
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                pgu_dacz_dat_write(0x00001000,  8); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr
+                pgu_dacz_dat_write(val, 10); // trig control
             }
             else { // Ch == 2 or DAC1
                 //// dac1 fifo reset 
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000080); // w_rst_dac1_fifo
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit again
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000080); // w_rst_dac1_fifo
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                pgu_dacz_dat_write(0x00000080, 12); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                pgu_dacz_dat_write(0x00000000, 12); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000000); // clear bit again
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
+                pgu_dacz_dat_write(0x00000000, 12); // trig control
                 // on dac1 fifo length set
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00001010); // cid_adrs for r_cid_reg_dac1_num_ffdat
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00001010); // cid_adrs for r_cid_reg_dac1_num_ffdat
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                pgu_dacz_dat_write(0x00001010,  8); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                pgu_dacz_dat_write(val, 10); // trig control
             }
 
             // for log data
@@ -2095,15 +2773,19 @@ namespace TopInstrument
 
 
             if (Ch == 1) { // Ch == 1 or DAC0
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000020); // cid_adrs for r_cid_reg_dac0_num_repeat
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000020); // cid_adrs for r_cid_reg_dac0_num_repeat
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                pgu_dacz_dat_write(0x00000020,  8); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                pgu_dacz_dat_write(val, 10); // trig control
             } else { // Ch == 2 or DAC1
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000030); // cid_adrs for r_cid_reg_dac1_num_repeat
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
-                SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
-                ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000030); // cid_adrs for r_cid_reg_dac1_num_repeat
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                pgu_dacz_dat_write(0x00000030,  8); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                pgu_dacz_dat_write(val, 10); // trig control
             }
 
              // for log data
@@ -2131,35 +2813,36 @@ namespace TopInstrument
             //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
             string ret = "OK\n";
 
+            //// calculate parameters
             int pgu_freq_in_100kHz = Convert.ToInt32(1 / (time_ns__dac_update * 1e-9) / 100000);
 
             u32 val = (u32)pgu_freq_in_100kHz;
 
             //// DACX fpga pll reset
-            //pgu_dacx_fpga_pll_rst(1, 1, 1);
+            pgu_dacx_fpga_pll_rst(1, 1, 1);
             //
             //usleep(500); // 500us
             Delay(1); // 1ms
             //// set freq parameter
-            //val_ret = pgu_clkd_setup(val);
+            pgu_clkd_setup(val);
             //
             //usleep(500); // 500us
             Delay(1); // 1ms
             //
             //// DACX fpga pll run : all clock work again.
-            //pgu_dacx_fpga_pll_rst(0, 0, 0);
+            pgu_dacx_fpga_pll_rst(0, 0, 0);
             //
             //usleep(500); // 500us
             Delay(1); // 1ms
 
             //$$ DAC input delay tap calibration
-            //pgu_dacx_cal_input_dtap();
+            pgu_dacx_cal_input_dtap();
 
 
             //// previous LAN command for freq setting
-            string pgu_freq_in_100kHz_str = string.Format(" {0,4:D4} \n", pgu_freq_in_100kHz);
-            byte[] PGU_FREQ_100kHz_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_FREQ + pgu_freq_in_100kHz_str);
-            ret = scpi_comm_resp_ss(PGU_FREQ_100kHz_STR);
+            //string pgu_freq_in_100kHz_str = string.Format(" {0,4:D4} \n", pgu_freq_in_100kHz);
+            //byte[] PGU_FREQ_100kHz_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_FREQ + pgu_freq_in_100kHz_str);
+            //ret = scpi_comm_resp_ss(PGU_FREQ_100kHz_STR);
 
             return ret;
         }
@@ -2187,15 +2870,15 @@ namespace TopInstrument
 
             // set data
             if (Ch == 1) { // Ch == 1 or DAC0
-                //pgu_dac0_reg_write_b8(0x0C, val1_high);
-                //pgu_dac0_reg_write_b8(0x0B, val1_low );
-                //pgu_dac0_reg_write_b8(0x10, val0_high);
-                //pgu_dac0_reg_write_b8(0x0F, val0_low );
+                pgu_dac0_reg_write_b8(0x0C, val1_high);
+                pgu_dac0_reg_write_b8(0x0B, val1_low );
+                pgu_dac0_reg_write_b8(0x10, val0_high);
+                pgu_dac0_reg_write_b8(0x0F, val0_low );
             } else {
-                //pgu_dac1_reg_write_b8(0x0C, val1_high);
-                //pgu_dac1_reg_write_b8(0x0B, val1_low );
-                //pgu_dac1_reg_write_b8(0x10, val0_high);
-                //pgu_dac1_reg_write_b8(0x0F, val0_low );
+                pgu_dac1_reg_write_b8(0x0C, val1_high);
+                pgu_dac1_reg_write_b8(0x0B, val1_low );
+                pgu_dac1_reg_write_b8(0x10, val0_high);
+                pgu_dac1_reg_write_b8(0x0F, val0_low );
             }
 
             //// previous LAN command for DAC IC gain setting
@@ -2205,13 +2888,13 @@ namespace TopInstrument
             // data = {DAC_ch1_fsc, DAC_ch2_fsc}
             // DAC_ch#_fsc = {000000, 10 bit data}
             //
-            string pgu_fsc_gain_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_gain, DAC_gain);
-            byte[] PGU_GAIN_DAC__STR;
-            if (Ch == 1)
-                PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC0 + pgu_fsc_gain_str);
-            else
-                PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC1 + pgu_fsc_gain_str);
-            ret = scpi_comm_resp_ss(PGU_GAIN_DAC__STR);
+            //string pgu_fsc_gain_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_gain, DAC_gain);
+            //byte[] PGU_GAIN_DAC__STR;
+            //if (Ch == 1)
+            //    PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC0 + pgu_fsc_gain_str);
+            //else
+            //    PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC1 + pgu_fsc_gain_str);
+            //ret = scpi_comm_resp_ss(PGU_GAIN_DAC__STR);
             //
             return ret;
         }
@@ -2251,15 +2934,15 @@ namespace TopInstrument
 
             // set data
             if (Ch == 1) { // Ch == 1 or DAC0
-                //pgu_dac0_reg_write_b8(0x0E, val1_high);
-                //pgu_dac0_reg_write_b8(0x0D, val1_low );
-                //pgu_dac0_reg_write_b8(0x12, val0_high);
-                //pgu_dac0_reg_write_b8(0x11, val0_low );
+                pgu_dac0_reg_write_b8(0x0E, val1_high);
+                pgu_dac0_reg_write_b8(0x0D, val1_low );
+                pgu_dac0_reg_write_b8(0x12, val0_high);
+                pgu_dac0_reg_write_b8(0x11, val0_low );
             } else {
-                //pgu_dac1_reg_write_b8(0x0E, val1_high);
-                //pgu_dac1_reg_write_b8(0x0D, val1_low );
-                //pgu_dac1_reg_write_b8(0x12, val0_high);
-                //pgu_dac1_reg_write_b8(0x11, val0_low );
+                pgu_dac1_reg_write_b8(0x0E, val1_high);
+                pgu_dac1_reg_write_b8(0x0D, val1_low );
+                pgu_dac1_reg_write_b8(0x12, val0_high);
+                pgu_dac1_reg_write_b8(0x11, val0_low );
             }
 
             //// previous LAN command for DAC IC offset setting
@@ -2273,13 +2956,13 @@ namespace TopInstrument
             //
             // # offset DAC : 0x140 0.625mA, AUX2N active[7] (1) , sink current[6] (1)
             //
-            string pgu_offset_con_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_offset, DAC_offset); // set subchannel as well
-            byte[] PGU_OFST_DAC__OFFSET_STR;
-            if (Ch == 1)
-                PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC0 + pgu_offset_con_str);
-            else
-                PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC1 + pgu_offset_con_str);
-            ret = scpi_comm_resp_ss(PGU_OFST_DAC__OFFSET_STR);
+            //string pgu_offset_con_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_offset, DAC_offset); // set subchannel as well
+            //byte[] PGU_OFST_DAC__OFFSET_STR;
+            //if (Ch == 1)
+            //    PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC0 + pgu_offset_con_str);
+            //else
+            //    PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC1 + pgu_offset_con_str);
+            //ret = scpi_comm_resp_ss(PGU_OFST_DAC__OFFSET_STR);
             //
             return ret;
         }
@@ -2337,7 +3020,7 @@ namespace TopInstrument
             char[] buf = new char[buf_bytearray.Length];
             buf_bytearray.CopyTo(buf, 0);
 
-            //eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom // byte array
+            //eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom 
             //eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom 
 
             //// previous LAN commmand for eeprom write
