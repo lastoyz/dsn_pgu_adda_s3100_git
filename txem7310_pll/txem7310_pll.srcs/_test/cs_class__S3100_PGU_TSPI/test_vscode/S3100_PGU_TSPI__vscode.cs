@@ -31,12 +31,19 @@ using System.Threading.Tasks;
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-EPS commands
 
+// simple emualation!!
+// >>> SCPI_base          - _class__SCPI_base_ 
+// >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
+// >>> SPI_EMUL           - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_ 
+// >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_ 
+// >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-SPI emulation commands
+
 // >>> SCPI_base          - _class__SCPI_base_ 
 // >>> EPS_Dev_spi_emul   - _class__SCPI_base_:_class__EPS_Dev_spi_emul_ 
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_spi_emul_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_spi_emul_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-SPI emulation commands
 
-// alternatively ... spi_frame generation
+// alternatively ... spi_frame generation // too complicated
 // >>> SCPI_base          - _class__SCPI_base_ 
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_
 // >>> PGU_control_by_spi - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_spi_ 
@@ -398,7 +405,7 @@ namespace TopInstrument
         }
 
         // endpoint functions
-        public uint GetWireOutValue(uint adrs, uint mask = 0xFFFFFFFF) {
+        public uint __GetWireOutValue__(uint adrs, uint mask = 0xFFFFFFFF) {
             //# cmd: ":EPS:WMO#Hnn #Hmmmmmmmm\n"
             //# rsp: "#H000O3245\n" 
             string cmd_str = cmd_str__EPS_WMO + string.Format("#H{0,2:X2} #H{1,8:X8}\n", adrs, mask);
@@ -406,33 +413,46 @@ namespace TopInstrument
             return (uint)Convert.ToUInt32(rsp_str.Substring(2,8),16); // convert hex into uint32;
         }
 
+        public uint GetWireOutValue(uint adrs, uint mask = 0xFFFFFFFF) {
+            return __GetWireOutValue__(adrs, mask); // convert hex into uint32;
+        }
+
         public void UpdateWireOuts() {
             // NOP
         }
 
-	    public void SetWireInValue(uint adrs, uint data, uint mask = 0xFFFFFFFF) {
+	    public void __SetWireInValue__(uint adrs, uint data, uint mask = 0xFFFFFFFF) {
             //# cmd: ":EPS:WMI#Hnn #Hnnnnnnnn #Hmmmmmmmm\n"
             //# rsp: "OK\n" or "NG\n"
             string cmd_str = cmd_str__EPS_WMI + string.Format("#H{0,2:X2} #H{1,8:X8} #H{2,8:X8}\n", adrs, data, mask);
 		    string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
         }
 
+	    public void SetWireInValue(uint adrs, uint data, uint mask = 0xFFFFFFFF) {
+            __SetWireInValue__(adrs, data, mask);
+        }
+
         public void UpdateWireIns() {
             // NOP
         }
 
-        public void ActivateTriggerIn(uint adrs, uint loc_bit) {
+        public void __ActivateTriggerIn__(uint adrs, uint loc_bit) {
             //# cmd: ":EPS:TAC#Hnn  #Hnn\n"
             //# rsp: "OK\n" or "NG\n"
             string cmd_str = cmd_str__EPS_TAC + string.Format("#H{0,2:X2} #H{1,2:X2}\n",adrs,loc_bit);
             string rsp_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str));
         }
 
+
+        public void ActivateTriggerIn(uint adrs, uint loc_bit) {
+            __ActivateTriggerIn__(adrs, loc_bit);
+        }
+
         public void UpdateTriggerOuts() {
             // NOP
         }
 
-        public bool IsTriggered(uint adrs, uint mask) {
+        public bool __IsTriggered__(uint adrs, uint mask) {
             //# cmd: ":EPS:TMO#H60 #H0000FFFF\n"
             //# rsp: "ON\n" or "OFF\n"
             string cmd_str = cmd_str__EPS_TMO + string.Format("#H{0,2:X2} #H{1,8:X8}\n", adrs, mask);
@@ -448,8 +468,11 @@ namespace TopInstrument
             }
             return ret;
         }
+        public bool IsTriggered(uint adrs, uint mask) {
+            return __IsTriggered__(adrs, mask);
+        }
 
-        public uint GetTriggerOutVector(uint adrs, uint mask = 0xFFFFFFFF) {
+        public uint __GetTriggerOutVector__(uint adrs, uint mask = 0xFFFFFFFF) {
             //# cmd: ":EPS:TWO#H60 #H0000FFFF\n"
             //# rsp: "#H000O3245\n"
             string cmd_str = cmd_str__EPS_TWO + string.Format("#H{0,2:X2} #H{1,8:X8}\n", adrs, mask);
@@ -457,7 +480,12 @@ namespace TopInstrument
             return (uint)Convert.ToUInt32(rsp_str.Substring(2,8),16); // convert hex into uint32;
         }
 
-        public long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray) {
+        public uint GetTriggerOutVector(uint adrs, uint mask = 0xFFFFFFFF) {
+            return __GetTriggerOutVector__(adrs, mask);
+        }
+
+
+        public long __ReadFromPipeOut__(uint adrs, ref byte[] data_bytearray) {
             //## read pipeout
             //# cmd: ":EPS:PO#HAA 001024\n"
             //# rsp: "#4_001024_rrrrrrrrrr...rrrrrrrrrr\n"		
@@ -484,7 +512,11 @@ namespace TopInstrument
             return (long)data_bytearray.Length;
         }
 
-        public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray) {
+        public long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray) {
+            return __ReadFromPipeOut__(adrs, ref data_bytearray);
+        }
+
+        public long __WriteToPipeIn__(uint adrs, ref byte[] data_bytearray) {
             //## write pipein
             //# cmd: ":EPS:PI#H8A #4_001024_rrrrrrrrrr...rrrrrrrrrr\n"
             //# rsp: "OK\n"		
@@ -504,6 +536,9 @@ namespace TopInstrument
             return (long)byte_count;
         }
 
+        public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray) {
+            return __WriteToPipeIn__(adrs, ref data_bytearray);
+        }
 
 
         // master SPI emulation functions
@@ -514,11 +549,11 @@ namespace TopInstrument
             //uint loc_bit_MSPI_reset_trig = 0;
             //uint adrs_MSPI_TO = 0x62;
             //uint mask_MSPI_reset_done = 0x00000001;
-            ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_reset_trig);
+            __ActivateTriggerIn__(adrs_MSPI_TI, loc_bit_MSPI_reset_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
             while (true) {
-                done_trig = IsTriggered(adrs_MSPI_TO, mask_MSPI_reset_done);
+                done_trig = __IsTriggered__(adrs_MSPI_TO, mask_MSPI_reset_done);
                 cnt_loop++;
                 if (done_trig) {
                     // print
@@ -536,11 +571,11 @@ namespace TopInstrument
             //uint loc_bit_MSPI_init_trig = 1;
             //uint adrs_MSPI_TO = 0x62;
             //uint mask_MSPI_init_done = 0x00000002;
-            ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_init_trig);
+            __ActivateTriggerIn__(adrs_MSPI_TI, loc_bit_MSPI_init_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
             while (true) {
-                done_trig = IsTriggered(adrs_MSPI_TO, mask_MSPI_init_done);
+                done_trig = __IsTriggered__(adrs_MSPI_TO, mask_MSPI_init_done);
                 cnt_loop++;
                 if (done_trig) {
                     // print
@@ -560,23 +595,23 @@ namespace TopInstrument
             //#data_D = 0x0000 ##// for reading (XXXX)
             uint data_MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D;
             //uint adrs_MSPI_CON_WI = 0x17;
-            SetWireInValue(adrs_MSPI_CON_WI, data_MSPI_CON_WI);
+            __SetWireInValue__(adrs_MSPI_CON_WI, data_MSPI_CON_WI);
 
             //## set spi enable signals
             uint data_MSPI_EN_CS_WI = enable_CS_bits;
             //uint adrs_MSPI_EN_CS_WI = 0x16;
-            SetWireInValue(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
+            __SetWireInValue__(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
 
             //## trigger frame 
             //uint adrs_MSPI_TI = 0x42;
             //uint loc_bit_MSPI_frame_trig = 2;
             //uint adrs_MSPI_TO = 0x62;
             //uint mask_MSPI_frame_done = 0x00000004;
-            ActivateTriggerIn(adrs_MSPI_TI, loc_bit_MSPI_frame_trig);
+            __ActivateTriggerIn__(adrs_MSPI_TI, loc_bit_MSPI_frame_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
             while (true) {
-                done_trig = IsTriggered(adrs_MSPI_TO, mask_MSPI_frame_done);
+                done_trig = __IsTriggered__(adrs_MSPI_TO, mask_MSPI_frame_done);
                 cnt_loop++;
                 if (done_trig) {
                     // print
@@ -588,7 +623,7 @@ namespace TopInstrument
             //## read miso data
             uint data_B;
             //uint adrs_MSPI_FLAG_WO = 0x34;
-            data_B = GetWireOutValue(adrs_MSPI_FLAG_WO);
+            data_B = __GetWireOutValue__(adrs_MSPI_FLAG_WO);
             data_B = data_B & 0xFFFF; // mask on low 16 bits
             return data_B;
         }
