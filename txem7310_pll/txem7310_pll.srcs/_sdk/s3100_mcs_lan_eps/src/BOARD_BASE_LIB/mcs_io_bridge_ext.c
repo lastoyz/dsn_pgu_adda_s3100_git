@@ -2922,9 +2922,9 @@ u32  pgu_dacx_cal_input_dtap() {
 	
 	// make timing table:
 	//  SMP  DAC0_SEEK  DAC1_SEEK 
-	xil_printf("|------------------------------|\r\n");
+	xil_printf("+-----++-----------+-----------+\r\n");
 	xil_printf("| SMP || DAC0_SEEK | DAC1_SEEK |\r\n");
-	xil_printf("|-----||-----------|-----------|\r\n");
+	xil_printf("+-----++-----------+-----------+\r\n");
 	while (1) {
 		//
 		pgu_dac0_reg_write_b8(0x05, ii); // test SMP
@@ -2979,7 +2979,7 @@ u32  pgu_dacx_cal_input_dtap() {
 		else 
 			ii=ii+1;
 	}
-	xil_printf("|------------------------------|\r\n");
+	xil_printf("+-----++-----------+-----------+\r\n");
 	
 	// check windows 
 	if (val_0_seek_low == -1) val_0_seek_low = 31;
