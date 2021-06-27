@@ -53,8 +53,8 @@ namespace TopInstrument
 {
 
     // for my base classes
-    using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;
-    //using mybaseclass_EPS_control     = TopInstrument.EPS_Dev_by_spi_emul; //     support EPS-SPI emulation commands
+    //using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  // support EPS by LAN commands
+    using mybaseclass_EPS_control     = TopInstrument.SPI_EMUL; // support EPS-SPI emulation commands
 
     //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //## for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
     using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //## for S3100-PGU-TSPI // support PGU-EPS command
@@ -712,6 +712,162 @@ namespace TopInstrument
             return dev_eps.__test_int;
         }
         
+    }
+
+    public class SPI_EMUL : EPS_Dev
+    {
+        //## renew eps command access by spi emulation
+
+        private bool IsInit = false;
+
+        public uint SPI_EMUL__reset() {
+            IsInit = false;
+            return _test__reset_spi_emul();
+        }
+
+        public uint SPI_EMUL__init() {
+            IsInit = true;
+            return _test__init__spi_emul();
+        }
+
+        public bool SPI_EMUL__IsInit() {
+            return IsInit;
+        }
+
+        // renew eps_enable
+        public new string eps_enable() {
+            string ret;
+            ret = base.eps_enable();
+            //
+            SPI_EMUL__init();
+            //
+            return ret;
+        }
+
+        public new string eps_disable() {
+            string ret;
+            //
+            SPI_EMUL__reset();
+            //
+            ret = base.eps_disable();
+            return ret;
+        }
+
+
+
+        public uint SPI_EMUL__send_frame(uint data_C, uint data_A, uint data_D) {
+            return _test__send_spi_frame(data_C, data_A, data_D);
+        }
+
+
+        public new  uint GetWireOutValue(uint adrs, uint mask = 0xFFFFFFFF) {
+            //return __GetWireOutValue__(adrs, mask); // convert hex into uint32;
+
+            u32 data_C = 0x10; // read
+            u32 data_A = adrs<<2;
+            u32 data_D = 0x0000;
+
+            u32 data_B_lo = _test__send_spi_frame(data_C, data_A  , data_D);
+            u32 data_B_hi = _test__send_spi_frame(data_C, data_A+2, data_D);
+            
+            u32 data_B = (data_B_hi << 16) + data_B_lo;
+            
+            return data_B;
+        }
+
+        // test var
+        private int __test_int = 0;
+
+        // test function
+        public new static string _test() {
+            string ret = EPS_Dev._test() + ":_class__SPI_EMUL_";
+            return ret;
+        }
+        public static int __test_spi_emul() {
+            Console.WriteLine(">>>>>> test: __test_spi_emul");
+
+            // test member
+            SPI_EMUL dev_spi_emul = new SPI_EMUL();
+            dev_spi_emul.__test_int = dev_spi_emul.__test_int - 1;
+
+            // test EPS
+            dev_spi_emul.my_open(__test__.Program.test_host_ip); 
+            Console.WriteLine(dev_spi_emul.get_IDN());
+            Console.WriteLine(dev_spi_emul.eps_enable());
+
+            Console.WriteLine((float)dev_spi_emul.get_FPGA_TMP_mC()/1000); // by LAN
+            
+
+            //// test start
+            
+            // MSPI test : 
+            //  _test__reset_spi_emul
+            //  _test__init__spi_emul
+            //  _test__send_spi_frame
+            
+            // reset spi emulation
+            //dev_spi_emul._test__reset_spi_emul();
+            dev_spi_emul.SPI_EMUL__reset();
+
+            // init  spi emulation
+            //dev_spi_emul._test__init__spi_emul();
+            dev_spi_emul.SPI_EMUL__init();
+
+            // send frame
+            uint data_C = 0x10  ; // for read // 6 bits
+            uint data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
+            uint data_D = 0x0000; // for reading (XXXX) // 16bits
+            //uint data_B = dev_spi_emul._test__send_spi_frame(data_C, data_A, data_D);
+            uint data_B = dev_spi_emul.SPI_EMUL__send_frame(data_C, data_A, data_D);
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+
+            // endpoint access test : WI, WO, TI, TO
+            Console.WriteLine(dev_spi_emul.GetWireOutValue(0x20).ToString("X8")); // see FID
+            Console.WriteLine((float)dev_spi_emul.GetWireOutValue(0x3A)/1000); // see temperature in fpga
+            //
+            //dev_spi_emul.SetWireInValue(0x16, 0xFA1275DA);
+            //Console.WriteLine(dev_spi_emul.GetWireOutValue(0x16).ToString("X8")); 
+            //
+            // ActivateTriggerIn(self, adrs, loc_bit)
+            // UpdateTriggerOuts()
+            // IsTriggered (self, adrs, mask)
+            // GetTriggerOutVector()
+            //
+            // more endpoint access test : PI, PO
+            // scpi_comm_resp_numb_ss
+            //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
+
+            //// test fifo : pipein at 0x8A; pipeout at 0xAA. // not for spi emul
+            //byte[] datain_bytearray;
+            //datain_bytearray = new byte[] { 
+            //    (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+            //    (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
+            //    (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
+            //    (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
+            //    };
+            //Console.WriteLine(dev_spi_emul.WriteToPipeIn(0x8A, ref datain_bytearray));
+            ////
+            //byte[] dataout_bytearray = new byte[16];
+            //Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray));
+            //// compare
+            //Console.WriteLine(BitConverter.ToString(datain_bytearray));
+            //Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+            //Console.WriteLine(datain_bytearray.SequenceEqual(dataout_bytearray));
+
+            
+            // reset spi emulation
+            //dev_spi_emul._test__reset_spi_emul();
+            dev_spi_emul.SPI_EMUL__reset();
+
+            //// test finish
+            Console.WriteLine(dev_spi_emul.eps_disable());
+            dev_spi_emul.scpi_close();
+
+            return dev_spi_emul.__test_int;
+        }
     }
 
     public class PGU_control_by_lan : EPS_Dev
@@ -5365,7 +5521,8 @@ namespace __test__
 {
     public class Program
     {
-        public static string test_host_ip = "192.168.100.62";
+        //public static string test_host_ip = "192.168.100.62";
+        public static string test_host_ip = "192.168.168.143";
 
         public static void Main(string[] args)
         {
@@ -5375,6 +5532,7 @@ namespace __test__
             //call something in TopInstrument
             Console.WriteLine(string.Format(">>> {0} - {1} ", "SCPI_base         ", TopInstrument.SCPI_base._test()));
             Console.WriteLine(string.Format(">>> {0} - {1} ", "EPS_Dev           ", TopInstrument.EPS_Dev._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "SPI_EMUL          ", TopInstrument.SPI_EMUL._test()));
             Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_lan", TopInstrument.PGU_control_by_lan._test()));
             Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_eps", TopInstrument.PGU_control_by_eps._test()));
             Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU           ", TopInstrument.TOP_PGU._test()));
@@ -5382,6 +5540,7 @@ namespace __test__
             int ret = 0;
             //ret = TopInstrument.EPS_Dev.__test_eps_dev();
             ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
+            ret = TopInstrument.TOP_PGU.__test_spi_emul(); // test SPI EMUL
 
             ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
