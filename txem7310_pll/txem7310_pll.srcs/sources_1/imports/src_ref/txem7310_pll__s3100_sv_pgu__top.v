@@ -1772,7 +1772,7 @@ wire ep7Eck = 1'b0;             wire [31:0] ep7Etrig = 32'b0;
 wire ep7Fck = 1'b0;             wire [31:0] ep7Ftrig = 32'b0; 
 //}
 
-// Pipe In 		0x80 - 0x9F // clock is assumed to use okClk //{
+// Pipe In 		0x80 - 0x9F // clock is assumed to use epClk //{
 wire ep80wr; wire [31:0] ep80pipe;
 wire ep81wr; wire [31:0] ep81pipe;
 wire ep82wr; wire [31:0] ep82pipe;
@@ -1783,7 +1783,7 @@ wire ep86wr; wire [31:0] ep86pipe; //$$ [DACZ] DAC0_DAT_INC_PI
 wire ep87wr; wire [31:0] ep87pipe; //$$ [DACZ] DAC0_DUR_PI 
 wire ep88wr; wire [31:0] ep88pipe; //$$ [DACZ] DAC1_DAT_INC_PI
 wire ep89wr; wire [31:0] ep89pipe; //$$ [DACZ] DAC1_DUR_PI 
-wire ep8Awr; wire [31:0] ep8Apipe;
+wire ep8Awr; wire [31:0] ep8Apipe; //$$ [TEST] TEST_PI
 wire ep8Bwr; wire [31:0] ep8Bpipe;
 wire ep8Cwr; wire [31:0] ep8Cpipe;
 wire ep8Dwr; wire [31:0] ep8Dpipe;
@@ -1818,7 +1818,7 @@ wire epA6rd; wire [31:0] epA6pipe = 32'b0;
 wire epA7rd; wire [31:0] epA7pipe = 32'b0;
 wire epA8rd; wire [31:0] epA8pipe = 32'b0;
 wire epA9rd; wire [31:0] epA9pipe = 32'b0;
-wire epAArd; wire [31:0] epAApipe = 32'b0;
+wire epAArd; wire [31:0] epAApipe; //$$ [TEST] TEST_PO
 wire epABrd; wire [31:0] epABpipe = 32'b0;
 wire epACrd; wire [31:0] epACpipe = 32'b0;
 wire epADrd; wire [31:0] epADpipe = 32'b0;
@@ -1842,9 +1842,10 @@ wire epBErd; wire [31:0] epBEpipe = 32'b0;
 wire epBFrd; wire [31:0] epBFpipe = 32'b0;
 //}
 
-// OK Target interface clk: //{
+// Target interface clk: //{
 //
-wire okClk;
+//wire okClk;
+wire epClk = base_sspi_clk; // okClk --> epClk
 //}
 
 //}
@@ -2307,7 +2308,7 @@ wire [31:0] w_MCS_SETUP_WI = w_port_wi_19_1; //$$ dedicated to MCS. updated by M
 // ...
 // bit[31:16]=board_id, range of 0000~9999, set from EEPROM via MCS
 
-wire [7:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-PGU
+wire [3:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-PGU
 wire [7:0]  w_slot_id_8b          = w_MCS_SETUP_WI[7:0];   //$$ 8 bits in S3100-PGU
 //
 //$$ note ... need to protect MCS_SETUP_WI[15:8] by SDK
@@ -2574,6 +2575,13 @@ wire w_MEM_PO_rd = w_rd_B3_1 | epB3rd;
 
 //// TEST-FIFO wires //{
 // PI 0x8A, PO 0xAA
+// review mode :
+//  w_mcs_ep_pi_en  w_SSPI_TEST_mode_en   EP switch
+//               0                    0   SSPI
+//               0                    1   NA
+//               1                    0   LAN
+//               1                    1   SSPI
+
 wire [31:0] w_TEST_PI    = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_8A_1 : ep8Apipe;
 wire        w_TEST_PI_wr =                                               w_wr_8A_1 | ep8Awr;                  
 wire [31:0] w_TEST_PO; 
@@ -3021,12 +3029,12 @@ wire w_DAC1_DUR_PI_CK = c_fifo_wr;
 
 //$$  BUFGMUX bufgmux_c_fifo_read_inst (
 //$$  	.O(c_fifo_wr), 
-//$$  	.I0(okClk), 
+//$$  	.I0(epClk), 
 //$$  	.I1(mcs_clk), //$$ mcs_clk vs clk3_out1_72M
 //$$  	.S(w_mcs_ep_pi_en) 
 //$$  ); 
 
-assign c_fifo_wr = (w_mcs_ep_pi_en == 0)? okClk : mcs_clk ; //$$ remove BUFGMUX
+assign c_fifo_wr = (w_mcs_ep_pi_en == 0)? epClk : mcs_clk ; //$$ remove BUFGMUX
 
 
 // for DACZ
@@ -3185,7 +3193,7 @@ wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 //  BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
 //  	.O(c_eeprom_fifo_clk), 
 //  	//.I0(base_sspi_clk), // base_sspi_clk for slave_spi_mth_brd // 104MHz
-//  	.I0(okClk        ), // USB  // 100.8MHz
+//  	.I0(epClk        ), // USB  // 100.8MHz
 //  	//.I1(w_ck_pipe    ), // LAN from lan_endpoint_wrapper_inst      // 72MHz
 //  	.I1(mcs_eeprom_fifo_clk), 
 //  	.S(w_sel__H_LAN_for_EEPROM_fifo) 
@@ -3202,7 +3210,8 @@ wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 //assign c_eeprom_fifo_clk = (w_sel__H_LAN_for_EEPROM_fifo == 0)? okClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
 
 //$$ note in S3100-PGU
-assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? base_sspi_clk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+//assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? base_sspi_clk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? epClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
 
 
 //}
@@ -3357,8 +3366,8 @@ fifo_generator_4 TEST_fifo_inst (
   .wr_en     (w_TEST_PI_wr  ), // input wire wr_en
   .din       (w_TEST_PI     ), // input wire [31 : 0] din
   .rd_clk    (c_TEST_FIFO   ), // input wire rd_clk
-  .rd_en     (w_TEST_PO     ), // input wire rd_en
-  .dout      (w_TEST_PO_rd  ), // output wire [31 : 0] dout
+  .rd_en     (w_TEST_PO_rd  ), // input wire rd_en
+  .dout      (w_TEST_PO     ), // output wire [31 : 0] dout
   .full      (),  // output wire full
   .wr_ack    (),  // output wire wr_ack
   .empty     (),  // output wire empty
