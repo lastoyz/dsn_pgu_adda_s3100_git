@@ -26,8 +26,8 @@
 //#define _IDN_BOARD_NAME_  "CMU-CPU-F5500-LAN"
 //#define _IDN_BOARD_NAME_  "PGU-CPU-F5500-LAN"
 //#define _IDN_BOARD_NAME_  "S3100-CPU-BASE-LAN"
-#define _IDN_BOARD_NAME_    "S3100-PGU-TLAN"  // test LAN
-//#define _IDN_BOARD_NAME_    "S3100-PGU-TSPI" // test SPI emulation
+//#define _IDN_BOARD_NAME_  "S3100-PGU-TLAN"  // test LAN
+#define _IDN_BOARD_NAME_    "S3100-PGU-TSPI" // test SPI emulation
 
 
 

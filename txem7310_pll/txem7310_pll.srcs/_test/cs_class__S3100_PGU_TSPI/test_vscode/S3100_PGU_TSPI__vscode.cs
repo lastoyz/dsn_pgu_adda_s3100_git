@@ -16,48 +16,42 @@ using System.Threading.Tasks;
 
 // note ... class SCPI_base                         //     support SCPI commands
 // note ... class EPS_Dev                           //     support EPS commands
-// note ... class EPS_Dev_spi_emul                  //     support EPS-SPI emulation commands
+// note ... class SPI_EMUL                          //     support EPS-SPI emulation commands
 // note ... class PGU_control_by_lan                //     support PGU-LAN commands
-// note ... class PGU_control_by_lan_eps ... coming //     support PGU-EPS commands // review mcs_io_bridge_ext.c in xsdk firmware
-// note ... class PGU_control_by_lan_spi_emul ... to come // may support PGU-SPI command
+// note ... class PGU_control_by_eps                //     support PGU-EPS commands // review mcs_io_bridge_ext.c in xsdk firmware
 
+//(case1)
 // >>> SCPI_base          - _class__SCPI_base_ 
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
 // >>> PGU_control_by_lan - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_lan_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_lan_:_class__TOP_PGU_  // support PGU-LAN commands
 
+//(case2)
 // >>> SCPI_base          - _class__SCPI_base_ 
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-EPS commands
 
-// simple emualation!!
+//(case3)
+// simple emualation using class SPI_EMUL !!
 // >>> SCPI_base          - _class__SCPI_base_ 
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
 // >>> SPI_EMUL           - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_ 
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-SPI emulation commands
 
-// >>> SCPI_base          - _class__SCPI_base_ 
-// >>> EPS_Dev_spi_emul   - _class__SCPI_base_:_class__EPS_Dev_spi_emul_ 
-// >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_spi_emul_:_class__PGU_control_by_eps_ 
-// >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_spi_emul_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-SPI emulation commands
-
-// alternatively ... spi_frame generation // too complicated
-// >>> SCPI_base          - _class__SCPI_base_ 
-// >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_
-// >>> PGU_control_by_spi - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_spi_ 
-// >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_spi_:_class__TOP_PGU_  // support PGU-SPI emulation commands
 
 namespace TopInstrument
 {
 
     // for my base classes
-    //using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  // support EPS by LAN commands
-    using mybaseclass_EPS_control     = TopInstrument.SPI_EMUL; // support EPS-SPI emulation commands
 
-    //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //## for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
-    using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //## for S3100-PGU-TSPI // support PGU-EPS command
+    //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
+
+    using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; // support PGU-EPS command
+    using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  //##(case2) for S3100-PGU-TLAN // support EPS by LAN commands
+    //using mybaseclass_EPS_control     = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
+
 
     using u32 = System.UInt32; // for converting firmware
     using s32 = System.Int32; // for converting firmware
@@ -436,7 +430,7 @@ namespace TopInstrument
             // NOP
         }
 
-        public void __ActivateTriggerIn__(uint adrs, uint loc_bit) {
+        public void __ActivateTriggerIn__(uint adrs, int loc_bit) {
             //# cmd: ":EPS:TAC#Hnn  #Hnn\n"
             //# rsp: "OK\n" or "NG\n"
             string cmd_str = cmd_str__EPS_TAC + string.Format("#H{0,2:X2} #H{1,2:X2}\n",adrs,loc_bit);
@@ -444,7 +438,7 @@ namespace TopInstrument
         }
 
 
-        public void ActivateTriggerIn(uint adrs, uint loc_bit) {
+        public void ActivateTriggerIn(uint adrs, int loc_bit) {
             __ActivateTriggerIn__(adrs, loc_bit);
         }
 
@@ -543,7 +537,7 @@ namespace TopInstrument
 
         // master SPI emulation functions
         public uint _test__reset_spi_emul(uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62,
-            uint loc_bit_MSPI_reset_trig = 0, uint mask_MSPI_reset_done = 0x00000001) {
+            int loc_bit_MSPI_reset_trig = 0, uint mask_MSPI_reset_done = 0x00000001) {
             //## trigger reset 
             //uint adrs_MSPI_TI = 0x42;
             //uint loc_bit_MSPI_reset_trig = 0;
@@ -565,7 +559,7 @@ namespace TopInstrument
         }
         
         public uint _test__init__spi_emul(uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62,
-            uint loc_bit_MSPI_init_trig = 1, uint mask_MSPI_init_done = 0x00000002) {
+            int loc_bit_MSPI_init_trig = 1, uint mask_MSPI_init_done = 0x00000002) {
             //## trigger init 
             //uint adrs_MSPI_TI = 0x42;
             //uint loc_bit_MSPI_init_trig = 1;
@@ -588,7 +582,7 @@ namespace TopInstrument
 
         public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF,
             uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x34, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
-            uint adrs_MSPI_EN_CS_WI = 0x16, uint loc_bit_MSPI_frame_trig = 2, uint mask_MSPI_frame_done = 0x00000004) {
+            uint adrs_MSPI_EN_CS_WI = 0x16, int loc_bit_MSPI_frame_trig = 2, uint mask_MSPI_frame_done = 0x00000004) {
             //## set spi frame data (example)
             //#data_C = 0x10   ##// for read 
             //#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
@@ -682,7 +676,11 @@ namespace TopInstrument
             // compare
             Console.WriteLine(BitConverter.ToString(datain_bytearray));
             Console.WriteLine(BitConverter.ToString(dataout_bytearray));
-            Console.WriteLine(datain_bytearray.SequenceEqual(dataout_bytearray));
+            bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
+            if (comp ==  false) {
+                Console.WriteLine(comp);
+            }
+            
 
             // MSPI test : 
             //  _test__reset_spi_emul
@@ -759,20 +757,159 @@ namespace TopInstrument
             return _test__send_spi_frame(data_C, data_A, data_D);
         }
 
-
-        public new  uint GetWireOutValue(uint adrs, uint mask = 0xFFFFFFFF) {
-            //return __GetWireOutValue__(adrs, mask); // convert hex into uint32;
-
+        private uint _read_spi_frame_32b_mask_check_(uint adrs, uint mask = 0xFFFFFFFF) {
             u32 data_C = 0x10; // read
             u32 data_A = adrs<<2;
             u32 data_D = 0x0000;
 
-            u32 data_B_lo = _test__send_spi_frame(data_C, data_A  , data_D);
-            u32 data_B_hi = _test__send_spi_frame(data_C, data_A+2, data_D);
+            u32 data_B_lo = 0;
+            if ((mask & 0x0000FFFF) != 0) {
+                data_B_lo = SPI_EMUL__send_frame(data_C, data_A  , data_D);
+            }
+
+            u32 data_B_hi = 0;
+            if ((mask & 0xFFFF0000) != 0) {
+                data_B_hi = SPI_EMUL__send_frame(data_C, data_A+2, data_D);
+            }
             
-            u32 data_B = (data_B_hi << 16) + data_B_lo;
-            
+            u32 data_B = ( (data_B_hi << 16) + data_B_lo ) & mask; // mask off
             return data_B;
+        }
+
+        public new  uint GetWireOutValue(uint adrs, uint mask = 0xFFFFFFFF) {
+            return _read_spi_frame_32b_mask_check_(adrs, mask);
+        }
+
+        private uint _send_spi_frame_32b_mask_check_(uint adrs, uint data, uint mask = 0xFFFFFFFF) {
+            u32 data_C_rd = 0x10; // read
+            u32 data_C_wr = 0x00; // write
+            u32 data_A_lo =  adrs<<2;
+            u32 data_A_hi = (adrs<<2) + 2;
+            u32 data_D_lo = 0x0000;
+            u32 data_D_hi = 0x0000;
+            u32 data_B_lo = 0;
+            u32 data_B_hi = 0;
+
+            // addres low side 
+            if ((mask & 0x0000FFFF) != 0) {
+                if ((mask & 0x0000FFFF) != 0xFFFF) { // need to read data first to mask off
+                    data_B_lo = SPI_EMUL__send_frame(data_C_rd, data_A_lo  , data_D_lo);
+                    // mask off: 
+                    //  data mask  new
+                    //  0    0     0
+                    //  0    1     0
+                    //  1    0     1
+                    //  1    1     0
+                    data_B_lo = data_B_lo & ~(mask & 0x0000FFFF) ; // previoud data with mask off
+                }
+                data_D_lo = (data & mask) & 0x0000FFFF; // new data with mask off
+                data_D_lo = data_D_lo | data_B_lo;      // merge data
+                data_B_lo = SPI_EMUL__send_frame(data_C_wr, data_A_lo  , data_D_lo);
+            }
+
+            // addres high side 
+            if ((mask & 0xFFFF0000) != 0) {
+                if ((mask & 0xFFFF0000) != 0xFFFF0000) { // need to read data first to mask off
+                    data_B_hi = SPI_EMUL__send_frame(data_C_rd, data_A_hi  , data_D_hi);
+                    // mask off: 
+                    //  data mask  new
+                    //  0    0     0
+                    //  0    1     0
+                    //  1    0     1
+                    //  1    1     0
+                    data_B_hi = data_B_hi & ~( (mask>>16) & 0x0000FFFF) ; // previoud data with mask off
+                }
+                data_D_hi = ((data & mask)>>16) & 0x0000FFFF; // new data with mask off
+                data_D_hi = data_D_hi | data_B_hi;      // merge data
+                data_B_hi = SPI_EMUL__send_frame(data_C_wr, data_A_hi  , data_D_hi);
+            }
+
+            uint data_B = (data_B_hi << 16) | data_B_lo; // merge
+            return data_B;
+        }
+
+
+
+        public new void SetWireInValue(uint adrs, uint data, uint mask = 0xFFFFFFFF) {
+            _send_spi_frame_32b_mask_check_(adrs, data, mask);
+        }
+
+        public new  void ActivateTriggerIn(uint adrs, int loc_bit) {
+            u32 mask = (u32)(0x00000001 << loc_bit);
+            u32 data = mask;
+            _send_spi_frame_32b_mask_check_(adrs, data, mask);
+        }
+
+        public new  bool IsTriggered(uint adrs, uint mask) {
+            bool ret = false;
+            u32 data_trig_done = _read_spi_frame_32b_mask_check_(adrs, mask);
+            if (data_trig_done != 0)
+                ret = true;
+            return ret;
+        }
+
+        public new  uint GetTriggerOutVector(uint adrs, uint mask = 0xFFFFFFFF) {
+            return _read_spi_frame_32b_mask_check_(adrs, mask);
+        }
+
+        //$$ note SSPI EP pipe operation is based on 16-bit access.
+        //$$ trigger signals for next data are synchrinized with 4n+0 addresses.
+        //$$ write seq : 4n+2 adrs --> 4n+0 adrs.
+        //$$ read  seq : 4n+2 adrs --> 4n+0 adrs.
+        public long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray, uint dummy_leading_read_pulse = 0) {
+            u32 data_C_rd = 0x10; // read
+            //u32 data_C_wr = 0x00; // write
+            u32 data_A_lo =  adrs<<2;
+            u32 data_A_hi = (adrs<<2) + 2;
+            u32 data_D_lo = 0x0000;
+            u32 data_D_hi = 0x0000;
+            u32 data_B_lo = 0;
+            u32 data_B_hi = 0;
+            u32 data_B    = 0;
+            byte[] data_B__bytearray;
+            //
+            s32 len_bytes = data_bytearray.Length;
+            //
+            if (dummy_leading_read_pulse !=0 ) {
+                SPI_EMUL__send_frame(data_C_rd, data_A_lo, data_D_lo); // dummy reading pulse
+            }
+            //
+            for (s32 idx = 0; idx < len_bytes; idx = idx + 4) {
+                data_B_hi = SPI_EMUL__send_frame(data_C_rd, data_A_hi, data_D_hi); // hi first
+                data_B_lo = SPI_EMUL__send_frame(data_C_rd, data_A_lo, data_D_lo); // low and reading pulse
+                //
+                data_B = (data_B_hi<<16) | data_B_lo;
+                //
+                data_B__bytearray = BitConverter.GetBytes(data_B);
+                //
+                data_bytearray[idx+0] = data_B__bytearray[0];
+                data_bytearray[idx+1] = data_B__bytearray[1];
+                data_bytearray[idx+2] = data_B__bytearray[2];
+                data_bytearray[idx+3] = data_B__bytearray[3];
+            }
+            return (long)len_bytes;
+        }
+
+        public new  long WriteToPipeIn(uint adrs, ref byte[] data_bytearray) {
+            //u32 data_C_rd = 0x10; // read
+            u32 data_C_wr = 0x00; // write
+            u32 data_A_lo =  adrs<<2;
+            u32 data_A_hi = (adrs<<2) + 2;
+            u32 data_D_lo = 0x0000;
+            u32 data_D_hi = 0x0000;
+            u32 data_B_lo = 0;
+            u32 data_B_hi = 0;
+            //
+            s32 len_bytes = data_bytearray.Length;
+            //
+            for (s32 idx = 0; idx < len_bytes; idx = idx + 4) {
+                data_D_hi = (u32)BitConverter.ToUInt16(data_bytearray, idx+2);
+                data_D_lo = (u32)BitConverter.ToUInt16(data_bytearray, idx  );
+                //
+                data_B_hi = SPI_EMUL__send_frame(data_C_wr, data_A_hi, data_D_hi); // hi first
+                data_B_lo = SPI_EMUL__send_frame(data_C_wr, data_A_lo, data_D_lo);
+            }
+            return (long)len_bytes;
         }
 
         // test var
@@ -793,7 +930,7 @@ namespace TopInstrument
             // test EPS
             dev_spi_emul.my_open(__test__.Program.test_host_ip); 
             Console.WriteLine(dev_spi_emul.get_IDN());
-            Console.WriteLine(dev_spi_emul.eps_enable());
+            Console.WriteLine(dev_spi_emul.eps_enable()); // renew eps_enable ... merged with SPI_EMUL__init
 
             Console.WriteLine((float)dev_spi_emul.get_FPGA_TMP_mC()/1000); // by LAN
             
@@ -801,17 +938,6 @@ namespace TopInstrument
             //// test start
             
             // MSPI test : 
-            //  _test__reset_spi_emul
-            //  _test__init__spi_emul
-            //  _test__send_spi_frame
-            
-            // reset spi emulation
-            //dev_spi_emul._test__reset_spi_emul();
-            dev_spi_emul.SPI_EMUL__reset();
-
-            // init  spi emulation
-            //dev_spi_emul._test__init__spi_emul();
-            dev_spi_emul.SPI_EMUL__init();
 
             // send frame
             uint data_C = 0x10  ; // for read // 6 bits
@@ -827,43 +953,65 @@ namespace TopInstrument
             // endpoint access test : WI, WO, TI, TO
             Console.WriteLine(dev_spi_emul.GetWireOutValue(0x20).ToString("X8")); // see FID
             Console.WriteLine((float)dev_spi_emul.GetWireOutValue(0x3A)/1000); // see temperature in fpga
-            //
-            //dev_spi_emul.SetWireInValue(0x16, 0xFA1275DA);
-            //Console.WriteLine(dev_spi_emul.GetWireOutValue(0x16).ToString("X8")); 
-            //
-            // ActivateTriggerIn(self, adrs, loc_bit)
-            // UpdateTriggerOuts()
-            // IsTriggered (self, adrs, mask)
-            // GetTriggerOutVector()
-            //
-            // more endpoint access test : PI, PO
-            // scpi_comm_resp_numb_ss
-            //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
-
-            //// test fifo : pipein at 0x8A; pipeout at 0xAA. // not for spi emul
-            //byte[] datain_bytearray;
-            //datain_bytearray = new byte[] { 
-            //    (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
-            //    (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
-            //    (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
-            //    (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
-            //    };
-            //Console.WriteLine(dev_spi_emul.WriteToPipeIn(0x8A, ref datain_bytearray));
-            ////
-            //byte[] dataout_bytearray = new byte[16];
-            //Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray));
-            //// compare
-            //Console.WriteLine(BitConverter.ToString(datain_bytearray));
-            //Console.WriteLine(BitConverter.ToString(dataout_bytearray));
-            //Console.WriteLine(datain_bytearray.SequenceEqual(dataout_bytearray));
-
             
+            dev_spi_emul.SetWireInValue(0x16, 0xFA1275DA);
+            Console.WriteLine(dev_spi_emul.GetWireOutValue(0x16).ToString("X8")); 
+
+            dev_spi_emul.SetWireInValue(0x16, 0xFFFFFFFF, 0x0000FFF0);
+            Console.WriteLine(dev_spi_emul.GetWireOutValue(0x16).ToString("X8")); 
+
+            dev_spi_emul.SetWireInValue(0x16, 0xFFFFFFFF, 0x0000FFFF);
+            Console.WriteLine(dev_spi_emul.GetWireOutValue(0x16).ToString("X8")); 
+
+            dev_spi_emul.SetWireInValue(0x16, 0xFFFFFFFF, 0xFFF00000);
+            Console.WriteLine(dev_spi_emul.GetWireOutValue(0x16).ToString("X8")); 
+
+            dev_spi_emul.SetWireInValue(0x16, 0xFFFFFFFF, 0xFFFF0000);
+            Console.WriteLine(dev_spi_emul.GetWireOutValue(0x16).ToString("X8")); 
+            
+            // more endpoint access test : TI, TO
+
+            dev_spi_emul.ActivateTriggerIn(0x53, 2); // test MEM frame trig
+            //dev_spi_emul.Delay(1); // ms // wait for a while
+            Console.WriteLine(dev_spi_emul.IsTriggered(0x73, 0x00000004));  // true or not
+
+            dev_spi_emul.ActivateTriggerIn(0x53, 2); // test MEM frame trig
+            //dev_spi_emul.Delay(1); // ms // wait for a while
+            Console.WriteLine(dev_spi_emul.GetTriggerOutVector(0x73).ToString("X8"));  // true or not
+
+            // more endpoint access test : PI, PO
+
+            //// test fifo : pipein at 0x8A; pipeout at 0xAA. // fifo standard reading mode
+            byte[] datain_bytearray;
+            datain_bytearray = new byte[] { 
+                (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+                (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
+                (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
+                (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
+                };
+            Console.WriteLine(dev_spi_emul.WriteToPipeIn(0x8A, ref datain_bytearray));
+            //
+            byte[] dataout_bytearray = new byte[16];
+            // dummy_leading_read_pulse = 1 for fifo standardi reading mode
+            Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray, 1)); 
+            // compare
+            Console.WriteLine(BitConverter.ToString(datain_bytearray));
+            Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+            bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
+            if (comp ==  false) {
+                Console.WriteLine(comp);
+            }
+            
+            // read again
+            Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray, 1));
+            Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+
             // reset spi emulation
             //dev_spi_emul._test__reset_spi_emul();
-            dev_spi_emul.SPI_EMUL__reset();
+            //dev_spi_emul.SPI_EMUL__reset();
 
             //// test finish
-            Console.WriteLine(dev_spi_emul.eps_disable());
+            Console.WriteLine(dev_spi_emul.eps_disable()); // renew eps_disable ... mergerd with SPI_EMUL__reset
             dev_spi_emul.scpi_close();
 
             return dev_spi_emul.__test_int;
@@ -2451,14 +2599,14 @@ namespace TopInstrument
         }
 
         // DACZ pattern gen control ...
-        private void pgu_dacz_dat_write(u32 dacx_dat, u32 bit_loc_trig) { // EP access
+        private void pgu_dacz_dat_write(u32 dacx_dat, s32 bit_loc_trig) { // EP access
             //$$write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, dacx_dat, MASK_ALL); //$$ DACZ
             //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
             SetWireInValue   (EP_ADRS__DACZ_DAT_WI, dacx_dat    );
             ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
         }
 
-        private u32  pgu_dacz_dat_read(u32 bit_loc_trig) { // EP access
+        private u32  pgu_dacz_dat_read(s32 bit_loc_trig) { // EP access
 	        //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
             //$$return read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WO, MASK_ALL); //$$ DACZ
             ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
@@ -5521,8 +5669,8 @@ namespace __test__
 {
     public class Program
     {
-        //public static string test_host_ip = "192.168.100.62";
-        public static string test_host_ip = "192.168.168.143";
+        public static string test_host_ip = "192.168.100.62";
+        //public static string test_host_ip = "192.168.168.143";
 
         public static void Main(string[] args)
         {
@@ -5540,7 +5688,7 @@ namespace __test__
             int ret = 0;
             //ret = TopInstrument.EPS_Dev.__test_eps_dev();
             ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
-            ret = TopInstrument.TOP_PGU.__test_spi_emul(); // test SPI EMUL
+            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
 
             ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
