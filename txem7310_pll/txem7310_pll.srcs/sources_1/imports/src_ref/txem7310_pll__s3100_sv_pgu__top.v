@@ -2264,33 +2264,6 @@ assign w_offset_lan_timeout_rcr_16b = 16'd0;
 //}
 
 
-/* TODO: TEST FIFO */ //{
-
-// emulate LAN-fifo from/to ADC-fifo
-// test-place ADC-fifo with TEST-fifo, which can be read and written.
-//
-// fifo_generator_4 : test
-// 32 bits
-// 4096 depth = 2^12
-// 2^12 * 4 byte = 16KB
-		
-fifo_generator_4 TEST_fifo_inst (
-  //.rst       (~reset_n | ~w_LAN_RSTn | w_FIFO_reset), // input wire rst
-  .rst       (~reset_n), // input wire rst
-  .wr_clk    (mcs_clk),  // input wire wr_clk
-  .wr_en     (w_wr_8A_1),      // input wire wr_en
-  .din       (w_port_pi_8A_1), // input wire [31 : 0] din
-  .rd_clk    (mcs_clk),  // input wire rd_clk
-  .rd_en     (w_rd_AA_1),      // input wire rd_en
-  .dout      (w_port_po_AA_1), // output wire [31 : 0] dout
-  .full      (),  // output wire full
-  .wr_ack    (),  // output wire wr_ack
-  .empty     (),  // output wire empty
-  .valid     ()   // output wire valid
-);
-
-//}
-
 
 ///TODO: //-------------------------------------------------------//
 
@@ -2593,11 +2566,24 @@ assign w_port_to_73_1 = ( w_mcs_ep_to_en & ~w_SSPI_TEST_mode_en)? w_MEM_TO : 32'
 wire [31:0] w_MEM_PI = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_93_1 : ep93pipe;
 wire w_MEM_PI_wr = w_wr_93_1 | ep93wr;                  
 wire [31:0] w_MEM_PO; 
-assign epB3pipe       = w_MEM_PO; // (~w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
-assign w_port_po_B3_1 = w_MEM_PO; //( w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
+assign epB3pipe       = w_MEM_PO; 
+assign w_port_po_B3_1 = w_MEM_PO;
 wire w_MEM_PO_rd = w_rd_B3_1 | epB3rd; 
 
 //}
+
+//// TEST-FIFO wires //{
+// PI 0x8A, PO 0xAA
+wire [31:0] w_TEST_PI    = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_8A_1 : ep8Apipe;
+wire        w_TEST_PI_wr =                                               w_wr_8A_1 | ep8Awr;                  
+wire [31:0] w_TEST_PO; 
+assign         epAApipe  = w_TEST_PO;
+assign w_port_po_AA_1    = w_TEST_PO;
+wire        w_TEST_PO_rd =                                               w_rd_AA_1 | epAArd; 
+wire        c_TEST_FIFO  = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?        mcs_clk : base_sspi_clk;
+
+//}
+
 
 
 //}
@@ -3353,6 +3339,36 @@ assign MEM_SIO_tri = ~w_SCIO_OE ; // dedicated port
 //}
 
 
+/* TODO: TEST FIFO */ //{
+
+// test fifo data 
+//
+// fifo_generator_4 : test
+// 32 bits
+// 4096 depth = 2^12
+// 2^12 * 4 byte = 16KB
+		
+//$$ clock switch : mcs_clk vs base_sspi_clk ... c_TEST_FIFO
+
+fifo_generator_4 TEST_fifo_inst (
+  //.rst       (~reset_n | ~w_LAN_RSTn | w_FIFO_reset), // input wire rst
+  .rst       (~reset_n), // input wire rst
+  .wr_clk    (c_TEST_FIFO   ), // input wire wr_clk
+  .wr_en     (w_TEST_PI_wr  ), // input wire wr_en
+  .din       (w_TEST_PI     ), // input wire [31 : 0] din
+  .rd_clk    (c_TEST_FIFO   ), // input wire rd_clk
+  .rd_en     (w_TEST_PO     ), // input wire rd_en
+  .dout      (w_TEST_PO_rd  ), // output wire [31 : 0] dout
+  .full      (),  // output wire full
+  .wr_ack    (),  // output wire wr_ack
+  .empty     (),  // output wire empty
+  .valid     ()   // output wire valid
+);
+
+//}
+
+
+
 /* TODO: TEMP SENSOR */
 // to come
 
@@ -3587,10 +3603,13 @@ wire w_M2_wr__sadrs_h218; assign ep86wr = w_M2_wr__sadrs_h218;  wire [31:0] w_M2
 wire w_M2_wr__sadrs_h21C; assign ep87wr = w_M2_wr__sadrs_h21C;  wire [31:0] w_M2_port_pi_sadrs_h21C; assign ep87pipe = w_M2_port_pi_sadrs_h21C; // DAC0_DUR_PI // pipe_in_87
 wire w_M2_wr__sadrs_h220; assign ep88wr = w_M2_wr__sadrs_h220;  wire [31:0] w_M2_port_pi_sadrs_h220; assign ep88pipe = w_M2_port_pi_sadrs_h220; // DAC1_DAT_PI // pipe_in_88
 wire w_M2_wr__sadrs_h224; assign ep89wr = w_M2_wr__sadrs_h224;  wire [31:0] w_M2_port_pi_sadrs_h224; assign ep89pipe = w_M2_port_pi_sadrs_h224; // DAC1_DUR_PI // pipe_in_89
+wire w_M2_wr__sadrs_h228; assign ep8Awr = w_M2_wr__sadrs_h228;  wire [31:0] w_M2_port_pi_sadrs_h228; assign ep8Apipe = w_M2_port_pi_sadrs_h228; // TEST_PI       | 0x228      | pipe_in_8A
 wire w_M2_wr__sadrs_h24C; assign ep93wr = w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_pi_sadrs_h24C; assign ep93pipe = w_M2_port_pi_sadrs_h24C; // MEM_PI      // pipe_in_93
 
 // po
+wire w_M2_rd__sadrs_h2A8; assign epAArd = w_M2_rd__sadrs_h2A8;  wire [31:0] w_M2_port_po_sadrs_h2A8 = epAApipe; // TEST_PO       | 0x2A8      | pipeout_AA 
 wire w_M2_rd__sadrs_h2CC; assign epB3rd = w_M2_rd__sadrs_h2CC;  wire [31:0] w_M2_port_po_sadrs_h2CC = epB3pipe; // MEM_PO // pipeout_B3 
+
 
 //}
 
@@ -3658,9 +3677,11 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.o_wr__sadrs_h21C  (w_M2_wr__sadrs_h21C),    .o_port_pi_sadrs_h21C  (w_M2_port_pi_sadrs_h21C), // [31:0]  
 	.o_wr__sadrs_h220  (w_M2_wr__sadrs_h220),    .o_port_pi_sadrs_h220  (w_M2_port_pi_sadrs_h220), // [31:0]  
 	.o_wr__sadrs_h224  (w_M2_wr__sadrs_h224),    .o_port_pi_sadrs_h224  (w_M2_port_pi_sadrs_h224), // [31:0]  
+	.o_wr__sadrs_h228  (w_M2_wr__sadrs_h228),    .o_port_pi_sadrs_h228  (w_M2_port_pi_sadrs_h228), // [31:0]  
 	.o_wr__sadrs_h24C  (w_M2_wr__sadrs_h24C),    .o_port_pi_sadrs_h24C  (w_M2_port_pi_sadrs_h24C), // [31:0]  
 	 
 	// po
+	.o_rd__sadrs_h2A8  (w_M2_rd__sadrs_h2A8),    .i_port_po_sadrs_h2A8  (w_M2_port_po_sadrs_h2A8), // [31:0]  
 	.o_rd__sadrs_h2CC  (w_M2_rd__sadrs_h2CC),    .i_port_po_sadrs_h2CC  (w_M2_port_po_sadrs_h2CC), // [31:0]  
 	
 	//}
