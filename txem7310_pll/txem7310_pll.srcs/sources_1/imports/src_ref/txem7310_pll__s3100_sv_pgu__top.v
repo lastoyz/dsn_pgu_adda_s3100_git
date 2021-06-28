@@ -866,8 +866,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
-
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0628; // S3100-PGU // update SSPI emulation mode : endpoint switch ... LAN, SSPI, SSPI_emulation(MSPI_by_LAN, others_by_SSPI)
 
 //}
 
@@ -2584,17 +2584,17 @@ wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en)?      w_wr_89_1 : ep89wr  ;
 
 //// EEPROM wires //{
 //$$ remove w_sel__H_LAN_for_EEPROM_fifo
-wire [31:0] w_MEM_WI      = (w_mcs_ep_wi_en)? w_port_wi_13_1 : ep13wire;                                        
-wire [31:0] w_MEM_FDAT_WI = (w_mcs_ep_wi_en)? w_port_wi_12_1 : ep12wire;                                        
+wire [31:0] w_MEM_WI      = (w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_13_1 : ep13wire;                                        
+wire [31:0] w_MEM_FDAT_WI = (w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_12_1 : ep12wire;                                        
 wire [31:0] w_MEM_TI      = w_port_ti_53_1 | ep53trig; 
 wire [31:0] w_MEM_TO; 
-assign ep73trig       = (~w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
-assign w_port_to_73_1 = ( w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
-wire [31:0] w_MEM_PI = (w_mcs_ep_pi_en)? w_port_pi_93_1 : ep93pipe;
+assign ep73trig       = (~w_mcs_ep_to_en |  w_SSPI_TEST_mode_en)? w_MEM_TO : 32'b0; 
+assign w_port_to_73_1 = ( w_mcs_ep_to_en & ~w_SSPI_TEST_mode_en)? w_MEM_TO : 32'b0; 
+wire [31:0] w_MEM_PI = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_93_1 : ep93pipe;
 wire w_MEM_PI_wr = w_wr_93_1 | ep93wr;                  
 wire [31:0] w_MEM_PO; 
-assign epB3pipe       = (~w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
-assign w_port_po_B3_1 = ( w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
+assign epB3pipe       = w_MEM_PO; // (~w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
+assign w_port_po_B3_1 = w_MEM_PO; //( w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
 wire w_MEM_PO_rd = w_rd_B3_1 | epB3rd; 
 
 //}
