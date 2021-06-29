@@ -2332,14 +2332,14 @@ assign w_adrs_offset_ip_32b [15:0] = {8'h00, w_slot_id_8b}; // assign low 16b
 // check IDs end-point //{
 wire [31:0] w_F_IMAGE_ID_WO = FPGA_IMAGE_ID ;
 //
-assign ep20wire       = (!w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC; //$$ SSPI
-assign w_port_wo_20_1 = ( w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC; //$$ LAN
+assign         ep20wire = w_F_IMAGE_ID_WO; //$$ SSPI
+assign w_port_wo_20_1   = w_F_IMAGE_ID_WO; //$$ LAN
 //}
 
 // timestamp //{
 (* keep = "true" *) wire [31:0] w_TIMESTAMP_WO;
-assign ep22wire = w_TIMESTAMP_WO;
-assign w_port_wo_22_1 = (w_mcs_ep_wo_en)? w_TIMESTAMP_WO : 32'hACAC_ACAC;
+assign         ep22wire = w_TIMESTAMP_WO;
+assign w_port_wo_22_1   = w_TIMESTAMP_WO;
 //}
 
 // TEST counter end-point //{
@@ -2360,8 +2360,8 @@ assign w_port_to_60_1 = w_TEST_TO; //$$ (w_mcs_ep_to_en)? w_TEST_TO : 32'h0000_0
 
 wire [31:0] w_TEST_MON_WO; //$$ S3000-PGU // w_TEST_IO_MON --> w_TEST_MON_WO
 // check pll status
-assign ep23wire       = w_TEST_MON_WO;
-assign w_port_wo_23_1 = w_TEST_MON_WO;
+assign         ep23wire = w_TEST_MON_WO;
+assign w_port_wo_23_1   = w_TEST_MON_WO;
 
 // assign ep23wire       = (!w_mcs_ep_wo_en)? w_TEST_MON_WO : 32'hACAC_ACAC;
 // assign w_port_wo_23_1 = ( w_mcs_ep_wo_en)? w_TEST_MON_WO : 32'hACAC_ACAC;
@@ -2395,7 +2395,7 @@ wire [31:0] w_SSPI_CON_WI  = ep02wire; // controls ...
 			// w_SSPI_CON_WI[0] enables LAN control ... USB vs LAN vs SSPI 
 			// w_SSPI_CON_WI[1] ...
 wire [31:0] w_SSPI_FLAG_WO; 
-	assign ep32wire = w_SSPI_FLAG_WO; //$$ ep22wire --> ep23wire --> ep32wire
+assign ep32wire = w_SSPI_FLAG_WO; //$$ ep22wire --> ep23wire --> ep32wire
 
 // HW reset signal : MEM, TEST_COUNTER, XADC, TIMESTAMP // SPIO, DAC, ADC, TRIG_IO,
 //wire w_HW_reset__ext; // from SSPI
@@ -2541,14 +2541,14 @@ wire [31:0] w_DACZ_DAT_TI =                                           w_port_ti_
 // 'DAC1_DAT_INC_PI'    : 0x88, ##$$ new for DACZ CID style // data b16 + inc b16
 // 'DAC1_DUR_PI    '    : 0x89, ##$$ new for DACZ CID style // duration b32
 
-wire [31:0] w_DAC0_DAT_INC_PI    = (w_mcs_ep_pi_en)? w_port_pi_86_1 : ep86pipe;
-wire        w_DAC0_DAT_INC_PI_WR = (w_mcs_ep_pi_en)?      w_wr_86_1 : ep86wr  ;
-wire [31:0] w_DAC0_DUR_PI        = (w_mcs_ep_pi_en)? w_port_pi_87_1 : ep87pipe;
-wire        w_DAC0_DUR_PI_WR     = (w_mcs_ep_pi_en)?      w_wr_87_1 : ep87wr  ;
-wire [31:0] w_DAC1_DAT_INC_PI    = (w_mcs_ep_pi_en)? w_port_pi_88_1 : ep88pipe;
-wire        w_DAC1_DAT_INC_PI_WR = (w_mcs_ep_pi_en)?      w_wr_88_1 : ep88wr  ;
-wire [31:0] w_DAC1_DUR_PI        = (w_mcs_ep_pi_en)? w_port_pi_89_1 : ep89pipe;
-wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en)?      w_wr_89_1 : ep89wr  ;
+wire [31:0] w_DAC0_DAT_INC_PI    = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_86_1 : ep86pipe;
+wire        w_DAC0_DAT_INC_PI_WR = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_86_1 : ep86wr  ;
+wire [31:0] w_DAC0_DUR_PI        = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_87_1 : ep87pipe;
+wire        w_DAC0_DUR_PI_WR     = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_87_1 : ep87wr  ;
+wire [31:0] w_DAC1_DAT_INC_PI    = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_88_1 : ep88pipe;
+wire        w_DAC1_DAT_INC_PI_WR = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_88_1 : ep88wr  ;
+wire [31:0] w_DAC1_DUR_PI        = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_89_1 : ep89pipe;
+wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_89_1 : ep89wr  ;
 
 
 //}
@@ -2705,12 +2705,12 @@ test_counter_wrapper  test_counter_wrapper_inst (
 // wires and end-points //{
 
 wire [31:0] w_XADC_TEMP_WO; 
-assign ep3Awire       = w_XADC_TEMP_WO; //$$
-assign w_port_wo_3A_1 = (w_mcs_ep_wo_en)? w_XADC_TEMP_WO : 32'hACAC_ACAC;
+assign         ep3Awire = w_XADC_TEMP_WO;
+assign w_port_wo_3A_1   = w_XADC_TEMP_WO;
 //
 wire [31:0] w_XADC_VOLT_WO; 
-assign ep3Bwire       = w_XADC_VOLT_WO; //$$
-assign w_port_wo_3B_1 = (w_mcs_ep_wo_en)? w_XADC_VOLT_WO : 32'hACAC_ACAC;
+assign         ep3Bwire = w_XADC_VOLT_WO;
+assign w_port_wo_3B_1   = w_XADC_VOLT_WO;
 
 // XADC_DRP
 wire [31:0] MEASURED_TEMP_MC;
@@ -3020,9 +3020,9 @@ wire c_fifo_wr;
 // wire w_DAC1_DAT_PI_CK = c_fifo_wr; // remove
 
 wire w_DAC0_DAT_INC_PI_CK = c_fifo_wr;
-wire w_DAC0_DUR_PI_CK = c_fifo_wr;
+wire w_DAC0_DUR_PI_CK     = c_fifo_wr;
 wire w_DAC1_DAT_INC_PI_CK = c_fifo_wr;
-wire w_DAC1_DUR_PI_CK = c_fifo_wr;
+wire w_DAC1_DUR_PI_CK     = c_fifo_wr;
 
 //$$  BUFGMUX bufgmux_c_fifo_read_inst (
 //$$  	.O(c_fifo_wr), 
@@ -3031,8 +3031,8 @@ wire w_DAC1_DUR_PI_CK = c_fifo_wr;
 //$$  	.S(w_mcs_ep_pi_en) 
 //$$  ); 
 
-assign c_fifo_wr = (w_mcs_ep_pi_en == 0)? epClk : mcs_clk ; //$$ remove BUFGMUX
-
+//assign c_fifo_wr = (w_mcs_ep_pi_en == 0)? epClk : mcs_clk ; //$$ remove BUFGMUX
+assign c_fifo_wr = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? mcs_clk : epClk; //$$ remove BUFGMUX
 
 // for DACZ
 wire         w_dac0_fifo_datinc_wr_ck  = w_DAC0_DAT_INC_PI_CK; //    
@@ -3208,8 +3208,8 @@ wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 
 //$$ note in S3100-PGU
 //assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? base_sspi_clk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
-assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? epClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
-
+//assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? epClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+assign c_eeprom_fifo_clk = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? mcs_eeprom_fifo_clk : epClk; //$$ remove BUFGMUX
 
 //}
 
