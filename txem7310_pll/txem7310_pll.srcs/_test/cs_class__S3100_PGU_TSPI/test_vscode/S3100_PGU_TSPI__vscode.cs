@@ -47,10 +47,10 @@ namespace TopInstrument
     // for my base classes
 
     //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
+    using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
 
-    using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; // support PGU-EPS command
-    using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  //##(case2) for S3100-PGU-TLAN // support EPS by LAN commands
-    //using mybaseclass_EPS_control     = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
+    //using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  //##(case2) for S3100-PGU-TLAN // support EPS by LAN commands
+    using mybaseclass_EPS_control     = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
 
 
     using u32 = System.UInt32; // for converting firmware
@@ -1069,24 +1069,38 @@ namespace TopInstrument
 
         //$$ AUX IO access
 
+        private bool IsBypassed__AUX_IO = false; 
+        // bypass control for those functions: 
+        //  pgu_aux_***()
+
+        public void pgu_aux_io_bypass_on() {
+            IsBypassed__AUX_IO = true;
+        } 
+
+        public void pgu_aux_io_bypass_off() {
+            IsBypassed__AUX_IO = false;
+        } 
+
+        public bool pgu_aux_io_is_bypassed() {
+            return IsBypassed__AUX_IO;
+        } 
+
         public string pgu_aux_con__read()
         {
-            string ret_str;
-            //int ret;
-            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_CON + "?\n"));
+            string ret_str = "#H0000\n";
+            if (IsBypassed__AUX_IO == false) return ret_str;
 
-            //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 5));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_CON + "?\n"));
 
             return ret_str;
         }
 
         public string pgu_aux_olat__read()
         {
-            string ret_str;
-            //int ret;
-            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_OLAT + "?\n"));
+            string ret_str = "#H0000\n";
+            if (IsBypassed__AUX_IO == false) return ret_str;
 
-            //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 8));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_OLAT + "?\n"));
 
             return ret_str;
 
@@ -1097,22 +1111,20 @@ namespace TopInstrument
 
         public string pgu_aux_dir__read()
         {
-            string ret_str;
-            //int ret;
-            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_DIR + "?\n"));
+            string ret_str = "#H0000\n";
+            if (IsBypassed__AUX_IO == false) return ret_str;
 
-            //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 8));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_DIR + "?\n"));
 
             return ret_str;
         }
 
         public string pgu_aux_gpio__read()
         {
-            string ret_str;
-            //int ret;
-            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_GPIO + "?\n"));
+            string ret_str = "#H0000\n";
+            if (IsBypassed__AUX_IO == false) return ret_str;
 
-            //ret = Convert.ToInt32("0x" + ret_str.Substring(2, 8));
+            ret_str = scpi_comm_resp_ss(Encoding.UTF8.GetBytes(cmd_str__PGU_AUX_GPIO + "?\n"));
 
             return ret_str;
         }
@@ -1120,7 +1132,9 @@ namespace TopInstrument
         public string pgu_aux_con__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            string ret = "OK\n";
+
+            if (IsBypassed__AUX_IO == false) return ret;
 
             string PGU_AUX_CON = Convert.ToString(cmd_str__PGU_AUX_CON + val_b16_str);
             byte[] PGU_AUX_CON_CMD = Encoding.UTF8.GetBytes(PGU_AUX_CON);
@@ -1132,7 +1146,9 @@ namespace TopInstrument
         public string pgu_aux_olat__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            string ret = "OK\n";
+
+            if (IsBypassed__AUX_IO == false) return ret;
 
             string PGU_AUX_OLAT = Convert.ToString(cmd_str__PGU_AUX_OLAT + val_b16_str);
             byte[] PGU_AUX_OLAT_CMD = Encoding.UTF8.GetBytes(PGU_AUX_OLAT);
@@ -1144,7 +1160,9 @@ namespace TopInstrument
         public string pgu_aux_dir__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            string ret = "OK\n";
+
+            if (IsBypassed__AUX_IO == false) return ret;
 
             string PGU_AUX_DIR = Convert.ToString(cmd_str__PGU_AUX_DIR + val_b16_str);
             byte[] PPGU_AUX_DIR_CMD = Encoding.UTF8.GetBytes(PGU_AUX_DIR);
@@ -1156,7 +1174,9 @@ namespace TopInstrument
         public string pgu_aux_gpio__send(uint val_b16)
         {
             string val_b16_str = string.Format(" #H{0,4:X4} \n", val_b16);
-            string ret;
+            string ret = "OK\n";
+
+            if (IsBypassed__AUX_IO == false) return ret;
 
             string PGU_AUX_GPIO = Convert.ToString(cmd_str__PGU_AUX_GPIO + val_b16_str);
             byte[] PGU_AUX_GPIO_CMD = Encoding.UTF8.GetBytes(PGU_AUX_GPIO);
@@ -1715,9 +1735,29 @@ namespace TopInstrument
 
         // AUX on SPIO ...
 
+        private bool IsBypassed__AUX_IO = false; 
+        // bypass control for those functions: 
+        //  pgu_spio_ext__aux_init()
+        //  pgu_spio_ext__aux_idle()
+        //  pgu_spio_ext__aux_send_spi_frame()
+
+        public void pgu_aux_io_bypass_on() {
+            IsBypassed__AUX_IO = true;
+        } 
+
+        public void pgu_aux_io_bypass_off() {
+            IsBypassed__AUX_IO = false;
+        } 
+
+        public bool pgu_aux_io_is_bypassed() {
+            return IsBypassed__AUX_IO;
+        } 
+
         private u32 pgu_spio_ext__aux_init() {
         	u32 dir_read;
         	u32 lat_read;
+
+            if (IsBypassed__AUX_IO==true) return 0; // bypass
 
         	//  //// set safe IO direction: all inputs
         	//  // read previous value
@@ -1762,6 +1802,8 @@ namespace TopInstrument
         private void pgu_spio_ext__aux_idle() {
         	u32 lat_read;
 
+            if (IsBypassed__AUX_IO==true) return; // bypass
+
         	//// set the safe output values:
         	//   AUX_CS_B = 1          @ GPB[7]
         	//   AUX_SCLK = 0          @ GPB[6]
@@ -1776,6 +1818,7 @@ namespace TopInstrument
         	// update latch
         	pgu_sp_1_reg_write_b16(0x14,lat_read);
 
+            return;
         }
 
         private void pgu_spio_ext__aux_out (u32 val_b4) {
@@ -1803,6 +1846,8 @@ namespace TopInstrument
             u32 framedata = 0x00000000;
             u32 f_count;
             u32 val;
+
+            if (IsBypassed__AUX_IO==true) return 0; // bypass
 
             // make a frame for MCP23S17T-E/ML
 
@@ -5488,6 +5533,20 @@ namespace TopInstrument
             Console.WriteLine(Convert.ToString((double)tmp_float )); 
             Console.WriteLine(Convert.ToString((float)tmp_double));
 
+
+            //// bypass AUX control : 
+            try
+            {
+                Console.WriteLine(dev.pgu_aux_io_is_bypassed());
+                dev.pgu_aux_io_bypass_on(); // unused aux io control disabled
+                //dev.pgu_aux_io_bypass_off(); // 
+                Console.WriteLine(dev.pgu_aux_io_is_bypassed());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception caught.", e);
+            }                
+            
             //// call pulse setup
             long[] StepTime;
             double[] StepLevel;
@@ -5687,11 +5746,11 @@ namespace __test__
 
             int ret = 0;
             //ret = TopInstrument.EPS_Dev.__test_eps_dev();
-            ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
-            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
+            //ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
+            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
 
-            ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
-            ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
+            //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
+            //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
 
             ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));

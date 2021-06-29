@@ -12,6 +12,7 @@
 // MCS_EP_BASE control from pgu_cpu_config.h
 
 // #define _MCS_DEBUG_ // not used
+// #define _EEPROM_DEBUG_
 
 
 //// common //{
