@@ -25,12 +25,20 @@ using System.Threading.Tasks;
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
 // >>> PGU_control_by_lan - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_lan_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_lan_:_class__TOP_PGU_  // support PGU-LAN commands
+//
+// case1 using example:
+//using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
+//using mybaseclass_EPS_control = TopInstrument.EPS_Dev;  //##(case2 or NA) for S3100-PGU-TLAN // support EPS by LAN commands
 
 //(case2)
 // >>> SCPI_base          - _class__SCPI_base_ 
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-EPS commands
+//
+// case2 using example:
+//using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
+//using mybaseclass_EPS_control = TopInstrument.EPS_Dev;  //##(case2 or NA) for S3100-PGU-TLAN // support EPS by LAN commands
 
 //(case3)
 // simple emualation using class SPI_EMUL !!
@@ -39,6 +47,10 @@ using System.Threading.Tasks;
 // >>> SPI_EMUL           - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_ 
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-SPI emulation commands
+//
+// case3 using example:
+//using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
+//using mybaseclass_EPS_control = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
 
 
 namespace TopInstrument
@@ -49,7 +61,7 @@ namespace TopInstrument
     //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
     using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
 
-    //using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  //##(case2) for S3100-PGU-TLAN // support EPS by LAN commands
+    //using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  //##(case2 or NA) for S3100-PGU-TLAN // support EPS by LAN commands
     using mybaseclass_EPS_control     = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
 
 
