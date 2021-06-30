@@ -5747,7 +5747,7 @@ namespace __test__
             int ret = 0;
             //ret = TopInstrument.EPS_Dev.__test_eps_dev();
             //ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
-            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
+            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
 
             //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
