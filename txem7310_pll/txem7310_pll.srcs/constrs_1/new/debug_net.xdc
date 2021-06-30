@@ -59,6 +59,16 @@ set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_SPI_MOSI    
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO    ]
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO_EN ]
 
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[*] ]
+
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[*] ]
+
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_ctrl[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_adrs[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_mosi[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_miso[*] ]
+
 
 ##== LAN ==##
 

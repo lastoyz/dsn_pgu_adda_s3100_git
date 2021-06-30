@@ -866,8 +866,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
-
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0628; // S3100-PGU // update SSPI emulation mode : endpoint switch ... LAN, SSPI, SSPI_emulation(MSPI_by_LAN, others_by_SSPI)
 
 //}
 
@@ -1772,7 +1772,7 @@ wire ep7Eck = 1'b0;             wire [31:0] ep7Etrig = 32'b0;
 wire ep7Fck = 1'b0;             wire [31:0] ep7Ftrig = 32'b0; 
 //}
 
-// Pipe In 		0x80 - 0x9F // clock is assumed to use okClk //{
+// Pipe In 		0x80 - 0x9F // clock is assumed to use epClk //{
 wire ep80wr; wire [31:0] ep80pipe;
 wire ep81wr; wire [31:0] ep81pipe;
 wire ep82wr; wire [31:0] ep82pipe;
@@ -1783,7 +1783,7 @@ wire ep86wr; wire [31:0] ep86pipe; //$$ [DACZ] DAC0_DAT_INC_PI
 wire ep87wr; wire [31:0] ep87pipe; //$$ [DACZ] DAC0_DUR_PI 
 wire ep88wr; wire [31:0] ep88pipe; //$$ [DACZ] DAC1_DAT_INC_PI
 wire ep89wr; wire [31:0] ep89pipe; //$$ [DACZ] DAC1_DUR_PI 
-wire ep8Awr; wire [31:0] ep8Apipe;
+wire ep8Awr; wire [31:0] ep8Apipe; //$$ [TEST] TEST_PI
 wire ep8Bwr; wire [31:0] ep8Bpipe;
 wire ep8Cwr; wire [31:0] ep8Cpipe;
 wire ep8Dwr; wire [31:0] ep8Dpipe;
@@ -1818,7 +1818,7 @@ wire epA6rd; wire [31:0] epA6pipe = 32'b0;
 wire epA7rd; wire [31:0] epA7pipe = 32'b0;
 wire epA8rd; wire [31:0] epA8pipe = 32'b0;
 wire epA9rd; wire [31:0] epA9pipe = 32'b0;
-wire epAArd; wire [31:0] epAApipe = 32'b0;
+wire epAArd; wire [31:0] epAApipe; //$$ [TEST] TEST_PO
 wire epABrd; wire [31:0] epABpipe = 32'b0;
 wire epACrd; wire [31:0] epACpipe = 32'b0;
 wire epADrd; wire [31:0] epADpipe = 32'b0;
@@ -1842,9 +1842,10 @@ wire epBErd; wire [31:0] epBEpipe = 32'b0;
 wire epBFrd; wire [31:0] epBFpipe = 32'b0;
 //}
 
-// OK Target interface clk: //{
+// Target interface clk: //{
 //
-wire okClk;
+//wire okClk;
+wire epClk = base_sspi_clk; // okClk --> epClk
 //}
 
 //}
@@ -2264,33 +2265,6 @@ assign w_offset_lan_timeout_rcr_16b = 16'd0;
 //}
 
 
-/* TODO: TEST FIFO */ //{
-
-// emulate LAN-fifo from/to ADC-fifo
-// test-place ADC-fifo with TEST-fifo, which can be read and written.
-//
-// fifo_generator_4 : test
-// 32 bits
-// 4096 depth = 2^12
-// 2^12 * 4 byte = 16KB
-		
-fifo_generator_4 TEST_fifo_inst (
-  //.rst       (~reset_n | ~w_LAN_RSTn | w_FIFO_reset), // input wire rst
-  .rst       (~reset_n), // input wire rst
-  .wr_clk    (mcs_clk),  // input wire wr_clk
-  .wr_en     (w_wr_8A_1),      // input wire wr_en
-  .din       (w_port_pi_8A_1), // input wire [31 : 0] din
-  .rd_clk    (mcs_clk),  // input wire rd_clk
-  .rd_en     (w_rd_AA_1),      // input wire rd_en
-  .dout      (w_port_po_AA_1), // output wire [31 : 0] dout
-  .full      (),  // output wire full
-  .wr_ack    (),  // output wire wr_ack
-  .empty     (),  // output wire empty
-  .valid     ()   // output wire valid
-);
-
-//}
-
 
 ///TODO: //-------------------------------------------------------//
 
@@ -2334,7 +2308,7 @@ wire [31:0] w_MCS_SETUP_WI = w_port_wi_19_1; //$$ dedicated to MCS. updated by M
 // ...
 // bit[31:16]=board_id, range of 0000~9999, set from EEPROM via MCS
 
-wire [7:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-PGU
+wire [3:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-PGU
 wire [7:0]  w_slot_id_8b          = w_MCS_SETUP_WI[7:0];   //$$ 8 bits in S3100-PGU
 //
 //$$ note ... need to protect MCS_SETUP_WI[15:8] by SDK
@@ -2358,14 +2332,14 @@ assign w_adrs_offset_ip_32b [15:0] = {8'h00, w_slot_id_8b}; // assign low 16b
 // check IDs end-point //{
 wire [31:0] w_F_IMAGE_ID_WO = FPGA_IMAGE_ID ;
 //
-assign ep20wire       = (!w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC; //$$ SSPI
-assign w_port_wo_20_1 = ( w_mcs_ep_wo_en)? w_F_IMAGE_ID_WO : 32'hACAC_ACAC; //$$ LAN
+assign         ep20wire = w_F_IMAGE_ID_WO; //$$ SSPI
+assign w_port_wo_20_1   = w_F_IMAGE_ID_WO; //$$ LAN
 //}
 
 // timestamp //{
 (* keep = "true" *) wire [31:0] w_TIMESTAMP_WO;
-assign ep22wire = w_TIMESTAMP_WO;
-assign w_port_wo_22_1 = (w_mcs_ep_wo_en)? w_TIMESTAMP_WO : 32'hACAC_ACAC;
+assign         ep22wire = w_TIMESTAMP_WO;
+assign w_port_wo_22_1   = w_TIMESTAMP_WO;
 //}
 
 // TEST counter end-point //{
@@ -2386,8 +2360,8 @@ assign w_port_to_60_1 = w_TEST_TO; //$$ (w_mcs_ep_to_en)? w_TEST_TO : 32'h0000_0
 
 wire [31:0] w_TEST_MON_WO; //$$ S3000-PGU // w_TEST_IO_MON --> w_TEST_MON_WO
 // check pll status
-assign ep23wire       = w_TEST_MON_WO;
-assign w_port_wo_23_1 = w_TEST_MON_WO;
+assign         ep23wire = w_TEST_MON_WO;
+assign w_port_wo_23_1   = w_TEST_MON_WO;
 
 // assign ep23wire       = (!w_mcs_ep_wo_en)? w_TEST_MON_WO : 32'hACAC_ACAC;
 // assign w_port_wo_23_1 = ( w_mcs_ep_wo_en)? w_TEST_MON_WO : 32'hACAC_ACAC;
@@ -2421,7 +2395,7 @@ wire [31:0] w_SSPI_CON_WI  = ep02wire; // controls ...
 			// w_SSPI_CON_WI[0] enables LAN control ... USB vs LAN vs SSPI 
 			// w_SSPI_CON_WI[1] ...
 wire [31:0] w_SSPI_FLAG_WO; 
-	assign ep32wire = w_SSPI_FLAG_WO; //$$ ep22wire --> ep23wire --> ep32wire
+assign ep32wire = w_SSPI_FLAG_WO; //$$ ep22wire --> ep23wire --> ep32wire
 
 // HW reset signal : MEM, TEST_COUNTER, XADC, TIMESTAMP // SPIO, DAC, ADC, TRIG_IO,
 //wire w_HW_reset__ext; // from SSPI
@@ -2477,13 +2451,11 @@ assign w_port_to_62_1 = w_MSPI_TO; //$$ ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_
 // SPIO_WO @ ep27wire = {6'b0,o_done_SPI_frame,o_done_LNG_reset,8'b0,o_rd_DA[7:0],o_rd_DB[7:0]}
 // SPIO_TI @ ep47trig
 
-wire [31:0] w_SPIO_WI = (w_mcs_ep_wi_en)? w_port_wi_07_1 : ep07wire; 
-//
+wire [31:0] w_SPIO_WI   = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_07_1 : ep07wire; 
 wire [31:0] w_SPIO_WO; 
-assign ep27wire       = (!w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC; 
-assign w_port_wo_27_1 = ( w_mcs_ep_wo_en)? w_SPIO_WO : 32'hACAC_ACAC;
-//
-wire [31:0] w_SPIO_TI = (w_mcs_ep_ti_en)? w_port_ti_47_1 : ep47trig;
+assign         ep27wire = w_SPIO_WO; 
+assign w_port_wo_27_1   = w_SPIO_WO;
+wire [31:0] w_SPIO_TI   =                                           w_port_ti_47_1 | ep47trig;
 
 //}
 
@@ -2493,13 +2465,14 @@ wire [31:0] w_SPIO_TI = (w_mcs_ep_ti_en)? w_port_ti_47_1 : ep47trig;
 // CLKD_WO @ ep26wire = {6'b0,o_done_SPI_frame,o_done_LNG_reset,8'b0,8'b0,o_rd_D[7:0]}
 // CLKD_TI @ ep46trig
 
-(* keep = "true" *) wire [31:0] w_CLKD_WI = (w_mcs_ep_wi_en)? w_port_wi_06_1 : ep06wire;
-
-(* keep = "true" *) wire [31:0] w_CLKD_WO;
-assign ep26wire       = (!w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC; 
-assign w_port_wo_26_1 = ( w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC;
-
-(* keep = "true" *) wire [31:0] w_CLKD_TI = (w_mcs_ep_ti_en)? w_port_ti_46_1 : ep46trig;
+(* keep = "true" *) 
+wire [31:0] w_CLKD_WI   = (w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_06_1 : ep06wire;
+(* keep = "true" *) 
+wire [31:0] w_CLKD_WO;
+assign         ep26wire = w_CLKD_WO; 
+assign w_port_wo_26_1   = w_CLKD_WO;
+(* keep = "true" *) 
+wire [31:0] w_CLKD_TI   =                                          w_port_ti_46_1 | ep46trig;
 
 //}
 
@@ -2510,13 +2483,11 @@ assign w_port_wo_26_1 = ( w_mcs_ep_wo_en)? w_CLKD_WO : 32'hACAC_ACAC;
 // TRIG_DAT_WO @ ep29wire
 // TRIG_DAT_TI @ ep49trig
 
-wire [31:0] w_TRIG_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_09_1 : ep09wire; 
-//
+wire [31:0] w_TRIG_DAT_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_09_1 : ep09wire; 
 wire [31:0] w_TRIG_DAT_WO;
-assign ep29wire       = (!w_mcs_ep_wo_en)? w_TRIG_DAT_WO : 32'hACAC_ACAC; 
-assign w_port_wo_29_1 = ( w_mcs_ep_wo_en)? w_TRIG_DAT_WO : 32'hACAC_ACAC;
-//
-wire [31:0] w_TRIG_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_49_1 : ep49trig;
+assign         ep29wire   = w_TRIG_DAT_WO; 
+assign w_port_wo_29_1     = w_TRIG_DAT_WO;
+wire [31:0] w_TRIG_DAT_TI =                                           w_port_ti_49_1 | ep49trig;
 
 //}
 
@@ -2527,7 +2498,7 @@ wire [31:0] w_TRIG_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_49_1 : ep49trig;
 // DACX_WO @ ep25wire = {6'b0,o_done_SPI_frame,o_done_LNG_reset, 16'b0 , o_rd_D}
 // DACX_TI @ ep45trig
 
-wire [31:0] w_DACX_WI = (w_mcs_ep_wi_en)? w_port_wi_05_1 : ep05wire; 
+wire [31:0] w_DACX_WI   = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_05_1 : ep05wire; 
 //  bit[30]    = dac1_dco_clk_rst      
 //  bit[29]    = dac0_dco_clk_rst      
 //  bit[28]    = clk_dac_clk_rst       
@@ -2540,13 +2511,13 @@ wire [31:0] w_DACX_WI = (w_mcs_ep_wi_en)? w_port_wi_05_1 : ep05wire;
 //  bit[7:0]   = DACx_wr_D[7:0]        
 
 wire [31:0] w_DACX_WO; 
-assign ep25wire       = (!w_mcs_ep_wo_en)? w_DACX_WO : 32'hACAC_ACAC; 
-assign w_port_wo_25_1 = ( w_mcs_ep_wo_en)? w_DACX_WO : 32'hACAC_ACAC;
+assign         ep25wire = w_DACX_WO; 
+assign w_port_wo_25_1   = w_DACX_WO;
 //  bit[25]  = done_DACx_SPI_frame
 //  bit[24]  = done_DACx_LNG_reset
 //  bit[7:0] = DACx_rd_D[7:0]     
 
-wire [31:0] w_DACX_TI = (w_mcs_ep_ti_en)? w_port_ti_45_1 : ep45trig;
+wire [31:0] w_DACX_TI   =                                           w_port_ti_45_1 | ep45trig;
 //  bit[0] = trig_DACx_LNG_reset 
 //  bit[1] = trig_DACx_SPI_frame 
 
@@ -2556,13 +2527,13 @@ wire [31:0] w_DACX_TI = (w_mcs_ep_ti_en)? w_port_ti_45_1 : ep45trig;
 // DACZ_DAT_WO @ ep28wire
 // DACZ_DAT_TI @ ep48trig
 
-wire [31:0] w_DACZ_DAT_WI = (w_mcs_ep_wi_en)? w_port_wi_08_1 : ep08wire; 
+wire [31:0] w_DACZ_DAT_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_08_1 : ep08wire; 
 //
 wire [31:0] w_DACZ_DAT_WO;
-assign ep28wire       = (!w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC; 
-assign w_port_wo_28_1 = ( w_mcs_ep_wo_en)? w_DACZ_DAT_WO : 32'hACAC_ACAC;
+assign         ep28wire   = w_DACZ_DAT_WO; 
+assign w_port_wo_28_1     = w_DACZ_DAT_WO;
 //
-wire [31:0] w_DACZ_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_48_1 : ep48trig;
+wire [31:0] w_DACZ_DAT_TI =                                           w_port_ti_48_1 | ep48trig;
 
 
 // 'DAC0_DAT_INC_PI'    : 0x86, ##$$ new for DACZ CID style // data b16 + inc b16
@@ -2570,34 +2541,54 @@ wire [31:0] w_DACZ_DAT_TI = (w_mcs_ep_ti_en)? w_port_ti_48_1 : ep48trig;
 // 'DAC1_DAT_INC_PI'    : 0x88, ##$$ new for DACZ CID style // data b16 + inc b16
 // 'DAC1_DUR_PI    '    : 0x89, ##$$ new for DACZ CID style // duration b32
 
-wire [31:0] w_DAC0_DAT_INC_PI    = (w_mcs_ep_pi_en)? w_port_pi_86_1 : ep86pipe;
-wire        w_DAC0_DAT_INC_PI_WR = (w_mcs_ep_pi_en)?      w_wr_86_1 : ep86wr  ;
-wire [31:0] w_DAC0_DUR_PI        = (w_mcs_ep_pi_en)? w_port_pi_87_1 : ep87pipe;
-wire        w_DAC0_DUR_PI_WR     = (w_mcs_ep_pi_en)?      w_wr_87_1 : ep87wr  ;
-wire [31:0] w_DAC1_DAT_INC_PI    = (w_mcs_ep_pi_en)? w_port_pi_88_1 : ep88pipe;
-wire        w_DAC1_DAT_INC_PI_WR = (w_mcs_ep_pi_en)?      w_wr_88_1 : ep88wr  ;
-wire [31:0] w_DAC1_DUR_PI        = (w_mcs_ep_pi_en)? w_port_pi_89_1 : ep89pipe;
-wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en)?      w_wr_89_1 : ep89wr  ;
+wire [31:0] w_DAC0_DAT_INC_PI    = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_86_1 : ep86pipe;
+wire        w_DAC0_DAT_INC_PI_WR = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_86_1 : ep86wr  ;
+wire [31:0] w_DAC0_DUR_PI        = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_87_1 : ep87pipe;
+wire        w_DAC0_DUR_PI_WR     = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_87_1 : ep87wr  ;
+wire [31:0] w_DAC1_DAT_INC_PI    = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_88_1 : ep88pipe;
+wire        w_DAC1_DAT_INC_PI_WR = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_88_1 : ep88wr  ;
+wire [31:0] w_DAC1_DUR_PI        = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_89_1 : ep89pipe;
+wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?      w_wr_89_1 : ep89wr  ;
 
 
 //}
 
 //// EEPROM wires //{
 //$$ remove w_sel__H_LAN_for_EEPROM_fifo
-wire [31:0] w_MEM_WI      = (w_mcs_ep_wi_en)? w_port_wi_13_1 : ep13wire;                                        
-wire [31:0] w_MEM_FDAT_WI = (w_mcs_ep_wi_en)? w_port_wi_12_1 : ep12wire;                                        
-wire [31:0] w_MEM_TI      = w_port_ti_53_1 | ep53trig; 
+wire [31:0] w_MEM_WI      = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_13_1 : ep13wire;                                        
+wire [31:0] w_MEM_FDAT_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_12_1 : ep12wire;                                        
+wire [31:0] w_MEM_TI      =                                           w_port_ti_53_1 | ep53trig; 
 wire [31:0] w_MEM_TO; 
-assign ep73trig       = (~w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
-assign w_port_to_73_1 = ( w_mcs_ep_to_en)? w_MEM_TO : 32'b0; 
-wire [31:0] w_MEM_PI = (w_mcs_ep_pi_en)? w_port_pi_93_1 : ep93pipe;
-wire w_MEM_PI_wr = w_wr_93_1 | ep93wr;                  
+assign ep73trig           = (~w_mcs_ep_to_en |  w_SSPI_TEST_mode_en)? w_MEM_TO : 32'b0; 
+assign w_port_to_73_1     = ( w_mcs_ep_to_en & ~w_SSPI_TEST_mode_en)? w_MEM_TO : 32'b0; 
+wire [31:0] w_MEM_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_93_1 : ep93pipe;
 wire [31:0] w_MEM_PO; 
-assign epB3pipe       = (~w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
-assign w_port_po_B3_1 = ( w_mcs_ep_po_en)? w_MEM_PO : 32'b0; 
-wire w_MEM_PO_rd = w_rd_B3_1 | epB3rd; 
+assign         epB3pipe   = w_MEM_PO; 
+assign w_port_po_B3_1     = w_MEM_PO;
+wire        w_MEM_PI_wr   =                                                w_wr_93_1 | ep93wr;
+wire        w_MEM_PO_rd   =                                                w_rd_B3_1 | epB3rd;
 
 //}
+
+//// TEST-FIFO wires //{
+// PI 0x8A, PO 0xAA
+// review mode :
+//  w_mcs_ep_pi_en  w_SSPI_TEST_mode_en   EP switch
+//               0                    0   SSPI
+//               0                    1   NA
+//               1                    0   LAN
+//               1                    1   SSPI
+
+wire [31:0] w_TEST_PI    = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_8A_1 : ep8Apipe;
+wire        w_TEST_PI_wr =                                               w_wr_8A_1 | ep8Awr;                  
+wire [31:0] w_TEST_PO; 
+assign         epAApipe  = w_TEST_PO;
+assign w_port_po_AA_1    = w_TEST_PO;
+wire        w_TEST_PO_rd =                                               w_rd_AA_1 | epAArd; 
+wire        c_TEST_FIFO  = (w_mcs_ep_po_en & ~w_SSPI_TEST_mode_en)?        mcs_clk : base_sspi_clk;
+
+//}
+
 
 
 //}
@@ -2714,12 +2705,12 @@ test_counter_wrapper  test_counter_wrapper_inst (
 // wires and end-points //{
 
 wire [31:0] w_XADC_TEMP_WO; 
-assign ep3Awire       = w_XADC_TEMP_WO; //$$
-assign w_port_wo_3A_1 = (w_mcs_ep_wo_en)? w_XADC_TEMP_WO : 32'hACAC_ACAC;
+assign         ep3Awire = w_XADC_TEMP_WO;
+assign w_port_wo_3A_1   = w_XADC_TEMP_WO;
 //
 wire [31:0] w_XADC_VOLT_WO; 
-assign ep3Bwire       = w_XADC_VOLT_WO; //$$
-assign w_port_wo_3B_1 = (w_mcs_ep_wo_en)? w_XADC_VOLT_WO : 32'hACAC_ACAC;
+assign         ep3Bwire = w_XADC_VOLT_WO;
+assign w_port_wo_3B_1   = w_XADC_VOLT_WO;
 
 // XADC_DRP
 wire [31:0] MEASURED_TEMP_MC;
@@ -3029,19 +3020,19 @@ wire c_fifo_wr;
 // wire w_DAC1_DAT_PI_CK = c_fifo_wr; // remove
 
 wire w_DAC0_DAT_INC_PI_CK = c_fifo_wr;
-wire w_DAC0_DUR_PI_CK = c_fifo_wr;
+wire w_DAC0_DUR_PI_CK     = c_fifo_wr;
 wire w_DAC1_DAT_INC_PI_CK = c_fifo_wr;
-wire w_DAC1_DUR_PI_CK = c_fifo_wr;
+wire w_DAC1_DUR_PI_CK     = c_fifo_wr;
 
 //$$  BUFGMUX bufgmux_c_fifo_read_inst (
 //$$  	.O(c_fifo_wr), 
-//$$  	.I0(okClk), 
+//$$  	.I0(epClk), 
 //$$  	.I1(mcs_clk), //$$ mcs_clk vs clk3_out1_72M
 //$$  	.S(w_mcs_ep_pi_en) 
 //$$  ); 
 
-assign c_fifo_wr = (w_mcs_ep_pi_en == 0)? okClk : mcs_clk ; //$$ remove BUFGMUX
-
+//assign c_fifo_wr = (w_mcs_ep_pi_en == 0)? epClk : mcs_clk ; //$$ remove BUFGMUX
+assign c_fifo_wr = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? mcs_clk : epClk; //$$ remove BUFGMUX
 
 // for DACZ
 wire         w_dac0_fifo_datinc_wr_ck  = w_DAC0_DAT_INC_PI_CK; //    
@@ -3199,7 +3190,7 @@ wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 //  BUFGMUX bufgmux_c_eeprom_fifo_clk_inst (
 //  	.O(c_eeprom_fifo_clk), 
 //  	//.I0(base_sspi_clk), // base_sspi_clk for slave_spi_mth_brd // 104MHz
-//  	.I0(okClk        ), // USB  // 100.8MHz
+//  	.I0(epClk        ), // USB  // 100.8MHz
 //  	//.I1(w_ck_pipe    ), // LAN from lan_endpoint_wrapper_inst      // 72MHz
 //  	.I1(mcs_eeprom_fifo_clk), 
 //  	.S(w_sel__H_LAN_for_EEPROM_fifo) 
@@ -3216,8 +3207,9 @@ wire c_eeprom_fifo_clk; // clock mux between lan and usb/slave-spi end-points
 //assign c_eeprom_fifo_clk = (w_sel__H_LAN_for_EEPROM_fifo == 0)? okClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
 
 //$$ note in S3100-PGU
-assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? base_sspi_clk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
-
+//assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? base_sspi_clk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+//assign c_eeprom_fifo_clk = (~w_mcs_ep_pi_en)? epClk : mcs_eeprom_fifo_clk ; //$$ remove BUFGMUX
+assign c_eeprom_fifo_clk = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? mcs_eeprom_fifo_clk : epClk; //$$ remove BUFGMUX
 
 //}
 
@@ -3351,6 +3343,39 @@ assign MEM_SIO_tri = ~w_SCIO_OE ; // dedicated port
 
 
 //}
+
+
+/* TODO: TEST FIFO */ //{
+
+// test fifo data 
+//
+// fifo_generator_4 : test
+// 32 bits
+// 4096 depth = 2^12
+// 2^12 * 4 byte = 16KB
+
+//$$ read mode : standard vs first_word_fall_through // back to standard
+//$$ speed : 72 --> 104 MHz
+		
+//$$ clock switch : mcs_clk vs base_sspi_clk ... c_TEST_FIFO
+
+fifo_generator_4 TEST_fifo_inst (
+  //.rst       (~reset_n | ~w_LAN_RSTn | w_FIFO_reset), // input wire rst
+  .rst       (~reset_n), // input wire rst
+  .wr_clk    (c_TEST_FIFO   ), // input wire wr_clk
+  .wr_en     (w_TEST_PI_wr  ), // input wire wr_en
+  .din       (w_TEST_PI     ), // input wire [31 : 0] din
+  .rd_clk    (c_TEST_FIFO   ), // input wire rd_clk
+  .rd_en     (w_TEST_PO_rd  ), // input wire rd_en
+  .dout      (w_TEST_PO     ), // output wire [31 : 0] dout
+  .full      (),  // output wire full
+  .wr_ack    (),  // output wire wr_ack
+  .empty     (),  // output wire empty
+  .valid     ()   // output wire valid
+);
+
+//}
+
 
 
 /* TODO: TEMP SENSOR */
@@ -3509,6 +3534,8 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 (* keep = "true" *) wire w_SSPI_MISO    ; // o
 (* keep = "true" *) wire w_SSPI_MISO_EN ; // o
 
+wire [15:0] w_SSPI_cnt_sspi_cs; // o
+
 //$$ pad assignment for S3100-PGU
 //wire  M2_SPI_CS_BUF      ; // i // 0 for SPI frame active
 //wire  M2_SPI_MOSI        ; // i // data in from master
@@ -3587,10 +3614,13 @@ wire w_M2_wr__sadrs_h218; assign ep86wr = w_M2_wr__sadrs_h218;  wire [31:0] w_M2
 wire w_M2_wr__sadrs_h21C; assign ep87wr = w_M2_wr__sadrs_h21C;  wire [31:0] w_M2_port_pi_sadrs_h21C; assign ep87pipe = w_M2_port_pi_sadrs_h21C; // DAC0_DUR_PI // pipe_in_87
 wire w_M2_wr__sadrs_h220; assign ep88wr = w_M2_wr__sadrs_h220;  wire [31:0] w_M2_port_pi_sadrs_h220; assign ep88pipe = w_M2_port_pi_sadrs_h220; // DAC1_DAT_PI // pipe_in_88
 wire w_M2_wr__sadrs_h224; assign ep89wr = w_M2_wr__sadrs_h224;  wire [31:0] w_M2_port_pi_sadrs_h224; assign ep89pipe = w_M2_port_pi_sadrs_h224; // DAC1_DUR_PI // pipe_in_89
+wire w_M2_wr__sadrs_h228; assign ep8Awr = w_M2_wr__sadrs_h228;  wire [31:0] w_M2_port_pi_sadrs_h228; assign ep8Apipe = w_M2_port_pi_sadrs_h228; // TEST_PI       | 0x228      | pipe_in_8A
 wire w_M2_wr__sadrs_h24C; assign ep93wr = w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_pi_sadrs_h24C; assign ep93pipe = w_M2_port_pi_sadrs_h24C; // MEM_PI      // pipe_in_93
 
 // po
+wire w_M2_rd__sadrs_h2A8; assign epAArd = w_M2_rd__sadrs_h2A8;  wire [31:0] w_M2_port_po_sadrs_h2A8 = epAApipe; // TEST_PO       | 0x2A8      | pipeout_AA 
 wire w_M2_rd__sadrs_h2CC; assign epB3rd = w_M2_rd__sadrs_h2CC;  wire [31:0] w_M2_port_po_sadrs_h2CC = epB3pipe; // MEM_PO // pipeout_B3 
+
 
 //}
 
@@ -3615,6 +3645,8 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.o_SPI_MISO      (w_SSPI_MISO   ),
 	.o_SPI_MISO_EN   (w_SSPI_MISO_EN), // MISO buffer control
 	
+	//// monitor
+	.o_cnt_sspi_cs   (w_SSPI_cnt_sspi_cs), // [15:0] 
 	
 	//// endpoint port interface //{
 	
@@ -3658,9 +3690,11 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.o_wr__sadrs_h21C  (w_M2_wr__sadrs_h21C),    .o_port_pi_sadrs_h21C  (w_M2_port_pi_sadrs_h21C), // [31:0]  
 	.o_wr__sadrs_h220  (w_M2_wr__sadrs_h220),    .o_port_pi_sadrs_h220  (w_M2_port_pi_sadrs_h220), // [31:0]  
 	.o_wr__sadrs_h224  (w_M2_wr__sadrs_h224),    .o_port_pi_sadrs_h224  (w_M2_port_pi_sadrs_h224), // [31:0]  
+	.o_wr__sadrs_h228  (w_M2_wr__sadrs_h228),    .o_port_pi_sadrs_h228  (w_M2_port_pi_sadrs_h228), // [31:0]  
 	.o_wr__sadrs_h24C  (w_M2_wr__sadrs_h24C),    .o_port_pi_sadrs_h24C  (w_M2_port_pi_sadrs_h24C), // [31:0]  
 	 
 	// po
+	.o_rd__sadrs_h2A8  (w_M2_rd__sadrs_h2A8),    .i_port_po_sadrs_h2A8  (w_M2_port_po_sadrs_h2A8), // [31:0]  
 	.o_rd__sadrs_h2CC  (w_M2_rd__sadrs_h2CC),    .i_port_po_sadrs_h2CC  (w_M2_port_po_sadrs_h2CC), // [31:0]  
 	
 	//}
@@ -3692,7 +3726,7 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 // flag assignment 
 assign w_SSPI_FLAG_WO[31:24] = w_board_status[7:0];
 assign w_SSPI_FLAG_WO[23:16] = w_slot_id_8b[7:0];
-assign w_SSPI_FLAG_WO[15: 0] = 16'b0;
+assign w_SSPI_FLAG_WO[15: 0] = w_SSPI_cnt_sspi_cs; // w_SSPI_cnt_sspi_cs
 //assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
 //assign w_SSPI_FLAG_WO[1]     = 1'b0;  //$$ res_net_ctrl_ext_en; // enables res net control from SSPI
 //assign w_SSPI_FLAG_WO[2]     = 1'b0; 

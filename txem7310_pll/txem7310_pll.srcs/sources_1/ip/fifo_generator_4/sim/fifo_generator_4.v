@@ -68,10 +68,10 @@ module fifo_generator_4 (
 );
 
 input wire rst;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME write_clk, FREQ_HZ 125000000, PHASE 0.000" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME write_clk, FREQ_HZ 104000000, PHASE 0.000" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 write_clk CLK" *)
 input wire wr_clk;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME read_clk, FREQ_HZ 72000000, PHASE 0.000" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME read_clk, FREQ_HZ 104000000, PHASE 0.000" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 read_clk CLK" *)
 input wire rd_clk;
 (* X_INTERFACE_INFO = "xilinx.com:interface:fifo_write:1.0 FIFO_WRITE WR_DATA" *)
@@ -134,7 +134,7 @@ output wire valid;
     .C_PROG_FULL_TYPE(0),
     .C_RD_DATA_COUNT_WIDTH(12),
     .C_RD_DEPTH(4096),
-    .C_RD_FREQ(72),
+    .C_RD_FREQ(104),
     .C_RD_PNTR_WIDTH(12),
     .C_UNDERFLOW_LOW(0),
     .C_USE_DOUT_RST(0),
@@ -148,7 +148,7 @@ output wire valid;
     .C_WR_ACK_LOW(0),
     .C_WR_DATA_COUNT_WIDTH(12),
     .C_WR_DEPTH(4096),
-    .C_WR_FREQ(72),
+    .C_WR_FREQ(104),
     .C_WR_PNTR_WIDTH(12),
     .C_WR_RESPONSE_LATENCY(1),
     .C_MSGON_VAL(1),

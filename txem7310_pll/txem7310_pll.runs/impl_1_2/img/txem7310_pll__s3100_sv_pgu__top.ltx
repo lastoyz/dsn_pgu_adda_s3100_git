@@ -100,25 +100,19 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="0"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="16"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="10"/>
       </probeOptions>
       <nets>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[15]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[14]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[13]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[12]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[11]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[10]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[9]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[8]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[7]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[6]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[5]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[4]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[3]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[2]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[1]"/>
-        <net name="master_spi_mth_brd__inst/o_frame_data_E[0]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[9]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[8]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[7]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[6]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[5]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[4]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[3]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[2]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[1]"/>
+        <net name="master_spi_mth_brd__inst/i_frame_data_A[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
@@ -210,22 +204,28 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="4"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="10"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="16"/>
       </probeOptions>
       <nets>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[9]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[8]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[7]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[6]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[5]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[4]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[3]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[2]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[1]"/>
-        <net name="master_spi_mth_brd__inst/i_frame_data_A[0]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[15]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[14]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[13]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[12]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[11]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[10]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[9]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[8]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[7]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[6]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[5]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[4]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[3]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[2]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[1]"/>
+        <net name="master_spi_mth_brd__inst/o_frame_data_E[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
@@ -234,13 +234,44 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="5"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="32"/>
       </probeOptions>
       <nets>
-        <net name="slave_spi_mth_brd__M2_inst/i_SPI_CLK"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[31]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[30]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[29]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[28]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[27]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[26]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[25]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[24]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[23]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[22]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[21]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[20]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[19]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[18]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[17]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[16]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[15]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[14]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[13]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[12]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[11]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[10]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[9]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[8]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[7]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[6]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[5]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[4]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[3]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[2]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[1]"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
@@ -249,13 +280,28 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="6"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="16"/>
       </probeOptions>
       <nets>
-        <net name="slave_spi_mth_brd__M2_inst/i_SPI_CS_B"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[15]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[14]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[13]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[12]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[11]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[10]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[9]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[8]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[7]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[6]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[5]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[4]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[3]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[2]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[1]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
@@ -264,13 +310,44 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="7"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="32"/>
       </probeOptions>
       <nets>
-        <net name="slave_spi_mth_brd__M2_inst/i_SPI_MOSI"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[31]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[30]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[29]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[28]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[27]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[26]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[25]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[24]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[23]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[22]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[21]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[20]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[19]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[18]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[17]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[16]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[15]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[14]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[13]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[12]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[11]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[10]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[9]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[8]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[7]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[6]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[5]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[4]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[3]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[2]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[1]"/>
+        <net name="slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
@@ -279,13 +356,22 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="8"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="10"/>
       </probeOptions>
       <nets>
-        <net name="master_spi_mth_brd__inst/i_trig_frame"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[9]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[8]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[7]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[6]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[5]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[4]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[3]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[2]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[1]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_adrs[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
@@ -294,13 +380,18 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="9"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="6"/>
       </probeOptions>
       <nets>
-        <net name="master_spi_mth_brd__inst/i_trig_init"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_ctrl[5]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_ctrl[4]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_ctrl[3]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_ctrl[2]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_ctrl[1]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_ctrl[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
@@ -309,13 +400,28 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="10"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="16"/>
       </probeOptions>
       <nets>
-        <net name="master_spi_mth_brd__inst/o_done_frame"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[15]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[14]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[13]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[12]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[11]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[10]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[9]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[8]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[7]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[6]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[5]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[4]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[3]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[2]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[1]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_miso[0]"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
@@ -324,10 +430,25 @@
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="11"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="16"/>
       </probeOptions>
       <nets>
-        <net name="master_spi_mth_brd__inst/o_done_init"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[15]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[14]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[13]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[12]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[11]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[10]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[9]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[8]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[7]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[6]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[5]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[4]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[3]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[2]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[1]"/>
+        <net name="slave_spi_mth_brd__M2_inst/r_frame_mosi[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
@@ -342,7 +463,7 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="slave_spi_mth_brd__M2_inst/o_SPI_MISO"/>
+        <net name="slave_spi_mth_brd__M2_inst/i_SPI_CLK"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
@@ -353,6 +474,111 @@
         <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
         <Option Id="HW_ILA" value="u_ila_2"/>
         <Option Id="PROBE_PORT" value="13"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="slave_spi_mth_brd__M2_inst/i_SPI_CS_B"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="CORE_UUID" value="B13C981AC2D554BFB4FBE0EECEA5CFD7"/>
+        <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
+        <Option Id="HW_ILA" value="u_ila_2"/>
+        <Option Id="PROBE_PORT" value="14"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="slave_spi_mth_brd__M2_inst/i_SPI_MOSI"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="CORE_UUID" value="B13C981AC2D554BFB4FBE0EECEA5CFD7"/>
+        <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
+        <Option Id="HW_ILA" value="u_ila_2"/>
+        <Option Id="PROBE_PORT" value="15"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="master_spi_mth_brd__inst/i_trig_frame"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="CORE_UUID" value="B13C981AC2D554BFB4FBE0EECEA5CFD7"/>
+        <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
+        <Option Id="HW_ILA" value="u_ila_2"/>
+        <Option Id="PROBE_PORT" value="16"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="master_spi_mth_brd__inst/i_trig_init"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="CORE_UUID" value="B13C981AC2D554BFB4FBE0EECEA5CFD7"/>
+        <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
+        <Option Id="HW_ILA" value="u_ila_2"/>
+        <Option Id="PROBE_PORT" value="17"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="master_spi_mth_brd__inst/o_done_frame"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="CORE_UUID" value="B13C981AC2D554BFB4FBE0EECEA5CFD7"/>
+        <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
+        <Option Id="HW_ILA" value="u_ila_2"/>
+        <Option Id="PROBE_PORT" value="18"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="master_spi_mth_brd__inst/o_done_init"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="CORE_UUID" value="B13C981AC2D554BFB4FBE0EECEA5CFD7"/>
+        <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
+        <Option Id="HW_ILA" value="u_ila_2"/>
+        <Option Id="PROBE_PORT" value="19"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="slave_spi_mth_brd__M2_inst/o_SPI_MISO"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="BSCAN_SWITCH_INDEX" value="0"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="CORE_UUID" value="B13C981AC2D554BFB4FBE0EECEA5CFD7"/>
+        <Option Id="HUB_CLK_INPUT_FREQ_HZ" value="9999999"/>
+        <Option Id="HW_ILA" value="u_ila_2"/>
+        <Option Id="PROBE_PORT" value="20"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
