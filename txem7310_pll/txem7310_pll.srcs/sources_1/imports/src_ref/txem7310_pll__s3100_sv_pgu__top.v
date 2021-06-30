@@ -3534,6 +3534,8 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 (* keep = "true" *) wire w_SSPI_MISO    ; // o
 (* keep = "true" *) wire w_SSPI_MISO_EN ; // o
 
+wire [15:0] w_SSPI_cnt_sspi_cs; // o
+
 //$$ pad assignment for S3100-PGU
 //wire  M2_SPI_CS_BUF      ; // i // 0 for SPI frame active
 //wire  M2_SPI_MOSI        ; // i // data in from master
@@ -3643,6 +3645,8 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.o_SPI_MISO      (w_SSPI_MISO   ),
 	.o_SPI_MISO_EN   (w_SSPI_MISO_EN), // MISO buffer control
 	
+	//// monitor
+	.o_cnt_sspi_cs   (w_SSPI_cnt_sspi_cs), // [15:0] 
 	
 	//// endpoint port interface //{
 	
@@ -3722,7 +3726,7 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 // flag assignment 
 assign w_SSPI_FLAG_WO[31:24] = w_board_status[7:0];
 assign w_SSPI_FLAG_WO[23:16] = w_slot_id_8b[7:0];
-assign w_SSPI_FLAG_WO[15: 0] = 16'b0;
+assign w_SSPI_FLAG_WO[15: 0] = w_SSPI_cnt_sspi_cs; // w_SSPI_cnt_sspi_cs
 //assign w_SSPI_FLAG_WO[0]     = w_SSPI_CON_WI[0]; // enables SSPI control from MCS or USB 
 //assign w_SSPI_FLAG_WO[1]     = 1'b0;  //$$ res_net_ctrl_ext_en; // enables res net control from SSPI
 //assign w_SSPI_FLAG_WO[2]     = 1'b0; 

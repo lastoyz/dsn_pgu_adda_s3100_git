@@ -97,7 +97,7 @@
 
 //// module: slave_spi_mth_brd //{
 module slave_spi_mth_brd (  
-	input  wire clk, // base clock 72MHz
+	input  wire clk, // base clock 104MHz
 	input  wire reset_n,
 	
 	//// slave SPI pins //{
@@ -261,7 +261,7 @@ always @(posedge clk, negedge reset_n)
 //}
 
 //// monitor counters //{
-(* keep = "true" *) reg [15:0] r_cnt_sspi_cs; // count nega edge of i_SPI_CS_B on clk
+reg [15:0] r_cnt_sspi_cs; // count nega edge of i_SPI_CS_B on clk
 reg [1:0] r_smp_sspi_cs;
 //wire w_rise_sspi_cs = (~r_smp_sspi_cs[1]) & ( r_smp_sspi_cs[0]) ;
 wire w_fall_sspi_cs = ( r_smp_sspi_cs[1]) & (~r_smp_sspi_cs[0]) ;
@@ -375,12 +375,12 @@ reg [31:0] r_port_to_sadrs_h19C_mon; reg [31:0] r_port_to_sadrs_h19C_mon_smp;
 reg [31:0] r_port_to_sadrs_h1CC_ck;
 reg [31:0] r_port_to_sadrs_h1CC_mon; reg [31:0] r_port_to_sadrs_h1CC_mon_smp;
 //
-(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h218;
-(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h21C;
-(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h220;
-(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h224;
-(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h228;
-(* keep = "true" *) reg [31:0] r_port_pi_sadrs_h24C;
+reg [31:0] r_port_pi_sadrs_h218;
+reg [31:0] r_port_pi_sadrs_h21C;
+reg [31:0] r_port_pi_sadrs_h220;
+reg [31:0] r_port_pi_sadrs_h224;
+reg [31:0] r_port_pi_sadrs_h228;
+reg [31:0] r_port_pi_sadrs_h24C;
 
 
 
@@ -444,21 +444,21 @@ always @(posedge clk, negedge reset_n)
 	end	
 
 // frame shift samling // frame index count
-reg [31:0] r_frame_MOSI;
+reg [31:0] r_frame_MOSI_32b;
 (* keep = "true" *) reg [5:0] r_frame_index;
 //
 always @(posedge clk, negedge reset_n)
 	if (!reset_n) begin
-		r_frame_MOSI  <= 32'b0;
+		r_frame_MOSI_32b  <= 32'b0;
 		r_frame_index <=  6'b0;
 	end
 	else begin
 		if (r_frame_busy) begin 
-			r_frame_MOSI  <= (w_rise__sclk)? {r_frame_MOSI[30:0], w_SPI_MOSI} :  r_frame_MOSI;
+			r_frame_MOSI_32b  <= (w_rise__sclk)? {r_frame_MOSI_32b[30:0], w_SPI_MOSI} :  r_frame_MOSI_32b;
 			r_frame_index <= (w_rise__sclk)? r_frame_index + 1 : r_frame_index;
 			end
 		else begin
-			r_frame_MOSI  <= r_frame_MOSI ; // stay
+			r_frame_MOSI_32b  <= r_frame_MOSI_32b ; // stay
 			r_frame_index <= 6'b0;
 			end
 	end	
@@ -474,7 +474,7 @@ always @(posedge clk, negedge reset_n)
 	else begin
 		if (r_frame_busy) begin 
 			r_frame_ctrl  <= (w_fall__sclk & (r_frame_index==6'd6) )? 
-			                 r_frame_MOSI[5:0] : r_frame_ctrl;
+			                 r_frame_MOSI_32b[5:0] : r_frame_ctrl;
 			end
 		else begin
 			r_frame_ctrl  <= r_frame_ctrl ; // stay
@@ -495,13 +495,13 @@ always @(posedge clk, negedge reset_n)
 		if (r_frame_busy) begin 
 			if (~i_MISO_one_bit_ahead_en) begin
 				r_frame_adrs        <= (w_phase__adrs_trig & (r_frame_index==6'd16) )? 
-										r_frame_MOSI[9:0] : r_frame_adrs;
+										r_frame_MOSI_32b[9:0] : r_frame_adrs;
 				r_frame_adrs_valid  <= (w_phase__adrs_trig & (r_frame_index==6'd16) )? 
 										1'b1 : r_frame_adrs_valid;
 				end
 			else begin
 				r_frame_adrs        <= (w_phase__adrs_trig & (r_frame_index==6'd15) )? 
-										{r_frame_MOSI[8:0], 1'b0}  : r_frame_adrs;
+										{r_frame_MOSI_32b[8:0], 1'b0}  : r_frame_adrs;
 				r_frame_adrs_valid  <= (w_phase__adrs_trig & (r_frame_index==6'd15) )? 
 										1'b1 : r_frame_adrs_valid;
 				end
@@ -526,7 +526,7 @@ always @(posedge clk, negedge reset_n)
 	else begin
 		if (r_frame_busy & ~w_frame_ctrl_read) begin 
 			r_frame_mosi        <= (w_fall__sclk & (r_frame_index==6'd32) )? 
-			                        r_frame_MOSI[15:0] : r_frame_mosi;
+			                        r_frame_MOSI_32b[15:0] : r_frame_mosi;
 			r_frame_mosi_valid  <= (w_fall__sclk & (r_frame_index==6'd32) )? 
 			                        1'b1 : r_frame_mosi_valid;
 			r_frame_mosi_trig   <= (w_fall__sclk & (r_frame_index==6'd32) )? 
