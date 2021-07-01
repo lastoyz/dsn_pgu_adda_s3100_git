@@ -55,7 +55,6 @@ import socket
 ## socket control parameters 
 
 HOST = '192.168.168.143'  # The server's hostname or IP address
-#HOST143 = '192.168.168.143'  # The server's hostname or IP address 
 PORT = 5025               # The port used by the server
 #
 #TIMEOUT = 5.3 # socket timeout
@@ -665,12 +664,16 @@ def eps_test():
 	## class test
 	print(dev._test())	
 	
-	## test ip 
+	## TODO: test ip 
 	#_host_,_port_ = set_host_ip_by_ping()
-	#
+	
 	#_host_ = '192.168.100.127' # PGU test
-	_host_ = '192.168.168.143' # test
+	#_host_ = '192.168.168.143' # test
+	_host_ = '192.168.100.77'  # S3100-CPU-BASE BD1
+
+	#
 	_port_ = 5025
+
 	#
 	print(_host_)
 	print(_port_)
