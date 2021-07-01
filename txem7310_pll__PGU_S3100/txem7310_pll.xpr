@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="35" Path="/media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.xpr">
+<Project Version="7" Minor="35" Path="/media/sf_temp/dsn_s3100_ms_cpu_base_git/txem7310_pll__PGU_S3100/txem7310_pll.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="94a730d0f952468ab26bd93c5072f72f"/>
@@ -32,20 +32,20 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="888"/>
+    <Option Name="WTXSimLaunchSim" Val="889"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="246"/>
-    <Option Name="WTModelSimExportSim" Val="246"/>
-    <Option Name="WTQuestaExportSim" Val="246"/>
-    <Option Name="WTIesExportSim" Val="246"/>
-    <Option Name="WTVcsExportSim" Val="246"/>
-    <Option Name="WTRivieraExportSim" Val="246"/>
-    <Option Name="WTActivehdlExportSim" Val="246"/>
+    <Option Name="WTXSimExportSim" Val="256"/>
+    <Option Name="WTModelSimExportSim" Val="256"/>
+    <Option Name="WTQuestaExportSim" Val="256"/>
+    <Option Name="WTIesExportSim" Val="256"/>
+    <Option Name="WTVcsExportSim" Val="256"/>
+    <Option Name="WTRivieraExportSim" Val="256"/>
+    <Option Name="WTActivehdlExportSim" Val="256"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -298,6 +298,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/new/led_test.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="txem7310_pll__s3100_ms__top"/>
@@ -359,7 +366,6 @@
       </File>
       <File Path="$PSRCDIR/constrs_1/imports/src_ref/txem7310_pll__s3100_ms__top.xdc">
         <FileInfo>
-          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
@@ -373,6 +379,7 @@
       </File>
       <File Path="$PSRCDIR/constrs_1/imports/src_ref/txem7310_pll__s3100_ms__top__txem7310_test.xdc">
         <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
@@ -600,14 +607,14 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="MaxClockBufferCount">32</Option>
           <Option Id="FsmExtraction">0</Option>
+          <Option Id="ReTiming">1</Option>
+          <Option Id="ShregMinSize">5</Option>
+          <Option Id="NoSrlExtract">1</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
+          <Option Id="MaxClockBufferCount">32</Option>
           <Option Id="NoCombineLuts">1</Option>
           <Option Id="RepFanoutThreshold">200</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
-          <Option Id="NoSrlExtract">1</Option>
-          <Option Id="ShregMinSize">5</Option>
-          <Option Id="ReTiming">1</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -618,11 +625,11 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
+          <Option Id="FsmExtraction">1</Option>
           <Option Id="RepFanoutThreshold">400</Option>
           <Option Id="NoCombineLuts">1</Option>
-          <Option Id="ResourceSharing">2</Option>
-          <Option Id="FsmExtraction">1</Option>
           <Option Id="ShregMinSize">5</Option>
+          <Option Id="ResourceSharing">2</Option>
           <Option Id="KeepEquivalentRegisters">1</Option>
         </Step>
       </Strategy>
@@ -759,6 +766,20 @@
     <MsgAttr Name="RuleSource" Val="2"/>
     <MsgAttr Name="StringIsRegExp" Val="0"/>
     <MsgAttr Name="RuleId" Val="14"/>
+    <MsgAttr Name="Note" Val=""/>
+    <MsgAttr Name="Author" Val=""/>
+    <MsgAttr Name="CreatedTimestamp" Val=""/>
+  </MsgRule>
+  <MsgRule>
+    <MsgAttr Name="RuleType" Val="0"/>
+    <MsgAttr Name="Limit" Val="-1"/>
+    <MsgAttr Name="NewSeverity" Val="ANY"/>
+    <MsgAttr Name="Id" Val="[BD 41-1271]"/>
+    <MsgAttr Name="Severity" Val="ANY"/>
+    <MsgAttr Name="ShowRule" Val="1"/>
+    <MsgAttr Name="RuleSource" Val="2"/>
+    <MsgAttr Name="StringIsRegExp" Val="0"/>
+    <MsgAttr Name="RuleId" Val="15"/>
     <MsgAttr Name="Note" Val=""/>
     <MsgAttr Name="Author" Val=""/>
     <MsgAttr Name="CreatedTimestamp" Val=""/>

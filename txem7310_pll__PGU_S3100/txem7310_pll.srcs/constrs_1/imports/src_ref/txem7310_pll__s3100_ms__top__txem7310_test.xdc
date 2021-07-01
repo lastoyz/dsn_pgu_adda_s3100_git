@@ -137,14 +137,14 @@ set_property PACKAGE_PIN  AB21 [get_ports o_B14_L10P] ; # IO_L10P_T1_D14_14     
 ## // test swap # set_property PACKAGE_PIN  Y19  [get_ports io_B14_L13N_MRCC] ; # IO_L13N_T2_MRCC_14            2                  14    HR        
 ## // test swap # set_property PACKAGE_PIN  V18  [get_ports io_B14_L14P_SRCC] ; # IO_L14P_T2_SRCC_14            2                  14    HR        
 ## // test swap # set_property PACKAGE_PIN  V19  [get_ports io_B14_L14N_SRCC] ; # IO_L14N_T2_SRCC_14            2                  14    HR        
-set_property PACKAGE_PIN  A13  [get_ports io_B14_L11P_SRCC] ; # IO_L11P_T1_SRCC_14            1                  14    HR        
-set_property PACKAGE_PIN  B13  [get_ports io_B14_L11N_SRCC] ; # IO_L11N_T1_SRCC_14            1                  14    HR        
-set_property PACKAGE_PIN  A14  [get_ports io_B14_L12P_MRCC] ; # IO_L12P_T1_MRCC_14            1                  14    HR        
-set_property PACKAGE_PIN  A15  [get_ports io_B14_L12N_MRCC] ; # IO_L12N_T1_MRCC_14            1                  14    HR        
-set_property PACKAGE_PIN  B15  [get_ports io_B14_L13P_MRCC] ; # IO_L13P_T2_MRCC_14            2                  14    HR        
-set_property PACKAGE_PIN  A16  [get_ports io_B14_L13N_MRCC] ; # IO_L13N_T2_MRCC_14            2                  14    HR        
-set_property PACKAGE_PIN  B16  [get_ports io_B14_L14P_SRCC] ; # IO_L14P_T2_SRCC_14            2                  14    HR        
-set_property PACKAGE_PIN  B17  [get_ports io_B14_L14N_SRCC] ; # IO_L14N_T2_SRCC_14            2                  14    HR        
+set_property PACKAGE_PIN  U20  [get_ports io_B14_L11P_SRCC] ; # IO_L11P_T1_SRCC_14            1                  14    HR        
+set_property PACKAGE_PIN  V20  [get_ports io_B14_L11N_SRCC] ; # IO_L11N_T1_SRCC_14            1                  14    HR        
+set_property PACKAGE_PIN  W19  [get_ports io_B14_L12P_MRCC] ; # IO_L12P_T1_MRCC_14            1                  14    HR        
+set_property PACKAGE_PIN  W20  [get_ports io_B14_L12N_MRCC] ; # IO_L12N_T1_MRCC_14            1                  14    HR        
+set_property PACKAGE_PIN  Y18  [get_ports io_B14_L13P_MRCC] ; # IO_L13P_T2_MRCC_14            2                  14    HR        
+set_property PACKAGE_PIN  Y19  [get_ports io_B14_L13N_MRCC] ; # IO_L13N_T2_MRCC_14            2                  14    HR        
+set_property PACKAGE_PIN  V18  [get_ports io_B14_L14P_SRCC] ; # IO_L14P_T2_SRCC_14            2                  14    HR        
+set_property PACKAGE_PIN  V19  [get_ports io_B14_L14N_SRCC] ; # IO_L14N_T2_SRCC_14            2                  14    HR        
 #
 ## set_property PACKAGE_PIN  AA19 [get_ports xx] ; # IO_L15P_T2_DQS_RDWR_B_14      2                  14    HR        
 ## set_property PACKAGE_PIN  AB20 [get_ports xx] ; # IO_L15N_T2_DQS_DOUT_CSO_B_14  2                  14    HR        
@@ -538,6 +538,7 @@ set_property IOSTANDARD LVCMOS33  [get_ports  *_B35_*]
 
 ## PULLUP ##
 set_property PULLUP true [get_ports io_B13_*]
+set_property PULLUP true [get_ports io_B14_*]
 set_property PULLUP true [get_ports io_B15_*]
 set_property PULLUP true [get_ports io_B16_*]
 

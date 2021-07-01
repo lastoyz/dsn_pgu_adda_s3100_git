@@ -492,6 +492,7 @@ set_property IOSTANDARD LVCMOS33  [get_ports  *_B35_*]
 
 ## PULLUP ##
 set_property PULLUP true [get_ports io_B13_*]
+set_property PULLUP true [get_ports io_B14_*]
 set_property PULLUP true [get_ports io_B15_*]
 set_property PULLUP true [get_ports io_B16_*]
 
