@@ -615,7 +615,8 @@ if __name__ == '__main__':
 	## TODO: test ip setup
 	#_host_,_port_ = eps.set_host_ip_by_ping()
 	
-	_host_ = '192.168.168.143' # dd
+	#_host_ = '192.168.168.143' # test
+	_host_ = '192.168.100.143' # test
 	
 	# 0xD -- 192.168.100.61 // S3100-PGU_BD01 
 	# 0xE -- 192.168.100.62 // S3100-PGU_BD02 
