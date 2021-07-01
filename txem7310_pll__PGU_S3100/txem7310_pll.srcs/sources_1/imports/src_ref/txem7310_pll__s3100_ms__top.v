@@ -4,10 +4,10 @@
 // # board          : S3100-CPU-BASE
 // # board sch      : s3100_cpu_base_v100_20210413.pdf
 
-// # note: artix-7 top design for S3100 PGU master side
+// # note: artix-7 top design for S3100 CPU-BASE  master spi side
 //
 // ############################################################################
-// ## bank usage
+// ## TODO: bank usage in xc7a200
 // ############################################################################
 // # B13 : CPU_SPI, CPU_QSPI, CPU_ETH, FAN_SENS // (prev. in MC1/MC2) // 3.3V
 // # B14 : CONF, LED, MTH_SPI control, CPU_GPIO                       // 1.8V
@@ -16,6 +16,146 @@
 // # B34 : MTH M0_SPI, MTH M1_SPI, HDR control         (prev. in MC1) // 3.3V
 // # B35 : MTH M2_SPI, CAL_SPI, EXT_TRIG               (prev. in MC2) // 3.3V
 // # B216: not used
+
+
+// ## TODO: EP locations : LAN-MCS interface, MTH slave interface
+//
+// * LAN-MCS interface : MTH spi master emulation for debugging without connecting mother board
+//                       - MSPI
+//                       - TEST
+//                       - MEM 
+//                       - MCS
+//
+// * MTH slave SPI interface : END-POINT for test or known pattern
+
+
+// ## S3100 MTH SPI frame format : 32 bits 
+//
+// * MOSI : 
+//   FRAME MODE       // [1:0]
+//   FRAME CONTROL    // [3:0]
+//   FRAME ADDRESS    // [9:0]
+//   FRAME WRITE DATA // [15:0]
+//
+// * MISO : 
+//   zeros            // [1:0]
+//   FRAME STATUS     // [3:0]
+//   BOARD STATUS     // [7:0]
+//   zeros            // [1:0]
+//   FRAME READ DATA  // [15:0]
+
+
+//// TODO: MTH slave SPI frame address map
+// ## S3100-CPU-BASE  // GNDU --> PGU --> CPU-BASE(test only)
+//                           
+// +=======+===============+============+=========================================+================================+
+// | Group | EP name       | frame adrs | type/index | Description                | contents (32-bit)              |
+// |       |               | (10-bit)   |            |                            |                                |
+// +=======+===============+============+============+============================+================================+
+// | SSPI  | SSPI_TEST_WO  | 0x380      | wireout_E0 | Return known frame data.   | bit[31:16]=0x33AA              | 
+// |       |               |            |            |                            | bit[15: 0]=0xCC55              |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+
+
+//// TODO: LAN-MCS endpoint address map
+// ## S3100-CPU-BASE  // GNDU --> PGU --> CPU-BASE
+//
+// note: LAN access must have TEST, MCS, MEM and MSPI.
+// note: MEM device is connected via pin B34_L5N, net S_IO_0 in case of S3100-PGU and S3000-PGU.
+// note: MEM device is connected via pin IO_L11P_T1_SRCC_15, net SCIO_0 in case of S3100-CPU-BASE.
+//
+// +=======+===============+============+=========================================+================================+
+// | Group | EP name       | MCS adrs   | type/index | Description                | contents (32-bit)              |
+// |       |               | (32-bit)   |            |                            |                                |
+// +=======+===============+============+=========================================+================================+
+// | TEST  | F_IMAGE_ID_WO | TBD        | wireout_20 | Return FPGA image ID.      | Image_ID[31:0]                 | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_TEMP_WO  | TBD        | wireout_3A | Return XADC values.[mC]    | MON_TEMP[31:0]                 | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_VOLT_WO  | TBD        | wireout_3B | Return XADC values.[mV]    | MON_VOLT[31:0] normial 1.1V    |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TIMESTAMP_WO  | TBD        | wireout_22 | Return time stamp. (10MHz) | TIME_STAMP[31:0]               | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_MON_WO   | TBD        | wireout_23 | Return PLL status.         | bit[18]=MCS pll locked         | 
+// |       |               |            |            |                            | bit[24]=DAC common pll locked  |
+// |       |               |            |            |                            | bit[25]=DAC0 pll locked        |
+// |       |               |            |            |                            | bit[26]=DAC1 pll locked        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_CON_WI   | TBD        | wireout_01 | Control test logics.       | bit[0]=count1_reset            | 
+// |       |               |            |            |                            | bit[1]=count1_disable          |
+// |       |               |            |            |                            | bit[2]=count2_auto_increase    |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_OUT_WO   | TBD        | wireout_21 | Return test values.        | bit[15:8]=count2[7:0]          |
+// |       |               |            |            |                            | bit[ 7:0]=count1[7:0]          |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_TI       | TBD        | wireout_40 | Trigger test functions.    | bit[0]=trigger_count2_reset    |
+// |       |               |            |            |                            | bit[1]=trigger_count2_up       |
+// |       |               |            |            |                            | bit[2]=trigger_count2_down     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_TO       | TBD        | wireout_60 | Check if trigger is done.  | bit[ 0]=done_count1eq00        |
+// |       |               |            |            |                            | bit[ 1]=done_count1eq80        |
+// |       |               |            |            |                            | bit[16]=done_count2eqFF        |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_PI       | TBD__      | pipe_in_8A | Write data into test FIFO. | test_fifo_data[31:0]           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_PO       | TBD__      | pipeout_AA | Read data from test FIFO.  | test_fifo_data[31:0]           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | BRD_CON_WI    | TBD        | wire_in_03 | Control board from LAN.    | bit[ 0]=HW_reset               | 
+// |       |               |            |            |                            | bit[ 8]=mcs_ep_po_enable       |
+// |       |               |            |            |                            | bit[ 9]=mcs_ep_pi_enable       |
+// |       |               |            |            |                            | bit[10]=mcs_ep_to_enable       |
+// |       |               |            |            |                            | bit[11]=mcs_ep_ti_enable       |
+// |       |               |            |            |                            | bit[12]=mcs_ep_wo_enable       |
+// |       |               |            |            |                            | bit[13]=mcs_ep_wi_enable       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MCS   | MCS_SETUP_WI  | TBD        | wire_in_19 | Control board for MCS.     | bit[31:16]=board_id[15:0]      | 
+// |       |               |            |            |                            | bit[10]=lan_on_base_enable(NA) |
+// |       |               |            |            |                            | bit[ 9]=eeprom_on_tp_enable(NA)|
+// |       |               |            |            |                            | bit[ 8]=eeprom_lan_enable(NA)  |
+// |       |               |            |            |                            | bit[ 7: 0]=slot_id             |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
+// |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
+// |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_34 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+// |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
+// |       |               |            |            |                            | bit[1]=trigger_init            |
+// |       |               |            |            |                            | bit[2]=trigger_frame           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_TO       | TBD        | trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
+// |       |               |            |            |                            | bit[1]=done_init               |
+// |       |               |            |            |                            | bit[2]=done_frame              |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_WI        | TBD__      | wire_in_13 | Control EEPROM interface.  | bit[  15]=disable_SBP_packet   | 
+// |       |               |            |            |                            | bit[11:0]=num_bytes_DAT[11:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_FDAT_WI   | TBD__      | wire_in_12 | Control EEPROM frame data. | bit[31:24]=frame_data_ADH[7:0] |
+// |       |               |            |            |                            | bit[23:16]=frame_data_ADL[7:0] |
+// |       |               |            |            |                            | bit[15: 8]=frame_data_STA[7:0] |
+// |       |               |            |            |                            | bit[ 7: 0]=frame_data_CMD[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TI        | TBD__      | trig_in_53 | Trigger functions.         | bit[0]=trigger_reset           |
+// |       |               |            |            |                            | bit[1]=trigger_fifo_reset      |
+// |       |               |            |            |                            | bit[2]=trigger_frame           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TO        | TBD__      | trigout_73 | Check status.              | bit[0]=MEM_valid_latch         |
+// |       |               |            |            |                            | bit[1]=done_frame_latch        |
+// |       |               |            |            |                            | bit[2]=done_frame (one pulse)  |
+// |       |               |            |            |                            | bit[15:8]=frame_data_STA[7:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PI        | TBD__      | pipe_in_93 | Write data into pipe.      | bit[7:0]=frame_data_DAT_w[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PO        | TBD__      | pipeout_B3 | Read data from pipe.       | bit[7:0]=frame_data_DAT_r[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+
 
 
 /* top module integration */
@@ -430,10 +570,6 @@ module txem7310_pll__s3100_ms__top (
 parameter FPGA_IMAGE_ID = 32'h_A0_21_0416; // S3100-CPU-BASE // pll, endpoints setup
 
 
-//}
-
-// check SW_BUILD_ID //{
-parameter REQ_SW_BUILD_ID = 32'h_A57E_183C; // 0 for bypass 
 //}
 
 //}
@@ -1099,13 +1235,15 @@ wire clk_out4_10M ; // for XADC
 //
 wire clk_locked_pre;
 clk_wiz_0  clk_wiz_0_inst(
+	// MMCM
+	// VCO 700MHz
 	// Clock out ports  
 	.clk_out1_200M (clk_out1_200M ), // BUFG
 	.clk_out2_140M (clk_out2_140M ), // BUFG
 	// Status and control signals               
 	.locked(clk_locked_pre),
 	// Clock in ports
-	.clk_in1_p(sys_clkp),
+	.clk_in1_p(sys_clkp), // diff clock pin
 	.clk_in1_n(sys_clkn)
 );
 ////
@@ -1169,22 +1307,28 @@ wire clk4_locked = 1'b1; // to remove
 
 
 
-// clock locked 
+// clock locked //{
 wire clk_locked = clk1_locked & clk2_locked & clk3_locked & clk4_locked;
+//}
 
-// system clock
+// system clock //{
 wire sys_clk	= clk_out3_10M;
+//}
 
-// system reset 
+// system reset //{
 wire reset_n	= clk_locked;
 wire reset		= ~reset_n;
+//}
 
-// other clocks 
-wire mcs_clk              = clk3_out1_72M;
-wire lan_clk              = clk3_out2_144M;
-wire mcs_eeprom_fifo_clk  = clk3_out4_72M;
-//
-wire xadc_clk             =  clk_out4_10M;
+// other alias clocks //{
+wire mcs_clk             = clk3_out1_72M;
+wire lan_clk             = clk3_out2_144M;
+wire mcs_eeprom_fifo_clk = clk3_out4_72M;
+wire xadc_clk            = clk_out4_10M;
+//}
+
+
+
 
 
 // clock for MTH SPI //{
@@ -1218,24 +1362,29 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 
 /* TODO: end-point wires */ //{
 
-// end-points : USB vs LAN 
-
-// wrapper modules : ok_endpoint_wrapper for USB  vs  lan_endpoint_wrapper for LAN
-// ok_endpoint_wrapper  : usb host interface <--> end-points
+// end-points : SSPI vs LAN 
+//
+// endpoint modules :
+//
+// (USB) ok_endpoint_wrapper : usb host interface <--> end-points //$$ removed
 //    okHost okHI
 //    ok...
-// lan_endpoint_wrapper : lan spi  interface <--> end-points
+//
+// (LAN) lan_endpoint_wrapper : lan spi  interface <--> end-points
 //    microblaze_mcs_1  soft_cpu_mcs_inst
 //    mcs_io_bridge_ext  mcs_io_bridge_inst2
 //    master_spi_wz850_ext  master_spi_wz850_inst
 //    fifo_generator_3  LAN_fifo_wr_inst
 //    fifo_generator_3  LAN_fifo_rd_inst
+//
+// (SSPI) slave_spi_mth_brd : MTH slave SPI <--> end-points
+//   
 
 
-//// TODO: USB end-point wires: //{
+//// TODO: USB --> SSPI end-point wires: //{
 
 // Wire In 		0x00 - 0x1F //{
-wire [31:0] ep00wire; //$$ [TEST] SW_BUILD_ID  //$$ S3100
+wire [31:0] ep00wire; //
 wire [31:0] ep01wire; //$$ [TEST] TEST_CON     //$$ S3100
 wire [31:0] ep02wire; //$$ [SSPI] SSPI_CON_WI  //$$ S3100
 wire [31:0] ep03wire; //$$ [TEST] BRD_CON      //$$ S3100
@@ -1608,8 +1757,8 @@ assign  EP_LAN_MISO   = LAN_MISO    ;
 
 lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
-	//.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020
-	.MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100
+	//.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020 or S3000-PGU
+	.MCS_IO_INST_OFFSET			(32'h_0006_0000), //$$ for S3100-CPU-BASE
 	.FPGA_IMAGE_ID              (FPGA_IMAGE_ID)  
 ) lan_endpoint_wrapper_inst(
 	
@@ -1961,15 +2110,10 @@ assign w_adrs_offset_ip_32b [15:0] = {8'h00, 4'h0, w_slot_id}; // assign low 16b
 //// TEST wires //{
 
 // check IDs end-point //{
-wire [31:0] w_SW_BUILD_ID_WI = (w_mcs_ep_wi_en)? w_port_wi_00_1 : ep00wire;
+wire [31:0] w_F_IMAGE_ID_WO = FPGA_IMAGE_ID ;
 //
-wire [31:0] w_FPGA_IMAGE_ID_WO = 
-				(w_SW_BUILD_ID_WI==REQ_SW_BUILD_ID)? FPGA_IMAGE_ID : 
-				(w_SW_BUILD_ID_WI==32'b0          )? FPGA_IMAGE_ID : 
-				32'b0 ;
-//
-assign ep20wire       = (!w_mcs_ep_wo_en)? w_FPGA_IMAGE_ID_WO : 32'hACAC_ACAC;
-assign w_port_wo_20_1 = ( w_mcs_ep_wo_en)? w_FPGA_IMAGE_ID_WO : 32'hACAC_ACAC;
+assign         ep20wire = w_F_IMAGE_ID_WO; //$$ SSPI (test)
+assign w_port_wo_20_1   = w_F_IMAGE_ID_WO; //$$ LAN
 //}
 
 // timestamp //{
@@ -2689,7 +2833,7 @@ wire [31:0] w_M0_port_wi_sadrs_h050; // wire [31:0] ext_trig_con_wi___sspi; // c
 wire [31:0] w_M0_port_wi_sadrs_h054; // wire [31:0] ext_trig_para_wi__sspi; // control from sspi adrs 0x054
 wire [31:0] w_M0_port_wi_sadrs_h058; // wire [31:0] ext_trig_aux_wi___sspi; // control from sspi adrs 0x058
 //
-wire [31:0] w_M0_port_wo_sadrs_h080 = w_FPGA_IMAGE_ID_WO; //  FPGA_IMAGE_ID_WO  0x080	wo20
+wire [31:0] w_M0_port_wo_sadrs_h080 = w_F_IMAGE_ID_WO; //  FPGA_IMAGE_ID_WO  0x080	wo20
 wire [31:0] w_M0_port_wo_sadrs_h084 = w_TEST_OUT_WO     ; //  TEST_OUT_WO       0x084	wo21
 wire [31:0] w_M0_port_wo_sadrs_h088 = w_TIMESTAMP_WO    ; //  TIMESTAMP_WO      0x088	wo22
 wire [31:0] w_M0_port_wo_sadrs_h08C = w_SSPI_FLAG_WO    ; //  SSPI_FLAG_WO      0x08C	wo23
@@ -2913,7 +3057,7 @@ slave_spi_mth_brd  slave_spi_mth_brd__M0_inst(
 wire [31:0] w_M1_port_wi_sadrs_h000; // to mux ... // not used
 wire [31:0] w_M1_port_wi_sadrs_h008; // to mux ... // not used
 //
-//wire [31:0] w_M1_port_wo_sadrs_h080 = w_FPGA_IMAGE_ID_WO;
+//wire [31:0] w_M1_port_wo_sadrs_h080 = w_F_IMAGE_ID_WO;
 //wire [31:0] w_M1_port_wo_sadrs_h088 = w_SSPI_FLAG_WO    ;
 //wire [31:0] w_M1_port_wo_sadrs_h380 = 32'h33AA_CC55     ; // known pattern
 //
@@ -3456,7 +3600,7 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 
 ///TODO: //-------------------------------------------------------//
 
-/* TODO: FPGA_RUN_LED assign */
+/* TODO: FPGA_RUN_LED assign */ //{
 
 wire FPGA_LED_RUN_STATUS;
 
@@ -3469,7 +3613,10 @@ led_test  led_test__inst (
 
 assign RUN_FPGA_LED = FPGA_LED_RUN_STATUS;
 
-/* TODO: LED assign */
+//}
+
+
+/* TODO: LED assign */ //{
 
 assign led[0] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b1 : 1'b0;
 assign led[1] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b0 : 1'b1; 
@@ -3482,10 +3629,10 @@ assign led[5] = 1'b0;
 assign led[6] = 1'b1; 
 assign led[7] = FPGA_LED_RUN_STATUS;
 
-/* TODO: TP assign */
+//}
 
-//assign test_point[0] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b1 : 1'b0; 
-//assign test_point[1] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b0 : 1'b1;      // L?? ?? LED¬³ ?[ X    ? ???????
+
+/* TODO: TP assign */ //{
 
 assign test_point[0] = w_SSPI_TEST_MCLK;
 assign test_point[1] = w_SSPI_TEST_MOSI; 
@@ -3496,7 +3643,6 @@ assign test_point[4] = 1'b1;
 assign test_point[5] = 1'b0; 
 assign test_point[6] = 1'b1;  
 assign test_point[7] = 1'b0; 
-
 
 //}
 
