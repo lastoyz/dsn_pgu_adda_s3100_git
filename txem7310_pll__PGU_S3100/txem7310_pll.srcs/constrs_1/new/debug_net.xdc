@@ -1,3 +1,7 @@
+##== :LED and TP ==##
+set_property MARK_DEBUG true [get_nets {led[*]}]
+set_property MARK_DEBUG true [get_nets {test_point[*]}]
+
 ##== TIME STAMP ==##
 #set_property MARK_DEBUG true [get_nets {w_TIMESTAMP_WO[*]}]
 set_property MARK_DEBUG true [get_nets {sub_timestamp_inst/r_global_time_idx[*]}]

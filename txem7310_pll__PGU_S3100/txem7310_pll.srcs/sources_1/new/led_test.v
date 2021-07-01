@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -64,16 +63,16 @@ reg [23:0] FPGA_LED_RUN_cnt;
 
 wire sys_clk = clk;
 
-always @(posedge sys_clk)
+always @(posedge sys_clk, negedge reset_n)
 begin
     if(reset_n == 1'b0) begin
         FPGA_LED_RUN_STATUS     <= 1'b0;
         FPGA_LED_RUN_cnt        <= {24{1'b0}};
     end else begin
-        if(FPGA_LED_RUN_cnt < 24'h2625A0) begin             // DEC 2,500,000
+        if(FPGA_LED_RUN_cnt < 24'd2500000) begin             // DEC 2,500,000
             FPGA_LED_RUN_STATUS     <= 1'b0;
             FPGA_LED_RUN_cnt        <= FPGA_LED_RUN_cnt + 1;
-        end else if(FPGA_LED_RUN_cnt < 24'h4C4B40) begin    // DEC 5,000,000
+        end else if(FPGA_LED_RUN_cnt < 24'd5000000) begin    // DEC 5,000,000
             FPGA_LED_RUN_STATUS     <= 1'b1;
             FPGA_LED_RUN_cnt        <= FPGA_LED_RUN_cnt + 1;
         end else begin 
