@@ -55,7 +55,8 @@
 //   FRAME READ DATA  // [15:0]
 
 
-// ## S3100-PGU MTH slave SPI frame address map // GNDU --> PGU
+//// TODO: MTH slave SPI frame address map
+// ## S3100-PGU  // GNDU --> PGU
 //                           
 // +=======+===============+============+=========================================+================================+
 // | Group | EP name       | frame adrs | type/index | Description                | contents (32-bit)              |
@@ -204,6 +205,7 @@
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 
 
+//// TODO: LAN-MCS endpoint address map
 // ## S3100-PGU LAN-MCS endpoint address map // GNDU --> PGU
 //
 // note: LAN access must have TEST, MCS, MEM and MSPI.
@@ -1236,10 +1238,12 @@ IOBUF iobuf_CLKD_SDIO_inst (.IO(io_B35_L6N ), .T(CLKD_SDIO_wr ), .I(CLKD_SDIO_wr
 
 //}
 
+
 //}
 
 
 ///TODO: //-------------------------------------------------------//
+
 
 /* TODO: clock/pll and reset */ //{
 
@@ -1250,7 +1254,7 @@ wire clk_out3_10M  ; // for slow logic / I2C //
 wire clk_out4_10M ; // for XADC 
 //
 wire clk_locked_pre;
-clk_wiz_0  clk_wiz_0_inst (
+clk_wiz_0  clk_wiz_0_inst(
 	// MMCM
 	// VCO 700MHz
 	// Clock out ports  
@@ -1263,7 +1267,7 @@ clk_wiz_0  clk_wiz_0_inst (
 	.clk_in1_n(sys_clkn)
 );
 ////
-clk_wiz_0_0_1  clk_wiz_0_0_1_inst (
+clk_wiz_0_0_1  clk_wiz_0_0_1_inst(
 	// Clock out ports  
 	.clk_out1_10M (clk_out3_10M), // BUFGCE // due to soft-startup
 	.clk_out2_10M (clk_out4_10M), // BUFGCE // due to soft-startup
@@ -1277,48 +1281,17 @@ clk_wiz_0_0_1  clk_wiz_0_0_1_inst (
 //}
 
 // clock pll1 //{
-//wire clk1_out1_160M; // for DWAVE 
-//wire clk1_out2_120M; // unused
-//wire clk1_out3_80M ; // unused
-//wire clk1_out4_60M ; // unused // 10M exact...
 
-wire clk1_locked = 1'b1; // unused
-
-//  clk_wiz_0_1  clk_wiz_0_1_inst (
-//  	// Clock out ports  
-//  	.clk_out1_160M(clk1_out1_160M),  
-//  	.clk_out2_120M(clk1_out2_120M), 
-//  	.clk_out3_80M (clk1_out3_80M ), 
-//  	.clk_out4_60M (clk1_out4_60M ), 
-//  	// Status and control signals     
-//  	.resetn(clk_locked_pre),          
-//  	.locked(clk1_locked),
-//  	// Clock in ports
-//  	.clk_in1(clk_out1_200M)
-//  );
+wire clk1_locked = 1'b1; // unused // to remove
 
 //}
 
 // clock pll2 //{
-// wire clk2_out1_210M; // for HR-ADC and test_clk
-// wire clk2_out2_105M; // unused
-// wire clk2_out3_60M ; // for ADC fifo/serdes
-// wire clk2_out4_30M ; // unused             
 
-wire clk2_locked = 1'b1; // unused
 
-//  clk_wiz_0_2  clk_wiz_0_2_inst (
-//  	// Clock out ports  
-//  	.clk_out1_210M(clk2_out1_210M),  
-//  	.clk_out2_105M(clk2_out2_105M), 
-//  	.clk_out3_60M (clk2_out3_60M ), 
-//  	.clk_out4_30M (clk2_out4_30M ), 
-//  	// Status and control signals     
-//  	.resetn(clk_locked_pre),          
-//  	.locked(clk2_locked),
-//  	// Clock in ports
-//  	.clk_in1(clk_out2_140M) // 200M --> 140M for better jitter.
-//  );
+wire clk2_locked = 1'b1; // unused // to remove
+
+
 
 //}
 
@@ -1330,7 +1303,7 @@ wire clk3_out4_72M ; // eeprom fifo
 //
 wire clk3_locked;
 //
-clk_wiz_0_3_1  clk_wiz_0_3_1_inst (
+clk_wiz_0_3_1  clk_wiz_0_3_1_inst(
 	// Clock out ports  
 	.clk_out1_72M (clk3_out1_72M ), // BUFGCE // due to soft-startup 
 	.clk_out2_144M(clk3_out2_144M), // BUFGCE // due to soft-startup
@@ -1346,19 +1319,8 @@ clk_wiz_0_3_1  clk_wiz_0_3_1_inst (
 //}
 
 // clock pll4 //{
-//wire clk4_out2_10M ; // for DAC clock measure // unused
-//
-wire clk4_locked = 1'b1;
-//  clk_wiz_0_4  clk_wiz_0_4_inst (
-//  	// Clock out ports  
-//  	.clk_out1_10M (xadc_clk ),  // BUFH --> BUFG
-//  	//.clk_out2_10M (clk4_out2_10M ),  // BUFG
-//  	// Status and control signals     
-//  	.resetn(clk_locked_pre),          
-//  	.locked(clk4_locked),
-//  	// Clock in ports
-//  	.clk_in1(clk_out1_200M)
-//  );
+
+wire clk4_locked = 1'b1; // to remove
 
 //}
 
@@ -1507,14 +1469,11 @@ ODDR #(
 //}
 
 // clock locked //{
-
-//$$wire clk_locked = clk1_locked & clk2_locked & clk3_locked & clk4_locked
-//$$                  & clk_dac_locked & dac0_dco_clk_locked & dac1_dco_clk_locked;
 wire clk_locked = clk1_locked & clk2_locked & clk3_locked & clk4_locked;
 //}
 
 // system clock //{
-(* keep = "true" *) wire sys_clk	= clk_out3_10M;
+wire sys_clk	= clk_out3_10M;
 //}
 
 // system reset //{
@@ -1523,18 +1482,16 @@ wire reset		= ~reset_n;
 //}
 
 // other alias clocks //{
-(* keep = "true" *) wire mcs_clk    = clk3_out1_72M;
-(* keep = "true" *) wire lan_clk      = clk3_out2_144M;
-(* keep = "true" *) wire lan_io_clk  = clk3_out3_12M; // not used yet
-(* keep = "true" *) wire  mcs_eeprom_fifo_clk = clk3_out4_72M;
-//
-(* keep = "true" *) wire xadc_clk =  clk_out4_10M;
+wire mcs_clk             = clk3_out1_72M;
+wire lan_clk             = clk3_out2_144M;
+wire mcs_eeprom_fifo_clk = clk3_out4_72M;
+wire xadc_clk            = clk_out4_10M;
 //}
 
 // DAC clocks //{
 	
-(* keep = "true" *) wire dac0_clk   = dac0_dco_clk_out1_400M; 
-(* keep = "true" *) wire dac1_clk   = dac1_dco_clk_out1_400M; 
+wire dac0_clk   = dac0_dco_clk_out1_400M; 
+wire dac1_clk   = dac1_dco_clk_out1_400M; 
 
 wire dac0_reset_n = dac0_dco_clk_locked;
 wire dac1_reset_n = dac1_dco_clk_locked;
@@ -1612,6 +1569,7 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 
 //}
 
+
 //}
 
 
@@ -1622,7 +1580,7 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 
 // end-points : SSPI vs LAN 
 //
-// endpoint modules : ok_endpoint_wrapper for USB  vs  lan_endpoint_wrapper for LAN
+// endpoint modules :
 //
 // (USB) ok_endpoint_wrapper : usb host interface <--> end-points //$$ removed
 //    okHost okHI
