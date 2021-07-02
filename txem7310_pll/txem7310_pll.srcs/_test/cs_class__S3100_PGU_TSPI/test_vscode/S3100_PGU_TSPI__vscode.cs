@@ -3685,7 +3685,12 @@ namespace TopInstrument
 
         //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
 		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
-        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
+        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; 
+        public static string LogFilePath_cur = Path.GetDirectoryName(Environment.CurrentDirectory);
+        public static string LogFilePath_sub1 = "test_vscode";
+        public static string LogFilePath_sub2 = "log";
+        public static string LogFilePath = Path.Combine(LogFilePath_cur, LogFilePath_sub1, LogFilePath_sub2); //$$ TODO: logfile location
+        public string LogFileName = Path.Combine(LogFilePath, "Debugger.py");
         
         public bool IsInit = false;
 
@@ -4474,8 +4479,9 @@ namespace TopInstrument
         public void InitializePGU(double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50 ,
             int set_new_caldate = 0, float offset_ch1 = 0.0F, float offset_ch2 = 0.0F, float gain_ch1 = 1.0F, float gain_ch2 = 1.0F )
         {
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //$$LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //LogFileName = Path.Combine(LogFilePath, "Debugger.py");
 
             try {
                 using (StreamWriter ws = new StreamWriter(LogFileName, false))
@@ -4585,8 +4591,8 @@ namespace TopInstrument
                 Vdata_str = Vdata_str + Vdata;
             }
 
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                  ws.WriteLine("####$$$$------------------------------------------->>>>>>");
@@ -4991,8 +4997,8 @@ namespace TopInstrument
         {
             ////// Console.WriteLine(String.Format("\n>>>>>> load_pgu_waveform()"));
             ////// Console.WriteLine(String.Format("'\n>>> {} : {}'"), "Test", cmd_str__PGU_FDCS_DAC0);
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             //using (StreamWriter ws = new StreamWriter(LogFileName, false))
             //    ws.WriteLine("Debuger Start");
@@ -5017,8 +5023,8 @@ namespace TopInstrument
         public void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2)
         {
 
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             //write_aux_io__direct(__gui_aux_io_control & 0xFFFF);  // #Only, Use to 10V PGU
             string ret;
