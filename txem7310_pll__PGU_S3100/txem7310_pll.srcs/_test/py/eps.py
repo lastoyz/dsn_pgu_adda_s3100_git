@@ -442,7 +442,7 @@ class EPS_Dev:
 		EPS_Dev.ActivateTriggerIn(self,0x42, 2) # frame_trig
 		cnt_loop = 0
 		while True:
-			ret=EPS_Dev.IsTriggered(self,0x62,0x00000002) # frame_done
+			ret=EPS_Dev.IsTriggered(self,0x62,0x00000004) # frame_done ## rev 0x00000002 --> 0x00000004
 			cnt_loop += 1
 			if ret:
 				print('frame done !! @ ' + repr(cnt_loop))

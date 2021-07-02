@@ -595,7 +595,7 @@ namespace TopInstrument
         }
 
         public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF,
-            uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x34, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
+            uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x24, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
             uint adrs_MSPI_EN_CS_WI = 0x16, int loc_bit_MSPI_frame_trig = 2, uint mask_MSPI_frame_done = 0x00000004) {
             //## set spi frame data (example)
             //#data_C = 0x10   ##// for read 
@@ -5773,7 +5773,7 @@ namespace __test__
             //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
 
-            ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
+            //ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
