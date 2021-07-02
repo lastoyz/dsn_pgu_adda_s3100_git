@@ -675,25 +675,25 @@ namespace TopInstrument
             // scpi_comm_resp_numb_ss
             //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
 
-            // test fifo : pipein at 0x8A; pipeout at 0xAA.
-            byte[] datain_bytearray;
-            datain_bytearray = new byte[] { 
-                (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
-                (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
-                (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
-                (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
-                };
-            Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
-            //
-            byte[] dataout_bytearray = new byte[16];
-            Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
-            // compare
-            Console.WriteLine(BitConverter.ToString(datain_bytearray));
-            Console.WriteLine(BitConverter.ToString(dataout_bytearray));
-            bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
-            if (comp ==  false) {
-                Console.WriteLine(comp);
-            }
+            //// test fifo : pipein at 0x8A; pipeout at 0xAA.
+            //byte[] datain_bytearray;
+            //datain_bytearray = new byte[] { 
+            //    (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+            //    (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
+            //    (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
+            //    (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
+            //    };
+            //Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
+            ////
+            //byte[] dataout_bytearray = new byte[16];
+            //Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
+            //// compare
+            //Console.WriteLine(BitConverter.ToString(datain_bytearray));
+            //Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+            //bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
+            //if (comp ==  false) {
+            //    Console.WriteLine(comp);
+            //}
             
 
             // MSPI test : 
@@ -5766,7 +5766,7 @@ namespace __test__
             Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU           ", TopInstrument.TOP_PGU._test()));
 
             int ret = 0;
-            //ret = TopInstrument.EPS_Dev.__test_eps_dev();
+            ret = TopInstrument.EPS_Dev.__test_eps_dev();
             //ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
             ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
 

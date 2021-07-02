@@ -47,7 +47,8 @@ uint8_t gDATABUF[DATA_BUF_SIZE_SCPI]; // DATA_BUF_SIZE_SCPI from scpi.h // -->bs
 ///////////////////////////////////
 // to be updated by HW info
 wiz_NetInfo gWIZNETINFO = { .mac = {0x00, 0x08, 0xdc,0x00, 0xab, 0xcd},
-							.ip = {192, 168, 168, 143},
+							//.ip = {192, 168, 168, 143},
+							.ip = {192, 168, 100, 143},
 							.sn = {255,255,255,0},
 							.gw  = {0,0,0,0},
 							.dns = {0,0,0,0},
