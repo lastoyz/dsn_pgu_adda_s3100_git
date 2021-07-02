@@ -593,7 +593,7 @@ namespace TopInstrument
         }
 
         public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF,
-            uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x34, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
+            uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x24, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
             uint adrs_MSPI_EN_CS_WI = 0x16, int loc_bit_MSPI_frame_trig = 2, uint mask_MSPI_frame_done = 0x00000004) {
             //## set spi frame data (example)
             //#data_C = 0x10   ##// for read 
@@ -605,14 +605,9 @@ namespace TopInstrument
 
             //## set spi enable signals
             uint data_MSPI_EN_CS_WI = enable_CS_bits;
-            //uint adrs_MSPI_EN_CS_WI = 0x16;
             __SetWireInValue__(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
 
             //## trigger frame 
-            //uint adrs_MSPI_TI = 0x42;
-            //uint loc_bit_MSPI_frame_trig = 2;
-            //uint adrs_MSPI_TO = 0x62;
-            //uint mask_MSPI_frame_done = 0x00000004;
             __ActivateTriggerIn__(adrs_MSPI_TI, loc_bit_MSPI_frame_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
@@ -628,7 +623,6 @@ namespace TopInstrument
 
             //## read miso data
             uint data_B;
-            //uint adrs_MSPI_FLAG_WO = 0x34;
             data_B = __GetWireOutValue__(adrs_MSPI_FLAG_WO);
             data_B = data_B & 0xFFFF; // mask on low 16 bits
             return data_B;
@@ -1523,7 +1517,7 @@ namespace TopInstrument
         //private u32   EP_ADRS__MCS_SETUP_WI       = 0x19;
         //private u32   EP_ADRS__MSPI_EN_CS_WI      = 0x16;
         //private u32   EP_ADRS__MSPI_CON_WI        = 0x17;
-        //private u32   EP_ADRS__MSPI_FLAG_WO       = 0x34;
+        //private u32   EP_ADRS__MSPI_FLAG_WO       = 0x24;
         //private u32   EP_ADRS__MSPI_TI            = 0x42;
         //private u32   EP_ADRS__MSPI_TO            = 0x62;
         private u32   EP_ADRS__MEM_FDAT_WI        = 0x12;

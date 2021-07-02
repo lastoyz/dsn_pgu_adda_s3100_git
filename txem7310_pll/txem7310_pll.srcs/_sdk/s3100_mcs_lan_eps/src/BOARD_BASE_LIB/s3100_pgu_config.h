@@ -605,7 +605,7 @@ extern "C" {
 #define EP_ADRS__MCS_SETUP_WI       0x19  //$$ [MCS]  MCS_SETUP_WI     //$$ S3100
 #define EP_ADRS__MSPI_EN_CS_WI      0x16  //$$ [MSPI]  MSPI_EN_CS_WI   //$$ S3100 // reserved
 #define EP_ADRS__MSPI_CON_WI        0x17  //$$ [MSPI]  MSPI_CON_WI     //$$ S3100
-#define EP_ADRS__MSPI_FLAG_WO       0x34  //$$ [MSPI]  MSPI_FLAG_WO    //$$ S3100
+#define EP_ADRS__MSPI_FLAG_WO       0x24  //$$ [MSPI]  MSPI_FLAG_WO    //$$ S3100
 #define EP_ADRS__MSPI_TI            0x42  //$$ [MSPI]  MSPI_TI         //$$ S3100
 #define EP_ADRS__MSPI_TO            0x62  //$$ [MSPI]  MSPI_TO         //$$ S3100
 #define EP_ADRS__MEM_FDAT_WI        0x12  //$$ [MEM]  MEM_FDAT_WI      //$$ S3100

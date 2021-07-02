@@ -270,7 +270,7 @@
 // |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
 // |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_34 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_24 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
 // |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
@@ -871,14 +871,15 @@ module txem7310_pll__s3100_sv_pgu__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A4_21_0619   //{
+// TODO: FPGA_IMAGE_ID = h_A4_21_0702   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0611; // S3100-PGU // activate slave SPI endpoints
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0628; // S3100-PGU // update SSPI emulation mode : endpoint switch ... LAN, SSPI, SSPI_emulation(MSPI_by_LAN, others_by_SSPI)
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0628; // S3100-PGU // update SSPI emulation mode : endpoint switch ... LAN, SSPI, SSPI_emulation(MSPI_by_LAN, others_by_SSPI)
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0702; // S3100-PGU // update MSPI endpoint map 
 
 //}
 
@@ -2375,9 +2376,8 @@ wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_M
 wire [31:0] w_MSPI_CON_WI   = w_port_wi_17_1; //$$ (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
 wire [31:0] w_MSPI_EN_CS_WI = w_port_wi_16_1; //$$ (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable //$$ only for S3100-CPU-BASE
 
-wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
-//assign ep34wire         =                   w_MSPI_FLAG_WO                ; //$$ ep24wire --> ep34wire
-assign w_port_wo_34_1   = w_MSPI_FLAG_WO; //$$ (w_mcs_ep_wo_en)? w_MSPI_FLAG_WO : 32'hACAC_ACAC; //$$ w_port_wo_24_1 --> w_port_wo_34_1
+wire [31:0] w_MSPI_FLAG_WO; 
+assign w_port_wo_24_1   = w_MSPI_FLAG_WO; 
 
 //$$ w_SSPI_TEST_TI --> w_MSPI_TI 
 wire [31:0] w_MSPI_TI   = w_port_ti_42_1; //$$ ( w_mcs_ep_ti_en)? w_port_ti_42_1 : ep42trig;
@@ -3390,7 +3390,7 @@ fifo_generator_4 TEST_fifo_inst (
 //  bit[11] = enable SPI_nCS11 
 //  bit[12] = enable SPI_nCS12 
 //
-// MSPI_FLAG_WO : ep24wire --> ep34wire
+// MSPI_FLAG_WO : ep24wire --> ep34wire --> ep24wire
 //  bit[23]   = TEST_mode_en
 //  bit[15:0] = data_B // MISO data[15:0]
 
