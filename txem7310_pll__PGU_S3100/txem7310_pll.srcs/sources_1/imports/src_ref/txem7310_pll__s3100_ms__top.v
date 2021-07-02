@@ -122,7 +122,7 @@
 // |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
 // |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_34 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+// | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_24 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
 // |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
@@ -567,7 +567,8 @@ module txem7310_pll__s3100_ms__top (
 	
 // TODO: FPGA_IMAGE_ID = h_BD_21_0310   //{
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0407;   // S3100-CPU-BASE // pin map setup
-parameter FPGA_IMAGE_ID = 32'h_A0_21_0416; // S3100-CPU-BASE // pll, endpoints setup
+//parameter FPGA_IMAGE_ID = 32'h_A0_21_0416; // S3100-CPU-BASE // pll, endpoints setup
+parameter FPGA_IMAGE_ID = 32'h_A0_21_0702; // S3100-CPU-BASE // slave SPI M0 test
 
 
 //}
@@ -2791,9 +2792,9 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 assign w_M0_SPI_CS_B_BUF = w_SSPI_TEST_SS_B;
 assign w_M0_SPI_CLK      = w_SSPI_TEST_MCLK;
 assign w_M0_SPI_MOSI     = w_SSPI_TEST_MOSI;
-//
-assign  w_SSPI_TEST_SCLK    = w_M0_SPI_CLK       ; //$$ must come from SSPI in test.
-assign  w_SSPI_TEST_MISO    = w_M0_SPI_MISO      ; //$$ must come from SSPI in test.
+
+//$$assign  w_SSPI_TEST_SCLK    = w_M0_SPI_CLK       ; //$$ must come from SSPI in test.
+//$$assign  w_SSPI_TEST_MISO    = w_M0_SPI_MISO      ; //$$ must come from SSPI in test.
 
 
 //
@@ -3367,6 +3368,17 @@ assign w_SSPI_CNT_CS_M1_WO[31:16] = 16'b0;
 
 //}
 
+
+//}
+
+
+/* TODO: Mux MTH MISO and SCLK  */ //{
+
+//$$ note ... mux signals according to w_MSPI_EN_CS_WI[*]
+//$$ slave SPI emulation is activated when w_MSPI_EN_CS_WI == 0.
+
+assign  w_SSPI_TEST_SCLK    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_CLK  :  M0_SPI_RX_CLK ; 
+assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :  M0_SPI_MISO   ; 
 
 //}
 
