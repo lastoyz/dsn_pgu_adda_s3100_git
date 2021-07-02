@@ -53,12 +53,10 @@ using System.Threading.Tasks;
 //using mybaseclass_EPS_control = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
 
 
-
-
 namespace TopInstrument
 {
 
-    //// for my base classes
+    // for my base classes
 
     //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
     using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
@@ -607,14 +605,9 @@ namespace TopInstrument
 
             //## set spi enable signals
             uint data_MSPI_EN_CS_WI = enable_CS_bits;
-            //uint adrs_MSPI_EN_CS_WI = 0x16;
             __SetWireInValue__(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
 
             //## trigger frame 
-            //uint adrs_MSPI_TI = 0x42;
-            //uint loc_bit_MSPI_frame_trig = 2;
-            //uint adrs_MSPI_TO = 0x62;
-            //uint mask_MSPI_frame_done = 0x00000004;
             __ActivateTriggerIn__(adrs_MSPI_TI, loc_bit_MSPI_frame_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
@@ -630,7 +623,6 @@ namespace TopInstrument
 
             //## read miso data
             uint data_B;
-            //uint adrs_MSPI_FLAG_WO = 0x34;
             data_B = __GetWireOutValue__(adrs_MSPI_FLAG_WO);
             data_B = data_B & 0xFFFF; // mask on low 16 bits
             return data_B;
@@ -705,15 +697,46 @@ namespace TopInstrument
             dev_eps._test__reset_spi_emul();
             // init  spi emulation
             dev_eps._test__init__spi_emul();
-            // send frame
+
+            // frame data
             uint data_C = 0x10  ; // for read // 6 bits
             uint data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
             uint data_D = 0x0000; // for reading (XXXX) // 16bits
-            uint data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D);
+            uint data_B;
+            uint sel_loc_slots;
             Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
             Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
+            
+
+            // send frames to no slots
+            sel_loc_slots = 0x0000_0000;
+            data_A        = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
+            data_B        = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots);
+            Console.WriteLine(string.Format(">>>------"));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
             Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,8:X8}", "sel_loc_slots" , sel_loc_slots));
+
+            // send frames to all slots
+            sel_loc_slots = 0x0000_01FF;
+            data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
+            data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots);
+            Console.WriteLine(string.Format(">>>------"));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,8:X8}", "sel_loc_slots" , sel_loc_slots));
+
+            // send frames to slot CSn
+            for (int ii=0;ii<13;ii++) {
+                sel_loc_slots = (uint)(0x0000_0001 << ii);
+                data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
+                data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots);
+                Console.WriteLine(string.Format(">>>------"));
+                Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+                Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+                Console.WriteLine(string.Format(">>> {0} = 0x{1,8:X8}", "sel_loc_slots" , sel_loc_slots));
+            }
+
             // reset spi emulation
             dev_eps._test__reset_spi_emul();
 
@@ -1525,7 +1548,7 @@ namespace TopInstrument
         //private u32   EP_ADRS__MCS_SETUP_WI       = 0x19;
         //private u32   EP_ADRS__MSPI_EN_CS_WI      = 0x16;
         //private u32   EP_ADRS__MSPI_CON_WI        = 0x17;
-        //private u32   EP_ADRS__MSPI_FLAG_WO       = 0x34;
+        //private u32   EP_ADRS__MSPI_FLAG_WO       = 0x24;
         //private u32   EP_ADRS__MSPI_TI            = 0x42;
         //private u32   EP_ADRS__MSPI_TO            = 0x62;
         private u32   EP_ADRS__MEM_FDAT_WI        = 0x12;
@@ -3691,9 +3714,10 @@ namespace TopInstrument
 
         //----//
 
-        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
-		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
-        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
+        //public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log";
+        //$$public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "T-SPACE", "Log"); //$$ for release
+		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
+        public string LogFileName = Path.Combine(LogFilePath, "Debugger.py");
         
         public bool IsInit = false;
 
@@ -4482,8 +4506,9 @@ namespace TopInstrument
         public void InitializePGU(double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50 ,
             int set_new_caldate = 0, float offset_ch1 = 0.0F, float offset_ch2 = 0.0F, float gain_ch1 = 1.0F, float gain_ch2 = 1.0F )
         {
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //$$LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //LogFileName = Path.Combine(LogFilePath, "Debugger.py");
 
             try {
                 using (StreamWriter ws = new StreamWriter(LogFileName, false))
@@ -4593,8 +4618,8 @@ namespace TopInstrument
                 Vdata_str = Vdata_str + Vdata;
             }
 
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                  ws.WriteLine("####$$$$------------------------------------------->>>>>>");
@@ -4999,8 +5024,8 @@ namespace TopInstrument
         {
             ////// Console.WriteLine(String.Format("\n>>>>>> load_pgu_waveform()"));
             ////// Console.WriteLine(String.Format("'\n>>> {} : {}'"), "Test", cmd_str__PGU_FDCS_DAC0);
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             //using (StreamWriter ws = new StreamWriter(LogFileName, false))
             //    ws.WriteLine("Debuger Start");
@@ -5025,8 +5050,8 @@ namespace TopInstrument
         public void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2)
         {
 
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             //write_aux_io__direct(__gui_aux_io_control & 0xFFFF);  // #Only, Use to 10V PGU
             string ret;
@@ -5289,7 +5314,7 @@ namespace TopInstrument
             //Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test // BD#2
             //Console.WriteLine(dev.SysOpen("192.168.100.63", 20000)); //$$ S3100-PGU-TLAN test // BD#3
 
-            Console.WriteLine(dev.SysOpen(__test__.Program.test_host_ip, 20000)); //$$ S3100-PGU-TLAN test // BD#2
+            Console.WriteLine(dev.SysOpen(__test__.Program.test_host_ip)); //$$
 
 
             //// test eeprom access 
@@ -5768,7 +5793,7 @@ namespace __test__
             int ret = 0;
             ret = TopInstrument.EPS_Dev.__test_eps_dev();
             //ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
-            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
+            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
 
             //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
