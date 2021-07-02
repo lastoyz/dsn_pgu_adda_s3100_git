@@ -1604,8 +1604,8 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 wire [31:0] ep00wire; //
 wire [31:0] ep01wire; //
 wire [31:0] ep02wire; //$$ [SSPI] SSPI_CON_WI         //$$ S3100 // to revise
-wire [31:0] ep03wire; // NA in S3100-PGU
-wire [31:0] ep04wire; 
+wire [31:0] ep03wire; // 
+wire [31:0] ep04wire; //
 wire [31:0] ep05wire; //$$ [DACX] DACX_WI             // PGU
 wire [31:0] ep06wire; //$$ [CLKD] CLKD_WI             // PGU
 wire [31:0] ep07wire; //$$ [SPIO] SPIO_WI             // PGU
@@ -1626,7 +1626,7 @@ wire [31:0] ep15wire; //
 wire [31:0] ep16wire; //
 wire [31:0] ep17wire; //
 wire [31:0] ep18wire; //
-wire [31:0] ep19wire; // NA in S3100-PGU
+wire [31:0] ep19wire; //
 wire [31:0] ep1Awire; //
 wire [31:0] ep1Bwire; //
 wire [31:0] ep1Cwire; //
@@ -1671,10 +1671,10 @@ wire [31:0] ep3Fwire = 32'b0; //
 //}
 
 // Trigger In 	0x40 - 0x5F //{
-wire ep40ck = 1'b0;             wire [31:0] ep40trig; //$$ removed in S3100-PGU
+wire ep40ck = 1'b0;             wire [31:0] ep40trig;
 wire ep41ck = 1'b0;             wire [31:0] ep41trig;
 wire ep42ck = 1'b0;             wire [31:0] ep42trig;
-wire ep43ck = 1'b0;             wire [31:0] ep43trig; //$$ removed in S3100-PGU
+wire ep43ck = 1'b0;             wire [31:0] ep43trig;
 wire ep44ck = 1'b0;             wire [31:0] ep44trig;
 wire ep45ck = sys_clk;          wire [31:0] ep45trig; //$$ [DACX] DACX_TI             // PGU
 wire ep46ck = sys_clk;          wire [31:0] ep46trig; //$$ [CLKD] CLKD_TI             // PGU
@@ -1821,11 +1821,11 @@ wire epClk = base_sspi_clk; // okClk --> epClk
 //// TODO: LAN end-point wires: //{
 
 // wire in //{
-wire [31:0] w_port_wi_00_1; // PGU
+wire [31:0] w_port_wi_00_1;
 wire [31:0] w_port_wi_01_1; // PGU
 wire [31:0] w_port_wi_02_1;
 wire [31:0] w_port_wi_03_1; // S3100-PGU
-wire [31:0] w_port_wi_04_1; // PGU
+wire [31:0] w_port_wi_04_1;
 wire [31:0] w_port_wi_05_1; // PGU
 wire [31:0] w_port_wi_06_1; // PGU
 wire [31:0] w_port_wi_07_1; // PGU
@@ -1839,12 +1839,12 @@ wire [31:0] w_port_wi_0E_1;
 wire [31:0] w_port_wi_0F_1;
 wire [31:0] w_port_wi_10_1;
 wire [31:0] w_port_wi_11_1;
-wire [31:0] w_port_wi_12_1;
-wire [31:0] w_port_wi_13_1;
+wire [31:0] w_port_wi_12_1; // S3100-PGU
+wire [31:0] w_port_wi_13_1; // S3100-PGU
 wire [31:0] w_port_wi_14_1;
 wire [31:0] w_port_wi_15_1;
-wire [31:0] w_port_wi_16_1;
-wire [31:0] w_port_wi_17_1;
+wire [31:0] w_port_wi_16_1; // S3100-PGU
+wire [31:0] w_port_wi_17_1; // S3100-PGU
 wire [31:0] w_port_wi_18_1;
 wire [31:0] w_port_wi_19_1; // S3100-PGU
 wire [31:0] w_port_wi_1A_1;
@@ -1860,41 +1860,39 @@ wire [31:0] w_port_wo_20_1; // PGU
 wire [31:0] w_port_wo_21_1; // PGU
 wire [31:0] w_port_wo_22_1; // S3100-PGU
 wire [31:0] w_port_wo_23_1; // S3100-PGU
-wire [31:0] w_port_wo_24_1 = 32'b0; //
+wire [31:0] w_port_wo_24_1; // S3100-PGU
 wire [31:0] w_port_wo_25_1; // PGU
 wire [31:0] w_port_wo_26_1; // PGU
 wire [31:0] w_port_wo_27_1; // PGU
 wire [31:0] w_port_wo_28_1; // PGU
 wire [31:0] w_port_wo_29_1; // PGU
-wire [31:0] w_port_wo_2A_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_2B_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_2C_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_2D_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_2E_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_2F_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_30_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_31_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_32_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_33_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_34_1; // S3100-PGU
-wire [31:0] w_port_wo_35_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_36_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_37_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_38_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_39_1 = 32'b0; // not yet used
+wire [31:0] w_port_wo_2A_1 = 32'b0; //
+wire [31:0] w_port_wo_2B_1 = 32'b0; //
+wire [31:0] w_port_wo_2C_1 = 32'b0; //
+wire [31:0] w_port_wo_2D_1 = 32'b0; //
+wire [31:0] w_port_wo_2E_1 = 32'b0; //
+wire [31:0] w_port_wo_2F_1 = 32'b0; //
+wire [31:0] w_port_wo_30_1 = 32'b0; //
+wire [31:0] w_port_wo_31_1 = 32'b0; //
+wire [31:0] w_port_wo_32_1 = 32'b0; //
+wire [31:0] w_port_wo_33_1 = 32'b0; //
+wire [31:0] w_port_wo_34_1 = 32'b0; //
+wire [31:0] w_port_wo_35_1 = 32'b0; //
+wire [31:0] w_port_wo_36_1 = 32'b0; //
+wire [31:0] w_port_wo_37_1 = 32'b0; //
+wire [31:0] w_port_wo_38_1 = 32'b0; //
+wire [31:0] w_port_wo_39_1 = 32'b0; //
 wire [31:0] w_port_wo_3A_1; // PGU
 wire [31:0] w_port_wo_3B_1; // PGU
-wire [31:0] w_port_wo_3C_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_3D_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_3E_1 = 32'b0; // not yet used
-wire [31:0] w_port_wo_3F_1 = 32'b0; // not yet used
+wire [31:0] w_port_wo_3C_1 = 32'b0; //
+wire [31:0] w_port_wo_3D_1 = 32'b0; //
+wire [31:0] w_port_wo_3E_1 = 32'b0; //
+wire [31:0] w_port_wo_3F_1 = 32'b0; //
 //}
 
 // trig in //{
 wire w_ck_40_1 = sys_clk       ; wire [31:0] w_port_ti_40_1; // PGU
 wire w_ck_42_1 = base_sspi_clk ; wire [31:0] w_port_ti_42_1; // S3100-PGU
-//wire w_ck_43_1 = sys_clk       ; wire [31:0] w_port_ti_43_1; // removed in S3100-PGU
-wire w_ck_44_1 = sys_clk       ; wire [31:0] w_port_ti_44_1; // PGU
 wire w_ck_45_1 = sys_clk       ; wire [31:0] w_port_ti_45_1; // PGU
 wire w_ck_46_1 = sys_clk       ; wire [31:0] w_port_ti_46_1; // PGU
 wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // PGU 
@@ -1906,28 +1904,26 @@ wire w_ck_53_1 = sys_clk       ; wire [31:0] w_port_ti_53_1; // MEM
 // trig out //{
 wire w_ck_60_1 = sys_clk       ; wire [31:0] w_port_to_60_1; // PGU
 wire w_ck_62_1 = base_sspi_clk ; wire [31:0] w_port_to_62_1; // S3100
-wire w_ck_73_1 = sys_clk       ; wire [31:0] w_port_to_73_1; 
+wire w_ck_73_1 = sys_clk       ; wire [31:0] w_port_to_73_1; // S3100-PGU
 //}
 
 // pipe in //{
-wire w_wr_84_1; wire [31:0] w_port_pi_84_1; // PGU
-wire w_wr_85_1; wire [31:0] w_port_pi_85_1; // PGU
 wire w_wr_86_1; wire [31:0] w_port_pi_86_1; // PGU
 wire w_wr_87_1; wire [31:0] w_port_pi_87_1; // PGU
 wire w_wr_88_1; wire [31:0] w_port_pi_88_1; // PGU
 wire w_wr_89_1; wire [31:0] w_port_pi_89_1; // PGU
-wire w_wr_8A_1; wire [31:0] w_port_pi_8A_1; // test fifo // MCS only
+wire w_wr_8A_1; wire [31:0] w_port_pi_8A_1; // test fifo 
 wire w_wr_93_1; wire [31:0] w_port_pi_93_1; // [MEM] MEM_PI
 //}
 
 // pipe out //{
-wire w_rd_AA_1; wire [31:0] w_port_po_AA_1; // test fifo // MCS only
+wire w_rd_AA_1; wire [31:0] w_port_po_AA_1; // test fifo 
 wire w_rd_B3_1; wire [31:0] w_port_po_B3_1; // [MEM] MEM_PO
 //}
 
 //$$ TODO: pipe clock //{
-wire w_ck_pipe; // not used // mcs_eeprom_fifo_clk vs epPPck from lan_endpoint_wrapper
-//wire w_ck_pipe = clk3_out1_72M;
+wire w_ck_pipe; //
+
 //}
 
 //}
@@ -2147,8 +2143,8 @@ lan_endpoint_wrapper #(
 	.ep81wr (),          .ep81pipe (), // output wire, output wire [31:0],
 	.ep82wr (),          .ep82pipe (), // output wire, output wire [31:0],
 	.ep83wr (),          .ep83pipe (), // output wire, output wire [31:0],
-	.ep84wr (w_wr_84_1), .ep84pipe (w_port_pi_84_1), // output wire, output wire [31:0],
-	.ep85wr (w_wr_85_1), .ep85pipe (w_port_pi_85_1), // output wire, output wire [31:0],
+	.ep84wr (),          .ep84pipe (), // output wire, output wire [31:0],
+	.ep85wr (),          .ep85pipe (), // output wire, output wire [31:0],
 	.ep86wr (w_wr_86_1), .ep86pipe (w_port_pi_86_1), // output wire, output wire [31:0],
 	.ep87wr (w_wr_87_1), .ep87pipe (w_port_pi_87_1), // output wire, output wire [31:0],
 	.ep88wr (w_wr_88_1), .ep88pipe (w_port_pi_88_1), // output wire, output wire [31:0],
