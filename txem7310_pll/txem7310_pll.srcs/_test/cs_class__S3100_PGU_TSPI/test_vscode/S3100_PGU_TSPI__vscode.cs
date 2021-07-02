@@ -25,12 +25,20 @@ using System.Threading.Tasks;
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
 // >>> PGU_control_by_lan - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_lan_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_lan_:_class__TOP_PGU_  // support PGU-LAN commands
+//
+// case1 using example:
+//using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
+//using mybaseclass_EPS_control = TopInstrument.EPS_Dev;  //##(case2 or NA) for S3100-PGU-TLAN // support EPS by LAN commands
 
 //(case2)
 // >>> SCPI_base          - _class__SCPI_base_ 
 // >>> EPS_Dev            - _class__SCPI_base_:_class__EPS_Dev_ 
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-EPS commands
+//
+// case2 using example:
+//using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
+//using mybaseclass_EPS_control = TopInstrument.EPS_Dev;  //##(case2 or NA) for S3100-PGU-TLAN // support EPS by LAN commands
 
 //(case3)
 // simple emualation using class SPI_EMUL !!
@@ -39,6 +47,10 @@ using System.Threading.Tasks;
 // >>> SPI_EMUL           - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_ 
 // >>> PGU_control_by_eps - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_ 
 // >>> TOP_PGU            - _class__SCPI_base_:_class__EPS_Dev_:_class__SPI_EMUL_:_class__PGU_control_by_eps_:_class__TOP_PGU_  // support PGU-SPI emulation commands
+//
+// case3 using example:
+//using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
+//using mybaseclass_EPS_control = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
 
 
 namespace TopInstrument
@@ -46,10 +58,10 @@ namespace TopInstrument
 
     // for my base classes
 
-    using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
-    //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
+    //using mybaseclass_PGU_control = TopInstrument.PGU_control_by_lan; //##(case1) for S3000-PGU and S3100-PGU-TLAN // support PGU-LAN command
+    using mybaseclass_PGU_control = TopInstrument.PGU_control_by_eps; //##(case2 or case3) support PGU-EPS command
 
-    using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  //##(case2) for S3100-PGU-TLAN // support EPS by LAN commands
+    using mybaseclass_EPS_control     = TopInstrument.EPS_Dev;  //##(case2 or NA) for S3100-PGU-TLAN // support EPS by LAN commands
     //using mybaseclass_EPS_control     = TopInstrument.SPI_EMUL; //##(case3) for S3100-PGU-TSPI // support EPS-SPI emulation commands
 
 
@@ -581,7 +593,7 @@ namespace TopInstrument
         }
 
         public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF,
-            uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x34, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
+            uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x24, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
             uint adrs_MSPI_EN_CS_WI = 0x16, int loc_bit_MSPI_frame_trig = 2, uint mask_MSPI_frame_done = 0x00000004) {
             //## set spi frame data (example)
             //#data_C = 0x10   ##// for read 
@@ -593,14 +605,9 @@ namespace TopInstrument
 
             //## set spi enable signals
             uint data_MSPI_EN_CS_WI = enable_CS_bits;
-            //uint adrs_MSPI_EN_CS_WI = 0x16;
             __SetWireInValue__(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
 
             //## trigger frame 
-            //uint adrs_MSPI_TI = 0x42;
-            //uint loc_bit_MSPI_frame_trig = 2;
-            //uint adrs_MSPI_TO = 0x62;
-            //uint mask_MSPI_frame_done = 0x00000004;
             __ActivateTriggerIn__(adrs_MSPI_TI, loc_bit_MSPI_frame_trig);
             uint cnt_loop = 0;
             bool done_trig = false;
@@ -616,7 +623,6 @@ namespace TopInstrument
 
             //## read miso data
             uint data_B;
-            //uint adrs_MSPI_FLAG_WO = 0x34;
             data_B = __GetWireOutValue__(adrs_MSPI_FLAG_WO);
             data_B = data_B & 0xFFFF; // mask on low 16 bits
             return data_B;
@@ -1511,7 +1517,7 @@ namespace TopInstrument
         //private u32   EP_ADRS__MCS_SETUP_WI       = 0x19;
         //private u32   EP_ADRS__MSPI_EN_CS_WI      = 0x16;
         //private u32   EP_ADRS__MSPI_CON_WI        = 0x17;
-        //private u32   EP_ADRS__MSPI_FLAG_WO       = 0x34;
+        //private u32   EP_ADRS__MSPI_FLAG_WO       = 0x24;
         //private u32   EP_ADRS__MSPI_TI            = 0x42;
         //private u32   EP_ADRS__MSPI_TO            = 0x62;
         private u32   EP_ADRS__MEM_FDAT_WI        = 0x12;
@@ -5728,9 +5734,15 @@ namespace __test__
 {
     public class Program
     {
-        public static string test_host_ip = "192.168.100.61";
-        //public static string test_host_ip = "192.168.100.62";
-        //public static string test_host_ip = "192.168.168.143";
+        //public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
+        //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
+        //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
+
+        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
+        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
+
+        //public static string test_host_ip = "192.168.168.143"; // test dummy ip
 
         public static void Main(string[] args)
         {
