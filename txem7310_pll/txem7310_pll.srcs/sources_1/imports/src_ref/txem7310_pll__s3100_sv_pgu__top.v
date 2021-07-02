@@ -879,7 +879,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0615; // S3100-PGU // revise LAN and EEPROM endpoints
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0628; // S3100-PGU // update SSPI emulation mode : endpoint switch ... LAN, SSPI, SSPI_emulation(MSPI_by_LAN, others_by_SSPI)
-parameter FPGA_IMAGE_ID = 32'h_A4_21_0702; // S3100-PGU // update MSPI endpoint map 
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_0702; // S3100-PGU // update MSPI endpoint map 
+parameter FPGA_IMAGE_ID = 32'h_A4_21_07A2; // S3100-PGU // debug M2_SPI_TX_EN_SLAVE 
 
 //}
 
@@ -3500,7 +3501,7 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 wire [15:0] w_SSPI_cnt_sspi_cs; // o
 
 //$$ pad assignment for S3100-PGU
-//wire  M2_SPI_CS_BUF      ; // i // 0 for SPI frame active
+//wire  M2_SPI_CS_BUF      ; // i // 0 for SPI frame active 
 //wire  M2_SPI_MOSI        ; // i // data in from master
 //wire  M2_SPI_TX_CLK      ; // i // clock in for MOSI
 //wire  M2_SPI_MISO        ;  wire  M2_SPI_MISO_B   = ~M2_SPI_MISO   ; // o // data out  to master // inverted due to artwork
@@ -3516,7 +3517,7 @@ assign  w_SSPI_MOSI        = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_MOSI : M2_SPI_MO
 assign  w_SSPI_TEST_SCLK   = (w_SSPI_TEST_mode_en)? w_SSPI_CLK    : 1'b0 ; //$$ must come from SSPI in test.
 assign  w_SSPI_TEST_MISO   = (w_SSPI_TEST_mode_en)? w_SSPI_MISO   : 1'b0 ; //$$ must come from SSPI in test.
 //
-assign  M2_SPI_TX_EN_SLAVE = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_MISO_EN ; // MISO active // note: 1 for tx enable 
+assign  M2_SPI_TX_EN_SLAVE = (w_SSPI_TEST_mode_en)? 1'b0 : (~M2_SPI_CS_BUF) ; // MISO active // note: 1 for tx enable 
 assign  M2_SPI_MISO        = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_MISO    ;
 assign  M2_SPI_RX_CLK      = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_CLK  ; //$$ to revise RCLK
 //

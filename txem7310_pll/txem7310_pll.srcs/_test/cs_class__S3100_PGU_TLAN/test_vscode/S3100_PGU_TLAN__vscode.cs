@@ -120,9 +120,10 @@ namespace TopInstrument
         
         //----//
 
-        //$$public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log"; //$$ for release
-		//$$public string LogFilePat\\ = \\ath.GetDirectoryName(Environment.CurrentDirectory) + "/testcs/log/";
-        public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "\\test_vscode\\log\\"; //$$ TODO: logfile location
+        //public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log";
+        //$$public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "T-SPACE", "Log"); //$$ for release
+		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
+        public string LogFileName = Path.Combine(LogFilePath, "Debugger.py");
 
         public bool IsInit = false;
 
@@ -1172,8 +1173,8 @@ namespace TopInstrument
         public void InitializePGU(double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50 ,
             int set_new_caldate = 0, float offset_ch1 = 0.0F, float offset_ch2 = 0.0F, float gain_ch1 = 1.0F, float gain_ch2 = 1.0F )
         {
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             try {
                 using (StreamWriter ws = new StreamWriter(LogFileName, false))
@@ -1328,8 +1329,8 @@ namespace TopInstrument
                 Vdata_str = Vdata_str + Vdata;
             }
 
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                  ws.WriteLine("####$$$$------------------------------------------->>>>>>");
@@ -1730,8 +1731,8 @@ namespace TopInstrument
         {
             ////// Console.WriteLine(String.Format("\n>>>>>> load_pgu_waveform()"));
             ////// Console.WriteLine(String.Format("'\n>>> {} : {}'"), "Test", cmd_str__PGU_FDCS_DAC0);
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             //using (StreamWriter ws = new StreamWriter(LogFileName, false))
             //    ws.WriteLine("Debuger Start");
@@ -1791,8 +1792,8 @@ namespace TopInstrument
         public void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2)
         {
 
-            string LogFileName;
-            LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
+            //string LogFileName;
+            //LogFileName = LogFilePath +  "Debugger" + ".py"; //$$ for replit
 
             string pgu_repeat_num_str = string.Format(" #H{0,8:X8} \n", CycleCount);
 
@@ -2185,9 +2186,11 @@ namespace TopInstrument
             //Console.WriteLine(dev.SysOpen("192.168.100.122"));
             //
             //Console.WriteLine(dev.SysOpen("192.168.100.61", 20000)); //$$ S3100-PGU-TLAN test // BD#1
-            Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test // BD#2
+            //Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test // BD#2
             //Console.WriteLine(dev.SysOpen("192.168.100.63", 20000)); //$$ S3100-PGU-TLAN test // BD#3
 
+            Console.WriteLine(dev.SysOpen(__test__.Program.test_host_ip));
+            
 
             //// test eeprom access 
             //   eeprom read header 16B * 4 = 64B
@@ -2613,6 +2616,15 @@ namespace __test__
 {
     public class Program
     {
+        //public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
+        //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
+        //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
+
+        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
+        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
+
+        //public static string test_host_ip = "192.168.168.143"; // test dummy ip
         public static void Main(string[] args)
         {
         	//Your code goes hereafter
