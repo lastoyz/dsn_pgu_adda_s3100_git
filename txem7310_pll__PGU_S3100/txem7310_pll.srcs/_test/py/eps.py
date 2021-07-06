@@ -426,7 +426,7 @@ class EPS_Dev:
 		return rsp
 
 	## composite function for spi test
-	def _test__send_spi_frame(self, data_C, data_A, data_D, enable_CS_bits = 0x00001FFF):
+	def _test__send_spi_frame(self, data_C, data_A, data_D, enable_CS_bits_16b = 0x1FFF, enable_CS_group_16b = 0x0007):
 		## set spi frame data
 		#data_C = 0x10   ##// for read 
 		#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
@@ -434,8 +434,8 @@ class EPS_Dev:
 		MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D
 		EPS_Dev.SetWireInValue(self,0x17, MSPI_CON_WI)
 
-		## set spi enable signals
-		MSPI_EN_CS_WI = enable_CS_bits
+		## set spi enable signals : {enable_CS_group_16b, enable_CS_bits_16b}
+		MSPI_EN_CS_WI = ((enable_CS_group_16b & 0x0007) <<16 ) + (enable_CS_bits_16b & 0x1FFF) 
 		EPS_Dev.SetWireInValue(self,0x16, MSPI_EN_CS_WI)
 
 		## frame 

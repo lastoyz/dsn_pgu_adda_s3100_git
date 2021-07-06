@@ -117,6 +117,9 @@
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
+// |       |               |            |            |                            | bit[16]   =M0 group enable     |
+// |       |               |            |            |                            | bit[17]   =M1 group enable     |
+// |       |               |            |            |                            | bit[18]   =M2 group enable     |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
 // |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
@@ -155,7 +158,6 @@
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MEM   | MEM_PO        | TBD__      | pipeout_B3 | Read data from pipe.       | bit[7:0]=frame_data_DAT_r[7:0] |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-
 
 
 /* top module integration */
@@ -568,7 +570,8 @@ module txem7310_pll__s3100_ms__top (
 // TODO: FPGA_IMAGE_ID = h_BD_21_0310   //{
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0407;   // S3100-CPU-BASE // pin map setup
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0416; // S3100-CPU-BASE // pll, endpoints setup
-parameter FPGA_IMAGE_ID = 32'h_A0_21_0702; // S3100-CPU-BASE // MSPI-M0 - SSPI-M2 test
+//parameter FPGA_IMAGE_ID = 32'h_A0_21_0702; // S3100-CPU-BASE // MSPI-M0 - SSPI-M2 test
+parameter FPGA_IMAGE_ID = 32'h_A0_21_0706; // S3100-CPU-BASE // update M0 M1 M2 CS pin control
 
 
 //}
@@ -2163,10 +2166,15 @@ wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_M
 
 wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
 wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable
+//$$ alias SPI group selection
+wire w_M0_SPI_CS_enable = w_MSPI_EN_CS_WI[16] | ((~w_MSPI_EN_CS_WI[17])&(~w_MSPI_EN_CS_WI[18]));
+wire w_M1_SPI_CS_enable = w_MSPI_EN_CS_WI[17];
+wire w_M2_SPI_CS_enable = w_MSPI_EN_CS_WI[18];
 
 wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
 	assign ep24wire         =                   w_MSPI_FLAG_WO                ;
 	assign w_port_wo_24_1   = (w_mcs_ep_wo_en)? w_MSPI_FLAG_WO : 32'hACAC_ACAC;
+
 
 //wire [31:0] w_SSPI_TI   = ep42trig; assign ep42ck = sys_clk;
 //wire [31:0] w_SSPI_TEST_TI   = ep42trig; assign ep42ck = base_sspi_clk;
@@ -2650,19 +2658,20 @@ assign w_MSPI_FLAG_WO[15:0] = w_SSPI_frame_data_B[15:0]; //$$ w_SSPI_TEST_WO -->
 //$$ S3100: mapping SSPI_TEST to M0_SPI
 //assign  FPGA_M0_SPI_TX_EN   = w_SSPI_TEST_mode_en ;
 //
-assign  FPGA_M0_SPI_nCS0_   = (w_MSPI_EN_CS_WI[0 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS1_   = (w_MSPI_EN_CS_WI[1 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS2_   = (w_MSPI_EN_CS_WI[2 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS3_   = (w_MSPI_EN_CS_WI[3 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS4_   = (w_MSPI_EN_CS_WI[4 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS5_   = (w_MSPI_EN_CS_WI[5 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS6_   = (w_MSPI_EN_CS_WI[6 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS7_   = (w_MSPI_EN_CS_WI[7 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS8_   = (w_MSPI_EN_CS_WI[8 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS9_   = (w_MSPI_EN_CS_WI[9 ])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS10   = (w_MSPI_EN_CS_WI[10])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS11   = (w_MSPI_EN_CS_WI[11])? w_SSPI_TEST_SS_B : 1'b1 ;
-assign  FPGA_M0_SPI_nCS12   = (w_MSPI_EN_CS_WI[12])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS0_   = (w_MSPI_EN_CS_WI[0 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS1_   = (w_MSPI_EN_CS_WI[1 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS2_   = (w_MSPI_EN_CS_WI[2 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS3_   = (w_MSPI_EN_CS_WI[3 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS4_   = (w_MSPI_EN_CS_WI[4 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS5_   = (w_MSPI_EN_CS_WI[5 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS6_   = (w_MSPI_EN_CS_WI[6 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS7_   = (w_MSPI_EN_CS_WI[7 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS8_   = (w_MSPI_EN_CS_WI[8 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS9_   = (w_MSPI_EN_CS_WI[9 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS10   = (w_MSPI_EN_CS_WI[10])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS11   = (w_MSPI_EN_CS_WI[11])? w_SSPI_TEST_SS_B : 1'b1 ;
+//assign  FPGA_M0_SPI_nCS12   = (w_MSPI_EN_CS_WI[12])? w_SSPI_TEST_SS_B : 1'b1 ;
+
 //
 //assign  M0_SPI_TX_CLK       = w_SSPI_TEST_MCLK    ;
 //assign  M0_SPI_MOSI         = w_SSPI_TEST_MOSI    ;
@@ -3381,14 +3390,53 @@ assign w_SSPI_CNT_CS_M1_WO[31:16] = 16'b0;
 assign  FPGA_M0_SPI_TX_EN   = w_SSPI_TEST_mode_en ;
 assign       M0_SPI_TX_CLK  = w_SSPI_TEST_MCLK    ;
 assign       M0_SPI_MOSI    = w_SSPI_TEST_MOSI    ;
+assign  FPGA_M0_SPI_nCS0_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[0 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS1_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[1 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS2_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[2 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS3_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[3 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS4_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[4 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS5_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[5 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS6_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[6 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS7_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[7 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS8_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[8 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS9_   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[9 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS10   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[10])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS11   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[11])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M0_SPI_nCS12   = (w_M0_SPI_CS_enable & w_MSPI_EN_CS_WI[12])? w_SSPI_TEST_SS_B : 1'b1 ;
 
 assign  FPGA_M1_SPI_TX_EN   = w_SSPI_TEST_mode_en ;
 assign       M1_SPI_TX_CLK  = w_SSPI_TEST_MCLK    ;
 assign       M1_SPI_MOSI    = w_SSPI_TEST_MOSI    ;
+assign  FPGA_M1_SPI_nCS0_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[0 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS1_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[1 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS2_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[2 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS3_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[3 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS4_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[4 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS5_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[5 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS6_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[6 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS7_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[7 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS8_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[8 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS9_   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[9 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS10   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[10])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS11   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[11])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M1_SPI_nCS12   = (w_M1_SPI_CS_enable & w_MSPI_EN_CS_WI[12])? w_SSPI_TEST_SS_B : 1'b1 ;
 
 assign  FPGA_M2_SPI_TX_EN   = w_SSPI_TEST_mode_en ;
 assign       M2_SPI_TX_CLK  = w_SSPI_TEST_MCLK    ;
 assign       M2_SPI_MOSI    = w_SSPI_TEST_MOSI    ;
+assign  FPGA_M2_SPI_nCS0_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[0 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS1_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[1 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS2_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[2 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS3_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[3 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS4_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[4 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS5_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[5 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS6_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[6 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS7_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[7 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS8_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[8 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS9_   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[9 ])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS10   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[10])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS11   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[11])? w_SSPI_TEST_SS_B : 1'b1 ;
+assign  FPGA_M2_SPI_nCS12   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[12])? w_SSPI_TEST_SS_B : 1'b1 ;
 
 //assign  w_SSPI_TEST_SCLK    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_CLK  :  M0_SPI_RX_CLK ; 
 //assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :  M0_SPI_MISO   ; 
