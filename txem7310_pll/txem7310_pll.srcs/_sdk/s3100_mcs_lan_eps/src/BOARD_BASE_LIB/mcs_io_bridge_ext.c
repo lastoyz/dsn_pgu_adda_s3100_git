@@ -1187,34 +1187,48 @@ u32  eeprom_send_frame_ep (u32 MEM_WI_b32, u32 MEM_FDAT_WI_b32) {
 //  	## // wire [31:0] w_MEM_PI = ep93pipe; wire w_MEM_PI_wr = ep93wr; 
 //  	## // wire [31:0] w_MEM_PO; assign epB3pipe = w_MEM_PO; wire w_MEM_PO_rd = epB3rd; 	
 
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_send_frame_ep  \r\n");
+#endif
 	u32 ret;
 	u32 cnt_loop;
 	
 	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MEM_WI, MEM_WI_b32, 0xFFFFFFFF); // adrs_base, EP_offset_EP, data, mask
+#ifdef _EEPROM_DEBUG_
 	xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_WI_b32, EP_ADRS__MEM_WI);
+#endif
 
 	write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__MEM_FDAT_WI, MEM_FDAT_WI_b32, 0xFFFFFFFF); // adrs_base, EP_offset_EP, data, mask
+#ifdef _EEPROM_DEBUG_
 	xil_printf("write_mcs_ep_wi: 0x%08X @ 0x%02X \r\n", MEM_FDAT_WI_b32, EP_ADRS__MEM_FDAT_WI);
+#endif
 
 	//  	# clear TO
 	ret = read_mcs_ep_to(MCS_EP_BASE, EP_ADRS__MEM_TO, 0xFFFFFFFF);
+#ifdef _EEPROM_DEBUG_
 	xil_printf("read_mcs_ep_to: 0x%08X @ 0x%02X \r\n", ret, EP_ADRS__MEM_TO);
+#endif
 
 	//  	# act TI
 	activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__MEM_TI, 2);
+#ifdef _EEPROM_DEBUG_
 	xil_printf("activate_mcs_ep_ti: loc %d @ 0x%02X \r\n", 2, EP_ADRS__MEM_TI);
+#endif
 
 	cnt_loop = 0;
 	while (1) {
 		ret = is_triggered_mcs_ep_to(MCS_EP_BASE, EP_ADRS__MEM_TO, 0x04);
 		if (ret==1) {
+#ifdef _EEPROM_DEBUG_
 			xil_printf("is_triggered_mcs_ep_to: 0x%08X @ 0x%02X \r\n", ret, EP_ADRS__MEM_TO);
+#endif
 			break;
 		}
 		cnt_loop += 1;
 	}
+#ifdef _EEPROM_DEBUG_
 	xil_printf("cnt_loop = %d \r\n", cnt_loop);
+#endif
 
 	return 0;
 }
@@ -1254,8 +1268,9 @@ u32 eeprom_set_g_var (u8 EEPROM__LAN_access, u8 EEPROM__on_TP) {
 
 u32  eeprom_send_frame (u8 CMD_b8, u8 STA_in_b8, u8 ADL_b8, u8 ADH_b8, u16 num_bytes_DAT_b16, u8 con_disable_SBP_b8) {
 //  def eeprom_send_frame (CMD=0x05, STA_in=0, ADL=0, ADH=0, num_bytes_DAT=1, con_disable_SBP=0):
-
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_send_frame  \r\n");
+#endif
 	u32 ret;
 
 //  	## 
@@ -1294,7 +1309,9 @@ u32  eeprom_send_frame (u8 CMD_b8, u8 STA_in_b8, u8 ADL_b8, u8 ADH_b8, u16 num_b
 void eeprom_write_enable() {
 //  def eeprom_write_enable():
 //  	print('\n>>>>>> eeprom_write_enable')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_write_enable  \r\n");
+#endif
 //  	#
 //  	## // CMD_WREN__96 
 //  	print('\n>>> CMD_WREN__96')
@@ -1305,7 +1322,9 @@ void eeprom_write_enable() {
 void eeprom_write_disable() {
 //  def eeprom_write_disable():
 //  	print('\n>>>>>> eeprom_write_disable')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_write_disable  \r\n");
+#endif
 //  	#
 //  	## // CMD_WRDI__91 
 //  	print('\n>>> CMD_WRDI__91')
@@ -1316,7 +1335,9 @@ void eeprom_write_disable() {
 u32 eeprom_read_status() {
 //  def eeprom_read_status():
 //  	print('\n>>>>>> eeprom_read_status')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_read_status  \r\n");
+#endif
 	u32 ret;
 	
 //  	## // CMD_RDSR__05 
@@ -1352,8 +1373,9 @@ u32 eeprom_read_status() {
 void eeprom_write_status (u8 BP1_b8, u8 BP0_b8) {
 //  def eeprom_write_status(BP1, BP0):
 //  	print('\n>>>>>> eeprom_write_status')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_write_status  \r\n");
-
+#endif
 //  	## // CMD_WREN__96 
 //  	#print('\n>>> CMD_WREN__96')
 //  	#eeprom_send_frame (CMD=0x96)
@@ -1376,7 +1398,9 @@ void eeprom_write_status (u8 BP1_b8, u8 BP0_b8) {
 u32 is_eeprom_available() {
 //  def is_eeprom_available():
 //  	print('\n>>>>>> is_eeprom_available')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> is_eeprom_available  \r\n");
+#endif
 	//  	ret = 1
 	u32 ret = 1;
 	u32 val;
@@ -1430,7 +1454,9 @@ u32 is_eeprom_available() {
 void eeprom_erase_all() {
 //  def eeprom_erase_all():
 //  	print('\n>>>>>> eeprom_erase_all')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_erase_all  \r\n");
+#endif
 //  	#
 //  	
 //  	eeprom_write_enable()
@@ -1447,7 +1473,9 @@ void eeprom_erase_all() {
 void eeprom_set_all() {
 //  def eeprom_set_all():
 //  	print('\n>>>>>> eeprom_set_all')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_set_all  \r\n");
+#endif
 ///  	#
 //  	
 //  	eeprom_write_enable()
@@ -1465,7 +1493,9 @@ void eeprom_set_all() {
 void eeprom_reset_fifo() {
 //  def eeprom_reset_fifo():
 //  	print('\n>>>>>> eeprom_reset_fifo')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_reset_fifo  \r\n");
+#endif
 //  	
 //  	#  // w_MEM_TI
 //  	#  assign w_MEM_rst      = w_MEM_TI[0];
@@ -1482,7 +1512,9 @@ void eeprom_reset_fifo() {
 u16 eeprom_read_fifo (u16 num_bytes_DAT_b16, u8 *buf_dataout) {
 //  def eeprom_read_fifo(num_data=1):
 //  	print('\n>>>>>> eeprom_read_fifo')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_read_fifo  \r\n");
+#endif
 //  	#
 //  	
 //  	bytes_in_one_sample = 4 # for 32-bit end-point
@@ -1530,7 +1562,9 @@ u16 eeprom_read_fifo (u16 num_bytes_DAT_b16, u8 *buf_dataout) {
 u16 eeprom_write_fifo (u16 num_bytes_DAT_b16, u8 *buf_datain) {
 //  def eeprom_write_fifo(datain__int_list=[0]):
 //  	print('\n>>>>>> eeprom_write_fifo')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_write_fifo  \r\n");
+#endif
 //  	#
 //  
 //  	## convert 32-bit data to bytearray
@@ -1562,7 +1596,9 @@ u16 eeprom_write_fifo (u16 num_bytes_DAT_b16, u8 *buf_datain) {
 u16 eeprom_read_data (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_dataout) {
 //  def eeprom_read_data(ADRS_b16=0x0000, num_bytes_DAT=1):
 //  	print('\n>>>>>> eeprom_read_data')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_read_data  \r\n");
+#endif
 	u16 ret;
 //  	#
 //  	
@@ -1596,7 +1632,9 @@ u16 eeprom_read_data (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_dataout) {
 u16 eeprom_read_data_current (u16 num_bytes_DAT_b16, u8 *buf_dataout) {
 //  def eeprom_read_data_current(num_bytes_DAT=1):
 //  	print('\n>>>>>> eeprom_read_data_current')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_read_data_current  \r\n");
+#endif
 	u16 ret;
 //  	#
 //  	
@@ -1621,7 +1659,9 @@ u16 eeprom_write_data_16B (u16 ADRS_b16, u16 num_bytes_DAT_b16) {
 //  #def eeprom_write_data_16B(ADRS_b16=0x0000, num_bytes_DAT=16, data8b_in=[0]*16) :
 //  def eeprom_write_data_16B(ADRS_b16=0x0000, num_bytes_DAT=16) :
 //  	print('\n>>>>>> eeprom_write_data_16B')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_write_data_16B  \r\n");
+#endif
 //  	
 //  	## call fifo 
 //  	#eeprom_write_fifo(datain__int_list=data8b_in)
@@ -1650,7 +1690,9 @@ u16 eeprom_write_data_16B (u16 ADRS_b16, u16 num_bytes_DAT_b16) {
 u16 eeprom_write_data (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain) {
 //  def eeprom_write_data(ADRS_b16=0x0000, num_bytes_DAT=1, data8b_in=[0]):
 //  	print('\n>>>>>> eeprom_write_data')
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_write_data  \r\n");
+#endif
 //  
 //  	##  The 11XX features a 16-byte page buffer, meaning that
 //  	##  up to 16 bytes can be written at one time. To utilize this
@@ -1726,7 +1768,9 @@ u8* get_adrs__g_EEPROM__buf_2KB() {
 
 u16 eeprom_read_all() { // copy eeprom to g_EEPROM__buf_2KB
 //  def eeprom_read_all():
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_read_all  \r\n");
+#endif
 //  	global g_EEPROM__buf_2KB
 //  	
 //  	g_EEPROM__buf_2KB = eeprom_read_data(ADRS_b16=0x0000, num_bytes_DAT=2048)
@@ -1737,7 +1781,9 @@ u16 eeprom_read_all() { // copy eeprom to g_EEPROM__buf_2KB
 }
 
 u16 eeprom_write_all() { // copy eeprom to g_EEPROM__buf_2KB
+#ifdef _EEPROM_DEBUG_
 	xil_printf(">>>>>> eeprom_write_all  \r\n");
+#endif
 	eeprom_write_data (0x0000, 2048, g_EEPROM__buf_2KB); // (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain)
 	return 2048;
 }
@@ -2922,9 +2968,9 @@ u32  pgu_dacx_cal_input_dtap() {
 	
 	// make timing table:
 	//  SMP  DAC0_SEEK  DAC1_SEEK 
-	xil_printf("|------------------------------|\r\n");
+	xil_printf("+-----++-----------+-----------+\r\n");
 	xil_printf("| SMP || DAC0_SEEK | DAC1_SEEK |\r\n");
-	xil_printf("|-----||-----------|-----------|\r\n");
+	xil_printf("+-----++-----------+-----------+\r\n");
 	while (1) {
 		//
 		pgu_dac0_reg_write_b8(0x05, ii); // test SMP
@@ -2979,7 +3025,7 @@ u32  pgu_dacx_cal_input_dtap() {
 		else 
 			ii=ii+1;
 	}
-	xil_printf("|------------------------------|\r\n");
+	xil_printf("+-----++-----------+-----------+\r\n");
 	
 	// check windows 
 	if (val_0_seek_low == -1) val_0_seek_low = 31;

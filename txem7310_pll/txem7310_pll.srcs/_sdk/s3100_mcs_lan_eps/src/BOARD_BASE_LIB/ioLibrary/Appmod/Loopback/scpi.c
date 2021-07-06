@@ -995,7 +995,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					pgu_dacx_cal_input_dtap();
 					
 					// DACX setup 
-					pgu_dacx_setup(); 
+					pgu_dacx_setup(); //$$ DAC IC scale,offset preset ... not necessary 
 					//
 					// DACX_PG setup
 					//pgu_dacx_pg_setup(); //$$ previous DCS setup... not used in S3100-PGU
@@ -1481,7 +1481,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 #endif
 					
 						// process
-						eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ read eeprom 
+						eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ write eeprom 
 						p_rsp_str = rsp_str__OK;
 					
 					}
@@ -1740,7 +1740,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					write_mcs_ep_wi   (MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000000, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
 					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 
-					//// set trig data
+					//// set trig data //{
 					//  task CID_DAC1_NUM_FFDAT_WR; // (data)
 					//  	input  [31:0] data;
 					//  	begin
@@ -1772,7 +1772,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  		r_trig_dacx_ctrl[10] = 1'b0;
 					//  	end
 					//  endtask
-					//
+					//}
 					
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
@@ -2076,7 +2076,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
-					// on dac0
+					// on dac1
 					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, 0x00000030, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
 					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 8); //(u32 adrs_base, u32 offset, u32 bit_loc);
 

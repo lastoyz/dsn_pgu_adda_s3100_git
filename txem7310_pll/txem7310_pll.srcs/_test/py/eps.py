@@ -453,7 +453,7 @@ class EPS_Dev:
 				break
 			
 		#GetWireOutValue
-		ret=EPS_Dev.GetWireOutValue(self,0x34) ## 0x24 --> 0x34 # for S3100-PGU
+		ret=EPS_Dev.GetWireOutValue(self,0x24) ## 0x24 --> 0x34 # for S3100-PGU back to 0x24
 		data_B = ret & 0xFFFF
 		print('0x{:08X}'.format(data_B))
 
