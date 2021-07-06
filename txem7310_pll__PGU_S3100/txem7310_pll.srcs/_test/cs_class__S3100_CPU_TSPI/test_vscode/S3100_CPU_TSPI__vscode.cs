@@ -705,29 +705,38 @@ namespace TopInstrument
             uint data_D = 0x0000; // for reading (XXXX) // 16bits
             uint data_B;
             uint sel_loc_slots;
+            uint sel_loc_groups;
             Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
             Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
             
 
             // send frames to no slots
-            sel_loc_slots = 0x0000_0000;
+            sel_loc_slots  = 0x0000;
+            sel_loc_groups = 0x0000;
             data_A        = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
-            data_B        = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots);
+            data_B        = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
             Console.WriteLine(string.Format(">>>------"));
             Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
             Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,8:X8}", "sel_loc_slots" , sel_loc_slots));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
 
-            // send frames to all slots
-            sel_loc_slots = 0x0000_01FF;
+
+            // send frames to all slots on all spi groups ...
+            sel_loc_slots  = 0x01FF;
+            sel_loc_groups = 0x0007;
             data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
             data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots);
             Console.WriteLine(string.Format(">>>------"));
             Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
             Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,8:X8}", "sel_loc_slots" , sel_loc_slots));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
 
             // send frames to slot CSn
+            //sel_loc_groups = 0x0001; // M0 group
+            //sel_loc_groups = 0x0002; // M1 group
+            sel_loc_groups = 0x0004; // M2 group
             for (int ii=0;ii<13;ii++) {
                 sel_loc_slots = (uint)(0x0000_0001 << ii);
                 data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
@@ -735,7 +744,8 @@ namespace TopInstrument
                 Console.WriteLine(string.Format(">>>------"));
                 Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
                 Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-                Console.WriteLine(string.Format(">>> {0} = 0x{1,8:X8}", "sel_loc_slots" , sel_loc_slots));
+                Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+                Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
             }
 
             // reset spi emulation
@@ -5799,7 +5809,7 @@ namespace __test__
             //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
 
-            //ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
+            ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
