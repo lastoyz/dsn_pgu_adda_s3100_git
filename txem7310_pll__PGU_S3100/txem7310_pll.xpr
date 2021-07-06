@@ -586,6 +586,30 @@
         <Option Name="xsim.simulate.runtime" Val="1ms"/>
       </Config>
     </FileSet>
+    <FileSet Name="constrs_2" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_2">
+      <File Path="$PSRCDIR/constrs_1/imports/src_ref/txem7310_pll__s3100_ms__top.xdc">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/constrs_1/new/debug_cores.xdc">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/constrs_1/new/debug_net.xdc">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/debug_cores.xdc"/>
+        <Option Name="ConstrsType" Val="XDC"/>
+      </Config>
+    </FileSet>
   </FileSets>
   <Simulators>
     <Simulator Name="XSim">
@@ -609,40 +633,40 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="10">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Higher performance designs, resource sharing is turned off, the global fanout guide is set to a lower number, FSM extraction forced to one-hot, LUT combining is disabled, equivalent registers are preserved, SRL are inferred  with a larger threshold" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Higher performance designs, resource sharing is turned off, the global fanout guide is set to a lower number, FSM extraction forced to one-hot, LUT combining is disabled, equivalent registers are preserved, SRL are inferred  with a larger threshold" WriteIncrSynthDcp="false" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
         <Step Id="synth_design">
-          <Option Id="MaxClockBufferCount">32</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
-          <Option Id="NoCombineLuts">1</Option>
-          <Option Id="RepFanoutThreshold">200</Option>
-          <Option Id="ReTiming">1</Option>
           <Option Id="ShregMinSize">5</Option>
+          <Option Id="ReTiming">1</Option>
           <Option Id="FsmExtraction">0</Option>
           <Option Id="NoSrlExtract">1</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
+          <Option Id="MaxClockBufferCount">32</Option>
+          <Option Id="NoCombineLuts">1</Option>
+          <Option Id="RepFanoutThreshold">200</Option>
+        </Step>
+      </Strategy>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="synth_2" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a200tfbg484-2" ConstrsSet="constrs_2" Description="Higher performance designs, resource sharing is turned off, the global fanout guide is set to a lower number, FSM extraction forced to one-hot, LUT combining is disabled, equivalent registers are preserved, SRL are inferred  with a larger threshold" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_2" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
+        <Step Id="synth_design">
+          <Option Id="NoCombineLuts">1</Option>
+          <Option Id="RepFanoutThreshold">400</Option>
+          <Option Id="FsmExtraction">1</Option>
+          <Option Id="ShregMinSize">5</Option>
+          <Option Id="ResourceSharing">2</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="synth_2" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Higher performance designs, resource sharing is turned off, the global fanout guide is set to a lower number, FSM extraction forced to one-hot, LUT combining is disabled, equivalent registers are preserved, SRL are inferred  with a larger threshold" WriteIncrSynthDcp="false" IncludeInArchive="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2017"/>
-        <Step Id="synth_design">
-          <Option Id="RepFanoutThreshold">400</Option>
-          <Option Id="NoCombineLuts">1</Option>
-          <Option Id="FsmExtraction">1</Option>
-          <Option Id="ShregMinSize">5</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
-          <Option Id="ResourceSharing">2</Option>
-        </Step>
-      </Strategy>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-    </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Increase placer effort in the post-placement optimization phase, and disable timing relaxation in the router." WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true">
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Increase placer effort in the post-placement optimization phase, and disable timing relaxation in the router." WriteIncrSynthDcp="false" SynthRun="synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Performance_RefinePlacement" Flow="Vivado Implementation 2017"/>
         <Step Id="init_design"/>
@@ -665,11 +689,10 @@
         </Step>
         <Step Id="write_bitstream"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2017"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="impl_2" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_1" Description="Includes alternate algorithms for timing-driven optimization" WriteIncrSynthDcp="false" SynthRun="synth_2" IncludeInArchive="true">
+    <Run Id="impl_2" Type="Ft2:EntireDesign" Part="xc7a200tfbg484-2" ConstrsSet="constrs_2" Description="Includes alternate algorithms for timing-driven optimization" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_2" SynthRun="synth_2" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Performance_ExtraTimingOpt" Flow="Vivado Implementation 2017"/>
         <Step Id="init_design"/>
@@ -688,6 +711,7 @@
         <Step Id="post_route_phys_opt_design"/>
         <Step Id="write_bitstream"/>
       </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2017"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>

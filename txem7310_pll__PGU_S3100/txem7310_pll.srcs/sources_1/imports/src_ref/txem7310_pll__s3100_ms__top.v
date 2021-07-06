@@ -571,7 +571,8 @@ module txem7310_pll__s3100_ms__top (
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0407;   // S3100-CPU-BASE // pin map setup
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0416; // S3100-CPU-BASE // pll, endpoints setup
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0702; // S3100-CPU-BASE // MSPI-M0 - SSPI-M2 test
-parameter FPGA_IMAGE_ID = 32'h_A0_21_0706; // S3100-CPU-BASE // update M0 M1 M2 CS pin control
+//parameter FPGA_IMAGE_ID = 32'h_A0_21_0706; // S3100-CPU-BASE // update M0 M1 M2 CS pin control
+parameter FPGA_IMAGE_ID = 32'h_A0_21_07A6; // S3100-CPU-BASE // update spi miso pin control
 
 
 //}
@@ -3440,12 +3441,23 @@ assign  FPGA_M2_SPI_nCS12   = (w_M2_SPI_CS_enable & w_MSPI_EN_CS_WI[12])? w_SSPI
 
 //assign  w_SSPI_TEST_SCLK    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_CLK  :  M0_SPI_RX_CLK ; 
 //assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :  M0_SPI_MISO   ; 
-
+//
 //assign  w_SSPI_TEST_SCLK    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_CLK  :  M1_SPI_RX_CLK ; 
 //assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :  M1_SPI_MISO   ; 
+//
+//assign  w_SSPI_TEST_SCLK    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_CLK  :  M2_SPI_RX_CLK ; 
+//assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :  M2_SPI_MISO   ; 
 
-assign  w_SSPI_TEST_SCLK    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_CLK  :  M2_SPI_RX_CLK ; 
-assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :  M2_SPI_MISO   ; 
+assign  w_SSPI_TEST_SCLK    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_CLK  :
+							  (w_M0_SPI_CS_enable)? M0_SPI_RX_CLK :
+							  (w_M1_SPI_CS_enable)? M1_SPI_RX_CLK : 
+							  (w_M2_SPI_CS_enable)? M2_SPI_RX_CLK :
+													          1'b0; 
+assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :
+							  (w_M0_SPI_CS_enable)? M0_SPI_MISO   : 
+							  (w_M1_SPI_CS_enable)? M1_SPI_MISO   : 
+							  (w_M2_SPI_CS_enable)? M2_SPI_MISO   :
+													          1'b0; 
 
 
 //}
