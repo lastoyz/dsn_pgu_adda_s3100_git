@@ -722,30 +722,64 @@ namespace TopInstrument
             Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
 
 
-            // send frames to all slots on all spi groups ...
-            sel_loc_slots  = 0x01FF;
-            sel_loc_groups = 0x0007;
-            data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
-            data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots);
-            Console.WriteLine(string.Format(">>>------"));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
+            //// send frames to all slots on all spi groups ...
+            //sel_loc_slots  = 0x01FF;
+            //sel_loc_groups = 0x0007;
+            //data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
+            //data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
+            //Console.WriteLine(string.Format(">>>------"));
+            //Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+            //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+            //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
 
-            // send frames to slot CSn
+
+            //// send frames to slot CSn
             //sel_loc_groups = 0x0001; // M0 group
             //sel_loc_groups = 0x0002; // M1 group
-            sel_loc_groups = 0x0004; // M2 group
-            for (int ii=0;ii<13;ii++) {
-                sel_loc_slots = (uint)(0x0000_0001 << ii);
-                data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
-                data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots);
-                Console.WriteLine(string.Format(">>>------"));
-                Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-                Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-                Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
-                Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
+            //sel_loc_groups = 0x0004; // M2 group
+            var options_sel_loc_groups = new List<uint> {0x0001, 0x0002, 0x0004};
+            foreach(uint jj in options_sel_loc_groups) {
+                sel_loc_groups = jj;
+                //
+                bool [] slot_is_occupied = {false, false, false, false, false, 
+                    false, false, false, false, false, 
+                    false, false, false};
+                uint [] val_FID_arr = {0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0};
+                //
+                for (int ii=0;ii<13;ii++) {
+                    sel_loc_slots = (uint)(0x0000_0001 << ii);
+                    data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
+                    data_B = dev_eps._test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
+                    Console.WriteLine(string.Format(">>>------"));
+                    Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
+                    //
+                    if (data_B==0xCC55) {
+                        Console.WriteLine(string.Format(">>> A board is found in slot."));
+                        slot_is_occupied[ii] = true;
+                        // read FID
+                        uint FID_lo = dev_eps._test__send_spi_frame(data_C, 0x080, 0x0000, sel_loc_slots, sel_loc_groups);
+                        uint FID_hi = dev_eps._test__send_spi_frame(data_C, 0x082, 0x0000, sel_loc_slots, sel_loc_groups);
+                        uint FID = (FID_hi<<16) | FID_lo;
+                        val_FID_arr[ii] = FID;
+                    }
+                    //
+                }
+                // print out list
+                Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
+                Console.WriteLine(string.Format("| {0} | {1} | {2} | {3} |", "sel_loc_groups", "ii", "sel_loc_slots", "FID       "));
+                Console.WriteLine(string.Format(    "+================+====+===============+============+"));
+                for (int ii=0;ii<13;ii++) {
+                    if (slot_is_occupied[ii]==false)
+                        continue;
+                    sel_loc_slots = (uint)(0x0000_0001 << ii);
+                    Console.WriteLine(string.Format("|         0x{0:X4} | {1:d2} |        0x{2:X4} | 0x{3:X8} |", sel_loc_groups, ii, sel_loc_slots, val_FID_arr[ii]));
+                }
+                Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
+                //
             }
 
             // reset spi emulation
