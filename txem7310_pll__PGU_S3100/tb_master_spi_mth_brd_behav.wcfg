@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_master_spi_mth_brd_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_master_spi_mth_brd" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="8026499332fs"></ZoomEndTime>
+      <Cursor1Time time="1127241000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="238"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="52" />
+   <wvobject fp_name="/tb_master_spi_mth_brd/clk_10M" type="logic">
+      <obj_property name="ElementShortName">clk_10M</obj_property>
+      <obj_property name="ObjectShortName">clk_10M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/reset_n" type="logic">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/clk_144M" type="logic">
+      <obj_property name="ElementShortName">clk_144M</obj_property>
+      <obj_property name="ObjectShortName">clk_144M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/clk_72M" type="logic">
+      <obj_property name="ElementShortName">clk_72M</obj_property>
+      <obj_property name="ObjectShortName">clk_72M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/clk_210M" type="logic">
+      <obj_property name="ElementShortName">clk_210M</obj_property>
+      <obj_property name="ObjectShortName">clk_210M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/clk_104M" type="logic">
+      <obj_property name="ElementShortName">clk_104M</obj_property>
+      <obj_property name="ObjectShortName">clk_104M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/clk_52M" type="logic">
+      <obj_property name="ElementShortName">clk_52M</obj_property>
+      <obj_property name="ObjectShortName">clk_52M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/clk_26M" type="logic">
+      <obj_property name="ElementShortName">clk_26M</obj_property>
+      <obj_property name="ObjectShortName">clk_26M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/test_init" type="logic">
+      <obj_property name="ElementShortName">test_init</obj_property>
+      <obj_property name="ObjectShortName">test_init</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_done_init" type="logic">
+      <obj_property name="ElementShortName">w_done_init</obj_property>
+      <obj_property name="ObjectShortName">w_done_init</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/test_frame" type="logic">
+      <obj_property name="ElementShortName">test_frame</obj_property>
+      <obj_property name="ObjectShortName">test_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/test_frame_rdwr" type="logic">
+      <obj_property name="ElementShortName">test_frame_rdwr</obj_property>
+      <obj_property name="ObjectShortName">test_frame_rdwr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/test_adrs" type="array">
+      <obj_property name="ElementShortName">test_adrs[9:0]</obj_property>
+      <obj_property name="ObjectShortName">test_adrs[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/test_data" type="array">
+      <obj_property name="ElementShortName">test_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">test_data[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/test_data_to" type="array">
+      <obj_property name="ElementShortName">test_data_to[31:0]</obj_property>
+      <obj_property name="ObjectShortName">test_data_to[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/test_data_to_210M" type="array">
+      <obj_property name="ElementShortName">test_data_to_210M[31:0]</obj_property>
+      <obj_property name="ObjectShortName">test_data_to_210M[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_frame_data_C" type="array">
+      <obj_property name="ElementShortName">w_frame_data_C[5:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_C[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_frame_data_A" type="array">
+      <obj_property name="ElementShortName">w_frame_data_A[9:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_A[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_frame_data_D" type="array">
+      <obj_property name="ElementShortName">w_frame_data_D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_D[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_frame_data_B" type="array">
+      <obj_property name="ElementShortName">w_frame_data_B[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_B[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_trig_frame" type="logic">
+      <obj_property name="ElementShortName">w_trig_frame</obj_property>
+      <obj_property name="ObjectShortName">w_trig_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_done_frame" type="logic">
+      <obj_property name="ElementShortName">w_done_frame</obj_property>
+      <obj_property name="ObjectShortName">w_done_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SS_B" type="logic">
+      <obj_property name="ElementShortName">w_SS_B</obj_property>
+      <obj_property name="ObjectShortName">w_SS_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SCLK" type="logic">
+      <obj_property name="ElementShortName">w_SCLK</obj_property>
+      <obj_property name="ObjectShortName">w_SCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_MOSI" type="logic">
+      <obj_property name="ElementShortName">w_MOSI</obj_property>
+      <obj_property name="ObjectShortName">w_MOSI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_MISO" type="logic">
+      <obj_property name="ElementShortName">w_MISO</obj_property>
+      <obj_property name="ObjectShortName">w_MISO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_trig_init" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_trig_init</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_trig_init</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_done_init" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_done_init</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_done_init</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_trig_frame" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_trig_frame</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_trig_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_done_frame" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_done_frame</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_done_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_frame_data_C" type="array">
+      <obj_property name="ElementShortName">w_SSPI_frame_data_C[5:0]</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_frame_data_C[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_frame_data_A" type="array">
+      <obj_property name="ElementShortName">w_SSPI_frame_data_A[9:0]</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_frame_data_A[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_frame_data_D" type="array">
+      <obj_property name="ElementShortName">w_SSPI_frame_data_D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_frame_data_D[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_frame_data_B" type="array">
+      <obj_property name="ElementShortName">w_SSPI_frame_data_B[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_frame_data_B[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_SS_B" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_SS_B</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_SS_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_MCLK" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_MCLK</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_MCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_SCLK" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_SCLK</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_SCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_MOSI" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_MOSI</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_MOSI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_MISO" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_MISO</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_MISO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_SSPI_MISO_EN" type="logic">
+      <obj_property name="ElementShortName">w_SSPI_MISO_EN</obj_property>
+      <obj_property name="ObjectShortName">w_SSPI_MISO_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_MISO_S" type="logic">
+      <obj_property name="ElementShortName">w_MISO_S</obj_property>
+      <obj_property name="ObjectShortName">w_MISO_S</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_MISO_S_EN" type="logic">
+      <obj_property name="ElementShortName">w_MISO_S_EN</obj_property>
+      <obj_property name="ObjectShortName">w_MISO_S_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_port_wo_sadrs_h080" type="array">
+      <obj_property name="ElementShortName">w_port_wo_sadrs_h080[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wo_sadrs_h080[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_port_wo_sadrs_h088" type="array">
+      <obj_property name="ElementShortName">w_port_wo_sadrs_h088[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wo_sadrs_h088[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_port_wo_sadrs_h380" type="array">
+      <obj_property name="ElementShortName">w_port_wo_sadrs_h380[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wo_sadrs_h380[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_port_ti_sadrs_h104" type="array">
+      <obj_property name="ElementShortName">w_port_ti_sadrs_h104[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_ti_sadrs_h104[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_port_to_sadrs_h194" type="array">
+      <obj_property name="ElementShortName">w_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_to_sadrs_h194[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_port_to_sadrs_h19C" type="array">
+      <obj_property name="ElementShortName">w_port_to_sadrs_h19C[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_to_sadrs_h19C[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_loopback_en" type="logic">
+      <obj_property name="ElementShortName">w_loopback_en</obj_property>
+      <obj_property name="ObjectShortName">w_loopback_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/w_MISO_one_bit_ahead_en" type="logic">
+      <obj_property name="ElementShortName">w_MISO_one_bit_ahead_en</obj_property>
+      <obj_property name="ObjectShortName">w_MISO_one_bit_ahead_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mth_brd/reset_n" type="logic">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+</wave_config>

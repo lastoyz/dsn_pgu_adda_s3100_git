@@ -1,0 +1,23 @@
+LED 점등용 검증 파일
+
+D:\2020_proj\01.MLCC_Tester\06.MHVSU FPGA Module\Ver10\FPGA\20191203_EAT_DEMO_TRX_sens\EAT_DEMO_TRX.runs\impl_1
+
+TRX_TOP.bit
+
+set_property CFGBVS GND [current_design]
+set_property CONFIG_VOLTAGE 1.8 [current_design]
+set_property BITSTREAM.CONFIG.CONFIGRATE 33 [current_design]
+set_property BITSTREAM.GENERAL.COMPRESS True [current_design]
+set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 4 [current_design]
+set_property CONFIG_MODE SPIx4 [current_design]
+
+적용
+
+다운로드 후 
+5.003V
+5.005V
+ 
+0.149 ~ 0.150 A
+0.150 ~ 0.151 A
+0.152 ~ 0.153 A
+

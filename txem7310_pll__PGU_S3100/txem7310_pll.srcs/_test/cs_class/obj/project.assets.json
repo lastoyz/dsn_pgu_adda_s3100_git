@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\sejo\\.nuget\\packages\\": {}
+    "C:\\Users\\ykseol\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\dsn_pgu_s3100_git\\txem7310_pll__PGU_S3100\\txem7310_pll.srcs\\_test\\cs_class\\cs_class.csproj",
+      "projectUniqueName": "D:\\tmp_jo_2061\\temp\\dsn_pgu_s3100_git\\txem7310_pll__PGU_S3100\\txem7310_pll.srcs\\_test\\cs_class\\cs_class.csproj",
       "projectName": "cs_class",
-      "projectPath": "D:\\dsn_pgu_s3100_git\\txem7310_pll__PGU_S3100\\txem7310_pll.srcs\\_test\\cs_class\\cs_class.csproj",
-      "packagesPath": "C:\\Users\\sejo\\.nuget\\packages\\",
-      "outputPath": "D:\\dsn_pgu_s3100_git\\txem7310_pll__PGU_S3100\\txem7310_pll.srcs\\_test\\cs_class\\obj\\",
+      "projectPath": "D:\\tmp_jo_2061\\temp\\dsn_pgu_s3100_git\\txem7310_pll__PGU_S3100\\txem7310_pll.srcs\\_test\\cs_class\\cs_class.csproj",
+      "packagesPath": "C:\\Users\\ykseol\\.nuget\\packages\\",
+      "outputPath": "D:\\tmp_jo_2061\\temp\\dsn_pgu_s3100_git\\txem7310_pll__PGU_S3100\\txem7310_pll.srcs\\_test\\cs_class\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\sejo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ykseol\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -58,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

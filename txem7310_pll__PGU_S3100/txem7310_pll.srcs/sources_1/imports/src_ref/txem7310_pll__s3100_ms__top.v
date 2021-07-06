@@ -3471,16 +3471,16 @@ assign RUN_FPGA_LED = FPGA_LED_RUN_STATUS;
 
 /* TODO: LED assign */
 
-assign led[0] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b1 : 1'b0;
-assign led[1] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b0 : 1'b1; 
+assign led[0] = FPGA_LED_RUN_STATUS;
+assign led[1] = ~FPGA_LED_RUN_STATUS; 
 assign led[2] = 1'b0;
 assign led[3] = 1'b1;
  
 
-assign led[4] = 1'b1; 
-assign led[5] = 1'b0;
-assign led[6] = 1'b1; 
-assign led[7] = FPGA_LED_RUN_STATUS;
+assign led[4] = FPGA_LED_RUN_STATUS; 
+assign led[5] = ~FPGA_LED_RUN_STATUS;
+assign led[6] = 1'b0;
+assign led[7] = 1'b1;
 
 /* TODO: TP assign */
 
@@ -3494,8 +3494,8 @@ assign test_point[3] = 1'b0;
 
 assign test_point[4] = 1'b1; 
 assign test_point[5] = 1'b0; 
-assign test_point[6] = 1'b1;  
-assign test_point[7] = 1'b0; 
+assign test_point[6] = FPGA_LED_RUN_STATUS;  
+assign test_point[7] = ~FPGA_LED_RUN_STATUS; 
 
 
 //}
