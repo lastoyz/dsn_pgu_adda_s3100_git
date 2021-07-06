@@ -592,7 +592,8 @@ namespace TopInstrument
             return cnt_loop;
         }
 
-        public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, uint enable_CS_bits = 0x00001FFF,
+        public uint _test__send_spi_frame(uint data_C, uint  data_A, uint  data_D, 
+            uint enable_CS_bits_16b = 0x00001FFF, uint enable_CS_group_16b = 0x0007,
             uint adrs_MSPI_CON_WI = 0x17, uint adrs_MSPI_FLAG_WO = 0x24, uint adrs_MSPI_TI = 0x42, uint adrs_MSPI_TO = 0x62, 
             uint adrs_MSPI_EN_CS_WI = 0x16, int loc_bit_MSPI_frame_trig = 2, uint mask_MSPI_frame_done = 0x00000004) {
             //## set spi frame data (example)
@@ -603,8 +604,8 @@ namespace TopInstrument
             //uint adrs_MSPI_CON_WI = 0x17;
             __SetWireInValue__(adrs_MSPI_CON_WI, data_MSPI_CON_WI);
 
-            //## set spi enable signals
-            uint data_MSPI_EN_CS_WI = enable_CS_bits;
+            //## set spi enable signals : {enable_CS_group_16b, enable_CS_bits_16b}
+            uint data_MSPI_EN_CS_WI = ((enable_CS_group_16b & 0x0007) <<16 ) + (enable_CS_bits_16b & 0x1FFF);
             __SetWireInValue__(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI);
 
             //## trigger frame 
