@@ -739,13 +739,16 @@ namespace TopInstrument
             //sel_loc_groups = 0x0002; // M1 group
             //sel_loc_groups = 0x0004; // M2 group
             var options_sel_loc_groups = new List<uint> {0x0001, 0x0002, 0x0004};
-            foreach(uint jj in options_sel_loc_groups) {
-                sel_loc_groups = jj;
-                //
-                bool [] slot_is_occupied = {false, false, false, false, false, 
-                    false, false, false, false, false, 
-                    false, false, false};
-                uint [] val_FID_arr = {0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0};
+
+            bool [,] slot_is_occupied = {{false, false, false, false, false, false, false, false, false, false,  false, false, false},
+                                         {false, false, false, false, false, false, false, false, false, false,  false, false, false},
+                                         {false, false, false, false, false, false, false, false, false, false,  false, false, false}};
+            uint [,] val_FID_arr      = {{0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0},
+                                         {0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0},
+                                         {0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0}};
+
+            for(int jj=0;jj<3;jj++) {
+                sel_loc_groups = options_sel_loc_groups[jj];
                 //
                 for (int ii=0;ii<13;ii++) {
                     sel_loc_slots = (uint)(0x0000_0001 << ii);
@@ -759,28 +762,36 @@ namespace TopInstrument
                     //
                     if (data_B==0xCC55) {
                         Console.WriteLine(string.Format(">>> A board is found in slot."));
-                        slot_is_occupied[ii] = true;
+                        slot_is_occupied[jj,ii] = true;
                         // read FID
                         uint FID_lo = dev_eps._test__send_spi_frame(data_C, 0x080, 0x0000, sel_loc_slots, sel_loc_groups);
                         uint FID_hi = dev_eps._test__send_spi_frame(data_C, 0x082, 0x0000, sel_loc_slots, sel_loc_groups);
                         uint FID = (FID_hi<<16) | FID_lo;
-                        val_FID_arr[ii] = FID;
+                        val_FID_arr[jj,ii] = FID;
                     }
                     //
                 }
-                // print out list
-                Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
-                Console.WriteLine(string.Format("| {0} | {1} | {2} | {3} |", "sel_loc_groups", "ii", "sel_loc_slots", "FID       "));
-                Console.WriteLine(string.Format(    "+================+====+===============+============+"));
+            }
+
+            //
+            // print out list
+            Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
+            Console.WriteLine(string.Format("| {0} | {1} | {2} | {3} |", "sel_loc_groups", "ii", "sel_loc_slots", "FID       "));
+            Console.WriteLine(string.Format(    "+================+====+===============+============+"));
+            for(int jj=0;jj<3;jj++) {
+                sel_loc_groups = options_sel_loc_groups[jj];
                 for (int ii=0;ii<13;ii++) {
-                    if (slot_is_occupied[ii]==false)
+                    if (slot_is_occupied[jj,ii]==false)
                         continue;
                     sel_loc_slots = (uint)(0x0000_0001 << ii);
-                    Console.WriteLine(string.Format("|         0x{0:X4} | {1:d2} |        0x{2:X4} | 0x{3:X8} |", sel_loc_groups, ii, sel_loc_slots, val_FID_arr[ii]));
+                    Console.WriteLine(string.Format("|         0x{0:X4} | {1:d2} |        0x{2:X4} | 0x{3:X8} |", 
+                        sel_loc_groups, ii, sel_loc_slots, val_FID_arr[jj,ii]));
+                    //
                 }
-                Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
-                //
             }
+            Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
+
+
 
             // reset spi emulation
             dev_eps._test__reset_spi_emul();
