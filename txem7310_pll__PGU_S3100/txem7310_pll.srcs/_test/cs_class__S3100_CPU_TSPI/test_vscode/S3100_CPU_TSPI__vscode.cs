@@ -775,21 +775,21 @@ namespace TopInstrument
 
             //
             // print out list
-            Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
-            Console.WriteLine(string.Format("| {0} | {1} | {2} | {3} |", "sel_loc_groups", "ii", "sel_loc_slots", "FID       "));
-            Console.WriteLine(string.Format(    "+================+====+===============+============+"));
+            Console.WriteLine(string.Format(    "+----------------+------------+---------------+------------+"));
+            Console.WriteLine(string.Format("| {0} | {1} | {2} | {3} |", "sel_loc_groups", "slot index", "sel_loc_slots", "FID       "));
+            Console.WriteLine(string.Format(    "+================+============+===============+============+"));
             for(int jj=0;jj<3;jj++) {
                 sel_loc_groups = options_sel_loc_groups[jj];
                 for (int ii=0;ii<13;ii++) {
                     if (slot_is_occupied[jj,ii]==false)
                         continue;
                     sel_loc_slots = (uint)(0x0000_0001 << ii);
-                    Console.WriteLine(string.Format("|         0x{0:X4} | {1:d2} |        0x{2:X4} | 0x{3:X8} |", 
+                    Console.WriteLine(string.Format("|         0x{0:X4} |         {1:d2} |        0x{2:X4} | 0x{3:X8} |", 
                         sel_loc_groups, ii, sel_loc_slots, val_FID_arr[jj,ii]));
                     //
                 }
             }
-            Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
+            Console.WriteLine(string.Format(    "+----------------+------------+---------------+------------+"));
 
 
 
@@ -5854,7 +5854,7 @@ namespace __test__
             //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
 
-            ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
+            //ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
