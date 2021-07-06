@@ -844,10 +844,40 @@ namespace TopInstrument
             return ret;
         }
 
+        private bool m_use_loc_slot = false;
+        private uint m_sel_loc_slots = 0x1FFF;
+        private uint m_sel_loc_groups = 0x0007;
 
+        public bool SPI_EMUL__get__use_loc_slot() {
+            return m_use_loc_slot;
+        }
+        public uint SPI_EMUL__get__loc_group() {
+            return m_sel_loc_groups;
+        }
+        public uint SPI_EMUL__get__loc_slot() {
+            return m_sel_loc_slots;
+        }
 
-        public uint SPI_EMUL__send_frame(uint data_C, uint data_A, uint data_D) {
-            return _test__send_spi_frame(data_C, data_A, data_D);
+        public bool SPI_EMUL__set__use_loc_slot(bool val) {
+            m_use_loc_slot = val;
+            return m_use_loc_slot;
+        }
+        public uint SPI_EMUL__set__loc_group(uint val) {
+            m_sel_loc_groups = val;
+            return SPI_EMUL__get__loc_group();
+        }
+        public uint SPI_EMUL__set__loc_slot(uint val) {
+            m_sel_loc_slots = val;
+            return SPI_EMUL__get__loc_slot();
+        }
+
+        public uint SPI_EMUL__send_frame(uint data_C, uint data_A, uint data_D, uint sel_loc_slots = 0x1FFF, uint sel_loc_groups = 0x0007) {
+            u32 ret;
+            if (m_use_loc_slot) 
+                ret = _test__send_spi_frame(data_C, data_A, data_D, m_sel_loc_slots, m_sel_loc_groups);
+            else 
+                ret = _test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
+            return ret;
         }
 
         private uint _read_spi_frame_32b_mask_check_(uint adrs, uint mask = 0xFFFFFFFF) {
@@ -1020,8 +1050,14 @@ namespace TopInstrument
             SPI_EMUL dev_spi_emul = new SPI_EMUL();
             dev_spi_emul.__test_int = dev_spi_emul.__test_int - 1;
 
+            // set slot location for SPI emulation
+            dev_spi_emul.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
+            dev_spi_emul.SPI_EMUL__set__loc_group(0x0004); // for M2 spi channel
+            dev_spi_emul.SPI_EMUL__set__loc_slot (0x0400); // for slot index 10
+
             // test EPS
             dev_spi_emul.my_open(__test__.Program.test_host_ip); 
+
             Console.WriteLine(dev_spi_emul.get_IDN());
             Console.WriteLine(dev_spi_emul.eps_enable()); // renew eps_enable ... merged with SPI_EMUL__init
 
@@ -5353,6 +5389,11 @@ namespace TopInstrument
             Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-20.0));
 
 
+            //// TODO: locate PGU board on slots // before sys_open
+            dev.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
+            dev.SPI_EMUL__set__loc_group(0x0004); // for M2 spi channel
+            dev.SPI_EMUL__set__loc_slot (0x0400); // for slot index 10
+
             //// sys_open
             Console.WriteLine(">>> sys_open");
             //Console.WriteLine(dev.SysOpen("192.168.100.112"));
@@ -5371,7 +5412,6 @@ namespace TopInstrument
             //Console.WriteLine(dev.SysOpen("192.168.100.63", 20000)); //$$ S3100-PGU-TLAN test // BD#3
 
             Console.WriteLine(dev.SysOpen(__test__.Program.test_host_ip)); //$$
-
 
             //// test eeprom access 
             //   eeprom read header 16B * 4 = 64B
@@ -5849,12 +5889,12 @@ namespace __test__
             int ret = 0;
             ret = TopInstrument.EPS_Dev.__test_eps_dev();
             //ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
-            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
+            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
 
             //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
             //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
 
-            //ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
+            ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
