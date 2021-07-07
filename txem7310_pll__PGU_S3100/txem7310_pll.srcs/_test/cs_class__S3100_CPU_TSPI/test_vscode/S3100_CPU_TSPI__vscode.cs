@@ -775,21 +775,21 @@ namespace TopInstrument
 
             //
             // print out list
-            Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
-            Console.WriteLine(string.Format("| {0} | {1} | {2} | {3} |", "sel_loc_groups", "ii", "sel_loc_slots", "FID       "));
-            Console.WriteLine(string.Format(    "+================+====+===============+============+"));
+            Console.WriteLine(string.Format(    "+----------------+------------+---------------+------------+"));
+            Console.WriteLine(string.Format("| {0} | {1} | {2} | {3} |", "sel_loc_groups", "slot index", "sel_loc_slots", "FID       "));
+            Console.WriteLine(string.Format(    "+================+============+===============+============+"));
             for(int jj=0;jj<3;jj++) {
                 sel_loc_groups = options_sel_loc_groups[jj];
                 for (int ii=0;ii<13;ii++) {
                     if (slot_is_occupied[jj,ii]==false)
                         continue;
                     sel_loc_slots = (uint)(0x0000_0001 << ii);
-                    Console.WriteLine(string.Format("|         0x{0:X4} | {1:d2} |        0x{2:X4} | 0x{3:X8} |", 
+                    Console.WriteLine(string.Format("|         0x{0:X4} |         {1:d2} |        0x{2:X4} | 0x{3:X8} |", 
                         sel_loc_groups, ii, sel_loc_slots, val_FID_arr[jj,ii]));
                     //
                 }
             }
-            Console.WriteLine(string.Format(    "+----------------+----+---------------+------------+"));
+            Console.WriteLine(string.Format(    "+----------------+------------+---------------+------------+"));
 
 
 
@@ -844,10 +844,40 @@ namespace TopInstrument
             return ret;
         }
 
+        private bool m_use_loc_slot = false;
+        private uint m_sel_loc_slots = 0x1FFF;
+        private uint m_sel_loc_groups = 0x0007;
 
+        public bool SPI_EMUL__get__use_loc_slot() {
+            return m_use_loc_slot;
+        }
+        public uint SPI_EMUL__get__loc_group() {
+            return m_sel_loc_groups;
+        }
+        public uint SPI_EMUL__get__loc_slot() {
+            return m_sel_loc_slots;
+        }
 
-        public uint SPI_EMUL__send_frame(uint data_C, uint data_A, uint data_D) {
-            return _test__send_spi_frame(data_C, data_A, data_D);
+        public bool SPI_EMUL__set__use_loc_slot(bool val) {
+            m_use_loc_slot = val;
+            return m_use_loc_slot;
+        }
+        public uint SPI_EMUL__set__loc_group(uint val) {
+            m_sel_loc_groups = val;
+            return SPI_EMUL__get__loc_group();
+        }
+        public uint SPI_EMUL__set__loc_slot(uint val) {
+            m_sel_loc_slots = val;
+            return SPI_EMUL__get__loc_slot();
+        }
+
+        public uint SPI_EMUL__send_frame(uint data_C, uint data_A, uint data_D, uint sel_loc_slots = 0x1FFF, uint sel_loc_groups = 0x0007) {
+            u32 ret;
+            if (m_use_loc_slot) 
+                ret = _test__send_spi_frame(data_C, data_A, data_D, m_sel_loc_slots, m_sel_loc_groups);
+            else 
+                ret = _test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
+            return ret;
         }
 
         private uint _read_spi_frame_32b_mask_check_(uint adrs, uint mask = 0xFFFFFFFF) {
@@ -1020,8 +1050,14 @@ namespace TopInstrument
             SPI_EMUL dev_spi_emul = new SPI_EMUL();
             dev_spi_emul.__test_int = dev_spi_emul.__test_int - 1;
 
+            // set slot location for SPI emulation
+            dev_spi_emul.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
+            dev_spi_emul.SPI_EMUL__set__loc_group(0x0004); // for M2 spi channel
+            dev_spi_emul.SPI_EMUL__set__loc_slot (0x0400); // for slot index 10
+
             // test EPS
             dev_spi_emul.my_open(__test__.Program.test_host_ip); 
+
             Console.WriteLine(dev_spi_emul.get_IDN());
             Console.WriteLine(dev_spi_emul.eps_enable()); // renew eps_enable ... merged with SPI_EMUL__init
 
@@ -3777,6 +3813,16 @@ namespace TopInstrument
         
         public bool IsInit = false;
 
+        //$$ new sysopen with slot location and spi group info
+        //   SysOpen_loc_slot_spi(string HOST, int TIMEOUT = 20000, uint loc_slot = 0x01FF, uint loc_spi_group = 0x0003)
+        public string SysOpen_loc_slot_spi(string HOST, int TIMEOUT = 20000, uint loc_slot = 0x01FF, uint loc_spi_group = 0x0003) {
+            // select slot locations
+            SPI_EMUL__set__use_loc_slot(true);       // use fixed slot location
+            SPI_EMUL__set__loc_slot (loc_slot);      // for slot location bits
+            SPI_EMUL__set__loc_group(loc_spi_group); // for spi channel location bits
+            return SysOpen(HOST, TIMEOUT);
+        }
+
         public string SysOpen(string HOST, int TIMEOUT = 20000)
         {
             my_open(HOST, TIMEOUT);
@@ -5353,8 +5399,13 @@ namespace TopInstrument
             Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-20.0));
 
 
+            //// TODO: locate PGU board on slots // before sys_open
+            //dev.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
+            //dev.SPI_EMUL__set__loc_slot (0x0400); // for slot index 10
+            //dev.SPI_EMUL__set__loc_group(0x0004); // for M2 spi channel
+
             //// sys_open
-            Console.WriteLine(">>> sys_open");
+            //Console.WriteLine(">>> sys_open");
             //Console.WriteLine(dev.SysOpen("192.168.100.112"));
             //Console.WriteLine(dev.SysOpen("192.168.100.115"));
             //Console.WriteLine(dev.SysOpen("192.168.100.127"));
@@ -5370,239 +5421,33 @@ namespace TopInstrument
             //Console.WriteLine(dev.SysOpen("192.168.100.62", 20000)); //$$ S3100-PGU-TLAN test // BD#2
             //Console.WriteLine(dev.SysOpen("192.168.100.63", 20000)); //$$ S3100-PGU-TLAN test // BD#3
 
-            Console.WriteLine(dev.SysOpen(__test__.Program.test_host_ip)); //$$
+            //Console.WriteLine(dev.SysOpen(__test__.Program.test_host_ip)); //$$
 
-
-            //// test eeprom access 
-            //   eeprom read header 16B * 4 = 64B
-            var eeprom_data_at_00 = dev.pgu_eeprom__read__data_4byte(0x00);
-            var eeprom_data_at_04 = dev.pgu_eeprom__read__data_4byte(0x04);
-            var eeprom_data_at_08 = dev.pgu_eeprom__read__data_4byte(0x08);
-            var eeprom_data_at_0C = dev.pgu_eeprom__read__data_4byte(0x0C);
-            var eeprom_data_at_10 = dev.pgu_eeprom__read__data_4byte(0x10);
-            var eeprom_data_at_14 = dev.pgu_eeprom__read__data_4byte(0x14);
-            var eeprom_data_at_18 = dev.pgu_eeprom__read__data_4byte(0x18);
-            var eeprom_data_at_1C = dev.pgu_eeprom__read__data_4byte(0x1C);
-            var eeprom_data_at_20 = dev.pgu_eeprom__read__data_4byte(0x20);
-            var eeprom_data_at_24 = dev.pgu_eeprom__read__data_4byte(0x24);
-            var eeprom_data_at_28 = dev.pgu_eeprom__read__data_4byte(0x28);
-            var eeprom_data_at_2C = dev.pgu_eeprom__read__data_4byte(0x2C);
-            var eeprom_data_at_30 = dev.pgu_eeprom__read__data_4byte(0x30);
-            var eeprom_data_at_34 = dev.pgu_eeprom__read__data_4byte(0x34);
-            var eeprom_data_at_38 = dev.pgu_eeprom__read__data_4byte(0x38);
-            var eeprom_data_at_3C = dev.pgu_eeprom__read__data_4byte(0x3C);
-
-            var eeprom_data_at_00__bytes = BitConverter.GetBytes(eeprom_data_at_00);
-            var eeprom_data_at_04__bytes = BitConverter.GetBytes(eeprom_data_at_04);
-            var eeprom_data_at_08__bytes = BitConverter.GetBytes(eeprom_data_at_08);
-            var eeprom_data_at_0C__bytes = BitConverter.GetBytes(eeprom_data_at_0C);
-            var eeprom_data_at_10__bytes = BitConverter.GetBytes(eeprom_data_at_10);
-            var eeprom_data_at_14__bytes = BitConverter.GetBytes(eeprom_data_at_14);
-            var eeprom_data_at_18__bytes = BitConverter.GetBytes(eeprom_data_at_18);
-            var eeprom_data_at_1C__bytes = BitConverter.GetBytes(eeprom_data_at_1C);
-            var eeprom_data_at_20__bytes = BitConverter.GetBytes(eeprom_data_at_20);
-            var eeprom_data_at_24__bytes = BitConverter.GetBytes(eeprom_data_at_24);
-            var eeprom_data_at_28__bytes = BitConverter.GetBytes(eeprom_data_at_28);
-            var eeprom_data_at_2C__bytes = BitConverter.GetBytes(eeprom_data_at_2C);
-            var eeprom_data_at_30__bytes = BitConverter.GetBytes(eeprom_data_at_30);
-            var eeprom_data_at_34__bytes = BitConverter.GetBytes(eeprom_data_at_34);
-            var eeprom_data_at_38__bytes = BitConverter.GetBytes(eeprom_data_at_38);
-            var eeprom_data_at_3C__bytes = BitConverter.GetBytes(eeprom_data_at_3C);
-
-            var eeprom_data_at_00__str = Encoding.UTF8.GetString(eeprom_data_at_00__bytes);
-            var eeprom_data_at_04__str = Encoding.UTF8.GetString(eeprom_data_at_04__bytes);
-            var eeprom_data_at_08__str = Encoding.UTF8.GetString(eeprom_data_at_08__bytes);
-            var eeprom_data_at_0C__str = Encoding.UTF8.GetString(eeprom_data_at_0C__bytes);
-            var eeprom_data_at_10__str = Encoding.UTF8.GetString(eeprom_data_at_10__bytes);
-            var eeprom_data_at_14__str = Encoding.UTF8.GetString(eeprom_data_at_14__bytes);
-            var eeprom_data_at_18__str = Encoding.UTF8.GetString(eeprom_data_at_18__bytes);
-            var eeprom_data_at_1C__str = Encoding.UTF8.GetString(eeprom_data_at_1C__bytes);
-            var eeprom_data_at_20__str = Encoding.UTF8.GetString(eeprom_data_at_20__bytes);
-            var eeprom_data_at_24__str = Encoding.UTF8.GetString(eeprom_data_at_24__bytes);
-            var eeprom_data_at_28__str = Encoding.UTF8.GetString(eeprom_data_at_28__bytes);
-            var eeprom_data_at_2C__str = Encoding.UTF8.GetString(eeprom_data_at_2C__bytes);
-            var eeprom_data_at_30__str = Encoding.UTF8.GetString(eeprom_data_at_30__bytes);
-            var eeprom_data_at_34__str = Encoding.UTF8.GetString(eeprom_data_at_34__bytes);
-            var eeprom_data_at_38__str = Encoding.UTF8.GetString(eeprom_data_at_38__bytes);
-            var eeprom_data_at_3C__str = Encoding.UTF8.GetString(eeprom_data_at_3C__bytes);
-
-            var eeprom_data_at_00__hexstr = BitConverter.ToString(eeprom_data_at_00__bytes);
-            var eeprom_data_at_04__hexstr = BitConverter.ToString(eeprom_data_at_04__bytes);
-            var eeprom_data_at_08__hexstr = BitConverter.ToString(eeprom_data_at_08__bytes);
-            var eeprom_data_at_0C__hexstr = BitConverter.ToString(eeprom_data_at_0C__bytes);
-            var eeprom_data_at_10__hexstr = BitConverter.ToString(eeprom_data_at_10__bytes);
-            var eeprom_data_at_14__hexstr = BitConverter.ToString(eeprom_data_at_14__bytes);
-            var eeprom_data_at_18__hexstr = BitConverter.ToString(eeprom_data_at_18__bytes);
-            var eeprom_data_at_1C__hexstr = BitConverter.ToString(eeprom_data_at_1C__bytes);
-            var eeprom_data_at_20__hexstr = BitConverter.ToString(eeprom_data_at_20__bytes);
-            var eeprom_data_at_24__hexstr = BitConverter.ToString(eeprom_data_at_24__bytes);
-            var eeprom_data_at_28__hexstr = BitConverter.ToString(eeprom_data_at_28__bytes);
-            var eeprom_data_at_2C__hexstr = BitConverter.ToString(eeprom_data_at_2C__bytes);
-            var eeprom_data_at_30__hexstr = BitConverter.ToString(eeprom_data_at_30__bytes);
-            var eeprom_data_at_34__hexstr = BitConverter.ToString(eeprom_data_at_34__bytes);
-            var eeprom_data_at_38__hexstr = BitConverter.ToString(eeprom_data_at_38__bytes);
-            var eeprom_data_at_3C__hexstr = BitConverter.ToString(eeprom_data_at_3C__bytes);
-
-            // bytes merge 
-            var eeprom_data_at_0X__bytes = new byte[16];
-            var eeprom_data_at_1X__bytes = new byte[16];
-            var eeprom_data_at_2X__bytes = new byte[16];
-            var eeprom_data_at_3X__bytes = new byte[16];
+            Console.WriteLine(">>> sys_open with slot location info");
+            int timeout        = 20000;
+            // loc_slot bit 0  = slot location 0
+            // loc_slot bit 1  = slot location 1
+            // ...
+            // loc_slot bit 12 = slot location 12
+            //uint loc_slot      = 0x0100; // slot location 8
+            //uint loc_slot      = 0x0400; // slot location 10
+            uint loc_slot      = 0x1000; // slot location 12
+            // loc_spi_group bit 0 = mother board spi M0
+            // loc_spi_group bit 1 = mother board spi M1
+            // loc_spi_group bit 2 = mother board spi M2
+            uint loc_spi_group = 0x0004; // spi M2
             //
-            var eeprom_LAN_data__bytes   = new byte[32];
-            //
-            Array.Copy(eeprom_data_at_00__bytes,0,eeprom_data_at_0X__bytes,0x0, 4);
-            Array.Copy(eeprom_data_at_04__bytes,0,eeprom_data_at_0X__bytes,0x4, 4);
-            Array.Copy(eeprom_data_at_08__bytes,0,eeprom_data_at_0X__bytes,0x8, 4);
-            Array.Copy(eeprom_data_at_0C__bytes,0,eeprom_data_at_0X__bytes,0xC, 4);
-            //
-            Array.Copy(eeprom_data_at_10__bytes,0,eeprom_data_at_1X__bytes,0x0, 4);
-            Array.Copy(eeprom_data_at_14__bytes,0,eeprom_data_at_1X__bytes,0x4, 4);
-            Array.Copy(eeprom_data_at_18__bytes,0,eeprom_data_at_1X__bytes,0x8, 4);
-            Array.Copy(eeprom_data_at_1C__bytes,0,eeprom_data_at_1X__bytes,0xC, 4);
-            //
-            Array.Copy(eeprom_data_at_20__bytes,0,eeprom_data_at_2X__bytes,0x0, 4);
-            Array.Copy(eeprom_data_at_24__bytes,0,eeprom_data_at_2X__bytes,0x4, 4);
-            Array.Copy(eeprom_data_at_28__bytes,0,eeprom_data_at_2X__bytes,0x8, 4);
-            Array.Copy(eeprom_data_at_2C__bytes,0,eeprom_data_at_2X__bytes,0xC, 4);
-            //
-            Array.Copy(eeprom_data_at_30__bytes,0,eeprom_data_at_3X__bytes,0x0, 4);
-            Array.Copy(eeprom_data_at_34__bytes,0,eeprom_data_at_3X__bytes,0x4, 4);
-            Array.Copy(eeprom_data_at_38__bytes,0,eeprom_data_at_3X__bytes,0x8, 4);
-            Array.Copy(eeprom_data_at_3C__bytes,0,eeprom_data_at_3X__bytes,0xC, 4);
-            //
-            Array.Copy(eeprom_data_at_1X__bytes,0,eeprom_LAN_data__bytes,0x00, 16);
-            Array.Copy(eeprom_data_at_2X__bytes,0,eeprom_LAN_data__bytes,0x10, 16);
-            //
-            Console.WriteLine(BitConverter.ToString(eeprom_data_at_0X__bytes));
-            Console.WriteLine(BitConverter.ToString(eeprom_data_at_1X__bytes));
-            Console.WriteLine(BitConverter.ToString(eeprom_data_at_2X__bytes));
-            Console.WriteLine(BitConverter.ToString(eeprom_data_at_3X__bytes));
-            Console.WriteLine(BitConverter.ToString(eeprom_LAN_data__bytes  ));
+            Console.WriteLine(dev.SysOpen_loc_slot_spi(__test__.Program.test_host_ip, timeout, loc_slot, loc_spi_group)); //$$
 
-            // string merge
-            var eeprom_data_at_0X__str = eeprom_data_at_00__str 
-                                       + eeprom_data_at_04__str
-                                       + eeprom_data_at_08__str
-                                       + eeprom_data_at_0C__str;
-            var eeprom_data_at_1X__str = eeprom_data_at_10__str 
-                                       + eeprom_data_at_14__str
-                                       + eeprom_data_at_18__str
-                                       + eeprom_data_at_1C__str;
-            var eeprom_data_at_2X__str = eeprom_data_at_20__str 
-                                       + eeprom_data_at_24__str
-                                       + eeprom_data_at_28__str
-                                       + eeprom_data_at_2C__str;
-            var eeprom_data_at_3X__str = eeprom_data_at_30__str 
-                                       + eeprom_data_at_34__str
-                                       + eeprom_data_at_38__str
-                                       + eeprom_data_at_3C__str;
-            Console.WriteLine(eeprom_data_at_0X__str);
-            Console.WriteLine(eeprom_data_at_1X__str);
-            Console.WriteLine(eeprom_data_at_2X__str);
-            Console.WriteLine(eeprom_data_at_3X__str);
+            //// may collect slots information
+            // ...
 
-            // hex string merge
-            var eeprom_data_at_0X__hexstr = eeprom_data_at_00__hexstr + "-"
-                                          + eeprom_data_at_04__hexstr + "-"
-                                          + eeprom_data_at_08__hexstr + "-"
-                                          + eeprom_data_at_0C__hexstr;
-            var eeprom_data_at_1X__hexstr = eeprom_data_at_10__hexstr + "-" 
-                                          + eeprom_data_at_14__hexstr + "-"
-                                          + eeprom_data_at_18__hexstr + "-"
-                                          + eeprom_data_at_1C__hexstr;
-            var eeprom_data_at_2X__hexstr = eeprom_data_at_20__hexstr + "-"
-                                          + eeprom_data_at_24__hexstr + "-"
-                                          + eeprom_data_at_28__hexstr + "-"
-                                          + eeprom_data_at_2C__hexstr;
-            var eeprom_data_at_3X__hexstr = eeprom_data_at_30__hexstr + "-"
-                                          + eeprom_data_at_34__hexstr + "-"
-                                          + eeprom_data_at_38__hexstr + "-"
-                                          + eeprom_data_at_3C__hexstr;
-            Console.WriteLine(eeprom_data_at_0X__hexstr);
-            Console.WriteLine(eeprom_data_at_1X__hexstr);
-            Console.WriteLine(eeprom_data_at_2X__hexstr);
-            Console.WriteLine(eeprom_data_at_3X__hexstr);
-
-
-            // test string converter
-            Console.WriteLine(dev.conv_hexstr_to_decstr("A0-23-23-C0"));
-            Console.WriteLine(dev.conv_decstr_to_hexstr("192.168.0.12"));
-            Console.WriteLine(Convert.ToHexString(dev.conv_decstr_to_bytes ("192.168.0.12")));
 
             // test load INFO
             dev.Read_IDN();
             dev.Load_INFO_from_EEPROM();
 
 
-            //// test change members //{
-
-            //  var model_name = new string  ("PGU_CPU_S3000#00").ToCharArray(); // (1)
-            //  //var model_name = new string("PGU_CPU_LAN#1234").ToCharArray(); // (1)
-            //  var pgu_ip_adrs = new string  ("192.168.100.127").ToCharArray(); // (2)
-            //  //var pgu_ip_adrs  = new string  ("192.168.100.112" ).ToCharArray(); // (2)
-            //  var pgu_sm_adrs  = new string  ("255.255.255.0" ).ToCharArray(); // (3)
-            //  var pgu_ga_adrs  = new string  ("0.0.0.0"       ).ToCharArray(); // (4)
-            //  var pgu_dns_adrs = new string  ("0.0.0.0"       ).ToCharArray(); // (5)
-            //  //var pgu_mac_adrs = new string  ("00485533CD0F" ).ToCharArray(); // (6)
-            //  var pgu_mac_adrs = new string  ("0008DC00CD0F" ).ToCharArray(); // (6)
-            //  var pgu_slot_id  = new string("56").ToCharArray(); // (7)
-            //  //var pgu_slot_id  = new string("98").ToCharArray(); // (7)
-            //  //var pgu_user_id = (byte) 32; //(8)
-            //  var pgu_user_id = (byte) 23; //(8)
-            //  //var pgu_user_txt = new string  ("0123456789ABCDEF").ToCharArray(); // (9)
-            //  var pgu_user_txt = new string("ACACABAB12123434").ToCharArray(); // (9)
-            //  
-            //  // test save INFO
-            //  dev.Save_INFO_into_EEPROM(
-            //      model_name   ,  // (1)
-            //      pgu_ip_adrs  ,  // (2)
-            //      pgu_sm_adrs  ,  // (3)
-            //      pgu_ga_adrs  ,  // (4)
-            //      pgu_dns_adrs ,  // (5)
-            //      pgu_mac_adrs ,  // (6)
-            //      pgu_slot_id  ,  // (7) 
-            //      pgu_user_id  ,  // (8) 
-            //      pgu_user_txt ); // (9) 
-            //
-            //  //// test load INFO again
-            //  dev.Load_INFO_from_EEPROM();
-            
-            //}
-
-            ////
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x40).ToString("X8"));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x44).ToString("X8"));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x48).ToString("X8"));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x4C).ToString("X8"));
-
-            // eeprom write test
-            //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0x03020100));
-            //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0xFFFFFFFF));
-            //Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x40));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8")); //0x30313353
-            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x30, 0xFEDCBA98));    // 0x01234567 or 0xFEDCBA98
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8"));
-            Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x30, 0x30313353));
-            Console.WriteLine(dev.pgu_eeprom__read__data_4byte(0x30).ToString("X8"));
-
-            // data converter test
-            Console.WriteLine(dev.conv__raw_int32__flt32((int)0x00000000));
-
-            uint tmp_uint = 0xFFFFFFFF;
-            Console.WriteLine(dev.conv__raw_uint32__flt32(tmp_uint));
-            Console.WriteLine(dev.conv__raw_uint32__flt32(0x00000000));
-
-            tmp_uint = dev.conv__flt32__raw_uint32((float)1.0101);
-            Console.WriteLine(dev.conv__raw_uint32__flt32(tmp_uint));
-
-
-            //   save cal_data to eeprom
-            //dev.__gui_out_ch1_offset = -0.010;
-            //dev.__gui_out_ch2_offset = -0.011;
-            //dev.__gui_out_ch1_gain  =  1.013;
-            //dev.__gui_out_ch2_gain  =  1.012;
-            //dev.Save_CAL_into_EEPROM();
 
             //   load cal_data from eeprom
             dev.Load_CAL_from_EEPROM();
@@ -5610,23 +5455,6 @@ namespace TopInstrument
             Console.WriteLine(dev.__gui_out_ch2_offset);
             Console.WriteLine(dev.__gui_out_ch1_gain );
             Console.WriteLine(dev.__gui_out_ch2_gain );
-
-            // clear cal_data to all FF
-            //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x40, 0xFFFFFFFF));
-            //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x44, 0xFFFFFFFF));
-            //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x48, 0xFFFFFFFF));
-            //Console.WriteLine(dev.pgu_eeprom__write_data_4byte(0x4C, 0xFFFFFFFF));
-            //dev.Load_CAL_from_EEPROM();
-
-            // test float double
-            float  tmp_float  = 1.1F;
-            double tmp_double = 1.1D;
-            Console.WriteLine(Convert.ToString((double)tmp_float )); 
-            Console.WriteLine(Convert.ToString((float)tmp_double));
-            tmp_float  = 1.0F;
-            tmp_double = 1.0D;
-            Console.WriteLine(Convert.ToString((double)tmp_float )); 
-            Console.WriteLine(Convert.ToString((float)tmp_double));
 
 
             //// bypass AUX control : 
@@ -5647,9 +5475,6 @@ namespace TopInstrument
             double[] StepLevel;
             int ret;
 
-            //$$dev.InitializePGU(10, 10, 7.650 / 10, 50); //$$ OK, board output impedance is normally 50ohm // no caldate
-            
-            //$$ add cal_data access :
 
             //$$ case 0: init without using cal_data
             dev.Set_CAL_Mode(0);
@@ -5777,35 +5602,6 @@ namespace TopInstrument
 
         }
 
-
-
-
-        /*
-        public void Run()
-        {
-            SysOpen();
-            long[] StepTime = { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 };
-            double[] StepLevel = { 0.0, 0.0, 1.0, 1.0, 2.0, 2.0, 0.5, 0.5, 0.0, 0.0 };
-            //int interpol = 4;   //#lyh_201221_rev
-
-            long[] StepTime2 = { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000 };
-            double[] StepLevel2 = { 0.0, 0.0, 1.0, 1.0, 2.0, 2.0, 0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0 };
-            //int interpol2 = 4;  //#lyh_201221_rev
-
-            InitializePGU(2.5, 50, 7.650 / 10, 50);
-
-            SetSetupPGU(1, 10, 1e6, StepTime, StepLevel);
-            SetSetupPGU(2, 10, 1e6, StepTime2, StepLevel2);
-            //#lyh_201221_rev
-            //SetSetupPGU(1, 10, 1e6, StepTime, StepLevel, interpol);
-            //SetSetupPGU(2, 10, 1e6, StepTime2, StepLevel2, interpol2);
-            //#lyh_201221_rev
-
-            ForcePGU(3, 3500);
-
-        }
-        */
-
     }
 
 }
@@ -5847,14 +5643,9 @@ namespace __test__
             Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU           ", TopInstrument.TOP_PGU._test()));
 
             int ret = 0;
-            ret = TopInstrument.EPS_Dev.__test_eps_dev();
-            //ret = TopInstrument.TOP_PGU.__test_eps_dev(); // test EPS
-            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL
-
-            //ret = TopInstrument.PGU_control_by_lan.__test_PGU_control_by_lan(); // test PGU LAN control
-            //ret = TopInstrument.PGU_control_by_eps.__test_PGU_control_by_eps(); // test PGU EPS control // like firmware on PC
-
-            ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control
+            ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS
+            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+            ret = TopInstrument.TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
