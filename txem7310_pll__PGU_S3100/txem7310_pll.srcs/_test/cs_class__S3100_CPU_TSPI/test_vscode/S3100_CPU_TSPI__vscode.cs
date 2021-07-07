@@ -1052,9 +1052,9 @@ namespace TopInstrument
 
             // set slot location for SPI emulation
             dev_spi_emul.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
-            dev_spi_emul.SPI_EMUL__set__loc_group(0x0004); // for M2 spi channel
-            dev_spi_emul.SPI_EMUL__set__loc_slot (0x0400); // for slot index 10
-
+            dev_spi_emul.SPI_EMUL__set__loc_group(__test__.Program.test_loc_spi_group); // for spi channel index
+            dev_spi_emul.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot); // for slot index 
+            
             // test EPS
             dev_spi_emul.my_open(__test__.Program.test_host_ip); 
 
@@ -5431,13 +5431,14 @@ namespace TopInstrument
             // loc_slot bit 12 = slot location 12
             //uint loc_slot      = 0x0100; // slot location 8
             //uint loc_slot      = 0x0400; // slot location 10
-            uint loc_slot      = 0x1000; // slot location 12
+            //uint loc_slot      = 0x1000; // slot location 12
             // loc_spi_group bit 0 = mother board spi M0
             // loc_spi_group bit 1 = mother board spi M1
             // loc_spi_group bit 2 = mother board spi M2
-            uint loc_spi_group = 0x0004; // spi M2
+            //uint loc_spi_group = 0x0004; // spi M2
             //
-            Console.WriteLine(dev.SysOpen_loc_slot_spi(__test__.Program.test_host_ip, timeout, loc_slot, loc_spi_group)); //$$
+            Console.WriteLine(dev.SysOpen_loc_slot_spi(__test__.Program.test_host_ip, timeout, 
+                __test__.Program.test_loc_slot, __test__.Program.test_loc_spi_group)); //$$
 
             //// may collect slots information
             // ...
@@ -5629,6 +5630,23 @@ namespace __test__
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
 
+        //// S3100 frame slot selection:
+        // loc_slot bit 0  = slot location 0
+        // loc_slot bit 1  = slot location 1
+        // ...
+        // loc_slot bit 12 = slot location 12
+        //public static uint test_loc_slot = 0x0040; // slot location 6
+        //public static uint test_loc_slot = 0x0100; // slot location 8
+        //public static uint test_loc_slot = 0x0400; // slot location 10
+        public static uint test_loc_slot = 0x1000; // slot location 12
+        //
+        // loc_spi_group bit 0 = mother board spi M0
+        // loc_spi_group bit 1 = mother board spi M1
+        // loc_spi_group bit 2 = mother board spi M2
+        //public static uint test_loc_spi_group = 0x0001; // spi M0
+        //public static uint test_loc_spi_group = 0x0002; // spi M1
+        public static uint test_loc_spi_group = 0x0004; // spi M2
+        
         public static void Main(string[] args)
         {
             //Your code goes hereafter
