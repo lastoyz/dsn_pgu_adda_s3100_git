@@ -572,7 +572,8 @@ module txem7310_pll__s3100_ms__top (
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0416; // S3100-CPU-BASE // pll, endpoints setup
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0702; // S3100-CPU-BASE // MSPI-M0 - SSPI-M2 test
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0706; // S3100-CPU-BASE // update M0 M1 M2 CS pin control
-parameter FPGA_IMAGE_ID = 32'h_A0_21_07A6; // S3100-CPU-BASE // update spi miso pin control
+//parameter FPGA_IMAGE_ID = 32'h_A0_21_07A6; // S3100-CPU-BASE // update spi miso pin control
+parameter FPGA_IMAGE_ID = 32'h_A0_21_0707; // S3100-CPU-BASE // revise master spi timing
 
 
 //}

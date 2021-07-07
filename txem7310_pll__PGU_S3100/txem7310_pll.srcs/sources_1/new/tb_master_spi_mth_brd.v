@@ -145,8 +145,8 @@ master_spi_mth_brd  master_spi_mth_brd__inst (
 );
 
 // loopback test 
-assign w_SSPI_SCLK = w_SSPI_MCLK;
-assign w_SSPI_MISO = w_SSPI_MOSI;
+assign w_SSPI_SCLK = w_SSPI_MCLK;  // add delay
+assign w_SSPI_MISO = w_SSPI_MOSI; // add delay
 assign w_SSPI_MISO_EN = ~w_SSPI_SS_B;
 
 
