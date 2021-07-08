@@ -5378,26 +5378,6 @@ namespace TopInstrument
             // init class
             TOP_PGU dev = new TOP_PGU();
 
-            // test bit converters
-            Console.WriteLine(dev.conv_bit_2s_comp_16bit_to_dec(0x0000));
-            Console.WriteLine(dev.conv_bit_2s_comp_16bit_to_dec(0x7FFF));
-            Console.WriteLine(dev.conv_bit_2s_comp_16bit_to_dec(0x8000));
-            Console.WriteLine(dev.conv_bit_2s_comp_16bit_to_dec(0x0001));
-            Console.WriteLine(dev.conv_bit_2s_comp_16bit_to_dec(0xFFFF));
-            //
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(+20.0));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(+13.9));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(+10.0));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(+9.9));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(+5.0));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(+0.1));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-0.1));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-5.0));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-9.9));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-10.0));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-13.9));
-            Console.WriteLine(dev.conv_dec_to_bit_2s_comp_16bit(-20.0));
-
 
             //// TODO: locate PGU board on slots // before sys_open
             //dev.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
@@ -5461,10 +5441,10 @@ namespace TopInstrument
             //// bypass AUX control : 
             try
             {
-                Console.WriteLine(dev.pgu_aux_io_is_bypassed());
-                dev.pgu_aux_io_bypass_on(); // unused aux io control disabled
-                //dev.pgu_aux_io_bypass_off(); // 
-                Console.WriteLine(dev.pgu_aux_io_is_bypassed());
+                Console.WriteLine(dev.pgu_aux_io_is_bypassed()); // read status
+                //dev.pgu_aux_io_bypass_on(); // disable unused aux io control // faster x3
+                dev.pgu_aux_io_bypass_off();  // activate aux io for 40V AMP board
+                Console.WriteLine(dev.pgu_aux_io_is_bypassed()); // read status
             }
             catch (Exception e)
             {
