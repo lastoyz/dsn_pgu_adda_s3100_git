@@ -61,3 +61,5 @@ txem7310_pll__CPU_S3100/txem7310_pll.srcs/_test/cs_class/obj/
 txem7310_pll__CPU_S3100/txem7310_pll.srcs/_test/cs_class/bin/
 txem7310_pll__CPU_S3100/txem7310_pll.srcs/_test/cs_class__S3100_CPU_TSPI/test_vscode/obj/
 txem7310_pll__CPU_S3100/txem7310_pll.srcs/_test/cs_class__S3100_CPU_TSPI/test_vscode/bin/
+txem7310_pll__CPU_S3100/txem7310_pll.srcs/_test/cs_class__S3100_PGU_TSPI/test_vscode/obj/
+txem7310_pll__CPU_S3100/txem7310_pll.srcs/_test/cs_class__S3100_PGU_TSPI/test_vscode/bin/

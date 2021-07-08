@@ -370,7 +370,7 @@ namespace TopInstrument
         }
 
         public static int __test_scpi_base() {
-            Console.WriteLine(">>>>>> test: __test_scpi_base");
+            //$$Console.WriteLine(">>>>>> test: __test_scpi_base");
 
             // test member
             SCPI_base dev = new SCPI_base();
@@ -623,7 +623,7 @@ namespace TopInstrument
                 cnt_loop++;
                 if (done_trig) {
                     // print
-                    Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
+                    //$$Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
                     break;
                 }
             }
@@ -683,14 +683,14 @@ namespace TopInstrument
                     sel_loc_slots = (uint)(0x0000_0001 << ii);
                     data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
                     data_B = _test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
-                    Console.WriteLine(string.Format(">>>------"));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
+                    //$$Console.WriteLine(string.Format(">>>------"));
+                    //$$Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+                    //$$Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+                    //$$Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+                    //$$Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
                     //
                     if (data_B==0xCC55) {
-                        Console.WriteLine(string.Format(">>> A board is found in slot."));
+                        //$$Console.WriteLine(string.Format(">>> A board is found in slot."));
                         slot_is_occupied[jj,ii] = true;
                         // read FID
                         uint FID_lo = _test__send_spi_frame(data_C, 0x080, 0x0000, sel_loc_slots, sel_loc_groups);
@@ -715,15 +715,15 @@ namespace TopInstrument
 
             tmp = string.Format("+----------------+------------+---------------+------------+");
             ret += tmp + "\n";
-            Console.WriteLine(tmp);
+            //$$Console.WriteLine(tmp);
 
             tmp = string.Format("| sel_loc_groups | slot index | sel_loc_slots | FID        |");
             ret += tmp + "\n";
-            Console.WriteLine(tmp);
+            //$$Console.WriteLine(tmp);
 
             tmp = string.Format("+================+============+===============+============+");
             ret += tmp + "\n";
-            Console.WriteLine(tmp);
+            //$$Console.WriteLine(tmp);
 
             for(int jj=0;jj<3;jj++) {
                 sel_loc_groups = options_sel_loc_groups[jj];
@@ -736,14 +736,14 @@ namespace TopInstrument
                     tmp = string.Format("|         0x{0:X4} |         {1:d2} |        0x{2:X4} | 0x{3:X8} |", 
                         sel_loc_groups, ii, sel_loc_slots, val_FID_arr[jj,ii]);
                     ret += tmp + "\n";
-                    Console.WriteLine(tmp);
+                    //$$Console.WriteLine(tmp);
                     //
                 }
             }
 
             tmp = string.Format("+----------------+------------+---------------+------------+");
             ret += tmp + "\n";
-            Console.WriteLine(tmp);
+            //$$Console.WriteLine(tmp);
 
             return ret;
         }
@@ -757,8 +757,9 @@ namespace TopInstrument
             string ret = SCPI_base._test() + ":_class__EPS_Dev_";
             return ret;
         }
+        /*
         public static int __test_eps_dev() {
-            Console.WriteLine(">>>>>> test: __test_eps_dev");
+            //$$Console.WriteLine(">>>>>> test: __test_eps_dev");
 
             // test member
             EPS_Dev dev_eps = new EPS_Dev();
@@ -853,6 +854,7 @@ namespace TopInstrument
 
             return dev_eps.__test_int;
         }
+        */
         
     }
 
@@ -1094,6 +1096,7 @@ namespace TopInstrument
             string ret = EPS_Dev._test() + ":_class__SPI_EMUL_";
             return ret;
         }
+        /*
         public static int __test_spi_emul() {
             Console.WriteLine(">>>>>> test: __test_spi_emul");
 
@@ -1196,6 +1199,7 @@ namespace TopInstrument
 
             return dev_spi_emul.__test_int;
         }
+        */
     }
 
     public class PGU_control_by_eps : SPI_EMUL
@@ -1211,7 +1215,7 @@ namespace TopInstrument
         public string scpi_comm_resp_ss(byte[] cmd_str) {
             // NOP // to replace by EPS
             cnt_call_unintended++;
-            Console.WriteLine(">>> NO ONE MUST NOT CALL THIS!" + string.Format("_{0}_", cnt_call_unintended));
+            //$$Console.WriteLine(">>> NO ONE MUST NOT CALL THIS!" + string.Format("_{0}_", cnt_call_unintended));
             return base.scpi_comm_resp_ss(cmd_str);
         }
 
@@ -2176,7 +2180,7 @@ namespace TopInstrument
                 string tmp = fmt.Substring(0, fmt.Length-2);
                 fmt = tmp; //
             }
-            Console.WriteLine(fmt);
+            //$$Console.WriteLine(fmt);
         }
 
         private void xil_printf(string fmt, s32 val) { // for test print
@@ -2190,7 +2194,7 @@ namespace TopInstrument
                 string tmp = fmt.Substring(0, fmt.Length-5);
                 fmt = tmp + string.Format("{0} ", val); //
             }
-            Console.WriteLine(fmt);
+            //$$Console.WriteLine(fmt);
         }
 
         private void xil_printf(string fmt, s32 val1 , s32 val2 , s32 val3) { // for test print
@@ -2199,7 +2203,7 @@ namespace TopInstrument
                 string tmp = fmt.Substring(0, fmt.Length-22);
                 fmt = tmp + string.Format("| {0,3:d} || {1,9:d} | {2,9:d} |", val1, val2, val3); //
             }
-            Console.WriteLine(fmt);
+            //$$Console.WriteLine(fmt);
         }
 
         private u32  pgu_dacx_cal_input_dtap() {
@@ -3333,6 +3337,7 @@ namespace TopInstrument
             string ret = SPI_EMUL._test() + ":_class__PGU_control_by_eps_";
             return ret;
         }
+        /*
         public static int __test_PGU_control_by_eps() {
             Console.WriteLine(">>>>>> test: __test_PGU_control_by_eps");
 
@@ -3362,6 +3367,7 @@ namespace TopInstrument
 
             return dev_eps.__test_int;
         }
+        */
     }
 
     //// top class case3
@@ -4972,6 +4978,7 @@ namespace TopInstrument
             return ret;
         }
 
+		/*
 		public static int __test_top_pgu()
         {
             Console.WriteLine("Hello, TopInstrument!");
@@ -5184,6 +5191,7 @@ namespace TopInstrument
             return 0x3535ACAC;
 
         }
+        */
 
     }
 
@@ -5191,7 +5199,7 @@ namespace TopInstrument
 
 
 ////---- cut off later ----////
-
+/*
 
 //using System;
 //using System.Collections.Generic;
@@ -5254,3 +5262,4 @@ namespace __test__
         }
     }
 }
+*/
