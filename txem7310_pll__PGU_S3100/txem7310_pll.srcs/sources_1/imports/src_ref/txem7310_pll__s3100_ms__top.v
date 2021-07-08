@@ -573,7 +573,8 @@ module txem7310_pll__s3100_ms__top (
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0702; // S3100-CPU-BASE // MSPI-M0 - SSPI-M2 test
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_0706; // S3100-CPU-BASE // update M0 M1 M2 CS pin control
 //parameter FPGA_IMAGE_ID = 32'h_A0_21_07A6; // S3100-CPU-BASE // update spi miso pin control
-parameter FPGA_IMAGE_ID = 32'h_A0_21_0707; // S3100-CPU-BASE // revise master spi timing
+//parameter FPGA_IMAGE_ID = 32'h_A0_21_0707; // S3100-CPU-BASE // revise master spi timing
+parameter FPGA_IMAGE_ID = 32'h_A0_21_0708; // S3100-CPU-BASE // merge git
 
 
 //}
@@ -3711,16 +3712,15 @@ assign RUN_FPGA_LED = FPGA_LED_RUN_STATUS;
 
 /* TODO: LED assign */ //{
 
-assign led[0] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b1 : 1'b0;
-assign led[1] = (FPGA_LED_RUN_STATUS == 1'b0) ?  1'b0 : 1'b1; 
+assign led[0] = FPGA_LED_RUN_STATUS;
+assign led[1] = ~FPGA_LED_RUN_STATUS; 
 assign led[2] = 1'b0;
 assign led[3] = 1'b1;
- 
 
-assign led[4] = 1'b1; 
-assign led[5] = 1'b0;
-assign led[6] = 1'b1; 
-assign led[7] = FPGA_LED_RUN_STATUS;
+assign led[4] = FPGA_LED_RUN_STATUS; 
+assign led[5] = ~FPGA_LED_RUN_STATUS;
+assign led[6] = 1'b0;
+assign led[7] = 1'b1;
 
 //}
 
@@ -3734,8 +3734,8 @@ assign test_point[3] = 1'b0;
 
 assign test_point[4] = 1'b1; 
 assign test_point[5] = 1'b0; 
-assign test_point[6] = 1'b1;  
-assign test_point[7] = 1'b0; 
+assign test_point[6] = FPGA_LED_RUN_STATUS;  
+assign test_point[7] = ~FPGA_LED_RUN_STATUS; 
 
 //}
 
