@@ -66,6 +66,7 @@ set_msg_config  -ruleid {11}  -id {DRC RTSTAT-10}  -suppress
 set_msg_config  -ruleid {12}  -id {[BD 41-1306]}  -suppress 
 set_msg_config  -ruleid {13}  -id {[BD 41-1271]}  -suppress 
 set_msg_config  -ruleid {14}  -id {Synth 8-295}  -new_severity {WARNING} 
+set_msg_config  -ruleid {15}  -id {[BD 41-1271]}  -suppress 
 set_msg_config  -ruleid {2}  -id {Common 17-1355}  -suppress 
 set_msg_config  -ruleid {3}  -id {DRC CHECK-3}  -suppress 
 set_msg_config  -ruleid {4}  -id {DRC DPIP-1}  -suppress 
@@ -79,12 +80,12 @@ start_step write_bitstream
 set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
-  open_checkpoint txem7310_pll__s3100_ms__top_postroute_physopt.dcp
-  set_property webtalk.parent_dir /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.cache/wt [current_project]
+  open_checkpoint txem7310_pll__s3100_ms__top_routed.dcp
+  set_property webtalk.parent_dir /media/sf_temp/dsn_s3100_ms_cpu_base_git/txem7310_pll__CPU_S3100/txem7310_pll.cache/wt [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
-  add_files /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf
-  set_property SCOPED_TO_REF microblaze_mcs_1 [get_files -all /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
-  set_property SCOPED_TO_CELLS inst/microblaze_I [get_files -all /media/sf_temp/dsn_pgu_s3100_git/txem7310_pll__PGU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
+  add_files /media/sf_temp/dsn_s3100_ms_cpu_base_git/txem7310_pll__CPU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf
+  set_property SCOPED_TO_REF microblaze_mcs_1 [get_files -all /media/sf_temp/dsn_s3100_ms_cpu_base_git/txem7310_pll__CPU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
+  set_property SCOPED_TO_CELLS inst/microblaze_I [get_files -all /media/sf_temp/dsn_s3100_ms_cpu_base_git/txem7310_pll__CPU_S3100/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
   catch { write_mem_info -force txem7310_pll__s3100_ms__top.mmi }
   catch { write_bmm -force txem7310_pll__s3100_ms__top_bd.bmm }
   write_bitstream -force txem7310_pll__s3100_ms__top.bit 
