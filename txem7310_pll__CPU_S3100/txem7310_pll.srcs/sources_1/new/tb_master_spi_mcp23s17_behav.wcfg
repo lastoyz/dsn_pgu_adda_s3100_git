@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_master_spi_mcp23s17_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_master_spi_mcp23s17" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1483199479000fs"></ZoomStartTime>
+      <ZoomEndTime time="1535649479001fs"></ZoomEndTime>
+      <Cursor1Time time="1515799479000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="234"></NameColumnWidth>
+      <ValueColumnWidth column_width="64"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="29" />
+   <wvobject fp_name="/tb_master_spi_mcp23s17/clk_10M" type="logic">
+      <obj_property name="ElementShortName">clk_10M</obj_property>
+      <obj_property name="ObjectShortName">clk_10M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/reset_n" type="logic">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/i_trig_LNG_reset" type="logic">
+      <obj_property name="ElementShortName">i_trig_LNG_reset</obj_property>
+      <obj_property name="ObjectShortName">i_trig_LNG_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_done_LNG_reset" type="logic">
+      <obj_property name="ElementShortName">o_done_LNG_reset</obj_property>
+      <obj_property name="ObjectShortName">o_done_LNG_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/i_trig_SPI_frame" type="logic">
+      <obj_property name="ElementShortName">i_trig_SPI_frame</obj_property>
+      <obj_property name="ObjectShortName">i_trig_SPI_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/r_trig_SPI_frame" type="logic">
+      <obj_property name="ElementShortName">r_trig_SPI_frame</obj_property>
+      <obj_property name="ObjectShortName">r_trig_SPI_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_done_SPI_frame" type="logic">
+      <obj_property name="ElementShortName">o_done_SPI_frame</obj_property>
+      <obj_property name="ObjectShortName">o_done_SPI_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/test_reset" type="logic">
+      <obj_property name="ElementShortName">test_reset</obj_property>
+      <obj_property name="ObjectShortName">test_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/test_frame" type="logic">
+      <obj_property name="ElementShortName">test_frame</obj_property>
+      <obj_property name="ObjectShortName">test_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/pattern_MISO" type="array">
+      <obj_property name="ElementShortName">pattern_MISO[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pattern_MISO[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/w_trig_LNG_reset" type="logic">
+      <obj_property name="ElementShortName">w_trig_LNG_reset</obj_property>
+      <obj_property name="ObjectShortName">w_trig_LNG_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/w_done_LNG_reset" type="logic">
+      <obj_property name="ElementShortName">w_done_LNG_reset</obj_property>
+      <obj_property name="ObjectShortName">w_done_LNG_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/w_trig_SPI_frame" type="logic">
+      <obj_property name="ElementShortName">w_trig_SPI_frame</obj_property>
+      <obj_property name="ObjectShortName">w_trig_SPI_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/w_done_SPI_frame" type="logic">
+      <obj_property name="ElementShortName">w_done_SPI_frame</obj_property>
+      <obj_property name="ObjectShortName">w_done_SPI_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/state" type="array">
+      <obj_property name="ElementShortName">state[7:0]</obj_property>
+      <obj_property name="ObjectShortName">state[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/r_R_W_bar" type="logic">
+      <obj_property name="ElementShortName">r_R_W_bar</obj_property>
+      <obj_property name="ObjectShortName">r_R_W_bar</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_SPIO0_CS" type="logic">
+      <obj_property name="ElementShortName">o_SPIO0_CS</obj_property>
+      <obj_property name="ObjectShortName">o_SPIO0_CS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_SPIO1_CS" type="logic">
+      <obj_property name="ElementShortName">o_SPIO1_CS</obj_property>
+      <obj_property name="ObjectShortName">o_SPIO1_CS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_SPIOx_SCLK" type="logic">
+      <obj_property name="ElementShortName">o_SPIOx_SCLK</obj_property>
+      <obj_property name="ObjectShortName">o_SPIOx_SCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_SPIOx_MOSI" type="logic">
+      <obj_property name="ElementShortName">o_SPIOx_MOSI</obj_property>
+      <obj_property name="ObjectShortName">o_SPIOx_MOSI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/i_SPIOx_MISO" type="logic">
+      <obj_property name="ElementShortName">i_SPIOx_MISO</obj_property>
+      <obj_property name="ObjectShortName">i_SPIOx_MISO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/i_wr_DA" type="array">
+      <obj_property name="ElementShortName">i_wr_DA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_wr_DA[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/i_wr_DB" type="array">
+      <obj_property name="ElementShortName">i_wr_DB[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_wr_DB[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_rd_DA" type="array">
+      <obj_property name="ElementShortName">o_rd_DA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_rd_DA[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/o_rd_DB" type="array">
+      <obj_property name="ElementShortName">o_rd_DB[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_rd_DB[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/r_fbit_index" type="array">
+      <obj_property name="ElementShortName">r_fbit_index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">r_fbit_index[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/r_shift_send_w32" type="array">
+      <obj_property name="ElementShortName">r_shift_send_w32[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_send_w32[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_master_spi_mcp23s17/master_spi_mcp23s17_inst/r_shift_recv_w16" type="array">
+      <obj_property name="ElementShortName">r_shift_recv_w16[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_recv_w16[15:0]</obj_property>
+   </wvobject>
+</wave_config>

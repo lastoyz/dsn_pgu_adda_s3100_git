@@ -1,1 +1,0 @@
-## no debog core
