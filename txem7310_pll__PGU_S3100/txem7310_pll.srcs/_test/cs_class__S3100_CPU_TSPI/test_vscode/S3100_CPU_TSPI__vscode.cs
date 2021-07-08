@@ -1154,7 +1154,7 @@ namespace TopInstrument
         //// PGU LAN command string headers
         private string cmd_str__PGU_PWR        = ":PGU:PWR";
         private string cmd_str__PGU_OUTP       = ":PGU:OUTP";
-        public string cmd_str__PGU_STAT       = ":PGU:STAT"; // output activity check
+        public string cmd_str__PGU_STAT        = ":PGU:STAT"; // output activity check
         private string cmd_str__PGU_AUX_CON    = ":PGU:AUX:CON";
         private string cmd_str__PGU_AUX_OLAT   = ":PGU:AUX:OLAT";
         private string cmd_str__PGU_AUX_DIR    = ":PGU:AUX:DIR";
@@ -1171,8 +1171,8 @@ namespace TopInstrument
         private string cmd_str__PGU_OFST_DAC1  = ":PGU:OFST:DAC1";
         private string cmd_str__PGU_GAIN_DAC0  = ":PGU:GAIN:DAC0";
         private string cmd_str__PGU_GAIN_DAC1  = ":PGU:GAIN:DAC1";
-        private string cmd_str__PGU_MEMR      = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
-        private string cmd_str__PGU_MEMW      = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
+        private string cmd_str__PGU_MEMR       = ":PGU:MEMR"; // # new ':PGU:MEMR #H00000058 \n'
+        private string cmd_str__PGU_MEMW       = ":PGU:MEMW"; // # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
         //public string cmd_str__DC_BIAS = ":PGU:BIAS"; //$$ to come
 
 
