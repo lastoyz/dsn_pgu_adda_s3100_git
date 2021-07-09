@@ -804,7 +804,8 @@ def eps_test():
 
 	
 	## set CS enable bits 
-	enable_CS_bits = 0x000013CA
+	#enable_CS_bits = 0x000013CA
+	enable_CS_bits = 0x00010004
 	
 	## set spi frame data @ address 0x380
 	data_C = 0x10   ##// control data 6bit for read 
