@@ -1,0 +1,16 @@
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\bin\Debug\net5.0\test_vscode.exe
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\bin\Debug\net5.0\test_vscode.deps.json
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\bin\Debug\net5.0\test_vscode.runtimeconfig.json
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\bin\Debug\net5.0\test_vscode.runtimeconfig.dev.json
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\bin\Debug\net5.0\test_vscode.dll
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\bin\Debug\net5.0\ref\test_vscode.dll
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\bin\Debug\net5.0\test_vscode.pdb
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.csprojAssemblyReference.cache
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.GeneratedMSBuildEditorConfig.editorconfig
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.AssemblyInfoInputs.cache
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.AssemblyInfo.cs
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.csproj.CoreCompileInputs.cache
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.dll
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\ref\test_vscode.dll
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.pdb
+D:\dsn_pgu_cpu_git\xem7310_pll__PGU-CPU__work\xem7310_pll.srcs\_test\cs_class_BD210330\test_vscode\obj\Debug\net5.0\test_vscode.genruntimeconfig.cache
