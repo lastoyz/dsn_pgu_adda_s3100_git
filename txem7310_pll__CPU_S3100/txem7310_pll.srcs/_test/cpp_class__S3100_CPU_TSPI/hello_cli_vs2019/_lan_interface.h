@@ -6,8 +6,8 @@
 #pragma comment(lib, "ws2_32") //$$ to revise
 
 //#include <stddef.h> //$$ for NULL
-#undef NULL
-#define NULL 0
+//#undef NULL
+//#define NULL 0
 
 //#define PORT 4578
 //#define PACKET_SIZE 1024
@@ -49,6 +49,7 @@
 
 #include <iostream>
 #include <string>
+
 //using namespace std;
 
 class EPS_Dev
