@@ -8,14 +8,15 @@
             "name": "g++.exe - 활성 파일 빌드 및 디버그",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            //"program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}\\hello.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "C:\\MinGW\\bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "D:\\prog\\mingw-w64\\mingw32\\bin\\gdb.exe",
+            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
             "setupCommands": [
                 {
                     "description": "gdb에 자동 서식 지정 사용",

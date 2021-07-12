@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 //#include <WinSock2.h>
 //#pragma comment(lib, "ws2_32")
 
@@ -819,7 +820,7 @@ int EPS_Dev::scpi_comm_resp_numb(char cmd_str[], int *data,  int length)
 		{
 			break;
 		}
-		/*else if((*(adc_raw_data_rcv_buf) + total_cnt) == NULL)			//binary data´Â NULLÀ» Áß°£¿¡ Æ÷ÇÔ.
+		/*else if((*(adc_raw_data_rcv_buf) + total_cnt) == NULL)			//binary dataï¿½ï¿½ NULLï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		{
 			break;
 		}*/
@@ -1829,9 +1830,21 @@ void EPS_Dev::cmu_adc_load_from_fifo(int adc_num_samples)
 	//
 }
 
-void EPS_Dev::sleep(unsigned long time)
+void EPS_Dev::sleep(unsigned long time_ms)
 {
-	_sleep(time);
+	//$$ _sleep(time); //$$ for windows ms time
+
+	//$$ review _sleep
+	int CLOCKS_PER_MS = CLOCKS_PER_SEC/1000;
+	clock_t start_clk = clock();
+	clock_t final_clk = start_clk + time_ms*CLOCKS_PER_MS;
+	
+	while (true) {
+		//if ((clock() - start_clk)/CLOCKS_PER_MS > time_ms) break;
+		if (clock() >= final_clk) break;
+	}
+	
+	
 }
 
 
@@ -1953,7 +1966,7 @@ void EPS_Dev::cmu_check_adc_test_pattern()
 void EPS_Dev::cmu_write_raw_data(int adc_num_samples)
 {
 
-	// time.h Á¤ÀÇ³»¿ë
+	// time.h ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½
 	//struct tm {
 	//			int tm_sec;   /* Seconds */
 	//			int tm_min;   /* Minutes */
@@ -2155,5 +2168,17 @@ int EPS_Dev::Test(int &test_array)
 
 	return 0;
 
+}
 
+int EPS_Dev::_test()
+{
+	printf(">>> test class EPS_Dev \n");
+
+	
+	printf("> test sleep(1000) \n");
+	sleep(1000); //ms
+	printf("> test sleep(1000) \n");
+	sleep(1000); //ms
+
+	return 0;
 }

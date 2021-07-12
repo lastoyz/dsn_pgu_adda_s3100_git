@@ -1,8 +1,13 @@
+#ifndef __EPS_Dev_H__
+#define __EPS_Dev_H__
+
 #include <stdio.h>
 #include <WinSock2.h>
+#pragma comment(lib, "ws2_32") //$$ to revise
 
-#pragma comment(lib, "ws2_32")
-
+//#include <stddef.h> //$$ for NULL
+#undef NULL
+#define NULL 0
 
 //#define PORT 4578
 //#define PACKET_SIZE 1024
@@ -26,8 +31,8 @@
 #define cmd_str_EPS_PI		":EPS:PI"
 #define cmd_str_EPS_PO		":EPS:PO"
 
-#define SO_SNDBUF			2048
-#define SO_RCVBUF			32768
+//$$#define SO_SNDBUF			2048  //$$ to revise
+//$$#define SO_RCVBUF			32768 //$$ to revise
 
 #define BUF_SIZE_COMMAND	32
 #define BUF_SIZE_RESP_CHK	64	
@@ -169,12 +174,12 @@ public:
 	int Test(int &test_array);
 	
 
-
 	void sleep(unsigned long time);
 
 	void UpdateTriggerOuts();
 
-
-
+	int _test();
 
 };
+
+#endif
