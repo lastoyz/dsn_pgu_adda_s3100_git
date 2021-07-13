@@ -5668,19 +5668,19 @@ namespace __test__
         // loc_slot bit 1  = slot location 1
         // ...
         // loc_slot bit 12 = slot location 12
-        public static uint test_loc_slot = 0x0004; // slot location 2
+        //public static uint test_loc_slot = 0x0004; // slot location 2
         //public static uint test_loc_slot = 0x0010; // slot location 4
         //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0400; // slot location 10
-        //public static uint test_loc_slot = 0x1000; // slot location 12
+        public static uint test_loc_slot = 0x1000; // slot location 12
         //
         // loc_spi_group bit 0 = mother board spi M0
         // loc_spi_group bit 1 = mother board spi M1
         // loc_spi_group bit 2 = mother board spi M2
-        public static uint test_loc_spi_group = 0x0001; // spi M0
+        //public static uint test_loc_spi_group = 0x0001; // spi M0
         //public static uint test_loc_spi_group = 0x0002; // spi M1
-        //public static uint test_loc_spi_group = 0x0004; // spi M2
+        public static uint test_loc_spi_group = 0x0004; // spi M2
         
         public static void Main(string[] args)
         {
@@ -5701,8 +5701,8 @@ namespace __test__
             ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
             ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             //
-            //ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
-            ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
+            ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+            //ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
