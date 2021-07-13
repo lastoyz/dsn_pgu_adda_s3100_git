@@ -5205,6 +5205,432 @@ namespace TopInstrument
             Console.WriteLine(">>> Some test for command string:");
             // init class
             TOP_GNDU__EPS_SPI dev = new TOP_GNDU__EPS_SPI();
+
+
+/***********************************
+
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0010 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[4] = 1M_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[4] = 1M_RELAY ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0020 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[5] = 10M_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[5] = 10M_RELAY ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0040 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[6] = 100M_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[6] = 100M_RELAY ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0080 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[7] = VM_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[7] = VM_RELAY ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0100 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[8] = EXT_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[8] = EXT_RELAY  ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0200 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[9] = GUARD_AGND_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[9] = GUARD_AGND_RELAY  ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0400 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[10] = SIGNAL_AGND_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[10] = SIGNAL_AGND_RELAY  ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x0800 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[11] = DIAG_INPUT_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[11] = DIAG_INPUT_RELAY  ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x1000 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[12] = 1G_UNDER_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[12] = 1G_UNDER_RELAY   ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x2000 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[13] = 1G_RELAY 					
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[12] = 1G_RELAY  ON		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x04C			VDAC_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x4000 ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write +5V
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x04C			VDAC_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0xC000 ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write -5V
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x04C			VDAC_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x7FFF ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write +9.999695V
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x04C			VDAC_VAL Write
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
+	data_D = 0x8000 ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write –10.00000V
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+##//////////////////////////////////////////////////////////////////////////////
+##//////////////////////////////////////////////////////////////////////////////
+	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
+	data_C = 0x00   ##// control data 6bit for WRITE 
+	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
+	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
+
+	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+
+	print('{} = 0x{:02X}'.format('data_C', data_C))
+	print('{} = 0x{:03X}'.format('data_A', data_A))
+	print('{} = 0x{:04X}'.format('data_D', data_D))
+	print('{} = 0x{:04X}'.format('data_B', data_B))
+##//////////////////////////////////////////////////////////////////////////////
+
+************************************/
+
             
             return dev.__test_int;
         }
@@ -5276,7 +5702,7 @@ namespace __test__
             ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             //
             //ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
-            //ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
+            ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
