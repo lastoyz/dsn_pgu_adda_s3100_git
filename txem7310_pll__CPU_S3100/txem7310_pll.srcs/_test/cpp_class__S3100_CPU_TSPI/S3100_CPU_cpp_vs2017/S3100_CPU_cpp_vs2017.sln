@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CE5BB65-0459-4299-B741-A568B3DC7243}"
+	ProjectSection(SolutionItems) = preProject
+		_lan_interface.cpp = _lan_interface.cpp
+		_lan_interface.h = _lan_interface.h
+		EP_CONF_ADRS_LIB.h = EP_CONF_ADRS_LIB.h
+		hello.cpp = hello.cpp
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA87E58A-F598-4F21-81F2-820CB93FAE26}
+	EndGlobalSection
+EndGlobal
