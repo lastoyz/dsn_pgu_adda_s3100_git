@@ -74,6 +74,8 @@ ss = None # socket
 ## command strings ##############################################################
 cmd_str__IDN      = b'*IDN?\n'
 cmd_str__RST      = b'*RST\n'
+cmd_str__FPGA_FID = b':FPGA:FID?\n'
+cmd_str__FPGA_TMP = b':FPGA:TMP?\n'
 cmd_str__EPS_EN   = b':EPS:EN'
 cmd_str__EPS_WMI  = b':EPS:WMI'
 cmd_str__EPS_WMO  = b':EPS:WMO'
@@ -298,7 +300,7 @@ class EPS_Dev:
 	#
 	def GetSerialNumber(self):
 		ret = EPS_Dev.f_scpi_cmd(self.ss, cmd_str__IDN).decode() # will revise
-		return ret # must come from board later 
+		return ret # must come from board later # such as board id on eeprom ...
 	def ConfigureFPGA(self, opt=[]):
 		# not support
 		pass
@@ -438,7 +440,7 @@ class EPS_Dev:
 		MSPI_EN_CS_WI = ((enable_CS_group_16b & 0x0007) <<16 ) + (enable_CS_bits_16b & 0x1FFF) 
 		EPS_Dev.SetWireInValue(self,0x16, MSPI_EN_CS_WI)
 
-		## frame 
+		## trigger frame 
 		EPS_Dev.ActivateTriggerIn(self,0x42, 2) # frame_trig
 		cnt_loop = 0
 		while True:
@@ -449,7 +451,7 @@ class EPS_Dev:
 				break
 			
 		#GetWireOutValue
-		ret=EPS_Dev.GetWireOutValue(self,0x24)
+		ret=EPS_Dev.GetWireOutValue(self,0x24) ## 0x24 --> 0x34 # for S3100-PGU back to 0x24
 		data_B = ret & 0xFFFF
 		print('0x{:08X}'.format(data_B))
 
@@ -588,9 +590,68 @@ _host_ips__PGU = [
 	'192.168.168.127',
 	'192.168.168.143']
 
+_host_ips__S3100_PGU = [	
+	'192.168.100.48',
+	'192.168.100.49',
+	'192.168.100.50',
+	'192.168.100.51',
+	'192.168.100.52',
+	'192.168.100.53',
+	'192.168.100.54',
+	'192.168.100.55',
+	'192.168.100.56',
+	'192.168.100.57',
+	'192.168.100.58',
+	'192.168.100.59',
+	'192.168.100.60',
+	'192.168.100.61',
+	'192.168.100.62',
+	'192.168.100.63',
+	'192.168.168.143']
+
+_host_ips__S3100_CPU = [	
+	'192.168.100.64',
+	'192.168.100.65',
+	'192.168.100.66',
+	'192.168.100.67',
+	'192.168.100.68',
+	'192.168.100.69',
+	'192.168.100.70',
+	'192.168.100.71',
+	'192.168.100.72',
+	'192.168.100.73',
+	'192.168.100.74',
+	'192.168.100.75',
+	'192.168.100.76',
+	'192.168.100.77',
+	'192.168.100.78',
+	'192.168.100.79',
+	'192.168.168.143']
+
+_host_ips__S3100_CMU = [	
+	'192.168.100.16',
+	'192.168.100.17',
+	'192.168.100.18',
+	'192.168.100.19',
+	'192.168.100.20',
+	'192.168.100.21',
+	'192.168.100.22',
+	'192.168.100.23',
+	'192.168.100.24',
+	'192.168.100.25',
+	'192.168.100.26',
+	'192.168.100.27',
+	'192.168.100.28',
+	'192.168.100.29',
+	'192.168.100.30',
+	'192.168.100.31',
+	'192.168.168.143']
+
 #_host_ips_ = _host_ips__MHVSU
-_host_ips_ = _host_ips__CMU
+#_host_ips_ = _host_ips__CMU
 #_host_ips_ = _host_ips__PGU
+#_host_ips_ = _host_ips__S3100_PGU
+_host_ips_ = _host_ips__S3100_CPU
 
 ###########################################################################
 ### ping ###
@@ -653,8 +714,6 @@ def set_host_ip_by_ping():
 ###########################################################################
 # TODO: test function
 
-
-
 def eps_test():
 	print('#################################################')
 
@@ -666,7 +725,8 @@ def eps_test():
 	
 	## TODO: test ip 
 	#_host_,_port_ = set_host_ip_by_ping()
-	
+	#
+
 	#_host_ = '192.168.100.127' # PGU test
 	#_host_ = '192.168.168.143' # test
 	_host_ = '192.168.100.77'  # S3100-CPU-BASE BD1
@@ -743,7 +803,23 @@ def eps_test():
 	dev.UpdateWireOuts()
 	ret=dev.GetWireOutValue(0x20)
 	print('0x{:08X}'.format(ret))
+
+
+	##---- FPGA FID,TMP test ----##
+	print('\n>>> {} : {}'.format('Test',cmd_str__FPGA_FID))
+	rsp = scpi_comm_resp_ss(ss, cmd_str__FPGA_FID)
+	print('string rcvd: ' + repr(rsp))
 	
+	print('\n>>> {} : {}'.format('Test',cmd_str__FPGA_TMP))
+	rsp = scpi_comm_resp_ss(ss, cmd_str__FPGA_TMP)
+	print('string rcvd: ' + repr(rsp))
+	# assume hex decimal response: #HF3190306<NL>
+	rsp = rsp.decode()
+	rsp = '0x' + rsp[2:-1] # convert "#HF3190306<NL>" --> "0xF3190306"
+	tmp_mC = int(rsp,16) # convert hex into int
+	print('> FPGA temperature = {:8.3f} [C]'.format(tmp_mC/1000))
+	
+
 	##---- EPS  trigger test ----##
 	print('\n>>> {} : {}'.format('Test','EPS triggers'))
 
@@ -782,7 +858,7 @@ def eps_test():
 	##//  bit[15:0] = data_B // MISO data[15:0]	
 	
 
-	## reset 
+	## reset MSPI
 	dev.ActivateTriggerIn(0x42, 0) # reset_trig
 	cnt_loop = 0
 	while True:
@@ -792,7 +868,7 @@ def eps_test():
 			print('reset done !! @ ' + repr(cnt_loop))
 			break
 	
-	## init 
+	## init MSPI
 	dev.ActivateTriggerIn(0x42, 1) # init_trig
 	cnt_loop = 0
 	while True:
@@ -804,7 +880,7 @@ def eps_test():
 
 	
 	## set CS enable bits 
-	#enable_CS_bits = 0x000013CA # any slot test
+	#enable_CS_bits = 0x00000000 # emulated slave spi
 	enable_CS_bits = 0x00010004 # slot spi for GNDU
 	
 	## set spi frame data @ address 0x380
@@ -831,6 +907,17 @@ def eps_test():
 	print('{} = 0x{:03X}'.format('data_A', data_A))
 	print('{} = 0x{:04X}'.format('data_D', data_D))
 	print('{} = 0x{:04X}'.format('data_B', data_B))
+
+
+	## reset : for clearing SSPI test mode.
+	dev.ActivateTriggerIn(0x42, 0) # reset_trig
+	cnt_loop = 0
+	while True:
+		ret=dev.IsTriggered(0x62,0x00000001) # reset_done
+		cnt_loop += 1
+		if ret:
+			print('reset done !! @ ' + repr(cnt_loop))
+			break
 
 
 	##---- EPS OFF test ----##
