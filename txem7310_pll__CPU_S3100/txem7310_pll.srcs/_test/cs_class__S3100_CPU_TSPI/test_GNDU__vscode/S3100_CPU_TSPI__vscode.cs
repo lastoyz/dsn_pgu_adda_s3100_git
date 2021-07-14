@@ -1406,7 +1406,7 @@ namespace TopInstrument
             return pgu_spio_send_spi_frame(framedata);
         }
 
-        private void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+        private void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 pwr_p5v_dac = 0, u32 pwr_n5v_dac= 0) {
             //...
             u32 dir_read;
             u32 lat_read;
@@ -1419,10 +1419,11 @@ namespace TopInstrument
             lat_read = pgu_sp_1_reg_read_b16(0x14);
             
             //# set IO direction for SP1 PB[3:0] - all output
-            pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
+            //# set IO direction for SP1 PA[3:2] - all output // new in S3100-PGU
+            pgu_sp_1_reg_write_b16(0x00, dir_read & 0xF3F0);
             
-            //# set IO for SP1 PB[3:0]
-            u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            //# set IO for SP1 PA[3:2] and SP1 PB[3:0]
+            u32 val = (lat_read & 0xF3F0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0) ) | ( (pwr_n5v_dac<<11) + (pwr_p5v_dac<<10));
             pgu_sp_1_reg_write_b16(0x12,val);
         }
 
@@ -2574,7 +2575,7 @@ namespace TopInstrument
             val_s1 = (val>>1) & 0x0001;
 
             // DAC power on // without changing pwr_adc and pwr_amp
-            pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+            pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0, 1, 1); // (led, pwr_dac, pwr_adc, pwr_amp, pwr_p5v_dac, pwr_n5v_dac)
 
             // power stability delay 1ms or more.
             Delay(1);
@@ -2606,7 +2607,7 @@ namespace TopInstrument
 
             string ret = "OK\n"; // or "NG\n"
             // DAC power off
-            pgu_spio_ext_pwr_led(0, 0, 0, 0);
+            pgu_spio_ext_pwr_led(0, 0, 0, 0, 0, 0);
 
             // TODO: consider pll off by reset  vs  clock disable
             //pgu_dacx_fpga_pll_rst(1, 1, 1); // DAC pll off by reset
@@ -2626,16 +2627,20 @@ namespace TopInstrument
             u32 val_s1;
             u32 val_s2;
             u32 val_s3;
+            u32 val_s10;
+            u32 val_s11;
             // read power status 
             val = pgu_spio_ext_pwr_led_readback();
             val_s1 = (val>>1) & 0x0001;
             val_s2 = (val>>2) & 0x0001;
             val_s3 = (val>>3) & 0x0001;
+            val_s10 = (val>>10) & 0x0001;
+            val_s11 = (val>>11) & 0x0001;
             // output power on
-            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 1); // pwr_amp on
+            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 1, val_s10, val_s11); // pwr_amp on
 
-            //$$ relay control for PGU-CPU-S3000
-            pgu_spio_ext_relay(1,1); //(u32 sw_rl_k1, u32 sw_rl_k2)
+            //$$ relay control for PGU-CPU-S3000 or PGU-S3100
+            pgu_spio_ext_relay(1,1); //(u32 sw_rl_k1, u32 sw_rl_k2) // relay on
 
             return ret;
         }
@@ -2649,16 +2654,20 @@ namespace TopInstrument
             u32 val_s1;
             u32 val_s2;
             u32 val_s3;
+            u32 val_s10;
+            u32 val_s11;
             // read power status 
             val = pgu_spio_ext_pwr_led_readback();
-            val_s1 = (val>>1) & 0x0001;
-            val_s2 = (val>>2) & 0x0001;
-            val_s3 = (val>>3) & 0x0001;
+            val_s1  = (val>> 1) & 0x0001;
+            val_s2  = (val>> 2) & 0x0001;
+            val_s3  = (val>> 3) & 0x0001;
+            val_s10 = (val>>10) & 0x0001;
+            val_s11 = (val>>11) & 0x0001;
             // output power on
-            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 0); // pwr_amp off
+            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 0, val_s10, val_s11); // pwr_amp off
 
-            //$$ relay control for PGU-CPU-S3000
-            pgu_spio_ext_relay(0,0); //(u32 sw_rl_k1, u32 sw_rl_k2)
+            //$$ relay control for PGU-CPU-S3000 or PGU-S3100
+            pgu_spio_ext_relay(0,0); //(u32 sw_rl_k1, u32 sw_rl_k2) // relay off
 
             return ret;
         }
@@ -5209,6 +5218,46 @@ namespace TopInstrument
 
 /***********************************
 
+// ## S3100-GNDU MTH slave SPI frame address map 
+//                           (10-bit)
+// | Group | EP name       | frame adrs | type/index | Description             | contents (32-bit)                 |
+// +=======+===============+============+============+=========================+===================================+
+// | SSPI  | SSPI_TEST_WO  | 0x380      | wireout_E0 | Return known frame data.| bit[31:16]=0x33AA                 | 
+// |       |               |            |            |                         | bit[15: 0]=0xCC55                 |
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | SSPI  | SSPI_CON_WI   | 0x008      | wire_in_02 | Control slave SPI bus.  | bit[30:28]=miso_timing_control    | 
+// |       |               |            |            |                         | bit[25]   =miso_one_bit_ahead_en  |
+// |       |               |            |            |                         | bit[24]   =loopback_en            |
+// |       |               |            |            |                         | bit[3]    =HW_reset               |
+// |       |               |            |            |                         | bit[1]    =LED_ctrl_en_from_SSPI  |
+// |       |               |            |            |                         | bit[0]    =SSPI_ctrl_en_from_LAN  |
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | TEST  | F_IMAGE_ID_WO | 0x080      | wireout_20 | Return FPGA image ID.   | Image_ID[31:0]                    | 
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | TEST  | XADC_TEMP_WO  | 0x0E8      | wireout_3A | Return XADC values.[mC] | MON_TEMP[31:0]                    | 
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | HRADC | HRADC_CON_WI  | 0x01C      | wire_in_07 | Control HRADC logics.   | bit[0]=HRADC_enable               | 
+// |       |               |            |            |                         | bit[1]=HRADC_mode_40bit_en        |
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | HRADC | HRADC_FLAG_WO | 0x09C      | wireout_27 | Return HRADC status.    | bit[31:16]= avg info data[15:0]   | 
+// |       |               |            |            |                         | bit[1]    = adc_cnv_busy          |
+// |       |               |            |            |                         | bit[0]    = adc_sck_busy          |
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | HRADC | HRADC_TRIG_TI | 0x11C      | trig_in_47 | Trigger functions.      | bit[0]= adc conversion trigger    | 
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | HRADC | HRADC_TRIG_TO | 0x19C      | trigout_67 | Check trigger_done.     | bit[0]= adc conversion done       | 
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | HRADC | HRADC_DAT_WO  | 0x0A0      | wireout_28 | Return HRADC data.      | bit[31:16]= ADC_data[23:8]        | 
+// |       |               |            |            |                         | bit[15: 0]={ADC_data[ 7:0], 8'b0} |
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+// | D_RLY | DIAG_RELAY_WI | 0x010      | wire_in_04 | Control for DIAG_RELAY. | TBC                               | 
+// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+
+
+
 ##//////////////////////////////////////////////////////////////////////////////
 	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
 	data_C = 0x00   ##// control data 6bit for WRITE 
@@ -5670,10 +5719,10 @@ namespace __test__
         // loc_slot bit 12 = slot location 12
         //public static uint test_loc_slot = 0x0004; // slot location 2
         //public static uint test_loc_slot = 0x0010; // slot location 4
-        //public static uint test_loc_slot = 0x0040; // slot location 6
+        public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0400; // slot location 10
-        public static uint test_loc_slot = 0x1000; // slot location 12
+        //public static uint test_loc_slot = 0x1000; // slot location 12
         //
         // loc_spi_group bit 0 = mother board spi M0
         // loc_spi_group bit 1 = mother board spi M1
@@ -5702,7 +5751,7 @@ namespace __test__
             ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             //
             ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
-            //ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
+            ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }

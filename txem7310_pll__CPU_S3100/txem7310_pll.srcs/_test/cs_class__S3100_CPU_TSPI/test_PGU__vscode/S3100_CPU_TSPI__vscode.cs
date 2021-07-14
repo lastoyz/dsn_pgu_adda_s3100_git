@@ -1405,7 +1405,7 @@ namespace TopInstrument
             return pgu_spio_send_spi_frame(framedata);
         }
 
-        private void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+        private void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 pwr_p5v_dac = 0, u32 pwr_n5v_dac= 0) {
             //...
             u32 dir_read;
             u32 lat_read;
@@ -1418,10 +1418,11 @@ namespace TopInstrument
             lat_read = pgu_sp_1_reg_read_b16(0x14);
             
             //# set IO direction for SP1 PB[3:0] - all output
-            pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
+            //# set IO direction for SP1 PA[3:2] - all output // new in S3100-PGU
+            pgu_sp_1_reg_write_b16(0x00, dir_read & 0xF3F0);
             
-            //# set IO for SP1 PB[3:0]
-            u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            //# set IO for SP1 PA[3:2] and SP1 PB[3:0]
+            u32 val = (lat_read & 0xF3F0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0) ) | ( (pwr_n5v_dac<<11) + (pwr_p5v_dac<<10));
             pgu_sp_1_reg_write_b16(0x12,val);
         }
 
@@ -2573,7 +2574,7 @@ namespace TopInstrument
             val_s1 = (val>>1) & 0x0001;
 
             // DAC power on // without changing pwr_adc and pwr_amp
-            pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+            pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0, 1, 1); // (led, pwr_dac, pwr_adc, pwr_amp, pwr_p5v_dac, pwr_n5v_dac)
 
             // power stability delay 1ms or more.
             Delay(1);
@@ -2605,7 +2606,7 @@ namespace TopInstrument
 
             string ret = "OK\n"; // or "NG\n"
             // DAC power off
-            pgu_spio_ext_pwr_led(0, 0, 0, 0);
+            pgu_spio_ext_pwr_led(0, 0, 0, 0, 0, 0);
 
             // TODO: consider pll off by reset  vs  clock disable
             //pgu_dacx_fpga_pll_rst(1, 1, 1); // DAC pll off by reset
@@ -2625,16 +2626,20 @@ namespace TopInstrument
             u32 val_s1;
             u32 val_s2;
             u32 val_s3;
+            u32 val_s10;
+            u32 val_s11;
             // read power status 
             val = pgu_spio_ext_pwr_led_readback();
             val_s1 = (val>>1) & 0x0001;
             val_s2 = (val>>2) & 0x0001;
             val_s3 = (val>>3) & 0x0001;
+            val_s10 = (val>>10) & 0x0001;
+            val_s11 = (val>>11) & 0x0001;
             // output power on
-            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 1); // pwr_amp on
+            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 1, val_s10, val_s11); // pwr_amp on
 
-            //$$ relay control for PGU-CPU-S3000
-            pgu_spio_ext_relay(1,1); //(u32 sw_rl_k1, u32 sw_rl_k2)
+            //$$ relay control for PGU-CPU-S3000 or PGU-S3100
+            pgu_spio_ext_relay(1,1); //(u32 sw_rl_k1, u32 sw_rl_k2) // relay on
 
             return ret;
         }
@@ -2648,16 +2653,20 @@ namespace TopInstrument
             u32 val_s1;
             u32 val_s2;
             u32 val_s3;
+            u32 val_s10;
+            u32 val_s11;
             // read power status 
             val = pgu_spio_ext_pwr_led_readback();
-            val_s1 = (val>>1) & 0x0001;
-            val_s2 = (val>>2) & 0x0001;
-            val_s3 = (val>>3) & 0x0001;
+            val_s1  = (val>> 1) & 0x0001;
+            val_s2  = (val>> 2) & 0x0001;
+            val_s3  = (val>> 3) & 0x0001;
+            val_s10 = (val>>10) & 0x0001;
+            val_s11 = (val>>11) & 0x0001;
             // output power on
-            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 0); // pwr_amp off
+            pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 0, val_s10, val_s11); // pwr_amp off
 
-            //$$ relay control for PGU-CPU-S3000
-            pgu_spio_ext_relay(0,0); //(u32 sw_rl_k1, u32 sw_rl_k2)
+            //$$ relay control for PGU-CPU-S3000 or PGU-S3100
+            pgu_spio_ext_relay(0,0); //(u32 sw_rl_k1, u32 sw_rl_k2) // relay off
 
             return ret;
         }
