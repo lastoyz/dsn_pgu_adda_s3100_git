@@ -2009,8 +2009,11 @@ u32  pgu_sp_1_reg_write_b16(u32 reg_adrs_b8, u32 val_b16) {
 }
 
 
-//$$ power control : pwd_amp removed in PGU-S3000
-void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+//$$ power control
+//   pwr_amp NOT used in PGU-S3000
+//   pwr_p5v_dac used in PGU-S3100
+//   pwr_n5v_dac used in PGU-S3100
+void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 pwr_p5v_dac, u32 pwr_n5v_dac) {
 	//
 	u32 dir_read;
 	u32 lat_read;
@@ -2018,15 +2021,15 @@ void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
 	//# read IO direction 
 	//# check IO direction : 0xFFX0 where (SPA,SPB)
 	dir_read = pgu_sp_1_reg_read_b16(0x00); // unused
-	//print('>>>{} = {}'.format('dir_read',form_hex_32b(dir_read)))
 	//# read output Latch
 	lat_read = pgu_sp_1_reg_read_b16(0x14);
-	//print('>>>{} = {}'.format('lat_read',form_hex_32b(lat_read)))
 	
 	//# set IO direction for SP1 PB[3:0] - all output
-	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
+	//# set IO direction for SP1 PA[3:2] - all output // new in S3100-PGU
+	//pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
+	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xF3F0);
 	//# set IO for SP1 PB[3:0]
-	u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+	u32 val = (lat_read & 0xF3F0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0) ) | ( (pwr_n5v_dac<<11) + (pwr_p5v_dac<<10));
 	pgu_sp_1_reg_write_b16(0x12,val);
 }
 
@@ -2049,10 +2052,8 @@ void pgu_spio_ext_relay(u32 sw_rl_k1, u32 sw_rl_k2) {
 	//# read IO direction 
 	//# check IO direction : 0xFFX0 where (SPA,SPB)
 	dir_read = pgu_sp_1_reg_read_b16(0x00); // unused
-	//print('>>>{} = {}'.format('dir_read',form_hex_32b(dir_read)))
 	//# read output Latch
 	lat_read = pgu_sp_1_reg_read_b16(0x14);
-	//print('>>>{} = {}'.format('lat_read',form_hex_32b(lat_read)))
 	
 	//# set IO direction for SP1 PA[1:0] - all output
 	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFCFF);

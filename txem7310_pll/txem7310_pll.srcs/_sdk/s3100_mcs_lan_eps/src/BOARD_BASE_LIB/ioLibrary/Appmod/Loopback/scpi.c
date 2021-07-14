@@ -968,7 +968,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					val_s0 = (val>>0) & 0x0001;
 					val_s1 = (val>>1) & 0x0001;
 					// DAC power on
-					pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+					pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0, 1, 1); // (led, pwr_dac, pwr_adc, pwr_amp,  pwr_p5v_dac, pwr_n5v_dac)
 					// DAC power on
 					//pgu_spio_ext_pwr_led(1, 1, 0, 0); // test for no amp power
 					//
@@ -1007,7 +1007,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				}
 				else if (0==strncmp("OFF", (char*)&buf[loc], 3)) {
 					// DAC power off
-					pgu_spio_ext_pwr_led(0, 0, 0, 0);
+					pgu_spio_ext_pwr_led(0, 0, 0, 0, 0, 0);
 					p_rsp_str = rsp_str__OK;
 					
 					// TODO: consider pll off by reset  vs  clock dis
@@ -1018,22 +1018,22 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				}
 				else if (0==strncmp("TST3", (char*)&buf[loc], 4)) {
 					// power test
-					pgu_spio_ext_pwr_led(1, 0, 0, 0);
+					pgu_spio_ext_pwr_led(1, 0, 0, 0, 0, 0);
 					p_rsp_str = rsp_str__OK;
 				}
 				else if (0==strncmp("TST2", (char*)&buf[loc], 4)) {
 					// power test
-					pgu_spio_ext_pwr_led(0, 1, 0, 0);
+					pgu_spio_ext_pwr_led(0, 1, 0, 0, 0, 0);
 					p_rsp_str = rsp_str__OK;
 				}
 				else if (0==strncmp("TST1", (char*)&buf[loc], 4)) {
 					// power test
-					pgu_spio_ext_pwr_led(0, 0, 1, 0);
+					pgu_spio_ext_pwr_led(0, 0, 1, 0, 0, 0);
 					p_rsp_str = rsp_str__OK;
 				}
 				else if (0==strncmp("TST0", (char*)&buf[loc], 4)) {
 					// power test
-					pgu_spio_ext_pwr_led(0, 0, 0, 1);
+					pgu_spio_ext_pwr_led(0, 0, 0, 1, 0, 0);
 					p_rsp_str = rsp_str__OK;
 				}
 				else {
@@ -1077,15 +1077,19 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					u32 val_s1;
 					u32 val_s2;
 					u32 val_s3;
-					// read power status 
+					u32 val_s10;
+					u32 val_s11;
+										// read power status
 					val = pgu_spio_ext_pwr_led_readback();
 					val_s1 = (val>>1) & 0x0001;
 					val_s2 = (val>>2) & 0x0001;
 					val_s3 = (val>>3) & 0x0001;
-					// output power on
-					pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 1);
+					val_s10 = (val>>10) & 0x0001;
+					val_s11 = (val>>11) & 0x0001;
+										// output power on
+					pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 1, val_s10, val_s11);
 					
-					//$$ relay control for PGU-CPU-S3000
+					//$$ relay control for PGU-CPU-S3000 or S3100-PGU
 					pgu_spio_ext_relay(1,1); //(u32 sw_rl_k1, u32 sw_rl_k2)
 					
 					//
@@ -1096,15 +1100,19 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					u32 val_s1;
 					u32 val_s2;
 					u32 val_s3;
+					u32 val_s10;
+					u32 val_s11;
 					// read power status 
 					val = pgu_spio_ext_pwr_led_readback();
 					val_s1 = (val>>1) & 0x0001;
 					val_s2 = (val>>2) & 0x0001;
 					val_s3 = (val>>3) & 0x0001;
+					val_s10 = (val>>10) & 0x0001;
+					val_s11 = (val>>11) & 0x0001;
 					// output power off
-					pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 0);
+					pgu_spio_ext_pwr_led(val_s3, val_s2, val_s1, 0, val_s10, val_s11);
 
-					//$$ relay control for PGU-CPU-S3000
+					//$$ relay control for PGU-CPU-S3000 or S3100-PGU
 					pgu_spio_ext_relay(0,0); //(u32 sw_rl_k1, u32 sw_rl_k2)
 
 					//

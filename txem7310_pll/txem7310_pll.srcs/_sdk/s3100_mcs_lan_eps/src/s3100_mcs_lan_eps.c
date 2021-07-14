@@ -395,7 +395,7 @@ int main(void)
 	//   pwr_adc=0/1,
 	//   pwr_amp=X // always power on
 	//pgu_spio_ext_pwr_led(1,0,0,0); // LED only : OK
-	pgu_spio_ext_pwr_led(1,1,0,0); // dac test : OK
+	pgu_spio_ext_pwr_led(1,1,0,0,1,1); // dac test : OK // update p5v and n5v controls.
 	//pgu_spio_ext_pwr_led(1,0,1,0); // adc test : OK
 	value = pgu_spio_ext_pwr_led_readback();
 	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
@@ -404,7 +404,7 @@ int main(void)
 	//usleep(300000); // 0.3s = 300ms =300000us
 	usleep(3000000); // 3s = 3000ms =3000000us
 	// test off
-	pgu_spio_ext_pwr_led(0,0,0,0);
+	pgu_spio_ext_pwr_led(0,0,0,0,0,0);
 	value = pgu_spio_ext_pwr_led_readback();
 	xil_printf(">> Check LED readback: 0x%08X \r\n", value);
 	//}
