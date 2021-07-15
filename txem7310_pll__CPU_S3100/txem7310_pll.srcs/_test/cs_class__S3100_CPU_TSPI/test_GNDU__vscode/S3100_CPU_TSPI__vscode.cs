@@ -1432,7 +1432,8 @@ namespace TopInstrument
             u32 lat_read;
             //# read output Latch
             lat_read = pgu_sp_1_reg_read_b16(0x14);
-            return lat_read & 0x000F;
+            //return lat_read & 0x000F;
+            return lat_read & 0xFFFF; // 16 bit all
         }
 
         private void pgu_spio_ext_relay (u32 sw_rl_k1, u32 sw_rl_k2) {
@@ -5218,43 +5219,93 @@ namespace TopInstrument
 
 /***********************************
 
-// ## S3100-GNDU MTH slave SPI frame address map 
-//                           (10-bit)
-// | Group | EP name       | frame adrs | type/index | Description             | contents (32-bit)                 |
-// +=======+===============+============+============+=========================+===================================+
-// | SSPI  | SSPI_TEST_WO  | 0x380      | wireout_E0 | Return known frame data.| bit[31:16]=0x33AA                 | 
-// |       |               |            |            |                         | bit[15: 0]=0xCC55                 |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | SSPI  | SSPI_CON_WI   | 0x008      | wire_in_02 | Control slave SPI bus.  | bit[30:28]=miso_timing_control    | 
-// |       |               |            |            |                         | bit[25]   =miso_one_bit_ahead_en  |
-// |       |               |            |            |                         | bit[24]   =loopback_en            |
-// |       |               |            |            |                         | bit[3]    =HW_reset               |
-// |       |               |            |            |                         | bit[1]    =LED_ctrl_en_from_SSPI  |
-// |       |               |            |            |                         | bit[0]    =SSPI_ctrl_en_from_LAN  |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | TEST  | F_IMAGE_ID_WO | 0x080      | wireout_20 | Return FPGA image ID.   | Image_ID[31:0]                    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | TEST  | XADC_TEMP_WO  | 0x0E8      | wireout_3A | Return XADC values.[mC] | MON_TEMP[31:0]                    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_CON_WI  | 0x01C      | wire_in_07 | Control HRADC logics.   | bit[0]=HRADC_enable               | 
-// |       |               |            |            |                         | bit[1]=HRADC_mode_40bit_en        |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_FLAG_WO | 0x09C      | wireout_27 | Return HRADC status.    | bit[31:16]= avg info data[15:0]   | 
-// |       |               |            |            |                         | bit[1]    = adc_cnv_busy          |
-// |       |               |            |            |                         | bit[0]    = adc_sck_busy          |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_TRIG_TI | 0x11C      | trig_in_47 | Trigger functions.      | bit[0]= adc conversion trigger    | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_TRIG_TO | 0x19C      | trigout_67 | Check trigger_done.     | bit[0]= adc conversion done       | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | HRADC | HRADC_DAT_WO  | 0x0A0      | wireout_28 | Return HRADC data.      | bit[31:16]= ADC_data[23:8]        | 
-// |       |               |            |            |                         | bit[15: 0]={ADC_data[ 7:0], 8'b0} |
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
-// | D_RLY | DIAG_RELAY_WI | 0x010      | wire_in_04 | Control for DIAG_RELAY. | TBC                               | 
-// +-------+---------------+------------+------------+-------------------------+-----------------------------------+
+//// TODO: MTH slave SPI frame address map
+// ## S3100-GNDU
+//                           
+// +=======+===============+============+=========================================+================================+
+// | Group | EP name       | frame adrs | type/index | Description                | contents (32-bit)              |
+// |       |               | (10-bit)   |            |                            |                                |
+// +=======+===============+============+============+============================+================================+
+// | SSPI  | SSPI_TEST_WO  | 0x380      | wireout_E0 | Return known frame data.   | bit[31:16]=0x33AA              | 
+// |       |               |            |            |                            | bit[15: 0]=0xCC55              |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SSPI  | SSPI_CON_WI   | 0x008      | wire_in_02 | Control slave SPI bus.     | bit[30:28]=miso_timing_control | 
+// |       |               |            |            |                            | bit[25]=miso_one_bit_ahead_en  |
+// |       |               |            |            |                            | bit[24]=loopback_en            |
+// |       |               |            |            |                            | bit[ 3]=HW_reset               |
+// |       |               |            |            |                            | bit[ 0]=1'b0                   |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | SSPI  | SSPI_FLAG_WO  | 0x0C8      | wire_in_32 | Control slave SPI bus.     | bit[31:24]=board_status[7:0]   | 
+// |       |               |            |            |                            | bit[23:16]=slot_id[7:0]        |
+// |       |               |            |            |                            | bit[15: 0]=count_cs[15:0]      |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | F_IMAGE_ID_WO | 0x080      | wireout_20 | Return FPGA image ID.      | Image_ID[31:0]                 |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | XADC_TEMP_WO  | 0x0E8      | wireout_3A | Return XADC values.[mC]    | MON_TEMP[31:0]                 |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_WI        | 0x054      | wire_in_15 | Control EEPROM interface.  | bit[  15]=disable_SBP_packet   | 
+// |       |               |            |            |                            | bit[11:0]=num_bytes_DAT[11:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_FDAT_WI   | 0x050      | wire_in_14 | Control EEPROM frame data. | bit[31:24]=frame_data_ADH[7:0] |
+// |       |               |            |            |                            | bit[23:16]=frame_data_ADL[7:0] |
+// |       |               |            |            |                            | bit[15: 8]=frame_data_STA[7:0] |
+// |       |               |            |            |                            | bit[ 7: 0]=frame_data_CMD[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TI        | 0x154      | trig_in_55 | Trigger functions.         | bit[0]=trigger_reset           |
+// |       |               |            |            |                            | bit[1]=trigger_fifo_reset      |
+// |       |               |            |            |                            | bit[2]=trigger_frame           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_TO        | 0x1D4      | trigout_75 | Check status.              | bit[0]=MEM_valid_latch         |
+// |       |               |            |            |                            | bit[1]=done_frame_latch        |
+// |       |               |            |            |                            | bit[2]=done_frame (one pulse)  |
+// |       |               |            |            |                            | bit[15:8]=frame_data_STA[7:0]  |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PI        | 0x254      | pipe_in_95 | Write data into pipe.      | bit[7:0]=frame_data_DAT_w[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_PO        | 0x2D4      | pipeout_B5 | Read data from pipe.       | bit[7:0]=frame_data_DAT_r[7:0] |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | HRADC | HRADC_CON_WI  | 0x01C      | wire_in_07 | Control HRADC logics.      | bit[0]=HRADC_enable            | 
+// |       |               |            |            |                            | bit[1]=HRADC_mode_40bit_en     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | HRADC | HRADC_FLAG_WO | 0x09C      | wireout_27 | Return HRADC status.       | bit[31:16]= avg info data[15:0]| 
+// |       |               |            |            |                            | bit[1]    = adc_cnv_busy       |
+// |       |               |            |            |                            | bit[0]    = adc_sck_busy       |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | HRADC | HRADC_TRIG_TI | 0x11C      | trig_in_47 | Trigger functions.         | bit[0]= adc conversion trigger | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | HRADC | HRADC_TRIG_TO | 0x19C      | trigout_67 | Check trigger_done.        | bit[0]= adc conversion done    | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | HRADC | HRADC_DAT_WO  | 0x0A0      | wireout_28 | Return HRADC data.         | bit[31:16]= ADC_data[23:8]     | 
+// |       |               |            |            |                            | bit[15: 0]={ADC_data[7:0],8'b0}|
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | D_RLY | DIAG_RELAY_WI | 0x010      | wire_in_04 | Control for DIAG_RELAY.    | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | D_RLY | DIAG_RELAY_TI | 0x110      | trig_in_44 | Trigger for DIAG_RELAY.    | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | O_RLY | OUTP_RELAY_WI | 0x014      | wire_in_05 | Control for OUTP_RELAY.    | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | O_RLY | OUTP_RELAY_TI | 0x114      | trig_in_45 | Trigger for OUTP_RELAY.    | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | V_RNG | VM_RANGE_WI   | 0x018      | wire_in_06 | Control for IN DIAG_RLY.   | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | V_RNG | VM_RANGE_TI   | 0x118      | trig_in_46 | Trigger for IN DIAG_RLY.   | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | A_SEL | ADC_IN_SEL_WI | 0x01C      | wire_in_07 | Control for ADC_IN_SEL.    | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | A_SEL | ADC_IN_SEL_TI | 0x11C      | trig_in_47 | Trigger for ADC_IN_SEL.    | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | VDAC  | VDAC_VAL_WI   | 0x04C      | wire_in_13 | Control for VDAC_VAL.      | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | VDAC  | VDAC_CON_TI   | 0x14C      | trig_in_53 | Trigger for VDAC_CON.      | TBC                            | 
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
 
 
 
@@ -5719,17 +5770,18 @@ namespace __test__
         // loc_slot bit 12 = slot location 12
         //public static uint test_loc_slot = 0x0004; // slot location 2
         //public static uint test_loc_slot = 0x0010; // slot location 4
-        public static uint test_loc_slot = 0x0040; // slot location 6
+        //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
+        public static uint test_loc_slot = 0x0200; // slot location 9
         //public static uint test_loc_slot = 0x0400; // slot location 10
         //public static uint test_loc_slot = 0x1000; // slot location 12
         //
         // loc_spi_group bit 0 = mother board spi M0
         // loc_spi_group bit 1 = mother board spi M1
         // loc_spi_group bit 2 = mother board spi M2
-        //public static uint test_loc_spi_group = 0x0001; // spi M0
-        //public static uint test_loc_spi_group = 0x0002; // spi M1
-        public static uint test_loc_spi_group = 0x0004; // spi M2
+        //public static uint test_loc_spi_group = 0x0001; // spi M0  // for GNDU
+        //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
+        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
         
         public static void Main(string[] args)
         {
@@ -5751,7 +5803,7 @@ namespace __test__
             ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             //
             ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
-            ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
+            //ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
