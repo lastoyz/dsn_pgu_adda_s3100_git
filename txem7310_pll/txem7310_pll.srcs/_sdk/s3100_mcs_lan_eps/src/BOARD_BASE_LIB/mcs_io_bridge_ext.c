@@ -2040,7 +2040,8 @@ u32  pgu_spio_ext_pwr_led_readback() {
 	//# read output Latch
 	lat_read = pgu_sp_1_reg_read_b16(0x14);
 	//
-	return lat_read & 0x000F;
+	//return lat_read & 0x000F;
+	return lat_read & 0xFFFF; // rev
 }
 
 //$$ output relay control : added in PGU-S3000
