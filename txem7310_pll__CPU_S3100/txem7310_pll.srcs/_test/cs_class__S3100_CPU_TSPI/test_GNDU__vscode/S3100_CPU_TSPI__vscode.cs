@@ -5772,9 +5772,9 @@ namespace __test__
         //public static uint test_loc_slot = 0x0010; // slot location 4
         //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
-        public static uint test_loc_slot = 0x0200; // slot location 9
+        //public static uint test_loc_slot = 0x0200; // slot location 9
         //public static uint test_loc_slot = 0x0400; // slot location 10
-        //public static uint test_loc_slot = 0x1000; // slot location 12
+        public static uint test_loc_slot = 0x1000; // slot location 12
         //
         // loc_spi_group bit 0 = mother board spi M0
         // loc_spi_group bit 1 = mother board spi M1

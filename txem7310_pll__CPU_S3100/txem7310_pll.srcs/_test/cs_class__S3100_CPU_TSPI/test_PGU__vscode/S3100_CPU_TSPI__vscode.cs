@@ -1431,7 +1431,8 @@ namespace TopInstrument
             u32 lat_read;
             //# read output Latch
             lat_read = pgu_sp_1_reg_read_b16(0x14);
-            return lat_read & 0x000F;
+            //return lat_read & 0x000F;
+            return lat_read & 0xFFFF; // 16 bit all
         }
 
         private void pgu_spio_ext_relay (u32 sw_rl_k1, u32 sw_rl_k2) {
@@ -5173,7 +5174,7 @@ namespace TopInstrument
 
             // test force 
             dev.ForcePGU_ON__delayed_OFF(4,  true,  false, 3500); // (int CycleCount, bool Ch1, bool Ch2)
-            //dev.ForcePGU_ON(2,  true, true); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(5,  true, true); // (int CycleCount, bool Ch1, bool Ch2)
             //dev.ForcePGU_ON(3, true,  false); // (int CycleCount, bool Ch1, bool Ch2)
 
             Console.WriteLine(">>>>> count_call_scpi = " + Convert.ToString(dev.show_count_call_scpi()));
@@ -5182,6 +5183,8 @@ namespace TopInstrument
             dev.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
             dev.SetSetupPGU(2, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
             dev.ForcePGU_ON__delayed_OFF(2,  true,  true, 3500); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON__delayed_OFF(2,  true,  true, 5500); // (int CycleCount, bool Ch1, bool Ch2)
+            //dev.ForcePGU_ON(3, true,  true); // (int CycleCount, bool Ch1, bool Ch2)
 
             Console.WriteLine(">>>>> count_call_scpi = " + Convert.ToString(dev.show_count_call_scpi()));
 
@@ -5226,18 +5229,20 @@ namespace __test__
         // loc_slot bit 1  = slot location 1
         // ...
         // loc_slot bit 12 = slot location 12
+        //public static uint test_loc_slot = 0x0004; // slot location 2
         //public static uint test_loc_slot = 0x0010; // slot location 4
-        public static uint test_loc_slot = 0x0040; // slot location 6
+        //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
+        public static uint test_loc_slot = 0x0200; // slot location 9
         //public static uint test_loc_slot = 0x0400; // slot location 10
         //public static uint test_loc_slot = 0x1000; // slot location 12
         //
         // loc_spi_group bit 0 = mother board spi M0
         // loc_spi_group bit 1 = mother board spi M1
         // loc_spi_group bit 2 = mother board spi M2
-        //public static uint test_loc_spi_group = 0x0001; // spi M0
-        //public static uint test_loc_spi_group = 0x0002; // spi M1
-        public static uint test_loc_spi_group = 0x0004; // spi M2
+        //public static uint test_loc_spi_group = 0x0001; // spi M0  // for GNDU
+        //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
+        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
         
         public static void Main(string[] args)
         {
