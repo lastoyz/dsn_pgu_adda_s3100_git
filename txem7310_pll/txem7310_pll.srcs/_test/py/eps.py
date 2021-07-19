@@ -430,7 +430,7 @@ class EPS_Dev:
 		return rsp
 
 	## composite function for spi test
-	def _test__send_spi_frame(self, data_C, data_A, data_D, enable_CS_bits = 0x00001FFF):
+	def _test__send_spi_frame(self, data_C, data_A, data_D, enable_CS_bits_16b = 0x1FFF, enable_CS_group_16b = 0x0007):
 		## set spi frame data
 		#data_C = 0x10   ##// for read 
 		#data_A = 0x380  ##// for address of known pattern  0x_33AA_CC55
@@ -438,15 +438,15 @@ class EPS_Dev:
 		MSPI_CON_WI = (data_C<<26) + (data_A<<16) + data_D
 		EPS_Dev.SetWireInValue(self,0x17, MSPI_CON_WI)
 
-		## set spi enable signals
-		MSPI_EN_CS_WI = enable_CS_bits
+		## set spi enable signals : {enable_CS_group_16b, enable_CS_bits_16b}
+		MSPI_EN_CS_WI = ((enable_CS_group_16b & 0x0007) <<16 ) + (enable_CS_bits_16b & 0x1FFF) 
 		EPS_Dev.SetWireInValue(self,0x16, MSPI_EN_CS_WI)
 
 		## trigger frame 
 		EPS_Dev.ActivateTriggerIn(self,0x42, 2) # frame_trig
 		cnt_loop = 0
 		while True:
-			ret=EPS_Dev.IsTriggered(self,0x62,0x00000004) # frame_done
+			ret=EPS_Dev.IsTriggered(self,0x62,0x00000004) # frame_done ## rev 0x00000002 --> 0x00000004
 			cnt_loop += 1
 			if ret:
 				print('frame done !! @ ' + repr(cnt_loop))
@@ -687,7 +687,7 @@ def eps_test():
 	## class test
 	print(dev._test())	
 	
-	## test ip 
+	## TODO: test ip 
 	#_host_,_port_ = set_host_ip_by_ping()
 	#
 
@@ -695,7 +695,9 @@ def eps_test():
 	#_host_ = '192.168.168.143' # test
 	_host_ = '192.168.100.62' # test S3100-PGU-TSPI
 
+	#
 	_port_ = 5025
+
 	#
 	print(_host_)
 	print(_port_)
@@ -842,7 +844,8 @@ def eps_test():
 
 	
 	## set CS enable bits 
-	enable_CS_bits = 0x000013CA
+	enable_CS_bits = 0x00000000 # emulated slave spi
+	#enable_CS_bits = 0x00010004 # slot spi for GNDU
 	
 	## set spi frame data @ address 0x380
 	data_C = 0x10   ##// control data 6bit for read 

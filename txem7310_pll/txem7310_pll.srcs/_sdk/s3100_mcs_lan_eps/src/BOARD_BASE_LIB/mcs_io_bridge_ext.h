@@ -213,7 +213,7 @@ u32  read_fpga_temperature();
 
 	
 // TODO: SPIO + AUX
-void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 pwr_p5v_dac, u32 pwr_n5v_dac);
 u32  pgu_spio_ext_pwr_led_readback();
 //
 void pgu_spio_ext_relay(u32 sw_rl_k1, u32 sw_rl_k2);
