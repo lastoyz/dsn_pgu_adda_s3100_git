@@ -1823,15 +1823,15 @@ wire epClk = base_sspi_clk; // okClk --> epClk
 
 // wire in //{
 wire [31:0] w_port_wi_00_1;
-wire [31:0] w_port_wi_01_1; // PGU
+wire [31:0] w_port_wi_01_1; //$$ TEST_CON_WI   
 wire [31:0] w_port_wi_02_1;
-wire [31:0] w_port_wi_03_1; // S3100-PGU
+wire [31:0] w_port_wi_03_1; //$$ BRD_CON_WI    
 wire [31:0] w_port_wi_04_1;
-wire [31:0] w_port_wi_05_1; // PGU
-wire [31:0] w_port_wi_06_1; // PGU
-wire [31:0] w_port_wi_07_1; // PGU
-wire [31:0] w_port_wi_08_1; // PGU
-wire [31:0] w_port_wi_09_1; // PGU
+wire [31:0] w_port_wi_05_1; // DACX_WI       
+wire [31:0] w_port_wi_06_1; // CLKD_WI       
+wire [31:0] w_port_wi_07_1; // SPIO_WI       
+wire [31:0] w_port_wi_08_1; // DACZ_DAT_WI   
+wire [31:0] w_port_wi_09_1; // TRIG_DAT_WI   
 wire [31:0] w_port_wi_0A_1;
 wire [31:0] w_port_wi_0B_1;
 wire [31:0] w_port_wi_0C_1;
@@ -1840,14 +1840,14 @@ wire [31:0] w_port_wi_0E_1;
 wire [31:0] w_port_wi_0F_1;
 wire [31:0] w_port_wi_10_1;
 wire [31:0] w_port_wi_11_1;
-wire [31:0] w_port_wi_12_1; // S3100-PGU
-wire [31:0] w_port_wi_13_1; // S3100-PGU
+wire [31:0] w_port_wi_12_1; //$$ MEM_FDAT_WI   
+wire [31:0] w_port_wi_13_1; //$$ MEM_WI        
 wire [31:0] w_port_wi_14_1;
 wire [31:0] w_port_wi_15_1;
-wire [31:0] w_port_wi_16_1; // S3100-PGU
-wire [31:0] w_port_wi_17_1; // S3100-PGU
+wire [31:0] w_port_wi_16_1; //$$ MSPI_EN_CS_WI 
+wire [31:0] w_port_wi_17_1; //$$ MSPI_CON_WI   
 wire [31:0] w_port_wi_18_1;
-wire [31:0] w_port_wi_19_1; // S3100-PGU
+wire [31:0] w_port_wi_19_1; //$$ MCS_SETUP_WI  
 wire [31:0] w_port_wi_1A_1;
 wire [31:0] w_port_wi_1B_1;
 wire [31:0] w_port_wi_1C_1;
@@ -1857,16 +1857,16 @@ wire [31:0] w_port_wi_1F_1;
 //}
 
 // wire out //{
-wire [31:0] w_port_wo_20_1; // PGU
-wire [31:0] w_port_wo_21_1; // PGU
-wire [31:0] w_port_wo_22_1; // S3100-PGU
-wire [31:0] w_port_wo_23_1; // S3100-PGU
-wire [31:0] w_port_wo_24_1; // S3100-PGU
-wire [31:0] w_port_wo_25_1; // PGU
-wire [31:0] w_port_wo_26_1; // PGU
-wire [31:0] w_port_wo_27_1; // PGU
-wire [31:0] w_port_wo_28_1; // PGU
-wire [31:0] w_port_wo_29_1; // PGU
+wire [31:0] w_port_wo_20_1; //$$ F_IMAGE_ID_WO 
+wire [31:0] w_port_wo_21_1; //$$ TEST_OUT_WO   
+wire [31:0] w_port_wo_22_1; //$$ TIMESTAMP_WO  
+wire [31:0] w_port_wo_23_1; //$$ TEST_MON_WO   
+wire [31:0] w_port_wo_24_1; //$$ MSPI_FLAG_WO  
+wire [31:0] w_port_wo_25_1; // DACX_WO       
+wire [31:0] w_port_wo_26_1; // CLKD_WO       
+wire [31:0] w_port_wo_27_1; // SPIO_WO       
+wire [31:0] w_port_wo_28_1; // DACZ_DAT_WO   
+wire [31:0] w_port_wo_29_1; // TRIG_DAT_WO   
 wire [31:0] w_port_wo_2A_1 = 32'b0; //
 wire [31:0] w_port_wo_2B_1 = 32'b0; //
 wire [31:0] w_port_wo_2C_1 = 32'b0; //
@@ -1883,8 +1883,8 @@ wire [31:0] w_port_wo_36_1 = 32'b0; //
 wire [31:0] w_port_wo_37_1 = 32'b0; //
 wire [31:0] w_port_wo_38_1 = 32'b0; //
 wire [31:0] w_port_wo_39_1 = 32'b0; //
-wire [31:0] w_port_wo_3A_1; // PGU
-wire [31:0] w_port_wo_3B_1; // PGU
+wire [31:0] w_port_wo_3A_1; //$$ XADC_TEMP_WO  
+wire [31:0] w_port_wo_3B_1; //$$ XADC_VOLT_WO  
 wire [31:0] w_port_wo_3C_1 = 32'b0; //
 wire [31:0] w_port_wo_3D_1 = 32'b0; //
 wire [31:0] w_port_wo_3E_1 = 32'b0; //
@@ -1892,34 +1892,34 @@ wire [31:0] w_port_wo_3F_1 = 32'b0; //
 //}
 
 // trig in //{
-wire w_ck_40_1 = sys_clk       ; wire [31:0] w_port_ti_40_1; // PGU
-wire w_ck_42_1 = base_sspi_clk ; wire [31:0] w_port_ti_42_1; // S3100-PGU
-wire w_ck_45_1 = sys_clk       ; wire [31:0] w_port_ti_45_1; // PGU
-wire w_ck_46_1 = sys_clk       ; wire [31:0] w_port_ti_46_1; // PGU
-wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // PGU 
-wire w_ck_48_1 = sys_clk       ; wire [31:0] w_port_ti_48_1; // PGU
-wire w_ck_49_1 = sys_clk       ; wire [31:0] w_port_ti_49_1; // PGU reserved
-wire w_ck_53_1 = sys_clk       ; wire [31:0] w_port_ti_53_1; // MEM
+wire w_ck_40_1 = sys_clk       ; wire [31:0] w_port_ti_40_1; //$$ TEST_TI       
+wire w_ck_42_1 = base_sspi_clk ; wire [31:0] w_port_ti_42_1; //$$ MSPI_TI       
+wire w_ck_45_1 = sys_clk       ; wire [31:0] w_port_ti_45_1; // DACX_TI       
+wire w_ck_46_1 = sys_clk       ; wire [31:0] w_port_ti_46_1; // CLKD_TI       
+wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // SPIO_TI        
+wire w_ck_48_1 = sys_clk       ; wire [31:0] w_port_ti_48_1; // DACZ_DAT_TI
+wire w_ck_49_1 = sys_clk       ; wire [31:0] w_port_ti_49_1; // TRIG_DAT_TI   
+wire w_ck_53_1 = sys_clk       ; wire [31:0] w_port_ti_53_1; //$$ MEM_TI        
 //}
 
 // trig out //{
-wire w_ck_60_1 = sys_clk       ; wire [31:0] w_port_to_60_1; // PGU
-wire w_ck_62_1 = base_sspi_clk ; wire [31:0] w_port_to_62_1; // S3100
-wire w_ck_73_1 = sys_clk       ; wire [31:0] w_port_to_73_1; // S3100-PGU
+wire w_ck_60_1 = sys_clk       ; wire [31:0] w_port_to_60_1; //$$ TEST_TO       
+wire w_ck_62_1 = base_sspi_clk ; wire [31:0] w_port_to_62_1; //$$ MSPI_TO       
+wire w_ck_73_1 = sys_clk       ; wire [31:0] w_port_to_73_1; //$$ MEM_TO        
 //}
 
 // pipe in //{
-wire w_wr_86_1; wire [31:0] w_port_pi_86_1; // PGU
-wire w_wr_87_1; wire [31:0] w_port_pi_87_1; // PGU
-wire w_wr_88_1; wire [31:0] w_port_pi_88_1; // PGU
-wire w_wr_89_1; wire [31:0] w_port_pi_89_1; // PGU
-wire w_wr_8A_1; wire [31:0] w_port_pi_8A_1; // test fifo 
-wire w_wr_93_1; wire [31:0] w_port_pi_93_1; // [MEM] MEM_PI
+wire w_wr_86_1; wire [31:0] w_port_pi_86_1; // DAC0_DAT_PI   
+wire w_wr_87_1; wire [31:0] w_port_pi_87_1; // DAC0_DUR_PI   
+wire w_wr_88_1; wire [31:0] w_port_pi_88_1; // DAC1_DAT_PI   
+wire w_wr_89_1; wire [31:0] w_port_pi_89_1; // DAC1_DUR_PI   
+wire w_wr_8A_1; wire [31:0] w_port_pi_8A_1; //$$ TEST_PI       
+wire w_wr_93_1; wire [31:0] w_port_pi_93_1; //$$ MEM_PI        
 //}
 
 // pipe out //{
-wire w_rd_AA_1; wire [31:0] w_port_po_AA_1; // test fifo 
-wire w_rd_B3_1; wire [31:0] w_port_po_B3_1; // [MEM] MEM_PO
+wire w_rd_AA_1; wire [31:0] w_port_po_AA_1; //$$ TEST_PO        
+wire w_rd_B3_1; wire [31:0] w_port_po_B3_1; //$$ MEM_PO        
 //}
 
 //$$ TODO: pipe clock //{
@@ -2370,19 +2370,18 @@ wire w_HW_reset = w_SSPI_CON_WI[3] | w_BRD_CON[0] ; //$$
 wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_MTH_SPI_emulation__en ??
 
 
-wire [31:0] w_MSPI_CON_WI   = w_port_wi_17_1; //$$ (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
-wire [31:0] w_MSPI_EN_CS_WI = w_port_wi_16_1; //$$ (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable //$$ only for S3100-CPU-BASE
+wire [31:0] w_MSPI_CON_WI   = w_port_wi_17_1; //$$ MSPI frame data
+wire [31:0] w_MSPI_EN_CS_WI = w_port_wi_16_1; //$$ MSPI nCSX enable //$$ only for S3100-CPU-BASE
 
 wire [31:0] w_MSPI_FLAG_WO; 
 assign w_port_wo_24_1   = w_MSPI_FLAG_WO; 
 
 //$$ w_SSPI_TEST_TI --> w_MSPI_TI 
-wire [31:0] w_MSPI_TI   = w_port_ti_42_1; //$$ ( w_mcs_ep_ti_en)? w_port_ti_42_1 : ep42trig;
+wire [31:0] w_MSPI_TI   = w_port_ti_42_1; 
 
 //$$ w_SSPI_TEST_TO --> w_MSPI_TO 
 wire [31:0] w_MSPI_TO;
-//assign ep62trig      =  (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
-assign w_port_to_62_1 = w_MSPI_TO; //$$ ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
+assign w_port_to_62_1 = w_MSPI_TO;
 
 
 //
@@ -2516,6 +2515,7 @@ wire        w_DAC1_DUR_PI_WR     = (w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)?     
 
 
 //}
+
 
 //// EEPROM wires //{
 //$$ remove w_sel__H_LAN_for_EEPROM_fifo
@@ -3140,6 +3140,9 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 //}
 
 
+///TODO: //-------------------------------------------------------//
+
+
 /* TODO: EEPROM */ //{
 // support 11AA160T-I/TT U59 // same in CMU
 // io signal, open-drain
@@ -3517,10 +3520,9 @@ assign  w_SSPI_MOSI        = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_MOSI : M2_SPI_MO
 assign  w_SSPI_TEST_SCLK   = (w_SSPI_TEST_mode_en)? w_SSPI_CLK    : 1'b0 ; //$$ must come from SSPI in test.
 assign  w_SSPI_TEST_MISO   = (w_SSPI_TEST_mode_en)? w_SSPI_MISO   : 1'b0 ; //$$ must come from SSPI in test.
 //
-assign  M2_SPI_TX_EN_SLAVE = (w_SSPI_TEST_mode_en)? 1'b0 : (~M2_SPI_CS_BUF) ; // MISO active // note: 1 for tx enable 
-assign  M2_SPI_MISO        = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_MISO    ;
 assign  M2_SPI_RX_CLK      = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_CLK  ; //$$ to revise RCLK
-//
+assign  M2_SPI_MISO        = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_MISO    ;
+assign  M2_SPI_TX_EN_SLAVE = (w_SSPI_TEST_mode_en)? 1'b0 : (~M2_SPI_CS_BUF) ; // MISO active // note: 1 for tx enable 
 assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // must be 0 all the time.
 
 
