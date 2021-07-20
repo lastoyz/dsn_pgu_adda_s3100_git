@@ -3533,22 +3533,14 @@ assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // mu
 //// slave spi address port:
 
 // wi
-wire [31:0] w_M2_port_wi_sadrs_h008; // SSPI_CON_WI		0x008	wi02
-	assign ep02wire = w_M2_port_wi_sadrs_h008;
-wire [31:0] w_M2_port_wi_sadrs_h014; // DACX_WI
-	assign ep05wire = w_M2_port_wi_sadrs_h014;
-wire [31:0] w_M2_port_wi_sadrs_h018; // CLKD_WI
-	assign ep06wire = w_M2_port_wi_sadrs_h018;
-wire [31:0] w_M2_port_wi_sadrs_h01C; // SPIO_WI
-	assign ep07wire = w_M2_port_wi_sadrs_h01C;
-wire [31:0] w_M2_port_wi_sadrs_h020; // DACZ_DAT_WI
-	assign ep08wire = w_M2_port_wi_sadrs_h020;
-wire [31:0] w_M2_port_wi_sadrs_h024; // TRIG_DAT_WI
-	assign ep09wire = w_M2_port_wi_sadrs_h024;
-wire [31:0] w_M2_port_wi_sadrs_h04C; // MEM_WI 
-	assign ep13wire = w_M2_port_wi_sadrs_h04C;
-wire [31:0] w_M2_port_wi_sadrs_h048; // MEM_FDAT_WI
-	assign ep12wire = w_M2_port_wi_sadrs_h048;
+wire [31:0] w_M2_port_wi_sadrs_h008; assign ep02wire = w_M2_port_wi_sadrs_h008;
+wire [31:0] w_M2_port_wi_sadrs_h014; assign ep05wire = w_M2_port_wi_sadrs_h014;
+wire [31:0] w_M2_port_wi_sadrs_h018; assign ep06wire = w_M2_port_wi_sadrs_h018;
+wire [31:0] w_M2_port_wi_sadrs_h01C; assign ep07wire = w_M2_port_wi_sadrs_h01C;
+wire [31:0] w_M2_port_wi_sadrs_h020; assign ep08wire = w_M2_port_wi_sadrs_h020;
+wire [31:0] w_M2_port_wi_sadrs_h024; assign ep09wire = w_M2_port_wi_sadrs_h024;
+wire [31:0] w_M2_port_wi_sadrs_h048; assign ep12wire = w_M2_port_wi_sadrs_h048;
+wire [31:0] w_M2_port_wi_sadrs_h04C; assign ep13wire = w_M2_port_wi_sadrs_h04C;
 
 // wo
 wire [31:0] w_M2_port_wo_sadrs_h080 = ep20wire; // w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
