@@ -165,7 +165,7 @@ namespace TopInstrument
             {
                 ss.Close();
                 ss = null;
-                throw new SocketException(10060); // Connection timed out.                 
+                //$$throw new SocketException(10060); // Connection timed out.                 
             }
             return ss;
         }
@@ -213,7 +213,7 @@ namespace TopInstrument
             {
                 throw new Exception(String.Format("Error in sendall") + e.Message); //$$ for release
                 //$$ TODO:  print out command string for test
-                //Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
+                //$$Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
             }
             //
             Delay(INTVAL);
@@ -1102,19 +1102,25 @@ namespace TopInstrument
             SPI_EMUL dev_spi_emul = new SPI_EMUL();
             dev_spi_emul.__test_int = dev_spi_emul.__test_int - 1;
 
-            // set slot location for SPI emulation
+            
+            // open S3100-CPU-BASE with IP address
+            dev_spi_emul.my_open(__test__.Program.test_host_ip); // IP address of S3100-CPU-BASE board
+
+            // get IDN string from S3100-CPU-BASE // may check board info // by LAN command
+            Console.WriteLine(dev_spi_emul.get_IDN());
+
+            // enable EPS and initialize EPS-SPI ... by LAN command
+            Console.WriteLine(dev_spi_emul.eps_enable()); // renew eps_enable ... merged with SPI_EMUL__init
+
+            // may check FPGA die temperature from S3100-CPU-BASE
+            Console.WriteLine((float)dev_spi_emul.get_FPGA_TMP_mC()/1000); // by LAN command
+            
+            // set slot location for EPS-SPI emulation : S3100-XXX board on slot over EPS-SPI emulation
             dev_spi_emul.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
             dev_spi_emul.SPI_EMUL__set__loc_group(__test__.Program.test_loc_spi_group); // for spi channel index
             dev_spi_emul.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot); // for slot index 
             
-            // test EPS
-            dev_spi_emul.my_open(__test__.Program.test_host_ip); 
 
-            Console.WriteLine(dev_spi_emul.get_IDN());
-            Console.WriteLine(dev_spi_emul.eps_enable()); // renew eps_enable ... merged with SPI_EMUL__init
-
-            Console.WriteLine((float)dev_spi_emul.get_FPGA_TMP_mC()/1000); // by LAN
-            
 
             //// test start
             
@@ -5198,6 +5204,9 @@ namespace TopInstrument
 
     }
 
+    //$$ class GNDU_control_by_eps for END-POINT addresses and firmware-like function methos
+    //  will come
+
 
     public class TOP_GNDU__EPS_SPI : SPI_EMUL {
         
@@ -5212,12 +5221,38 @@ namespace TopInstrument
         public static int __test_top_gndu() {
             Console.WriteLine("Hello, TopInstrument!");
 
-            Console.WriteLine(">>> Some test for command string:");
+            Console.WriteLine(">>> Some test with __test_top_gndu");
             // init class
             TOP_GNDU__EPS_SPI dev = new TOP_GNDU__EPS_SPI();
 
+            
+            // open S3100-CPU-BASE with IP address
+            dev.my_open(__test__.Program.test_host_ip); // IP address of S3100-CPU-BASE board
 
-/***********************************
+            // get IDN string from S3100-CPU-BASE // may check board info // by LAN command
+            Console.WriteLine(dev.get_IDN());
+
+            // enable EPS and initialize EPS-SPI ... by LAN command
+            Console.WriteLine(dev.eps_enable()); // renew eps_enable ... merged with SPI_EMUL__init
+
+            // may check FPGA die temperature from S3100-CPU-BASE
+            Console.WriteLine((float)dev.get_FPGA_TMP_mC()/1000); // by LAN command
+
+            // scan and collect slot info
+            dev._test__scan_slots__spi_emul();
+            Console.WriteLine(dev._test__report_slots__spi_emul());
+
+            // set slot location for EPS-SPI emulation : S3100-XXX board on slot over EPS-SPI emulation
+            dev.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
+            dev.SPI_EMUL__set__loc_group(__test__.Program.test_loc_spi_group); // for spi channel index
+            dev.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot); // for slot index 
+
+
+
+            //// test start with EPS-SPI command
+            //...
+
+
 
 //// TODO: MTH slave SPI frame address map
 // ## S3100-GNDU
@@ -5308,429 +5343,199 @@ namespace TopInstrument
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 
 
+            // send frames by calling EPS functions
+            Console.WriteLine(dev.GetWireOutValue(0x20).ToString("X8")); // see FID
+            Console.WriteLine((float)dev.GetWireOutValue(0x3A)/1000); // see temperature in fpga
+
+
+//// test: D_RLY
+// | D_RLY | DIAG_RELAY_WI | 0x010      | wire_in_04 | Control for DIAG_RELAY.    | TBC                            | 
+// | D_RLY | DIAG_RELAY_TI | 0x110      | trig_in_44 | Trigger for DIAG_RELAY.    | TBC                            | 
+//
+// assign w_Diag_Relay_Val = w_M0_port_wi_sadrs_h010[13:0];
+//
+// assign D_RLY__R1G_______RELAY_FPGA = r_Diag_Relay_Val[13];
+// assign D_RLY__R1G_UNDER_RELAY_FPGA = r_Diag_Relay_Val[12];
+// assign D_RLY__DIAG_INPUT_RELAY_F   = r_Diag_Relay_Val[11];
+// assign D_RLY__SIGNAL_AGND_REALY_F  = r_Diag_Relay_Val[10];
+// assign D_RLY__GUARD_AGND_REALY_F   = r_Diag_Relay_Val[9];
+// assign D_RLY__EXT_RELAY_F          = r_Diag_Relay_Val[8];
+// assign D_RLY__VM_RELAY_FPGA        = r_Diag_Relay_Val[7];
+// assign D_RLY__100M_RELAY_FPGA      = r_Diag_Relay_Val[6];
+// assign D_RLY__10M__RELAY_FPGA      = r_Diag_Relay_Val[5];
+// assign D_RLY__1M___RELAY_FPGA      = r_Diag_Relay_Val[4];
+// assign D_RLY__100K_RELAY_FPGA      = r_Diag_Relay_Val[3];
+// assign D_RLY__10K__RELAY_FPGA      = r_Diag_Relay_Val[2];
+// assign D_RLY__1K___RELAY_FPGA      = r_Diag_Relay_Val[1];
+// assign D_RLY__100__RELAY_FPGA      = r_Diag_Relay_Val[0];
+
+            /*
+            uint data_C = 0x3F  ; // for read/write_bar    // 6 bits  
+            uint data_A = 0x3FF ; // for spi frame address // 10 bits 
+            uint data_D = 0xFFFF; // for mosi data         // 16 bits 
+            uint data_B = 0xFFFF; // for miso data         // 16 bits 
+
+            // send frame by calling explicit function SPI_EMUL__send_frame 
+
+            data_C = 0x00  ; // write
+            data_A = 0x110 ; // DIAG_RELAY_TI
+            data_D = 0x0001; // send clear pulse
+            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+
+            data_C = 0x00  ; // write
+            data_A = 0x010 ; // DIAG_RELAY_WI
+            data_D = 0x0010; // set D_RLY__1M___RELAY_FPGA
+            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+
+            data_C = 0x00  ; // write
+            data_A = 0x110 ; // DIAG_RELAY_TI
+            data_D = 0x0002; // send latch pulse
+            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+
+            data_C = 0x00  ; // write
+            data_A = 0x110 ; // DIAG_RELAY_TI
+            data_D = 0x0001; // send clear pulse
+            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
+            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+            */
+
+            dev.ActivateTriggerIn(0x44, 0);           // EP for DIAG_RELAY_TI // clear pulse
+
+            //dev.SetWireInValue   (0x04, 0x0000_0010); // EP for DIAG_RELAY_WI // set D_RLY__1M___RELAY_FPGA
+            //dev.ActivateTriggerIn(0x44, 1);           // EP for DIAG_RELAY_TI // latch pulse
+
+            for (int ii = 0; ii < 14; ii++)
+            {
+                dev.SetWireInValue   (0x04, (u32)(1<<ii)); // EP for DIAG_RELAY_WI // set ...
+                dev.ActivateTriggerIn(0x44, 1);           // EP for DIAG_RELAY_TI // latch pulse
+            }
+
+            dev.ActivateTriggerIn(0x44, 0);           // EP for DIAG_RELAY_TI // clear pulse
+
+
+//// test: VDAC
+// | VDAC  | VDAC_VAL_WI   | 0x04C      | wire_in_13 | Control for VDAC_VAL.      | TBC                            | 
+// | VDAC  | VDAC_CON_TI   | 0x14C      | trig_in_53 | Trigger for VDAC_CON.      | TBC                            | 
 
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0010 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[4] = 1M_RELAY 					
+            dev.ActivateTriggerIn(0x53, 0);           // EP for VDAC_CON_TI // reset pulse
 
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+            dev.SetWireInValue   (0x13, 0x0000_4000); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = 5V
+            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
 
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[4] = 1M_RELAY ON		
+            dev.SetWireInValue   (0x13, 0xFFFF_C000); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = -5V
+            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
 
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+            dev.SetWireInValue   (0x13, 0x0000_7FFF); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = +9.999695V
+            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
 
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
+            dev.SetWireInValue   (0x13, 0xFFFF_8000); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = –10.00000V
+            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
 
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0020 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[5] = 10M_RELAY 					
+            dev.ActivateTriggerIn(0x53, 0);           // EP for VDAC_CON_TI // clear pulse
 
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
 
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
+//// test: O_RLY
+// | O_RLY | OUTP_RELAY_WI | 0x014      | wire_in_05 | Control for OUTP_RELAY.    | TBC                            | 
+// | O_RLY | OUTP_RELAY_TI | 0x114      | trig_in_45 | Trigger for OUTP_RELAY.    | TBC                            | 
+//
+// assign w_OUT_Relay_Val = w_M0_port_wi_sadrs_h014[1:0];
+// assign O_RLY__GND_S_RELAY_FPGA = r_OUT_Relay_Val[1];
+// assign O_RLY__GND_F_RELAY_FPGA = r_OUT_Relay_Val[0];
 
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[5] = 10M_RELAY ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
+            dev.ActivateTriggerIn(0x45, 0);           // EP for OUTP_RELAY_TI // clear pulse
 
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
+            dev.SetWireInValue   (0x05, 0x0000_0001); // EP for OUTP_RELAY_WI // set O_RLY__GND_F_RELAY_FPGA
+            dev.ActivateTriggerIn(0x45, 1);           // EP for OUTP_RELAY_TI // latch pulse
 
-##//////////////////////////////////////////////////////////////////////////////
+            dev.SetWireInValue   (0x05, 0x0000_0002); // EP for OUTP_RELAY_WI // set O_RLY__GND_S_RELAY_FPGA
+            dev.ActivateTriggerIn(0x45, 1);           // EP for OUTP_RELAY_TI // latch pulse
 
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0040 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[6] = 100M_RELAY 					
+            dev.ActivateTriggerIn(0x45, 0);           // EP for OUTP_RELAY_TI // clear pulse
 
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[6] = 100M_RELAY ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0080 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[7] = VM_RELAY 					
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[7] = VM_RELAY ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0100 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[8] = EXT_RELAY 					
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[8] = EXT_RELAY  ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0200 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[9] = GUARD_AGND_RELAY 					
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[9] = GUARD_AGND_RELAY  ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0400 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[10] = SIGNAL_AGND_RELAY 					
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[10] = SIGNAL_AGND_RELAY  ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x0800 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[11] = DIAG_INPUT_RELAY 					
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[11] = DIAG_INPUT_RELAY  ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x1000 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[12] = 1G_UNDER_RELAY 					
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[12] = 1G_UNDER_RELAY   ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x010			DIAG_RELAY_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x010  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x2000 ##// MOSI data 16bit for reading (XXXX) 		DIAG_RELAY_VAL[13] = 1G_RELAY 					
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x11C	Trig IN	 DIAG_RELAY_VAL LATCH
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x110  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			DIAG_RELAY_VAL[12] = 1G_RELAY  ON		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x04C			VDAC_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x4000 ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write +5V
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x04C			VDAC_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0xC000 ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write -5V
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x04C			VDAC_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x7FFF ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write +9.999695V
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x04C			VDAC_VAL Write
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x04C  ##// address data 10bit for address of test for led [3:0]
-	data_D = 0x8000 ##// MOSI data 16bit for reading (XXXX) 		VDAC_VAL Write –10.00000V
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL WR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0002 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL WR		
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-
-##//////////////////////////////////////////////////////////////////////////////
-##//////////////////////////////////////////////////////////////////////////////
-	## set spi frame data @ address 0x14C	Trig IN	 VDAC_VAL CLR
-	data_C = 0x00   ##// control data 6bit for WRITE 
-	data_A = 0x14C  ##// address data 10bit for address of test for Trig IN TEST
-	data_D = 0x0001 ##// MOSI data 16bit for reading (XXXX)			VDAC_VAL CLR	
-
-	data_B = dev._test__send_spi_frame(data_C, data_A, data_D, enable_CS_bits) ##// return MISO data
-
-	print('{} = 0x{:02X}'.format('data_C', data_C))
-	print('{} = 0x{:03X}'.format('data_A', data_A))
-	print('{} = 0x{:04X}'.format('data_D', data_D))
-	print('{} = 0x{:04X}'.format('data_B', data_B))
-##//////////////////////////////////////////////////////////////////////////////
-
-************************************/
 
+//// test: V_RNG // active low
+// | V_RNG | VM_RANGE_WI   | 0x018      | wire_in_06 | Control for IN DIAG_RLY.   | TBC                            | 
+// | V_RNG | VM_RANGE_TI   | 0x118      | trig_in_46 | Trigger for IN DIAG_RLY.   | TBC                            | 
+//
+// assign w_Vmrange_Val = w_M0_port_wi_sadrs_h018[4:0];
+// assign V_RNG__n100V_MRANGE = r_Vmrange_Val[4];
+// assign V_RNG__n40V__MRANGE = r_Vmrange_Val[3];
+// assign V_RNG__n20V__MRANGE = r_Vmrange_Val[2];
+// assign V_RNG__n5V___MRANGE = r_Vmrange_Val[1];
+// assign V_RNG__n2V___MRANGE = r_Vmrange_Val[0];
+
+            dev.ActivateTriggerIn(0x46, 0);           // EP for VM_RANGE_TI // clear pulse
+
+            dev.SetWireInValue   (0x06, ~(u32)0x0000_0001); // EP for VM_RANGE_WI // set V_RNG__n2V___MRANGE
+            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
+
+            dev.SetWireInValue   (0x06, ~(u32)0x0000_0002); // EP for VM_RANGE_WI // set V_RNG__n5V___MRANGE
+            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
+
+            dev.SetWireInValue   (0x06, ~(u32)0x0000_0004); // EP for VM_RANGE_WI // set V_RNG__n20V__MRANGE
+            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
+
+            dev.SetWireInValue   (0x06, ~(u32)0x0000_0008); // EP for VM_RANGE_WI // set V_RNG__n40V__MRANGE
+            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
+
+            dev.SetWireInValue   (0x06, ~(u32)0x0000_0010); // EP for VM_RANGE_WI // set V_RNG__n100V_MRANGE
+            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
+
+            dev.ActivateTriggerIn(0x46, 0);           // EP for VM_RANGE_TI // clear pulse
+
+
+//// test: A_SEL // active low
+// | A_SEL | ADC_IN_SEL_WI | 0x01C      | wire_in_07 | Control for ADC_IN_SEL.    | TBC                            | 
+// | A_SEL | ADC_IN_SEL_TI | 0x11C      | trig_in_47 | Trigger for ADC_IN_SEL.    | TBC                            | 
+//
+// assign w_ADC_IN_SEL_Val = w_M0_port_wi_sadrs_h01C[3:0];
+// assign A_SEL___0V__G_REF_SEL = r_ADC_IN_SEL_Val[3];
+// assign A_SEL___5V__G_REF_SEL = r_ADC_IN_SEL_Val[2];
+// assign A_SEL__GND__ADCIN_SEL = r_ADC_IN_SEL_Val[1];
+// assign A_SEL__DIAG_ADCIN_SEL = r_ADC_IN_SEL_Val[0];
+
+            dev.ActivateTriggerIn(0x47, 0);           // EP for ADC_IN_SEL_TI // clear pulse
+
+            dev.SetWireInValue   (0x07, ~(u32)0x0000_0001); // EP for ADC_IN_SEL_WI // set A_SEL__DIAG_ADCIN_SEL
+            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+
+            dev.SetWireInValue   (0x07, ~(u32)0x0000_0002); // EP for ADC_IN_SEL_WI // set A_SEL__GND__ADCIN_SEL
+            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+
+            dev.SetWireInValue   (0x07, ~(u32)0x0000_0004); // EP for ADC_IN_SEL_WI // set A_SEL___5V__G_REF_SEL
+            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+
+            dev.SetWireInValue   (0x07, ~(u32)0x0000_0008); // EP for ADC_IN_SEL_WI // set A_SEL___0V__G_REF_SEL
+            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+
+            dev.ActivateTriggerIn(0x47, 0);           // EP for ADC_IN_SEL_TI // clear pulse
+
+
+//// test: MEM
+
+
+//// test: HRADC
+
+
+
+            //// test finish
+            Console.WriteLine(dev.eps_disable()); // renew eps_disable ... mergerd with SPI_EMUL__reset
+            dev.scpi_close();
             
             return dev.__test_int;
         }
@@ -5768,20 +5573,20 @@ namespace __test__
         // loc_slot bit 1  = slot location 1
         // ...
         // loc_slot bit 12 = slot location 12
-        //public static uint test_loc_slot = 0x0004; // slot location 2
+        public static uint test_loc_slot = 0x0004; // slot location 2
         //public static uint test_loc_slot = 0x0010; // slot location 4
         //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0200; // slot location 9
         //public static uint test_loc_slot = 0x0400; // slot location 10
-        public static uint test_loc_slot = 0x1000; // slot location 12
+        //public static uint test_loc_slot = 0x1000; // slot location 12
         //
         // loc_spi_group bit 0 = mother board spi M0
         // loc_spi_group bit 1 = mother board spi M1
         // loc_spi_group bit 2 = mother board spi M2
-        //public static uint test_loc_spi_group = 0x0001; // spi M0  // for GNDU
+        public static uint test_loc_spi_group = 0x0001; // spi M0  // for GNDU
         //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
-        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
+        //public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
         
         public static void Main(string[] args)
         {
@@ -5799,11 +5604,11 @@ namespace __test__
             Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_GNDU (alias)  ", TOP_GNDU._test())); // using alias
 
             int ret = 0;
-            ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
-            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+            //ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
+            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             //
-            ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
-            //ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
+            //ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+            ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
         }
