@@ -871,7 +871,7 @@ module txem7310_pll__s3100_sv_pgu__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A4_21_0702   //{
+// TODO: FPGA_IMAGE_ID = h_A4_21_0723   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -880,7 +880,8 @@ module txem7310_pll__s3100_sv_pgu__top (
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0619; // S3100-PGU // update SSPI endpoints
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0628; // S3100-PGU // update SSPI emulation mode : endpoint switch ... LAN, SSPI, SSPI_emulation(MSPI_by_LAN, others_by_SSPI)
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0702; // S3100-PGU // update MSPI endpoint map 
-parameter FPGA_IMAGE_ID = 32'h_A4_21_07A2; // S3100-PGU // debug M2_SPI_TX_EN_SLAVE 
+//parameter FPGA_IMAGE_ID = 32'h_A4_21_07A2; // S3100-PGU // debug M2_SPI_TX_EN_SLAVE 
+parameter FPGA_IMAGE_ID = 32'h_A4_21_0723; // S3100-PGU // revise MSPI timing
 
 //}
 

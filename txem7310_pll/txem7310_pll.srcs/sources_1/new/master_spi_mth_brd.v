@@ -163,7 +163,9 @@ else begin
 //}
 
 // count up r_ctl_idx //{
-parameter STOP__ctl_idx = 10'd132*4; // based on 26*4MHz
+//parameter STOP__ctl_idx = 10'd132*4; // based on 26*4MHz=104MHz 
+parameter STOP__ctl_idx = 10'd134*4; // based on 26*4MHz=104MHz // add half cycle of 26MHz ... 132+2 = 134 // 5.15384615 us
+//parameter STOP__ctl_idx = 10'd143*4; // based on 26*4MHz=104MHz //132+11 = 143 // 5.5 us
 //
 always @(posedge clk, negedge reset_n)
 if (!reset_n) begin
@@ -225,21 +227,20 @@ assign o_SS_B = r_SS_B;
 reg [15:0] r_pttn__MCLK; // pattern of "--------__________"
 parameter PTTN__MCLK = 16'b11111111_00000000;
 parameter GOGO_MCLK__ctl_idx = 10'd21;   // based on 26*4MHz
-parameter STOP_MCLK__ctl_idx = 10'd524;  // based on 26*4MHz
+//parameter STOP_MCLK__ctl_idx = 10'd524;  // based on 26*4MHz // 131*4
+parameter STOP_MCLK__ctl_idx = 10'd528;  // based on 26*4MHz // 132*4
 //
 always @(posedge clk, negedge reset_n)
 if (!reset_n) begin
 	r_pttn__MCLK <= 16'b0;
 	end 
 else begin
-	if      (r_ctl_idx == GOGO_MCLK__ctl_idx-1)
-		r_pttn__MCLK <= PTTN__MCLK;
+	if      (r_ctl_idx > STOP_MCLK__ctl_idx-1)
+		r_pttn__MCLK <= r_pttn__MCLK; // stay
 	else if (r_ctl_idx >  GOGO_MCLK__ctl_idx-1)
 		r_pttn__MCLK <= {r_pttn__MCLK[14:0], r_pttn__MCLK[15]}; // shift left
-	else if (r_ctl_idx == STOP_MCLK__ctl_idx-1)
-		r_pttn__MCLK <= r_pttn__MCLK; // stay
-	else 
-		r_pttn__MCLK <= 16'b0;
+	else if (r_ctl_idx == GOGO_MCLK__ctl_idx-1)
+		r_pttn__MCLK <= PTTN__MCLK;
 	end
 //
 assign o_MCLK = r_pttn__MCLK[15];
@@ -271,6 +272,9 @@ reg [31:0] r_pttn__MISO  ; // all pattern from MISO
 reg [15:0] r_frame_data_B; // data pattern only
 reg [15:0] r_frame_data_E;
 reg [15:0] r_pttn__SCLK; // slave clock pattern // based on 26*4MHz
+wire [3:0] w_pttn__sclk_detect = 4'b0011; // 8'b0000_0001 --> 4'b0011 ... for balanced duty response
+
+//
 wire w_MISO = (i_MISO_EN)? i_MISO : 1'b1;
 wire w_SCLK = i_SCLK;
 //
@@ -288,12 +292,12 @@ else begin
 		r_frame_data_B   <= 16'b0;
 		r_frame_data_E   <= 16'b0;
 		end
-	else if (r_pttn__SCLK[7:0] == 8'b0000_0001) // rising edge pattern + one delay // relax
-		r_pttn__MISO <= {r_pttn__MISO[30:0], w_MISO}; // shift left in
 	else if (r_done_frame) begin
 		r_frame_data_B   <= r_pttn__MISO[15:0 ]; // load data 
 		r_frame_data_E   <= r_pttn__MISO[31:16]; // load data 
 		end
+	else if (r_pttn__SCLK[3:0] == w_pttn__sclk_detect) // rising edge pattern + 2 delays // relax
+		r_pttn__MISO <= {r_pttn__MISO[30:0], w_MISO}; // shift left in
 	else begin
 		r_pttn__MISO     <= r_pttn__MISO;   // stay
 		r_frame_data_B   <= r_frame_data_B; // stay
