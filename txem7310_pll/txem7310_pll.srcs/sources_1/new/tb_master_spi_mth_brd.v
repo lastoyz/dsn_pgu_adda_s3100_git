@@ -212,7 +212,7 @@ slave_spi_mth_brd  slave_spi_mth_brd__inst (
 	.i_ck__sadrs_h19C(clk_210M),  .i_port_to_sadrs_h19C(w_port_to_sadrs_h19C), // [31:0]
 
 	//
-	.o_wr__sadrs_h24C (),  .o_port_po_sadrs_h24C (), // [31:0]  // MEM_PI	0x24C	pi93 //$$
+	.o_wr__sadrs_h24C (),  .o_port_pi_sadrs_h24C (), // [31:0]  // MEM_PI	0x24C	pi93 //$$
 	//
 	.o_rd__sadrs_h280 (),  .i_port_po_sadrs_h280 (32'h32AB_CD54), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
 	
@@ -414,14 +414,15 @@ $display(" Wait for rise of w_done_frame");
 ///////////////////////
 	$finish;
 	
+
 #0; 
-//// test trig out
+//// test trig out : one pulse long case  //{
 @(posedge clk_10M)
 test_data_to = 32'h1010_0101;
 @(posedge clk_10M)
 test_data_to = 32'h0000_0000;
 #200;
-//// read trig out
+//// read trig out - low 16 bits
 #0; 
 // frame start
 begin : frame_rd__trig__h194
@@ -437,8 +438,116 @@ begin : frame_rd__trig__h194
 $display(" Wait for rise of w_done_frame"); 
 @(posedge w_done_frame)
 #200;
+//// read trig out - high 16 bits
+#0; 
+// frame start
+begin : frame_rd__trig__h196
+	test_frame_rdwr		= 1'b1; // 1 for read
+	test_adrs       = 10'h196;
+	#200;
+	test_frame 		= 1'b1; 
+	#200;
+	test_frame 		= 1'b0; 
+	end
+#200;
+//
+$display(" Wait for rise of w_done_frame"); 
+@(posedge w_done_frame)
+#200;
+//}
 ///////////////////////
 	$finish;
+	
+	
+#0; 
+//// test trig out : two pulses long case  //{
+@(posedge clk_10M)
+test_data_to = 32'h1010_0101;
+@(posedge clk_10M)
+@(posedge clk_10M)
+test_data_to = 32'h0000_0000;
+#200;
+//// read trig out - low 16 bits
+#0; 
+// frame start
+begin 
+	test_frame_rdwr		= 1'b1; // 1 for read
+	test_adrs       = 10'h194;
+	#200;
+	test_frame 		= 1'b1; 
+	#200;
+	test_frame 		= 1'b0; 
+	end
+#200;
+//
+$display(" Wait for rise of w_done_frame"); 
+@(posedge w_done_frame)
+#200;
+//// read trig out - high 16 bits
+#0; 
+// frame start
+begin 
+	test_frame_rdwr		= 1'b1; // 1 for read
+	test_adrs       = 10'h196;
+	#200;
+	test_frame 		= 1'b1; 
+	#200;
+	test_frame 		= 1'b0; 
+	end
+#200;
+//
+$display(" Wait for rise of w_done_frame"); 
+@(posedge w_done_frame)
+#200;
+//}
+///////////////////////
+	$finish;
+	
+	
+#0; 
+//// test trig out : level signal case  //{
+@(posedge clk_10M)
+test_data_to = 32'h1010_0101;  // pulse on
+#200;
+//// read trig out - low 16 bits
+#0; 
+// frame start
+begin 
+	test_frame_rdwr		= 1'b1; // 1 for read
+	test_adrs       = 10'h194;
+	#200;
+	test_frame 		= 1'b1; 
+	#200;
+	test_frame 		= 1'b0; 
+	end
+#200;
+//
+$display(" Wait for rise of w_done_frame"); 
+@(posedge w_done_frame)
+#200;
+//// read trig out - high 16 bits
+#0; 
+// frame start
+begin 
+	test_frame_rdwr		= 1'b1; // 1 for read
+	test_adrs       = 10'h196;
+	#200;
+	test_frame 		= 1'b1; 
+	#200;
+	test_frame 		= 1'b0; 
+	end
+#200;
+//
+$display(" Wait for rise of w_done_frame"); 
+@(posedge w_done_frame)
+#200;
+@(posedge clk_10M)
+test_data_to = 32'h0000_0000; // pulse off
+#200;
+//}
+///////////////////////
+	$finish;
+
 	
 #0; 
 //// test trig out
