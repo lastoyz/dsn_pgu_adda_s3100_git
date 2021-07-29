@@ -3420,7 +3420,7 @@ namespace TopInstrument
 
         //public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log";
         //$$public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "T-SPACE", "Log"); //$$ for release
-		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
+		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_PGU__vscode", "log"); //$$ TODO: logfile location in vs code
         public string LogFileName = Path.Combine(LogFilePath, "Debugger.py");
         
         public bool IsInit = false;

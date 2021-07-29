@@ -110,10 +110,10 @@ namespace TopInstrument
         }
 
         //// common subfunctions
-        public DateTime Delay(int S) //$$ ms
+        public DateTime Delay(int ms) //$$ ms
         {
             DateTime ThisMoment = DateTime.Now;
-            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S); // days, hours, minutes, seconds, and milliseconds
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, ms); // days, hours, minutes, seconds, and milliseconds
             DateTime AfterWards = ThisMoment.Add(duration);
 
             while (AfterWards >= ThisMoment)
@@ -624,7 +624,7 @@ namespace TopInstrument
                 cnt_loop++;
                 if (done_trig) {
                     // print
-                    Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
+                    //$$Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
                     break;
                 }
             }
@@ -684,13 +684,16 @@ namespace TopInstrument
                     sel_loc_slots = (uint)(0x0000_0001 << ii);
                     data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
                     data_B = _test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
-                    Console.WriteLine(string.Format(">>>------"));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
+                    //Console.WriteLine(string.Format(">>>------"));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
                     //
                     if (data_B==0xCC55) {
+                        Console.WriteLine(string.Format(">>>------"));
+                        Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+                        Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
                         Console.WriteLine(string.Format(">>> A board is found in slot."));
                         slot_is_occupied[jj,ii] = true;
                         // read FID
@@ -937,6 +940,13 @@ namespace TopInstrument
             u32 data_A = adrs<<2;
             u32 data_D = 0x0000;
 
+            // // hi first 
+            // u32 data_B_hi = 0;
+            // if ((mask & 0xFFFF0000) != 0) {
+            //     data_B_hi = SPI_EMUL__send_frame(data_C, data_A+2, data_D);
+            // }
+
+            // lo first
             u32 data_B_lo = 0;
             if ((mask & 0x0000FFFF) != 0) {
                 data_B_lo = SPI_EMUL__send_frame(data_C, data_A  , data_D);
@@ -2404,7 +2414,7 @@ namespace TopInstrument
             return pgu_dacz_dat_read(5); 
         }
 
-        // EEPROM control ...
+        //// EEPROM control ...
 
         private u32  eeprom_send_frame_ep (u32 MEM_WI_b32, u32 MEM_FDAT_WI_b32) {
             //  def eeprom_send_frame_ep (MEM_WI, MEM_FDAT_WI):
@@ -3427,7 +3437,7 @@ namespace TopInstrument
 
         //public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log";
         //$$public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "T-SPACE", "Log"); //$$ for release
-		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
+		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_GNDU__vscode", "log"); //$$ TODO: logfile location in vs code
         public string LogFileName = Path.Combine(LogFilePath, "Debugger.py");
         
         public bool IsInit = false;
@@ -5206,16 +5216,775 @@ namespace TopInstrument
 
     //$$ class GNDU_control_by_eps for END-POINT addresses and firmware-like function methos
     //  will come
+    public class GNDU_control_by_eps : SPI_EMUL {
+
+        //// PGU EPS address map info ......
+        private string EP_ADRS__GROUP_STR         = "_S3100_GNDU_";
+        //private u32   EP_ADRS__SSPI_TEST_WO       = 0xE0; // 0x008
+        //private u32   EP_ADRS__SSPI_CON_WI        = 0x02; // 0x008
+        //private u32   EP_ADRS__SSPI_FLAG_WO       = 0x32; // 0x380
+        private u32   EP_ADRS__FPGA_IMAGE_ID_WO   = 0x20;// 0x080
+        private u32   EP_ADRS__XADC_TEMP_WO       = 0x3A; // 0x0E8
+        //private u32   EP_ADRS__XADC_VOLT          = 0x3B;
+        //private u32   EP_ADRS__TIMESTAMP_WO       = 0x22;
+        //
+        private u32   EP_ADRS__TEST_LED_WI        = 0x01; // 0x004
+        private u32   EP_ADRS__TEST_LED_TI        = 0x41; // 0x104
+        private u32   EP_ADRS__MEM_WI             = 0x13; // 0x04C      
+        private u32   EP_ADRS__MEM_FDAT_WI        = 0x12; // 0x048      
+        private u32   EP_ADRS__MEM_TI             = 0x53; // 0x14C      
+        private u32   EP_ADRS__MEM_TO             = 0x73; // 0x1CC      
+        private u32   EP_ADRS__MEM_PI             = 0x93; // 0x24C
+        private u32   EP_ADRS__MEM_PO             = 0xB3; // 0x2CC      
+        //
+        private u32   EP_ADRS__HRADC_CON_WI       = 0x08; // 0x020
+        private u32   EP_ADRS__HRADC_FLAG_WO      = 0x28; // 0x0A0
+        private u32   EP_ADRS__HRADC_TRIG_TI      = 0x48; // 0x120
+        private u32   EP_ADRS__HRADC_TRIG_TO      = 0x68; // 0x1A0
+        private u32   EP_ADRS__HRADC_DAT_WO       = 0x29; // 0x0A4
+        private u32   EP_ADRS__DIAG_RELAY_WI      = 0x04; // 0x010
+        private u32   EP_ADRS__DIAG_RELAY_TI      = 0x44; // 0x110
+        private u32   EP_ADRS__OUTP_RELAY_WI      = 0x05; // 0x014
+        private u32   EP_ADRS__OUTP_RELAY_TI      = 0x45; // 0x114
+        private u32   EP_ADRS__VM_RANGE_WI        = 0x06; // 0x018
+        private u32   EP_ADRS__VM_RANGE_TI        = 0x46; // 0x118
+        private u32   EP_ADRS__ADC_IN_SEL_WI      = 0x07; // 0x01C
+        private u32   EP_ADRS__ADC_IN_SEL_TI      = 0x47; // 0x11C
+        private u32   EP_ADRS__VDAC_VAL_WI        = 0x09; // 0x024
+        private u32   EP_ADRS__VDAC_CON_TI        = 0x49; // 0x124
+        
+        // GNDU functions 
+
+        public string gndu_FID_read() {
+            string ret = "";
+            ret = GetWireOutValue(EP_ADRS__FPGA_IMAGE_ID_WO).ToString("X8");
+            return ret;
+        }       
+
+        public float gndu_temp_read() {
+            float ret;
+            ret = (float)GetWireOutValue(EP_ADRS__XADC_TEMP_WO)/1000;
+            return ret;
+        }
+
+        public u32 gndu_D_RLY_reset() {
+            ActivateTriggerIn(EP_ADRS__DIAG_RELAY_TI, 0);           // EP for DIAG_RELAY_TI // clear pulse
+            return 0;
+        }
+
+        public u32 gndu_D_RLY_send(u32 dat) {
+            SetWireInValue   (EP_ADRS__DIAG_RELAY_WI, dat); // EP for DIAG_RELAY_WI // set ...
+            ActivateTriggerIn(EP_ADRS__DIAG_RELAY_TI, 1);           // EP for DIAG_RELAY_TI // latch pulse
+            return 0;
+        }
+
+        public u32 gndu_VDAC_reset() {
+            ActivateTriggerIn(EP_ADRS__VDAC_CON_TI, 0); // EP for VDAC_CON_TI // reset pulse
+            return 0;
+        }
+
+        public u32 gndu_VDAC_send(float dat_float) {
+            s32 dat;
+            if (dat_float>0) {
+                dat = (s32)(16384*((dat_float)/5.0)); // 0x0000_4000 = 16384
+                if (dat>32767) // 0x0000_7FFF = 32767
+                    dat = 32767;
+            }
+            else {
+                dat = (s32)(-16384*((dat_float)/-5.0)); // 0xFFFF_C000 = -0x4000 = -16384
+                if (dat<-32768) // 0xFFFF_8000 = -32768
+                    dat = -32768;
+            }
+            Console.WriteLine(">>> DAC test : " + string.Format(" {0} ... 0x{1,8:X8}", dat_float, (u32)dat));
+            SetWireInValue   (EP_ADRS__VDAC_VAL_WI, (u32)dat); // EP for VDAC_VAL_WI 
+            ActivateTriggerIn(EP_ADRS__VDAC_CON_TI, 1); // EP for VDAC_CON_TI // write pulse
+            return 0;
+        }
 
 
-    public class TOP_GNDU__EPS_SPI : SPI_EMUL {
+        public u32 gndu_O_RLY_reset() {
+            ActivateTriggerIn(EP_ADRS__OUTP_RELAY_TI, 0); // clear pulse
+            return 0;
+        }
+
+        public u32 gndu_O_RLY_send(u32 dat) {
+            SetWireInValue   (EP_ADRS__OUTP_RELAY_WI, dat); // set ...
+            ActivateTriggerIn(EP_ADRS__OUTP_RELAY_TI, 1); // latch pulse
+            return 0;
+        }
+
+        public u32 gndu_V_RNG_reset() {
+            ActivateTriggerIn(EP_ADRS__VM_RANGE_TI, 0); // clear pulse
+            return 0;
+        }
+
+        public u32 gndu_V_RNG_send_act_high(u32 dat) {
+            SetWireInValue   (EP_ADRS__VM_RANGE_WI, ~dat); // set ... // inversion
+            ActivateTriggerIn(EP_ADRS__VM_RANGE_TI, 1); // latch pulse
+            return 0;
+        }
+
+        public u32 gndu_A_SEL_reset() {
+            ActivateTriggerIn(EP_ADRS__ADC_IN_SEL_TI, 0); // clear pulse
+            return 0;
+        }
+
+        public u32 gndu_A_SEL_send_act_high(u32 dat) {
+            //assign A_SEL___0V__G_REF_SEL = r_ADC_IN_SEL_Val[3];
+            //assign A_SEL___5V__G_REF_SEL = r_ADC_IN_SEL_Val[2];
+            //assign A_SEL__GND__ADCIN_SEL = r_ADC_IN_SEL_Val[1];
+            //assign A_SEL__DIAG_ADCIN_SEL = r_ADC_IN_SEL_Val[0];            
+            SetWireInValue   (EP_ADRS__ADC_IN_SEL_WI, ~dat); // set ... // inversion
+            ActivateTriggerIn(EP_ADRS__ADC_IN_SEL_TI, 1); // latch pulse
+            return 0;
+        }
+
+        private u32 PAR__A_SEL__DIAG     = 0x0000_0001;
+        private u32 PAR__A_SEL__GND      = 0x0000_0002;
+        private u32 PAR__A_SEL__5V_G_REF = 0x0000_0004;
+        private u32 PAR__A_SEL__0V_G_REF = 0x0000_0008;
+
+        public u32 gndu_A_SEL__diag() {
+            return gndu_A_SEL_send_act_high(PAR__A_SEL__DIAG);
+        }
+        public u32 gndu_A_SEL__gnd() {
+            return gndu_A_SEL_send_act_high(PAR__A_SEL__GND);
+        }
+        public u32 gndu_A_SEL__5V_gref() {
+            return gndu_A_SEL_send_act_high(PAR__A_SEL__5V_G_REF);
+        }
+        public u32 gndu_A_SEL__0V_gref() {
+            return gndu_A_SEL_send_act_high(PAR__A_SEL__0V_G_REF);
+        }
+
+        public u32 gndu_LED_reset() {
+            ActivateTriggerIn(EP_ADRS__TEST_LED_TI, 0);    // trigger_led_count_reset
+            return 0;
+        }
+
+        public u32 gndu_LED_load_test_data(u32 dat_b4) {
+            SetWireInValue   (EP_ADRS__TEST_LED_WI, dat_b4&0x0000_000F); // set ... 
+            ActivateTriggerIn(EP_ADRS__TEST_LED_TI, 1);    // trigger_led_count_load
+            return 0;
+        }
+
+        public u32 gndu_LED_inc_test_data() {
+            ActivateTriggerIn(EP_ADRS__TEST_LED_TI, 2);    // trigger_led_count_up
+            return 0;
+        }
+
+        public u32 gndu_HRADC_enable() {
+            SetWireInValue   (EP_ADRS__HRADC_CON_WI, 0x0000_0001); // enable
+            // clear IO reg in ADC after power-on
+            gndu_HRADC_measure(); // send dummy converion and sck signals.
+            return 0;
+        }
+
+        public u32 gndu_HRADC_disable() {
+            SetWireInValue   (EP_ADRS__HRADC_CON_WI, 0x0000_0000); // disable
+            return 0;
+        }
+
+        public float gndu_HRADC_measure() {
+            // single trigger
+
+            // assumed: gndu_HRADC_enable()
+
+            ActivateTriggerIn(EP_ADRS__HRADC_TRIG_TI, 0); // trigger conversion
+
+            // check trigger done
+            s32 cnt_loop = 0;
+            bool ret_bool;
+            while (true) {
+                ret_bool = IsTriggered(EP_ADRS__HRADC_TRIG_TO, 0x01); // adc conversion done 
+                if (ret_bool==true) {
+                    break;
+                }
+                cnt_loop += 1;
+            }
+
+            // read adc value
+            u32 val = GetWireOutValue(EP_ADRS__HRADC_DAT_WO);
+
+            // LTC2380 24bit, ref 5V ... -5V ~ +5V ... extented 32bit -2^31(-2147483648) ~ 2^31-1(2147483647)
+            s32 val_int = (int)val;
+            float LSB = (float)10.0 / (float)4294967296 ; // 10V/2^32
+            float val_float = LSB*(float)val_int;
+
+            return val_float;
+        }
+
+        public u32 gndu_HRADC_read_status() {
+            u32 val = GetWireOutValue(EP_ADRS__HRADC_FLAG_WO);
+            return val;
+        }
+
+
+        //// EEPROM control ...
+        private u32  eeprom_send_frame_ep (u32 MEM_WI_b32, u32 MEM_FDAT_WI_b32) {
+            //  def eeprom_send_frame_ep (MEM_WI, MEM_FDAT_WI):
+            //  	## //// end-point map :
+            //  	## // wire [31:0] w_MEM_WI      = ep13wire;
+            //  	## // wire [31:0] w_MEM_FDAT_WI = ep12wire;
+            //  	## // wire [31:0] w_MEM_TI = ep53trig; assign ep53ck = sys_clk;
+            //  	## // wire [31:0] w_MEM_TO; assign ep73trig = w_MEM_TO; assign ep73ck = sys_clk;
+            //  	## // wire [31:0] w_MEM_PI = ep93pipe; wire w_MEM_PI_wr = ep93wr; 
+            //  	## // wire [31:0] w_MEM_PO; assign epB3pipe = w_MEM_PO; wire w_MEM_PO_rd = epB3rd; 	
+
+            bool ret_bool;
+            s32 cnt_loop;
+
+            SetWireInValue(EP_ADRS__MEM_WI,      MEM_WI_b32); 
+            SetWireInValue(EP_ADRS__MEM_FDAT_WI, MEM_FDAT_WI_b32); 
+            //  	# clear TO
+            GetTriggerOutVector(EP_ADRS__MEM_TO);
+            //  	# act TI
+            ActivateTriggerIn(EP_ADRS__MEM_TI, 2);
+            cnt_loop = 0;
+            while (true) {
+                ret_bool = IsTriggered(EP_ADRS__MEM_TO, 0x04);
+                if (ret_bool==true) {
+                    break;
+                }
+                cnt_loop += 1;
+            }
+            //$$if (cnt_loop>0) xil_printf("cnt_loop = %d \r\n", cnt_loop);
+            return 0;
+        }
+
+        private u32  eeprom_send_frame (u8 CMD_b8, u8 STA_in_b8, u8 ADL_b8, u8 ADH_b8, u16 num_bytes_DAT_b16, u8 con_disable_SBP_b8) {
+            u32 ret;
+            u32 set_data_WI = ((u32)con_disable_SBP_b8<<15) + ((u32)num_bytes_DAT_b16);
+            u32 set_data_FDAT_WI = ((u32)ADH_b8<<24) + ((u32)ADL_b8<<16) + ((u32)STA_in_b8<<8) + (u32)CMD_b8;
+            ret = eeprom_send_frame_ep (set_data_WI, set_data_FDAT_WI);
+            return ret;
+        }
+
+        private void eeprom_reset_fifo() {
+            ActivateTriggerIn(EP_ADRS__MEM_TI, 1);
+        }
+
+        private u16 eeprom_read_fifo (u16 num_bytes_DAT_b16, u8[] buf_dataout) {
+            u16 ret;
+           	//dcopy_pipe8_to_buf8 (ADRS__MEM_PO, buf_dataout, num_bytes_DAT_b16); // (u32 adrs_p8, u8 *p_buf_u8, u32 len)
+            // read 32-bit width pipe and collect 8-bit width data
+            
+            u32 adrs = EP_ADRS__MEM_PO;
+            u8[] buf_pipe = new u8[num_bytes_DAT_b16*4]; // *4 for 32-bit pipe 
+            
+            ret = (u16)ReadFromPipeOut(adrs, ref buf_pipe);
+
+            // collect and copy data : buf => buf_dataout
+            s32 ii;
+            s32 tmp;
+            for (ii=0;ii<num_bytes_DAT_b16;ii++) {
+                tmp = BitConverter.ToInt32(buf_pipe, ii*4); // read one pipe data every 4 bytes
+                buf_dataout[ii] = (u8) (tmp & 0x000000FF); 
+            }
+
+            return ret;
+        }
+
+        private u16 eeprom_write_fifo (u16 num_bytes_DAT_b16, u8[] buf_datain) {
+            u16 ret;
+            // memory copy from 8-bit width buffer to 32-bit width pipe // ADRS_BASE_MHVSU or MCS_EP_BASE
+            //dcopy_buf8_to_pipe8  (buf_datain, ADRS__MEM_PI, num_bytes_DAT_b16); //  (u8 *p_buf_u8, u32 adrs_p8, u32 len)
+
+            u32 adrs = EP_ADRS__MEM_PI;
+            
+            //u32[] buf_pipe_data = new u32[buf_datain.Length];
+            u32[] buf_pipe_data = Array.ConvertAll(buf_datain, x => (u32)x );
+
+            u8[] buf_pipe = buf_pipe_data.SelectMany(BitConverter.GetBytes).ToArray();
+
+            ret = (u16)WriteToPipeIn(adrs, ref buf_pipe);
+
+            return ret;
+        }
+
+
+        private u16 eeprom_read_data (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8[] buf_dataout) {
+            
+            //buf_dataout[0] = (char)0x01; // test
+            //buf_dataout[1] = (char)0x02; // test
+            //buf_dataout[2] = (char)0x03; // test
+            //buf_dataout[3] = (char)0x04; // test
+
+            //byte[] buf_bytearray = BitConverter.GetBytes(0xFEDCBA98); // test
+            //buf_bytearray.CopyTo(buf_dataout, 0); //test
+
+            u16 ret;
+
+            eeprom_reset_fifo();
+
+            u8 ADL = (u8) ((ADRS_b16>>0) & 0x00FF);
+            u8 ADH = (u8) ((ADRS_b16>>8) & 0x00FF);
+
+            //  	## // CMD_READ__03 
+            //  	eeprom_send_frame (CMD=0x03, ADL=ADL, ADH=ADH, num_bytes_DAT=num_bytes_DAT)
+            eeprom_send_frame (0x03, 0, ADL, ADH, num_bytes_DAT_b16, 0);
+
+            ret = eeprom_read_fifo (num_bytes_DAT_b16, buf_dataout);
+            
+            return ret;
+        }
+
+        private void eeprom_write_enable() {
+            //  	## // CMD_WREN__96 
+            //  	print('\n>>> CMD_WREN__96')
+            //  	eeprom_send_frame (CMD=0x96, con_disable_SBP=1)
+        	eeprom_send_frame (0x96, 0, 0, 0, 1, 1); // (CMD=0x96, con_disable_SBP=1)
+        }
+
+        private void eeprom_write_disable() {
+        	eeprom_send_frame (0x91, 0, 0, 0, 1, 0); 
+        }
+
+        private u32 eeprom_read_status() {
+            u32 ret;
+            //  	## // CMD_RDSR__05 
+            //  	print('\n>>> CMD_RDSR__05')
+            //  	eeprom_send_frame (CMD=0x05) 
+	        eeprom_send_frame (0x05, 0, 0, 0, 1, 0); //
+
+            //  	# clear TO
+            ret = GetTriggerOutVector(EP_ADRS__MEM_TO);
+            //  	# read again TO for reading latched status
+            ret = GetTriggerOutVector(EP_ADRS__MEM_TO);
+
+            //  	MUST_ZEROS = (ret>>12)&0x0F
+            //  	BP1 = (ret>>11)&0x01
+            //  	BP0 = (ret>>10)&0x01
+            //     	WEL = (ret>> 9)&0x01
+            //  	WIP = (ret>> 8)&0x01
+        	ret = (ret>> 8)&0xFF;
+            return ret;
+        }
+
+        public u32 is_eeprom_available() {
+            u32 ret = 1;
+            u32 val;
+            
+            eeprom_write_disable();
+            val = eeprom_read_status();
+            if ((val&0x02)==0x00) // check WEL
+                ret = ret*1;
+            else
+                ret = ret*0;
+            
+            eeprom_write_enable();
+            val = eeprom_read_status();
+            if ((val&0x02)==0x02) // check WEL
+                ret = ret*1;
+            else
+                ret = ret*0;
+
+            return ret; // 1 for available; 0 for NA.
+        }
+
+        private u16 eeprom_write_data_16B (u16 ADRS_b16, u16 num_bytes_DAT_b16) {
+            eeprom_write_enable();
+            u8 ADL = (u8) ((ADRS_b16>>0) & 0x00FF);
+            u8 ADH = (u8) ((ADRS_b16>>8) & 0x00FF);
+            //  	
+            //  	## // CMD_WRITE_6C 
+            //  	eeprom_send_frame (CMD=0x6C, ADL=ADL, ADH=ADH, num_bytes_DAT=num_bytes_DAT, con_disable_SBP=1)
+        	eeprom_send_frame (0x6C, 0, ADL, ADH, num_bytes_DAT_b16, 1);
+        	return num_bytes_DAT_b16;
+        }
+
+        private u16 eeprom_write_data (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8[] buf_datain) {
+            u16 ret = num_bytes_DAT_b16;
+
+            eeprom_reset_fifo();
+
+            if (num_bytes_DAT_b16 <= 16) {
+                eeprom_write_fifo (num_bytes_DAT_b16, buf_datain);
+                eeprom_write_data_16B (ADRS_b16, num_bytes_DAT_b16);
+                ret = 0; // sent all
+            }
+            else {
+                eeprom_write_fifo (num_bytes_DAT_b16, buf_datain);
+
+                while (true) {
+                    eeprom_write_data_16B (ADRS_b16, 16);
+                    //
+                    ADRS_b16          += 16;
+                    ret               -= 16;
+                    //
+                    if (num_bytes_DAT_b16 <= 16) {
+                        eeprom_write_data_16B (ADRS_b16, num_bytes_DAT_b16);
+                        ret            = 0;
+                        break;
+                    }
+                }
+
+            }
+            return ret;
+        }
+
+        private int eeprom__read__data_4byte(int adrs_b32) {
+            int ret_int;
+
+            //// for firmware
+            u16 adrs = (u16)adrs_b32; 
+            u8[] buf = new u8[4]; // sizeof(int) : 4
+            
+            //eeprom_read_data((u16)adrs, 4, (u8*)&val); //$$ read eeprom
+            eeprom_read_data(adrs, 4, buf); // num of bytes : 4 for int
+            
+            // reconstruct int from char[]
+            byte[] buf_bytearray = Array.ConvertAll(buf, x => (byte)x );
+            ret_int = BitConverter.ToInt32(buf_bytearray,0);  
+
+            //
+            return ret_int;
+        }
+
+        public u32 eeprom__read__data_u32(int adrs_b32) {
+            return (u32)eeprom__read__data_4byte(adrs_b32);
+        }
+
+        public void eeprom__read__buf_u8(int adrs_b32, u32 size_buf_u32, u8 [] buf_u8) {
+            eeprom_read_data((u16)adrs_b32, (u16)size_buf_u32, buf_u8);
+        }
+
+        public float eeprom__read__data_float(int adrs_b32) {
+            s32 val = eeprom__read__data_4byte(adrs_b32);
+
+            var bytes  = BitConverter.GetBytes(val);
+            var result = BitConverter.ToSingle(bytes, 0);
+
+            return result;
+        }
+
+        public s32 eeprom__read__data_s32(int adrs_b32) {
+            return eeprom__read__data_4byte(adrs_b32);
+        }
+
+
+        // read eeprom: data_u8, data_u32, data_float, buf_u8.
+        // convert hex form for 16 bytes:
+        //   hex_txt_display()
+        //   # 014  0x00E0  FF FF FF FF FF FF FF FF  FF FF FF FF FF FF FF FF  ................
+        
+        u8 ignore_nonprint_code(u8 ch) {
+        	if (ch< 0x20 || ch>0x7E)
+		    ch = (byte)'.';
+	        return ch;
+        }
+
+        public string hex_txt_display (s16 len_b16, u8 [] mem_buf_u8, u32 adrs_offset_u32) {
+            //string tmp_str = "# 018  0x0120  FF FF FF FE DC BA FF FF  FF FF FF FF FF FF FF FF  ................ \n";
+            string tmp_str = "";
+
+            const s32 num_bytes_in_a_display_line = 16;
+            u8 [] tmp_buf_u8 = new u8[num_bytes_in_a_display_line];
+
+            for (s32 ii=0; ii<len_b16; ii=ii+num_bytes_in_a_display_line) {
+                //
+                tmp_str += String.Format("# {0:000}  0x{1:X4}  ", ii/num_bytes_in_a_display_line, adrs_offset_u32+ii);
+                //
+                Array.Copy(mem_buf_u8,ii, tmp_buf_u8,0x0, num_bytes_in_a_display_line);
+                for (s32 jj=0; jj<num_bytes_in_a_display_line/2; jj++) {
+                    tmp_str += String.Format("{0:X2} ",tmp_buf_u8[jj]);
+                }
+                //
+                tmp_str += String.Format(" ");
+                //
+                for (s32 jj=num_bytes_in_a_display_line/2; jj<num_bytes_in_a_display_line; jj++) {
+                    tmp_str += String.Format("{0:X2} ",tmp_buf_u8[jj]);
+                }
+                //
+                tmp_str += String.Format(" ");
+                //
+                Array.Copy(mem_buf_u8,ii, tmp_buf_u8,0x0, num_bytes_in_a_display_line);
+                for (s32 jj=0; jj<num_bytes_in_a_display_line; jj++) {
+                    tmp_str += String.Format("{0}",(char)ignore_nonprint_code(tmp_buf_u8[jj]));
+                }
+                //
+                tmp_str += String.Format("\n");
+            }
+
+            return tmp_str;
+        }
+
+        private int eeprom__write_data_4byte(int adrs_b32, uint val_b32, int interval_ms = 0) {
+            int ret_int = 0;
+
+            //// for firmware
+            u32 val  = (u32)val_b32;
+            u16 adrs = (u16)adrs_b32; 
+
+            byte[] buf_bytearray = BitConverter.GetBytes(val);
+            u8[] buf = Array.ConvertAll(buf_bytearray, x => (u8)x );
+
+            eeprom_write_data(adrs, 4, buf); //$$ write eeprom 
+
+            if (interval_ms == 0) {
+                u32 cnt = 0;
+                while (true) {
+                    u32 flag = eeprom_read_status();
+                    cnt++;
+                    if ( (flag&0x01) == 0x00) // check WIP
+                        break;
+                }
+            } 
+            else {
+                Delay(interval_ms); //$$ ms wait for write done 
+            }
+            
+
+            return ret_int;
+        }
+
+        public int eeprom__write_data_u32(int adrs_b32, uint val_b32, int interval_ms = 0) {
+            return eeprom__write_data_4byte(adrs_b32, val_b32, interval_ms);
+            }
+
+        public int eeprom__write_data_float(int adrs_b32, float val_float, int interval_ms = 0) {
+            //return eeprom__write_data_4byte(adrs_b32, val_b32, interval_ms);
+            var bytes  = BitConverter.GetBytes(val_float);
+            var val_u32 = BitConverter.ToUInt32(bytes, 0);
+
+            return eeprom__write_data_4byte(adrs_b32, val_u32, interval_ms);
+            }
+
+        public int eeprom__write_data_s32(int adrs_b32, s32 val_s32, int interval_ms = 0) {
+            return eeprom__write_data_4byte(adrs_b32, (u32)val_s32, interval_ms);
+        }
+
+        private int eeprom__write_data_1byte(int adrs_b32, u8 val_b8, int interval_ms = 0) {
+            int ret_int = 0;
+
+            //// for firmware
+            u32 val  = (u32)val_b8;
+            u16 adrs = (u16)adrs_b32; 
+
+            //byte[] buf_bytearray = BitConverter.GetBytes(val);
+            //u8[] buf = Array.ConvertAll(buf_bytearray, x => (u8)x );
+            u8[] buf = {val_b8};
+
+            eeprom_write_data(adrs, 1, buf); //$$ write eeprom 
+
+            Delay(interval_ms); //$$ ms wait for write done 
+
+            return ret_int;
+        }
+
+        public int eeprom__write_data_u8(int adrs_b32, u8 val_b8, int interval_ms = 0) {
+            return eeprom__write_data_1byte(adrs_b32, val_b8, interval_ms);
+        }
+
+        public int eeprom__write_buf_u8(int adrs_b32, u32 size_buf_u32, u8[] buf_b8, int interval_ms = 0) {
+            //return eeprom__write_data_1byte(adrs_b32, buf_b8, interval_ms);
+            // check every 16 bytes
+            return 0;
+        }
+
+
+        // test var
+        private int __test_int = 0;
+        
+        // test function
+        public new static string _test() {
+            string ret = SPI_EMUL._test() + ":_class__GNDU_control_by_eps_";
+            return ret;
+        }
+        public static int __test_GNDU_control_by_eps() {
+            Console.WriteLine(">>>>>> test: __test_GNDU_control_by_eps");
+            
+            // test member
+            GNDU_control_by_eps dev_eps = new GNDU_control_by_eps();
+            dev_eps.__test_int = dev_eps.__test_int - 1;
+            Console.WriteLine(dev_eps.EP_ADRS__GROUP_STR);
+
+            // test common functions
+            u8 ch_prt;
+            u8 ch_in ;
+
+            ch_in = (byte)'T';
+            ch_prt = dev_eps.ignore_nonprint_code(ch_in);
+            Console.WriteLine("ch_in (hex) = 0x{0:X2}",ch_in);
+            Console.WriteLine("ch_prt(prt) = {0}", (char)ch_prt);
+
+            ch_in = (byte)0xFF;
+            ch_prt = dev_eps.ignore_nonprint_code(ch_in);
+            Console.WriteLine("ch_in (hex) = 0x{0:X2}",ch_in);
+            Console.WriteLine("ch_prt(prt) = {0}", (char)ch_prt);
+
+            s16 len_b16 = 16*4;
+            u8 [] mem_buf_u8 = {
+                (byte)'0',
+                (byte)'1',
+                (byte)'2',
+                (byte)'3',
+                (byte)'4',
+                (byte)'5',
+                (byte)'6',
+                (byte)'7',
+                (byte)'8',
+                (byte)'9',
+                (byte)'A',
+                (byte)'B',
+                (byte)'C',
+                (byte)'D',
+                (byte)'E',
+                (byte)'F',
+                //
+                (byte)'q',
+                (byte)'w',
+                (byte)'e',
+                (byte)'r',
+                (byte)'t',
+                (byte)'a',
+                (byte)'s',
+                (byte)'d',
+                (byte)'f',
+                (byte)'g',
+                (byte)'z',
+                (byte)'x',
+                (byte)'c',
+                (byte)'v',
+                (byte)'b',
+                (byte)'n',
+                //
+                (byte)0x40,
+                (byte)0x41,
+                (byte)0x42,
+                (byte)0x43,
+                (byte)0x44,
+                (byte)0x45,
+                (byte)0x46,
+                (byte)0x47,
+                (byte)0x48,
+                (byte)0x49,
+                (byte)0x4A,
+                (byte)0x4B,
+                (byte)0x4C,
+                (byte)0x4D,
+                (byte)0x4E,
+                (byte)0x4F,
+                //
+                (byte)0xF0,
+                (byte)0xF1,
+                (byte)0xF2,
+                (byte)0xF3,
+                (byte)0xF4,
+                (byte)0xF5,
+                (byte)0xF6,
+                (byte)0xF7,
+                (byte)0xF8,
+                (byte)0xF9,
+                (byte)0xFA,
+                (byte)0xFB,
+                (byte)0xFC,
+                (byte)0xFD,
+                (byte)0xFE,
+                (byte)0xFF};
+            u32 adrs_offset_u32 = 0x0040;
+
+            string txt_string = dev_eps.hex_txt_display(len_b16, mem_buf_u8, adrs_offset_u32);
+            Console.WriteLine(txt_string);
+
+
+            // test LAN
+            dev_eps.my_open(__test__.Program.test_host_ip);
+            Console.WriteLine(dev_eps.get_IDN());
+            Console.WriteLine(dev_eps.eps_enable());
+
+            //// test start
+
+            // scan and collect slot info
+            dev_eps._test__scan_slots__spi_emul();
+            Console.WriteLine(dev_eps._test__report_slots__spi_emul());
+
+            // set slot location for EPS-SPI emulation : S3100-XXX board on slot over EPS-SPI emulation
+            dev_eps.SPI_EMUL__set__use_loc_slot(true); // use fixed slot location
+            dev_eps.SPI_EMUL__set__loc_group(__test__.Program.test_loc_spi_group); // for spi channel index
+            dev_eps.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot); // for slot index 
+
+
+            Console.WriteLine(dev_eps.is_eeprom_available()); // eeprom status read via spi emulation // 1 for available.
+
+
+            // read eeprom header size 4*16
+            dev_eps.eeprom__read__buf_u8(0x000, 0x40, mem_buf_u8);
+
+            // display
+            Console.WriteLine(dev_eps.hex_txt_display(0x40, mem_buf_u8, 0x000));
+
+            // test save eeprom
+            dev_eps.eeprom__write_data_u8(0x000, (u8)'A');
+            dev_eps.eeprom__write_data_u8(0x001, (u8)'B');
+            dev_eps.eeprom__write_data_u8(0x002, (u8)'C');
+            dev_eps.eeprom__write_data_u8(0x003, (u8)'D');
+            dev_eps.eeprom__write_data_u8(0x004, (u8)'a');
+            dev_eps.eeprom__write_data_u8(0x005, (u8)'b');
+            dev_eps.eeprom__write_data_u8(0x006, (u8)'c');
+            dev_eps.eeprom__write_data_u8(0x007, (u8)'d');            
+            dev_eps.eeprom__read__buf_u8(0x000, 0x40, mem_buf_u8);
+            Console.WriteLine(dev_eps.hex_txt_display(0x40, mem_buf_u8, 0x000));
+
+
+            // save float values to eeprom 
+            dev_eps.eeprom__write_data_float(0x040, (float)(-3.49));
+            dev_eps.eeprom__write_data_s32  (0x044, (s32)(-358343));
+            dev_eps.eeprom__write_data_float(0x048, (float)(11.49));
+            dev_eps.eeprom__write_data_s32  (0x04C, (s32)(-1));
+            dev_eps.eeprom__write_data_float(0x050, (float)(-1));
+            dev_eps.eeprom__write_data_float(0x054, (float)0);
+            dev_eps.eeprom__write_data_float(0x058, (float)2);
+            dev_eps.eeprom__write_data_float(0x05C, (float)3);
+            dev_eps.eeprom__write_data_s32  (0x060, (s32)(-1));
+            dev_eps.eeprom__write_data_s32  (0x064, (s32)( 0));
+            dev_eps.eeprom__write_data_s32  (0x068, (s32)( 1));
+            dev_eps.eeprom__write_data_s32  (0x06C, (s32)( 2));
+            dev_eps.eeprom__write_data_float(0x070, (float)9.99);
+            dev_eps.eeprom__write_data_float(0x074, (float)9.98);
+            dev_eps.eeprom__write_data_float(0x078, (float)9.97);
+            dev_eps.eeprom__write_data_float(0x07C, (float)9.96);
+
+            // load float values from eeprom
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x040));
+            Console.WriteLine(dev_eps.eeprom__read__data_s32  (0x044));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x048));
+            Console.WriteLine(dev_eps.eeprom__read__data_s32  (0x04C));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x050));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x054));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x058));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x05C));
+            Console.WriteLine(dev_eps.eeprom__read__data_s32  (0x060));
+            Console.WriteLine(dev_eps.eeprom__read__data_s32  (0x064));
+            Console.WriteLine(dev_eps.eeprom__read__data_s32  (0x068));
+            Console.WriteLine(dev_eps.eeprom__read__data_s32  (0x06C));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x070));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x074));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x078));
+            Console.WriteLine(dev_eps.eeprom__read__data_float(0x07C));
+
+            // read eeprom other site size 4*16
+            dev_eps.eeprom__read__buf_u8(0x040, 0x40, mem_buf_u8);
+            Console.WriteLine(dev_eps.hex_txt_display(0x40, mem_buf_u8, 0x040));
+
+
+            // test finish
+            Console.WriteLine(dev_eps.eps_disable());
+            dev_eps.scpi_close();
+
+            return dev_eps.__test_int;
+        }
+    }
+    
+
+    public class TOP_GNDU__EPS_SPI : GNDU_control_by_eps {
         
         // test var
         private int __test_int = 0;
         
         // test function
         public new static string _test() {
-            string ret = SPI_EMUL._test() + ":_class__TOP_GNDU__EPS_SPI_";
+            string ret = GNDU_control_by_eps._test() + ":_class__TOP_GNDU__EPS_SPI_";
             return ret;
         }
         public static int __test_top_gndu() {
@@ -5279,41 +6048,51 @@ namespace TopInstrument
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | TEST  | XADC_TEMP_WO  | 0x0E8      | wireout_3A | Return XADC values.[mC]    | MON_TEMP[31:0]                 |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_LED_WI   | 0x004      | wire_in_01 | Test LED data.             | bit[3:0] = test LED data       |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MEM   | MEM_WI        | 0x054      | wire_in_15 | Control EEPROM interface.  | bit[  15]=disable_SBP_packet   | 
+// | TEST  | TEST_LED_TI   | 0x104      | trig_in_41 | Trigger test functions.    | bit[0]=trigger_led_count_reset |
+// |       |               |            |            |                            | bit[1]=trigger_led_count_load  |
+// |       |               |            |            |                            | bit[2]=trigger_led_count_up    |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_PI       | 0x228      | pipe_in_8A | Write data into test FIFO. | test_fifo_data[31:0]           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | TEST  | TEST_PO       | 0x2A8      | pipeout_AA | Read data from test FIFO.  | test_fifo_data[31:0]           |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MEM   | MEM_WI        | 0x04C      | wire_in_13 | Control EEPROM interface.  | bit[  15]=disable_SBP_packet   | 
 // |       |               |            |            |                            | bit[11:0]=num_bytes_DAT[11:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MEM   | MEM_FDAT_WI   | 0x050      | wire_in_14 | Control EEPROM frame data. | bit[31:24]=frame_data_ADH[7:0] |
+// | MEM   | MEM_FDAT_WI   | 0x048      | wire_in_12 | Control EEPROM frame data. | bit[31:24]=frame_data_ADH[7:0] |
 // |       |               |            |            |                            | bit[23:16]=frame_data_ADL[7:0] |
 // |       |               |            |            |                            | bit[15: 8]=frame_data_STA[7:0] |
 // |       |               |            |            |                            | bit[ 7: 0]=frame_data_CMD[7:0] |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MEM   | MEM_TI        | 0x154      | trig_in_55 | Trigger functions.         | bit[0]=trigger_reset           |
+// | MEM   | MEM_TI        | 0x14C      | trig_in_53 | Trigger functions.         | bit[0]=trigger_reset           |
 // |       |               |            |            |                            | bit[1]=trigger_fifo_reset      |
 // |       |               |            |            |                            | bit[2]=trigger_frame           |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MEM   | MEM_TO        | 0x1D4      | trigout_75 | Check status.              | bit[0]=MEM_valid_latch         |
+// | MEM   | MEM_TO        | 0x1CC      | trigout_73 | Check status.              | bit[0]=MEM_valid_latch         |
 // |       |               |            |            |                            | bit[1]=done_frame_latch        |
 // |       |               |            |            |                            | bit[2]=done_frame (one pulse)  |
 // |       |               |            |            |                            | bit[15:8]=frame_data_STA[7:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MEM   | MEM_PI        | 0x254      | pipe_in_95 | Write data into pipe.      | bit[7:0]=frame_data_DAT_w[7:0] |
+// | MEM   | MEM_PI        | 0x24C      | pipe_in_93 | Write data into pipe.      | bit[7:0]=frame_data_DAT_w[7:0] |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MEM   | MEM_PO        | 0x2D4      | pipeout_B5 | Read data from pipe.       | bit[7:0]=frame_data_DAT_r[7:0] |
+// | MEM   | MEM_PO        | 0x2CC      | pipeout_B3 | Read data from pipe.       | bit[7:0]=frame_data_DAT_r[7:0] |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | HRADC | HRADC_CON_WI  | 0x01C      | wire_in_07 | Control HRADC logics.      | bit[0]=HRADC_enable            | 
+// | HRADC | HRADC_CON_WI  | 0x020      | wire_in_08 | Control HRADC logics.      | bit[0]=HRADC_enable            | 
 // |       |               |            |            |                            | bit[1]=HRADC_mode_40bit_en     |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | HRADC | HRADC_FLAG_WO | 0x09C      | wireout_27 | Return HRADC status.       | bit[31:16]= avg info data[15:0]| 
+// | HRADC | HRADC_FLAG_WO | 0x0A0      | wireout_28 | Return HRADC status.       | bit[31:16]= avg info data[15:0]| 
 // |       |               |            |            |                            | bit[1]    = adc_cnv_busy       |
 // |       |               |            |            |                            | bit[0]    = adc_sck_busy       |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | HRADC | HRADC_TRIG_TI | 0x11C      | trig_in_47 | Trigger functions.         | bit[0]= adc conversion trigger | 
+// | HRADC | HRADC_TRIG_TI | 0x120      | trig_in_48 | Trigger functions.         | bit[0]= adc conversion trigger | 
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | HRADC | HRADC_TRIG_TO | 0x19C      | trigout_67 | Check trigger_done.        | bit[0]= adc conversion done    | 
+// | HRADC | HRADC_TRIG_TO | 0x1A0      | trigout_68 | Check trigger_done.        | bit[0]= adc conversion done    | 
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | HRADC | HRADC_DAT_WO  | 0x0A0      | wireout_28 | Return HRADC data.         | bit[31:16]= ADC_data[23:8]     | 
+// | HRADC | HRADC_DAT_WO  | 0x0A4      | wireout_29 | Return HRADC data.         | bit[31:16]= ADC_data[23:8]     | 
 // |       |               |            |            |                            | bit[15: 0]={ADC_data[7:0],8'b0}|
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
@@ -5337,16 +6116,14 @@ namespace TopInstrument
 // | A_SEL | ADC_IN_SEL_TI | 0x11C      | trig_in_47 | Trigger for ADC_IN_SEL.    | TBC                            | 
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | VDAC  | VDAC_VAL_WI   | 0x04C      | wire_in_13 | Control for VDAC_VAL.      | TBC                            | 
+// | VDAC  | VDAC_VAL_WI   | 0x024      | wire_in_09 | Control for VDAC_VAL.      | TBC                            | 
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | VDAC  | VDAC_CON_TI   | 0x14C      | trig_in_53 | Trigger for VDAC_CON.      | TBC                            | 
+// | VDAC  | VDAC_CON_TI   | 0x124      | trig_in_49 | Trigger for VDAC_CON.      | TBC                            | 
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-
 
             // send frames by calling EPS functions
-            Console.WriteLine(dev.GetWireOutValue(0x20).ToString("X8")); // see FID
-            Console.WriteLine((float)dev.GetWireOutValue(0x3A)/1000); // see temperature in fpga
-
+            Console.WriteLine(dev.gndu_FID_read()); // see FID
+            Console.WriteLine(dev.gndu_temp_read()); // see temperature in fpga
 
 //// test: D_RLY
 // | D_RLY | DIAG_RELAY_WI | 0x010      | wire_in_04 | Control for DIAG_RELAY.    | TBC                            | 
@@ -5369,84 +6146,29 @@ namespace TopInstrument
 // assign D_RLY__1K___RELAY_FPGA      = r_Diag_Relay_Val[1];
 // assign D_RLY__100__RELAY_FPGA      = r_Diag_Relay_Val[0];
 
-            /*
-            uint data_C = 0x3F  ; // for read/write_bar    // 6 bits  
-            uint data_A = 0x3FF ; // for spi frame address // 10 bits 
-            uint data_D = 0xFFFF; // for mosi data         // 16 bits 
-            uint data_B = 0xFFFF; // for miso data         // 16 bits 
-
-            // send frame by calling explicit function SPI_EMUL__send_frame 
-
-            data_C = 0x00  ; // write
-            data_A = 0x110 ; // DIAG_RELAY_TI
-            data_D = 0x0001; // send clear pulse
-            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-
-            data_C = 0x00  ; // write
-            data_A = 0x010 ; // DIAG_RELAY_WI
-            data_D = 0x0010; // set D_RLY__1M___RELAY_FPGA
-            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-
-            data_C = 0x00  ; // write
-            data_A = 0x110 ; // DIAG_RELAY_TI
-            data_D = 0x0002; // send latch pulse
-            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-
-            data_C = 0x00  ; // write
-            data_A = 0x110 ; // DIAG_RELAY_TI
-            data_D = 0x0001; // send clear pulse
-            data_B = dev.SPI_EMUL__send_frame(data_C, data_A, data_D);
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,2:X2}", "data_C" , data_C));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_D" , data_D));
-            Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-            */
-
-            dev.ActivateTriggerIn(0x44, 0);           // EP for DIAG_RELAY_TI // clear pulse
-
-            //dev.SetWireInValue   (0x04, 0x0000_0010); // EP for DIAG_RELAY_WI // set D_RLY__1M___RELAY_FPGA
-            //dev.ActivateTriggerIn(0x44, 1);           // EP for DIAG_RELAY_TI // latch pulse
-
+            dev.gndu_D_RLY_reset();
             for (int ii = 0; ii < 14; ii++)
             {
-                dev.SetWireInValue   (0x04, (u32)(1<<ii)); // EP for DIAG_RELAY_WI // set ...
-                dev.ActivateTriggerIn(0x44, 1);           // EP for DIAG_RELAY_TI // latch pulse
+                dev.gndu_D_RLY_send((u32)(1<<ii));
             }
-
-            dev.ActivateTriggerIn(0x44, 0);           // EP for DIAG_RELAY_TI // clear pulse
+            dev.gndu_D_RLY_reset();
 
 
 //// test: VDAC
 // | VDAC  | VDAC_VAL_WI   | 0x04C      | wire_in_13 | Control for VDAC_VAL.      | TBC                            | 
 // | VDAC  | VDAC_CON_TI   | 0x14C      | trig_in_53 | Trigger for VDAC_CON.      | TBC                            | 
 
-            dev.ActivateTriggerIn(0x53, 0);           // EP for VDAC_CON_TI // reset pulse
+            dev.gndu_VDAC_reset();
 
-            dev.SetWireInValue   (0x13, 0x0000_4000); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = 5V
-            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
+            dev.gndu_VDAC_send((float)0);     //   0.0V 0x0000
+            dev.gndu_VDAC_send((float)5.0);   //   5.0V 0x4000
+            dev.gndu_VDAC_send((float)-5.0);  //  -5.0V 0xC000
+            dev.gndu_VDAC_send((float)10.0);  //  10.0V 0x7FFF
+            dev.gndu_VDAC_send((float)-10.0); // -10.0V 0x8000
+            dev.gndu_VDAC_send((float)2.5);   //   2.5V 0x2000
+            dev.gndu_VDAC_send((float)-2.5);  //  -2.5V 0xE000
 
-            dev.SetWireInValue   (0x13, 0xFFFF_C000); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = -5V
-            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
-
-            dev.SetWireInValue   (0x13, 0x0000_7FFF); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = +9.999695V
-            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
-
-            dev.SetWireInValue   (0x13, 0xFFFF_8000); // EP for VDAC_VAL_WI // set w_VDAC_DATA_Val = –10.00000V
-            dev.ActivateTriggerIn(0x53, 1);           // EP for VDAC_CON_TI // write pulse
-
-            dev.ActivateTriggerIn(0x53, 0);           // EP for VDAC_CON_TI // clear pulse
+            dev.gndu_VDAC_reset();
 
 
 //// test: O_RLY
@@ -5457,15 +6179,10 @@ namespace TopInstrument
 // assign O_RLY__GND_S_RELAY_FPGA = r_OUT_Relay_Val[1];
 // assign O_RLY__GND_F_RELAY_FPGA = r_OUT_Relay_Val[0];
 
-            dev.ActivateTriggerIn(0x45, 0);           // EP for OUTP_RELAY_TI // clear pulse
-
-            dev.SetWireInValue   (0x05, 0x0000_0001); // EP for OUTP_RELAY_WI // set O_RLY__GND_F_RELAY_FPGA
-            dev.ActivateTriggerIn(0x45, 1);           // EP for OUTP_RELAY_TI // latch pulse
-
-            dev.SetWireInValue   (0x05, 0x0000_0002); // EP for OUTP_RELAY_WI // set O_RLY__GND_S_RELAY_FPGA
-            dev.ActivateTriggerIn(0x45, 1);           // EP for OUTP_RELAY_TI // latch pulse
-
-            dev.ActivateTriggerIn(0x45, 0);           // EP for OUTP_RELAY_TI // clear pulse
+            dev.gndu_O_RLY_reset();           // EP for OUTP_RELAY_TI // clear pulse
+            dev.gndu_O_RLY_send((u32)0x0000_0001); // EP for OUTP_RELAY_WI // set O_RLY__GND_F_RELAY_FPGA
+            dev.gndu_O_RLY_send((u32)0x0000_0002); // EP for OUTP_RELAY_WI // set O_RLY__GND_S_RELAY_FPGA
+            dev.gndu_O_RLY_reset();           // EP for OUTP_RELAY_TI // clear pulse
 
 
 //// test: V_RNG // active low
@@ -5479,24 +6196,15 @@ namespace TopInstrument
 // assign V_RNG__n5V___MRANGE = r_Vmrange_Val[1];
 // assign V_RNG__n2V___MRANGE = r_Vmrange_Val[0];
 
-            dev.ActivateTriggerIn(0x46, 0);           // EP for VM_RANGE_TI // clear pulse
+            dev.gndu_V_RNG_reset();           // EP for VM_RANGE_TI // clear pulse
 
-            dev.SetWireInValue   (0x06, ~(u32)0x0000_0001); // EP for VM_RANGE_WI // set V_RNG__n2V___MRANGE
-            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
+            dev.gndu_V_RNG_send_act_high(0x0000_0001); // EP for VM_RANGE_WI // set V_RNG__n2V___MRANGE
+            dev.gndu_V_RNG_send_act_high(0x0000_0002); // EP for VM_RANGE_WI // set V_RNG__n5V___MRANGE
+            dev.gndu_V_RNG_send_act_high(0x0000_0004); // EP for VM_RANGE_WI // set V_RNG__n20V__MRANGE
+            dev.gndu_V_RNG_send_act_high(0x0000_0008); // EP for VM_RANGE_WI // set V_RNG__n40V__MRANGE
+            dev.gndu_V_RNG_send_act_high(0x0000_0010); // EP for VM_RANGE_WI // set V_RNG__n100V_MRANGE
 
-            dev.SetWireInValue   (0x06, ~(u32)0x0000_0002); // EP for VM_RANGE_WI // set V_RNG__n5V___MRANGE
-            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
-
-            dev.SetWireInValue   (0x06, ~(u32)0x0000_0004); // EP for VM_RANGE_WI // set V_RNG__n20V__MRANGE
-            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
-
-            dev.SetWireInValue   (0x06, ~(u32)0x0000_0008); // EP for VM_RANGE_WI // set V_RNG__n40V__MRANGE
-            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
-
-            dev.SetWireInValue   (0x06, ~(u32)0x0000_0010); // EP for VM_RANGE_WI // set V_RNG__n100V_MRANGE
-            dev.ActivateTriggerIn(0x46, 1);           // EP for VM_RANGE_TI // latch pulse
-
-            dev.ActivateTriggerIn(0x46, 0);           // EP for VM_RANGE_TI // clear pulse
+            dev.gndu_V_RNG_reset();           // EP for VM_RANGE_TI // clear pulse
 
 
 //// test: A_SEL // active low
@@ -5509,29 +6217,99 @@ namespace TopInstrument
 // assign A_SEL__GND__ADCIN_SEL = r_ADC_IN_SEL_Val[1];
 // assign A_SEL__DIAG_ADCIN_SEL = r_ADC_IN_SEL_Val[0];
 
-            dev.ActivateTriggerIn(0x47, 0);           // EP for ADC_IN_SEL_TI // clear pulse
+            dev.gndu_A_SEL_reset();           // EP for ADC_IN_SEL_TI // clear pulse
 
-            dev.SetWireInValue   (0x07, ~(u32)0x0000_0001); // EP for ADC_IN_SEL_WI // set A_SEL__DIAG_ADCIN_SEL
-            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+            dev.gndu_A_SEL_send_act_high(0x0000_0001); // EP for ADC_IN_SEL_WI // set A_SEL__DIAG_ADCIN_SEL
+            dev.gndu_A_SEL_send_act_high(0x0000_0002); // EP for ADC_IN_SEL_WI // set A_SEL__GND__ADCIN_SEL
+            dev.gndu_A_SEL_send_act_high(0x0000_0004); // EP for ADC_IN_SEL_WI // set A_SEL___5V__G_REF_SEL
+            dev.gndu_A_SEL_send_act_high(0x0000_0008); // EP for ADC_IN_SEL_WI // set A_SEL___0V__G_REF_SEL
 
-            dev.SetWireInValue   (0x07, ~(u32)0x0000_0002); // EP for ADC_IN_SEL_WI // set A_SEL__GND__ADCIN_SEL
-            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+            dev.gndu_A_SEL_reset();           // EP for ADC_IN_SEL_TI // clear pulse
 
-            dev.SetWireInValue   (0x07, ~(u32)0x0000_0004); // EP for ADC_IN_SEL_WI // set A_SEL___5V__G_REF_SEL
-            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+//// test: TEST_LED
 
-            dev.SetWireInValue   (0x07, ~(u32)0x0000_0008); // EP for ADC_IN_SEL_WI // set A_SEL___0V__G_REF_SEL
-            dev.ActivateTriggerIn(0x47, 1);           // EP for ADC_IN_SEL_TI // latch pulse
+            dev.gndu_LED_reset();
+            dev.Delay(500); // 500ms delay
+            dev.gndu_LED_load_test_data(0xA);
+            dev.Delay(500); // 500ms delay
+            dev.gndu_LED_load_test_data(0x5);
+            dev.Delay(500); // 500ms delay
+            dev.gndu_LED_inc_test_data();
+            dev.Delay(500); // 500ms delay
+            dev.gndu_LED_inc_test_data();
+            dev.Delay(500); // 500ms delay
+            dev.gndu_LED_inc_test_data();
+            dev.Delay(500); // 500ms delay
+            dev.gndu_LED_reset();
+            
+//// test: HRADC
 
-            dev.ActivateTriggerIn(0x47, 0);           // EP for ADC_IN_SEL_TI // clear pulse
+            dev.gndu_HRADC_enable();
+
+            float val_adc;
+
+            dev.gndu_A_SEL__5V_gref();
+            Console.WriteLine(string.Format(">>  gndu_A_SEL__5V_gref"));
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));
+
+            dev.gndu_A_SEL__0V_gref();
+            Console.WriteLine(string.Format(">>  gndu_A_SEL__0V_gref"));
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));           
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));
+
+            dev.gndu_A_SEL__diag();
+            Console.WriteLine(string.Format(">>  gndu_A_SEL__diag"));
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));
+
+            dev.gndu_A_SEL__gnd();
+            Console.WriteLine(string.Format(">>  gndu_A_SEL__gnd"));
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));
+            val_adc = dev.gndu_HRADC_measure();
+            Console.WriteLine(string.Format(">>> ADC = {0}",val_adc));
+
+            dev.gndu_HRADC_disable();
 
 
 //// test: MEM
+            dev.eeprom__write_data_u8(0x040, (u8)'T');
+            dev.eeprom__write_data_u8(0x041, (u8)'E');
+            dev.eeprom__write_data_u8(0x042, (u8)'S');
+            dev.eeprom__write_data_u8(0x043, (u8)'T');
+            dev.eeprom__write_data_u8(0x044, (u8)'0');
+            dev.eeprom__write_data_u8(0x045, (u8)'1');
+            dev.eeprom__write_data_u8(0x046, (u8)'2');
+            dev.eeprom__write_data_u8(0x047, (u8)'3');            
 
+            Console.WriteLine(string.Format("{0,8:X8}", dev.eeprom__read__data_u32(0x040) ));
+            Console.WriteLine(string.Format("{0,8:X8}", dev.eeprom__read__data_u32(0x044) ));
+            Console.WriteLine(string.Format("{0,8:X8}", dev.eeprom__read__data_u32(0x048) ));
+            Console.WriteLine(string.Format("{0,8:X8}", dev.eeprom__read__data_u32(0x04C) ));
+            
+            // save 32-bit values from eeprom
+            dev.eeprom__write_data_float(0x040, (float)9.99);
+            dev.eeprom__write_data_s32  (0x044, (s32)(-2));
+            dev.eeprom__write_data_float(0x048, (float)(-9.97));
+            dev.eeprom__write_data_s32  (0x04C, (s32)( 3));
 
-//// test: HRADC
+            // load 32-bit values from eeprom
+            Console.WriteLine(dev.eeprom__read__data_float(0x040));
+            Console.WriteLine(dev.eeprom__read__data_s32  (0x044));
+            Console.WriteLine(dev.eeprom__read__data_float(0x048));
+            Console.WriteLine(dev.eeprom__read__data_s32  (0x04C));
 
-
+            // read eeprom other site size 4*16
+            u8[] mem_buf_u8 = new u8[0x040];
+            dev.eeprom__read__buf_u8(0x040, 0x40, mem_buf_u8);
+            Console.WriteLine(dev.hex_txt_display(0x40, mem_buf_u8, 0x040));
 
             //// test finish
             Console.WriteLine(dev.eps_disable()); // renew eps_disable ... mergerd with SPI_EMUL__reset
@@ -5558,6 +6336,14 @@ namespace __test__
 {
     public class Program
     {
+        //$$ note: IP ... setup for own LAN port test //{
+        
+        //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
+        //public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
+        //public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
+
+        //}
+
         public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
@@ -5566,14 +6352,14 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
-        //public static string test_host_ip = "192.168.168.143"; // test dummy ip
 
         //// S3100 frame slot selection:
         // loc_slot bit 0  = slot location 0
         // loc_slot bit 1  = slot location 1
         // ...
         // loc_slot bit 12 = slot location 12
-        public static uint test_loc_slot = 0x0004; // slot location 2
+        //public static uint test_loc_slot = 0x0004; // slot location 2
+        public static uint test_loc_slot = 0x0008; // slot location 3
         //public static uint test_loc_slot = 0x0010; // slot location 4
         //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
@@ -5594,20 +6380,22 @@ namespace __test__
             Console.WriteLine("Hello, world!");
 
             //call something in TopInstrument
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "SCPI_base         ", TopInstrument.SCPI_base._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "EPS_Dev           ", TopInstrument.EPS_Dev._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "SPI_EMUL          ", TopInstrument.SPI_EMUL._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "SCPI_base          ", TopInstrument.SCPI_base._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "EPS_Dev            ", TopInstrument.EPS_Dev._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "SPI_EMUL           ", TopInstrument.SPI_EMUL._test()));
             //Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_lan", TopInstrument.PGU_control_by_lan._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_eps", TopInstrument.PGU_control_by_eps._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_eps ", TopInstrument.PGU_control_by_eps._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "GNDU_control_by_eps", TopInstrument.GNDU_control_by_eps._test()));
             //
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU (alias)   ", TOP_PGU._test())); // using alias
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_GNDU (alias)  ", TOP_GNDU._test())); // using alias
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU (alias)    ", TOP_PGU._test())); // using alias
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_GNDU (alias)   ", TOP_GNDU._test())); // using alias
 
             int ret = 0;
             //ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
             //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
             //
             //ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+            TOP_GNDU.__test_GNDU_control_by_eps(); // test
             ret = TOP_GNDU.__test_top_gndu(); // test GNDU control // must locate PGU board on slot // sel_loc_groups=0x0001, sel_loc_slots=0x0004  
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 
