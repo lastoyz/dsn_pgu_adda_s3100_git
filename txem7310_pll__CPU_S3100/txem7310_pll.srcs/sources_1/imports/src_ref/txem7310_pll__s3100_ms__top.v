@@ -4103,7 +4103,7 @@ wire [13: 0] w_nBCS = 14'h3FFF; // test
 //assign  w_nCS_REG_sig   = w_nBCS[1];             //(1)  nCS_REG_sig			0x6010 0000 ~ 0x6010 007C
 //assign  w_nCS_USB_sig   = w_nBCS[2];             //(2)  nCS_USB_sig			0x6020 0000 ~ 
 //assign  w_nCS_GPIB_sig  = w_nBCS[3];             //(3)  nCS_GPIB_sig		0x6030 0000 ~ 0x6030 0008
-assign  w_GPIB_nCS_sig  = w_nBCS[4];             //(4)  GPIB_nCS_sig		0x6040 0000 ~
+//$$assign  w_GPIB_nCS_sig  = w_nBCS[4];             //(4)  GPIB_nCS_sig		0x6040 0000 ~
 //assign  w_SUB_nCS_sig   = w_nBCS[5];             //(5)  SUB_nCS_sig			0x6050 0000 ~
 
 //assign  w_SPI_CS_CONTROL_CS     = w_nBCS[6];     //(6)  SPI_CS_CONTROL_CS	    0x6060 0000 ~ 0x6060 0014
