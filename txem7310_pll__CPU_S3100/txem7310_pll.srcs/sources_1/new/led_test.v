@@ -23,6 +23,7 @@ module led_test (
 	input wire reset_n,
 	//
 	output wire o_run_led, // 
+	output wire o_run_led_fast, // 
 	output wire valid
 	);
 
@@ -83,5 +84,31 @@ begin
 end
 
 assign o_run_led = FPGA_LED_RUN_STATUS;
+
+//===============================================================================================//
+
+reg FPGA_LED_RUN_STATUS_F;
+reg [23:0] FPGA_LED_RUN_cnt_F;
+
+always @(posedge sys_clk, negedge reset_n)
+begin
+    if(reset_n == 1'b0) begin
+        FPGA_LED_RUN_STATUS_F     <= 1'b0;
+        FPGA_LED_RUN_cnt_F        <= {24{1'b0}};
+    end else begin
+        if(FPGA_LED_RUN_cnt_F < 24'd500000) begin             // DEC 500,000
+            FPGA_LED_RUN_STATUS_F     <= 1'b0;
+            FPGA_LED_RUN_cnt_F        <= FPGA_LED_RUN_cnt_F + 1;
+        end else if(FPGA_LED_RUN_cnt_F < 24'd1000000) begin    // DEC 1,000,000
+            FPGA_LED_RUN_STATUS_F     <= 1'b1;
+            FPGA_LED_RUN_cnt_F        <= FPGA_LED_RUN_cnt_F + 1;
+        end else begin 
+            FPGA_LED_RUN_STATUS_F     <= 1'b0;
+            FPGA_LED_RUN_cnt_F        <= {24{1'b0}};
+        end
+    end
+end
+
+assign o_run_led_fast = FPGA_LED_RUN_STATUS_F;
 
 endmodule 
