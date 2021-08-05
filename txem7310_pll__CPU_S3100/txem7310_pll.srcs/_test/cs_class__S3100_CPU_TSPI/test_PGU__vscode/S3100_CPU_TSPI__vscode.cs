@@ -109,10 +109,10 @@ namespace TopInstrument
         }
 
         //// common subfunctions
-        public DateTime Delay(int S) //$$ ms
+        public DateTime Delay(int ms) //$$ ms
         {
             DateTime ThisMoment = DateTime.Now;
-            TimeSpan duration = new TimeSpan(0, 0, 0, 0, S); // days, hours, minutes, seconds, and milliseconds
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, ms); // days, hours, minutes, seconds, and milliseconds
             DateTime AfterWards = ThisMoment.Add(duration);
 
             while (AfterWards >= ThisMoment)
@@ -212,7 +212,7 @@ namespace TopInstrument
             {
                 throw new Exception(String.Format("Error in sendall") + e.Message); //$$ for release
                 //$$ TODO:  print out command string for test
-                //Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
+                //$$Console.WriteLine("(TEST)>>> " + Encoding.UTF8.GetString(cmd_str));
             }
             //
             Delay(INTVAL);
@@ -623,7 +623,7 @@ namespace TopInstrument
                 cnt_loop++;
                 if (done_trig) {
                     // print
-                    Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
+                    //$$Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
                     break;
                 }
             }
@@ -683,13 +683,16 @@ namespace TopInstrument
                     sel_loc_slots = (uint)(0x0000_0001 << ii);
                     data_A = 0x380 ; // for address of known pattern  0x_33AA_CC55 // 10 bits
                     data_B = _test__send_spi_frame(data_C, data_A, data_D, sel_loc_slots, sel_loc_groups);
-                    Console.WriteLine(string.Format(">>>------"));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
-                    Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
+                    //Console.WriteLine(string.Format(">>>------"));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,3:X3}", "data_A" , data_A));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "data_B" , data_B));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+                    //Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
                     //
                     if (data_B==0xCC55) {
+                        Console.WriteLine(string.Format(">>>------"));
+                        Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_slots " , sel_loc_slots));
+                        Console.WriteLine(string.Format(">>> {0} = 0x{1,4:X4}", "sel_loc_groups" , sel_loc_groups));
                         Console.WriteLine(string.Format(">>> A board is found in slot."));
                         slot_is_occupied[jj,ii] = true;
                         // read FID
@@ -936,6 +939,13 @@ namespace TopInstrument
             u32 data_A = adrs<<2;
             u32 data_D = 0x0000;
 
+            // // hi first 
+            // u32 data_B_hi = 0;
+            // if ((mask & 0xFFFF0000) != 0) {
+            //     data_B_hi = SPI_EMUL__send_frame(data_C, data_A+2, data_D);
+            // }
+
+            // lo first
             u32 data_B_lo = 0;
             if ((mask & 0x0000FFFF) != 0) {
                 data_B_lo = SPI_EMUL__send_frame(data_C, data_A  , data_D);
@@ -1106,12 +1116,16 @@ namespace TopInstrument
             dev_spi_emul.SPI_EMUL__set__loc_group(__test__.Program.test_loc_spi_group); // for spi channel index
             dev_spi_emul.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot); // for slot index 
             
-            // test EPS
-            dev_spi_emul.my_open(__test__.Program.test_host_ip); 
+            // open S3100-CPU-BASE with IP address
+            dev_spi_emul.my_open(__test__.Program.test_host_ip); // IP address of S3100-CPU-BASE board
 
+            // get IDN string from S3100-CPU-BASE // may check board info // by LAN command
             Console.WriteLine(dev_spi_emul.get_IDN());
+
+            // enable EPS and initialize EPS-SPI ... by LAN command
             Console.WriteLine(dev_spi_emul.eps_enable()); // renew eps_enable ... merged with SPI_EMUL__init
 
+            // may check FPGA die temperature from S3100-CPU-BASE
             Console.WriteLine((float)dev_spi_emul.get_FPGA_TMP_mC()/1000); // by LAN
             
 
@@ -2397,7 +2411,7 @@ namespace TopInstrument
             return pgu_dacz_dat_read(5); 
         }
 
-        // EEPROM control ...
+        //// EEPROM control ...
 
         private u32  eeprom_send_frame_ep (u32 MEM_WI_b32, u32 MEM_FDAT_WI_b32) {
             //  def eeprom_send_frame_ep (MEM_WI, MEM_FDAT_WI):
@@ -3420,7 +3434,7 @@ namespace TopInstrument
 
         //public string LogFilePath = Path.GetDirectoryName(Environment.CurrentDirectory) + "T-SPACE" + "\\Log";
         //$$public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "T-SPACE", "Log"); //$$ for release
-		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
+		public static string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_PGU__vscode", "log"); //$$ TODO: logfile location in vs code
         public string LogFileName = Path.Combine(LogFilePath, "Debugger.py");
         
         public bool IsInit = false;
@@ -3816,7 +3830,7 @@ namespace TopInstrument
             return (float)result;
         }
 
-        public int Load_CAL_from_EEPROM() {
+        public string Load_CAL_from_EEPROM() {
             int ret = 0;
             
             // cal_data are all float.
@@ -3861,16 +3875,26 @@ namespace TopInstrument
             // Console.WriteLine(this.__gui_out_ch2_offset);
             // Console.WriteLine(this.__gui_out_ch1_gain );
             // Console.WriteLine(this.__gui_out_ch2_gain );
+            string ret_str  = "";
+            ret_str += "# (1) cal_ch1_offset : " + this.__gui_out_ch1_offset.ToString()  + "\n";
+            ret_str += "# (2) cal_ch2_offset : " + this.__gui_out_ch2_offset.ToString()  + "\n";
+            ret_str += "# (3) cal_ch1_gain   : " + this.__gui_out_ch1_gain  .ToString()  + "\n";
+            ret_str += "# (4) cal_ch2_gain   : " + this.__gui_out_ch2_gain  .ToString()  + "\n";
 
-            return ret;
+            return ret_str;
         }
 
-        public int Save_CAL_into_EEPROM(float ch1_offset = 0.0F, float ch2_offset = 0.0F, float ch1_gain = 1.0F, float ch2_gain = 1.0F) {
+        public int Save_CAL_into_EEPROM(float ch1_offset, float ch2_offset, float ch1_gain = 1.0F, float ch2_gain = 1.0F) {
 
             this.__gui_out_ch1_offset = ch1_offset; 
             this.__gui_out_ch2_offset = ch2_offset; 
             this.__gui_out_ch1_gain   = ch1_gain  ; 
             this.__gui_out_ch2_gain   = ch2_gain  ;
+
+            return Save_CAL_into_EEPROM();
+        }
+
+        public int Save_CAL_into_EEPROM() {
 
             var dat_at_h40_double = this.__gui_out_ch1_offset;
             var dat_at_h44_double = this.__gui_out_ch2_offset;
@@ -3964,14 +3988,14 @@ namespace TopInstrument
             return ret;
         }
 
-        public int Read_IDN() 
+        public string Read_IDN() 
         {
             var idn_str = get_IDN();
             this.__gui_pgu_idn_txt = idn_str.ToCharArray();
-            return 0;
+            return idn_str;
         }
 
-        public int Load_INFO_from_EEPROM() 
+        public string Load_INFO_from_EEPROM() 
         {
             //// read eeprom and copy info to members
 
@@ -4090,6 +4114,19 @@ namespace TopInstrument
             // Console.WriteLine(">>> (*) pgu_check_sum          : " + pgu_check_sum.ToString()            );
             // Console.WriteLine(">>> (*) pgu_check_sum_residual : " + pgu_check_sum_residual.ToString()   );
             // Console.WriteLine(">>> (9) pgu_user_txt           : " + new string(pgu_user_txt  )          );
+            string ret_str = "";
+            // Console.WriteLine(">  Load_INFO_from_EEPROM() ...     ");
+            ret_str += "# (1) model_name         char[16] : " + new string(model_name    )        + "\n";
+            ret_str += "# (2) ip_adrs            char[16] : " + new string(pgu_ip_adrs   )        + "\n";
+            ret_str += "# (3) sm_adrs            char[16] : " + new string(pgu_sm_adrs   )        + "\n";
+            ret_str += "# (4) ga_adrs            char[16] : " + new string(pgu_ga_adrs   )        + "\n";
+            ret_str += "# (5) dns_adrs           char[16] : " + new string(pgu_dns_adrs  )        + "\n";
+            ret_str += "# (6) mac_adrs           char[12] : " + new string(pgu_mac_adrs  )        + "\n";
+            ret_str += "# (7) slot_id            char[2]  : " + new string(pgu_slot_id   )        + "\n";
+            ret_str += "# (8) user_id            byte     : " + pgu_user_id.ToString()            + "\n";
+            ret_str += "# (*) check_sum          byte     : " + pgu_check_sum.ToString()          + "\n";
+            ret_str += "# (*) check_sum_residual byte     : " + pgu_check_sum_residual.ToString() + "\n";
+            ret_str += "# (9) user_txt           char[16] : " + new string(pgu_user_txt  )        + "\n";
 
             // copy to members
             //...
@@ -4105,30 +4142,31 @@ namespace TopInstrument
             this.__gui_pgu_check_sum_residual  = pgu_check_sum_residual                ; // (*)
             this.__gui_pgu_user_txt            = new string(pgu_user_txt).ToCharArray(); // (9)
 
-            return pgu_check_sum_residual; //$$ 0 for valid INFO, non-zero for check sum error.
+            //return pgu_check_sum_residual; //$$ 0 for valid INFO, non-zero for check sum error.
+            return ret_str;
         }
 
         public int Save_INFO_into_EEPROM(
             char[] model_name   ,
-            char[] pgu_ip_adrs  ,
-            char[] pgu_sm_adrs  ,
-            char[] pgu_ga_adrs  ,
-            char[] pgu_dns_adrs ,
-            char[] pgu_mac_adrs ,
-            char[] pgu_slot_id  , 
-            byte   pgu_user_id  , 
-            char[] pgu_user_txt ) 
+            char[] ip_adrs  ,
+            char[] sm_adrs  ,
+            char[] ga_adrs  ,
+            char[] dns_adrs ,
+            char[] mac_adrs ,
+            char[] slot_id  , 
+            byte   user_id  , 
+            char[] user_txt ) 
         {
             //// update members and save them into eeprom
-            this.__gui_pgu_model_name   = model_name   ;
-            this.__gui_pgu_ip_adrs  = pgu_ip_adrs  ;
-            this.__gui_pgu_sm_adrs  = pgu_sm_adrs  ;
-            this.__gui_pgu_ga_adrs  = pgu_ga_adrs  ;
-            this.__gui_pgu_dns_adrs = pgu_dns_adrs ;
-            this.__gui_pgu_mac_adrs = pgu_mac_adrs ;
-            this.__gui_pgu_slot_id  = pgu_slot_id  ;
-            this.__gui_pgu_user_id  = pgu_user_id  ;
-            this.__gui_pgu_user_txt = pgu_user_txt ;
+            if (model_name.Length > 0) this.__gui_pgu_model_name   = model_name; // (1) 
+            if (ip_adrs   .Length > 0) this.__gui_pgu_ip_adrs      = ip_adrs   ; // (2)
+            if (sm_adrs   .Length > 0) this.__gui_pgu_sm_adrs      = sm_adrs   ; // (3)
+            if (ga_adrs   .Length > 0) this.__gui_pgu_ga_adrs      = ga_adrs   ; // (4)
+            if (dns_adrs  .Length > 0) this.__gui_pgu_dns_adrs     = dns_adrs  ; // (5)
+            if (mac_adrs  .Length > 0) this.__gui_pgu_mac_adrs     = mac_adrs  ; // (6)
+            if (slot_id   .Length > 0) this.__gui_pgu_slot_id      = slot_id   ; // (7)
+            this.__gui_pgu_user_id                                 = user_id   ; // (8)
+            if (user_txt  .Length > 0) this.__gui_pgu_user_txt     = user_txt  ; // (9)
 
             // convert members to bytes
             var eeprom_data_at_0X__bytes = new byte[16];
@@ -5037,17 +5075,77 @@ namespace TopInstrument
 
 
             // test load INFO
-            dev.Read_IDN();
-            dev.Load_INFO_from_EEPROM();
-
-
+            Console.WriteLine(dev.Read_IDN());
+            Console.WriteLine(dev.Load_INFO_from_EEPROM());
 
             //   load cal_data from eeprom
-            dev.Load_CAL_from_EEPROM();
-            Console.WriteLine(dev.__gui_out_ch1_offset);
-            Console.WriteLine(dev.__gui_out_ch2_offset);
-            Console.WriteLine(dev.__gui_out_ch1_gain );
-            Console.WriteLine(dev.__gui_out_ch2_gain );
+            Console.WriteLine(dev.Load_CAL_from_EEPROM());
+
+
+            //// test change members
+            //var model_name = new string("PGU_CPU_S3000#00").ToCharArray(); // (1)
+            //var model_name = new string("PGU_CPU_LAN#1234").ToCharArray(); // (1)
+            //var model_name = new string("CMU_CPU_S3000#88").ToCharArray(); // (1)
+            var model_name = new string  ("S3100_PGU_2#9802").ToCharArray(); // (1)
+            //var model_name = new string("").ToCharArray(); // (1)
+
+            //var pgu_ip_adrs = new string  ("192.168.100.127").ToCharArray(); // (2)
+            //var pgu_ip_adrs  = new string  ("192.168.100.112" ).ToCharArray(); // (2)
+            //var pgu_ip_adrs = new string  ("192.168.100.88").ToCharArray(); // (2)
+            var pgu_ip_adrs = new string  ("").ToCharArray(); // (2)
+            
+
+            //var pgu_sm_adrs  = new string  ("255.255.255.0" ).ToCharArray(); // (3)
+            var pgu_sm_adrs  = new string  ("" ).ToCharArray(); // (3)
+            //var pgu_ga_adrs  = new string  ("0.0.0.0"       ).ToCharArray(); // (4)
+            var pgu_ga_adrs  = new string  ("").ToCharArray(); // (4)
+            //var pgu_dns_adrs = new string  ("0.0.0.0"       ).ToCharArray(); // (5)
+            var pgu_dns_adrs = new string  ("").ToCharArray(); // (5)
+
+            //var pgu_mac_adrs = new string  ("00485533CD0F" ).ToCharArray(); // (6)
+            //var pgu_mac_adrs = new string  ("0008DC00CD0F" ).ToCharArray(); // (6)
+            //var pgu_mac_adrs = new string  ("0008DC111488" ).ToCharArray(); // (6)
+            var pgu_mac_adrs = new string  ("" ).ToCharArray(); // (6)
+
+            //var pgu_slot_id  = new string("56").ToCharArray(); // (7)
+            //var pgu_slot_id  = new string("98").ToCharArray(); // (7)
+            var pgu_slot_id  = new string("AA").ToCharArray(); // (7)
+
+            //var pgu_user_id = (byte) 32; //(8)
+            var pgu_user_id = (byte) 23; //(8)
+
+            //var pgu_user_txt = new string("0123456789ABCDEF").ToCharArray(); // (9)
+            //var pgu_user_txt = new string("ACACABAB12123434").ToCharArray(); // (9)
+            //var pgu_user_txt = new string  ("LAN_EEPROM_TEST_").ToCharArray(); // (9)
+            var pgu_user_txt = new string  ("").ToCharArray(); // (9)
+            
+
+            // test save INFO
+            dev.Save_INFO_into_EEPROM(
+                model_name   ,  // (1)
+                pgu_ip_adrs  ,  // (2)
+                pgu_sm_adrs  ,  // (3)
+                pgu_ga_adrs  ,  // (4)
+                pgu_dns_adrs ,  // (5)
+                pgu_mac_adrs ,  // (6)
+                pgu_slot_id  ,  // (7) 
+                pgu_user_id  ,  // (8) 
+                pgu_user_txt ); // (9) 
+        
+
+            //// test load INFO again
+            Console.WriteLine(dev.Load_INFO_from_EEPROM());
+
+
+            // save cal_data to eeprom
+            dev.__gui_out_ch1_offset = (float)(-0.010);
+            dev.__gui_out_ch2_offset = (float)(-0.011);
+            dev.__gui_out_ch1_gain  =  (float)(1.013);
+            dev.__gui_out_ch2_gain  =  (float)(1.012);
+            dev.Save_CAL_into_EEPROM();
+
+            //   load cal_data from eeprom
+            Console.WriteLine(dev.Load_CAL_from_EEPROM());
 
 
             //// bypass AUX control : 
@@ -5214,6 +5312,14 @@ namespace __test__
 {
     public class Program
     {
+        //$$ note: IP ... setup for own LAN port test //{
+        
+        //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
+        //public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
+        //public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
+
+        //}
+
         public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3

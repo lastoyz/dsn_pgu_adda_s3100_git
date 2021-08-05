@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="4284876786fs"></ZoomStartTime>
-      <ZoomEndTime time="7396851319fs"></ZoomEndTime>
-      <Cursor1Time time="6821933000fs"></Cursor1Time>
+      <ZoomStartTime time="36199420938fs"></ZoomStartTime>
+      <ZoomEndTime time="54422678921fs"></ZoomEndTime>
+      <Cursor1Time time="52631240000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="234"></NameColumnWidth>
-      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+      <NameColumnWidth column_width="278"></NameColumnWidth>
+      <ValueColumnWidth column_width="88"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="59" />
+   <WVObjectSize size="63" />
    <wave_markers>
       <marker label="" time="3581960000" />
       <marker label="" time="1620296000" />
@@ -116,8 +116,6 @@
       <obj_property name="ElementShortName">r_ctl_idx[9:0]</obj_property>
       <obj_property name="ObjectShortName">r_ctl_idx[9:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/master_spi_mth_brd__inst/r_pttn__MOSI">
       <obj_property name="ElementShortName">r_pttn__MOSI[31:0]</obj_property>
@@ -196,6 +194,8 @@
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_frame_data_B">
       <obj_property name="ElementShortName">w_frame_data_B[15:0]</obj_property>
       <obj_property name="ObjectShortName">w_frame_data_B[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/w_trig_frame">
       <obj_property name="ElementShortName">w_trig_frame</obj_property>
@@ -261,6 +261,26 @@
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_to_sadrs_h194">
       <obj_property name="ElementShortName">w_port_to_sadrs_h194[31:0]</obj_property>
       <obj_property name="ObjectShortName">w_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_port_to_sadrs_h194_ck">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194_ck[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194_ck[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_port_to_sadrs_h194_mon">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194_mon[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194_mon[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_port_to_sadrs_h194_mon_smp">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194_mon_smp[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194_mon_smp[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_port_to_sadrs_h194">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_to_sadrs_h19C">
       <obj_property name="ElementShortName">w_port_to_sadrs_h19C[31:0]</obj_property>
