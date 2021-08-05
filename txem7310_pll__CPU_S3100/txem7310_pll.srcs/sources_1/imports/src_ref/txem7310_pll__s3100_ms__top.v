@@ -678,7 +678,7 @@ wire FPGA_GPIO_PC4 = 1'b0; // test
 wire FPGA_GPIO_PC5 = 1'b0; // test
 wire FPGA_GPIO_PH4 = 1'b0; // test
 wire FPGA_GPIO_PH6 = 1'b0; // test
-wire FPGA_GPIO_PH7 = 1'b0; // test
+wire FPGA_GPIO_PH7 ; // --> ETH_nIRQ
 OBUF obuf__FPGA_GPIO_PB5__inst(.O( o_B14_L16N  ), .I( FPGA_GPIO_PB5 ) );
 OBUF obuf__FPGA_GPIO_PC4__inst(.O( o_B14_L17P  ), .I( FPGA_GPIO_PC4 ) );
 OBUF obuf__FPGA_GPIO_PC5__inst(.O( o_B14_L17N  ), .I( FPGA_GPIO_PC5 ) );
@@ -741,7 +741,7 @@ OBUF obuf__F_TP6__inst(.O( o_B15_L1P_AD0P ), .I( F_TP6 ) );
 OBUF obuf__F_TP7__inst(.O( o_B15_L1N_AD0N ), .I( F_TP7 ) );
 
 wire EXT_I2C_4_SCL_in  ;
-wire EXT_I2C_4_SDA_tri ; wire EXT_I2C_4_SDA_out ; wire EXT_I2C_4_SDA_in  ;
+wire EXT_I2C_4_SDA_tri = 1'b1; wire EXT_I2C_4_SDA_out = 1'b0; wire EXT_I2C_4_SDA_in  ;
 IBUF   ibuf__EXT_I2C_4_SCL__inst( .I( i_B15_L4P ), .O( EXT_I2C_4_SCL_in  ) );
 IOBUF iobuf__EXT_I2C_4_SDA__inst(.IO(io_B15_L4N ), 
 								                   .T( EXT_I2C_4_SDA_tri ) , 
@@ -977,10 +977,10 @@ OBUF obuf__SPI__2_MISO__inst( .O( o_B13_L4N ), .I( SPI__2_MISO ) );
 
 wire  QSPI_BK1_NCS ;
 wire  QSPI_CLK     ;
-wire  QSPI_BK1_IO0_tri ; wire  QSPI_BK1_IO0_out = 1'b0 ; wire  QSPI_BK1_IO0_in ;
-wire  QSPI_BK1_IO1_tri ; wire  QSPI_BK1_IO1_out = 1'b0 ; wire  QSPI_BK1_IO1_in ;
-wire  QSPI_BK1_IO2_tri ; wire  QSPI_BK1_IO2_out = 1'b0 ; wire  QSPI_BK1_IO2_in ;
-wire  QSPI_BK1_IO3_tri ; wire  QSPI_BK1_IO3_out = 1'b0 ; wire  QSPI_BK1_IO3_in ;
+wire  QSPI_BK1_IO0_tri = 1'b1 ; wire  QSPI_BK1_IO0_out = 1'b0 ; wire  QSPI_BK1_IO0_in ;
+wire  QSPI_BK1_IO1_tri = 1'b1 ; wire  QSPI_BK1_IO1_out = 1'b0 ; wire  QSPI_BK1_IO1_in ;
+wire  QSPI_BK1_IO2_tri = 1'b1 ; wire  QSPI_BK1_IO2_out = 1'b0 ; wire  QSPI_BK1_IO2_in ;
+wire  QSPI_BK1_IO3_tri = 1'b1 ; wire  QSPI_BK1_IO3_out = 1'b0 ; wire  QSPI_BK1_IO3_in ;
 IBUF ibuf__QSPI_BK1_NCS__inst( .I( i_B13_L5P ), .O( QSPI_BK1_NCS ) );
 IBUF ibuf__QSPI_CLK______inst( .I( i_B13_L5N ), .O( QSPI_CLK     ) );
 IOBUF iobuf__QSPI_BK1_IO0__inst(.IO( io_B13_L6P  ), .T( QSPI_BK1_IO0_tri ), .I( QSPI_BK1_IO0_out ), .O( QSPI_BK1_IO0_in  ) ); 
@@ -1035,7 +1035,7 @@ IBUF ibuf__FPGA_FAN_SENS_7__inst( .I( i_B13_L17N      ), .O( FPGA_FAN_SENS_7 ) )
 //// BANK B34 IOBUF //{
 
 wire  FPGA_EXT_TRIG_IN_D  ;
-wire  FPGA_EXT_TRIG_OUT_D ;
+wire  FPGA_EXT_TRIG_OUT_D = 1'b0; // test
 IBUF ibuf__FPGA_EXT_TRIG_IN_D___inst(.I( i_B34_0_ ), .O( FPGA_EXT_TRIG_IN_D  ) );
 OBUF obuf__FPGA_EXT_TRIG_OUT_D__inst(.O( o_B34_25 ), .I( FPGA_EXT_TRIG_OUT_D ) );
 											    
@@ -3664,19 +3664,18 @@ assign  w_FPGA_H_IN[1] = FPGA_H_IN2;
 assign  w_FPGA_H_IN[2] = FPGA_H_IN3;
 assign  w_FPGA_H_IN[3] = FPGA_H_IN4;
 
-wire [15:0] w_FAN_SPEED0;        // TEST VAL     w_FAN_SPEED0;
-wire [15:0] w_FAN_SPEED1;
-wire [15:0] w_FAN_SPEED2;
-wire [15:0] w_FAN_SPEED3;
+wire [15:0] w_FAN_SPEED0 = 16'b0; // test  // TEST VAL     w_FAN_SPEED0;
+wire [15:0] w_FAN_SPEED1 = 16'b0; // test 
+wire [15:0] w_FAN_SPEED2 = 16'b0; // test 
+wire [15:0] w_FAN_SPEED3 = 16'b0; // test 
+wire [15:0] w_FAN_SPEED4 = 16'b0; // test 
+wire [15:0] w_FAN_SPEED5 = 16'b0; // test 
+wire [15:0] w_FAN_SPEED6 = 16'b0; // test 
+wire [15:0] w_FAN_SPEED7 = 16'b0; // test 
 
-wire [15:0] w_FAN_SPEED4;
-wire [15:0] w_FAN_SPEED5;
-wire [15:0] w_FAN_SPEED6;
-wire [15:0] w_FAN_SPEED7;
-
-wire [15:0] w_GPIB_STATUS;
+wire [15:0] w_GPIB_STATUS  = 16'b0; // test 
 wire [15:0] w_GPIB_CONTROL;
-wire [15:0] w_GPIB_SW;
+wire [15:0] w_GPIB_SW      = 16'b0; // test 
 
 
 wire w_BUF_DATA_DIR;
@@ -4065,7 +4064,7 @@ assign w_DATA_BUS_Mx_SPI_DONE[2:0] = 3'b000;
 
 
 
-wire [13: 0] w_nBCS;
+wire [13: 0] w_nBCS = 14'h3FFF; // test
 
 //address_decode  address_decode__inst (
 //	.clk           (sys_clk  ),    // system 10MHz      for valid
