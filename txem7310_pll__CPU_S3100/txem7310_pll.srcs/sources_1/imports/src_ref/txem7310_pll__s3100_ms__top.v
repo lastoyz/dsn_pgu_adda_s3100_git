@@ -193,6 +193,58 @@
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 
 
+
+//// TODO: submodule core_endpoint_wrapper //{
+
+module core_endpoint_wrapper (
+
+	//// controls 
+	
+	// for common 
+	input  wire        clk     , // 10MHz
+	input  wire        reset_n ,	
+	
+	// host core monitoring clock
+	input  wire        host_clk, // 140MHz	
+
+	//// wire-in
+	
+	//// wire-out 
+	
+	//// trig-in
+	
+	//// trig-out
+	
+	//// pipe-in 
+	
+	//// pipe-out
+	
+	//// pipe-ck
+	
+	output valid // test out
+	
+	);
+	
+	
+
+endmodule
+
+
+module tb_core_endpoint_wrapper ();
+
+core_endpoint_wrapper  core_endpoint_wrapper__inst (
+	.clk      (),
+	.reset_n  (),
+	.host_clk (),
+	.valid    ()
+);
+
+endmodule
+
+
+//}
+
+
 /* top module integration */
 module txem7310_pll__s3100_ms__top ( 
 	
@@ -2178,6 +2230,49 @@ assign w_port_to_60_1   = ( w_mcs_ep_to_en)? w_TEST_TO : 32'h0000_0000;
 //}
 
 
+//// ARM core wires //{
+
+wire [31:0] w_CORE_CON_WI; //{
+
+wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_L;
+wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_H;
+assign w_CORE_CON_WI[15: 0] = w_DATA_BUS_Mx_SPI_MOSI_L;
+assign w_CORE_CON_WI[31:16] = w_DATA_BUS_Mx_SPI_MOSI_H;
+
+//}
+
+wire [31:0] w_CORE_EN_CS_WI; //{
+
+wire  [15:0] w_DATA_BUS_SLOT_CS_MASK;
+wire  [15:0] w_DATA_BUS_SPI_SEL;
+assign w_CORE_EN_CS_WI[15: 0] = w_DATA_BUS_SLOT_CS_MASK; //$$ 12 --> 15
+assign w_CORE_EN_CS_WI[18:16] = w_DATA_BUS_SPI_SEL;
+
+//}
+
+wire [31:0] w_CORE_SPI_TI; //{
+
+//$$ assign w_CORE_SPI_TI[2:0]  = w_TI_adrs_cs_SPI_FEAME & w_TI_adrs_cs_SPI_INIT & w_TI_adrs_cs_SPI_RESET; //!! wrong
+
+wire w_TI_adrs_cs_SPI_RESET;   
+wire w_TI_adrs_cs_SPI_INIT;   
+wire w_TI_adrs_cs_SPI_FEAME;   
+assign w_CORE_SPI_TI[2:0]  = {w_TI_adrs_cs_SPI_FEAME, w_TI_adrs_cs_SPI_INIT, w_TI_adrs_cs_SPI_RESET};
+assign w_CORE_SPI_TI[31:3] = 29'b0;
+
+//}
+
+wire      w_ck_CORE_SPI_TI = base_sspi_clk; // 104MHz
+
+wire [31:0] w_CORE_SPI_TO;
+
+wire      w_ck_CORE_SPI_TO = base_sspi_clk; // 104MHz
+
+wire [31:0] w_CORE_FLAG_WO;
+
+
+//}
+
 //// SSPI and MSPI wires //{
 
 wire [31:0] w_SSPI_CON_WI  = ep02wire; // controls ... 
@@ -2197,20 +2292,6 @@ wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_M
 //$wire [31:0] w_SSPI_TEST_WO; //$$ assign ep21wire = w_SSPI_TEST_WO; //$$ share with ep21wire or w_TEST_FLAG_WO
 //wire [31:0] w_MSPI_CON_WI   = ep17wire; // w_SSPI_TEST_WI --> w_MSPI_CON_WI// test data for SSPI
 
-wire [31:0] w_CORE_CON_WI;
-wire [31:0] w_CORE_EN_CS_WI;
-
-wire  [15:0] w_DATA_BUS_SLOT_CS_MASK;
-wire  [15:0] w_DATA_BUS_SPI_SEL;
-
-wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_L;
-wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_H;
-
-assign w_CORE_CON_WI[15:0]  = w_DATA_BUS_Mx_SPI_MOSI_L;
-assign w_CORE_CON_WI[31:16] = w_DATA_BUS_Mx_SPI_MOSI_H;
-
-assign w_CORE_EN_CS_WI[12:0] = w_DATA_BUS_SLOT_CS_MASK;
-assign w_CORE_EN_CS_WI[18:16] = w_DATA_BUS_SPI_SEL;
 
 //=================== TEST SUL071 ============= //
 wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : w_CORE_CON_WI;      //$$ MSPI frame data
@@ -2229,20 +2310,12 @@ wire w_M2_SPI_CS_enable = w_MSPI_EN_CS_WI[18];
 wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
 	assign         ep24wire = w_MSPI_FLAG_WO ;
 	assign w_port_wo_24_1   = w_MSPI_FLAG_WO ;
+	assign   w_CORE_FLAG_WO = w_MSPI_FLAG_WO ; //$$
 
 
 //wire [31:0] w_SSPI_TI   = ep42trig; assign ep42ck = sys_clk;
 //wire [31:0] w_SSPI_TEST_TI   = ep42trig; assign ep42ck = base_sspi_clk;
 //$$ w_SSPI_TEST_TI --> w_MSPI_TI 
-wire w_TI_adrs_cs_SPI_RESET;   
-wire w_TI_adrs_cs_SPI_INIT;   
-wire w_TI_adrs_cs_SPI_FEAME;   
-
-wire [31:0] w_CORE_SPI_TI;
-//$$ assign w_CORE_SPI_TI[2:0]  = w_TI_adrs_cs_SPI_FEAME & w_TI_adrs_cs_SPI_INIT & w_TI_adrs_cs_SPI_RESET; //!! wrong
-assign w_CORE_SPI_TI[2:0]  = {w_TI_adrs_cs_SPI_FEAME, w_TI_adrs_cs_SPI_INIT, w_TI_adrs_cs_SPI_RESET};
-assign w_CORE_SPI_TI[31:3] = 29'b0;
-
 //=================== TEST SUL071 ============= //
 wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : w_CORE_SPI_TI;
 
@@ -2254,9 +2327,9 @@ wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : w_CORE_SPI_TI;
 //wire [31:0] w_SSPI_TEST_TO; assign ep62trig = w_SSPI_TEST_TO; assign ep62ck = base_sspi_clk; // vs sys_clk
 //$$ w_SSPI_TEST_TO --> w_MSPI_TO 
 wire [31:0] w_MSPI_TO;
-	assign ep62trig      =  (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
-	assign w_port_to_62_1 = ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
-
+	assign         ep62trig = (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
+	assign w_port_to_62_1   = ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
+	assign    w_CORE_SPI_TO = w_MSPI_TO;
 
 //
 wire [31:0] w_SSPI_BD_STAT_WO           ;  // rev...
@@ -2267,19 +2340,9 @@ wire [31:0] w_SSPI_CNT_CS_M0_WO         ;  // rev...
 //wire [31:0] w_SSPI_CNT_SPIO_FRM_TRIG_WO ;  // rev...
 //wire [31:0] w_SSPI_CNT_DAC_TRIG_WO      ;  // rev...
 
-// for w_MSPI_FLAG_WO or w_TEST_FLAG_WO
-//assign w_TEST_FLAG_WO[23]    = w_SSPI_TEST_mode_en; //$$
-//assign w_TEST_FLAG_WO[22:20] = 3'b0; //$$ not yet used
-//assign w_TEST_FLAG_WO[31:24] = {r_EXT_TRIG[0], r_EXT_BUSY_B_OUT, w_spio_busy_cowork, w_dac_busy_cowork, 
-//							    w_adc_busy_cowork, r_M_TRIG[0], r_M_PRE_TRIG[0], r_M_BUSY_B_OUT}; 
-//assign w_SSPI_TEST_WO[15:0] = w_SSPI_frame_data_B[15:0];
-//
-//assign w_MSPI_FLAG_WO[31:24] = 8'b0; //$$ not yet used
-//assign w_MSPI_FLAG_WO[23]    = w_SSPI_TEST_mode_en;
-//assign w_MSPI_FLAG_WO[22:20] = 3'b0; //$$ not yet used
-//assign w_MSPI_FLAG_WO[15:0 ] = w_SSPI_frame_data_B[15:0]; // to come
-
 //}
+
+
 
 
 //// EEPROM wires //{
@@ -2758,10 +2821,10 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
 	
 	// control 
-	.i_trig_init    (w_SSPI_TEST_trig_init ), // 
+	.i_trig_init    (w_SSPI_TEST_trig_init ), // level sampling inside based on clk
 	.o_done_init    (w_SSPI_TEST_done_init ), // to be used for monitoring test mode 
-	.i_trig_frame   (w_SSPI_TEST_trig_frame), // 
-	.o_done_frame   (w_SSPI_TEST_done_frame), // 
+	.i_trig_frame   (w_SSPI_TEST_trig_frame), // rise-edge detection inside based on clk
+	.o_done_frame   (w_SSPI_TEST_done_frame), // level output
 
 	// frame data 
 	.i_frame_data_C (w_SSPI_frame_data_C), // [ 5:0] // control  data on MOSI
@@ -3495,29 +3558,32 @@ ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
 
 /* TODO: M7 Core Board Address Decoder */ //{
 
-wire [25:20] w_BA25_20;
-wire [19:18] w_BA19_18;
-wire [ 7: 2] w_BA7_2;
+//// address, data, control
 
+wire [25:20] w_BA25_20; //{
 assign  w_BA25_20[25] = BA25;
 assign  w_BA25_20[24] = BA24;
 assign  w_BA25_20[23] = BA23;
 assign  w_BA25_20[22] = BA22;
 assign  w_BA25_20[21] = BA21;
 assign  w_BA25_20[20] = BA20;
+//}
 
+wire [19:18] w_BA19_18; //{
 assign  w_BA19_18[19] = BA19;
 assign  w_BA19_18[18] = BA18;
+//}
 
+wire [ 7: 2] w_BA7_2; //{
 assign  w_BA7_2[ 7] = BA7;
 assign  w_BA7_2[ 6] = BA6;
 assign  w_BA7_2[ 5] = BA5;
 assign  w_BA7_2[ 4] = BA4;
 assign  w_BA7_2[ 3] = BA3;
 assign  w_BA7_2[ 2] = BA2;
+//}
 
-
-wire [31:0] w_BD_out;
+wire [31:0] w_BD_out; //{
 assign BD0__out = w_BD_out[0]  ;
 assign BD1__out = w_BD_out[1]  ;
 assign BD2__out = w_BD_out[2]  ;
@@ -3551,10 +3617,10 @@ assign BD28_out = w_BD_out[28] ;
 assign BD29_out = w_BD_out[29] ;
 assign BD30_out = w_BD_out[30] ;
 assign BD31_out = w_BD_out[31] ;
+//}
 
-
-// T = '1' ==> 'Z' (INPUT)
-wire [31:0] w_BD_tri;
+// note: T = '1' ==> 'Z' (INPUT)
+wire [31:0] w_BD_tri; //{
 assign  BD31_tri = w_BD_tri[31];
 assign  BD30_tri = w_BD_tri[30];
 assign  BD29_tri = w_BD_tri[29];
@@ -3588,9 +3654,9 @@ assign  BD3__tri = w_BD_tri[ 3];
 assign  BD2__tri = w_BD_tri[ 2];
 assign  BD1__tri = w_BD_tri[ 1];
 assign  BD0__tri = w_BD_tri[ 0];
+//}
 
-
-wire [31:0] w_BD_in;
+wire [31:0] w_BD_in; //{
 assign  w_BD_in[31] = BD31_in;
 assign  w_BD_in[30] = BD30_in;
 assign  w_BD_in[29] = BD29_in;
@@ -3624,45 +3690,50 @@ assign  w_BD_in[ 3] = BD3__in;
 assign  w_BD_in[ 2] = BD2__in;
 assign  w_BD_in[ 1] = BD1__in;
 assign  w_BD_in[ 0] = BD0__in;
+//}
 
-wire w_nBNE1;
-wire w_nBNE2;
-wire w_nBNE3;
-wire w_nBNE4;
-
-wire w_nBOE;
-wire w_nBWE;
-
+wire w_nBNE1; wire w_nBNE2; wire w_nBNE3; wire w_nBNE4; //{
 assign  w_nBNE1 = nBNE1;
 assign  w_nBNE2 = nBNE2;
 assign  w_nBNE3 = nBNE3;
 assign  w_nBNE4 = nBNE4;
+//}
 
+wire w_nBOE; wire w_nBWE; //{
 assign  w_nBOE = nBOE;
 assign  w_nBWE = nBWE;
+//}
 
-wire w_INTER_LOCK_ON;
 
+//// wrapper
+
+core_endpoint_wrapper  core_endpoint_wrapper__inst ();
+
+
+//// IO
+
+wire w_INTER_LOCK_ON; //{
 assign  w_INTER_LOCK_ON = INTER_LOCK_ON;
+//}
 
-wire [1:0] w_MASTER;
-
+wire [1:0] w_MASTER; //{
 assign  w_MASTER[0] = BUF_MASTER0;
 assign  w_MASTER[1] = BUF_MASTER1;
+//}
 
-wire [3:0] w_LAN_IP;
-
+wire [3:0] w_LAN_IP; //{
 assign  w_LAN_IP[0] = BUF_LAN_IP0;
 assign  w_LAN_IP[1] = BUF_LAN_IP1;
 assign  w_LAN_IP[2] = BUF_LAN_IP2;
 assign  w_LAN_IP[3] = BUF_LAN_IP3;
+//}
 
-wire [3:0] w_FPGA_H_IN;
-
+wire [3:0] w_FPGA_H_IN; //{
 assign  w_FPGA_H_IN[0] = FPGA_H_IN1;
 assign  w_FPGA_H_IN[1] = FPGA_H_IN2;
 assign  w_FPGA_H_IN[2] = FPGA_H_IN3;
 assign  w_FPGA_H_IN[3] = FPGA_H_IN4;
+//}
 
 wire [15:0] w_FAN_SPEED0 = 16'b0; // test  // TEST VAL     w_FAN_SPEED0;
 wire [15:0] w_FAN_SPEED1 = 16'b0; // test 
@@ -3678,13 +3749,15 @@ wire [15:0] w_GPIB_CONTROL;
 wire [15:0] w_GPIB_SW      = 16'b0; // test 
 
 
-wire w_BUF_DATA_DIR;
-wire w_nBUF_DATA_OE;
+wire w_BUF_DATA_DIR; wire w_nBUF_DATA_OE; //{
 
 assign  BUF_DATA_DIR = ~w_nBOE;                                   // w_BUF_DATA_DIR;
 assign  nBUF_DATA_OE = w_nBNE1 & w_nBNE2 & w_nBNE3 & w_nBNE4;     // w_nBUF_DATA_OE;
 
-reg [1:0] r_smp_WE_BUS;
+//}
+
+reg [1:0] r_smp_WE_BUS; //{
+
 wire w_WE_BUS = nBWE;
 wire w_rise_WE_BUS = (~(r_smp_WE_BUS[1])) & ( (r_smp_WE_BUS[0]));
 wire w_fall_WE_BUS = ( (r_smp_WE_BUS[1])) & (~(r_smp_WE_BUS[0]));
@@ -3697,7 +3770,10 @@ always @(posedge host_clk, negedge reset_n) begin
     end
 end
 
-reg [1:0] r_smp_OE_BUS;
+//}
+
+reg [1:0] r_smp_OE_BUS; //{
+
 wire w_OE_BUS = nBOE;
 wire w_rise_OE_BUS = (~(r_smp_OE_BUS[1])) & ( (r_smp_OE_BUS[0]));
 wire w_fall_OE_BUS = ( (r_smp_OE_BUS[1])) & (~(r_smp_OE_BUS[0]));
@@ -3710,10 +3786,13 @@ always @(posedge host_clk, negedge reset_n) begin
     end
 end
 
-reg  [13:0] r_ADRS_BUS;
-wire [7:0] w_ADRS_BUS_hi = {BA25, BA24, BA23, BA22, BA21, BA20, BA19, BA18};
-wire [5:0] w_ADRS_BUS_lo = {BA7, BA6, BA5, BA4, BA3, BA2};
-wire [13:0] w_ADRS_BUS = {w_ADRS_BUS_hi, w_ADRS_BUS_lo};
+//}
+
+reg  [13:0] r_ADRS_BUS; //{
+
+wire [ 7:0] w_ADRS_BUS_hi = {BA25, BA24, BA23, BA22, BA21, BA20, BA19, BA18};
+wire [ 5:0] w_ADRS_BUS_lo = {BA7, BA6, BA5, BA4, BA3, BA2};
+wire [13:0] w_ADRS_BUS    = {w_ADRS_BUS_hi, w_ADRS_BUS_lo};
 always @(posedge host_clk, negedge reset_n) begin
     if (!reset_n) begin
         r_ADRS_BUS <= 14'b0;
@@ -3722,6 +3801,8 @@ always @(posedge host_clk, negedge reset_n) begin
         r_ADRS_BUS <= ( w_fall_WE_BUS | w_fall_OE_BUS ) ? w_ADRS_BUS : r_ADRS_BUS;
     end
 end
+
+//}
 
 ///???????????????????????
 //reg  [31:0] r_DATA_BUS_WR;
@@ -3757,7 +3838,7 @@ wire  [15:0] w_DATA_BUS_h0300;
 wire  [15:0] w_DATA_BUS_h0301;
 wire  [15:0] w_DATA_BUS_h0302;
 
-wire  [15:0] w_DATA_BUS_Mx_SPI_Trig;
+wire  [15:0] w_DATA_BUS_Mx_SPI_Trig; // missing
 
 wire  [15:0] w_DATA_BUS_Mx_SPI_MISO_L;
 wire  [15:0] w_DATA_BUS_Mx_SPI_MISO_H;
@@ -3997,6 +4078,7 @@ always @(posedge host_clk, negedge reset_n) begin
         
     end
 end
+
 // ------- to FPGA Write TI-----------//
 wire w_TI_adrs_cs_SW_RESET = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0100 && r_SW_RESET == 1'b1)? 1'b1 : 1'b0 ;        // SW_RESET       0x6010 0028    TI  // for Reset Ti TEST   
 
@@ -4057,10 +4139,10 @@ assign w_DATA_BUS_Mx_SPI_MOSI_H  = r_SPI_MOSI_D_H;
 
 //---------------------------------------------------------------------------- //
 
-assign w_DATA_BUS_Mx_SPI_MISO_L  = w_SSPI_frame_data_B;
-assign w_DATA_BUS_Mx_SPI_MISO_H  = w_SSPI_frame_data_E;
+assign w_DATA_BUS_Mx_SPI_MISO_L  = w_CORE_FLAG_WO[15: 0]; //$$ w_SSPI_frame_data_B;
+assign w_DATA_BUS_Mx_SPI_MISO_H  = w_CORE_FLAG_WO[31:16]; //$$ w_SSPI_frame_data_E;
 
-assign w_DATA_BUS_Mx_SPI_DONE[2:0] = 3'b000;
+assign w_DATA_BUS_Mx_SPI_DONE[2:0] = w_CORE_SPI_TO[2:0]; //$$ 3'b000; 
 
 
 

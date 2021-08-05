@@ -96,8 +96,8 @@ module master_spi_mth_brd (
 	// control 
 	input  wire i_trig_init , // 
 	output wire o_done_init , // to be used for monitoring test mode 
-	input  wire i_trig_frame, // 
-	output wire o_done_frame, // 
+	input  wire i_trig_frame, // edge-detection inside
+	output wire o_done_frame, // level output inside
 
 	// frame data 
 	input  wire [ 5:0] i_frame_data_C, // control  data on MOSI
