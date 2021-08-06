@@ -193,6 +193,7 @@
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 
 
+`timescale 1ns / 1ps
 
 //// TODO: submodule core_endpoint_wrapper //{
 
@@ -208,36 +209,93 @@ module core_endpoint_wrapper (
 	input  wire        host_clk, // 140MHz	
 
 	//// wire-in
+	output wire [31:0] ep00wire,
 	
 	//// wire-out 
+	input wire [31:0]  ep20wire,
 	
 	//// trig-in
+	input wire ep40ck, output wire [31:0] ep40trig,
 	
 	//// trig-out
+	input wire ep60ck,  input wire [31:0] ep60trig,
 	
 	//// pipe-in 
+	//output wire ep80wr, output wire [31:0] ep80pipe,
 	
 	//// pipe-out
+	//output wire epA0rd,  input wire [31:0] epA0pipe,
 	
 	//// pipe-ck
+	//output wire epPPck, // sync with write/read of pipe
 	
 	output valid // test out
 	
 	);
 	
-	
+//// valid
+(* keep = "true" *) 
+reg r_valid; //{
+assign valid = r_valid;
+//
+always @(posedge clk, negedge reset_n)
+	if (!reset_n) begin
+		r_valid <= 1'b0;
+	end
+	else begin
+		r_valid <= 1'b1;
+	end	
+//}
+
+
+
+
 
 endmodule
 
 
 module tb_core_endpoint_wrapper ();
 
+//// clocks 
+reg clk_10M = 1'b0; // assume 10MHz or 100ns
+	always
+	#50 	clk_10M = ~clk_10M; // toggle every 50ns --> clock 100ns 
+//
+reg reset_n = 1'b0;
+wire reset = ~reset_n;
+//
+reg clk_140M = 1'b0; // assume 140MHz or 7.1428571428571ns
+	always
+	#3.571428571428571 	clk_140M = ~clk_140M; // toggle
+
+
+//// DUT
 core_endpoint_wrapper  core_endpoint_wrapper__inst (
-	.clk      (),
-	.reset_n  (),
-	.host_clk (),
+	.clk      (clk_10M  ),
+	.reset_n  (reset_n  ),
+	.host_clk (clk_140M ),
 	.valid    ()
 );
+
+//// test sequence
+initial begin : reset_n__gen
+#0	reset_n 	= 1'b0;
+#200;
+	reset_n 	= 1'b1; 
+#200;
+end
+
+initial begin 
+// init
+$display(" Wait for rise of reset_n"); 
+@(posedge reset_n)
+#200;
+// test
+
+///////////////////////
+#200;
+$finish;
+end 
 
 endmodule
 
@@ -3707,7 +3765,14 @@ assign  w_nBWE = nBWE;
 
 //// wrapper
 
-core_endpoint_wrapper  core_endpoint_wrapper__inst ();
+core_endpoint_wrapper  core_endpoint_wrapper__inst (
+	.clk      (sys_clk ),
+	.reset_n  (reset_n ),
+	.host_clk (host_clk),
+	
+	
+	.valid    ()
+);
 
 
 //// IO

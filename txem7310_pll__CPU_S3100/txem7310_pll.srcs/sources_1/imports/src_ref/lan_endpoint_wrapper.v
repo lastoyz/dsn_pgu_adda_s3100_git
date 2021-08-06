@@ -247,8 +247,8 @@ module lan_endpoint_wrapper (
 	//}
 	
 	// pipe in //{
-	output wire ep80wr, output wire [31:0] ep81pipe,
-	output wire ep81wr, output wire [31:0] ep80pipe, 
+	output wire ep80wr, output wire [31:0] ep80pipe,
+	output wire ep81wr, output wire [31:0] ep81pipe, 
 	output wire ep82wr, output wire [31:0] ep82pipe,
 	output wire ep83wr, output wire [31:0] ep83pipe,
 	output wire ep84wr, output wire [31:0] ep84pipe,
