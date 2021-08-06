@@ -11,15 +11,19 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="2674727001fs"></ZoomEndTime>
-      <Cursor1Time time="2674727000fs"></Cursor1Time>
+      <ZoomStartTime time="339106545fs"></ZoomStartTime>
+      <ZoomEndTime time="3613761546fs"></ZoomEndTime>
+      <Cursor1Time time="4217399000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="242"></NameColumnWidth>
-      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+      <NameColumnWidth column_width="184"></NameColumnWidth>
+      <ValueColumnWidth column_width="88"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="9" />
+   <WVObjectSize size="17" />
+   <wave_markers>
+      <marker label="" time="2239017000" />
+      <marker label="" time="1924769000" />
+   </wave_markers>
    <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/reset_n">
       <obj_property name="ElementShortName">reset_n</obj_property>
       <obj_property name="ObjectShortName">reset_n</obj_property>
@@ -47,6 +51,8 @@
    <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/w_FMC_DRD">
       <obj_property name="ElementShortName">w_FMC_DRD[15:0]</obj_property>
       <obj_property name="ObjectShortName">w_FMC_DRD[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/r_FMC_NWE">
       <obj_property name="ElementShortName">r_FMC_NWE</obj_property>
@@ -55,5 +61,39 @@
    <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/r_FMC_DWR">
       <obj_property name="ElementShortName">r_FMC_DWR[15:0]</obj_property>
       <obj_property name="ObjectShortName">r_FMC_DWR[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider17" type="divider">
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/r_smp_NCE">
+      <obj_property name="ElementShortName">r_smp_NCE</obj_property>
+      <obj_property name="ObjectShortName">r_smp_NCE</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/r_ADRS_BUS">
+      <obj_property name="ElementShortName">r_ADRS_BUS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_ADRS_BUS[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/r_DATA_WR">
+      <obj_property name="ElementShortName">r_DATA_WR[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_DATA_WR[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/r_DATA_RD">
+      <obj_property name="ElementShortName">r_DATA_RD[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_DATA_RD[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/w_rise_WE_BUS">
+      <obj_property name="ElementShortName">w_rise_WE_BUS</obj_property>
+      <obj_property name="ObjectShortName">w_rise_WE_BUS</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/w_fall_WE_BUS">
+      <obj_property name="ElementShortName">w_fall_WE_BUS</obj_property>
+      <obj_property name="ObjectShortName">w_fall_WE_BUS</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/ep42trig">
+      <obj_property name="ElementShortName">ep42trig[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ep42trig[31:0]</obj_property>
    </wvobject>
 </wave_config>
