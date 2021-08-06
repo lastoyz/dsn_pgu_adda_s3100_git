@@ -197,6 +197,32 @@
 
 //// TODO: submodule core_endpoint_wrapper //{
 
+// note timings:
+//
+// * common parameter
+//    base clock (host_clk) : 140MHz ~ 7.14285714 nanoseconds
+//    by inspection ... pulse width 100ns measured
+//
+// * read timing
+//    idx      --01234567890123---
+//    FMC_NCE  --______________---
+//    FMC_ADD  xxAAAAAAAAAAAAAAxxx
+//    FMC_NOE  --______________---
+//    FMC_DRD  xxxDDDDDDDDDDDDDxxx
+//    FMC_NWE  -------------------
+//    FMC_DWR  -------------------
+//
+// * write timing 
+//    idx      --01234567890123---
+//    FMC_NCE  --______________---
+//    FMC_ADD  xxAAAAAAAAAAAAAAxxx
+//    FMC_NOE  -------------------
+//    FMC_DRD  xxxxxxxxxxxxxxxxxxx
+//    FMC_NWE  --------_____------
+//    FMC_DWR  xxxxxxxxxxxDDDDDxxx
+
+
+
 module core_endpoint_wrapper (
 
 	//// controls 
@@ -206,25 +232,46 @@ module core_endpoint_wrapper (
 	input  wire        reset_n ,	
 	
 	// host core monitoring clock
-	input  wire        host_clk, // 140MHz	
+	input  wire        host_clk, // 140MHz	(or less ... 104MHz possible)
+
+	//// IO bus interface // async for arm io // STM32F767
+	input  wire          i_FMC_NCE ,  // input  wire          // FMC_NCE
+	input  wire [31 : 0] i_FMC_ADD ,  // input  wire [31 : 0] // FMC_ADD
+	input  wire          i_FMC_NOE ,  // input  wire          // FMC_NOE
+	output wire [15 : 0] o_FMC_DRD ,  // output wire [15 : 0] // FMC_DRD
+	input  wire          i_FMC_NWE ,  // input  wire          // FMC_NWE
+	input  wire [15 : 0] i_FMC_DWR ,  // input  wire [15 : 0] // FMC_DWR
+
+
+	//// end-point address offset between high and low 16 bits 
+	input wire [31:0] ep_offs_hadrs,  // 0x0000_0004 or 0x0000_0002
 
 	//// wire-in
-	output wire [31:0] ep00wire,
+	input wire [31:0] ep00_hadrs, output wire [31:0] ep00wire,
+	//
+	input wire [31:0] ep16_hadrs, output wire [31:0] ep16wire,
+	input wire [31:0] ep17_hadrs, output wire [31:0] ep17wire,
 	
 	//// wire-out 
-	input wire [31:0]  ep20wire,
+	input wire [31:0] ep20_hadrs, input wire [31:0]  ep20wire,
+	//
+	input wire [31:0] ep24_hadrs, input wire [31:0]  ep24wire,
 	
 	//// trig-in
-	input wire ep40ck, output wire [31:0] ep40trig,
+	input wire [31:0] ep40_hadrs, input wire ep40ck, output wire [31:0] ep40trig,
+	//
+	input wire [31:0] ep42_hadrs, input wire ep42ck, output wire [31:0] ep42trig,
 	
 	//// trig-out
-	input wire ep60ck,  input wire [31:0] ep60trig,
+	input wire [31:0] ep60_hadrs, input wire ep60ck,  input wire [31:0] ep60trig,
+	//
+	input wire [31:0] ep62_hadrs, input wire ep62ck,  input wire [31:0] ep62trig,
 	
 	//// pipe-in 
-	//output wire ep80wr, output wire [31:0] ep80pipe,
+	//input wire [31:0] ep80_hadrs, output wire ep80wr, output wire [31:0] ep80pipe,
 	
 	//// pipe-out
-	//output wire epA0rd,  input wire [31:0] epA0pipe,
+	//input wire [31:0] epA0_hadrs, output wire epA0rd,  input wire [31:0] epA0pipe,
 	
 	//// pipe-ck
 	//output wire epPPck, // sync with write/read of pipe
@@ -233,9 +280,9 @@ module core_endpoint_wrapper (
 	
 	);
 	
-//// valid
+//// valid //{
 (* keep = "true" *) 
-reg r_valid; //{
+reg r_valid;
 assign valid = r_valid;
 //
 always @(posedge clk, negedge reset_n)
@@ -253,10 +300,10 @@ always @(posedge clk, negedge reset_n)
 
 endmodule
 
-
+//// testbench
 module tb_core_endpoint_wrapper ();
 
-//// clocks 
+//// clocks //{
 reg clk_10M = 1'b0; // assume 10MHz or 100ns
 	always
 	#50 	clk_10M = ~clk_10M; // toggle every 50ns --> clock 100ns 
@@ -267,17 +314,78 @@ wire reset = ~reset_n;
 reg clk_140M = 1'b0; // assume 140MHz or 7.1428571428571ns
 	always
 	#3.571428571428571 	clk_140M = ~clk_140M; // toggle
+	
+wire sys_clk  = clk_10M;
+wire host_clk = clk_140M;
+	
+//}
 
+//// DUT //{
 
-//// DUT
+reg           r_FMC_NCE ; 
+reg  [31 : 0] r_FMC_ADD ; 
+reg           r_FMC_NOE ; 
+wire [15 : 0] w_FMC_DRD ; 
+reg           r_FMC_NWE ; 
+reg  [15 : 0] r_FMC_DWR ; 
+
 core_endpoint_wrapper  core_endpoint_wrapper__inst (
-	.clk      (clk_10M  ),
+	
+	// clock and reset
+	.clk      (sys_clk  ),
 	.reset_n  (reset_n  ),
-	.host_clk (clk_140M ),
+	.host_clk (host_clk ), // monitoring async bus signals
+	
+	// IO bus interface // async for arm io
+	.i_FMC_NCE  ( r_FMC_NCE ),  // input  wire          // FMC_NCE
+	.i_FMC_ADD  ( r_FMC_ADD ),  // input  wire [31 : 0] // FMC_ADD
+	.i_FMC_NOE  ( r_FMC_NOE ),  // input  wire          // FMC_NOE
+	.o_FMC_DRD  ( w_FMC_DRD ),  // output wire [31 : 0] // FMC_DRD
+	.i_FMC_NWE  ( r_FMC_NWE ),  // input  wire          // FMC_NWE
+	.i_FMC_DWR  ( r_FMC_DWR ),  // input  wire [15 : 0] // FMC_DWR
+	
+	// end-points
+	
+	//// end-point address offset between high and low 16 bits 
+	.ep_offs_hadrs     (32'h0000_0004),  // input wire [31:0]
+	
+	//// wire-in
+	.ep00_hadrs(),  .ep00wire     (),  // input wire [31:0] // output wire [31:0]
+	//
+	.ep16_hadrs(),  .ep16wire     (),  // input wire [31:0] // output wire [31:0]
+	.ep17_hadrs(),  .ep17wire     (),  // input wire [31:0] // output wire [31:0]
+	
+	//// wire-out 
+	.ep20_hadrs(),  .ep20wire     (),  // input wire [31:0] // input wire [31:0]
+	//
+	.ep24_hadrs(),  .ep24wire     (),  // input wire [31:0] // input wire [31:0]
+	
+	//// trig-in
+	.ep40_hadrs(),  .ep40ck       (),  .ep40trig   (),  // input wire [31:0] // input wire  // output wire [31:0]
+	//
+	.ep42_hadrs(),  .ep42ck       (),  .ep42trig   (),  // input wire [31:0] // input wire  // output wire [31:0]
+	
+	//// trig-out
+	.ep60_hadrs(),  .ep60ck       (),  .ep60trig   (),  // input wire [31:0] // input wire  // input wire [31:0]
+	//
+	.ep62_hadrs(),  .ep62ck       (),  .ep62trig   (),  // input wire [31:0] // input wire  // input wire [31:0]
+	
+	//// pipe-in 
+	//.ep80_hadrs(),  .ep80wr       (),  .ep80pipe   (),  // input wire [31:0] // output wire  // output wire [31:0]
+	
+	//// pipe-out
+	//.epA0_hadrs(),  .epA0rd       (),  .epA0pipe   (),  // input wire [31:0] // output wire  // input wire [31:0]
+	
+	//// pipe-ck
+	//.epPPck       (),  // output wire  // sync with write/read of pipe
+	
+	// test
 	.valid    ()
 );
 
-//// test sequence
+//}
+
+//// test sequence //{
 initial begin : reset_n__gen
 #0	reset_n 	= 1'b0;
 #200;
@@ -287,15 +395,132 @@ end
 
 initial begin 
 // init
+TASK__FMC__IDLE();
+//
 $display(" Wait for rise of reset_n"); 
 @(posedge reset_n)
 #200;
+
 // test
+TASK__FMC__IDLE();
+#200;
+TASK__FMC__READ (32'h6060_0000);
+#200;
+TASK__FMC__READ (32'h6060_0004);
+#200;
+TASK__FMC__WRITE(32'h6060_0000, 16'h1FFF);
+#200;
+TASK__FMC__WRITE(32'h6060_0004, 16'h0003);
+#200;
+TASK__FMC__READ (32'h6060_0000);
+#200;
+TASK__FMC__READ (32'h6060_0004);
+#200;
 
 ///////////////////////
 #200;
 $finish;
 end 
+
+//}
+
+
+//// test task //{
+
+// task bus idle
+task TASK__FMC__IDLE;
+begin
+	r_FMC_NCE =  1'b1;
+	r_FMC_ADD = 32'b0;
+	r_FMC_NOE =  1'b1;
+	r_FMC_NWE =  1'b1;
+	r_FMC_DWR = 16'b0;
+	@(posedge host_clk);
+end 
+endtask
+
+// task bus read  (address_32b)
+task TASK__FMC__READ;
+input [31:0] temp_adrs;
+begin
+//    FMC_NCE  --______________---
+//    FMC_ADD  xxAAAAAAAAAAAAAAxxx
+//    FMC_NOE  --______________---
+//    FMC_DRD  xxxDDDDDDDDDDDDDxxx
+//    FMC_NWE  -------------------
+//    FMC_DWR  -------------------
+	@(posedge host_clk); // 0
+	r_FMC_NCE =  1'b0;
+	r_FMC_ADD = temp_adrs; // set address
+	r_FMC_NOE =  1'b0;
+	r_FMC_NWE =  1'b1;
+	r_FMC_DWR = 16'b0;
+	repeat (13) begin
+		@(posedge host_clk); // 1~13
+	end
+	@(posedge host_clk); // 14
+	r_FMC_NCE =  1'b1;
+	r_FMC_ADD = 32'b0;
+	r_FMC_NOE =  1'b1;
+	r_FMC_NWE =  1'b1;
+	r_FMC_DWR = 16'b0;
+end 
+endtask
+
+// task bus write (address_32b, data_16b)
+task TASK__FMC__WRITE;
+input [31:0] temp_adrs;
+input [15:0] temp_data;
+begin
+//    idx      --01234567890123---
+//    FMC_NCE  --______________---
+//    FMC_ADD  xxAAAAAAAAAAAAAAxxx
+//    FMC_NOE  -------------------
+//    FMC_DRD  xxxxxxxxxxxxxxxxxxx
+//    FMC_NWE  --------_____------
+//    FMC_DWR  xxxxxxxxxxxDDDDDxxx
+	@(posedge host_clk); // 0
+	r_FMC_NCE =  1'b0;
+	r_FMC_ADD = temp_adrs; // set address
+	r_FMC_NOE =  1'b1;
+	r_FMC_NWE =  1'b1;
+	r_FMC_DWR = 16'b0;
+	@(posedge host_clk); // 0
+	@(posedge host_clk); // 1
+	@(posedge host_clk); // 2
+	@(posedge host_clk); // 3
+	@(posedge host_clk); // 4
+	@(posedge host_clk); // 5
+	@(posedge host_clk); // 6
+	r_FMC_NCE =  1'b0;
+	r_FMC_ADD = temp_adrs; // set address
+	r_FMC_NOE =  1'b1;
+	r_FMC_NWE =  1'b0;
+	r_FMC_DWR = 16'b0;
+	@(posedge host_clk); // 7
+	@(posedge host_clk); // 8
+	@(posedge host_clk); // 9
+	@(posedge host_clk); // 10
+	r_FMC_NCE =  1'b0;
+	r_FMC_ADD = temp_adrs; // set address
+	r_FMC_NOE =  1'b1;
+	r_FMC_NWE =  1'b1;
+	r_FMC_DWR = temp_data; // set data
+	@(posedge host_clk); // 10
+	@(posedge host_clk); // 11
+	@(posedge host_clk); // 12
+	@(posedge host_clk); // 13
+	@(posedge host_clk); // 14
+	r_FMC_NCE =  1'b1;
+	r_FMC_ADD = 32'b0;
+	r_FMC_NOE =  1'b1;
+	r_FMC_NWE =  1'b1;
+	r_FMC_DWR = 16'b0;
+end 
+endtask
+
+//}
+
 
 endmodule
 

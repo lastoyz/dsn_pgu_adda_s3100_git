@@ -12,28 +12,48 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="600000001fs"></ZoomEndTime>
-      <Cursor1Time time="600000000fs"></Cursor1Time>
+      <ZoomEndTime time="2674727001fs"></ZoomEndTime>
+      <Cursor1Time time="2674727000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="246"></NameColumnWidth>
+      <NameColumnWidth column_width="242"></NameColumnWidth>
       <ValueColumnWidth column_width="66"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="4" />
-   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/clk_10M">
-      <obj_property name="ElementShortName">clk_10M</obj_property>
-      <obj_property name="ObjectShortName">clk_10M</obj_property>
-   </wvobject>
+   <WVObjectSize size="9" />
    <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/reset_n">
       <obj_property name="ElementShortName">reset_n</obj_property>
       <obj_property name="ObjectShortName">reset_n</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/reset">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/sys_clk">
+      <obj_property name="ElementShortName">sys_clk</obj_property>
+      <obj_property name="ObjectShortName">sys_clk</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/clk_140M">
-      <obj_property name="ElementShortName">clk_140M</obj_property>
-      <obj_property name="ObjectShortName">clk_140M</obj_property>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/host_clk">
+      <obj_property name="ElementShortName">host_clk</obj_property>
+      <obj_property name="ObjectShortName">host_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/r_FMC_NCE">
+      <obj_property name="ElementShortName">r_FMC_NCE</obj_property>
+      <obj_property name="ObjectShortName">r_FMC_NCE</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/r_FMC_ADD">
+      <obj_property name="ElementShortName">r_FMC_ADD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_FMC_ADD[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/r_FMC_NOE">
+      <obj_property name="ElementShortName">r_FMC_NOE</obj_property>
+      <obj_property name="ObjectShortName">r_FMC_NOE</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/w_FMC_DRD">
+      <obj_property name="ElementShortName">w_FMC_DRD[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_FMC_DRD[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/r_FMC_NWE">
+      <obj_property name="ElementShortName">r_FMC_NWE</obj_property>
+      <obj_property name="ObjectShortName">r_FMC_NWE</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/r_FMC_DWR">
+      <obj_property name="ElementShortName">r_FMC_DWR[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_FMC_DWR[15:0]</obj_property>
    </wvobject>
 </wave_config>
