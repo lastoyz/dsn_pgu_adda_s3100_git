@@ -445,7 +445,7 @@ endmodule //}
 //    FMC_DWR  xxxxxxxxxxxDDDDDxxx
 
 
-module core_endpoint_wrapper (
+module core_endpoint_wrapper ( //{
 
 	//// controls //{
 	
@@ -466,6 +466,7 @@ module core_endpoint_wrapper (
 	
 	
 	// IO buffer controls ...
+	output wire [15 : 0] o_FMC_DRD_TRI ,  // output wire [15 : 0] // 1 for tri, 0 for output.
 
 	//}
 
@@ -715,7 +716,56 @@ end
 
 //}
 
-endmodule
+
+assign o_FMC_DRD_TRI =  //{
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep00_hadrs + 0            ) )? 16'h0000 : // WI
+		             ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep00_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep01_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep01_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep02_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep02_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep03_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep03_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep04_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep04_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep16_hadrs + 0            ) )? 16'h0000 : // WI
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep16_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep17_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep17_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep24_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep24_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep30_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep30_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep31_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep31_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep32_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep32_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep33_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep33_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep34_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep34_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep35_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep35_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep36_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep36_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep37_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep37_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep38_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep38_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep39_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep39_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep62_hadrs + 0            ) )? 16'h0000 : // TO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep62_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 //
+					 16'hFFFF;
+
+//}
+
+
+
+endmodule //}
 
 
 //// testbench
@@ -2202,7 +2252,7 @@ wire host_clk            =  clk_out2_140M;
 
 /* TODO: end-point wires */ //{
 
-// end-points : SSPI vs LAN 
+// end-points : SSPI vs LAN vs HOST
 //
 // endpoint modules :
 //
@@ -2540,6 +2590,52 @@ wire w_ck_pipe; // not used // mcs_eeprom_fifo_clk vs epPPck from lan_endpoint_w
 //wire w_ck_pipe = clk3_out1_72M;
 
 //}
+
+//}
+
+//// TODO: ARM HOST interface wires: //{
+
+// wire in //{
+wire [31:0] w_ep00_hadrs = 32'h6010_0008; wire [31:0] w_ep00wire; // ERR_LED
+wire [31:0] w_ep01_hadrs = 32'h6010_0010; wire [31:0] w_ep01wire; // FPGA_LED
+wire [31:0] w_ep02_hadrs = 32'h6010_0030; wire [31:0] w_ep02wire; // H I/F OUT 
+wire [31:0] w_ep03_hadrs = 32'h6010_0068; wire [31:0] w_ep03wire; // {INTER_LOCK RELAY, INTER_LOCK LED}
+wire [31:0] w_ep04_hadrs = 32'h6030_0008; wire [31:0] w_ep04wire; // GPIB CONTROL // Control Read & Write  
+wire [31:0] w_ep16_hadrs = 32'h6060_0000; wire [31:0] w_ep16wire; // MSPI_EN_CS_WI // {SPI_CH_SELEC, SLOT_CS_MASK}
+wire [31:0] w_ep17_hadrs = 32'h6070_0000; wire [31:0] w_ep17wire; // MSPI_CON_WI   // {Mx_SPI_MOSI_DATA_H, Mx_SPI_MOSI_DATA_L}
+//}
+
+// wire out //{
+wire [31:0] w_ep24_hadrs = 32'h6070_0008; wire [31:0] w_ep24wire; // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
+wire [31:0] w_ep30_hadrs = 32'h6010_0000; wire [31:0] w_ep30wire; // {MAGIC CODE_H, MAGIC CODE_L}
+wire [31:0] w_ep31_hadrs = 32'h6010_0018; wire [31:0] w_ep31wire; // MASTER MODE LAN IP Address 
+wire [31:0] w_ep32_hadrs = 32'h6010_0020; wire [31:0] w_ep32wire; // {FPGA_IMAGE_ID_H, FPGA_IMAGE_ID_L}
+wire [31:0] w_ep33_hadrs = 32'h6010_0038; wire [31:0] w_ep33wire; // H I/F IN
+wire [31:0] w_ep34_hadrs = 32'h6010_0040; wire [31:0] w_ep34wire; // {FAN#1 FAN SPEED, FAN#0 FAN SPEED}
+wire [31:0] w_ep35_hadrs = 32'h6010_0048; wire [31:0] w_ep35wire; // {FAN#3 FAN SPEED, FAN#2 FAN SPEED}
+wire [31:0] w_ep36_hadrs = 32'h6010_0050; wire [31:0] w_ep36wire; // {FAN#5 FAN SPEED, FAN#4 FAN SPEED}
+wire [31:0] w_ep37_hadrs = 32'h6010_0058; wire [31:0] w_ep37wire; // {FAN#7 FAN SPEED, FAN#6 FAN SPEED}
+wire [31:0] w_ep38_hadrs = 32'h6010_0060; wire [31:0] w_ep38wire; // INTER_LOCK
+wire [31:0] w_ep39_hadrs = 32'h6030_0000; wire [31:0] w_ep39wire; // {GPIB Switch Read, GPIB Status Read}
+//}
+
+// trig in //{
+wire [31:0] w_ep42_hadrs = 32'h6070_0010; wire w_ep42ck = base_sspi_clk; wire [31:0] w_ep42trig;  // MSPI_TI // Mx_SPI_Trig
+wire [31:0] w_ep50_hadrs = 32'h6010_0028; wire w_ep50ck = sys_clk      ; wire [31:0] w_ep50trig;  // S/W Reset
+wire [31:0] w_ep51_hadrs = 32'h60A0_0000; wire w_ep51ck = sys_clk      ; wire [31:0] w_ep51trig;  // {PRE_Trig, Trig}
+wire [31:0] w_ep52_hadrs = 32'h60A0_0008; wire w_ep52ck = sys_clk      ; wire [31:0] w_ep52trig;  // SOT
+//}
+
+// trig out //{
+wire [31:0] w_ep62_hadrs = 32'h6070_0018; wire w_ep62ck = base_sspi_clk; wire [31:0] w_ep62trig;  // MSPI_TO // Mx_SPI_DONE
+//}
+
+// pipe in //{
+//}
+
+// pipe out //{
+//}
+
 
 //}
 
@@ -2944,6 +3040,8 @@ wire [31:0] w_F_IMAGE_ID_WO = FPGA_IMAGE_ID ;
 //
 assign         ep20wire = w_F_IMAGE_ID_WO; //$$ SSPI (test)
 assign w_port_wo_20_1   = w_F_IMAGE_ID_WO; //$$ LAN
+assign       w_ep32wire = w_F_IMAGE_ID_WO; //$$ arm host
+
 //}
 
 // timestamp //{
@@ -2973,46 +3071,90 @@ assign w_port_to_60_1   = ( w_mcs_ep_to_en)? w_TEST_TO : 32'h0000_0000;
 
 //// ARM core wires //{
 
-wire [31:0] w_CORE_CON_WI; //{
+//$$  wire [31:0] w_CORE_CON_WI; //{
+//$$  
+//$$  wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_L;
+//$$  wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_H;
+//$$  assign w_CORE_CON_WI[15: 0] = w_DATA_BUS_Mx_SPI_MOSI_L;
+//$$  assign w_CORE_CON_WI[31:16] = w_DATA_BUS_Mx_SPI_MOSI_H;
+//$$  
+//$$  //}
 
-wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_L;
-wire  [15:0] w_DATA_BUS_Mx_SPI_MOSI_H;
-assign w_CORE_CON_WI[15: 0] = w_DATA_BUS_Mx_SPI_MOSI_L;
-assign w_CORE_CON_WI[31:16] = w_DATA_BUS_Mx_SPI_MOSI_H;
+//$$  wire [31:0] w_CORE_EN_CS_WI; //{
+//$$  
+//$$  wire  [15:0] w_DATA_BUS_SLOT_CS_MASK;
+//$$  wire  [15:0] w_DATA_BUS_SPI_SEL;
+//$$  assign w_CORE_EN_CS_WI[15: 0] = w_DATA_BUS_SLOT_CS_MASK; //$$ 12 --> 15
+//$$  assign w_CORE_EN_CS_WI[18:16] = w_DATA_BUS_SPI_SEL;
+//$$  
+//$$  //}
 
-//}
+//$$  wire [31:0] w_CORE_SPI_TI; //{
+//$$  
+//$$  //$$ assign w_CORE_SPI_TI[2:0]  = w_TI_adrs_cs_SPI_FEAME & w_TI_adrs_cs_SPI_INIT & w_TI_adrs_cs_SPI_RESET; //!! wrong
+//$$  
+//$$  wire w_TI_adrs_cs_SPI_RESET;   
+//$$  wire w_TI_adrs_cs_SPI_INIT;   
+//$$  wire w_TI_adrs_cs_SPI_FEAME;   
+//$$  assign w_CORE_SPI_TI[2:0]  = {w_TI_adrs_cs_SPI_FEAME, w_TI_adrs_cs_SPI_INIT, w_TI_adrs_cs_SPI_RESET};
+//$$  assign w_CORE_SPI_TI[31:3] = 29'b0;
+//$$  
+//$$  //}
 
-wire [31:0] w_CORE_EN_CS_WI; //{
-
-wire  [15:0] w_DATA_BUS_SLOT_CS_MASK;
-wire  [15:0] w_DATA_BUS_SPI_SEL;
-assign w_CORE_EN_CS_WI[15: 0] = w_DATA_BUS_SLOT_CS_MASK; //$$ 12 --> 15
-assign w_CORE_EN_CS_WI[18:16] = w_DATA_BUS_SPI_SEL;
-
-//}
-
-wire [31:0] w_CORE_SPI_TI; //{
-
-//$$ assign w_CORE_SPI_TI[2:0]  = w_TI_adrs_cs_SPI_FEAME & w_TI_adrs_cs_SPI_INIT & w_TI_adrs_cs_SPI_RESET; //!! wrong
-
-wire w_TI_adrs_cs_SPI_RESET;   
-wire w_TI_adrs_cs_SPI_INIT;   
-wire w_TI_adrs_cs_SPI_FEAME;   
-assign w_CORE_SPI_TI[2:0]  = {w_TI_adrs_cs_SPI_FEAME, w_TI_adrs_cs_SPI_INIT, w_TI_adrs_cs_SPI_RESET};
-assign w_CORE_SPI_TI[31:3] = 29'b0;
-
-//}
-
-wire      w_ck_CORE_SPI_TI = base_sspi_clk; // 104MHz
+//$$ wire      w_ck_CORE_SPI_TI = base_sspi_clk; // 104MHz
 
 wire [31:0] w_CORE_SPI_TO;
 
 wire      w_ck_CORE_SPI_TO = base_sspi_clk; // 104MHz
 
-wire [31:0] w_CORE_FLAG_WO;
+//$$  wire [31:0] w_CORE_FLAG_WO;
 
+
+// pins
+assign BASE_F_LED_ERR   = ~w_ep00wire[ 0]; // low active 
+assign INTER_LED_O      = ~w_ep03wire[ 0]; // low active
+assign INTER_RELAY_O    =  w_ep03wire[16];
+assign FPGA_H_OUT1      =  w_ep02wire[ 0];
+assign FPGA_H_OUT2      =  w_ep02wire[ 1];
+assign FPGA_H_OUT3      =  w_ep02wire[ 2];
+assign FPGA_H_OUT4      =  w_ep02wire[ 3];
+
+// wires
+wire [31:0] w_FPGA_LED       = ~w_ep01wire[31:0]; // low active
+wire [15:0] w_GPIB_CONTROL   =  w_ep04wire[15:0];
+wire [1:0]  w_GPIB_REM_ALT   =  w_ep04wire[1:0];
+wire [1:0]  w_GPIB_TADCS_ALT =  w_ep04wire[3:2];
+wire [1:0]  w_GPIB_LADCS_ALT =  w_ep04wire[5:4];
+wire [1:0]  w_GPIB_TRIG_ALT  =  w_ep04wire[7:6];
+
+// wo
+assign w_ep30wire = 32'h33AA_CC55; // known pattern
+
+wire [1:0] w_MASTER; //{
+assign  w_MASTER[0] = BUF_MASTER0;
+assign  w_MASTER[1] = BUF_MASTER1;
+//}
+wire [3:0] w_LAN_IP; //{
+assign  w_LAN_IP[0] = BUF_LAN_IP0;
+assign  w_LAN_IP[1] = BUF_LAN_IP1;
+assign  w_LAN_IP[2] = BUF_LAN_IP2;
+assign  w_LAN_IP[3] = BUF_LAN_IP3;
+//}
+assign w_ep31wire[31:10] = 22'b0;
+assign w_ep31wire[ 9: 8] = w_MASTER[1:0];
+assign w_ep31wire[ 7: 4] = 4'b0;
+assign w_ep31wire[ 3: 0] = w_LAN_IP[3:0];
+
+assign w_ep33wire = 32'b0;
+assign w_ep34wire = 32'b0;
+assign w_ep35wire = 32'b0;
+assign w_ep36wire = 32'b0;
+assign w_ep37wire = 32'b0;
+assign w_ep38wire = 32'b0;
+assign w_ep39wire = 32'b0;
 
 //}
+
 
 //// SSPI and MSPI wires //{
 
@@ -3035,12 +3177,8 @@ wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_M
 
 
 //=================== TEST SUL071 ============= //
-wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : w_CORE_CON_WI;      //$$ MSPI frame data
-wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : w_CORE_EN_CS_WI;    //$$ MSPI nCSX enable
-
-//=================== TEST SUL071 end============= //
-//wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : ep17wire; //$$ MSPI frame data
-//wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : ep16wire; //$$ MSPI nCSX enable
+wire [31:0] w_MSPI_CON_WI   = (w_mcs_ep_wi_en)? w_port_wi_17_1 : w_ep17wire; //$$ MSPI frame data
+wire [31:0] w_MSPI_EN_CS_WI = (w_mcs_ep_wi_en)? w_port_wi_16_1 : w_ep16wire; //$$ MSPI nCSX enable
 
 //$$ alias SPI group selection
 wire w_M0_SPI_CS_enable = w_MSPI_EN_CS_WI[16] | ((~w_MSPI_EN_CS_WI[17])&(~w_MSPI_EN_CS_WI[18]));
@@ -3051,17 +3189,15 @@ wire w_M2_SPI_CS_enable = w_MSPI_EN_CS_WI[18];
 wire [31:0] w_MSPI_FLAG_WO; // w_TEST_FLAG_WO --> SSPI_TEST_WO --> MSPI_FLAG_WO
 	assign         ep24wire = w_MSPI_FLAG_WO ;
 	assign w_port_wo_24_1   = w_MSPI_FLAG_WO ;
-	assign   w_CORE_FLAG_WO = w_MSPI_FLAG_WO ; //$$
+	assign       w_ep24wire = w_MSPI_FLAG_WO ; //$$ arm host
 
 
 //wire [31:0] w_SSPI_TI   = ep42trig; assign ep42ck = sys_clk;
 //wire [31:0] w_SSPI_TEST_TI   = ep42trig; assign ep42ck = base_sspi_clk;
 //$$ w_SSPI_TEST_TI --> w_MSPI_TI 
 //=================== TEST SUL071 ============= //
-wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : w_CORE_SPI_TI;
+wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : w_ep42trig;
 
-//=================== TEST SUL071 end============= //
-//wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : ep42trig;
 
 
 //wire [31:0] w_SSPI_TO      = 32'b0; assign ep62trig = w_SSPI_TO; assign ep62ck = sys_clk;
@@ -3070,7 +3206,7 @@ wire [31:0] w_MSPI_TI   = ( w_mcs_ep_ti_en)? w_port_ti_42_1 : w_CORE_SPI_TI;
 wire [31:0] w_MSPI_TO;
 	assign         ep62trig = (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000;
 	assign w_port_to_62_1   = ( w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; 
-	assign    w_CORE_SPI_TO = w_MSPI_TO;
+	assign       w_ep62trig = (!w_mcs_ep_to_en)? w_MSPI_TO : 32'h0000_0000; //$$ arm host
 
 //
 wire [31:0] w_SSPI_BD_STAT_WO           ;  // rev...
@@ -4448,20 +4584,43 @@ assign  w_nBWE = nBWE;
 
 //// arm core interface wrapper
 
+(* keep = "true" *) wire          w_FMC_NCE = nBNE1;
+(* keep = "true" *) wire [31 : 0] w_FMC_ADD ;
+(* keep = "true" *) wire          w_FMC_NOE = nBOE;
+(* keep = "true" *) wire [15 : 0] w_FMC_DRD ;
+(* keep = "true" *) wire [15 : 0] w_FMC_DRD_TRI ;
+(* keep = "true" *) wire          w_FMC_NWE = nBWE;
+(* keep = "true" *) wire [15 : 0] w_FMC_DWR = w_BD_in;
+
+assign w_FMC_ADD [31:26] = 6'b0;
+assign w_FMC_ADD [25:18] = {BA25, BA24, BA23, BA22, BA21, BA20, BA19, BA18};
+assign w_FMC_ADD [ 7: 2] = {BA7, BA6, BA5, BA4, BA3, BA2};
+assign w_FMC_ADD [ 1: 0] = 2'b0;
+//
+assign w_BD_out[31:16] = 16'h0000;
+assign w_BD_out[15: 0] = w_FMC_DRD;
+assign w_BD_tri[31:16] = 16'hFFFF;
+assign w_BD_tri[15: 0] = w_FMC_DRD_TRI;
+
+
 core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	
-	// clock and reset
+	// clock and reset //{
 	.clk      (sys_clk  ),
 	.reset_n  (reset_n  ),
 	.host_clk (host_clk ), // monitoring async bus signals
+	//}
 	
 	// IO bus interface // async for arm io
-	.i_FMC_NCE  (  ),  // input  wire          // FMC_NCE
-	.i_FMC_ADD  (  ),  // input  wire [31 : 0] // FMC_ADD
-	.i_FMC_NOE  (  ),  // input  wire          // FMC_NOE
-	.o_FMC_DRD  (  ),  // output wire [31 : 0] // FMC_DRD
-	.i_FMC_NWE  (  ),  // input  wire          // FMC_NWE
-	.i_FMC_DWR  (  ),  // input  wire [15 : 0] // FMC_DWR
+	.i_FMC_NCE  ( w_FMC_NCE ),  // input  wire          // FMC_NCE
+	.i_FMC_ADD  ( w_FMC_ADD ),  // input  wire [31 : 0] // FMC_ADD
+	.i_FMC_NOE  ( w_FMC_NOE ),  // input  wire          // FMC_NOE
+	.o_FMC_DRD  ( w_FMC_DRD ),  // output wire [15 : 0] // FMC_DRD
+	.i_FMC_NWE  ( w_FMC_NWE ),  // input  wire          // FMC_NWE
+	.i_FMC_DWR  ( w_FMC_DWR ),  // input  wire [15 : 0] // FMC_DWR
+	
+	// IO buffer control
+	.o_FMC_DRD_TRI ( w_FMC_DRD_TRI ), // output wire [15 : 0]
 	
 	// end-points
 	
@@ -4470,41 +4629,38 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	//}
 	
 	//// wire-in //{
-	.ep00_hadrs(32'h6010_0008),  .ep00wire     (),  // input wire [31:0] // output wire [31:0] // ERR_LED
-	.ep01_hadrs(32'h6010_0010),  .ep01wire     (),  // input wire [31:0] // output wire [31:0] // FPGA_LED
-	.ep02_hadrs(32'h6010_0030),  .ep02wire     (),  // input wire [31:0] // output wire [31:0] // H I/F OUT 
-	.ep03_hadrs(32'h6010_0068),  .ep03wire     (),  // input wire [31:0] // output wire [31:0] // {INTER_LOCK RELAY, INTER_LOCK LED}
-	.ep04_hadrs(32'h6030_0008),  .ep04wire     (),  // input wire [31:0] // output wire [31:0] // GPIB CONTROL // Control Read & Write     
-	//
-	.ep16_hadrs(32'h6060_0000),  .ep16wire     (),  // input wire [31:0] // output wire [31:0] // MSPI_EN_CS_WI // {SPI_CH_SELEC, SLOT_CS_MASK}
-	.ep17_hadrs(32'h6070_0000),  .ep17wire     (),  // input wire [31:0] // output wire [31:0] // MSPI_CON_WI   // {Mx_SPI_MOSI_DATA_H, Mx_SPI_MOSI_DATA_L}
+	.ep00_hadrs(w_ep00_hadrs),  .ep00wire     (w_ep00wire),  // input wire [31:0] // output wire [31:0] // ERR_LED
+	.ep01_hadrs(w_ep01_hadrs),  .ep01wire     (w_ep01wire),  // input wire [31:0] // output wire [31:0] // FPGA_LED
+	.ep02_hadrs(w_ep02_hadrs),  .ep02wire     (w_ep02wire),  // input wire [31:0] // output wire [31:0] // H I/F OUT 
+	.ep03_hadrs(w_ep03_hadrs),  .ep03wire     (w_ep03wire),  // input wire [31:0] // output wire [31:0] // {INTER_LOCK RELAY, INTER_LOCK LED}
+	.ep04_hadrs(w_ep04_hadrs),  .ep04wire     (w_ep04wire),  // input wire [31:0] // output wire [31:0] // GPIB CONTROL // Control Read & Write     
+	.ep16_hadrs(w_ep16_hadrs),  .ep16wire     (w_ep16wire),  // input wire [31:0] // output wire [31:0] // MSPI_EN_CS_WI // {SPI_CH_SELEC, SLOT_CS_MASK}
+	.ep17_hadrs(w_ep17_hadrs),  .ep17wire     (w_ep17wire),  // input wire [31:0] // output wire [31:0] // MSPI_CON_WI   // {Mx_SPI_MOSI_DATA_H, Mx_SPI_MOSI_DATA_L}
 	//}
 	
 	//// wire-out //{
-	.ep24_hadrs(32'h6070_0008),  .ep24wire     (),  // input wire [31:0] // input wire [31:0] // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
-	//
-	.ep30_hadrs(32'h6010_0000),  .ep30wire     (32'h33AA_CC55),  // input wire [31:0] // input wire [31:0] // {MAGIC CODE_H, MAGIC CODE_L}
-	.ep31_hadrs(32'h6010_0018),  .ep31wire     (),  // input wire [31:0] // input wire [31:0] // MASTER MODE LAN IP Address 
-	.ep32_hadrs(32'h6010_0020),  .ep32wire     (32'hA021_0805),  // input wire [31:0] // input wire [31:0] // {FPGA_IMAGE_ID_H, FPGA_IMAGE_ID_L}
-	.ep33_hadrs(32'h6010_0038),  .ep33wire     (),  // input wire [31:0] // input wire [31:0] // H I/F IN
-	.ep34_hadrs(32'h6010_0040),  .ep34wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#1 FAN SPEED, FAN#0 FAN SPEED}
-	.ep35_hadrs(32'h6010_0048),  .ep35wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#3 FAN SPEED, FAN#2 FAN SPEED}
-	.ep36_hadrs(32'h6010_0050),  .ep36wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#5 FAN SPEED, FAN#4 FAN SPEED}
-	.ep37_hadrs(32'h6010_0058),  .ep37wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#7 FAN SPEED, FAN#6 FAN SPEED}
-	.ep38_hadrs(32'h6010_0060),  .ep38wire     (),  // input wire [31:0] // input wire [31:0] // INTER_LOCK
-	.ep39_hadrs(32'h6030_0000),  .ep39wire     (),  // input wire [31:0] // input wire [31:0] // {GPIB Switch Read, GPIB Status Read}
+	.ep24_hadrs(w_ep24_hadrs),  .ep24wire     (w_ep24wire),  // input wire [31:0] // input wire [31:0] // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
+	.ep30_hadrs(w_ep30_hadrs),  .ep30wire     (w_ep30wire),  // input wire [31:0] // input wire [31:0] // {MAGIC CODE_H, MAGIC CODE_L}
+	.ep31_hadrs(w_ep31_hadrs),  .ep31wire     (w_ep31wire),  // input wire [31:0] // input wire [31:0] // MASTER MODE LAN IP Address 
+	.ep32_hadrs(w_ep32_hadrs),  .ep32wire     (w_ep32wire),  // input wire [31:0] // input wire [31:0] // {FPGA_IMAGE_ID_H, FPGA_IMAGE_ID_L}
+	.ep33_hadrs(w_ep33_hadrs),  .ep33wire     (w_ep33wire),  // input wire [31:0] // input wire [31:0] // H I/F IN
+	.ep34_hadrs(w_ep34_hadrs),  .ep34wire     (w_ep34wire),  // input wire [31:0] // input wire [31:0] // {FAN#1 FAN SPEED, FAN#0 FAN SPEED}
+	.ep35_hadrs(w_ep35_hadrs),  .ep35wire     (w_ep35wire),  // input wire [31:0] // input wire [31:0] // {FAN#3 FAN SPEED, FAN#2 FAN SPEED}
+	.ep36_hadrs(w_ep36_hadrs),  .ep36wire     (w_ep36wire),  // input wire [31:0] // input wire [31:0] // {FAN#5 FAN SPEED, FAN#4 FAN SPEED}
+	.ep37_hadrs(w_ep37_hadrs),  .ep37wire     (w_ep37wire),  // input wire [31:0] // input wire [31:0] // {FAN#7 FAN SPEED, FAN#6 FAN SPEED}
+	.ep38_hadrs(w_ep38_hadrs),  .ep38wire     (w_ep38wire),  // input wire [31:0] // input wire [31:0] // INTER_LOCK
+	.ep39_hadrs(w_ep39_hadrs),  .ep39wire     (w_ep39wire),  // input wire [31:0] // input wire [31:0] // {GPIB Switch Read, GPIB Status Read}
 	//}
 	
 	//// trig-in //{
-	.ep42_hadrs(32'h6070_0010),  .ep42ck       (sys_clk),  .ep42trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // MSPI_TI // Mx_SPI_Trig
-	//
-	.ep50_hadrs(32'h6010_0028),  .ep50ck       (),  .ep50trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // S/W Reset
-	.ep51_hadrs(32'h60A0_0000),  .ep51ck       (),  .ep51trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // {PRE_Trig, Trig}
-	.ep52_hadrs(32'h60A0_0008),  .ep52ck       (),  .ep52trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // SOT
+	.ep42_hadrs(w_ep42_hadrs),  .ep42ck       (w_ep42ck),  .ep42trig   (w_ep42trig),  // input wire [31:0] // input wire  // output wire [31:0] // MSPI_TI // Mx_SPI_Trig
+	.ep50_hadrs(w_ep50_hadrs),  .ep50ck       (w_ep50ck),  .ep50trig   (w_ep50trig),  // input wire [31:0] // input wire  // output wire [31:0] // S/W Reset
+	.ep51_hadrs(w_ep51_hadrs),  .ep51ck       (w_ep51ck),  .ep51trig   (w_ep51trig),  // input wire [31:0] // input wire  // output wire [31:0] // {PRE_Trig, Trig}
+	.ep52_hadrs(w_ep52_hadrs),  .ep52ck       (w_ep52ck),  .ep52trig   (w_ep52trig),  // input wire [31:0] // input wire  // output wire [31:0] // SOT
 	//}
 	
 	//// trig-out //{
-	.ep62_hadrs(32'h6070_0018),  .ep62ck       (sys_clk),  .ep62trig   (),  // input wire [31:0] // input wire  // input wire [31:0] // MSPI_TO // Mx_SPI_DONE
+	.ep62_hadrs(w_ep62_hadrs),  .ep62ck       (w_ep62ck),  .ep62trig   (w_ep62trig),  // input wire [31:0] // input wire  // input wire [31:0] // MSPI_TO // Mx_SPI_DONE
 	//}
 	
 	//// pipe-in 
@@ -4528,17 +4684,17 @@ wire w_INTER_LOCK_ON; //{
 assign  w_INTER_LOCK_ON = INTER_LOCK_ON;
 //}
 
-wire [1:0] w_MASTER; //{
-assign  w_MASTER[0] = BUF_MASTER0;
-assign  w_MASTER[1] = BUF_MASTER1;
-//}
-
-wire [3:0] w_LAN_IP; //{
-assign  w_LAN_IP[0] = BUF_LAN_IP0;
-assign  w_LAN_IP[1] = BUF_LAN_IP1;
-assign  w_LAN_IP[2] = BUF_LAN_IP2;
-assign  w_LAN_IP[3] = BUF_LAN_IP3;
-//}
+//$$  wire [1:0] w_MASTER; //{
+//$$  assign  w_MASTER[0] = BUF_MASTER0;
+//$$  assign  w_MASTER[1] = BUF_MASTER1;
+//$$  //}
+//$$  
+//$$  wire [3:0] w_LAN_IP; //{
+//$$  assign  w_LAN_IP[0] = BUF_LAN_IP0;
+//$$  assign  w_LAN_IP[1] = BUF_LAN_IP1;
+//$$  assign  w_LAN_IP[2] = BUF_LAN_IP2;
+//$$  assign  w_LAN_IP[3] = BUF_LAN_IP3;
+//$$  //}
 
 wire [3:0] w_FPGA_H_IN; //{
 assign  w_FPGA_H_IN[0] = FPGA_H_IN1;
@@ -4557,7 +4713,7 @@ wire [15:0] w_FAN_SPEED6 = 16'b0; // test
 wire [15:0] w_FAN_SPEED7 = 16'b0; // test 
 
 wire [15:0] w_GPIB_STATUS  = 16'b0; // test 
-wire [15:0] w_GPIB_CONTROL;
+//$$wire [15:0] w_GPIB_CONTROL;
 wire [15:0] w_GPIB_SW      = 16'b0; // test 
 
 
@@ -4629,11 +4785,11 @@ end
 //end
 
 //----------- Address Decode Wrire DATA w_nCS_GPIB_sig -------------------//
-reg  [7:0]  r_GPIB_CTRL;
+//$$ reg  [7:0]  r_GPIB_CTRL;
 
-reg   [15:0] r_DATA_BUS;
+//$$ reg   [15:0] r_DATA_BUS;
 wire  [15:0] w_DATA_BUS_h0006;
-wire  [15:0] w_DATA_BUS_h0009;
+//$$ wire  [15:0] w_DATA_BUS_h0009;
 wire  [15:0] w_DATA_BUS_h000E;
 
 wire  [15:0] w_DATA_BUS_h0010;
@@ -4652,16 +4808,16 @@ wire  [15:0] w_DATA_BUS_h0302;
 
 wire  [15:0] w_DATA_BUS_Mx_SPI_Trig; // missing
 
-wire  [15:0] w_DATA_BUS_Mx_SPI_MISO_L;
-wire  [15:0] w_DATA_BUS_Mx_SPI_MISO_H;
+//$$ wire  [15:0] w_DATA_BUS_Mx_SPI_MISO_L;
+//$$ wire  [15:0] w_DATA_BUS_Mx_SPI_MISO_H;
 
-wire  [15:0] w_DATA_BUS_Mx_SPI_DONE;
+//$$ wire  [15:0] w_DATA_BUS_Mx_SPI_DONE;
 
 
 assign w_DATA_BUS_h0006[0] = w_INTER_LOCK_ON;
 
-assign w_DATA_BUS_h0009[9:8] = w_MASTER[1:0];
-assign w_DATA_BUS_h0009[3:0] = w_LAN_IP[3:0];
+//assign w_DATA_BUS_h0009[9:8] = w_MASTER[1:0];
+//assign w_DATA_BUS_h0009[3:0] = w_LAN_IP[3:0];
 
 assign w_DATA_BUS_h000E[3:0] = w_FPGA_H_IN[3:0];
 
@@ -4682,55 +4838,57 @@ assign w_DATA_BUS_h0302[15:0] = w_GPIB_SW[15:0];
 
 //---------------Address Decode---------------//
 
-wire w_nCS_FPGA_sig         = (r_ADRS_BUS[13:8] == 6'b00_0000 )? 1'b1 : 1'b0;        //(0)  nCS_FPGA_sig          Don't Used
-wire w_nCS_REG_sig          = (r_ADRS_BUS[13:8] == 6'b00_0001 )? 1'b1 : 1'b0;        //(1)  nCS_REG_sig			   0x6010 0000 ~ 0x6010 007C
-wire w_nCS_USB_sig          = (r_ADRS_BUS[13:8] == 6'b00_0010 )? 1'b1 : 1'b0;        //(2)  nCS_USB_sig			   0x6020 0000 ~                  Don't Used
-wire w_nCS_GPIB_sig         = (r_ADRS_BUS[13:8] == 6'b00_0011 )? 1'b1 : 1'b0;        //(3)  nCS_GPIB_sig		   0x6030 0000 ~ 0x6030 0008
-wire w_GPIB_nCS_sig         = (r_ADRS_BUS[13:8] == 6'b00_0100 )? 1'b1 : 1'b0;        //(4)  GPIB_nCS_sig		   0x6040 0000 ~
-wire w_SUB_nCS_sig          = (r_ADRS_BUS[13:8] == 6'b00_0101 )? 1'b1 : 1'b0;        //(5)  SUB_nCS_sig			   0x6050 0000 ~
+//$$ wire w_nCS_FPGA_sig         = (r_ADRS_BUS[13:8] == 6'b00_0000 )? 1'b1 : 1'b0;        //(0)  nCS_FPGA_sig          Don't Used
+//$$ wire w_nCS_REG_sig          = (r_ADRS_BUS[13:8] == 6'b00_0001 )? 1'b1 : 1'b0;        //(1)  nCS_REG_sig			   0x6010 0000 ~ 0x6010 007C
+//$$ wire w_nCS_USB_sig          = (r_ADRS_BUS[13:8] == 6'b00_0010 )? 1'b1 : 1'b0;        //(2)  nCS_USB_sig			   0x6020 0000 ~                  Don't Used
+//$$ wire w_nCS_GPIB_sig         = (r_ADRS_BUS[13:8] == 6'b00_0011 )? 1'b1 : 1'b0;        //(3)  nCS_GPIB_sig		   0x6030 0000 ~ 0x6030 0008
 
-wire w_SPI_CS_CONTROL_CS    = (r_ADRS_BUS[13:8] == 6'b00_0110 )? 1'b1 : 1'b0;        //(6)  SPI_CS_CONTROL_CS	   0x6060 0000 ~ 0x6060 0014
-wire w_Mx_SPI_TRX_CONFIG_CS = (r_ADRS_BUS[13:8] == 6'b00_0111 )? 1'b1 : 1'b0;        //(7)  Mx_SPI_TRX_CONFIG_CS  0x6070 0000 ~ 0x6070 0010 
+//$$  wire w_GPIB_nCS_sig         = (r_ADRS_BUS[13:8] == 6'b00_0100 )? 1'b1 : 1'b0;        //(4)  GPIB_nCS_sig		   0x6040 0000 ~
+//wire w_GPIB_nCS_sig         = ( (!w_FMC_NCE) & (w_FMC_ADD[31:20]==12'h604) )? 1'b1 : 1'b0; //(4)  GPIB_nCS_sig		   0x6040 0000 ~ 0x604F FFFF
 
-wire w_Trig_CONFIG_CS       = (r_ADRS_BUS[13:8] == 6'b00_1010 )? 1'b1 : 1'b0;        //(10) Trig_CONFIG_CS 		   0x60A0 0000 ~ 0x60A0 0008 
+//$$ wire w_SUB_nCS_sig          = (r_ADRS_BUS[13:8] == 6'b00_0101 )? 1'b1 : 1'b0;        //(5)  SUB_nCS_sig			   0x6050 0000 ~
+//$$ wire w_SPI_CS_CONTROL_CS    = (r_ADRS_BUS[13:8] == 6'b00_0110 )? 1'b1 : 1'b0;        //(6)  SPI_CS_CONTROL_CS	   0x6060 0000 ~ 0x6060 0014
+//$$ wire w_Mx_SPI_TRX_CONFIG_CS = (r_ADRS_BUS[13:8] == 6'b00_0111 )? 1'b1 : 1'b0;        //(7)  Mx_SPI_TRX_CONFIG_CS  0x6070 0000 ~ 0x6070 0010 
+
+//$$ wire w_Trig_CONFIG_CS       = (r_ADRS_BUS[13:8] == 6'b00_1010 )? 1'b1 : 1'b0;        //(10) Trig_CONFIG_CS 		   0x60A0 0000 ~ 0x60A0 0008 
 
 // -----------------------------------------------------------------------------------------------------------------------//
 
-wire w_match_adrs_cs_MAGIC_CD_L = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ;      // 0x6010_0000    0xCC55 (MAGIC CODE_L)
-wire w_match_adrs_cs_MAGIC_CD_H = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ;      // 0x6010_0004    0x33AA (MAGIC CODE_H)
-
-wire w_match_adrs_cs__BUS_h0006 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0110)? 1'b1 : 1'b0 ;      // 0x6010_0018    0x000X (INTER_LOCK_ON)
-
-wire w_match_adrs_cs__BUS_h0009 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1001)? 1'b1 : 1'b0 ;      // 0x6010_0024    0x0X0X (MASTER) (LAN_IP)
-
-wire w_match_adrs_cs_FPGA_ID_L  = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1011)? 1'b1 : 1'b0 ;      // 0x6010_002C    0x0708 (FPGA_IMAGE_ID_L)
-wire w_match_adrs_cs_FPGA_ID_H  = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1100)? 1'b1 : 1'b0 ;      // 0x6010_0030    0xA021 (FPGA_IMAGE_ID_H)
-
-wire w_match_adrs_cs__BUS_h000E = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1110)? 1'b1 : 1'b0 ;      // 0x6010_0038    0x000X (H I/F IN)
-wire w_match_adrs_cs__BUS_h0010 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0000)? 1'b1 : 1'b0 ;      // 0x6010_0040    0xXXXX (FAN_SPEED0)
-wire w_match_adrs_cs__BUS_h0011 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0001)? 1'b1 : 1'b0 ;      // 0x6010_0044    0xXXXX (FAN_SPEED1)
-wire w_match_adrs_cs__BUS_h0012 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0010)? 1'b1 : 1'b0 ;      // 0x6010_0048    0xXXXX (FAN_SPEED2) 
-wire w_match_adrs_cs__BUS_h0013 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0011)? 1'b1 : 1'b0 ;      // 0x6010_004C    0xXXXX (FAN_SPEED3) 
-wire w_match_adrs_cs__BUS_h0014 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0100)? 1'b1 : 1'b0 ;      // 0x6010_0050    0xXXXX (FAN_SPEED4) 
-wire w_match_adrs_cs__BUS_h0015 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0101)? 1'b1 : 1'b0 ;      // 0x6010_0054    0xXXXX (FAN_SPEED5) 
-wire w_match_adrs_cs__BUS_h0016 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0110)? 1'b1 : 1'b0 ;      // 0x6010_0058    0xXXXX (FAN_SPEED6) 
-wire w_match_adrs_cs__BUS_h0017 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0111)? 1'b1 : 1'b0 ;      // 0x6010_005C    0xXXXX (FAN_SPEED7) 
-                                                                   
-wire w_match_adrs_cs__BUS_h0300 = (w_nBNE1 == 1'b0 && w_nCS_GPIB_sig && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ;     // 0x6030_0000    0xXXXX (GPIB STATUS)
-wire w_match_adrs_cs__BUS_h0301 = (w_nBNE1 == 1'b0 && w_nCS_GPIB_sig && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ;     // 0x6030_0004    0xXXXX (GPIB CONTROL)
-wire w_match_adrs_cs__BUS_h0302 = (w_nBNE1 == 1'b0 && w_nCS_GPIB_sig && r_ADRS_BUS [5:0] == 6'b00_0010)? 1'b1 : 1'b0 ;     // 0x6030_0008    0xXXXX (GPIB SWITCH)
-
-// ---------------------SLOT_CS_CONTROL_ADDR ---------------------------------------------//
-wire w_match_adrs_cs_SLOT_CS_MASK = (w_nBNE1 == 1'b0 && w_SPI_CS_CONTROL_CS && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ; // 0x6060 0000
-wire w_match_adrs_cs_SPI_CH_SEL   = (w_nBNE1 == 1'b0 && w_SPI_CS_CONTROL_CS && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ; // 0x6060 0004
-
-// --------------------- Mx_SPI_TRX_CONFIG)ADDR ---------------------------------------------//
-wire w_match_adrs_cs_Mx_SPI_MOSI_D_L = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ;   // 0x6070_0000
-wire w_match_adrs_cs_Mx_SPI_MOSI_D_H = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ;   // 0x6070_0004
-//wire w_match_adrs_cs_Mx_SPI_Trig     = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010)? 1'b1 : 1'b0 ; // 0x6070_0008
-wire w_match_adrs_cs_Mx_SPI_MISO_D_L = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0011)? 1'b1 : 1'b0 ;   // 0x6070_000C
-wire w_match_adrs_cs_Mx_SPI_MISO_D_H = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0100)? 1'b1 : 1'b0 ;   // 0x6070_0010
-wire w_match_adrs_cs_Mx_SPI_DONE     = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0101)? 1'b1 : 1'b0 ;   // 0x6070_0014
+//$$  wire w_match_adrs_cs_MAGIC_CD_L = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ;      // 0x6010_0000    0xCC55 (MAGIC CODE_L)
+//$$  wire w_match_adrs_cs_MAGIC_CD_H = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ;      // 0x6010_0004    0x33AA (MAGIC CODE_H)
+//$$  
+//$$  wire w_match_adrs_cs__BUS_h0006 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0110)? 1'b1 : 1'b0 ;      // 0x6010_0018    0x000X (INTER_LOCK_ON)
+//$$  
+//$$  wire w_match_adrs_cs__BUS_h0009 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1001)? 1'b1 : 1'b0 ;      // 0x6010_0024    0x0X0X (MASTER) (LAN_IP)
+//$$  
+//$$  wire w_match_adrs_cs_FPGA_ID_L  = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1011)? 1'b1 : 1'b0 ;      // 0x6010_002C    0x0708 (FPGA_IMAGE_ID_L)
+//$$  wire w_match_adrs_cs_FPGA_ID_H  = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1100)? 1'b1 : 1'b0 ;      // 0x6010_0030    0xA021 (FPGA_IMAGE_ID_H)
+//$$  
+//$$  wire w_match_adrs_cs__BUS_h000E = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_1110)? 1'b1 : 1'b0 ;      // 0x6010_0038    0x000X (H I/F IN)
+//$$  wire w_match_adrs_cs__BUS_h0010 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0000)? 1'b1 : 1'b0 ;      // 0x6010_0040    0xXXXX (FAN_SPEED0)
+//$$  wire w_match_adrs_cs__BUS_h0011 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0001)? 1'b1 : 1'b0 ;      // 0x6010_0044    0xXXXX (FAN_SPEED1)
+//$$  wire w_match_adrs_cs__BUS_h0012 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0010)? 1'b1 : 1'b0 ;      // 0x6010_0048    0xXXXX (FAN_SPEED2) 
+//$$  wire w_match_adrs_cs__BUS_h0013 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0011)? 1'b1 : 1'b0 ;      // 0x6010_004C    0xXXXX (FAN_SPEED3) 
+//$$  wire w_match_adrs_cs__BUS_h0014 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0100)? 1'b1 : 1'b0 ;      // 0x6010_0050    0xXXXX (FAN_SPEED4) 
+//$$  wire w_match_adrs_cs__BUS_h0015 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0101)? 1'b1 : 1'b0 ;      // 0x6010_0054    0xXXXX (FAN_SPEED5) 
+//$$  wire w_match_adrs_cs__BUS_h0016 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0110)? 1'b1 : 1'b0 ;      // 0x6010_0058    0xXXXX (FAN_SPEED6) 
+//$$  wire w_match_adrs_cs__BUS_h0017 = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b01_0111)? 1'b1 : 1'b0 ;      // 0x6010_005C    0xXXXX (FAN_SPEED7) 
+//$$                                                                     
+//$$  wire w_match_adrs_cs__BUS_h0300 = (w_nBNE1 == 1'b0 && w_nCS_GPIB_sig && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ;     // 0x6030_0000    0xXXXX (GPIB STATUS)
+//$$  wire w_match_adrs_cs__BUS_h0301 = (w_nBNE1 == 1'b0 && w_nCS_GPIB_sig && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ;     // 0x6030_0004    0xXXXX (GPIB CONTROL)
+//$$  wire w_match_adrs_cs__BUS_h0302 = (w_nBNE1 == 1'b0 && w_nCS_GPIB_sig && r_ADRS_BUS [5:0] == 6'b00_0010)? 1'b1 : 1'b0 ;     // 0x6030_0008    0xXXXX (GPIB SWITCH)
+//$$  
+//$$  // ---------------------SLOT_CS_CONTROL_ADDR ---------------------------------------------//
+//$$  wire w_match_adrs_cs_SLOT_CS_MASK = (w_nBNE1 == 1'b0 && w_SPI_CS_CONTROL_CS && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ; // 0x6060 0000
+//$$  wire w_match_adrs_cs_SPI_CH_SEL   = (w_nBNE1 == 1'b0 && w_SPI_CS_CONTROL_CS && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ; // 0x6060 0004
+//$$  
+//$$  // --------------------- Mx_SPI_TRX_CONFIG)ADDR ---------------------------------------------//
+//$$  wire w_match_adrs_cs_Mx_SPI_MOSI_D_L = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ;   // 0x6070_0000
+//$$  wire w_match_adrs_cs_Mx_SPI_MOSI_D_H = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0001)? 1'b1 : 1'b0 ;   // 0x6070_0004
+//$$  //wire w_match_adrs_cs_Mx_SPI_Trig     = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010)? 1'b1 : 1'b0 ; // 0x6070_0008
+//$$  wire w_match_adrs_cs_Mx_SPI_MISO_D_L = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0011)? 1'b1 : 1'b0 ;   // 0x6070_000C
+//$$  wire w_match_adrs_cs_Mx_SPI_MISO_D_H = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0100)? 1'b1 : 1'b0 ;   // 0x6070_0010
+//$$  wire w_match_adrs_cs_Mx_SPI_DONE     = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0101)? 1'b1 : 1'b0 ;   // 0x6070_0014
 
 // ---------------------TRIG_CONFIG_ADDR ---------------------------------------------//
 //wire w_match_adrs_cs_Trig            = (w_nBNE1 == 1'b0 && w_Trig_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0000)? 1'b1 : 1'b0 ;  // 0x60A0_0000
@@ -4738,89 +4896,89 @@ wire w_match_adrs_cs_Mx_SPI_DONE     = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_C
 //wire w_match_adrs_cs_SOT_Trig        = (w_nBNE1 == 1'b0 && w_Trig_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010)? 1'b1 : 1'b0 ;  // 0x60A0_0008
 
 // from FPGA DATA READ //
-always @(posedge host_clk, negedge reset_n) begin
-    if (!reset_n) begin
-        r_DATA_BUS          <= 16'h0;
-      
-    end
-    else begin
-        r_DATA_BUS <= (w_match_adrs_cs_MAGIC_CD_L && w_OE_BUS == 1'b0) ? w_M0_port_wo_sadrs_h380[15:0]  : // 0x6010_0000    0xCC55 (MAGIC CODE_L)
-                      (w_match_adrs_cs_MAGIC_CD_H && w_OE_BUS == 1'b0) ? w_M0_port_wo_sadrs_h380[31:16] : // 0x6010_0004    0x33AA (MAGIC CODE_H)
-                      
-                      (w_match_adrs_cs__BUS_h0006 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0006 :               // 0x6010_0018    0x000X (INTER_LOCK_ON)
-                      (w_match_adrs_cs__BUS_h0009 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0009 :               // 0x6010_0024    0x0X0X (MASTER) (LAN_IP)
-                      
-                      (w_match_adrs_cs_FPGA_ID_L  && w_OE_BUS == 1'b0) ? w_F_IMAGE_ID_WO[15:0]  :         // 0x6010_002C    0x0708 (FPGA_IMAGE_ID_L)
-                      (w_match_adrs_cs_FPGA_ID_H  && w_OE_BUS == 1'b0) ? w_F_IMAGE_ID_WO[31:16] :         // 0x6010_0030    0xA021 (FPGA_IMAGE_ID_H)
-                      
-                      (w_match_adrs_cs__BUS_h000E && w_OE_BUS == 1'b0) ? w_DATA_BUS_h000E :               // 0x6010_0038    0x000X (H I/F IN)
-                      (w_match_adrs_cs__BUS_h0010 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0010 :               // 0x6010_0040    0xXXXX (FAN_SPEED0)
-                      (w_match_adrs_cs__BUS_h0011 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0011 :               // 0x6010_0044    0xXXXX (FAN_SPEED1)
-                      (w_match_adrs_cs__BUS_h0012 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0012 :               // 0x6010_0048    0xXXXX (FAN_SPEED2)
-                      (w_match_adrs_cs__BUS_h0013 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0013 :               // 0x6010_004C    0xXXXX (FAN_SPEED3)
-                      (w_match_adrs_cs__BUS_h0014 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0014 :               // 0x6010_0050    0xXXXX (FAN_SPEED4)
-                      (w_match_adrs_cs__BUS_h0015 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0015 :               // 0x6010_0054    0xXXXX (FAN_SPEED5)
-                      (w_match_adrs_cs__BUS_h0016 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0016 :               // 0x6010_0058    0xXXXX (FAN_SPEED6)
-                      (w_match_adrs_cs__BUS_h0017 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0017 :               // 0x6010_005C    0xXXXX (FAN_SPEED7)
-                      
-                      (w_match_adrs_cs__BUS_h0300 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0300 :               // 0x6030_0000    0xXXXX (GPIB_STATUS)
-                      (w_match_adrs_cs__BUS_h0301 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0301 :               // 0x6030_0004    0xXXXX (GPIB_CONTROL)
-                      (w_match_adrs_cs__BUS_h0302 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0302 :               // 0x6030_0008    0xXXXX (GPIB_SW)
-                      
-                      (w_match_adrs_cs_SLOT_CS_MASK && w_OE_BUS == 1'b0) ? w_DATA_BUS_SLOT_CS_MASK :      // 0x6060_0000    0xXXXX (SLOT_CS_MASK_VAL)
-                      (w_match_adrs_cs_SPI_CH_SEL   && w_OE_BUS == 1'b0) ? w_DATA_BUS_SPI_SEL :           // 0x6060_0004    0xXXXX (SPI_SEL_VAL)
-                                          
-                      (w_match_adrs_cs_Mx_SPI_MOSI_D_L && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MOSI_L :  // 0x6070_0000    0xXXXX (Mx_SPI_MOSI_L)
-                      (w_match_adrs_cs_Mx_SPI_MOSI_D_H && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MOSI_H :  // 0x6070_0004    0xXXXX (Mx_SPI_MOSI_H)
-                    
-                      (w_match_adrs_cs_Mx_SPI_MISO_D_L && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MISO_L :  // 0x6070_000C    0xXXXX (Mx_SPI_MISO_L)
-                      (w_match_adrs_cs_Mx_SPI_MISO_D_H && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MISO_H :  // 0x6070_0010    0xXXXX (Mx_SPI_MISO_H)
-                      (w_match_adrs_cs_Mx_SPI_DONE     && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_DONE :    // 0x6070_0014    0xXXXX (Mx_SPI_DONE)
-                      r_DATA_BUS;
-    end
-end
+//$$  always @(posedge host_clk, negedge reset_n) begin
+//$$      if (!reset_n) begin
+//$$          r_DATA_BUS          <= 16'h0;
+//$$        
+//$$      end
+//$$      else begin
+//$$          r_DATA_BUS <= (w_match_adrs_cs_MAGIC_CD_L && w_OE_BUS == 1'b0) ? w_M0_port_wo_sadrs_h380[15:0]  : // 0x6010_0000    0xCC55 (MAGIC CODE_L)
+//$$                        (w_match_adrs_cs_MAGIC_CD_H && w_OE_BUS == 1'b0) ? w_M0_port_wo_sadrs_h380[31:16] : // 0x6010_0004    0x33AA (MAGIC CODE_H)
+//$$                        
+//$$                        (w_match_adrs_cs__BUS_h0006 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0006 :               // 0x6010_0018    0x000X (INTER_LOCK_ON)
+//$$                        (w_match_adrs_cs__BUS_h0009 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0009 :               // 0x6010_0024    0x0X0X (MASTER) (LAN_IP)
+//$$                        
+//$$                        (w_match_adrs_cs_FPGA_ID_L  && w_OE_BUS == 1'b0) ? w_F_IMAGE_ID_WO[15:0]  :         // 0x6010_002C    0x0708 (FPGA_IMAGE_ID_L)
+//$$                        (w_match_adrs_cs_FPGA_ID_H  && w_OE_BUS == 1'b0) ? w_F_IMAGE_ID_WO[31:16] :         // 0x6010_0030    0xA021 (FPGA_IMAGE_ID_H)
+//$$                        
+//$$                        (w_match_adrs_cs__BUS_h000E && w_OE_BUS == 1'b0) ? w_DATA_BUS_h000E :               // 0x6010_0038    0x000X (H I/F IN)
+//$$                        (w_match_adrs_cs__BUS_h0010 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0010 :               // 0x6010_0040    0xXXXX (FAN_SPEED0)
+//$$                        (w_match_adrs_cs__BUS_h0011 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0011 :               // 0x6010_0044    0xXXXX (FAN_SPEED1)
+//$$                        (w_match_adrs_cs__BUS_h0012 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0012 :               // 0x6010_0048    0xXXXX (FAN_SPEED2)
+//$$                        (w_match_adrs_cs__BUS_h0013 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0013 :               // 0x6010_004C    0xXXXX (FAN_SPEED3)
+//$$                        (w_match_adrs_cs__BUS_h0014 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0014 :               // 0x6010_0050    0xXXXX (FAN_SPEED4)
+//$$                        (w_match_adrs_cs__BUS_h0015 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0015 :               // 0x6010_0054    0xXXXX (FAN_SPEED5)
+//$$                        (w_match_adrs_cs__BUS_h0016 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0016 :               // 0x6010_0058    0xXXXX (FAN_SPEED6)
+//$$                        (w_match_adrs_cs__BUS_h0017 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0017 :               // 0x6010_005C    0xXXXX (FAN_SPEED7)
+//$$                        
+//$$                        (w_match_adrs_cs__BUS_h0300 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0300 :               // 0x6030_0000    0xXXXX (GPIB_STATUS)
+//$$                        (w_match_adrs_cs__BUS_h0301 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0301 :               // 0x6030_0004    0xXXXX (GPIB_CONTROL)
+//$$                        (w_match_adrs_cs__BUS_h0302 && w_OE_BUS == 1'b0) ? w_DATA_BUS_h0302 :               // 0x6030_0008    0xXXXX (GPIB_SW)
+//$$                        
+//$$                        (w_match_adrs_cs_SLOT_CS_MASK && w_OE_BUS == 1'b0) ? w_DATA_BUS_SLOT_CS_MASK :      // 0x6060_0000    0xXXXX (SLOT_CS_MASK_VAL)
+//$$                        (w_match_adrs_cs_SPI_CH_SEL   && w_OE_BUS == 1'b0) ? w_DATA_BUS_SPI_SEL :           // 0x6060_0004    0xXXXX (SPI_SEL_VAL)
+//$$                                            
+//$$                        (w_match_adrs_cs_Mx_SPI_MOSI_D_L && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MOSI_L :  // 0x6070_0000    0xXXXX (Mx_SPI_MOSI_L)
+//$$                        (w_match_adrs_cs_Mx_SPI_MOSI_D_H && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MOSI_H :  // 0x6070_0004    0xXXXX (Mx_SPI_MOSI_H)
+//$$                      
+//$$                        (w_match_adrs_cs_Mx_SPI_MISO_D_L && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MISO_L :  // 0x6070_000C    0xXXXX (Mx_SPI_MISO_L)
+//$$                        (w_match_adrs_cs_Mx_SPI_MISO_D_H && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_MISO_H :  // 0x6070_0010    0xXXXX (Mx_SPI_MISO_H)
+//$$                        (w_match_adrs_cs_Mx_SPI_DONE     && w_OE_BUS == 1'b0) ? w_DATA_BUS_Mx_SPI_DONE :    // 0x6070_0014    0xXXXX (Mx_SPI_DONE)
+//$$                        r_DATA_BUS;
+//$$      end
+//$$  end
 
-assign w_BD_out[15:0] = r_DATA_BUS;
+//$$ assign w_BD_out[15:0] = r_DATA_BUS;
 
 // T = '1' ==> 'Z' (INPUT)    // T = '0' ==> OUTPUT
-assign w_BD_tri = ((w_match_adrs_cs_MAGIC_CD_L | 
-                    w_match_adrs_cs_MAGIC_CD_H |
-                    w_match_adrs_cs__BUS_h0006 |
-                    w_match_adrs_cs__BUS_h0009 |
-                    w_match_adrs_cs_FPGA_ID_L  |
-                    w_match_adrs_cs_FPGA_ID_H  |
-                    w_match_adrs_cs__BUS_h000E |
-                    w_match_adrs_cs__BUS_h0010 |
-                    w_match_adrs_cs__BUS_h0011 |
-                    w_match_adrs_cs__BUS_h0012 |
-                    w_match_adrs_cs__BUS_h0013 |
-                    w_match_adrs_cs__BUS_h0014 |
-                    w_match_adrs_cs__BUS_h0015 |
-                    w_match_adrs_cs__BUS_h0016 |
-                    w_match_adrs_cs__BUS_h0017 |
-                    
-                    w_match_adrs_cs__BUS_h0300 |
-                    w_match_adrs_cs__BUS_h0301 |
-                    w_match_adrs_cs__BUS_h0302 |
-                    
-                    w_match_adrs_cs_SLOT_CS_MASK    |
-                    w_match_adrs_cs_SPI_CH_SEL      |
-                                                    
-                    w_match_adrs_cs_Mx_SPI_MOSI_D_L |
-                    w_match_adrs_cs_Mx_SPI_MOSI_D_H |
-                   
-                    w_match_adrs_cs_Mx_SPI_MISO_D_L |
-                    w_match_adrs_cs_Mx_SPI_MISO_D_H |
-                    w_match_adrs_cs_Mx_SPI_DONE     ) & !r_smp_OE_BUS[0]) ? 16'h0000 : 16'hFFFF;           //!r_smp_OE_BUS[1]
+//$$  assign w_BD_tri = ((w_match_adrs_cs_MAGIC_CD_L | 
+//$$                      w_match_adrs_cs_MAGIC_CD_H |
+//$$                      w_match_adrs_cs__BUS_h0006 |
+//$$                      w_match_adrs_cs__BUS_h0009 |
+//$$                      w_match_adrs_cs_FPGA_ID_L  |
+//$$                      w_match_adrs_cs_FPGA_ID_H  |
+//$$                      w_match_adrs_cs__BUS_h000E |
+//$$                      w_match_adrs_cs__BUS_h0010 |
+//$$                      w_match_adrs_cs__BUS_h0011 |
+//$$                      w_match_adrs_cs__BUS_h0012 |
+//$$                      w_match_adrs_cs__BUS_h0013 |
+//$$                      w_match_adrs_cs__BUS_h0014 |
+//$$                      w_match_adrs_cs__BUS_h0015 |
+//$$                      w_match_adrs_cs__BUS_h0016 |
+//$$                      w_match_adrs_cs__BUS_h0017 |
+//$$                      
+//$$                      w_match_adrs_cs__BUS_h0300 |
+//$$                      w_match_adrs_cs__BUS_h0301 |
+//$$                      w_match_adrs_cs__BUS_h0302 |
+//$$                      
+//$$                      w_match_adrs_cs_SLOT_CS_MASK    |
+//$$                      w_match_adrs_cs_SPI_CH_SEL      |
+//$$                                                      
+//$$                      w_match_adrs_cs_Mx_SPI_MOSI_D_L |
+//$$                      w_match_adrs_cs_Mx_SPI_MOSI_D_H |
+//$$                     
+//$$                      w_match_adrs_cs_Mx_SPI_MISO_D_L |
+//$$                      w_match_adrs_cs_Mx_SPI_MISO_D_H |
+//$$                      w_match_adrs_cs_Mx_SPI_DONE     ) & !r_smp_OE_BUS[0]) ? 16'h0000 : 16'hFFFF;           //!r_smp_OE_BUS[1]
                     
 // to FPGA DATA WRITE //
 
 
 //----------- Address Decode Wrire DATA nCS_REG_sig -------------------//
-reg         r_ERR_LED;
-reg  [3:0]  r_test_led;
-reg         r_INTER_L_LED;
-reg         r_INTER_L_RLY;
+//reg         r_ERR_LED;
+//$$ reg  [3:0]  r_test_led;
+//$$ reg         r_INTER_L_LED;
+//$$ reg         r_INTER_L_RLY;
 reg         r_SW_RESET;
 reg  [3:0]  r_H_OUT;
 //----------- Address Decode Wrire DATA w_nCS_USB_sig -------------------//
@@ -4895,9 +5053,9 @@ end
 wire w_TI_adrs_cs_SW_RESET = (w_nBNE1 == 1'b0 && w_nCS_REG_sig && r_ADRS_BUS [5:0] == 6'b00_0100 && r_SW_RESET == 1'b1)? 1'b1 : 1'b0 ;        // SW_RESET       0x6010 0028    TI  // for Reset Ti TEST   
 
 // ------- to Mx SPI Write TI-----------//
-assign w_TI_adrs_cs_SPI_RESET = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010 && r_SPI_Trig == 3'b001)? 1'b1 : 1'b0 ;  // SPI_Trig       0x6070 0008    TI  // for SPI_Trig RESET Ti TEST   
-assign w_TI_adrs_cs_SPI_INIT  = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010 && r_SPI_Trig == 3'b010)? 1'b1 : 1'b0 ;  // SPI_Trig       0x6070 0008    TI  // for SPI_Trig INIT Ti TEST   
-assign w_TI_adrs_cs_SPI_FEAME = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010 && r_SPI_Trig == 3'b100)? 1'b1 : 1'b0 ;  // SPI_Trig       0x6070 0008    TI  // for SPI_Trig FRAME Ti TEST   
+//$$  assign w_TI_adrs_cs_SPI_RESET = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010 && r_SPI_Trig == 3'b001)? 1'b1 : 1'b0 ;  // SPI_Trig       0x6070 0008    TI  // for SPI_Trig RESET Ti TEST   
+//$$  assign w_TI_adrs_cs_SPI_INIT  = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010 && r_SPI_Trig == 3'b010)? 1'b1 : 1'b0 ;  // SPI_Trig       0x6070 0008    TI  // for SPI_Trig INIT Ti TEST   
+//$$  assign w_TI_adrs_cs_SPI_FEAME = (w_nBNE1 == 1'b0 && w_Mx_SPI_TRX_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0010 && r_SPI_Trig == 3'b100)? 1'b1 : 1'b0 ;  // SPI_Trig       0x6070 0008    TI  // for SPI_Trig FRAME Ti TEST   
 
 // ------- to Trig Write TI-----------//
 wire w_TI_adrs_cs_Trig_RESET = (w_nBNE1 == 1'b0 && w_Trig_CONFIG_CS && r_ADRS_BUS [5:0] == 6'b00_0000 && r_SPI_Trig == 2'b01)? 1'b1 : 1'b0 ;      // Trig           0x60A0 0000    TI  // for Trig RESET Ti TEST   
@@ -4916,49 +5074,49 @@ assign PRE_TRIG = w_TI_adrs_cs_PRE_Trig_INIT;
 
 
 //----------- Address Decode Wrire DATA nCS_REG_sig -------------------//
-assign BASE_F_LED_ERR   = r_ERR_LED;
-assign INTER_LED_O      = r_INTER_L_LED;
-assign INTER_RELAY_O    = r_INTER_L_RLY; 
+//$$ assign BASE_F_LED_ERR   = r_ERR_LED;
+//$$ assign INTER_LED_O      = r_INTER_L_LED;
+//$$ assign INTER_RELAY_O    = r_INTER_L_RLY; 
 
-assign FPGA_H_OUT1      = r_H_OUT[0];
-assign FPGA_H_OUT2      = r_H_OUT[1];
-assign FPGA_H_OUT3      = r_H_OUT[2];
-assign FPGA_H_OUT4      = r_H_OUT[3];
+//$$ assign FPGA_H_OUT1      = r_H_OUT[0];
+//$$ assign FPGA_H_OUT2      = r_H_OUT[1];
+//$$ assign FPGA_H_OUT3      = r_H_OUT[2];
+//$$ assign FPGA_H_OUT4      = r_H_OUT[3];
 
 
 
 //----------- Address Decode Wrire DATA w_nCS_USB_sig -------------------//
 // USB RX DATA x
 //----------- Address Decode Wrire DATA w_nCS_GPIB_sig -------------------//
-wire [1:0]  w_GPIB_REM_ALT;
-wire [1:0]  w_GPIB_TADCS_ALT;
-wire [1:0]  w_GPIB_LADCS_ALT;
-wire [1:0]  w_GPIB_TRIG_ALT;
-
-assign w_GPIB_REM_ALT   = r_GPIB_CTRL[1:0];
-assign w_GPIB_TADCS_ALT = r_GPIB_CTRL[3:2];
-assign w_GPIB_LADCS_ALT = r_GPIB_CTRL[5:4];
-assign w_GPIB_TRIG_ALT  = r_GPIB_CTRL[7:6];
-
-
+//$$ wire [1:0]  w_GPIB_REM_ALT;
+//$$ wire [1:0]  w_GPIB_TADCS_ALT;
+//$$ wire [1:0]  w_GPIB_LADCS_ALT;
+//$$ wire [1:0]  w_GPIB_TRIG_ALT;
+//$$ 
+//$$ assign w_GPIB_REM_ALT   = r_GPIB_CTRL[1:0];
+//$$ assign w_GPIB_TADCS_ALT = r_GPIB_CTRL[3:2];
+//$$ assign w_GPIB_LADCS_ALT = r_GPIB_CTRL[5:4];
+//$$ assign w_GPIB_TRIG_ALT  = r_GPIB_CTRL[7:6];
 
 
-assign w_DATA_BUS_SLOT_CS_MASK[12:0]  = r_SLOT_CS_MASK[12:0];
-assign w_DATA_BUS_SPI_SEL[2:0]        = r_SPI_CH_SEL[2:0];
 
-assign w_DATA_BUS_Mx_SPI_MOSI_L  = r_SPI_MOSI_D_L;
-assign w_DATA_BUS_Mx_SPI_MOSI_H  = r_SPI_MOSI_D_H;
+
+//$$ assign w_DATA_BUS_SLOT_CS_MASK[12:0]  = r_SLOT_CS_MASK[12:0];
+//$$ assign w_DATA_BUS_SPI_SEL[2:0]        = r_SPI_CH_SEL[2:0];
+
+//$$  assign w_DATA_BUS_Mx_SPI_MOSI_L  = r_SPI_MOSI_D_L;
+//$$  assign w_DATA_BUS_Mx_SPI_MOSI_H  = r_SPI_MOSI_D_H;
 
 //---------------------------------------------------------------------------- //
 
-assign w_DATA_BUS_Mx_SPI_MISO_L  = w_CORE_FLAG_WO[15: 0]; //$$ w_SSPI_frame_data_B;
-assign w_DATA_BUS_Mx_SPI_MISO_H  = w_CORE_FLAG_WO[31:16]; //$$ w_SSPI_frame_data_E;
+//$$ assign w_DATA_BUS_Mx_SPI_MISO_L  = w_CORE_FLAG_WO[15: 0]; //$$ w_SSPI_frame_data_B;
+//$$ assign w_DATA_BUS_Mx_SPI_MISO_H  = w_CORE_FLAG_WO[31:16]; //$$ w_SSPI_frame_data_E;
 
-assign w_DATA_BUS_Mx_SPI_DONE[2:0] = w_CORE_SPI_TO[2:0]; //$$ 3'b000; 
+//$$ assign w_DATA_BUS_Mx_SPI_DONE[2:0] = w_CORE_SPI_TO[2:0]; //$$ 3'b000; 
 
 
 
-wire [13: 0] w_nBCS = 14'h3FFF; // test
+//$$ wire [13: 0] w_nBCS = 14'h3FFF; // test
 
 //address_decode  address_decode__inst (
 //	.clk           (sys_clk  ),    // system 10MHz      for valid
@@ -5017,25 +5175,24 @@ wire [13: 0] w_nBCS = 14'h3FFF; // test
 
 assign  ETH_nCS     = w_nBNE2;
 assign  ETH_nRESET  = reset_n;
-
-
 assign  FPGA_GPIO_PH7 = ETH_nIRQ;
 
 //------ GPIB SETING_TNT4882 -----------------//
 
+wire w_GPIB_nCS_sig         = ( (!w_nBNE1) & (w_FMC_ADD[31:20]==12'h604) )? 1'b1 : 1'b0; //(4)  GPIB_nCS_sig		   0x6040 0000 ~ 0x604F FFFF
 assign  GPIB_nCS        = w_GPIB_nCS_sig;
 assign  GPIB_nRESET     = reset_n;
-
 assign  GPIB_DATA_DIR   = ~w_nBOE;
 assign  GPIB_DATA_nOE   = w_GPIB_nCS_sig;
 
-//	 GPIB Switch Read
-wire w_GPIB_SW_nOE;
 
-wire [1:0] w_GPIB_REM_ALT_sig;
-wire [1:0] w_GPIB_TADCS_ALT_sig;
-wire [1:0] w_GPIB_LADCS_ALT_sig;
-wire [1:0] w_GPIB_TRIG_ALT_sig;
+//	 GPIB Switch Read
+//$$ wire w_GPIB_SW_nOE;
+
+//$$ wire [1:0] w_GPIB_REM_ALT_sig;
+//$$ wire [1:0] w_GPIB_TADCS_ALT_sig;
+//$$ wire [1:0] w_GPIB_LADCS_ALT_sig;
+//$$ wire [1:0] w_GPIB_TRIG_ALT_sig;
 
 //reg [7:0] r_GPIB_CTRL_sig;
 //always @(negedge reset_n or negedge w_nBWE)
@@ -5323,10 +5480,15 @@ assign led[1] = FPGA_LED_RUN_STATUS_FAST;
 assign led[2] = 1'b1;
 assign led[3] = 1'b1;
 
-assign led[4] = r_test_led[0];//~w_M0_port_wi_sadrs_h004[3]; 
-assign led[5] = r_test_led[1];//~w_M0_port_wi_sadrs_h004[2];
-assign led[6] = r_test_led[2];//~w_M0_port_wi_sadrs_h004[1]; 
-assign led[7] = r_test_led[3];//~w_M0_port_wi_sadrs_h004[0];
+assign led[4] = w_FPGA_LED[0];
+assign led[5] = w_FPGA_LED[1];
+assign led[6] = w_FPGA_LED[2];
+assign led[7] = w_FPGA_LED[3];
+
+//assign led[4] = r_test_led[0];//~w_M0_port_wi_sadrs_h004[3]; 
+//assign led[5] = r_test_led[1];//~w_M0_port_wi_sadrs_h004[2];
+//assign led[6] = r_test_led[2];//~w_M0_port_wi_sadrs_h004[1]; 
+//assign led[7] = r_test_led[3];//~w_M0_port_wi_sadrs_h004[0];
 
 //}
 
