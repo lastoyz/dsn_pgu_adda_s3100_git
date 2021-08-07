@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_rpm_counter_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_rpm_counter" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="2000000400000001fs"></ZoomEndTime>
+      <Cursor1Time time="995000150000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="255"></NameColumnWidth>
+      <ValueColumnWidth column_width="178"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="7" />
+   <wvobject type="logic" fp_name="/tb_rpm_counter/sys_clk">
+      <obj_property name="ElementShortName">sys_clk</obj_property>
+      <obj_property name="ObjectShortName">sys_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_rpm_counter/test_clk">
+      <obj_property name="ElementShortName">test_clk</obj_property>
+      <obj_property name="ObjectShortName">test_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_rpm_counter/rpm_counter__inst0/reset_n">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_rpm_counter/rpm_counter__inst0/i_pulse">
+      <obj_property name="ElementShortName">i_pulse</obj_property>
+      <obj_property name="ObjectShortName">i_pulse</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_rpm_counter/rpm_counter__inst0/o_rpm_count">
+      <obj_property name="ElementShortName">o_rpm_count[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_rpm_count[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_rpm_counter/rpm_counter__inst0/r_count_down_1sec">
+      <obj_property name="ElementShortName">r_count_down_1sec[32:0]</obj_property>
+      <obj_property name="ObjectShortName">r_count_down_1sec[32:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_rpm_counter/rpm_counter__inst0/r_cnt_pulse">
+      <obj_property name="ElementShortName">r_cnt_pulse[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_cnt_pulse[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>
