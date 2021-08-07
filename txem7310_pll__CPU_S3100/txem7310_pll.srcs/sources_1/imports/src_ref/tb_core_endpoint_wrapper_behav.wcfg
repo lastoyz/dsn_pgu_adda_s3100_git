@@ -11,18 +11,21 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="339106545fs"></ZoomStartTime>
-      <ZoomEndTime time="3613761546fs"></ZoomEndTime>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="4217399001fs"></ZoomEndTime>
       <Cursor1Time time="4217399000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="184"></NameColumnWidth>
-      <ValueColumnWidth column_width="88"></ValueColumnWidth>
+      <NameColumnWidth column_width="202"></NameColumnWidth>
+      <ValueColumnWidth column_width="84"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="20" />
    <wave_markers>
       <marker label="" time="2239017000" />
       <marker label="" time="1924769000" />
+      <marker label="" time="3250000000" />
+      <marker label="" time="3550000000" />
+      <marker label="" time="3850000000" />
    </wave_markers>
    <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/reset_n">
       <obj_property name="ElementShortName">reset_n</obj_property>
@@ -92,8 +95,26 @@
       <obj_property name="ElementShortName">w_fall_WE_BUS</obj_property>
       <obj_property name="ObjectShortName">w_fall_WE_BUS</obj_property>
    </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/ep16wire">
+      <obj_property name="ElementShortName">ep16wire[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ep16wire[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_wire_in__h16/r_epXXwire">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">r_epXXwire[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_epXXwire[31:0]</obj_property>
+   </wvobject>
    <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/ep42trig">
       <obj_property name="ElementShortName">ep42trig[31:0]</obj_property>
       <obj_property name="ObjectShortName">ep42trig[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_trig_in__h42/r_epXXtrig">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">r_epXXtrig[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_epXXtrig[31:0]</obj_property>
    </wvobject>
 </wave_config>

@@ -198,7 +198,7 @@
 //// TODO: submodule core_endpoint_wrapper //{
 
 
-module sub_wire_in ( 
+module sub_wire_in ( //{
 	input  wire          reset_n         ,
 	input  wire          host_clk        , 
 	input  wire [31 : 0] i_ADRS_BUS      ,
@@ -223,10 +223,9 @@ always @(posedge host_clk, negedge reset_n) begin
 end
 
 //}
-endmodule
+endmodule //}
 
-
-module sub_trig_in (
+module sub_trig_in ( //{
 	input  wire          reset_n         ,
 	input  wire          host_clk        , 
 	input  wire [31 : 0] i_ADRS_BUS      ,
@@ -236,79 +235,89 @@ module sub_trig_in (
 	input  wire [31 : 0] i_DATA_WR       ,
 	input  wire          i_epXXck        ,
 	output wire [31 : 0] o_epXXtrig      
-	//
-	//input wire clk, // assume 72MHz
-	//input wire reset_n,
-	////
-	//input  wire        i_IO_addr_strobe ,
-	//input  wire        i_IO_write_strobe,
-	//input  wire [31:0] i_IO_address     ,
-	//input  wire [31:0] i_IO_write_data  ,
-	////
-	//input  wire [31:0] i_mask_ti        , // r_mask_ti
-	////
-	//input  wire        i_port_ck        , // i_port_ck_40
-	//output wire [31:0] o_ti_clk         , // o_port_ti_40 // sampled
-	//output wire [31:0] o_ti_reg           // r_port_ti_40
 );
-//{
-parameter ADRS_PORT_TI           = 32'h_CDCD_CDCD; //
-parameter ADRS_PORT_TI_40        = ADRS_PORT_TI;   // temporal name
+
+// * timing : host_clk fast case
+//   host_clk                 _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+//   r_epXXtrig    @host_clk  _____------_______________________________
+//   i_epXXck                 ___---___---___---___---___---___---___---
+//   r_epXXtrig_ck @i_epXXck  _________------___________________________
+//   o_epXXtrig               _______________------_____________________
 //
-
-// input  wire i_port_ck_40, output wire [31:0]   o_port_ti_40 ,
-reg [31:0] r_port_ti_40; reg [31:0] r_port_ti_40_smp; reg [31:0] r_port_ti_40_smpp;
+// * timing : host_clk slow case (NG)
+//   host_clk                 ___---___---___---___---___---___---___---
+//   r_epXXtrig    @host_clk  _________------___________________________
+//   i_epXXck                 _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+//   r_epXXtrig_ck @i_epXXck  ___________--_____________________________
+//   o_epXXtrig               _____________--___________________________
 //
-wire        i_port_ck_40 = i_port_ck; // temporal name
-wire [31:0] r_mask_ti    = i_mask_ti; // temporal name
+// * timing : host_clk slow case with handshake
+//   host_clk                 ___---___---___---___---___---___---___---
+//   r_epXXtrig    @host_clk  _________------___________________________
+//   i_epXXck                 _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+//   r_epXXtrig_ck @i_epXXck  ___________------_________________________
+//   o_epXXtrig               _____________--___________________________
+//
+// * transition table
+//   r_epXXtrig+    = r_epXXtrig,  ext_input,  r_epXXtrig_ck // r_epXXtrig <= (w_ext_input) | (r_epXXtrig & (~w_epXXtrig_ck)); 
+//   0                0            0           0      
+//   0                0            0           1      
+//   1                0            1           0             // set
+//   1                0            1           1             // set
+//   1                1            0           0      
+//   0                1            0           1             // clear
+//   1                1            1           0             // set
+//   1                1            1           1             // set
+//
+//   r_epXXtrig_ck+ = r_epXXtrig_ck,  r_epXXtrig // r_epXXtrig_ck <= r_epXXtrig; 
+//   0                0               0          
+//   1                0               1          // set
+//   0                1               0          // clear
+//   1                1               1          // set
 
+reg  [31:0] r_epXXtrig; //{
 
-// always r_port_ti_X 
-always @(posedge host_clk, negedge reset_n)
+wire [31:0] w_ext_input;
+assign  w_ext_input[15: 0] = ( i_rise_WE_BUS & (i_ADRS_BUS == i_epXX_hadrs + 0              ) )? i_DATA_WR : 16'b0;
+assign  w_ext_input[31:16] = ( i_rise_WE_BUS & (i_ADRS_BUS == i_epXX_hadrs + i_ep_offs_hadrs) )? i_DATA_WR : 16'b0;
+
+wire [31:0] w_epXXtrig_ck;
+
+always @(posedge host_clk, negedge reset_n) begin
 	if (!reset_n) begin
-		r_port_ti_40 <= 32'b0;
+		r_epXXtrig <= 32'b0;
 	end
 	else begin
-		// trig on
-		// note r_port_ti_40 <= (r_port_ti_40, i_IO_write_data)
-		//      0                0             0              
-		//      1                0             1              
-		//      0                1             0              
-		//      1                1             1              
+		r_epXXtrig <= (w_ext_input) | (r_epXXtrig & (~w_epXXtrig_ck)); 
 		//
-		// trig off
-		// note r_port_ti_40 <= (r_port_ti_40, r_port_ti_40_smp)
-		//      0                0             0
-		//      0                0             1
-		//      1                1             0
-		//      0                1             1
-		if (i_IO_addr_strobe & i_IO_write_strobe & (i_IO_address == ADRS_PORT_TI_40)) begin 
-			r_port_ti_40 <= (i_IO_write_data); 
-			end  
-		else begin 
-			r_port_ti_40 <= r_port_ti_40 & (~r_port_ti_40_smp); 
-			end
 	end
-		
-// always r_port_ti_X_smp
-always @(posedge i_epXXck, negedge reset_n)	
-	if (!reset_n) begin 
-		r_port_ti_40_smp  <= 32'b0; 
-		r_port_ti_40_smpp <= 32'b0; 
-		end  
-	else begin 
-		r_port_ti_40_smp  <= r_port_ti_40; 
-		r_port_ti_40_smpp <= r_port_ti_40_smp; 
-		end
-
-// assign o_port_ti_X 
-wire [31:0] o_port_ti_40 = (~r_port_ti_40_smp) & r_port_ti_40_smpp;
-assign o_ti_clk = o_port_ti_40;
-assign o_ti_reg = r_port_ti_40;
-
+end
 
 //}
-endmodule
+
+reg  [31:0] r_epXXtrig_ck; //{
+
+assign w_epXXtrig_ck = r_epXXtrig_ck;
+
+reg  [31:0] r_epXXtrig_ck_smp;
+wire [31:0] w_rise_epXXtrig_ck = (~r_epXXtrig_ck_smp) & (r_epXXtrig_ck);
+assign o_epXXtrig = w_rise_epXXtrig_ck;
+
+always @(posedge i_epXXck, negedge reset_n) begin
+	if (!reset_n) begin
+		r_epXXtrig_ck     <= 32'b0;
+		r_epXXtrig_ck_smp <= 32'b0;
+	end
+	else begin
+		r_epXXtrig_ck     <= r_epXXtrig   ;
+		r_epXXtrig_ck_smp <= r_epXXtrig_ck;
+		//
+	end
+end
+
+//}
+
+endmodule //}
 
 
 // note timings:
@@ -430,7 +439,7 @@ always @(posedge clk, negedge reset_n)
 //}
 
 
-//// sampling signals
+//// sampling signals //{
 
 reg         r_smp_NCE; //{
 
@@ -506,21 +515,36 @@ end
 
 //}
 
+//}
 
 //// wire-in //{
-wire [31:0] w_ep00wire; sub_wire_in  sub_wire_in__h00 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep00_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep00wire) );
-wire [31:0] w_ep01wire; sub_wire_in  sub_wire_in__h01 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep01_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep01wire) );
-wire [31:0] w_ep02wire; sub_wire_in  sub_wire_in__h02 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep02_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep02wire) );
-wire [31:0] w_ep03wire; sub_wire_in  sub_wire_in__h03 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep03_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep03wire) );
-wire [31:0] w_ep04wire; sub_wire_in  sub_wire_in__h04 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep04_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep04wire) );
-//                                                                                                                                                                                                                                                                
-wire [31:0] w_ep16wire; sub_wire_in  sub_wire_in__h16 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep16_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep16wire) );
-wire [31:0] w_ep17wire; sub_wire_in  sub_wire_in__h17 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep17_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep17wire) );
+
+wire [31:0] w_ep00wire; assign ep00wire = w_ep00wire;
+wire [31:0] w_ep01wire; assign ep01wire = w_ep01wire;
+wire [31:0] w_ep02wire; assign ep02wire = w_ep02wire;
+wire [31:0] w_ep03wire; assign ep03wire = w_ep03wire;
+wire [31:0] w_ep04wire; assign ep04wire = w_ep04wire;
+wire [31:0] w_ep16wire; assign ep16wire = w_ep16wire;
+wire [31:0] w_ep17wire; assign ep17wire = w_ep17wire;
+//
+sub_wire_in  sub_wire_in__h00 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep00_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep00wire) );
+sub_wire_in  sub_wire_in__h01 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep01_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep01wire) );
+sub_wire_in  sub_wire_in__h02 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep02_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep02wire) );
+sub_wire_in  sub_wire_in__h03 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep03_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep03wire) );
+sub_wire_in  sub_wire_in__h04 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep04_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep04wire) );
+sub_wire_in  sub_wire_in__h16 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep16_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep16wire) );
+sub_wire_in  sub_wire_in__h17 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep17_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep17wire) );
+
 //}
 
 //// wire-out // NOP
 
-//// trig-in
+//// trig-in //{
+sub_trig_in  sub_trig_in__h42 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep42_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep42ck), .o_epXXtrig (ep42trig) );
+sub_trig_in  sub_trig_in__h50 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep50_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep50ck), .o_epXXtrig (ep50trig) );
+sub_trig_in  sub_trig_in__h51 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep51_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep51ck), .o_epXXtrig (ep51trig) );
+sub_trig_in  sub_trig_in__h52 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep52_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep52ck), .o_epXXtrig (ep52trig) );
+//}
 
 //// trig-out
 
@@ -639,7 +663,7 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	//// end-point address offset between high and low 16 bits 
 	.ep_offs_hadrs     (32'h0000_0004),  // input wire [31:0]
 	
-	//// wire-in
+	//// wire-in //{
 	.ep00_hadrs(32'h6010_0008),  .ep00wire     (),  // input wire [31:0] // output wire [31:0] // ERR_LED
 	.ep01_hadrs(32'h6010_0010),  .ep01wire     (),  // input wire [31:0] // output wire [31:0] // FPGA_LED
 	.ep02_hadrs(32'h6010_0030),  .ep02wire     (),  // input wire [31:0] // output wire [31:0] // H I/F OUT 
@@ -648,9 +672,10 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	//
 	.ep16_hadrs(32'h6060_0000),  .ep16wire     (),  // input wire [31:0] // output wire [31:0] // MSPI_EN_CS_WI // {SPI_CH_SELEC, SLOT_CS_MASK}
 	.ep17_hadrs(32'h6070_0000),  .ep17wire     (),  // input wire [31:0] // output wire [31:0] // MSPI_CON_WI   // {Mx_SPI_MOSI_DATA_H, Mx_SPI_MOSI_DATA_L}
+	//}
 	
-	//// wire-out 
-	.ep24_hadrs(32'h6070_000C),  .ep24wire     (),  // input wire [31:0] // input wire [31:0] // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
+	//// wire-out //{
+	.ep24_hadrs(32'h6070_0008),  .ep24wire     (),  // input wire [31:0] // input wire [31:0] // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
 	//
 	.ep30_hadrs(32'h6010_0000),  .ep30wire     (32'h33AA_CC55),  // input wire [31:0] // input wire [31:0] // {MAGIC CODE_H, MAGIC CODE_L}
 	.ep31_hadrs(32'h6010_0018),  .ep31wire     (),  // input wire [31:0] // input wire [31:0] // MASTER MODE LAN IP Address 
@@ -662,16 +687,19 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	.ep37_hadrs(32'h6010_0058),  .ep37wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#7 FAN SPEED, FAN#6 FAN SPEED}
 	.ep38_hadrs(32'h6010_0060),  .ep38wire     (),  // input wire [31:0] // input wire [31:0] // INTER_LOCK
 	.ep39_hadrs(32'h6030_0000),  .ep39wire     (),  // input wire [31:0] // input wire [31:0] // {GPIB Switch Read, GPIB Status Read}
+	//}
 	
-	//// trig-in
+	//// trig-in //{
 	.ep42_hadrs(32'h6070_0010),  .ep42ck       (sys_clk),  .ep42trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // MSPI_TI // Mx_SPI_Trig
 	//
 	.ep50_hadrs(32'h6010_0028),  .ep50ck       (),  .ep50trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // S/W Reset
 	.ep51_hadrs(32'h60A0_0000),  .ep51ck       (),  .ep51trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // {PRE_Trig, Trig}
 	.ep52_hadrs(32'h60A0_0008),  .ep52ck       (),  .ep52trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // SOT
+	//}
 	
-	//// trig-out
+	//// trig-out //{
 	.ep62_hadrs(32'h6070_0018),  .ep62ck       (),  .ep62trig   (),  // input wire [31:0] // input wire  // input wire [31:0] // MSPI_TO // Mx_SPI_DONE
+	//}
 	
 	//// pipe-in 
 	//.ep80_hadrs(),  .ep80wr       (),  .ep80pipe   (),  // input wire [31:0] // output wire  // output wire [31:0]
