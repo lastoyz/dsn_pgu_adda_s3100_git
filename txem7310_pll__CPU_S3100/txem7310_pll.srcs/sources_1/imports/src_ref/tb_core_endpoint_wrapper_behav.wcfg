@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="4217399001fs"></ZoomEndTime>
-      <Cursor1Time time="4217399000fs"></Cursor1Time>
+      <ZoomStartTime time="754084166fs"></ZoomStartTime>
+      <ZoomEndTime time="4238968031fs"></ZoomEndTime>
+      <Cursor1Time time="4524505000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="202"></NameColumnWidth>
       <ValueColumnWidth column_width="84"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="20" />
+   <WVObjectSize size="23" />
    <wave_markers>
       <marker label="" time="2239017000" />
       <marker label="" time="1924769000" />
@@ -87,13 +87,13 @@
       <obj_property name="ElementShortName">r_DATA_RD[15:0]</obj_property>
       <obj_property name="ObjectShortName">r_DATA_RD[15:0]</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/w_rise_OE_BUS">
+      <obj_property name="ElementShortName">w_rise_OE_BUS</obj_property>
+      <obj_property name="ObjectShortName">w_rise_OE_BUS</obj_property>
+   </wvobject>
    <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/w_rise_WE_BUS">
       <obj_property name="ElementShortName">w_rise_WE_BUS</obj_property>
       <obj_property name="ObjectShortName">w_rise_WE_BUS</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/w_fall_WE_BUS">
-      <obj_property name="ElementShortName">w_fall_WE_BUS</obj_property>
-      <obj_property name="ObjectShortName">w_fall_WE_BUS</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/ep16wire">
       <obj_property name="ElementShortName">ep16wire[31:0]</obj_property>
@@ -116,5 +116,21 @@
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">r_epXXtrig[31:0]</obj_property>
       <obj_property name="ObjectShortName">r_epXXtrig[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/ep62trig">
+      <obj_property name="ElementShortName">ep62trig[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ep62trig[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_trig_out__h62/r_epXXtrig">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">r_epXXtrig[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_epXXtrig[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_trig_out__h62/r_epXXtrig_ck">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">r_epXXtrig_ck[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_epXXtrig_ck[31:0]</obj_property>
    </wvobject>
 </wave_config>
