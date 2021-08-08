@@ -77,16 +77,38 @@
 // |       |               | 0x6070_0004|            |                            | bit[25:16]=frame_data_A[ 9:0]  |
 // |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_FLAG_WO  | 0x6070_000C| wireout_24 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
-// |       |               | 0x6070_0010|            |                            | bit[15: 0]=frame_data_B[15:0]  |
+// | MSPI  | MSPI_FLAG_WO  | 0x6070_0008| wireout_24 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+// |       |               | 0x6070_000C|            |                            | bit[15: 0]=frame_data_B[15:0]  |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_TI       | 0x6070_0008| trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
+// | MSPI  | MSPI_TI       | 0x6070_0010| trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
 // |       |               |            |            |                            | bit[1]=trigger_init            |
 // |       |               |            |            |                            | bit[2]=trigger_frame           |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | MSPI  | MSPI_TO       | 0x6070_0014| trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
+// | MSPI  | MSPI_TO       | 0x6070_0018| trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
 // |       |               |            |            |                            | bit[1]=done_init               |
 // |       |               |            |            |                            | bit[2]=done_frame              |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | ____  | ERR_LED_WI    | 0x6070_0018| wire_in_00 | control ERR_LED.           | TBC                            |
+// | ____  | FPGA_LED_WI   | 0x6010_0010| wire_in_01 | Control FPGA_LED.          | TBC                            |
+// | ____  | HDL_OUT_WI    | 0x6010_0030| wire_in_02 | Control HDL I/F OUT.       | TBC                            |
+// | ____  | INTERLOCK_WI  | 0x6010_0068| wire_in_03 | Control INTER_LOCK.        | {INT_LOCK RELAY, INT_LOCK LED} |
+// | ____  | GPIB_CON_WI   | 0x6030_0008| wire_in_04 | Control GPIB               | TBC                            |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | ____  | MAGIC_CODE_WO | 0x6010_0000| wireout_30 | Read knonwn code.          | {MAGIC CODE_H, MAGIC CODE_L}   |
+// | ____  | LAN_STAT_WO   | 0x6010_0018| wireout_31 | Read LAN status.           | {MASTER MODE, LAN IP Address}  |
+// | ____  | F_IMAGE_ID_WO | 0x6010_0020| wireout_32 | Read FPGA IMAGE ID.        | {F_IMAGE_ID_H, F_IMAGE_ID_L}   |
+// | ____  | HDL_IN_WO     | 0x6010_0038| wireout_33 | Read Handler inputs.       | HDL I/F IN                     |
+// | ____  | FAN_SPD_A_WO  | 0x6010_0040| wireout_34 | Read FAN speed.            | {FAN#1 SPEED, FAN#0 SPEED}     |
+// | ____  | FAN_SPD_B_WO  | 0x6010_0048| wireout_35 | Read FAN speed.            | {FAN#3 SPEED, FAN#2 SPEED}     |
+// | ____  | FAN_SPD_C_WO  | 0x6010_0050| wireout_36 | Read FAN speed.            | {FAN#5 SPEED, FAN#4 SPEED}     |
+// | ____  | FAN_SPD_D_WO  | 0x6010_0058| wireout_37 | Read FAN speed.            | {FAN#7 SPEED, FAN#6 SPEED}     |
+// | ____  | INTERLOCK_WO  | 0x6010_0060| wireout_38 | Read INTER_LOCK.           | TBC                            |
+// | ____  | GPIB_STAT_WO  | 0x6030_0000| wireout_39 | Read GPIB status.          | {Switch Read, Status Read}     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | ____  | RESET_TI      | 0x6010_0028| trig_in_50 | Trigger S/W Reset.         | TBC                            |
+// | ____  | TRIG_TI       | 0x60A0_0000| trig_in_51 | Trigger TRIG pulses.       | {PRE_Trig, Trig}               |
+// | ____  | SOT_TI        | 0x60A0_0008| trig_in_52 | Trigger SOT pulses.        | TBC                            |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 
 
@@ -2702,7 +2724,7 @@ wire w_ck_pipe; // not used // mcs_eeprom_fifo_clk vs epPPck from lan_endpoint_w
 // wire in //{
 wire [31:0] w_ep00_hadrs = 32'h6010_0008; wire [31:0] w_ep00wire; // ERR_LED
 wire [31:0] w_ep01_hadrs = 32'h6010_0010; wire [31:0] w_ep01wire; // FPGA_LED
-wire [31:0] w_ep02_hadrs = 32'h6010_0030; wire [31:0] w_ep02wire; // H I/F OUT 
+wire [31:0] w_ep02_hadrs = 32'h6010_0030; wire [31:0] w_ep02wire; // HDL I/F OUT 
 wire [31:0] w_ep03_hadrs = 32'h6010_0068; wire [31:0] w_ep03wire; // {INTER_LOCK RELAY, INTER_LOCK LED}
 wire [31:0] w_ep04_hadrs = 32'h6030_0008; wire [31:0] w_ep04wire; // GPIB CONTROL // Control Read & Write  
 wire [31:0] w_ep16_hadrs = 32'h6060_0000; wire [31:0] w_ep16wire; // MSPI_EN_CS_WI // {SPI_CH_SELEC, SLOT_CS_MASK}
@@ -2712,9 +2734,9 @@ wire [31:0] w_ep17_hadrs = 32'h6070_0000; wire [31:0] w_ep17wire; // MSPI_CON_WI
 // wire out //{
 wire [31:0] w_ep24_hadrs = 32'h6070_0008; wire [31:0] w_ep24wire; // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
 wire [31:0] w_ep30_hadrs = 32'h6010_0000; wire [31:0] w_ep30wire; // {MAGIC CODE_H, MAGIC CODE_L}
-wire [31:0] w_ep31_hadrs = 32'h6010_0018; wire [31:0] w_ep31wire; // MASTER MODE LAN IP Address 
+wire [31:0] w_ep31_hadrs = 32'h6010_0018; wire [31:0] w_ep31wire; // MASTER MODE, LAN IP Address 
 wire [31:0] w_ep32_hadrs = 32'h6010_0020; wire [31:0] w_ep32wire; // {FPGA_IMAGE_ID_H, FPGA_IMAGE_ID_L}
-wire [31:0] w_ep33_hadrs = 32'h6010_0038; wire [31:0] w_ep33wire; // H I/F IN
+wire [31:0] w_ep33_hadrs = 32'h6010_0038; wire [31:0] w_ep33wire; // HDL I/F IN
 wire [31:0] w_ep34_hadrs = 32'h6010_0040; wire [31:0] w_ep34wire; // {FAN#1 FAN SPEED, FAN#0 FAN SPEED}
 wire [31:0] w_ep35_hadrs = 32'h6010_0048; wire [31:0] w_ep35wire; // {FAN#3 FAN SPEED, FAN#2 FAN SPEED}
 wire [31:0] w_ep36_hadrs = 32'h6010_0050; wire [31:0] w_ep36wire; // {FAN#5 FAN SPEED, FAN#4 FAN SPEED}
