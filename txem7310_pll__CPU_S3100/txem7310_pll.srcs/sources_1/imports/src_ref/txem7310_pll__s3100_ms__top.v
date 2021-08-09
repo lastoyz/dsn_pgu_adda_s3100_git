@@ -543,6 +543,9 @@ module core_endpoint_wrapper ( //{
 	input wire [31:0] ep03_hadrs, output wire [31:0] ep03wire,
 	input wire [31:0] ep04_hadrs, output wire [31:0] ep04wire,
 	//
+	input wire [31:0] ep12_hadrs, output wire [31:0] ep12wire,
+	input wire [31:0] ep13_hadrs, output wire [31:0] ep13wire,
+	//
 	input wire [31:0] ep16_hadrs, output wire [31:0] ep16wire,
 	input wire [31:0] ep17_hadrs, output wire [31:0] ep17wire,
 	//
@@ -554,6 +557,10 @@ module core_endpoint_wrapper ( //{
 	//}
 	
 	//// wire-out //{
+	input wire [31:0] ep20_hadrs, input wire [31:0]  ep20wire,
+	input wire [31:0] ep21_hadrs, input wire [31:0]  ep21wire,
+	input wire [31:0] ep22_hadrs, input wire [31:0]  ep22wire,
+	input wire [31:0] ep23_hadrs, input wire [31:0]  ep23wire,
 	input wire [31:0] ep24_hadrs, input wire [31:0]  ep24wire,
 	//
 	input wire [31:0] ep30_hadrs, input wire [31:0]  ep30wire,
@@ -566,18 +573,24 @@ module core_endpoint_wrapper ( //{
 	input wire [31:0] ep37_hadrs, input wire [31:0]  ep37wire,
 	input wire [31:0] ep38_hadrs, input wire [31:0]  ep38wire,
 	input wire [31:0] ep39_hadrs, input wire [31:0]  ep39wire,
+	input wire [31:0] ep3A_hadrs, input wire [31:0]  ep3Awire,
+	input wire [31:0] ep3B_hadrs, input wire [31:0]  ep3Bwire,
 	//}
 	
 	//// trig-in //{
+	input wire [31:0] ep40_hadrs, input wire ep40ck, output wire [31:0] ep40trig,
 	input wire [31:0] ep42_hadrs, input wire ep42ck, output wire [31:0] ep42trig,
 	//
 	input wire [31:0] ep50_hadrs, input wire ep50ck, output wire [31:0] ep50trig,
 	input wire [31:0] ep51_hadrs, input wire ep51ck, output wire [31:0] ep51trig,
 	input wire [31:0] ep52_hadrs, input wire ep52ck, output wire [31:0] ep52trig,
+	input wire [31:0] ep53_hadrs, input wire ep53ck, output wire [31:0] ep53trig,
 	//}
 	
 	//// trig-out //{
-	input wire [31:0] ep62_hadrs, input wire ep62ck,  input wire [31:0] ep62trig,
+	input wire [31:0] ep60_hadrs, input wire ep60ck, input wire [31:0] ep60trig,
+	input wire [31:0] ep62_hadrs, input wire ep62ck, input wire [31:0] ep62trig,
+	input wire [31:0] ep73_hadrs, input wire ep73ck, input wire [31:0] ep73trig,
 	//}
 	
 	//// pipe-in //{
@@ -697,6 +710,9 @@ wire [31:0] w_ep02wire; assign ep02wire = w_ep02wire;
 wire [31:0] w_ep03wire; assign ep03wire = w_ep03wire;
 wire [31:0] w_ep04wire; assign ep04wire = w_ep04wire;
 //
+wire [31:0] w_ep12wire; assign ep12wire = w_ep12wire;
+wire [31:0] w_ep13wire; assign ep13wire = w_ep13wire;
+//
 wire [31:0] w_ep16wire; assign ep16wire = w_ep16wire;
 wire [31:0] w_ep17wire; assign ep17wire = w_ep17wire;
 //
@@ -712,6 +728,9 @@ sub_wire_in  sub_wire_in__h02 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS
 sub_wire_in  sub_wire_in__h03 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep03_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep03wire) );
 sub_wire_in  sub_wire_in__h04 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep04_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep04wire) );
 //
+sub_wire_in  sub_wire_in__h12 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep12_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep12wire) );
+sub_wire_in  sub_wire_in__h13 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep13_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep13wire) );
+//
 sub_wire_in  sub_wire_in__h16 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep16_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep16wire) );
 sub_wire_in  sub_wire_in__h17 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep17_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .o_epXXwire (w_ep17wire) );
 //
@@ -726,21 +745,27 @@ sub_wire_in  sub_wire_in__h1E (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS
 //// wire-out // NOP
 
 //// trig-in //{
+sub_trig_in  sub_trig_in__h40 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep40_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep40ck), .o_epXXtrig (ep40trig) );
 sub_trig_in  sub_trig_in__h42 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep42_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep42ck), .o_epXXtrig (ep42trig) );
 sub_trig_in  sub_trig_in__h50 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep50_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep50ck), .o_epXXtrig (ep50trig) );
 sub_trig_in  sub_trig_in__h51 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep51_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep51ck), .o_epXXtrig (ep51trig) );
 sub_trig_in  sub_trig_in__h52 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep52_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep52ck), .o_epXXtrig (ep52trig) );
+sub_trig_in  sub_trig_in__h53 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_WE_BUS (w_rise_WE_BUS), .i_epXX_hadrs (ep53_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_DATA_WR (r_DATA_WR), .i_epXXck(ep53ck), .o_epXXtrig (ep53trig) );
 //}
 
 //// trig-out //{
+wire [31:0] w_ep60trig; // to host interface
 wire [31:0] w_ep62trig; // to host interface
+wire [31:0] w_ep73trig; // to host interface
 //
+sub_trig_out  sub_trig_out__h60 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_OE_BUS (w_rise_OE_BUS), .i_epXX_hadrs (ep60_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_epXXck(ep60ck), .i_epXXtrig (ep60trig) , .o_epXXtrig (w_ep60trig) );
 sub_trig_out  sub_trig_out__h62 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_OE_BUS (w_rise_OE_BUS), .i_epXX_hadrs (ep62_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_epXXck(ep62ck), .i_epXXtrig (ep62trig) , .o_epXXtrig (w_ep62trig) );
+sub_trig_out  sub_trig_out__h73 (.reset_n (reset_n), .host_clk (host_clk), .i_ADRS_BUS (r_ADRS_BUS), .i_rise_OE_BUS (w_rise_OE_BUS), .i_epXX_hadrs (ep73_hadrs), .i_ep_offs_hadrs (ep_offs_hadrs), .i_epXXck(ep73ck), .i_epXXtrig (ep73trig) , .o_epXXtrig (w_ep73trig) );
 //}
 
-//// pipe-in
+//// pipe-in // to come
 
-//// pipe-out
+//// pipe-out // to come
 
 //// pipe-ck //{
 assign epPPck = host_clk;
@@ -755,8 +780,9 @@ always @(posedge host_clk, negedge reset_n) begin
 		r_DATA_RD = 16'b0;
 	end
 	else begin
-		r_DATA_RD <= ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep00_hadrs + 0            ) )? w_ep00wire[15: 0] : // WI
-		             ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep00_hadrs + ep_offs_hadrs) )? w_ep00wire[31:16] :
+		r_DATA_RD <= 
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep00_hadrs + 0            ) )? w_ep00wire[15: 0] : // WI
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep00_hadrs + ep_offs_hadrs) )? w_ep00wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep01_hadrs + 0            ) )? w_ep01wire[15: 0] : //
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep01_hadrs + ep_offs_hadrs) )? w_ep01wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep02_hadrs + 0            ) )? w_ep02wire[15: 0] : //
@@ -765,6 +791,10 @@ always @(posedge host_clk, negedge reset_n) begin
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep03_hadrs + ep_offs_hadrs) )? w_ep03wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep04_hadrs + 0            ) )? w_ep04wire[15: 0] : //
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep04_hadrs + ep_offs_hadrs) )? w_ep04wire[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep12_hadrs + 0            ) )? w_ep12wire[15: 0] : // WI
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep12_hadrs + ep_offs_hadrs) )? w_ep12wire[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep13_hadrs + 0            ) )? w_ep13wire[15: 0] : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep13_hadrs + ep_offs_hadrs) )? w_ep13wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep16_hadrs + 0            ) )? w_ep16wire[15: 0] : // WI
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep16_hadrs + ep_offs_hadrs) )? w_ep16wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep17_hadrs + 0            ) )? w_ep17wire[15: 0] : //
@@ -780,6 +810,14 @@ always @(posedge host_clk, negedge reset_n) begin
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1E_hadrs + 0            ) )? w_ep1Ewire[15: 0] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1E_hadrs + ep_offs_hadrs) )? w_ep1Ewire[31:16] :
 					 //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep20_hadrs + 0            ) )?   ep20wire[15: 0] : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep20_hadrs + ep_offs_hadrs) )?   ep20wire[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep21_hadrs + 0            ) )?   ep21wire[15: 0] : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep21_hadrs + ep_offs_hadrs) )?   ep21wire[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep22_hadrs + 0            ) )?   ep22wire[15: 0] : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep22_hadrs + ep_offs_hadrs) )?   ep22wire[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep23_hadrs + 0            ) )?   ep23wire[15: 0] : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep23_hadrs + ep_offs_hadrs) )?   ep23wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep24_hadrs + 0            ) )?   ep24wire[15: 0] : // WO
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep24_hadrs + ep_offs_hadrs) )?   ep24wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep30_hadrs + 0            ) )?   ep30wire[15: 0] : // WO
@@ -802,9 +840,17 @@ always @(posedge host_clk, negedge reset_n) begin
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep38_hadrs + ep_offs_hadrs) )?   ep38wire[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep39_hadrs + 0            ) )?   ep39wire[15: 0] : //
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep39_hadrs + ep_offs_hadrs) )?   ep39wire[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3A_hadrs + 0            ) )?   ep3Awire[15: 0] : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3A_hadrs + ep_offs_hadrs) )?   ep3Awire[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3B_hadrs + 0            ) )?   ep3Bwire[15: 0] : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3B_hadrs + ep_offs_hadrs) )?   ep3Bwire[31:16] :
 					 //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep60_hadrs + 0            ) )? w_ep60trig[15: 0] : // TO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep60_hadrs + ep_offs_hadrs) )? w_ep60trig[31:16] :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep62_hadrs + 0            ) )? w_ep62trig[15: 0] : // TO
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep62_hadrs + ep_offs_hadrs) )? w_ep62trig[31:16] :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep73_hadrs + 0            ) )? w_ep73trig[15: 0] : // TO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep73_hadrs + ep_offs_hadrs) )? w_ep73trig[31:16] :
 					 //
 					 r_DATA_RD;
 		//
@@ -826,11 +872,33 @@ assign o_FMC_DRD_TRI =  //{
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep03_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep04_hadrs + 0            ) )? 16'h0000 : //
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep04_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep12_hadrs + 0            ) )? 16'h0000 : // WI
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep12_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep13_hadrs + 0            ) )? 16'h0000 : //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep13_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep16_hadrs + 0            ) )? 16'h0000 : // WI
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep16_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep17_hadrs + 0            ) )? 16'h0000 : //
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep17_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1A_hadrs + 0            ) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1A_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1B_hadrs + 0            ) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1B_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1C_hadrs + 0            ) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1C_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1D_hadrs + 0            ) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1D_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1E_hadrs + 0            ) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep1E_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep20_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep20_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep21_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep21_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep22_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep22_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep23_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep23_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep24_hadrs + 0            ) )? 16'h0000 : // WO
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep24_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep30_hadrs + 0            ) )? 16'h0000 : // WO
@@ -853,9 +921,17 @@ assign o_FMC_DRD_TRI =  //{
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep38_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep39_hadrs + 0            ) )? 16'h0000 : //
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep39_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3A_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3A_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3B_hadrs + 0            ) )? 16'h0000 : // WO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep3B_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 //
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep60_hadrs + 0            ) )? 16'h0000 : // TO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep60_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep62_hadrs + 0            ) )? 16'h0000 : // TO
 					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep62_hadrs + ep_offs_hadrs) )? 16'h0000 :
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep73_hadrs + 0            ) )? 16'h0000 : // TO
+					 ( (!r_smp_OE_BUS[0]) & (r_ADRS_BUS == ep73_hadrs + ep_offs_hadrs) )? 16'h0000 :
 					 //
 					 16'hFFFF;
 
@@ -2852,7 +2928,7 @@ wire [31:0] w_ep53_hadrs = 32'h6070_0090; wire w_ep53ck = sys_clk      ; wire [3
 // trig out //{
 wire [31:0] w_ep60_hadrs = 32'h6070_0058; wire w_ep60ck = sys_clk      ; wire [31:0] w_ep60trig;  // reserved // TEST_TO       
 wire [31:0] w_ep62_hadrs = 32'h6070_0018; wire w_ep62ck = base_sspi_clk; wire [31:0] w_ep62trig;  // MSPI_TO // Mx_SPI_DONE
-
+//
 wire [31:0] w_ep73_hadrs = 32'h6070_0098; wire w_ep73ck = sys_clk      ; wire [31:0] w_ep73trig;  // reserved // MEM_TO        
 
 //}
