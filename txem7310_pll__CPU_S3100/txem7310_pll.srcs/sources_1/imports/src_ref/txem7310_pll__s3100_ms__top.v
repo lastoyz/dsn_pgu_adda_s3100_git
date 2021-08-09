@@ -131,7 +131,7 @@
 // | ____  | FPGA_LED_WI   | 0x6010_0010| wire_in_1B | Control FPGA_LED.          | TBC                            |
 // | ____  | HDL_OUT_WI    | 0x6010_0030| wire_in_1C | Control HDL I/F OUT.       | TBC                            |
 // | ____  | INTERLOCK_WI  | 0x6010_0068| wire_in_1D | Control INTER_LOCK.        | {INT_LOCK RELAY, INT_LOCK LED} |
-// | ____  | GPIB_CON_WI   | 0x6030_0008| wire_in_1E | Control GPIB               | TBC                            |
+// | ____  | GPIB_CON_WI   | 0x6030_0010| wire_in_1E | Control GPIB               | TBC                            |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | ____  | MAGIC_CODE_WO | 0x6010_0000| wireout_30 | Read knonwn code.          | {MAGIC CODE_H, MAGIC CODE_L}   |
 // | ____  | LAN_STAT_WO   | 0x6010_0018| wireout_31 | Read LAN status.           | {MASTER MODE, LAN IP Address}  |
@@ -142,7 +142,7 @@
 // | ____  | FAN_SPD_C_WO  | 0x6010_0050| wireout_36 | Read FAN speed.            | {FAN#5 SPEED, FAN#4 SPEED}     |
 // | ____  | FAN_SPD_D_WO  | 0x6010_0058| wireout_37 | Read FAN speed.            | {FAN#7 SPEED, FAN#6 SPEED}     |
 // | ____  | INTERLOCK_WO  | 0x6010_0060| wireout_38 | Read INTER_LOCK.           | TBC                            |
-// | ____  | GPIB_STAT_WO  | 0x6030_0000| wireout_39 | Read GPIB status.          | {Switch Read, Status Read}     |
+// | ____  | GPIB_STAT_WO  | 0x6030_0000| wireout_39 | Read GPIB status.          | GPIB_STATUS     |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | ____  | RESET_TI      | 0x6010_0028| trig_in_50 | Trigger S/W Reset.         | TBC                            |
 // | ____  | TRIG_TI       | 0x60A0_0000| trig_in_51 | Trigger TRIG pulses.       | {PRE_Trig, Trig}               |
@@ -254,7 +254,7 @@
 
 
 `timescale 1ns / 1ps
-`default_nettype none
+//`default_nettype none // for setup test
 
 
 //// TODO: submodule core_endpoint_wrapper //{
@@ -1905,17 +1905,18 @@ IOBUF iobuf__SCIO_1__inst(.IO(io_B15_L11N_SRCC ),
 			                   .I( SCIO_1_out ) , 
 			                   .O( SCIO_1_in  ) ); 
 
-wire  GPIB_nCS      ; //
-wire  GPIB_nRESET   ;
-wire  GPIB_SW_nOE   = 1'b0; // test
-wire  GPIB_DATA_DIR ;
-wire  GPIB_DATA_nOE ;
-wire  GPIB_IRQ      ;
-wire  GPIB_REM      ;
-wire  GPIB_TADCS    ;
-wire  GPIB_LADCS    ;
-wire  GPIB_DCAS     ;
-wire  GPIB_TRIG     ;
+(* keep = "true" *) wire  GPIB_nCS      ; //
+(* keep = "true" *) wire  GPIB_nRESET   ;
+(* keep = "true" *) wire  GPIB_SW_nOE   ; // = 1'b1; // test // not enabled
+(* keep = "true" *) wire  GPIB_DATA_DIR ;
+(* keep = "true" *) wire  GPIB_DATA_nOE ;
+//
+(* keep = "true" *) wire  GPIB_IRQ      ;
+(* keep = "true" *) wire  GPIB_REM      ;
+(* keep = "true" *) wire  GPIB_TADCS    ;
+(* keep = "true" *) wire  GPIB_LADCS    ;
+(* keep = "true" *) wire  GPIB_DCAS     ;
+(* keep = "true" *) wire  GPIB_TRIG     ;
 OBUF obuf__GPIB_nCS_______inst(.O( o_B15_L12N_MRCC ), .I( GPIB_nCS      ) );
 OBUF obuf__GPIB_nRESET____inst(.O( o_B15_L13P_MRCC ), .I( GPIB_nRESET   ) );
 OBUF obuf__GPIB_SW_nOE____inst(.O( o_B15_L13N_MRCC ), .I( GPIB_SW_nOE   ) );
@@ -2040,16 +2041,16 @@ IOBUF iobuf__BD31__inst(.IO( io_B16_L16N ), .T( BD31_tri ), .I( BD31_out ), .O( 
 
 // # A18  # NA
 
-wire  BUF_DATA_DIR ; // 
-wire  nBUF_DATA_OE ;
+(* keep = "true" *) wire  BUF_DATA_DIR ; // 
+(* keep = "true" *) wire  nBUF_DATA_OE ;
 OBUF obuf__BUF_DATA_DIR__inst(.O( o_B16_L17N ), .I( BUF_DATA_DIR ) );
 OBUF obuf__nBUF_DATA_OE__inst(.O( o_B16_L18P ), .I( nBUF_DATA_OE ) );
 
 // # F20  # NA
 
-wire  INTER_RELAY_O ; //
-wire  INTER_LED_O   ; //
-wire  INTER_LOCK_ON ;
+(* keep = "true" *) wire  INTER_RELAY_O ; //
+(* keep = "true" *) wire  INTER_LED_O   ; //
+(* keep = "true" *) wire  INTER_LOCK_ON ;
 OBUF obuf__INTER_RELAY_O__inst(.O( o_B16_L19P ), .I( INTER_RELAY_O ) );
 OBUF obuf__INTER_LED_O____inst(.O( o_B16_L19N ), .I( INTER_LED_O   ) );
 IBUF ibuf__INTER_LOCK_ON__inst( .I( i_B16_L20P ), .O( INTER_LOCK_ON ) );
@@ -2111,12 +2112,12 @@ IOBUF iobuf__QSPI_BK1_IO3__inst(.IO( io_B13_L7N  ), .T( QSPI_BK1_IO3_tri ), .I( 
 
 // # AA9    # NA
 
-wire  ETH_nRESET   ; //
-wire  ETH_nCS      ; //
-wire  ETH_nIRQ     ;
-wire  ETH_nLINKLED ;
-wire  ETH_nTXLED   ;
-wire  ETH_nRXLED   ;
+(* keep = "true" *) wire  ETH_nRESET   ; //
+(* keep = "true" *) wire  ETH_nCS      ; //
+(* keep = "true" *) wire  ETH_nIRQ     ;
+(* keep = "true" *) wire  ETH_nLINKLED ;
+(* keep = "true" *) wire  ETH_nTXLED   ;
+(* keep = "true" *) wire  ETH_nRXLED   ;
 OBUF obuf__ETH_nRESET____inst( .O( o_B13_L9P       ), .I( ETH_nRESET   ) );
 OBUF obuf__ETH_nCS_______inst( .O( o_B13_L9N       ), .I( ETH_nCS      ) );
 IBUF ibuf__ETH_nIRQ______inst( .I( i_B13_L8N       ), .O( ETH_nIRQ     ) );
@@ -2134,14 +2135,14 @@ wire  EXT_TRIG_IN_CW ;
 IBUF ibuf__SYNC_10MHz______inst( .I( i_B13_L13P_MRCC ), .O( SYNC_10MHz ) );
 IBUF ibuf__EXT_TRIG_IN_CW__inst( .I( i_B13_L13N_MRCC ), .O( EXT_TRIG_IN_CW ) );
 
-wire  FPGA_FAN_SENS_0 ;
-wire  FPGA_FAN_SENS_1 ;
-wire  FPGA_FAN_SENS_2 ;
-wire  FPGA_FAN_SENS_3 ;
-wire  FPGA_FAN_SENS_4 ;
-wire  FPGA_FAN_SENS_5 ;
-wire  FPGA_FAN_SENS_6 ;
-wire  FPGA_FAN_SENS_7 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_0 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_1 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_2 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_3 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_4 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_5 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_6 ;
+(* keep = "true" *) wire  FPGA_FAN_SENS_7 ;
 IBUF ibuf__FPGA_FAN_SENS_0__inst( .I( i_B13_L14P_SRCC ), .O( FPGA_FAN_SENS_0 ) );
 IBUF ibuf__FPGA_FAN_SENS_1__inst( .I( i_B13_L14N_SRCC ), .O( FPGA_FAN_SENS_1 ) );
 IBUF ibuf__FPGA_FAN_SENS_2__inst( .I( i_B13_L15P      ), .O( FPGA_FAN_SENS_2 ) );
@@ -2236,28 +2237,28 @@ IBUF ibuf__M1_SPI_MISO____inst(.I( i_B34_L18P ), .O( M1_SPI_MISO   ) );
 	
 // # AA6    # NA
 											   
-wire  TRIG     ;
-wire  SOT      ;
-wire  PRE_TRIG ;
+(* keep = "true" *) wire  TRIG     ;
+(* keep = "true" *) wire  SOT      ;
+(* keep = "true" *) wire  PRE_TRIG ;
 OBUF obuf__TRIG______inst(.O( o_B34_L19P ), .I( TRIG     ) );
 OBUF obuf__SOT_______inst(.O( o_B34_L19N ), .I( SOT      ) );
 OBUF obuf__PRE_TRIG__inst(.O( o_B34_L20P ), .I( PRE_TRIG ) );
 	
 // # AB6    # NA
 	
-wire  FPGA_H_IN1 ;
-wire  FPGA_H_IN2 ;
-wire  FPGA_H_IN3 ;
-wire  FPGA_H_IN4 ;
+(* keep = "true" *) wire  FPGA_H_IN1 ;
+(* keep = "true" *) wire  FPGA_H_IN2 ;
+(* keep = "true" *) wire  FPGA_H_IN3 ;
+(* keep = "true" *) wire  FPGA_H_IN4 ;
 IBUF ibuf__FPGA_H_IN1__inst( .I( i_B34_L21P ), .O( FPGA_H_IN1 ) );
 IBUF ibuf__FPGA_H_IN2__inst( .I( i_B34_L21N ), .O( FPGA_H_IN2 ) );
 IBUF ibuf__FPGA_H_IN3__inst( .I( i_B34_L22P ), .O( FPGA_H_IN3 ) );
 IBUF ibuf__FPGA_H_IN4__inst( .I( i_B34_L22N ), .O( FPGA_H_IN4 ) );
 											   
-wire  FPGA_H_OUT1 ;
-wire  FPGA_H_OUT2 ;
-wire  FPGA_H_OUT3 ;
-wire  FPGA_H_OUT4 ;
+(* keep = "true" *) wire  FPGA_H_OUT1 ;
+(* keep = "true" *) wire  FPGA_H_OUT2 ;
+(* keep = "true" *) wire  FPGA_H_OUT3 ;
+(* keep = "true" *) wire  FPGA_H_OUT4 ;
 OBUF obuf__FPGA_H_OUT1__inst(.O( o_B34_L23P ), .I( FPGA_H_OUT1 ) );
 OBUF obuf__FPGA_H_OUT2__inst(.O( o_B34_L23N ), .I( FPGA_H_OUT2 ) );
 OBUF obuf__FPGA_H_OUT3__inst(.O( o_B34_L24P ), .I( FPGA_H_OUT3 ) );
@@ -2269,8 +2270,8 @@ OBUF obuf__FPGA_H_OUT4__inst(.O( o_B34_L24N ), .I( FPGA_H_OUT4 ) );
 
 //// BANK B35 IOBUF //{
 
-wire  BUF_MASTER0 ;
-wire  BUF_MASTER1 ;
+(* keep = "true" *) wire  BUF_MASTER0 ;
+(* keep = "true" *) wire  BUF_MASTER1 ;
 IBUF ibuf__BUF_MASTER0__inst(.I( i_B35_0_ ), .O( BUF_MASTER0 ) );
 IBUF ibuf__BUF_MASTER1__inst(.I( i_B35_25 ), .O( BUF_MASTER1 ) );
 											   
@@ -2351,10 +2352,10 @@ OBUF obuf__FPGA_nRESET_OUT__inst(.O( o_B35_L18P ), .I( FPGA_nRESET_OUT ) );
 											   
 // # L4    # NA     
 											   
-wire  BUF_LAN_IP0 ;
-wire  BUF_LAN_IP1 ;
-wire  BUF_LAN_IP2 ;
-wire  BUF_LAN_IP3 ;
+(* keep = "true" *) wire  BUF_LAN_IP0 ;
+(* keep = "true" *) wire  BUF_LAN_IP1 ;
+(* keep = "true" *) wire  BUF_LAN_IP2 ;
+(* keep = "true" *) wire  BUF_LAN_IP3 ;
 IBUF ibuf__BUF_LAN_IP0__inst(.I( i_B35_L19P ), .O( BUF_LAN_IP0  ) );
 IBUF ibuf__BUF_LAN_IP1__inst(.I( i_B35_L19N ), .O( BUF_LAN_IP1  ) );
 IBUF ibuf__BUF_LAN_IP2__inst(.I( i_B35_L20P ), .O( BUF_LAN_IP2  ) );
@@ -2890,7 +2891,7 @@ wire [31:0] w_ep1A_hadrs = 32'h6010_0008; wire [31:0] w_ep1Awire; // ERR_LED
 wire [31:0] w_ep1B_hadrs = 32'h6010_0010; wire [31:0] w_ep1Bwire; // FPGA_LED
 wire [31:0] w_ep1C_hadrs = 32'h6010_0030; wire [31:0] w_ep1Cwire; // HDL I/F OUT 
 wire [31:0] w_ep1D_hadrs = 32'h6010_0068; wire [31:0] w_ep1Dwire; // {INTER_LOCK RELAY, INTER_LOCK LED}
-wire [31:0] w_ep1E_hadrs = 32'h6030_0008; wire [31:0] w_ep1Ewire; // GPIB CONTROL // Control Read & Write  
+wire [31:0] w_ep1E_hadrs = 32'h6030_0010; wire [31:0] w_ep1Ewire; // GPIB CONTROL // Control Read & Write  
 //}
 
 // wire out //{
@@ -2909,7 +2910,7 @@ wire [31:0] w_ep35_hadrs = 32'h6010_0048; wire [31:0] w_ep35wire; // {FAN#3 FAN 
 wire [31:0] w_ep36_hadrs = 32'h6010_0050; wire [31:0] w_ep36wire; // {FAN#5 FAN SPEED, FAN#4 FAN SPEED}
 wire [31:0] w_ep37_hadrs = 32'h6010_0058; wire [31:0] w_ep37wire; // {FAN#7 FAN SPEED, FAN#6 FAN SPEED}
 wire [31:0] w_ep38_hadrs = 32'h6010_0060; wire [31:0] w_ep38wire; // INTER_LOCK
-wire [31:0] w_ep39_hadrs = 32'h6030_0000; wire [31:0] w_ep39wire; // {GPIB Switch Read, GPIB Status Read}
+wire [31:0] w_ep39_hadrs = 32'h6030_0000; wire [31:0] w_ep39wire; // GPIB_STATUS
 wire [31:0] w_ep3A_hadrs = 32'h6060_0090; wire [31:0] w_ep3Awire; // reserved // XADC_TEMP_WO  
 wire [31:0] w_ep3B_hadrs = 32'h6060_0098; wire [31:0] w_ep3Bwire; // reserved // XADC_VOLT_WO  
 //}
@@ -2917,10 +2918,10 @@ wire [31:0] w_ep3B_hadrs = 32'h6060_0098; wire [31:0] w_ep3Bwire; // reserved //
 // trig in //{
 wire [31:0] w_ep40_hadrs = 32'h6070_0050; wire w_ep40ck = sys_clk      ; wire [31:0] w_ep40trig;  // reserved // TEST_TI       
 wire [31:0] w_ep42_hadrs = 32'h6070_0010; wire w_ep42ck = base_sspi_clk; wire [31:0] w_ep42trig;  // MSPI_TI // Mx_SPI_Trig
+//
 wire [31:0] w_ep50_hadrs = 32'h6010_0028; wire w_ep50ck = sys_clk      ; wire [31:0] w_ep50trig;  // S/W Reset
 wire [31:0] w_ep51_hadrs = 32'h60A0_0000; wire w_ep51ck = sys_clk      ; wire [31:0] w_ep51trig;  // {PRE_Trig, Trig}
 wire [31:0] w_ep52_hadrs = 32'h60A0_0008; wire w_ep52ck = sys_clk      ; wire [31:0] w_ep52trig;  // SOT
-
 wire [31:0] w_ep53_hadrs = 32'h6070_0090; wire w_ep53ck = sys_clk      ; wire [31:0] w_ep53trig;  // reserved // MEM_TI        
 
 //}
@@ -3476,9 +3477,17 @@ assign w_ep37wire = {w_FAN_SPEED7,w_FAN_SPEED6};
 assign w_ep38wire[31:1] = 31'b0;
 assign w_ep38wire[   0] = INTER_LOCK_ON;
 //
-wire [15:0] w_GPIB_STATUS  = 16'b0; // test 
-wire [15:0] w_GPIB_SW      = 16'b0; // test 
-assign w_ep39wire = {w_GPIB_SW, w_GPIB_STATUS};
+wire [15:0] w_GPIB_STATUS ; //  = 16'b0; // test // GPIB_TRIG, GPIB_DCAS, GPIB_LADCS, GPIB_TADCS, GPIB_REM
+assign w_GPIB_STATUS[31:5] = 27'b0;
+assign w_GPIB_STATUS[4]    = GPIB_TRIG ;
+assign w_GPIB_STATUS[3]    = GPIB_DCAS ;
+assign w_GPIB_STATUS[2]    = GPIB_LADCS;
+assign w_GPIB_STATUS[1]    = GPIB_TADCS;
+assign w_GPIB_STATUS[0]    = GPIB_REM  ;
+assign w_ep39wire = w_GPIB_STATUS;
+//wire [15:0] w_GPIB_SW      = 16'b0; // test //$$ from outside
+//assign w_ep39wire = {w_GPIB_SW, w_GPIB_STATUS};
+
 
 // ti
 wire w_SW_RESET = w_ep50trig[0];
@@ -4948,16 +4957,22 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	.ep02_hadrs(w_ep02_hadrs),  .ep02wire     (w_ep02wire),  // input wire [31:0] // output wire [31:0] // 
 	.ep03_hadrs(w_ep03_hadrs),  .ep03wire     (w_ep03wire),  // input wire [31:0] // output wire [31:0] // 
 	//.ep04_hadrs(w_ep04_hadrs),  .ep04wire     (w_ep04wire),  // input wire [31:0] // output wire [31:0] // 
+	.ep12_hadrs(w_ep02_hadrs),  .ep12wire     (w_ep12wire),  // input wire [31:0] // output wire [31:0] // 
+	.ep13_hadrs(w_ep03_hadrs),  .ep13wire     (w_ep13wire),  // input wire [31:0] // output wire [31:0] // 
 	.ep16_hadrs(w_ep16_hadrs),  .ep16wire     (w_ep16wire),  // input wire [31:0] // output wire [31:0] // MSPI_EN_CS_WI // {SPI_CH_SELEC, SLOT_CS_MASK}
 	.ep17_hadrs(w_ep17_hadrs),  .ep17wire     (w_ep17wire),  // input wire [31:0] // output wire [31:0] // MSPI_CON_WI   // {Mx_SPI_MOSI_DATA_H, Mx_SPI_MOSI_DATA_L}
-	.ep1A_hadrs(w_ep1A_hadrs),  .ep00wire     (w_ep1Awire),  // input wire [31:0] // output wire [31:0] // ERR_LED
-	.ep1B_hadrs(w_ep1B_hadrs),  .ep01wire     (w_ep1Bwire),  // input wire [31:0] // output wire [31:0] // FPGA_LED
-	.ep1C_hadrs(w_ep1C_hadrs),  .ep02wire     (w_ep1Cwire),  // input wire [31:0] // output wire [31:0] // H I/F OUT 
-	.ep1D_hadrs(w_ep1D_hadrs),  .ep03wire     (w_ep1Dwire),  // input wire [31:0] // output wire [31:0] // {INTER_LOCK RELAY, INTER_LOCK LED}
-	.ep1E_hadrs(w_ep1E_hadrs),  .ep04wire     (w_ep1Ewire),  // input wire [31:0] // output wire [31:0] // GPIB CONTROL // Control Read & Write     
+	.ep1A_hadrs(w_ep1A_hadrs),  .ep1Awire     (w_ep1Awire),  // input wire [31:0] // output wire [31:0] // ERR_LED
+	.ep1B_hadrs(w_ep1B_hadrs),  .ep1Bwire     (w_ep1Bwire),  // input wire [31:0] // output wire [31:0] // FPGA_LED
+	.ep1C_hadrs(w_ep1C_hadrs),  .ep1Cwire     (w_ep1Cwire),  // input wire [31:0] // output wire [31:0] // H I/F OUT 
+	.ep1D_hadrs(w_ep1D_hadrs),  .ep1Dwire     (w_ep1Dwire),  // input wire [31:0] // output wire [31:0] // {INTER_LOCK RELAY, INTER_LOCK LED}
+	.ep1E_hadrs(w_ep1E_hadrs),  .ep1Ewire     (w_ep1Ewire),  // input wire [31:0] // output wire [31:0] // GPIB CONTROL // Control Read & Write     
 	//}
 	
 	//// wire-out //{
+	.ep20_hadrs(w_ep20_hadrs),  .ep20wire     (w_ep20wire),  // input wire [31:0] // input wire [31:0] //
+	.ep21_hadrs(w_ep21_hadrs),  .ep21wire     (w_ep21wire),  // input wire [31:0] // input wire [31:0] //
+	.ep22_hadrs(w_ep22_hadrs),  .ep22wire     (w_ep22wire),  // input wire [31:0] // input wire [31:0] //
+	.ep23_hadrs(w_ep23_hadrs),  .ep23wire     (w_ep23wire),  // input wire [31:0] // input wire [31:0] //
 	.ep24_hadrs(w_ep24_hadrs),  .ep24wire     (w_ep24wire),  // input wire [31:0] // input wire [31:0] // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
 	.ep30_hadrs(w_ep30_hadrs),  .ep30wire     (w_ep30wire),  // input wire [31:0] // input wire [31:0] // {MAGIC CODE_H, MAGIC CODE_L}
 	.ep31_hadrs(w_ep31_hadrs),  .ep31wire     (w_ep31wire),  // input wire [31:0] // input wire [31:0] // MASTER MODE LAN IP Address 
@@ -4969,17 +4984,23 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	.ep37_hadrs(w_ep37_hadrs),  .ep37wire     (w_ep37wire),  // input wire [31:0] // input wire [31:0] // {FAN#7 FAN SPEED, FAN#6 FAN SPEED}
 	.ep38_hadrs(w_ep38_hadrs),  .ep38wire     (w_ep38wire),  // input wire [31:0] // input wire [31:0] // INTER_LOCK
 	.ep39_hadrs(w_ep39_hadrs),  .ep39wire     (w_ep39wire),  // input wire [31:0] // input wire [31:0] // {GPIB Switch Read, GPIB Status Read}
+	.ep3A_hadrs(w_ep3A_hadrs),  .ep3Awire     (w_ep3Awire),  // input wire [31:0] // input wire [31:0] //
+	.ep3B_hadrs(w_ep3B_hadrs),  .ep3Bwire     (w_ep3Bwire),  // input wire [31:0] // input wire [31:0] //
 	//}
 	
 	//// trig-in //{
+	.ep40_hadrs(w_ep40_hadrs),  .ep40ck       (w_ep40ck),  .ep40trig   (w_ep40trig),  // input wire [31:0] // input wire  // output wire [31:0] //
 	.ep42_hadrs(w_ep42_hadrs),  .ep42ck       (w_ep42ck),  .ep42trig   (w_ep42trig),  // input wire [31:0] // input wire  // output wire [31:0] // MSPI_TI // Mx_SPI_Trig
 	.ep50_hadrs(w_ep50_hadrs),  .ep50ck       (w_ep50ck),  .ep50trig   (w_ep50trig),  // input wire [31:0] // input wire  // output wire [31:0] // S/W Reset
 	.ep51_hadrs(w_ep51_hadrs),  .ep51ck       (w_ep51ck),  .ep51trig   (w_ep51trig),  // input wire [31:0] // input wire  // output wire [31:0] // {PRE_Trig, Trig}
 	.ep52_hadrs(w_ep52_hadrs),  .ep52ck       (w_ep52ck),  .ep52trig   (w_ep52trig),  // input wire [31:0] // input wire  // output wire [31:0] // SOT
+	.ep53_hadrs(w_ep53_hadrs),  .ep53ck       (w_ep53ck),  .ep53trig   (w_ep53trig),  // input wire [31:0] // input wire  // output wire [31:0] //
 	//}
 	
 	//// trig-out //{
+	.ep60_hadrs(w_ep60_hadrs),  .ep60ck       (w_ep60ck),  .ep60trig   (w_ep60trig),  // input wire [31:0] // input wire  // input wire [31:0] //
 	.ep62_hadrs(w_ep62_hadrs),  .ep62ck       (w_ep62ck),  .ep62trig   (w_ep62trig),  // input wire [31:0] // input wire  // input wire [31:0] // MSPI_TO // Mx_SPI_DONE
+	.ep73_hadrs(w_ep73_hadrs),  .ep73ck       (w_ep73ck),  .ep73trig   (w_ep73trig),  // input wire [31:0] // input wire  // input wire [31:0] //
 	//}
 	
 	//// pipe-in 
@@ -5506,7 +5527,11 @@ assign  GPIB_DATA_nOE   = w_GPIB_nCS_sig;
 
 
 //	 GPIB Switch Read
-//$$ wire w_GPIB_SW_nOE;
+wire w_GPIB_SW_nOE;
+
+//assign w_GPIB_SW_nOE  =  (w_nCS_GPIB_sig == 1'b0 && w_BA7_2 == 6'b00_0010 && w_nBOE == 1'b0) ?   1'b0 :  1'b1;
+assign w_GPIB_SW_nOE  =  ( (!w_nBNE1) & (w_FMC_ADD==32'h6030_0008) & (w_nBOE == 1'b0) )? 1'b0 : 1'b1;
+assign GPIB_SW_nOE  = w_GPIB_SW_nOE;
 
 //$$ wire [1:0] w_GPIB_REM_ALT_sig;
 //$$ wire [1:0] w_GPIB_TADCS_ALT_sig;
