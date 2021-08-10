@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="83777576000fs"></ZoomStartTime>
-      <ZoomEndTime time="107677576001fs"></ZoomEndTime>
-      <Cursor1Time time="103437576000fs"></Cursor1Time>
+      <ZoomStartTime time="64409898403fs"></ZoomStartTime>
+      <ZoomEndTime time="87056127913fs"></ZoomEndTime>
+      <Cursor1Time time="92318408000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="278"></NameColumnWidth>
-      <ValueColumnWidth column_width="80"></ValueColumnWidth>
+      <ValueColumnWidth column_width="76"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="73" />
+   <WVObjectSize size="75" />
    <wave_markers>
       <marker label="" time="3581960000" />
       <marker label="" time="1620296000" />
@@ -340,5 +340,13 @@
    <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_rd__sadrs_h280">
       <obj_property name="ElementShortName">r_rd__sadrs_h280</obj_property>
       <obj_property name="ObjectShortName">r_rd__sadrs_h280</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_frame_miso">
+      <obj_property name="ElementShortName">r_frame_miso[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_frame_miso[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_frame_miso_trig">
+      <obj_property name="ElementShortName">r_frame_miso_trig</obj_property>
+      <obj_property name="ObjectShortName">r_frame_miso_trig</obj_property>
    </wvobject>
 </wave_config>
