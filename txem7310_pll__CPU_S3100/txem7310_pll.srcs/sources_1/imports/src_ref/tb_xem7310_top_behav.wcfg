@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_xem7310_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_xem7310_top" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="2000000001fs"></ZoomEndTime>
+      <Cursor1Time time="713604000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="248"></NameColumnWidth>
+      <ValueColumnWidth column_width="98"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="29" />
+   <wvobject fp_name="/tb_xem7310_top/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/reset_n" type="logic">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/en" type="logic">
+      <obj_property name="ElementShortName">en</obj_property>
+      <obj_property name="ObjectShortName">en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/clk_osc" type="logic">
+      <obj_property name="ElementShortName">clk_osc</obj_property>
+      <obj_property name="ObjectShortName">clk_osc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/clk_bus" type="logic">
+      <obj_property name="ElementShortName">clk_bus</obj_property>
+      <obj_property name="ObjectShortName">clk_bus</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/init" type="logic">
+      <obj_property name="ElementShortName">init</obj_property>
+      <obj_property name="ObjectShortName">init</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/update" type="logic">
+      <obj_property name="ElementShortName">update</obj_property>
+      <obj_property name="ObjectShortName">update</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/test" type="logic">
+      <obj_property name="ElementShortName">test</obj_property>
+      <obj_property name="ObjectShortName">test</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/test_sdi_pdata" type="array">
+      <obj_property name="ElementShortName">test_sdi_pdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">test_sdi_pdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/test_sdo_pdata" type="array">
+      <obj_property name="ElementShortName">test_sdo_pdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">test_sdo_pdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/r_sdo" type="array">
+      <obj_property name="ElementShortName">r_sdo[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_sdo[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/sdo" type="logic">
+      <obj_property name="ElementShortName">sdo</obj_property>
+      <obj_property name="ObjectShortName">sdo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/sclk" type="logic">
+      <obj_property name="ElementShortName">sclk</obj_property>
+      <obj_property name="ObjectShortName">sclk</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider28">
+      <obj_property name="label">loopback</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/clk_locked" type="logic">
+      <obj_property name="ElementShortName">clk_locked</obj_property>
+      <obj_property name="ObjectShortName">clk_locked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_pulse_out" type="logic">
+      <obj_property name="ElementShortName">w_pulse_out</obj_property>
+      <obj_property name="ObjectShortName">w_pulse_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_pulse_loopback_in" type="logic">
+      <obj_property name="ElementShortName">w_pulse_loopback_in</obj_property>
+      <obj_property name="ObjectShortName">w_pulse_loopback_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/test_clk" type="logic">
+      <obj_property name="ElementShortName">test_clk</obj_property>
+      <obj_property name="ObjectShortName">test_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_enable__pulse_loopback" type="logic">
+      <obj_property name="ElementShortName">w_enable__pulse_loopback</obj_property>
+      <obj_property name="ObjectShortName">w_enable__pulse_loopback</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_trig__pulse_shot" type="logic">
+      <obj_property name="ElementShortName">w_trig__pulse_shot</obj_property>
+      <obj_property name="ObjectShortName">w_trig__pulse_shot</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/r_cnt__pulse_period" type="array">
+      <obj_property name="ElementShortName">r_cnt__pulse_period[7:0]</obj_property>
+      <obj_property name="ObjectShortName">r_cnt__pulse_period[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/r_cnt__pulse_width" type="array">
+      <obj_property name="ElementShortName">r_cnt__pulse_width[7:0]</obj_property>
+      <obj_property name="ObjectShortName">r_cnt__pulse_width[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/r_cnt__pulse_num" type="array">
+      <obj_property name="ElementShortName">r_cnt__pulse_num[7:0]</obj_property>
+      <obj_property name="ObjectShortName">r_cnt__pulse_num[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_set__pulse_period" type="array">
+      <obj_property name="ElementShortName">w_set__pulse_period[7:0]</obj_property>
+      <obj_property name="ObjectShortName">w_set__pulse_period[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_set__pulse_width" type="array">
+      <obj_property name="ElementShortName">w_set__pulse_width[7:0]</obj_property>
+      <obj_property name="ObjectShortName">w_set__pulse_width[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_set__pulse_num" type="array">
+      <obj_property name="ElementShortName">w_set__pulse_num[7:0]</obj_property>
+      <obj_property name="ObjectShortName">w_set__pulse_num[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/r_pulse_out" type="logic">
+      <obj_property name="ElementShortName">r_pulse_out</obj_property>
+      <obj_property name="ObjectShortName">r_pulse_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/r_cnt__pulse_loopback" type="array">
+      <obj_property name="ElementShortName">r_cnt__pulse_loopback[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_cnt__pulse_loopback[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_xem7310_top/xem7310_inst/w_reset__pulse_loopback_cnt" type="logic">
+      <obj_property name="ElementShortName">w_reset__pulse_loopback_cnt</obj_property>
+      <obj_property name="ObjectShortName">w_reset__pulse_loopback_cnt</obj_property>
+   </wvobject>
+</wave_config>
