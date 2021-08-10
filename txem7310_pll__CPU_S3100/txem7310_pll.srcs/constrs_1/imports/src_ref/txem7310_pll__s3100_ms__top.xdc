@@ -474,6 +474,7 @@ set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clo
 set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks host_clk]
 
 set_clock_groups -asynchronous -group [get_clocks host_clk] -group [get_clocks sys_clk            ]
+set_clock_groups -asynchronous -group [get_clocks host_clk] -group [get_clocks mcs_clk            ]
   
 
 ############################################################################
@@ -522,10 +523,11 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o
 set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B13*]
 
 ## B14 common
-set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports i_B14*]
-set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports i_B14*]
+set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B14*]
+set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B14*]
 #
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports o_B14*]
+set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B14*]
+set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B14*]
 
 ## B15 common
 set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B15*]
