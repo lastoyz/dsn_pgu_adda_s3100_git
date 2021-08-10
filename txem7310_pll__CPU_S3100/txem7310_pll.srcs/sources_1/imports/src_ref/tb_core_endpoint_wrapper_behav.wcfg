@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="754084166fs"></ZoomStartTime>
-      <ZoomEndTime time="4238968031fs"></ZoomEndTime>
-      <Cursor1Time time="4524505000fs"></Cursor1Time>
+      <ZoomStartTime time="3766382333fs"></ZoomStartTime>
+      <ZoomEndTime time="4721382334fs"></ZoomEndTime>
+      <Cursor1Time time="4410185000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="202"></NameColumnWidth>
-      <ValueColumnWidth column_width="84"></ValueColumnWidth>
+      <ValueColumnWidth column_width="76"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="23" />
+   <WVObjectSize size="36" />
    <wave_markers>
       <marker label="" time="2239017000" />
       <marker label="" time="1924769000" />
@@ -73,6 +73,10 @@
       <obj_property name="ElementShortName">r_smp_NCE</obj_property>
       <obj_property name="ObjectShortName">r_smp_NCE</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/i_FMC_NCE">
+      <obj_property name="ElementShortName">i_FMC_NCE</obj_property>
+      <obj_property name="ObjectShortName">i_FMC_NCE</obj_property>
+   </wvobject>
    <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/r_ADRS_BUS">
       <obj_property name="ElementShortName">r_ADRS_BUS[31:0]</obj_property>
       <obj_property name="ObjectShortName">r_ADRS_BUS[31:0]</obj_property>
@@ -86,6 +90,20 @@
    <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/r_DATA_RD">
       <obj_property name="ElementShortName">r_DATA_RD[15:0]</obj_property>
       <obj_property name="ObjectShortName">r_DATA_RD[15:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/i_FMC_NOE">
+      <obj_property name="ElementShortName">i_FMC_NOE</obj_property>
+      <obj_property name="ObjectShortName">i_FMC_NOE</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/w_OE_BUS">
+      <obj_property name="ElementShortName">w_OE_BUS</obj_property>
+      <obj_property name="ObjectShortName">w_OE_BUS</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/r_smp_OE_BUS">
+      <obj_property name="ElementShortName">r_smp_OE_BUS[1:0]</obj_property>
+      <obj_property name="ObjectShortName">r_smp_OE_BUS[1:0]</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/w_rise_OE_BUS">
       <obj_property name="ElementShortName">w_rise_OE_BUS</obj_property>
@@ -132,5 +150,43 @@
       <obj_property name="DisplayName">FullPathName</obj_property>
       <obj_property name="ElementShortName">r_epXXtrig_ck[31:0]</obj_property>
       <obj_property name="ObjectShortName">r_epXXtrig_ck[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/ep93pipe">
+      <obj_property name="ElementShortName">ep93pipe[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ep93pipe[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/ep93wr">
+      <obj_property name="ElementShortName">ep93wr</obj_property>
+      <obj_property name="ObjectShortName">ep93wr</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_pipe_in__h93/r_epXXpipe">
+      <obj_property name="ElementShortName">r_epXXpipe[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_epXXpipe[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_pipe_in__h93/i_rise_WE_BUS">
+      <obj_property name="ElementShortName">i_rise_WE_BUS</obj_property>
+      <obj_property name="ObjectShortName">i_rise_WE_BUS</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_pipe_in__h93/w_rise_WE_BUS">
+      <obj_property name="ElementShortName">w_rise_WE_BUS</obj_property>
+      <obj_property name="ObjectShortName">w_rise_WE_BUS</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_pipe_in__h93/i_DATA_WR">
+      <obj_property name="ElementShortName">i_DATA_WR[15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_DATA_WR[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/sub_pipe_in__h93/r_epXXwr">
+      <obj_property name="ElementShortName">r_epXXwr</obj_property>
+      <obj_property name="ObjectShortName">r_epXXwr</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/epB3pipe">
+      <obj_property name="ElementShortName">epB3pipe[31:0]</obj_property>
+      <obj_property name="ObjectShortName">epB3pipe[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/epB3rd">
+      <obj_property name="ElementShortName">epB3rd</obj_property>
+      <obj_property name="ObjectShortName">epB3rd</obj_property>
    </wvobject>
 </wave_config>
