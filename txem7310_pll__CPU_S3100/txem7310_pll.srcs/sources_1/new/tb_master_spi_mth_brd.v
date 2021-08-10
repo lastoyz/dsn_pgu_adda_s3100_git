@@ -620,8 +620,25 @@ $display(" Wait for rise of w_done_frame");
 	
 #0; 
 //// test pipe in 
+
 // frame start
-begin : frame_wr__trig__h24C
+begin : frame_wr__trig__h24C_hi
+	test_frame_rdwr	= 1'b0; // 1/0 for read/write
+	test_adrs       = 10'h24C + 2;
+	test_data       = 16'h2BC3;
+	#200;
+	test_frame 		= 1'b1; 
+	#200;
+	test_frame 		= 1'b0; 
+	end
+#200;
+//
+$display(" Wait for rise of w_done_frame"); 
+@(posedge w_done_frame)
+#200;
+
+// frame start
+begin : frame_wr__trig__h24C_lo
 	test_frame_rdwr	= 1'b0; // 1/0 for read/write
 	test_adrs       = 10'h24C;
 	test_data       = 16'hD23F;
@@ -635,6 +652,7 @@ begin : frame_wr__trig__h24C
 $display(" Wait for rise of w_done_frame"); 
 @(posedge w_done_frame)
 #200;
+
 ///////////////////////
 	$finish;
 
