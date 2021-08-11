@@ -3043,29 +3043,6 @@ assign  w_SSPI_TEST_MISO    = (w_MSPI_EN_CS_WI==0)? w_M0_SPI_MISO :
 
 //// address, data, control
 
-//$$  wire [25:20] w_BA25_20; //{
-//$$  assign  w_BA25_20[25] = BA25;
-//$$  assign  w_BA25_20[24] = BA24;
-//$$  assign  w_BA25_20[23] = BA23;
-//$$  assign  w_BA25_20[22] = BA22;
-//$$  assign  w_BA25_20[21] = BA21;
-//$$  assign  w_BA25_20[20] = BA20;
-//$$  //}
-//$$  
-//$$  wire [19:18] w_BA19_18; //{
-//$$  assign  w_BA19_18[19] = BA19;
-//$$  assign  w_BA19_18[18] = BA18;
-//$$  //}
-//$$  
-//$$  wire [ 7: 2] w_BA7_2; //{
-//$$  assign  w_BA7_2[ 7] = BA7;
-//$$  assign  w_BA7_2[ 6] = BA6;
-//$$  assign  w_BA7_2[ 5] = BA5;
-//$$  assign  w_BA7_2[ 4] = BA4;
-//$$  assign  w_BA7_2[ 3] = BA3;
-//$$  assign  w_BA7_2[ 2] = BA2;
-//$$  //}
-
 wire [31:0] w_BD_out; //{
 assign BD0__out = w_BD_out[0]  ;
 assign BD1__out = w_BD_out[1]  ;
@@ -3196,7 +3173,7 @@ assign  w_nBWE = nBWE;
 (* keep = "true" *) wire [15 : 0] w_FMC_DRD ;
 (* keep = "true" *) wire [15 : 0] w_FMC_DRD_TRI ;
 (* keep = "true" *) wire          w_FMC_NWE = nBWE;
-(* keep = "true" *) wire [15 : 0] w_FMC_DWR = w_BD_in;
+(* keep = "true" *) wire [15 : 0] w_FMC_DWR = w_BD_in[15:0];
 
 assign w_FMC_ADD [31:26] = 6'b0;
 assign w_FMC_ADD [25:18] = {BA25, BA24, BA23, BA22, BA21, BA20, BA19, BA18};
@@ -3307,7 +3284,7 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 
 wire w_BUF_DATA_DIR; wire w_nBUF_DATA_OE; //{
 
-assign  BUF_DATA_DIR = ~w_nBOE;                                   // w_BUF_DATA_DIR;
+assign  BUF_DATA_DIR = ~w_nBOE;  //$$ H : BD --> MD               // w_BUF_DATA_DIR;
 assign  nBUF_DATA_OE = w_nBNE1 & w_nBNE2 & w_nBNE3 & w_nBNE4;     // w_nBUF_DATA_OE;
 
 //}
@@ -3363,10 +3340,10 @@ assign  FPGA_GPIO_PH7 = ETH_nIRQ;
 
 //------ GPIB SETING_TNT4882 -----------------//
 
-wire w_GPIB_nCS_sig         = ( (!w_nBNE1) & (w_FMC_ADD[31:20]==12'h604) )? 1'b1 : 1'b0; //(4)  GPIB_nCS_sig		   0x6040 0000 ~ 0x604F FFFF
+wire w_GPIB_nCS_sig         = ( (!w_nBNE1) & (w_FMC_ADD[31:20]==12'h604) )? 1'b0 : 1'b1; //(4)  GPIB_nCS_sig		   0x6040 0000 ~ 0x604F FFFF
 assign  GPIB_nCS        = w_GPIB_nCS_sig;
 assign  GPIB_nRESET     = reset_n;
-assign  GPIB_DATA_DIR   = ~w_nBOE;
+assign  GPIB_DATA_DIR   = w_nBOE; //$$ ~w_nBOE; // L for GD --> BD
 assign  GPIB_DATA_nOE   = w_GPIB_nCS_sig;
 
 

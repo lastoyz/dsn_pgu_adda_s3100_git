@@ -361,7 +361,6 @@ module core_endpoint_wrapper ( //{
 	input  wire          i_FMC_NWE ,  // input  wire          // FMC_NWE
 	input  wire [15 : 0] i_FMC_DWR ,  // input  wire [15 : 0] // FMC_DWR
 	
-	
 	// IO buffer controls ...
 	output wire [15 : 0] o_FMC_DRD_TRI ,  // output wire [15 : 0] // 1 for tri, 0 for output.
 
@@ -438,10 +437,13 @@ module core_endpoint_wrapper ( //{
 	input wire [31:0] epB3_hadrs, output wire epB3rd,  input wire [31:0] epB3pipe,
 	//}
 	
-	//// pipe-ck
+	//// pipe-ck //{
 	output wire epPPck, // sync with write/read of pipe // w_ck_core
+	//}
 	
-	output wire valid // test out
+	// test //{
+	output wire valid
+	//}
 	
 	);
 	
@@ -895,16 +897,19 @@ core_endpoint_wrapper  core_endpoint_wrapper__inst (
 	.ep73_hadrs(32'h0000_0000),  .ep73ck       (       ),  .ep73trig   (                   ),  // input wire [31:0] // input wire  // input wire [31:0] //
 	//}
 	
-	//// pipe-in 
+	//// pipe-in //{
 	//.ep80_hadrs(),  .ep80wr       (),  .ep80pipe   (),  // input wire [31:0] // output wire  // output wire [31:0]
 	.ep93_hadrs(32'h6070_00A0),  .ep93wr       (),  .ep93pipe   (), // input wire [31:0] // output wire  // output wire [31:0]
+	//}
 	
-	//// pipe-out
+	//// pipe-out //{
 	//.epA0_hadrs(),  .epA0rd       (),  .epA0pipe   (),  // input wire [31:0] // output wire  // input wire [31:0]
 	.epB3_hadrs(32'h6070_00A8),  .epB3rd       (),  .epB3pipe   (32'hCA53_3AC5),  // input wire [31:0] // output wire  // input wire [31:0]
+	//}
 	
-	//// pipe-ck
+	//// pipe-ck //{
 	.epPPck       (),  // output wire  // sync with write/read of pipe
+	//}
 	
 	// test //{
 	.valid    ()
