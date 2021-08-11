@@ -10,8 +10,8 @@ set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
 set_property port_width 1 [get_debug_ports u_ila_0/clk]
 connect_debug_port u_ila_0/clk [get_nets [list clk_wiz_0_inst/inst/clk_out2_140M]]
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
-set_property port_width 16 [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[0]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[1]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[2]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[3]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[4]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[5]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[6]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[7]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[8]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[9]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[10]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[11]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[12]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[13]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[14]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[15]}]]
+set_property port_width 32 [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {core_endpoint_wrapper__inst/i_FMC_ADD[0]} {core_endpoint_wrapper__inst/i_FMC_ADD[1]} {core_endpoint_wrapper__inst/i_FMC_ADD[2]} {core_endpoint_wrapper__inst/i_FMC_ADD[3]} {core_endpoint_wrapper__inst/i_FMC_ADD[4]} {core_endpoint_wrapper__inst/i_FMC_ADD[5]} {core_endpoint_wrapper__inst/i_FMC_ADD[6]} {core_endpoint_wrapper__inst/i_FMC_ADD[7]} {core_endpoint_wrapper__inst/i_FMC_ADD[8]} {core_endpoint_wrapper__inst/i_FMC_ADD[9]} {core_endpoint_wrapper__inst/i_FMC_ADD[10]} {core_endpoint_wrapper__inst/i_FMC_ADD[11]} {core_endpoint_wrapper__inst/i_FMC_ADD[12]} {core_endpoint_wrapper__inst/i_FMC_ADD[13]} {core_endpoint_wrapper__inst/i_FMC_ADD[14]} {core_endpoint_wrapper__inst/i_FMC_ADD[15]} {core_endpoint_wrapper__inst/i_FMC_ADD[16]} {core_endpoint_wrapper__inst/i_FMC_ADD[17]} {core_endpoint_wrapper__inst/i_FMC_ADD[18]} {core_endpoint_wrapper__inst/i_FMC_ADD[19]} {core_endpoint_wrapper__inst/i_FMC_ADD[20]} {core_endpoint_wrapper__inst/i_FMC_ADD[21]} {core_endpoint_wrapper__inst/i_FMC_ADD[22]} {core_endpoint_wrapper__inst/i_FMC_ADD[23]} {core_endpoint_wrapper__inst/i_FMC_ADD[24]} {core_endpoint_wrapper__inst/i_FMC_ADD[25]} {core_endpoint_wrapper__inst/i_FMC_ADD[26]} {core_endpoint_wrapper__inst/i_FMC_ADD[27]} {core_endpoint_wrapper__inst/i_FMC_ADD[28]} {core_endpoint_wrapper__inst/i_FMC_ADD[29]} {core_endpoint_wrapper__inst/i_FMC_ADD[30]} {core_endpoint_wrapper__inst/i_FMC_ADD[31]}]]
 create_debug_core u_ila_1 ila
 set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_1]
 set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_1]
@@ -43,15 +43,15 @@ connect_debug_port u_ila_2/probe0 [get_nets [list {sub_timestamp_inst/r_global_t
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
 set_property port_width 16 [get_debug_ports u_ila_0/probe1]
-connect_debug_port u_ila_0/probe1 [get_nets [list {core_endpoint_wrapper__inst/o_FMC_DRD[0]} {core_endpoint_wrapper__inst/o_FMC_DRD[1]} {core_endpoint_wrapper__inst/o_FMC_DRD[2]} {core_endpoint_wrapper__inst/o_FMC_DRD[3]} {core_endpoint_wrapper__inst/o_FMC_DRD[4]} {core_endpoint_wrapper__inst/o_FMC_DRD[5]} {core_endpoint_wrapper__inst/o_FMC_DRD[6]} {core_endpoint_wrapper__inst/o_FMC_DRD[7]} {core_endpoint_wrapper__inst/o_FMC_DRD[8]} {core_endpoint_wrapper__inst/o_FMC_DRD[9]} {core_endpoint_wrapper__inst/o_FMC_DRD[10]} {core_endpoint_wrapper__inst/o_FMC_DRD[11]} {core_endpoint_wrapper__inst/o_FMC_DRD[12]} {core_endpoint_wrapper__inst/o_FMC_DRD[13]} {core_endpoint_wrapper__inst/o_FMC_DRD[14]} {core_endpoint_wrapper__inst/o_FMC_DRD[15]}]]
+connect_debug_port u_ila_0/probe1 [get_nets [list {core_endpoint_wrapper__inst/i_FMC_DWR[0]} {core_endpoint_wrapper__inst/i_FMC_DWR[1]} {core_endpoint_wrapper__inst/i_FMC_DWR[2]} {core_endpoint_wrapper__inst/i_FMC_DWR[3]} {core_endpoint_wrapper__inst/i_FMC_DWR[4]} {core_endpoint_wrapper__inst/i_FMC_DWR[5]} {core_endpoint_wrapper__inst/i_FMC_DWR[6]} {core_endpoint_wrapper__inst/i_FMC_DWR[7]} {core_endpoint_wrapper__inst/i_FMC_DWR[8]} {core_endpoint_wrapper__inst/i_FMC_DWR[9]} {core_endpoint_wrapper__inst/i_FMC_DWR[10]} {core_endpoint_wrapper__inst/i_FMC_DWR[11]} {core_endpoint_wrapper__inst/i_FMC_DWR[12]} {core_endpoint_wrapper__inst/i_FMC_DWR[13]} {core_endpoint_wrapper__inst/i_FMC_DWR[14]} {core_endpoint_wrapper__inst/i_FMC_DWR[15]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
 set_property port_width 16 [get_debug_ports u_ila_0/probe2]
-connect_debug_port u_ila_0/probe2 [get_nets [list {core_endpoint_wrapper__inst/i_FMC_DWR[0]} {core_endpoint_wrapper__inst/i_FMC_DWR[1]} {core_endpoint_wrapper__inst/i_FMC_DWR[2]} {core_endpoint_wrapper__inst/i_FMC_DWR[3]} {core_endpoint_wrapper__inst/i_FMC_DWR[4]} {core_endpoint_wrapper__inst/i_FMC_DWR[5]} {core_endpoint_wrapper__inst/i_FMC_DWR[6]} {core_endpoint_wrapper__inst/i_FMC_DWR[7]} {core_endpoint_wrapper__inst/i_FMC_DWR[8]} {core_endpoint_wrapper__inst/i_FMC_DWR[9]} {core_endpoint_wrapper__inst/i_FMC_DWR[10]} {core_endpoint_wrapper__inst/i_FMC_DWR[11]} {core_endpoint_wrapper__inst/i_FMC_DWR[12]} {core_endpoint_wrapper__inst/i_FMC_DWR[13]} {core_endpoint_wrapper__inst/i_FMC_DWR[14]} {core_endpoint_wrapper__inst/i_FMC_DWR[15]}]]
+connect_debug_port u_ila_0/probe2 [get_nets [list {core_endpoint_wrapper__inst/o_FMC_DRD[0]} {core_endpoint_wrapper__inst/o_FMC_DRD[1]} {core_endpoint_wrapper__inst/o_FMC_DRD[2]} {core_endpoint_wrapper__inst/o_FMC_DRD[3]} {core_endpoint_wrapper__inst/o_FMC_DRD[4]} {core_endpoint_wrapper__inst/o_FMC_DRD[5]} {core_endpoint_wrapper__inst/o_FMC_DRD[6]} {core_endpoint_wrapper__inst/o_FMC_DRD[7]} {core_endpoint_wrapper__inst/o_FMC_DRD[8]} {core_endpoint_wrapper__inst/o_FMC_DRD[9]} {core_endpoint_wrapper__inst/o_FMC_DRD[10]} {core_endpoint_wrapper__inst/o_FMC_DRD[11]} {core_endpoint_wrapper__inst/o_FMC_DRD[12]} {core_endpoint_wrapper__inst/o_FMC_DRD[13]} {core_endpoint_wrapper__inst/o_FMC_DRD[14]} {core_endpoint_wrapper__inst/o_FMC_DRD[15]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
-set_property port_width 32 [get_debug_ports u_ila_0/probe3]
-connect_debug_port u_ila_0/probe3 [get_nets [list {core_endpoint_wrapper__inst/i_FMC_ADD[0]} {core_endpoint_wrapper__inst/i_FMC_ADD[1]} {core_endpoint_wrapper__inst/i_FMC_ADD[2]} {core_endpoint_wrapper__inst/i_FMC_ADD[3]} {core_endpoint_wrapper__inst/i_FMC_ADD[4]} {core_endpoint_wrapper__inst/i_FMC_ADD[5]} {core_endpoint_wrapper__inst/i_FMC_ADD[6]} {core_endpoint_wrapper__inst/i_FMC_ADD[7]} {core_endpoint_wrapper__inst/i_FMC_ADD[8]} {core_endpoint_wrapper__inst/i_FMC_ADD[9]} {core_endpoint_wrapper__inst/i_FMC_ADD[10]} {core_endpoint_wrapper__inst/i_FMC_ADD[11]} {core_endpoint_wrapper__inst/i_FMC_ADD[12]} {core_endpoint_wrapper__inst/i_FMC_ADD[13]} {core_endpoint_wrapper__inst/i_FMC_ADD[14]} {core_endpoint_wrapper__inst/i_FMC_ADD[15]} {core_endpoint_wrapper__inst/i_FMC_ADD[16]} {core_endpoint_wrapper__inst/i_FMC_ADD[17]} {core_endpoint_wrapper__inst/i_FMC_ADD[18]} {core_endpoint_wrapper__inst/i_FMC_ADD[19]} {core_endpoint_wrapper__inst/i_FMC_ADD[20]} {core_endpoint_wrapper__inst/i_FMC_ADD[21]} {core_endpoint_wrapper__inst/i_FMC_ADD[22]} {core_endpoint_wrapper__inst/i_FMC_ADD[23]} {core_endpoint_wrapper__inst/i_FMC_ADD[24]} {core_endpoint_wrapper__inst/i_FMC_ADD[25]} {core_endpoint_wrapper__inst/i_FMC_ADD[26]} {core_endpoint_wrapper__inst/i_FMC_ADD[27]} {core_endpoint_wrapper__inst/i_FMC_ADD[28]} {core_endpoint_wrapper__inst/i_FMC_ADD[29]} {core_endpoint_wrapper__inst/i_FMC_ADD[30]} {core_endpoint_wrapper__inst/i_FMC_ADD[31]}]]
+set_property port_width 16 [get_debug_ports u_ila_0/probe3]
+connect_debug_port u_ila_0/probe3 [get_nets [list {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[0]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[1]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[2]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[3]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[4]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[5]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[6]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[7]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[8]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[9]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[10]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[11]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[12]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[13]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[14]} {core_endpoint_wrapper__inst/o_FMC_DRD_TRI[15]}]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
 set_property port_width 1 [get_debug_ports u_ila_0/probe4]
@@ -151,7 +151,7 @@ connect_debug_port u_ila_0/probe27 [get_nets [list core_endpoint_wrapper__inst/i
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe28]
 set_property port_width 1 [get_debug_ports u_ila_0/probe28]
-connect_debug_port u_ila_0/probe28 [get_nets [list INTER_LED_O]]
+connect_debug_port u_ila_0/probe28 [get_nets [list INTER_LED_O_inferred_i_1_n_0]]
 create_debug_port u_ila_0 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe29]
 set_property port_width 1 [get_debug_ports u_ila_0/probe29]
@@ -252,6 +252,18 @@ create_debug_port u_ila_1 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_1/probe22]
 set_property port_width 1 [get_debug_ports u_ila_1/probe22]
 connect_debug_port u_ila_1/probe22 [get_nets [list master_spi_mth_brd__inst/o_done_init]]
+create_debug_port u_ila_1 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_1/probe23]
+set_property port_width 1 [get_debug_ports u_ila_1/probe23]
+connect_debug_port u_ila_1/probe23 [get_nets [list w_SSPI_TEST_MISO]]
+create_debug_port u_ila_1 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_1/probe24]
+set_property port_width 1 [get_debug_ports u_ila_1/probe24]
+connect_debug_port u_ila_1/probe24 [get_nets [list w_SSPI_TEST_MISO_EN]]
+create_debug_port u_ila_1 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_1/probe25]
+set_property port_width 1 [get_debug_ports u_ila_1/probe25]
+connect_debug_port u_ila_1/probe25 [get_nets [list w_SSPI_TEST_SCLK]]
 create_debug_port u_ila_2 probe
 set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_2/probe1]
 set_property port_width 1 [get_debug_ports u_ila_2/probe1]

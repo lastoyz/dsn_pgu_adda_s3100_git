@@ -60,6 +60,7 @@ proc step_failed { step } {
   close $ch
 }
 
+set_msg_config -id {Common 17-41} -limit 10000000
 set_msg_config  -ruleid {1}  -id {DRC REQP-1839}  -suppress 
 set_msg_config  -ruleid {10}  -id {DRC DPREG-4}  -suppress 
 set_msg_config  -ruleid {11}  -id {DRC RTSTAT-10}  -suppress 
@@ -83,6 +84,8 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
+  set_param xicom.use_bs_reader 1
+  set_param tcl.collectionResultDisplayLimit 0
   create_project -in_memory -part xc7a200tfbg484-2
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
