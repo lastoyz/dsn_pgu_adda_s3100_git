@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3766382333fs"></ZoomStartTime>
-      <ZoomEndTime time="4721382334fs"></ZoomEndTime>
-      <Cursor1Time time="4410185000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="7009921001fs"></ZoomEndTime>
+      <Cursor1Time time="1231995000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="202"></NameColumnWidth>
-      <ValueColumnWidth column_width="76"></ValueColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="36" />
+   <WVObjectSize size="37" />
    <wave_markers>
       <marker label="" time="2239017000" />
       <marker label="" time="1924769000" />
@@ -66,6 +66,10 @@
       <obj_property name="ObjectShortName">r_FMC_DWR[15:0]</obj_property>
       <obj_property name="CustomSignalColor">#F0E68C</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_core_endpoint_wrapper/core_endpoint_wrapper__inst/o_FMC_DRD_TRI">
+      <obj_property name="ElementShortName">o_FMC_DRD_TRI[15:0]</obj_property>
+      <obj_property name="ObjectShortName">o_FMC_DRD_TRI[15:0]</obj_property>
    </wvobject>
    <wvobject fp_name="divider17" type="divider">
    </wvobject>
