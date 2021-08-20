@@ -397,7 +397,7 @@
 /* sub modules */
 
 //// TODO:  sub_buf_16b //{
-module sub_buf_16b (
+module sub_buf_16b ( //{
 	input wire clk    ,
 	input wire reset_n,
 	//
@@ -405,10 +405,11 @@ module sub_buf_16b (
 	output wire [15:0] o_buf  // 
 	);
 
-wire [15:0] w_DAT = i_buf;
-reg  [15:0] r_DAT; // located at IOB
+reg  [15:0] r_DAT; // located at IOB //{
+
 reg  [15:0] r_DAT_smp0;
 reg  [15:0] r_DAT_smp1;
+wire [15:0] w_DAT = i_buf;
 
 always @(posedge clk, negedge reset_n) begin 
 	if (!reset_n) begin 
@@ -424,14 +425,18 @@ always @(posedge clk, negedge reset_n) begin
 end
 
 assign o_buf = r_DAT;
+//}
 
-endmodule
+endmodule //}
 
 //}
 
 
 //// TODO:  sub_trig_data //{
-module sub_trig_data (
+
+// test only
+
+module sub_trig_data ( //{
 	input wire clk    ,
 	input wire reset_n,
 	//
@@ -446,7 +451,7 @@ wire [31:0] w_trig    = i_trig_in_trig_data;
 // bit[1] = trig_data_rd 
 
 reg  [31:0] r_data    ;
-reg  [31:0] r_port_out;
+reg  [31:0] r_port_out; //{
 
 // mapping
 assign o_wireout_trig_data = r_port_out;
@@ -467,11 +472,14 @@ always @(posedge clk, negedge reset_n) begin
 	end
 end
 
-endmodule
+//}
+
+endmodule //}
 
 //}
 
 
+//// TODO:  adc_wrapper
 
 /* top module integration */
 module txem7310_pll__s3100_sv_adda__top ( 
