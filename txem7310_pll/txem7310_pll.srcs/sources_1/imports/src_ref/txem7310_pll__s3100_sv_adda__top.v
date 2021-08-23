@@ -1857,14 +1857,14 @@ wire [31:0] w_port_wi_14_1;
 wire [31:0] w_port_wi_15_1;
 wire [31:0] w_port_wi_16_1; //$$ MSPI_EN_CS_WI 
 wire [31:0] w_port_wi_17_1; //$$ MSPI_CON_WI   
-wire [31:0] w_port_wi_18_1;
+wire [31:0] w_port_wi_18_1; //$$ ADCH_WI
 wire [31:0] w_port_wi_19_1; //$$ MCS_SETUP_WI  
 wire [31:0] w_port_wi_1A_1;
 wire [31:0] w_port_wi_1B_1;
-wire [31:0] w_port_wi_1C_1;
-wire [31:0] w_port_wi_1D_1;
-wire [31:0] w_port_wi_1E_1;
-wire [31:0] w_port_wi_1F_1;
+wire [31:0] w_port_wi_1C_1; //$$ ADCH_FREQ_WI
+wire [31:0] w_port_wi_1D_1; //$$ ADCH_UPD_SMP_WI    
+wire [31:0] w_port_wi_1E_1; //$$ ADCH_SMP_PRD_WI    
+wire [31:0] w_port_wi_1F_1; //$$ ADCH_DLY_TAP_WI
 //}
 
 // wire out //{
@@ -1892,14 +1892,14 @@ wire [31:0] w_port_wo_34_1 = 32'b0; //
 wire [31:0] w_port_wo_35_1 = 32'b0; //
 wire [31:0] w_port_wo_36_1 = 32'b0; //
 wire [31:0] w_port_wo_37_1 = 32'b0; //
-wire [31:0] w_port_wo_38_1 = 32'b0; //
-wire [31:0] w_port_wo_39_1 = 32'b0; //
+wire [31:0] w_port_wo_38_1; //$$ ADCH_WO
+wire [31:0] w_port_wo_39_1; //$$ ADCH_BASE_FREQ
 wire [31:0] w_port_wo_3A_1; //$$ XADC_TEMP_WO  
 wire [31:0] w_port_wo_3B_1; //$$ XADC_VOLT_WO  
-wire [31:0] w_port_wo_3C_1 = 32'b0; //
-wire [31:0] w_port_wo_3D_1 = 32'b0; //
-wire [31:0] w_port_wo_3E_1 = 32'b0; //
-wire [31:0] w_port_wo_3F_1 = 32'b0; //
+wire [31:0] w_port_wo_3C_1; //$$ ADCH_DOUT0
+wire [31:0] w_port_wo_3D_1; //$$ ADCH_DOUT1
+wire [31:0] w_port_wo_3E_1; //$$ ADCH_DOUT2
+wire [31:0] w_port_wo_3F_1; //$$ ADCH_DOUT3
 //}
 
 // trig in //{
@@ -1911,12 +1911,15 @@ wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // SPIO_TI
 wire w_ck_48_1 = sys_clk       ; wire [31:0] w_port_ti_48_1; // DACZ_DAT_TI
 wire w_ck_49_1 = sys_clk       ; wire [31:0] w_port_ti_49_1; // TRIG_DAT_TI   
 wire w_ck_53_1 = sys_clk       ; wire [31:0] w_port_ti_53_1; //$$ MEM_TI        
+wire w_ck_58_1 = sys_clk       ; wire [31:0] w_port_ti_58_1; //$$ ADCH_TI        
+wire w_ck_5C_1 = adc_fifo_clk  ; wire [31:0] w_port_ti_5C_1; //$$ DFT_TI
 //}
 
 // trig out //{
 wire w_ck_60_1 = sys_clk       ; wire [31:0] w_port_to_60_1; //$$ TEST_TO       
 wire w_ck_62_1 = base_sspi_clk ; wire [31:0] w_port_to_62_1; //$$ MSPI_TO       
 wire w_ck_73_1 = sys_clk       ; wire [31:0] w_port_to_73_1; //$$ MEM_TO        
+wire w_ck_78_1 = sys_clk       ; wire [31:0] w_port_to_78_1; //$$ ADCH_TO        
 //}
 
 // pipe in //{
@@ -1926,11 +1929,15 @@ wire w_wr_88_1; wire [31:0] w_port_pi_88_1; // DAC1_DAT_PI
 wire w_wr_89_1; wire [31:0] w_port_pi_89_1; // DAC1_DUR_PI   
 wire w_wr_8A_1; wire [31:0] w_port_pi_8A_1; //$$ TEST_PI       
 wire w_wr_93_1; wire [31:0] w_port_pi_93_1; //$$ MEM_PI        
+wire w_wr_9C_1; wire [31:0] w_port_pi_9C_1; //$$ [DFT] COEF_FLT32_RE_PI
+wire w_wr_9D_1; wire [31:0] w_port_pi_9D_1; //$$ [DFT] COEF_FLT32_IM_PI
 //}
 
 // pipe out //{
 wire w_rd_AA_1; wire [31:0] w_port_po_AA_1; //$$ TEST_PO        
 wire w_rd_B3_1; wire [31:0] w_port_po_B3_1; //$$ MEM_PO        
+wire w_rd_BC_1; wire [31:0] w_port_po_BC_1; //$$ [ADCH] ADCH_DOUT0_PO
+wire w_rd_BD_1; wire [31:0] w_port_po_BD_1; //$$ [ADCH] ADCH_DOUT1_PO
 //}
 
 //$$ TODO: pipe clock //{
@@ -2245,7 +2252,7 @@ assign w_offset_lan_timeout_rcr_16b = 16'd0;
 ///TODO: //-------------------------------------------------------//
 
 
-/* TODO: mapping endpoints to signals for S3100-PGU board */ //{
+/* TODO: mapping endpoints to signals for S3100-ADDA board */ //{
 
 // most control in signals
 
