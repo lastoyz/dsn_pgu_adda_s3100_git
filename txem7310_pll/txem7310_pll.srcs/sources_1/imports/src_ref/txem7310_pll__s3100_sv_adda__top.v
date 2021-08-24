@@ -479,8 +479,6 @@ endmodule //}
 //}
 
 
-//// TODO:  adc_wrapper
-
 /* top module integration */
 module txem7310_pll__s3100_sv_adda__top ( 
 
@@ -891,7 +889,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_07A2; // S3100-PGU // debug M2_SPI_TX_EN_SLAVE 
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0723; // S3100-PGU // revise MSPI timing
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0728; // S3100-PGU // revise slave SPI trig out level detect
-parameter FPGA_IMAGE_ID = 32'h_A6_21_0813; // S3100-ADDA // initial setup
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_0813; // S3100-ADDA // initial setup
+parameter FPGA_IMAGE_ID = 32'h_A6_21_0824; // S3100-ADDA // CMU adc endpoint added
 
 //}
 
@@ -1579,6 +1578,30 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 	// Clock in ports
 	.clk_in1(clk_out1_200M)
 );
+
+//}
+
+
+// clock for ADC //{
+
+wire base_adc_clk; // base clock for ADC // 210MHz
+wire adc_fifo_clk; // // adc fifo clock // 60MHz
+
+// ref clock for adc buffer 
+wire ref_200M_clk = clk_out1_200M;
+
+clk_wiz_0_2_3  clk_wiz_0_2_3_inst (
+	// Clock out ports  
+	.clk_out1_210M(base_adc_clk ),  
+	.clk_out2_30M (             ),  
+	.clk_out3_60M (adc_fifo_clk ),  
+	// Status and control signals     
+	.resetn       (clk_locked_pre),          
+	.locked       (clk2_locked   ),
+	// Clock in ports
+	.clk_in1_140M (clk_out2_140M ) //
+);
+
 
 //}
 
@@ -3724,235 +3747,11 @@ assign w_SSPI_FLAG_WO[15: 0] = w_SSPI_cnt_sspi_cs; // w_SSPI_cnt_sspi_cs
 
 ///TODO: //-------------------------------------------------------//
 
-/* TODO: okHost : ok_endpoint_wrapper */ //{
-//$$ Endpoints
-// Wire In 		0x00 - 0x1F
-// Wire Out 	0x20 - 0x3F
-// Trigger In 	0x40 - 0x5F
-// Trigger Out 	0x60 - 0x7F
-// Pipe In 		0x80 - 0x9F
-// Pipe Out 	0xA0 - 0xBF
-
-//  ok_endpoint_wrapper__dummy  ok_endpoint_wrapper_inst (
-//  //ok_endpoint_wrapper  ok_endpoint_wrapper_inst (
-//  	//$$  .okUH (okUH ), //input  wire [4:0]   okUH, // external pins
-//  	//$$  .okHU (okHU ), //output wire [2:0]   okHU, // external pins
-//  	//$$  .okUHU(okUHU), //inout  wire [31:0]  okUHU, // external pins
-//  	//$$  .okAA (okAA ), //inout  wire         okAA, // external pin
-//  	
-//  	//$$ for dummy
-//  	.clk    (sys_clk),
-//  	.reset_n(reset_n),
-//  	
-//  	// Wire In 		0x00 - 0x1F
-//  	.ep00wire(ep00wire), // output wire [31:0]
-//  	.ep01wire(ep01wire), // output wire [31:0]
-//  	.ep02wire(ep02wire), // output wire [31:0]
-//  	.ep03wire(ep03wire), // output wire [31:0]
-//  	.ep04wire(ep04wire), // output wire [31:0]
-//  	.ep05wire(ep05wire), // output wire [31:0]
-//  	.ep06wire(ep06wire), // output wire [31:0]
-//  	.ep07wire(ep07wire), // output wire [31:0]
-//  	.ep08wire(ep08wire), // output wire [31:0]
-//  	.ep09wire(ep09wire), // output wire [31:0]
-//  	.ep0Awire(ep0Awire), // output wire [31:0]
-//  	.ep0Bwire(ep0Bwire), // output wire [31:0]
-//  	.ep0Cwire(ep0Cwire), // output wire [31:0]
-//  	.ep0Dwire(ep0Dwire), // output wire [31:0]
-//  	.ep0Ewire(ep0Ewire), // output wire [31:0]
-//  	.ep0Fwire(ep0Fwire), // output wire [31:0]
-//  	.ep10wire(ep10wire), // output wire [31:0]
-//  	.ep11wire(ep11wire), // output wire [31:0]
-//  	.ep12wire(ep12wire), // output wire [31:0]
-//  	.ep13wire(ep13wire), // output wire [31:0]
-//  	.ep14wire(ep14wire), // output wire [31:0]
-//  	.ep15wire(ep15wire), // output wire [31:0]
-//  	.ep16wire(ep16wire), // output wire [31:0]
-//  	.ep17wire(ep17wire), // output wire [31:0]
-//  	.ep18wire(ep18wire), // output wire [31:0]
-//  	.ep19wire(ep19wire), // output wire [31:0]
-//  	.ep1Awire(ep1Awire), // output wire [31:0]
-//  	.ep1Bwire(ep1Bwire), // output wire [31:0]
-//  	.ep1Cwire(ep1Cwire), // output wire [31:0]
-//  	.ep1Dwire(ep1Dwire), // output wire [31:0]
-//  	.ep1Ewire(ep1Ewire), // output wire [31:0]
-//  	.ep1Fwire(ep1Fwire), // output wire [31:0]
-//  	// Wire Out 	0x20 - 0x3F
-//  	.ep20wire(ep20wire), // input wire [31:0]
-//  	.ep21wire(ep21wire), // input wire [31:0]
-//  	.ep22wire(ep22wire), // input wire [31:0]
-//  	.ep23wire(ep23wire), // input wire [31:0]
-//  	.ep24wire(ep24wire), // input wire [31:0]
-//  	.ep25wire(ep25wire), // input wire [31:0]
-//  	.ep26wire(ep26wire), // input wire [31:0]
-//  	.ep27wire(ep27wire), // input wire [31:0]
-//  	.ep28wire(ep28wire), // input wire [31:0]
-//  	.ep29wire(ep29wire), // input wire [31:0]
-//  	.ep2Awire(ep2Awire), // input wire [31:0]
-//  	.ep2Bwire(ep2Bwire), // input wire [31:0]
-//  	.ep2Cwire(ep2Cwire), // input wire [31:0]
-//  	.ep2Dwire(ep2Dwire), // input wire [31:0]
-//  	.ep2Ewire(ep2Ewire), // input wire [31:0]
-//  	.ep2Fwire(ep2Fwire), // input wire [31:0]
-//  	.ep30wire(ep30wire), // input wire [31:0]
-//  	.ep31wire(ep31wire), // input wire [31:0]
-//  	.ep32wire(ep32wire), // input wire [31:0]
-//  	.ep33wire(ep33wire), // input wire [31:0]
-//  	.ep34wire(ep34wire), // input wire [31:0]
-//  	.ep35wire(ep35wire), // input wire [31:0]
-//  	.ep36wire(ep36wire), // input wire [31:0]
-//  	.ep37wire(ep37wire), // input wire [31:0]
-//  	.ep38wire(ep38wire), // input wire [31:0]
-//  	.ep39wire(ep39wire), // input wire [31:0]
-//  	.ep3Awire(ep3Awire), // input wire [31:0]
-//  	.ep3Bwire(ep3Bwire), // input wire [31:0]
-//  	.ep3Cwire(ep3Cwire), // input wire [31:0]
-//  	.ep3Dwire(ep3Dwire), // input wire [31:0]
-//  	.ep3Ewire(ep3Ewire), // input wire [31:0]
-//  	.ep3Fwire(ep3Fwire), // input wire [31:0]
-//  	// Trigger In 	0x40 - 0x5F
-//  	.ep40ck(ep40ck), .ep40trig(ep40trig), // input wire, output wire [31:0],
-//  	.ep41ck(ep41ck), .ep41trig(ep41trig), // input wire, output wire [31:0],
-//  	.ep42ck(ep42ck), .ep42trig(ep42trig), // input wire, output wire [31:0],
-//  	.ep43ck(ep43ck), .ep43trig(ep43trig), // input wire, output wire [31:0],
-//  	.ep44ck(ep44ck), .ep44trig(ep44trig), // input wire, output wire [31:0],
-//  	.ep45ck(ep45ck), .ep45trig(ep45trig), // input wire, output wire [31:0],
-//  	.ep46ck(ep46ck), .ep46trig(ep46trig), // input wire, output wire [31:0],
-//  	.ep47ck(ep47ck), .ep47trig(ep47trig), // input wire, output wire [31:0],
-//  	.ep48ck(ep48ck), .ep48trig(ep48trig), // input wire, output wire [31:0],
-//  	.ep49ck(ep49ck), .ep49trig(ep49trig), // input wire, output wire [31:0],
-//  	.ep4Ack(ep4Ack), .ep4Atrig(ep4Atrig), // input wire, output wire [31:0],
-//  	.ep4Bck(ep4Bck), .ep4Btrig(ep4Btrig), // input wire, output wire [31:0],
-//  	.ep4Cck(ep4Cck), .ep4Ctrig(ep4Ctrig), // input wire, output wire [31:0],
-//  	.ep4Dck(ep4Dck), .ep4Dtrig(ep4Dtrig), // input wire, output wire [31:0],
-//  	.ep4Eck(ep4Eck), .ep4Etrig(ep4Etrig), // input wire, output wire [31:0],
-//  	.ep4Fck(ep4Fck), .ep4Ftrig(ep4Ftrig), // input wire, output wire [31:0],
-//  	.ep50ck(ep50ck), .ep50trig(ep50trig), // input wire, output wire [31:0],
-//  	.ep51ck(ep51ck), .ep51trig(ep51trig), // input wire, output wire [31:0],
-//  	.ep52ck(ep52ck), .ep52trig(ep52trig), // input wire, output wire [31:0],
-//  	.ep53ck(ep53ck), .ep53trig(ep53trig), // input wire, output wire [31:0],
-//  	.ep54ck(ep54ck), .ep54trig(ep54trig), // input wire, output wire [31:0],
-//  	.ep55ck(ep55ck), .ep55trig(ep55trig), // input wire, output wire [31:0],
-//  	.ep56ck(ep56ck), .ep56trig(ep56trig), // input wire, output wire [31:0],
-//  	.ep57ck(ep57ck), .ep57trig(ep57trig), // input wire, output wire [31:0],
-//  	.ep58ck(ep58ck), .ep58trig(ep58trig), // input wire, output wire [31:0],
-//  	.ep59ck(ep59ck), .ep59trig(ep59trig), // input wire, output wire [31:0],
-//  	.ep5Ack(ep5Ack), .ep5Atrig(ep5Atrig), // input wire, output wire [31:0],
-//  	.ep5Bck(ep5Bck), .ep5Btrig(ep5Btrig), // input wire, output wire [31:0],
-//  	.ep5Cck(ep5Cck), .ep5Ctrig(ep5Ctrig), // input wire, output wire [31:0],
-//  	.ep5Dck(ep5Dck), .ep5Dtrig(ep5Dtrig), // input wire, output wire [31:0],
-//  	.ep5Eck(ep5Eck), .ep5Etrig(ep5Etrig), // input wire, output wire [31:0],
-//  	.ep5Fck(ep5Fck), .ep5Ftrig(ep5Ftrig), // input wire, output wire [31:0],
-//  	// Trigger Out 	0x60 - 0x7F
-//  	.ep60ck(ep60ck), .ep60trig(ep60trig), // input wire, input wire [31:0],
-//  	.ep61ck(ep61ck), .ep61trig(ep61trig), // input wire, input wire [31:0],
-//  	.ep62ck(ep62ck), .ep62trig(ep62trig), // input wire, input wire [31:0],
-//  	.ep63ck(ep63ck), .ep63trig(ep63trig), // input wire, input wire [31:0],
-//  	.ep64ck(ep64ck), .ep64trig(ep64trig), // input wire, input wire [31:0],
-//  	.ep65ck(ep65ck), .ep65trig(ep65trig), // input wire, input wire [31:0],
-//  	.ep66ck(ep66ck), .ep66trig(ep66trig), // input wire, input wire [31:0],
-//  	.ep67ck(ep67ck), .ep67trig(ep67trig), // input wire, input wire [31:0],
-//  	.ep68ck(ep68ck), .ep68trig(ep68trig), // input wire, input wire [31:0],
-//  	.ep69ck(ep69ck), .ep69trig(ep69trig), // input wire, input wire [31:0],
-//  	.ep6Ack(ep6Ack), .ep6Atrig(ep6Atrig), // input wire, input wire [31:0],
-//  	.ep6Bck(ep6Bck), .ep6Btrig(ep6Btrig), // input wire, input wire [31:0],
-//  	.ep6Cck(ep6Cck), .ep6Ctrig(ep6Ctrig), // input wire, input wire [31:0],
-//  	.ep6Dck(ep6Dck), .ep6Dtrig(ep6Dtrig), // input wire, input wire [31:0],
-//  	.ep6Eck(ep6Eck), .ep6Etrig(ep6Etrig), // input wire, input wire [31:0],
-//  	.ep6Fck(ep6Fck), .ep6Ftrig(ep6Ftrig), // input wire, input wire [31:0],
-//  	.ep70ck(ep70ck), .ep70trig(ep70trig), // input wire, input wire [31:0],
-//  	.ep71ck(ep71ck), .ep71trig(ep71trig), // input wire, input wire [31:0],
-//  	.ep72ck(ep72ck), .ep72trig(ep72trig), // input wire, input wire [31:0],
-//  	.ep73ck(ep73ck), .ep73trig(ep73trig), // input wire, input wire [31:0],
-//  	.ep74ck(ep74ck), .ep74trig(ep74trig), // input wire, input wire [31:0],
-//  	.ep75ck(ep75ck), .ep75trig(ep75trig), // input wire, input wire [31:0],
-//  	.ep76ck(ep76ck), .ep76trig(ep76trig), // input wire, input wire [31:0],
-//  	.ep77ck(ep77ck), .ep77trig(ep77trig), // input wire, input wire [31:0],
-//  	.ep78ck(ep78ck), .ep78trig(ep78trig), // input wire, input wire [31:0],
-//  	.ep79ck(ep79ck), .ep79trig(ep79trig), // input wire, input wire [31:0],
-//  	.ep7Ack(ep7Ack), .ep7Atrig(ep7Atrig), // input wire, input wire [31:0],
-//  	.ep7Bck(ep7Bck), .ep7Btrig(ep7Btrig), // input wire, input wire [31:0],
-//  	.ep7Cck(ep7Cck), .ep7Ctrig(ep7Ctrig), // input wire, input wire [31:0],
-//  	.ep7Dck(ep7Dck), .ep7Dtrig(ep7Dtrig), // input wire, input wire [31:0],
-//  	.ep7Eck(ep7Eck), .ep7Etrig(ep7Etrig), // input wire, input wire [31:0],
-//  	.ep7Fck(ep7Fck), .ep7Ftrig(ep7Ftrig), // input wire, input wire [31:0],
-//  	// Pipe In 		0x80 - 0x9F
-//  	.ep80wr(ep80wr), .ep80pipe(ep80pipe), // output wire, output wire [31:0],
-//  	.ep81wr(ep81wr), .ep81pipe(ep81pipe), // output wire, output wire [31:0],
-//  	.ep82wr(ep82wr), .ep82pipe(ep82pipe), // output wire, output wire [31:0],
-//  	.ep83wr(ep83wr), .ep83pipe(ep83pipe), // output wire, output wire [31:0],
-//  	.ep84wr(ep84wr), .ep84pipe(ep84pipe), // output wire, output wire [31:0],
-//  	.ep85wr(ep85wr), .ep85pipe(ep85pipe), // output wire, output wire [31:0],
-//  	.ep86wr(ep86wr), .ep86pipe(ep86pipe), // output wire, output wire [31:0],
-//  	.ep87wr(ep87wr), .ep87pipe(ep87pipe), // output wire, output wire [31:0],
-//  	.ep88wr(ep88wr), .ep88pipe(ep88pipe), // output wire, output wire [31:0],
-//  	.ep89wr(ep89wr), .ep89pipe(ep89pipe), // output wire, output wire [31:0],
-//  	.ep8Awr(ep8Awr), .ep8Apipe(ep8Apipe), // output wire, output wire [31:0],
-//  	.ep8Bwr(ep8Bwr), .ep8Bpipe(ep8Bpipe), // output wire, output wire [31:0],
-//  	.ep8Cwr(ep8Cwr), .ep8Cpipe(ep8Cpipe), // output wire, output wire [31:0],
-//  	.ep8Dwr(ep8Dwr), .ep8Dpipe(ep8Dpipe), // output wire, output wire [31:0],
-//  	.ep8Ewr(ep8Ewr), .ep8Epipe(ep8Epipe), // output wire, output wire [31:0],
-//  	.ep8Fwr(ep8Fwr), .ep8Fpipe(ep8Fpipe), // output wire, output wire [31:0],
-//  	.ep90wr(ep90wr), .ep90pipe(ep90pipe), // output wire, output wire [31:0],
-//  	.ep91wr(ep91wr), .ep91pipe(ep91pipe), // output wire, output wire [31:0],
-//  	.ep92wr(ep92wr), .ep92pipe(ep92pipe), // output wire, output wire [31:0],
-//  	.ep93wr(ep93wr), .ep93pipe(ep93pipe), // output wire, output wire [31:0],
-//  	.ep94wr(ep94wr), .ep94pipe(ep94pipe), // output wire, output wire [31:0],
-//  	.ep95wr(ep95wr), .ep95pipe(ep95pipe), // output wire, output wire [31:0],
-//  	.ep96wr(ep96wr), .ep96pipe(ep96pipe), // output wire, output wire [31:0],
-//  	.ep97wr(ep97wr), .ep97pipe(ep97pipe), // output wire, output wire [31:0],
-//  	.ep98wr(ep98wr), .ep98pipe(ep98pipe), // output wire, output wire [31:0],
-//  	.ep99wr(ep99wr), .ep99pipe(ep99pipe), // output wire, output wire [31:0],
-//  	.ep9Awr(ep9Awr), .ep9Apipe(ep9Apipe), // output wire, output wire [31:0],
-//  	.ep9Bwr(ep9Bwr), .ep9Bpipe(ep9Bpipe), // output wire, output wire [31:0],
-//  	.ep9Cwr(ep9Cwr), .ep9Cpipe(ep9Cpipe), // output wire, output wire [31:0],
-//  	.ep9Dwr(ep9Dwr), .ep9Dpipe(ep9Dpipe), // output wire, output wire [31:0],
-//  	.ep9Ewr(ep9Ewr), .ep9Epipe(ep9Epipe), // output wire, output wire [31:0],
-//  	.ep9Fwr(ep9Fwr), .ep9Fpipe(ep9Fpipe), // output wire, output wire [31:0],
-//  	// Pipe Out 	0xA0 - 0xBF
-//  	.epA0rd(epA0rd), .epA0pipe(epA0pipe), // output wire, input wire [31:0],
-//  	.epA1rd(epA1rd), .epA1pipe(epA1pipe), // output wire, input wire [31:0],
-//  	.epA2rd(epA2rd), .epA2pipe(epA2pipe), // output wire, input wire [31:0],
-//  	.epA3rd(epA3rd), .epA3pipe(epA3pipe), // output wire, input wire [31:0],
-//  	.epA4rd(epA4rd), .epA4pipe(epA4pipe), // output wire, input wire [31:0],
-//  	.epA5rd(epA5rd), .epA5pipe(epA5pipe), // output wire, input wire [31:0],
-//  	.epA6rd(epA6rd), .epA6pipe(epA6pipe), // output wire, input wire [31:0],
-//  	.epA7rd(epA7rd), .epA7pipe(epA7pipe), // output wire, input wire [31:0],
-//  	.epA8rd(epA8rd), .epA8pipe(epA8pipe), // output wire, input wire [31:0],
-//  	.epA9rd(epA9rd), .epA9pipe(epA9pipe), // output wire, input wire [31:0],
-//  	.epAArd(epAArd), .epAApipe(epAApipe), // output wire, input wire [31:0],
-//  	.epABrd(epABrd), .epABpipe(epABpipe), // output wire, input wire [31:0],
-//  	.epACrd(epACrd), .epACpipe(epACpipe), // output wire, input wire [31:0],
-//  	.epADrd(epADrd), .epADpipe(epADpipe), // output wire, input wire [31:0],
-//  	.epAErd(epAErd), .epAEpipe(epAEpipe), // output wire, input wire [31:0],
-//  	.epAFrd(epAFrd), .epAFpipe(epAFpipe), // output wire, input wire [31:0],
-//  	.epB0rd(epB0rd), .epB0pipe(epB0pipe), // output wire, input wire [31:0],
-//  	.epB1rd(epB1rd), .epB1pipe(epB1pipe), // output wire, input wire [31:0],
-//  	.epB2rd(epB2rd), .epB2pipe(epB2pipe), // output wire, input wire [31:0],
-//  	.epB3rd(epB3rd), .epB3pipe(epB3pipe), // output wire, input wire [31:0],
-//  	.epB4rd(epB4rd), .epB4pipe(epB4pipe), // output wire, input wire [31:0],
-//  	.epB5rd(epB5rd), .epB5pipe(epB5pipe), // output wire, input wire [31:0],
-//  	.epB6rd(epB6rd), .epB6pipe(epB6pipe), // output wire, input wire [31:0],
-//  	.epB7rd(epB7rd), .epB7pipe(epB7pipe), // output wire, input wire [31:0],
-//  	.epB8rd(epB8rd), .epB8pipe(epB8pipe), // output wire, input wire [31:0],
-//  	.epB9rd(epB9rd), .epB9pipe(epB9pipe), // output wire, input wire [31:0],
-//  	.epBArd(epBArd), .epBApipe(epBApipe), // output wire, input wire [31:0],
-//  	.epBBrd(epBBrd), .epBBpipe(epBBpipe), // output wire, input wire [31:0],
-//  	.epBCrd(epBCrd), .epBCpipe(epBCpipe), // output wire, input wire [31:0],
-//  	.epBDrd(epBDrd), .epBDpipe(epBDpipe), // output wire, input wire [31:0],
-//  	.epBErd(epBErd), .epBEpipe(epBEpipe), // output wire, input wire [31:0],
-//  	.epBFrd(epBFrd), .epBFpipe(epBFpipe), // output wire, input wire [31:0],
-//  	// 
-//  	.okClk(okClk)//output wire okClk // sync with write/read of pipe
-//  	);
-	
-//}
-
 
 ///TODO: //-------------------------------------------------------//
 
 
-/* TODO: other BANK signals */ //{
+/* TODO: other signals */ //{
 
 //// LAN fixed in S3100-PGU //{
 assign PT_FMOD_EP_LAN_MOSI  = EP_LAN_MOSI ;
@@ -3964,27 +3763,7 @@ assign EP_LAN_INT_B = PT_FMOD_EP_LAN_INT_B;
 assign EP_LAN_MISO  = PT_FMOD_EP_LAN_MISO ;
 //}
 
-// LAN signals to mux //{
 
-// output mux
-//assign PT_BASE_EP_LAN_MOSI  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
-//assign PT_BASE_EP_LAN_SCLK  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
-//assign PT_BASE_EP_LAN_CS_B  = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
-//assign PT_BASE_EP_LAN_RST_B = ( w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
-
-//assign PT_FMOD_EP_LAN_MOSI  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_MOSI  : 1'b0;
-//assign PT_FMOD_EP_LAN_SCLK  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_SCLK  : 1'b0;
-//assign PT_FMOD_EP_LAN_CS_B  = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_CS_B  : 1'b1;
-//assign PT_FMOD_EP_LAN_RST_B = (~w_sel__H_LAN_on_BASE_BD)? EP_LAN_RST_B : 1'b1;
-
-// input mux
-//assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : PT_BASE_EP_LAN_INT_B;
-//assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : PT_BASE_EP_LAN_MISO;
-//assign EP_LAN_INT_B = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_INT_B  : 1'b1;
-//assign EP_LAN_MISO  = (~w_sel__H_LAN_on_BASE_BD)? PT_FMOD_EP_LAN_MISO   : 1'b0;
-
-
-//}
 
 //}
 

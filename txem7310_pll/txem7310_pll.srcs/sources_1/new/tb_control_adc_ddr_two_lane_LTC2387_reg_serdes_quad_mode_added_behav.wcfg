@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="25270000000fs"></ZoomEndTime>
+      <Cursor1Time time="25270000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="185"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="132" />
+   <wave_markers>
+      <marker label="" time="8819343000" />
+      <marker label="" time="8862201000" />
+      <marker label="" time="2585885000" />
+      <marker label="" time="5757377000" />
+      <marker label="" time="2519217000" />
+      <marker label="" time="3758183000" />
+      <marker label="" time="8991307000" />
+      <marker label="" time="17924283000" />
+      <marker label="" time="17990947000" />
+      <marker label="" time="8550000000" />
+      <marker label="" time="9074637000" />
+   </wave_markers>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/reset_n">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group133">
+      <obj_property name="label">clocks</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/clk_bus">
+         <obj_property name="ElementShortName">clk_bus</obj_property>
+         <obj_property name="ObjectShortName">clk_bus</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/clk_200M">
+         <obj_property name="ElementShortName">clk_200M</obj_property>
+         <obj_property name="ObjectShortName">clk_200M</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/clk_125M">
+         <obj_property name="ElementShortName">clk_125M</obj_property>
+         <obj_property name="ObjectShortName">clk_125M</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/clk_62p5M">
+         <obj_property name="ElementShortName">clk_62p5M</obj_property>
+         <obj_property name="ObjectShortName">clk_62p5M</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/w_dco_adc">
+         <obj_property name="ElementShortName">w_dco_adc</obj_property>
+         <obj_property name="ObjectShortName">w_dco_adc</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/w_dat1_adc">
+         <obj_property name="ElementShortName">w_dat1_adc</obj_property>
+         <obj_property name="ObjectShortName">w_dat1_adc</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/w_dat2_adc">
+         <obj_property name="ElementShortName">w_dat2_adc</obj_property>
+         <obj_property name="ObjectShortName">w_dat2_adc</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/en">
+      <obj_property name="ElementShortName">en</obj_property>
+      <obj_property name="ObjectShortName">en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/init">
+      <obj_property name="ElementShortName">init</obj_property>
+      <obj_property name="ObjectShortName">init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/update">
+      <obj_property name="ElementShortName">update</obj_property>
+      <obj_property name="ObjectShortName">update</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test">
+      <obj_property name="ElementShortName">test</obj_property>
+      <obj_property name="ObjectShortName">test</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model_en">
+      <obj_property name="ElementShortName">test_model_en</obj_property>
+      <obj_property name="ObjectShortName">test_model_en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model">
+      <obj_property name="ElementShortName">test_model</obj_property>
+      <obj_property name="ObjectShortName">test_model</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model_adc_ddr_two_lane_LTC2387_inst/debug_out">
+      <obj_property name="ElementShortName">debug_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model_adc_ddr_two_lane_LTC2387_inst/r_data_adc">
+      <obj_property name="ElementShortName">r_data_adc[17:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_adc[17:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model_adc_ddr_two_lane_LTC2387_inst/trig_dat_adc">
+      <obj_property name="ElementShortName">trig_dat_adc</obj_property>
+      <obj_property name="ObjectShortName">trig_dat_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model_adc_ddr_two_lane_LTC2387_inst/dco_adc">
+      <obj_property name="ElementShortName">dco_adc</obj_property>
+      <obj_property name="ObjectShortName">dco_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model_adc_ddr_two_lane_LTC2387_inst/dat1_adc">
+      <obj_property name="ElementShortName">dat1_adc</obj_property>
+      <obj_property name="ObjectShortName">dat1_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_model_adc_ddr_two_lane_LTC2387_inst/dat2_adc">
+      <obj_property name="ElementShortName">dat2_adc</obj_property>
+      <obj_property name="ObjectShortName">dat2_adc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /i_data_s">
+      <obj_property name="ElementShortName">i_data_s[1:0]</obj_property>
+      <obj_property name="ObjectShortName">i_data_s[1:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /i_dclk">
+      <obj_property name="ElementShortName">i_dclk</obj_property>
+      <obj_property name="ObjectShortName">i_dclk</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /r_shift_pos_0">
+      <obj_property name="ElementShortName">r_shift_pos_0[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_pos_0[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /r_shift_pos_1">
+      <obj_property name="ElementShortName">r_shift_pos_1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_pos_1[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /r_shift_neg_0">
+      <obj_property name="ElementShortName">r_shift_neg_0[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_neg_0[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /r_shift_neg_1">
+      <obj_property name="ElementShortName">r_shift_neg_1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_neg_1[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /o_data_p">
+      <obj_property name="ElementShortName">o_data_p[19:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_p[19:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /r_data_p_dco_p">
+      <obj_property name="ElementShortName">r_data_p_dco_p[19:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_p_dco_p[19:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /r_data_p_dco_p_smp">
+      <obj_property name="ElementShortName">r_data_p_dco_p_smp[19:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_p_dco_p_smp[19:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /r_data_p_dco_p_smpp">
+      <obj_property name="ElementShortName">r_data_p_dco_p_smpp[19:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_p_dco_p_smpp[19:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /w_dclk_div">
+      <obj_property name="ElementShortName">w_dclk_div</obj_property>
+      <obj_property name="ObjectShortName">w_dclk_div</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /w_clk_div_serdes">
+      <obj_property name="ElementShortName">w_clk_div_serdes</obj_property>
+      <obj_property name="ObjectShortName">w_clk_div_serdes</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /smp_clk_div_serdes">
+      <obj_property name="ElementShortName">smp_clk_div_serdes[1:0]</obj_property>
+      <obj_property name="ObjectShortName">smp_clk_div_serdes[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[0].serdes_ddr_2lane_in_20bit_out_inst /en_wr_fifo">
+      <obj_property name="ElementShortName">en_wr_fifo</obj_property>
+      <obj_property name="ObjectShortName">en_wr_fifo</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/wr_en">
+      <obj_property name="ElementShortName">wr_en</obj_property>
+      <obj_property name="ObjectShortName">wr_en</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /i_data_s">
+      <obj_property name="ElementShortName">i_data_s[1:0]</obj_property>
+      <obj_property name="ObjectShortName">i_data_s[1:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /i_dclk">
+      <obj_property name="ElementShortName">i_dclk</obj_property>
+      <obj_property name="ObjectShortName">i_dclk</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /r_shift_pos_0">
+      <obj_property name="ElementShortName">r_shift_pos_0[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_pos_0[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /r_shift_pos_1">
+      <obj_property name="ElementShortName">r_shift_pos_1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_pos_1[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /r_shift_neg_0">
+      <obj_property name="ElementShortName">r_shift_neg_0[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_neg_0[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /r_shift_neg_1">
+      <obj_property name="ElementShortName">r_shift_neg_1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_shift_neg_1[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /o_data_p">
+      <obj_property name="ElementShortName">o_data_p[19:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_p[19:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /r_data_p_dco_p">
+      <obj_property name="ElementShortName">r_data_p_dco_p[19:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_p_dco_p[19:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /r_data_p_dco_p_smp">
+      <obj_property name="ElementShortName">r_data_p_dco_p_smp[19:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_p_dco_p_smp[19:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /r_data_p_dco_p_smpp">
+      <obj_property name="ElementShortName">r_data_p_dco_p_smpp[19:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_p_dco_p_smpp[19:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /w_dclk_div">
+      <obj_property name="ElementShortName">w_dclk_div</obj_property>
+      <obj_property name="ObjectShortName">w_dclk_div</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /w_clk_div_serdes">
+      <obj_property name="ElementShortName">w_clk_div_serdes</obj_property>
+      <obj_property name="ObjectShortName">w_clk_div_serdes</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /smp_clk_div_serdes">
+      <obj_property name="ElementShortName">smp_clk_div_serdes[1:0]</obj_property>
+      <obj_property name="ObjectShortName">smp_clk_div_serdes[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/\serdes[1].serdes_ddr_2lane_in_20bit_out_inst /en_wr_fifo">
+      <obj_property name="ElementShortName">en_wr_fifo</obj_property>
+      <obj_property name="ObjectShortName">en_wr_fifo</obj_property>
+      <obj_property name="CustomSignalColor">#800000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/test_fifo_rd_en">
+      <obj_property name="ElementShortName">test_fifo_rd_en</obj_property>
+      <obj_property name="ObjectShortName">test_fifo_rd_en</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/MODE_ADC_CONTROL">
+      <obj_property name="ElementShortName">MODE_ADC_CONTROL[3:0]</obj_property>
+      <obj_property name="ObjectShortName">MODE_ADC_CONTROL[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/trig_clk_adc">
+      <obj_property name="ElementShortName">trig_clk_adc</obj_property>
+      <obj_property name="ObjectShortName">trig_clk_adc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/DELAY_CLK_NS">
+      <obj_property name="ElementShortName">DELAY_CLK_NS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DELAY_CLK_NS[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/DELAY_CLK">
+      <obj_property name="ElementShortName">DELAY_CLK[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DELAY_CLK[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/w_cnv_adc">
+      <obj_property name="ElementShortName">w_cnv_adc</obj_property>
+      <obj_property name="ObjectShortName">w_cnv_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/w_clk_adc">
+      <obj_property name="ElementShortName">w_clk_adc</obj_property>
+      <obj_property name="ObjectShortName">w_clk_adc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_cnt_cnv">
+      <obj_property name="ElementShortName">w_cnt_cnv[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_cnt_cnv[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_cnv_adc">
+      <obj_property name="ElementShortName">w_cnv_adc</obj_property>
+      <obj_property name="ObjectShortName">w_cnv_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_cnv_adc">
+      <obj_property name="ElementShortName">o_cnv_adc</obj_property>
+      <obj_property name="ObjectShortName">o_cnv_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_cnt_cnv_en">
+      <obj_property name="ElementShortName">w_cnt_cnv_en</obj_property>
+      <obj_property name="ObjectShortName">w_cnt_cnv_en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/check_cnt_cnv">
+      <obj_property name="ElementShortName">check_cnt_cnv</obj_property>
+      <obj_property name="ObjectShortName">check_cnt_cnv</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/w_pin_test_adc">
+      <obj_property name="ElementShortName">w_pin_test_adc</obj_property>
+      <obj_property name="ObjectShortName">w_pin_test_adc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_data_in_fifo_0">
+      <obj_property name="ElementShortName">o_data_in_fifo_0[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_in_fifo_0[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_data_in_fifo_1">
+      <obj_property name="ElementShortName">o_data_in_fifo_1[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_in_fifo_1[17:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_data_in_fifo_2">
+      <obj_property name="ElementShortName">o_data_in_fifo_2[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_in_fifo_2[17:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_data_in_fifo_3">
+      <obj_property name="ElementShortName">o_data_in_fifo_3[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_in_fifo_3[17:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/cnt_wait_64bit_unsigned">
+      <obj_property name="ElementShortName">cnt_wait_64bit_unsigned[63:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_wait_64bit_unsigned[63:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/dout">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">dout[17:0]</obj_property>
+      <obj_property name="ObjectShortName">dout[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/dout">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">dout[17:0]</obj_property>
+      <obj_property name="ObjectShortName">dout[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group134">
+      <obj_property name="label">fifo0</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/din">
+         <obj_property name="ElementShortName">din[17:0]</obj_property>
+         <obj_property name="ObjectShortName">din[17:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/wr_en">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/rd_en">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/full">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/wr_ack">
+         <obj_property name="ElementShortName">wr_ack</obj_property>
+         <obj_property name="ObjectShortName">wr_ack</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/overflow">
+         <obj_property name="ElementShortName">overflow</obj_property>
+         <obj_property name="ObjectShortName">overflow</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/empty">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/valid">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/underflow">
+         <obj_property name="ElementShortName">underflow</obj_property>
+         <obj_property name="ObjectShortName">underflow</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/prog_full">
+         <obj_property name="ElementShortName">prog_full</obj_property>
+         <obj_property name="ObjectShortName">prog_full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/prog_empty">
+         <obj_property name="ElementShortName">prog_empty</obj_property>
+         <obj_property name="ObjectShortName">prog_empty</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group135">
+      <obj_property name="label">fifo1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/din">
+         <obj_property name="ElementShortName">din[17:0]</obj_property>
+         <obj_property name="ObjectShortName">din[17:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/wr_en">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/rd_en">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/full">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/wr_ack">
+         <obj_property name="ElementShortName">wr_ack</obj_property>
+         <obj_property name="ObjectShortName">wr_ack</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/overflow">
+         <obj_property name="ElementShortName">overflow</obj_property>
+         <obj_property name="ObjectShortName">overflow</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/empty">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/valid">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/underflow">
+         <obj_property name="ElementShortName">underflow</obj_property>
+         <obj_property name="ObjectShortName">underflow</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/prog_full">
+         <obj_property name="ElementShortName">prog_full</obj_property>
+         <obj_property name="ObjectShortName">prog_full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_1/prog_empty">
+         <obj_property name="ElementShortName">prog_empty</obj_property>
+         <obj_property name="ObjectShortName">prog_empty</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group136">
+      <obj_property name="label">fifo2</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group137">
+      <obj_property name="label">fifo3</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_pin_test_frc_high">
+      <obj_property name="ElementShortName">r_pin_test_frc_high</obj_property>
+      <obj_property name="ObjectShortName">r_pin_test_frc_high</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/i_dft_coef_adrs_clear">
+      <obj_property name="ElementShortName">i_dft_coef_adrs_clear</obj_property>
+      <obj_property name="ObjectShortName">i_dft_coef_adrs_clear</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/i_acc_clear">
+      <obj_property name="ElementShortName">i_acc_clear</obj_property>
+      <obj_property name="ObjectShortName">i_acc_clear</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/i_trig_fifo_wr_en">
+      <obj_property name="ElementShortName">i_trig_fifo_wr_en</obj_property>
+      <obj_property name="ObjectShortName">i_trig_fifo_wr_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/w_adrs_rd_dft_coef">
+      <obj_property name="ElementShortName">w_adrs_rd_dft_coef[16:0]</obj_property>
+      <obj_property name="ObjectShortName">w_adrs_rd_dft_coef[16:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/w_dft_coef_flt32_re_dout">
+      <obj_property name="ElementShortName">w_dft_coef_flt32_re_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_dft_coef_flt32_re_dout[31:0]</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/w_dft_coef_flt32_im_dout">
+      <obj_property name="ElementShortName">w_dft_coef_flt32_im_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_dft_coef_flt32_im_dout[31:0]</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/w_adc_data_flt32_dout0">
+      <obj_property name="ElementShortName">w_adc_data_flt32_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_adc_data_flt32_dout0[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/w_adc_data_flt32_dout1">
+      <obj_property name="ElementShortName">w_adc_data_flt32_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_adc_data_flt32_dout1[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_adc_data_flt32_re_dout0">
+      <obj_property name="ElementShortName">r_adc_data_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_re_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_adc_data_flt32_im_dout0">
+      <obj_property name="ElementShortName">r_adc_data_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_im_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_adc_data_flt32_re_dout1">
+      <obj_property name="ElementShortName">r_adc_data_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_re_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_adc_data_flt32_im_dout1">
+      <obj_property name="ElementShortName">r_adc_data_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_im_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_dft_coef_flt32_re_dout0">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_re_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_dft_coef_flt32_im_dout0">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_im_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_dft_coef_flt32_re_dout1">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_re_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/r_dft_coef_flt32_im_dout1">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_im_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/o_pulse_monitor">
+      <obj_property name="ElementShortName">o_pulse_monitor</obj_property>
+      <obj_property name="ObjectShortName">o_pulse_monitor</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/o_acc_flt32_re_dout0">
+      <obj_property name="ElementShortName">o_acc_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/o_acc_flt32_im_dout0">
+      <obj_property name="ElementShortName">o_acc_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/o_acc_flt32_re_dout1">
+      <obj_property name="ElementShortName">o_acc_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/calculate_dft_wrapper__inst/o_acc_flt32_im_dout1">
+      <obj_property name="ElementShortName">o_acc_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_wr_fifo_0">
+      <obj_property name="ElementShortName">o_wr_fifo_0</obj_property>
+      <obj_property name="ObjectShortName">o_wr_fifo_0</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_data_in_fifo_0">
+      <obj_property name="ElementShortName">o_data_in_fifo_0[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_in_fifo_0[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_wr_fifo_1">
+      <obj_property name="ElementShortName">o_wr_fifo_1</obj_property>
+      <obj_property name="ObjectShortName">o_wr_fifo_1</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_data_in_fifo_1">
+      <obj_property name="ElementShortName">o_data_in_fifo_1[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data_in_fifo_1[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/update">
+      <obj_property name="ElementShortName">update</obj_property>
+      <obj_property name="ObjectShortName">update</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_update_trig">
+      <obj_property name="ElementShortName">r_update_trig</obj_property>
+      <obj_property name="ObjectShortName">r_update_trig</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_update_busy">
+      <obj_property name="ElementShortName">r_update_busy</obj_property>
+      <obj_property name="ObjectShortName">r_update_busy</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/o_pin_test_adc">
+      <obj_property name="ElementShortName">o_pin_test_adc</obj_property>
+      <obj_property name="ObjectShortName">o_pin_test_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/update_done">
+      <obj_property name="ElementShortName">update_done</obj_property>
+      <obj_property name="ObjectShortName">update_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_test_busy">
+      <obj_property name="ElementShortName">r_test_busy</obj_property>
+      <obj_property name="ObjectShortName">r_test_busy</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_init_busy">
+      <obj_property name="ElementShortName">r_init_busy</obj_property>
+      <obj_property name="ObjectShortName">r_init_busy</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_clk_adc">
+      <obj_property name="ElementShortName">r_clk_adc</obj_property>
+      <obj_property name="ObjectShortName">r_clk_adc</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_cnv_adc">
+      <obj_property name="ElementShortName">r_cnv_adc</obj_property>
+      <obj_property name="ObjectShortName">r_cnv_adc</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_cnt_cnv_en">
+      <obj_property name="ElementShortName">w_cnt_cnv_en</obj_property>
+      <obj_property name="ObjectShortName">w_cnt_cnv_en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_cnv_adc_en">
+      <obj_property name="ElementShortName">w_cnv_adc_en</obj_property>
+      <obj_property name="ObjectShortName">w_cnv_adc_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_serdes_cnt_wr_fifo">
+      <obj_property name="ElementShortName">w_serdes_cnt_wr_fifo[0:3][31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_serdes_cnt_wr_fifo[0:3][31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/din">
+      <obj_property name="ElementShortName">din[17:0]</obj_property>
+      <obj_property name="ObjectShortName">din[17:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/fifo_generator_2_inst_0/wr_en">
+      <obj_property name="ElementShortName">wr_en</obj_property>
+      <obj_property name="ObjectShortName">wr_en</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_num_update_samples">
+      <obj_property name="ElementShortName">r_num_update_samples[17:0]</obj_property>
+      <obj_property name="ObjectShortName">r_num_update_samples[17:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_sampling_period_count">
+      <obj_property name="ElementShortName">r_sampling_period_count[21:0]</obj_property>
+      <obj_property name="ObjectShortName">r_sampling_period_count[21:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_cnt_cnv">
+      <obj_property name="ElementShortName">w_cnt_cnv[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_cnt_cnv[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/sub_cnt_cnv">
+      <obj_property name="ElementShortName">sub_cnt_cnv[21:0]</obj_property>
+      <obj_property name="ObjectShortName">sub_cnt_cnv[21:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/check_cnt_cnv">
+      <obj_property name="ElementShortName">check_cnt_cnv</obj_property>
+      <obj_property name="ObjectShortName">check_cnt_cnv</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_delay_locked">
+      <obj_property name="ElementShortName">w_delay_locked</obj_property>
+      <obj_property name="ObjectShortName">w_delay_locked</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_io_reset">
+      <obj_property name="ElementShortName">w_io_reset</obj_property>
+      <obj_property name="ObjectShortName">w_io_reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/r_clk_reset">
+      <obj_property name="ElementShortName">r_clk_reset</obj_property>
+      <obj_property name="ObjectShortName">r_clk_reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_adc_done_init__adc0">
+      <obj_property name="ElementShortName">w_adc_done_init__adc0</obj_property>
+      <obj_property name="ObjectShortName">w_adc_done_init__adc0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_adc_done_init__adc1">
+      <obj_property name="ElementShortName">w_adc_done_init__adc1</obj_property>
+      <obj_property name="ObjectShortName">w_adc_done_init__adc1</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_adc_done_init__adc2">
+      <obj_property name="ElementShortName">w_adc_done_init__adc2</obj_property>
+      <obj_property name="ObjectShortName">w_adc_done_init__adc2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_adc_done_init__adc3">
+      <obj_property name="ElementShortName">w_adc_done_init__adc3</obj_property>
+      <obj_property name="ObjectShortName">w_adc_done_init__adc3</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_adc_done_init">
+      <obj_property name="ElementShortName">w_adc_done_init</obj_property>
+      <obj_property name="ObjectShortName">w_adc_done_init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_adc_done_update">
+      <obj_property name="ElementShortName">w_adc_done_update</obj_property>
+      <obj_property name="ObjectShortName">w_adc_done_update</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/w_adc_done_test">
+      <obj_property name="ElementShortName">w_adc_done_test</obj_property>
+      <obj_property name="ObjectShortName">w_adc_done_test</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/state">
+      <obj_property name="ElementShortName">state[7:0]</obj_property>
+      <obj_property name="ObjectShortName">state[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/ST_INIT">
+      <obj_property name="ElementShortName">ST_INIT[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_INIT[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/ST_UPDATE">
+      <obj_property name="ElementShortName">ST_UPDATE[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_UPDATE[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/ST_UPDATE_WAIT">
+      <obj_property name="ElementShortName">ST_UPDATE_WAIT[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_UPDATE_WAIT[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/ST_TEST">
+      <obj_property name="ElementShortName">ST_TEST[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_TEST[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/SEQ_READY">
+      <obj_property name="ElementShortName">SEQ_READY[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ_READY[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/SEQ_START">
+      <obj_property name="ElementShortName">SEQ_START[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ_START[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/SEQ_END">
+      <obj_property name="ElementShortName">SEQ_END[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ_END[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_control_adc_ddr_two_lane_LTC2387_reg_serdes_quad_mode_added/control_adc_ddr_two_lane_LTC2387_inst/SEQ_END_WAIT">
+      <obj_property name="ElementShortName">SEQ_END_WAIT[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ_END_WAIT[7:0]</obj_property>
+   </wvobject>
+</wave_config>
