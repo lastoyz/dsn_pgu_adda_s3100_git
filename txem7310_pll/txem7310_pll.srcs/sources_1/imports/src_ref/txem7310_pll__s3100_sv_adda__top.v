@@ -1590,6 +1590,7 @@ wire adc_fifo_clk; // // adc fifo clock // 60MHz
 // ref clock for adc buffer 
 wire ref_200M_clk = clk_out1_200M;
 
+wire clk_0_2_3_locked; //$$ unused
 clk_wiz_0_2_3  clk_wiz_0_2_3_inst (
 	// Clock out ports  
 	.clk_out1_210M(base_adc_clk ),  
@@ -1597,7 +1598,7 @@ clk_wiz_0_2_3  clk_wiz_0_2_3_inst (
 	.clk_out3_60M (adc_fifo_clk ),  
 	// Status and control signals     
 	.resetn       (clk_locked_pre),          
-	.locked       (clk2_locked   ),
+	.locked       (clk_0_2_3_locked   ),
 	// Clock in ports
 	.clk_in1_140M (clk_out2_140M ) //
 );
@@ -1880,14 +1881,14 @@ wire [31:0] w_port_wi_14_1;
 wire [31:0] w_port_wi_15_1;
 wire [31:0] w_port_wi_16_1; //$$ MSPI_EN_CS_WI 
 wire [31:0] w_port_wi_17_1; //$$ MSPI_CON_WI   
-wire [31:0] w_port_wi_18_1; //$$ ADCH_WI
+wire [31:0] w_port_wi_18_1; //$$ [ADCH] ADCH_WI
 wire [31:0] w_port_wi_19_1; //$$ MCS_SETUP_WI  
 wire [31:0] w_port_wi_1A_1;
 wire [31:0] w_port_wi_1B_1;
-wire [31:0] w_port_wi_1C_1; //$$ ADCH_FREQ_WI
-wire [31:0] w_port_wi_1D_1; //$$ ADCH_UPD_SMP_WI    
-wire [31:0] w_port_wi_1E_1; //$$ ADCH_SMP_PRD_WI    
-wire [31:0] w_port_wi_1F_1; //$$ ADCH_DLY_TAP_WI
+wire [31:0] w_port_wi_1C_1; //$$ [ADCH] ADCH_FREQ_WI
+wire [31:0] w_port_wi_1D_1; //$$ [ADCH] ADCH_UPD_SMP_WI    
+wire [31:0] w_port_wi_1E_1; //$$ [ADCH] ADCH_SMP_PRD_WI    
+wire [31:0] w_port_wi_1F_1; //$$ [ADCH] ADCH_DLY_TAP_WI
 //}
 
 // wire out //{
@@ -1915,14 +1916,14 @@ wire [31:0] w_port_wo_34_1 = 32'b0; //
 wire [31:0] w_port_wo_35_1 = 32'b0; //
 wire [31:0] w_port_wo_36_1 = 32'b0; //
 wire [31:0] w_port_wo_37_1 = 32'b0; //
-wire [31:0] w_port_wo_38_1; //$$ ADCH_WO
-wire [31:0] w_port_wo_39_1; //$$ ADCH_BASE_FREQ
+wire [31:0] w_port_wo_38_1; //$$ [ADCH] ADCH_WO
+wire [31:0] w_port_wo_39_1; //$$ [ADCH] ADCH_BASE_FREQ
 wire [31:0] w_port_wo_3A_1; //$$ XADC_TEMP_WO  
 wire [31:0] w_port_wo_3B_1; //$$ XADC_VOLT_WO  
-wire [31:0] w_port_wo_3C_1; //$$ ADCH_DOUT0
-wire [31:0] w_port_wo_3D_1; //$$ ADCH_DOUT1
-wire [31:0] w_port_wo_3E_1; //$$ ADCH_DOUT2
-wire [31:0] w_port_wo_3F_1; //$$ ADCH_DOUT3
+wire [31:0] w_port_wo_3C_1; //$$ [ADCH] ADCH_DOUT0
+wire [31:0] w_port_wo_3D_1; //$$ [ADCH] ADCH_DOUT1
+wire [31:0] w_port_wo_3E_1; //$$ [ADCH] ADCH_DOUT2
+wire [31:0] w_port_wo_3F_1; //$$ [ADCH] ADCH_DOUT3
 //}
 
 // trig in //{
@@ -1934,15 +1935,15 @@ wire w_ck_47_1 = sys_clk       ; wire [31:0] w_port_ti_47_1; // SPIO_TI
 wire w_ck_48_1 = sys_clk       ; wire [31:0] w_port_ti_48_1; // DACZ_DAT_TI
 wire w_ck_49_1 = sys_clk       ; wire [31:0] w_port_ti_49_1; // TRIG_DAT_TI   
 wire w_ck_53_1 = sys_clk       ; wire [31:0] w_port_ti_53_1; //$$ MEM_TI        
-wire w_ck_58_1 = sys_clk       ; wire [31:0] w_port_ti_58_1; //$$ ADCH_TI        
-wire w_ck_5C_1 = adc_fifo_clk  ; wire [31:0] w_port_ti_5C_1; //$$ DFT_TI
+wire w_ck_58_1 = sys_clk       ; wire [31:0] w_port_ti_58_1; //$$ [ADCH] ADCH_TI        
+wire w_ck_5C_1 = adc_fifo_clk  ; wire [31:0] w_port_ti_5C_1; //$$ [DFT] DFT_TI
 //}
 
 // trig out //{
 wire w_ck_60_1 = sys_clk       ; wire [31:0] w_port_to_60_1; //$$ TEST_TO       
 wire w_ck_62_1 = base_sspi_clk ; wire [31:0] w_port_to_62_1; //$$ MSPI_TO       
 wire w_ck_73_1 = sys_clk       ; wire [31:0] w_port_to_73_1; //$$ MEM_TO        
-wire w_ck_78_1 = sys_clk       ; wire [31:0] w_port_to_78_1; //$$ ADCH_TO        
+wire w_ck_78_1 = sys_clk       ; wire [31:0] w_port_to_78_1; //$$ [ADCH] ADCH_TO        
 //}
 
 // pipe in //{
@@ -1952,8 +1953,8 @@ wire w_wr_88_1; wire [31:0] w_port_pi_88_1; // DAC1_DAT_PI
 wire w_wr_89_1; wire [31:0] w_port_pi_89_1; // DAC1_DUR_PI   
 wire w_wr_8A_1; wire [31:0] w_port_pi_8A_1; //$$ TEST_PI       
 wire w_wr_93_1; wire [31:0] w_port_pi_93_1; //$$ MEM_PI        
-wire w_wr_9C_1; wire [31:0] w_port_pi_9C_1; //$$ [DFT] COEF_FLT32_RE_PI
-wire w_wr_9D_1; wire [31:0] w_port_pi_9D_1; //$$ [DFT] COEF_FLT32_IM_PI
+wire w_wr_9C_1; wire [31:0] w_port_pi_9C_1; //$$ [DFT] DFT_COEF_RE_PI // COEF_FLT32_RE_PI
+wire w_wr_9D_1; wire [31:0] w_port_pi_9D_1; //$$ [DFT] DFT_COEF_IM_PI // COEF_FLT32_IM_PI
 //}
 
 // pipe out //{
@@ -2595,6 +2596,43 @@ wire        c_TEST_FIFO  = (w_mcs_ep_po_en & ~w_SSPI_TEST_mode_en)?        mcs_c
 //}
 
 
+//// ADC wires: ADCH and DFT //{
+
+wire [31:0] w_ADCH_WI         = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_18_1 : ep18wire; 
+wire [31:0] w_ADCH_FREQ_WI    = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1C_1 : ep1Cwire; 
+wire [31:0] w_ADCH_UPD_SMP_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1D_1 : ep1Dwire; 
+wire [31:0] w_ADCH_SMP_PRD_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1E_1 : ep1Ewire; 
+wire [31:0] w_ADCH_DLY_TAP_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1F_1 : ep1Fwire; 
+
+wire [31:0] w_ADCH_WO       ;  assign w_port_wo_38_1 = w_ADCH_WO       ;  assign ep38wire = w_ADCH_WO       ;
+wire [31:0] w_ADCH_BASE_FREQ;  assign w_port_wo_39_1 = w_ADCH_BASE_FREQ;  assign ep39wire = w_ADCH_BASE_FREQ;
+wire [31:0] w_ADCH_DOUT0    ;  assign w_port_wo_3C_1 = w_ADCH_DOUT0    ;  assign ep3Cwire = w_ADCH_DOUT0    ;
+wire [31:0] w_ADCH_DOUT1    ;  assign w_port_wo_3D_1 = w_ADCH_DOUT1    ;  assign ep3Dwire = w_ADCH_DOUT1    ;
+wire [31:0] w_ADCH_DOUT2    ;  assign w_port_wo_3E_1 = w_ADCH_DOUT2    ;  assign ep3Ewire = w_ADCH_DOUT2    ;
+wire [31:0] w_ADCH_DOUT3    ;  assign w_port_wo_3F_1 = w_ADCH_DOUT3    ;  assign ep3Fwire = w_ADCH_DOUT3    ;
+
+wire [31:0] w_ADCH_TI     = w_port_ti_58_1 | ep58trig ;
+
+wire [31:0] w_ADCH_TO;
+assign w_port_to_78_1     = ( w_mcs_ep_to_en & ~w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
+assign         ep78trig   = (~w_mcs_ep_to_en |  w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
+
+wire [31:0] w_ADCH_DOUT0_PO;  assign w_port_po_BC_1 = w_ADCH_DOUT0_PO;  assign epBCpipe = w_ADCH_DOUT0_PO;
+wire [31:0] w_ADCH_DOUT1_PO;  assign w_port_po_BD_1 = w_ADCH_DOUT1_PO;  assign epBDpipe = w_ADCH_DOUT1_PO;
+wire        w_ADCH_DOUT0_PO_rd = w_rd_BC_1 | epBCrd;
+wire        w_ADCH_DOUT1_PO_rd = w_rd_BD_1 | epBDrd;
+
+
+wire [31:0] w_DFT_TI     = w_port_ti_5C_1 | ep5Ctrig ;
+
+wire [31:0] w_DFT_COEF_RE_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9C_1 : ep9Cpipe;
+wire [31:0] w_DFT_COEF_IM_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9D_1 : ep9Dpipe;
+wire        w_DFT_COEF_RE_PI_wr   = w_wr_9C_1 | ep9Cwr;
+wire        w_DFT_COEF_IM_PI_wr   = w_wr_9D_1 | ep9Dwr;
+
+
+//} 
+
 
 //}
 
@@ -3174,9 +3212,11 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 //}
 
 
-/* ADC */ //{
+/* TODO: ADC */ //{
 
-//$$ not activated
+//// note: ADCH and DFT 
+
+adc_wrapper  adc_wrapper__inst();
 
 //}
 
