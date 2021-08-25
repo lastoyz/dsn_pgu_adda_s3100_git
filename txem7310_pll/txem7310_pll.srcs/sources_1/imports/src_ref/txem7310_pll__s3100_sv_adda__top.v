@@ -1665,10 +1665,10 @@ wire [31:0] ep18wire; // ADCH
 wire [31:0] ep19wire; //
 wire [31:0] ep1Awire; //
 wire [31:0] ep1Bwire; //
-wire [31:0] ep1Cwire; //
-wire [31:0] ep1Dwire; //
-wire [31:0] ep1Ewire; //
-wire [31:0] ep1Fwire; //
+wire [31:0] ep1Cwire; // ADCH
+wire [31:0] ep1Dwire; // ADCH
+wire [31:0] ep1Ewire; // ADCH
+wire [31:0] ep1Fwire; // ADCH
 //}
 
 // Wire Out 	0x20 - 0x3F //{
@@ -1696,14 +1696,14 @@ wire [31:0] ep34wire = 32'b0; //
 wire [31:0] ep35wire = 32'b0; //
 wire [31:0] ep36wire = 32'b0; //
 wire [31:0] ep37wire = 32'b0; //
-wire [31:0] ep38wire = 32'b0; //
-wire [31:0] ep39wire = 32'b0; //
+wire [31:0] ep38wire;         // ADCH
+wire [31:0] ep39wire;         // ADCH
 wire [31:0] ep3Awire;         //$$ [XADC] XADC_TEMP       // PGU
 wire [31:0] ep3Bwire;         //$$ [XADC] XADC_VOLT       // PGU
-wire [31:0] ep3Cwire = 32'b0; //
-wire [31:0] ep3Dwire = 32'b0; //
-wire [31:0] ep3Ewire = 32'b0; //
-wire [31:0] ep3Fwire = 32'b0; //
+wire [31:0] ep3Cwire;         // ADCH
+wire [31:0] ep3Dwire;         // ADCH
+wire [31:0] ep3Ewire;         // ADCH
+wire [31:0] ep3Fwire;         // ADCH
 //}
 
 // Trigger In 	0x40 - 0x5F //{
@@ -1731,11 +1731,11 @@ wire ep54ck = 1'b0;             wire [31:0] ep54trig;
 wire ep55ck = 1'b0;             wire [31:0] ep55trig;
 wire ep56ck = 1'b0;             wire [31:0] ep56trig;
 wire ep57ck = 1'b0;             wire [31:0] ep57trig;
-wire ep58ck = 1'b0;             wire [31:0] ep58trig;
+wire ep58ck = sys_clk;          wire [31:0] ep58trig; // ADCH
 wire ep59ck = 1'b0;             wire [31:0] ep59trig;
 wire ep5Ack = 1'b0;             wire [31:0] ep5Atrig;
 wire ep5Bck = 1'b0;             wire [31:0] ep5Btrig;
-wire ep5Cck = 1'b0;             wire [31:0] ep5Ctrig;
+wire ep5Cck = adc_fifo_clk;     wire [31:0] ep5Ctrig; // DFT
 wire ep5Dck = 1'b0;             wire [31:0] ep5Dtrig;
 wire ep5Eck = 1'b0;             wire [31:0] ep5Etrig;
 wire ep5Fck = 1'b0;             wire [31:0] ep5Ftrig;
@@ -1766,7 +1766,7 @@ wire ep74ck = 1'b0;             wire [31:0] ep74trig = 32'b0;
 wire ep75ck = 1'b0;             wire [31:0] ep75trig = 32'b0;
 wire ep76ck = 1'b0;             wire [31:0] ep76trig = 32'b0;
 wire ep77ck = 1'b0;             wire [31:0] ep77trig = 32'b0;
-wire ep78ck = 1'b0;             wire [31:0] ep78trig = 32'b0;
+wire ep78ck = sys_clk;          wire [31:0] ep78trig = 32'b0; // ADCH
 wire ep79ck = 1'b0;             wire [31:0] ep79trig = 32'b0;
 wire ep7Ack = 1'b0;             wire [31:0] ep7Atrig = 32'b0;
 wire ep7Bck = 1'b0;             wire [31:0] ep7Btrig = 32'b0;
@@ -1805,8 +1805,8 @@ wire ep98wr; wire [31:0] ep98pipe;
 wire ep99wr; wire [31:0] ep99pipe; 
 wire ep9Awr; wire [31:0] ep9Apipe; 
 wire ep9Bwr; wire [31:0] ep9Bpipe;
-wire ep9Cwr; wire [31:0] ep9Cpipe;
-wire ep9Dwr; wire [31:0] ep9Dpipe;
+wire ep9Cwr; wire [31:0] ep9Cpipe; // DFT
+wire ep9Dwr; wire [31:0] ep9Dpipe; // DFT
 wire ep9Ewr; wire [31:0] ep9Epipe;
 wire ep9Fwr; wire [31:0] ep9Fpipe;
 //}
@@ -1840,8 +1840,8 @@ wire epB8rd; wire [31:0] epB8pipe = 32'b0;
 wire epB9rd; wire [31:0] epB9pipe = 32'b0;
 wire epBArd; wire [31:0] epBApipe = 32'b0;
 wire epBBrd; wire [31:0] epBBpipe = 32'b0;
-wire epBCrd; wire [31:0] epBCpipe = 32'b0;
-wire epBDrd; wire [31:0] epBDpipe = 32'b0;
+wire epBCrd; wire [31:0] epBCpipe; // ADCH
+wire epBDrd; wire [31:0] epBDpipe; // ADCH
 wire epBErd; wire [31:0] epBEpipe = 32'b0;
 wire epBFrd; wire [31:0] epBFpipe = 32'b0;
 //}
@@ -2136,11 +2136,11 @@ lan_endpoint_wrapper #(
 	.ep55ck (1'b0),      .ep55trig (), // input wire, output wire [31:0],
 	.ep56ck (1'b0),      .ep56trig (), // input wire, output wire [31:0],
 	.ep57ck (1'b0),      .ep57trig (), // input wire, output wire [31:0],
-	.ep58ck (1'b0),      .ep58trig (), // input wire, output wire [31:0],
+	.ep58ck (w_ck_58_1), .ep58trig (w_port_ti_58_1), // input wire, output wire [31:0],
 	.ep59ck (1'b0),      .ep59trig (), // input wire, output wire [31:0],
 	.ep5Ack (1'b0),      .ep5Atrig (), // input wire, output wire [31:0],
 	.ep5Bck (1'b0),      .ep5Btrig (), // input wire, output wire [31:0],
-	.ep5Cck (1'b0),      .ep5Ctrig (), // input wire, output wire [31:0],
+	.ep5Cck (w_ck_5C_1), .ep5Ctrig (w_port_ti_5C_1), // input wire, output wire [31:0],
 	.ep5Dck (1'b0),      .ep5Dtrig (), // input wire, output wire [31:0],
 	.ep5Eck (1'b0),      .ep5Etrig (), // input wire, output wire [31:0],
 	.ep5Fck (1'b0),      .ep5Ftrig (), // input wire, output wire [31:0],
@@ -2171,7 +2171,7 @@ lan_endpoint_wrapper #(
 	.ep75ck (1'b0),      .ep75trig (32'b0), // input wire, input wire [31:0],
 	.ep76ck (1'b0),      .ep76trig (32'b0), // input wire, input wire [31:0],
 	.ep77ck (1'b0),      .ep77trig (32'b0), // input wire, input wire [31:0],
-	.ep78ck (1'b0),      .ep78trig (32'b0), // input wire, input wire [31:0],
+	.ep78ck (w_ck_78_1), .ep78trig (w_port_to_78_1), // input wire, input wire [31:0],
 	.ep79ck (1'b0),      .ep79trig (32'b0), // input wire, input wire [31:0],
 	.ep7Ack (1'b0),      .ep7Atrig (32'b0), // input wire, input wire [31:0],
 	.ep7Bck (1'b0),      .ep7Btrig (32'b0), // input wire, input wire [31:0],
@@ -2210,8 +2210,8 @@ lan_endpoint_wrapper #(
 	.ep99wr (),          .ep99pipe (), // output wire, output wire [31:0],
 	.ep9Awr (),          .ep9Apipe (), // output wire, output wire [31:0],
 	.ep9Bwr (),          .ep9Bpipe (), // output wire, output wire [31:0],
-	.ep9Cwr (),          .ep9Cpipe (), // output wire, output wire [31:0],
-	.ep9Dwr (),          .ep9Dpipe (), // output wire, output wire [31:0],
+	.ep9Cwr (w_wr_9C_1), .ep9Cpipe (w_port_pi_9C_1), // output wire, output wire [31:0],
+	.ep9Dwr (w_wr_9D_1), .ep9Dpipe (w_port_pi_9D_1), // output wire, output wire [31:0],
 	.ep9Ewr (),          .ep9Epipe (), // output wire, output wire [31:0],
 	.ep9Fwr (),          .ep9Fpipe (), // output wire, output wire [31:0],
 	//}
@@ -2245,8 +2245,8 @@ lan_endpoint_wrapper #(
 	.epB9rd (),          .epB9pipe (32'b0), // output wire, input wire [31:0],
 	.epBArd (),          .epBApipe (32'b0), // output wire, input wire [31:0],
 	.epBBrd (),          .epBBpipe (32'b0), // output wire, input wire [31:0],
-	.epBCrd (),          .epBCpipe (32'b0), // output wire, input wire [31:0],
-	.epBDrd (),          .epBDpipe (32'b0), // output wire, input wire [31:0],
+	.epBCrd (w_rd_BC_1), .epBCpipe (w_port_po_BC_1), // output wire, input wire [31:0],
+	.epBDrd (w_rd_BD_1), .epBDpipe (w_port_po_BD_1), // output wire, input wire [31:0],
 	.epBErd (),          .epBEpipe (32'b0), // output wire, input wire [31:0],
 	.epBFrd (),          .epBFpipe (32'b0), // output wire, input wire [31:0],
 	//}
