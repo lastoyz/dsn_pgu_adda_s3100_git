@@ -1661,7 +1661,7 @@ wire [31:0] ep14wire; //
 wire [31:0] ep15wire; //
 wire [31:0] ep16wire; //
 wire [31:0] ep17wire; //
-wire [31:0] ep18wire; //
+wire [31:0] ep18wire; // ADCH
 wire [31:0] ep19wire; //
 wire [31:0] ep1Awire; //
 wire [31:0] ep1Bwire; //
@@ -2598,18 +2598,18 @@ wire        c_TEST_FIFO  = (w_mcs_ep_po_en & ~w_SSPI_TEST_mode_en)?        mcs_c
 
 //// ADC wires: ADCH and DFT //{
 
-wire [31:0] w_ADCH_WI         = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_18_1 : ep18wire; 
-wire [31:0] w_ADCH_FREQ_WI    = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1C_1 : ep1Cwire; 
-wire [31:0] w_ADCH_UPD_SMP_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1D_1 : ep1Dwire; 
-wire [31:0] w_ADCH_SMP_PRD_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1E_1 : ep1Ewire; 
-wire [31:0] w_ADCH_DLY_TAP_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1F_1 : ep1Fwire; 
+wire [31:0] w_ADCH_WI        = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_18_1 : ep18wire; 
+wire [31:0] w_ADCH_FREQ_WI   = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1C_1 : ep1Cwire; 
+wire [31:0] w_ADCH_UPD_SM_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1D_1 : ep1Dwire; 
+wire [31:0] w_ADCH_SMP_PR_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1E_1 : ep1Ewire; 
+wire [31:0] w_ADCH_DLY_TA_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1F_1 : ep1Fwire; 
 
 wire [31:0] w_ADCH_WO       ;  assign w_port_wo_38_1 = w_ADCH_WO       ;  assign ep38wire = w_ADCH_WO       ;
-wire [31:0] w_ADCH_BASE_FREQ;  assign w_port_wo_39_1 = w_ADCH_BASE_FREQ;  assign ep39wire = w_ADCH_BASE_FREQ;
-wire [31:0] w_ADCH_DOUT0    ;  assign w_port_wo_3C_1 = w_ADCH_DOUT0    ;  assign ep3Cwire = w_ADCH_DOUT0    ;
-wire [31:0] w_ADCH_DOUT1    ;  assign w_port_wo_3D_1 = w_ADCH_DOUT1    ;  assign ep3Dwire = w_ADCH_DOUT1    ;
-wire [31:0] w_ADCH_DOUT2    ;  assign w_port_wo_3E_1 = w_ADCH_DOUT2    ;  assign ep3Ewire = w_ADCH_DOUT2    ;
-wire [31:0] w_ADCH_DOUT3    ;  assign w_port_wo_3F_1 = w_ADCH_DOUT3    ;  assign ep3Fwire = w_ADCH_DOUT3    ;
+wire [31:0] w_ADCH_B_FRQ_WO ;  assign w_port_wo_39_1 = w_ADCH_B_FRQ_WO ;  assign ep39wire = w_ADCH_B_FRQ_WO ;
+wire [31:0] w_ADCH_DOUT0_WO ;  assign w_port_wo_3C_1 = w_ADCH_DOUT0_WO ;  assign ep3Cwire = w_ADCH_DOUT0_WO ;
+wire [31:0] w_ADCH_DOUT1_WO ;  assign w_port_wo_3D_1 = w_ADCH_DOUT1_WO ;  assign ep3Dwire = w_ADCH_DOUT1_WO ;
+wire [31:0] w_ADCH_DOUT2_WO ;  assign w_port_wo_3E_1 = w_ADCH_DOUT2_WO ;  assign ep3Ewire = w_ADCH_DOUT2_WO ;
+wire [31:0] w_ADCH_DOUT3_WO ;  assign w_port_wo_3F_1 = w_ADCH_DOUT3_WO ;  assign ep3Fwire = w_ADCH_DOUT3_WO ;
 
 wire [31:0] w_ADCH_TI     = w_port_ti_58_1 | ep58trig ;
 
@@ -2623,7 +2623,7 @@ wire        w_ADCH_DOUT0_PO_rd = w_rd_BC_1 | epBCrd;
 wire        w_ADCH_DOUT1_PO_rd = w_rd_BD_1 | epBDrd;
 
 
-wire [31:0] w_DFT_TI     = w_port_ti_5C_1 | ep5Ctrig ;
+wire [31:0] w_DFT_TI              = w_port_ti_5C_1 | ep5Ctrig ;
 
 wire [31:0] w_DFT_COEF_RE_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9C_1 : ep9Cpipe;
 wire [31:0] w_DFT_COEF_IM_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9D_1 : ep9Dpipe;
@@ -3621,7 +3621,12 @@ wire [31:0] w_M2_port_wi_sadrs_h01C; assign ep07wire = w_M2_port_wi_sadrs_h01C;
 wire [31:0] w_M2_port_wi_sadrs_h020; assign ep08wire = w_M2_port_wi_sadrs_h020;
 wire [31:0] w_M2_port_wi_sadrs_h024; assign ep09wire = w_M2_port_wi_sadrs_h024;
 wire [31:0] w_M2_port_wi_sadrs_h048; assign ep12wire = w_M2_port_wi_sadrs_h048;
-wire [31:0] w_M2_port_wi_sadrs_h04C; assign ep13wire = w_M2_port_wi_sadrs_h04C;
+wire [31:0] w_M2_port_wi_sadrs_h04C; assign ep13wire = w_M2_port_wi_sadrs_h04C; 
+wire [31:0] w_M2_port_wi_sadrs_h060; assign ep18wire = w_M2_port_wi_sadrs_h060; // | ADCH  | ADCH_WI       | 0x060      | wire_in_18 
+wire [31:0] w_M2_port_wi_sadrs_h070; assign ep1Cwire = w_M2_port_wi_sadrs_h070; // | ADCH  | ADCH_FREQ_WI  | 0x070      | wire_in_1C 
+wire [31:0] w_M2_port_wi_sadrs_h074; assign ep1Dwire = w_M2_port_wi_sadrs_h074; // | ADCH  | ADCH_UPD_SM_WI| 0x074      | wire_in_1D 
+wire [31:0] w_M2_port_wi_sadrs_h078; assign ep1Ewire = w_M2_port_wi_sadrs_h078; // | ADCH  | ADCH_SMP_PR_WI| 0x078      | wire_in_1E 
+wire [31:0] w_M2_port_wi_sadrs_h07C; assign ep1Fwire = w_M2_port_wi_sadrs_h07C; // | ADCH  | ADCH_DLY_TP_WI| 0x07C      | wire_in_1F 
 
 // wo
 wire [31:0] w_M2_port_wo_sadrs_h080 = ep20wire; // w_F_IMAGE_ID_WO; // F_IMAGE_ID_WO  	0x080	wo20
@@ -3636,6 +3641,12 @@ wire [31:0] w_M2_port_wo_sadrs_h0C8 = ep32wire; // w_SSPI_FLAG_WO ;
 wire [31:0] w_M2_port_wo_sadrs_h0E8 = ep3Awire; // w_XADC_TEMP_WO ; // XADC_TEMP_WO		0x0E8	wo3A
 wire [31:0] w_M2_port_wo_sadrs_h0EC = ep3Bwire; // w_XADC_VOLT_WO ; 
 wire [31:0] w_M2_port_wo_sadrs_h380 = 32'h33AA_CC55  ; // 0x380	NA  // known pattern
+wire [31:0] w_M2_port_wo_sadrs_h0E0 = ep38wire; // | ADCH  | ADCH_WO       | 0x0E0      | wireout_38 
+wire [31:0] w_M2_port_wo_sadrs_h0E4 = ep39wire; // | ADCH  | ADCH_B_FRQ_WO | 0x0E4      | wireout_39 
+wire [31:0] w_M2_port_wo_sadrs_h0F0 = ep3Cwire; // | ADCH  | ADCH_DOUT0_WO | 0x0F0      | wireout_3C 
+wire [31:0] w_M2_port_wo_sadrs_h0F4 = ep3Dwire; // | ADCH  | ADCH_DOUT1_WO | 0x0F4      | wireout_3D 
+wire [31:0] w_M2_port_wo_sadrs_h0F8 = ep3Ewire; // | ADCH  | ADCH_DOUT2_WO | 0x0F8      | wireout_3E 
+wire [31:0] w_M2_port_wo_sadrs_h0FC = ep3Fwire; // | ADCH  | ADCH_DOUT3_WO | 0x0FC      | wireout_3F 
 
 // ti 
 wire w_M2_ck__sadrs_h114 = ep45ck;  wire [31:0] w_M2_port_ti_sadrs_h114; assign ep45trig = w_M2_port_ti_sadrs_h114; // DACX_TI
@@ -3644,9 +3655,12 @@ wire w_M2_ck__sadrs_h11C = ep47ck;  wire [31:0] w_M2_port_ti_sadrs_h11C; assign 
 wire w_M2_ck__sadrs_h120 = ep48ck;  wire [31:0] w_M2_port_ti_sadrs_h120; assign ep48trig = w_M2_port_ti_sadrs_h120; // DACZ_DAT_TI   
 wire w_M2_ck__sadrs_h124 = ep49ck;  wire [31:0] w_M2_port_ti_sadrs_h124; assign ep49trig = w_M2_port_ti_sadrs_h124; // TRIG_DAT_TI
 wire w_M2_ck__sadrs_h14C = ep53ck;  wire [31:0] w_M2_port_ti_sadrs_h14C; assign ep53trig = w_M2_port_ti_sadrs_h14C; // MEM_TI
+wire w_M2_ck__sadrs_h160 = ep58ck;  wire [31:0] w_M2_port_ti_sadrs_h160; assign ep58trig = w_M2_port_ti_sadrs_h160; // | ADCH  | ADCH_TI       | 0x160      | trig_in_58 
+wire w_M2_ck__sadrs_h170 = ep5Cck;  wire [31:0] w_M2_port_ti_sadrs_h170; assign ep5Ctrig = w_M2_port_ti_sadrs_h170; // | DFT   | DFT_TI        | 0x170      | trig_in_5C 
 
 // to 
 wire w_M2_ck__sadrs_h1CC = ep73ck;  wire [31:0] w_M2_port_to_sadrs_h1CC = ep73trig; // MEM_TO
+wire w_M2_ck__sadrs_h1E0 = ep78ck;  wire [31:0] w_M2_port_to_sadrs_h1E0 = ep78trig; // | ADCH  | ADCH_TO       | 0x1E0      | trigout_78 
 
 // pi 
 wire w_M2_wr__sadrs_h218; assign ep86wr = w_M2_wr__sadrs_h218;  wire [31:0] w_M2_port_pi_sadrs_h218; assign ep86pipe = w_M2_port_pi_sadrs_h218; // DAC0_DAT_PI // pipe_in_86
@@ -3655,11 +3669,14 @@ wire w_M2_wr__sadrs_h220; assign ep88wr = w_M2_wr__sadrs_h220;  wire [31:0] w_M2
 wire w_M2_wr__sadrs_h224; assign ep89wr = w_M2_wr__sadrs_h224;  wire [31:0] w_M2_port_pi_sadrs_h224; assign ep89pipe = w_M2_port_pi_sadrs_h224; // DAC1_DUR_PI // pipe_in_89
 wire w_M2_wr__sadrs_h228; assign ep8Awr = w_M2_wr__sadrs_h228;  wire [31:0] w_M2_port_pi_sadrs_h228; assign ep8Apipe = w_M2_port_pi_sadrs_h228; // TEST_PI       | 0x228      | pipe_in_8A
 wire w_M2_wr__sadrs_h24C; assign ep93wr = w_M2_wr__sadrs_h24C;  wire [31:0] w_M2_port_pi_sadrs_h24C; assign ep93pipe = w_M2_port_pi_sadrs_h24C; // MEM_PI      // pipe_in_93
+wire w_M2_wr__sadrs_h270; assign ep9Cwr = w_M2_wr__sadrs_h270;  wire [31:0] w_M2_port_pi_sadrs_h270; assign ep9Cpipe = w_M2_port_pi_sadrs_h270; // | DFT   | DFT_COEF_RE_PI| 0x270      | pipe_in_9C 
+wire w_M2_wr__sadrs_h274; assign ep9Dwr = w_M2_wr__sadrs_h274;  wire [31:0] w_M2_port_pi_sadrs_h274; assign ep9Dpipe = w_M2_port_pi_sadrs_h274; // | DFT   | DFT_COEF_IM_PI| 0x274      | pipe_in_9D 
 
 // po
 wire w_M2_rd__sadrs_h2A8; assign epAArd = w_M2_rd__sadrs_h2A8;  wire [31:0] w_M2_port_po_sadrs_h2A8 = epAApipe; // TEST_PO       | 0x2A8      | pipeout_AA 
 wire w_M2_rd__sadrs_h2CC; assign epB3rd = w_M2_rd__sadrs_h2CC;  wire [31:0] w_M2_port_po_sadrs_h2CC = epB3pipe; // MEM_PO // pipeout_B3 
-
+wire w_M2_rd__sadrs_h2F0; assign epBCrd = w_M2_rd__sadrs_h2F0;  wire [31:0] w_M2_port_po_sadrs_h2F0 = epBCpipe; // | ADCH  | ADCH_DOUT0_PO | 0x2F0      | pipeout_BC 
+wire w_M2_rd__sadrs_h2F4; assign epBDrd = w_M2_rd__sadrs_h2F4;  wire [31:0] w_M2_port_po_sadrs_h2F4 = epBDpipe; // | ADCH  | ADCH_DOUT1_PO | 0x2F4      | pipeout_BD 
 
 //}
 
