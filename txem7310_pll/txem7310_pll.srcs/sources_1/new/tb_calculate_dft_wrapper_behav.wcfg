@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_calculate_dft_wrapper_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_calculate_dft_wrapper" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="999659833333fs"></ZoomStartTime>
+      <ZoomEndTime time="999842833334fs"></ZoomEndTime>
+      <Cursor1Time time="999703376000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="239"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="70" />
+   <wave_markers>
+      <marker label="" time="32361813809000" />
+      <marker label="" time="43148865643000" />
+      <marker label="" time="8630546431000" />
+      <marker label="" time="908297000" />
+      <marker label="" time="2108249000" />
+      <marker label="" time="1224961000" />
+      <marker label="" time="974961000" />
+      <marker label="" time="658407000" />
+      <marker label="" time="999689488000" />
+   </wave_markers>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/reset_n">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/clk_60M">
+      <obj_property name="ElementShortName">clk_60M</obj_property>
+      <obj_property name="ObjectShortName">clk_60M</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/adc_fifo_clk">
+      <obj_property name="ElementShortName">adc_fifo_clk</obj_property>
+      <obj_property name="ObjectShortName">adc_fifo_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/mcs_clk">
+      <obj_property name="ElementShortName">mcs_clk</obj_property>
+      <obj_property name="ObjectShortName">mcs_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider276" type="divider">
+      <obj_property name="label">control</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/control_dft_calc__inst/i_adc_data_en">
+      <obj_property name="ElementShortName">i_adc_data_en</obj_property>
+      <obj_property name="ObjectShortName">i_adc_data_en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/control_dft_calc__inst/o_pulse_seq1">
+      <obj_property name="ElementShortName">o_pulse_seq1</obj_property>
+      <obj_property name="ObjectShortName">o_pulse_seq1</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/control_dft_calc__inst/o_pulse_seq2">
+      <obj_property name="ElementShortName">o_pulse_seq2</obj_property>
+      <obj_property name="ObjectShortName">o_pulse_seq2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/control_dft_calc__inst/o_pulse_seq3">
+      <obj_property name="ElementShortName">o_pulse_seq3</obj_property>
+      <obj_property name="ObjectShortName">o_pulse_seq3</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/control_dft_calc__inst/o_pulse_seq4">
+      <obj_property name="ElementShortName">o_pulse_seq4</obj_property>
+      <obj_property name="ObjectShortName">o_pulse_seq4</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider75" type="divider">
+      <obj_property name="label">coef wr</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/tb_test_file__dft_coef__inst/cnt_line">
+      <obj_property name="ElementShortName">cnt_line[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_line[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/w_dft_coef_load">
+      <obj_property name="ElementShortName">w_dft_coef_load</obj_property>
+      <obj_property name="ObjectShortName">w_dft_coef_load</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_dft_coef_flt32_re">
+      <obj_property name="ElementShortName">w_dft_coef_flt32_re[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_dft_coef_flt32_re[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_dft_coef_flt32_im">
+      <obj_property name="ElementShortName">w_dft_coef_flt32_im[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_dft_coef_flt32_im[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/wea">
+      <obj_property name="ElementShortName">wea[0:0]</obj_property>
+      <obj_property name="ObjectShortName">wea[0:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/dina">
+      <obj_property name="ElementShortName">dina[23:0]</obj_property>
+      <obj_property name="ObjectShortName">dina[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/addra">
+      <obj_property name="ElementShortName">addra[16:0]</obj_property>
+      <obj_property name="ObjectShortName">addra[16:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/wea">
+      <obj_property name="ElementShortName">wea[0:0]</obj_property>
+      <obj_property name="ObjectShortName">wea[0:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/dina">
+      <obj_property name="ElementShortName">dina[23:0]</obj_property>
+      <obj_property name="ObjectShortName">dina[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/addra">
+      <obj_property name="ElementShortName">addra[16:0]</obj_property>
+      <obj_property name="ObjectShortName">addra[16:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider23" type="divider">
+      <obj_property name="label">coef rd</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_rd_en__dft_coef">
+      <obj_property name="ElementShortName">w_rd_en__dft_coef</obj_property>
+      <obj_property name="ObjectShortName">w_rd_en__dft_coef</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_dft_coef_flt32_re_dout">
+      <obj_property name="ElementShortName">w_dft_coef_flt32_re_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_dft_coef_flt32_re_dout[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_dft_coef_flt32_im_dout">
+      <obj_property name="ElementShortName">w_dft_coef_flt32_im_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_dft_coef_flt32_im_dout[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group109">
+      <obj_property name="label">coef test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider22" type="divider">
+      <obj_property name="label">adc</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/load">
+      <obj_property name="ElementShortName">load</obj_property>
+      <obj_property name="ObjectShortName">load</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/cnt_line">
+      <obj_property name="ElementShortName">cnt_line[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_line[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group27">
+      <obj_property name="label">adc test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/data_adc0_int32">
+         <obj_property name="ElementShortName">data_adc0_int32[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_adc0_int32[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/data_adc1_int32">
+         <obj_property name="ElementShortName">data_adc1_int32[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_adc1_int32[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/data_adc0_flt32">
+         <obj_property name="ElementShortName">data_adc0_flt32</obj_property>
+         <obj_property name="ObjectShortName">data_adc0_flt32</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/data_adc1_flt32">
+         <obj_property name="ElementShortName">data_adc1_flt32</obj_property>
+         <obj_property name="ObjectShortName">data_adc1_flt32</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/data_adc0_flt32_hex">
+         <obj_property name="ElementShortName">data_adc0_flt32_hex[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_adc0_flt32_hex[31:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/tb_test_file__adc_data__inst/data_adc1_flt32_hex">
+         <obj_property name="ElementShortName">data_adc1_flt32_hex[31:0]</obj_property>
+         <obj_property name="ObjectShortName">data_adc1_flt32_hex[31:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_adc_data_int18_dout0">
+         <obj_property name="ElementShortName">w_adc_data_int18_dout0[17:0]</obj_property>
+         <obj_property name="ObjectShortName">w_adc_data_int18_dout0[17:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_adc_data_int18_dout1">
+         <obj_property name="ElementShortName">w_adc_data_int18_dout1[17:0]</obj_property>
+         <obj_property name="ObjectShortName">w_adc_data_int18_dout1[17:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_adc_data_int18_dout0">
+      <obj_property name="ElementShortName">w_adc_data_int18_dout0[17:0]</obj_property>
+      <obj_property name="ObjectShortName">w_adc_data_int18_dout0[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_adc_data_int18_dout1">
+      <obj_property name="ElementShortName">w_adc_data_int18_dout1[17:0]</obj_property>
+      <obj_property name="ObjectShortName">w_adc_data_int18_dout1[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider41" type="divider">
+      <obj_property name="label">adc conv flt32</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_adc_data_flt32_dout0">
+      <obj_property name="ElementShortName">w_adc_data_flt32_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_adc_data_flt32_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_adc_data_flt32_dout1">
+      <obj_property name="ElementShortName">w_adc_data_flt32_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_adc_data_flt32_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider64" type="divider">
+      <obj_property name="label">buf</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_buf_clear">
+      <obj_property name="ElementShortName">w_buf_clear</obj_property>
+      <obj_property name="ObjectShortName">w_buf_clear</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_buf_load">
+      <obj_property name="ElementShortName">w_buf_load</obj_property>
+      <obj_property name="ObjectShortName">w_buf_load</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_adc_data_flt32_re_dout0">
+      <obj_property name="ElementShortName">r_adc_data_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_re_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_adc_data_flt32_im_dout0">
+      <obj_property name="ElementShortName">r_adc_data_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_im_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_adc_data_flt32_re_dout1">
+      <obj_property name="ElementShortName">r_adc_data_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_re_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_adc_data_flt32_im_dout1">
+      <obj_property name="ElementShortName">r_adc_data_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_adc_data_flt32_im_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_dft_coef_flt32_re_dout0">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_re_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_dft_coef_flt32_im_dout0">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_im_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_dft_coef_flt32_re_dout1">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_re_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_dft_coef_flt32_im_dout1">
+      <obj_property name="ElementShortName">r_dft_coef_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_dft_coef_flt32_im_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider190" type="divider">
+      <obj_property name="label">prod</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_prd_clear">
+      <obj_property name="ElementShortName">w_prd_clear</obj_property>
+      <obj_property name="ObjectShortName">w_prd_clear</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_prd_load">
+      <obj_property name="ElementShortName">w_prd_load</obj_property>
+      <obj_property name="ObjectShortName">w_prd_load</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/mult_vld_in">
+      <obj_property name="ElementShortName">mult_vld_in</obj_property>
+      <obj_property name="ObjectShortName">mult_vld_in</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_prd_flt32_re_dout0">
+      <obj_property name="ElementShortName">r_prd_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_prd_flt32_re_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_prd_flt32_im_dout0">
+      <obj_property name="ElementShortName">r_prd_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_prd_flt32_im_dout0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_prd_flt32_re_dout1">
+      <obj_property name="ElementShortName">r_prd_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_prd_flt32_re_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/r_prd_flt32_im_dout1">
+      <obj_property name="ElementShortName">r_prd_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_prd_flt32_im_dout1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider49" type="divider">
+      <obj_property name="label">acc</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_acc_clear">
+      <obj_property name="ElementShortName">w_acc_clear</obj_property>
+      <obj_property name="ObjectShortName">w_acc_clear</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_acc_load">
+      <obj_property name="ElementShortName">w_acc_load</obj_property>
+      <obj_property name="ObjectShortName">w_acc_load</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/add_vld_in">
+      <obj_property name="ElementShortName">add_vld_in</obj_property>
+      <obj_property name="ObjectShortName">add_vld_in</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group72">
+      <obj_property name="label">acc test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_acc_flt32_re_dout0">
+         <obj_property name="ElementShortName">w_acc_flt32_re_dout0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_acc_flt32_re_dout0[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_acc_flt32_im_dout0">
+         <obj_property name="ElementShortName">w_acc_flt32_im_dout0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_acc_flt32_im_dout0[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_acc_flt32_re_dout1">
+         <obj_property name="ElementShortName">w_acc_flt32_re_dout1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_acc_flt32_re_dout1[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/w_acc_flt32_im_dout1">
+         <obj_property name="ElementShortName">w_acc_flt32_im_dout1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_acc_flt32_im_dout1[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/o_acc_flt32_re_dout0">
+      <obj_property name="ElementShortName">o_acc_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/o_acc_flt32_im_dout0">
+      <obj_property name="ElementShortName">o_acc_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/o_acc_flt32_re_dout1">
+      <obj_property name="ElementShortName">o_acc_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/o_acc_flt32_im_dout1">
+      <obj_property name="ElementShortName">o_acc_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_acc_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_calculate_dft_wrapper/calculate_dft_wrapper__inst/o_pulse_monitor">
+      <obj_property name="ElementShortName">o_pulse_monitor</obj_property>
+      <obj_property name="ObjectShortName">o_pulse_monitor</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider26" type="divider">
+      <obj_property name="label">verify data</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#808000</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group72">
+      <obj_property name="label">sub</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_prod_data_flt32_re_dout0">
+         <obj_property name="ElementShortName">w_prod_data_flt32_re_dout0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_prod_data_flt32_re_dout0[31:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_prod_data_flt32_im_dout0">
+         <obj_property name="ElementShortName">w_prod_data_flt32_im_dout0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_prod_data_flt32_im_dout0[31:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_prod_data_flt32_re_dout1">
+         <obj_property name="ElementShortName">w_prod_data_flt32_re_dout1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_prod_data_flt32_re_dout1[31:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_prod_data_flt32_im_dout1">
+         <obj_property name="ElementShortName">w_prod_data_flt32_im_dout1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_prod_data_flt32_im_dout1[31:0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+         <obj_property name="CellHeight">40</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_acc_data_flt32_re_dout0">
+      <obj_property name="ElementShortName">w_acc_data_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_acc_data_flt32_re_dout0[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">-20000.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">20000.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_acc_data_flt32_im_dout0">
+      <obj_property name="ElementShortName">w_acc_data_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_acc_data_flt32_im_dout0[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">-20000.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">20000.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_acc_data_flt32_re_dout1">
+      <obj_property name="ElementShortName">w_acc_data_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_acc_data_flt32_re_dout1[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">-20000.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">20000.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_calculate_dft_wrapper/w_acc_data_flt32_im_dout1">
+      <obj_property name="ElementShortName">w_acc_data_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_acc_data_flt32_im_dout1[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">24</obj_property>
+      <obj_property name="radix_otherWidth">8</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">40</obj_property>
+      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+      <obj_property name="AnalogYRangeMin">-20000.000000</obj_property>
+      <obj_property name="AnalogYRRangeMax">20000.000000</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+      <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+</wave_config>

@@ -459,12 +459,18 @@ create_generated_clock  -name mcs_eeprom_fifo_clk      [get_pins  clk_wiz_0_3_1_
 ## TODO: define clock - base_sspi_clk
 create_generated_clock  -name base_sspi_clk   [get_pins  clk_wiz_2_2_inst/inst/plle2_adv_inst/CLKOUT0]
 
-## TODO: define clock - ref_clk // replace clk_out1_200M_clk_wiz_0
-#create_generated_clock  -name ref_clk        [get_pins  clk_wiz_0_inst/inst/plle2_adv_inst/CLKOUT0]
+## TODO: define clock - base_adc_clk 
+create_generated_clock  -name base_adc_clk    [get_pins  clk_wiz_0_2_3_inst/inst/plle2_adv_inst/CLKOUT0]
+
+## TODO: define clock - adc_fifo_clk 
+create_generated_clock  -name adc_fifo_clk    [get_pins  clk_wiz_0_2_3_inst/inst/plle2_adv_inst/CLKOUT2]
+
+## TODO: define clock - ref_200M_clk 
+create_generated_clock  -name ref_200M_clk    [get_pins  clk_wiz_0_inst/inst/mmcm_adv_inst/CLKOUT0]
+
 
 ####
 set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
-#  set_clock_groups -asynchronous -group [get_clocks ref_clk] -group [get_clocks sys_clk]
 
 
 ## for MCS
@@ -481,6 +487,21 @@ set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clo
 set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_clk            ]
 set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_eeprom_fifo_clk]
 set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks xadc_clk           ]
+
+## for adc
+set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks sys_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks mcs_clk            ]
+set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks base_sspi_clk      ]
+set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks sys_clk            ]
+set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks mcs_clk            ]
+set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks base_sspi_clk      ]
+set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks sys_clk            ]
+set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks mcs_clk            ]
+set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks base_sspi_clk      ]
+set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks adc_fifo_clk       ]
+set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks ref_200M_clk       ]
+set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks base_adc_clk       ]
+
 
 
 ############################################################################
