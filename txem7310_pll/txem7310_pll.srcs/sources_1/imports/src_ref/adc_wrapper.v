@@ -157,7 +157,7 @@ always @(posedge sys_clk, negedge reset_n)
 
 
 //// call module 
-control_adc_ddr_two_lane_LTC2387_reg_serdes_quad #( //$$ TODO: adc rev
+control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 	//.PERIOD_CLK_LOGIC_NS (5 ), // ns // for 200MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (4 ), // ns // for 250MHz @ clk_logic
 	.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
@@ -175,7 +175,7 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_quad #( //$$ TODO: adc rev
 	.DCLK_OUTPUT_POLARITY(4'b0000), // set 1 for inversion
 	.MODE_ADC_CONTROL    (4'b0011) // enable adc1 adc0
 	
-	)  control_hsadc_quad_inst(
+	)  control_hsadc_dual__inst(
 	
 	.clk			(sys_clk), // assume 10MHz or 100ns
 	.reset_n		(reset_n & ~w_hsadc_reset & ~w_rst_adc),
