@@ -456,6 +456,10 @@ int main(void)
 	
 	//}
 
+	//// FID check again
+	// test read ADRS_FPGA_IMAGE
+	_test_read_mcs(">>> FPGA_IMAGE_ID: \r\n", ADRS_FPGA_IMAGE);
+
 	//// hw reset wz850 //{
 	xil_printf(">>> hw reset wz850 \r\n");
 	hw_reset__wz850();
