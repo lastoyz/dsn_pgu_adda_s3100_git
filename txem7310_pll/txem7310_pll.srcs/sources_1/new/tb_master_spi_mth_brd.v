@@ -56,13 +56,82 @@ always begin
 	clk_104M = ~clk_104M;  // toggle every 1/(104MHz)/2=4.80769231ns
 	end
 	
+
+reg clk_192M = 1'b0; // 192MHz
+reg clk_96M  = 1'b0; //  96MHz
+reg clk_48M  = 1'b0; //  48MHz
+reg clk_24M  = 1'b0; //  24MHz
+reg clk_12M  = 1'b0; //  12MHz
+always begin
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	clk_48M  = ~clk_48M ;
+	clk_24M  = ~clk_24M ;
+	clk_12M  = ~clk_12M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	//
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	clk_48M  = ~clk_48M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	//
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	clk_48M  = ~clk_48M ;
+	clk_24M  = ~clk_24M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	//
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	clk_48M  = ~clk_48M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	clk_96M  = ~clk_96M ;
+	#2.60416667;
+	clk_192M = ~clk_192M;  // toggle every 1/(192MHz)/2=2.60416667ns
+	//
+	end
+
+
 //  reg clk_12M = 1'b0; // 12MHz
 //  	always
 //  	#41.6666667 clk_12M = ~clk_12M;  
 
+wire sys_clk       = clk_10M;
+wire base_sspi_clk = clk_104M;
+
+wire base_adc_clk = clk_210M; // for CMU
+//wire base_adc_clk = clk_192M; // for MHVSU-BASE
+
+wire p_adc_clk    = clk_12M;
+
 //}
 
-//// test signals 
+//// test signals //{
 reg test_init;
 wire w_done_init;
 //
@@ -75,27 +144,13 @@ reg [31:0] test_data_to_210M;
 
 //reg [31:0] pattern_MISO;
 
-
+//}
 
 
 /* DUT */
-//
-wire [ 5:0] w_frame_data_C = {1'b0,test_frame_rdwr,4'b0000}; // control  data on MOSI
-//wire [ 9:0] w_frame_data_A = 10'h380;  // address  data on MOSI
-wire [ 9:0] w_frame_data_A = test_adrs;  // address  data on MOSI
-//wire [15:0] w_frame_data_D = 16'hA35C; // register data on MOSI
-wire [15:0] w_frame_data_D = test_data; // register data on MOSI
-wire [15:0] w_frame_data_B;            // readback data on MISO
-//
-wire w_trig_frame = test_frame;
-wire w_done_frame;
-//
-wire w_SS_B;
-wire w_SCLK;
-wire w_MOSI;
-wire w_MISO;
-//
 
+
+//// master_spi_mth_brd //{
 
 //
 wire w_SSPI_trig_init  = test_init;
@@ -118,7 +173,7 @@ wire w_SSPI_MISO_EN;
 
 // master SPI emulation 
 master_spi_mth_brd  master_spi_mth_brd__inst (
-	.clk     (clk_104M), // 104MHz
+	.clk     (base_sspi_clk), // 104MHz
 	.reset_n (reset_n ),
 	
 	// control 
@@ -149,6 +204,26 @@ assign w_SSPI_SCLK = w_SSPI_MCLK;
 assign w_SSPI_MISO = w_SSPI_MOSI;
 assign w_SSPI_MISO_EN = ~w_SSPI_SS_B;
 
+//}
+
+
+//// test_model__master_spi__from_mth_brd //{
+
+wire [ 5:0] w_frame_data_C = {1'b0,test_frame_rdwr,4'b0000}; // control  data on MOSI
+//wire [ 9:0] w_frame_data_A = 10'h380;  // address  data on MOSI
+wire [ 9:0] w_frame_data_A = test_adrs;  // address  data on MOSI
+//wire [15:0] w_frame_data_D = 16'hA35C; // register data on MOSI
+wire [15:0] w_frame_data_D = test_data; // register data on MOSI
+wire [15:0] w_frame_data_B;            // readback data on MISO
+//
+wire w_trig_frame = test_frame;
+wire w_done_frame;
+//
+wire w_SS_B;
+wire w_SCLK;
+wire w_MOSI;
+wire w_MISO;
+//
 
 // master SPI
 test_model__master_spi__from_mth_brd  test_model__master_spi__from_mth_brd__inst (  
@@ -170,6 +245,21 @@ test_model__master_spi__from_mth_brd  test_model__master_spi__from_mth_brd__inst
 	.i_MISO (w_MISO)
 );
 
+//}
+
+
+//// adc test model to come //{
+
+//}
+
+
+//// adc control to come //{
+
+//}
+
+
+//// slave_spi_mth_brd //{
+
 // slave SPI
 wire w_MISO_S    ;
 wire w_MISO_S_EN ;
@@ -188,7 +278,7 @@ wire w_loopback_en = 1'b0; // loopback mode control off
 wire w_MISO_one_bit_ahead_en = 1'b0; // MISO one bit ahead mode off 
 //
 slave_spi_mth_brd  slave_spi_mth_brd__inst (
-	.clk     (clk_104M), // base clock clk_104M
+	.clk     (base_sspi_clk), // base clock clk_104M
 	.reset_n (reset_n),
 
 	//// slave SPI pins:
@@ -220,9 +310,33 @@ slave_spi_mth_brd  slave_spi_mth_brd__inst (
 	.i_loopback_en           (w_loopback_en),
 
 
+	//// MISO timing control // rev
+	
+	//.i_slack_count_MISO      (5'd0 ), // [4:0] // '0'  for MISO on SCLK rising edge + 1 + 0  clock delay
+	//.i_slack_count_MISO      (5'd1 ), // [4:0] // '1'  for MISO on SCLK rising edge + 1 + 1  clock delay
+	//.i_slack_count_MISO      (5'd2 ), // [4:0] // '2'  for MISO on SCLK rising edge + 1 + 2  clock delay
+	//.i_slack_count_MISO      (5'd3 ), // [4:0] // '3'  for MISO on SCLK rising edge + 1 + 3  clock delay
+	//.i_slack_count_MISO      (5'd4 ), // [4:0] // '4'  for MISO on SCLK rising edge + 1 + 4  clock delay
+	.i_slack_count_MISO      (5'd5 ), // [4:0] // '5'  for MISO on SCLK rising edge + 1 + 5  clock delay
+	//.i_slack_count_MISO      (5'd6 ), // [4:0] // '6'  for MISO on SCLK rising edge + 1 + 6  clock delay
+	//.i_slack_count_MISO      (5'd7 ), // [4:0] // '7'  for MISO on SCLK rising edge + 1 + 7  clock delay
+	//.i_slack_count_MISO      (5'd8 ), // [4:0] // '8'  for MISO on SCLK rising edge + 1 + 8  clock delay
+	//.i_slack_count_MISO      (5'd9 ), // [4:0] // '9'  for MISO on SCLK rising edge + 1 + 9  clock delay
+	//.i_slack_count_MISO      (5'd10), // [4:0] // '10' for MISO on SCLK rising edge + 1 + 10 clock delay
+	//.i_slack_count_MISO      (5'd11), // [4:0] // '11' for MISO on SCLK rising edge + 1 + 11 clock delay
+	//.i_slack_count_MISO      (5'd12), // [4:0] // '12' for MISO on SCLK rising edge + 1 + 12 clock delay
+	//.i_slack_count_MISO      (5'd13), // [4:0] // '13' for MISO on SCLK rising edge + 1 + 13 clock delay
+	//.i_slack_count_MISO      (5'd14), // [4:0] // '14' for MISO on SCLK rising edge + 1 + 14 clock delay
+	//.i_slack_count_MISO      (5'd15), // [4:0] // '15' for MISO on SCLK rising edge + 1 + 15 clock delay
+	//.i_slack_count_MISO      (5'd23), // [4:0] // '15' for MISO on SCLK rising edge + 1 + 15 clock delay
+	//.i_slack_count_MISO      (5'd28), // [4:0] // '29' for MISO on SCLK rising edge + 1 + 28 clock delay 
+	//.i_slack_count_MISO      (5'd29), // [4:0] // '29' for MISO on SCLK rising edge + 1 + 29 clock delay // outbound of CS
+	//.i_slack_count_MISO      (5'd30), // [4:0] // '30' for MISO on SCLK rising edge + 1 + 30 clock delay
+	//.i_slack_count_MISO      (5'd31), // [4:0] // '31' for MISO on SCLK rising edge + 1 + 31 clock delay // outbound of CS
+
 	//// MISO timing control 
 	//.i_slack_count_MISO      (3'd0), // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
-	.i_slack_count_MISO      (3'd1), // [2:0] // '1' for MISO on SCLK rising edge + 1 + 1/(72MHz) delay
+	//.i_slack_count_MISO      (3'd1), // [2:0] // '1' for MISO on SCLK rising edge + 1 + 1/(72MHz) delay
 	//.i_slack_count_MISO      (3'd2), // [2:0] // '2' for MISO on SCLK rising edge + 1 + 2/(72MHz) delay
 	//.i_slack_count_MISO      (3'd4), // [2:0] // '4' for MISO on SCLK rising edge + 1 + 4/(72MHz) delay
 	//.i_slack_count_MISO      (3'd3), // [2:0] // '3' for MISO on SCLK rising edge + 1 + 4/(72MHz) delay
@@ -239,6 +353,8 @@ slave_spi_mth_brd  slave_spi_mth_brd__inst (
 
 // MISO buf control
 assign w_MISO = (w_MISO_S_EN)?  w_MISO_S : 1'b0;
+
+//}
 
 
 /* test signals */
@@ -266,7 +382,7 @@ end
 // test sequence 
 initial begin
 #0	;
-// test init
+/// test init //{
 begin : test_sig__init
 	test_frame 		  = 1'b0;
 	test_frame_rdwr	  = 1'b0;
@@ -281,6 +397,11 @@ begin : test_sig__init
 $display(" Wait for w_SSPI_done_init"); 
 @(posedge w_SSPI_done_init)
 #200;
+///}
+
+
+//// test frames //{
+
 // write frame setup : done by assignment
 #0; 
 // frame start
@@ -302,7 +423,7 @@ $display(" Wait for rise of w_done_frame");
 #1000; // long delay test for rise detection... if failed, two frames will be shown...
 	//
 ///////////////////////
-	$finish;
+//	$finish;
 	
 #0; 
 // frame start
@@ -321,7 +442,7 @@ $display(" Wait for rise of w_done_frame");
 @(posedge w_done_frame)
 #200;
 ///////////////////////
-	$finish;
+//	$finish;
 	
 #0; 
 // frame start
@@ -339,7 +460,7 @@ $display(" Wait for rise of w_done_frame");
 @(posedge w_done_frame)
 #200;
 ///////////////////////
-	$finish;
+//	$finish;
 	
 #0; 
 // frame start
@@ -357,7 +478,7 @@ $display(" Wait for rise of w_done_frame");
 @(posedge w_done_frame)
 #200;
 ///////////////////////
-	$finish;
+//	$finish;
 	
 #0; 
 // frame start
@@ -375,7 +496,7 @@ $display(" Wait for rise of w_done_frame");
 @(posedge w_done_frame)
 #200;
 ///////////////////////
-	$finish;
+//	$finish;
 	
 #0; 
 // frame start
@@ -393,7 +514,7 @@ $display(" Wait for rise of w_done_frame");
 @(posedge w_done_frame)
 #200;
 ///////////////////////
-	$finish;
+//	$finish;
 	
 #0; 
 // frame start
@@ -416,10 +537,10 @@ $display(" Wait for rise of w_done_frame");
 	
 
 #0; 
-//// test trig out : one pulse long case  //{
-@(posedge clk_10M)
+//// test trig out
+@(posedge sys_clk)
 test_data_to = 32'h1010_0101;
-@(posedge clk_10M)
+@(posedge sys_clk)
 test_data_to = 32'h0000_0000;
 #200;
 //// read trig out - low 16 bits
@@ -458,13 +579,12 @@ $display(" Wait for rise of w_done_frame");
 ///////////////////////
 	$finish;
 	
-	
 #0; 
 //// test trig out : two pulses long case  //{
-@(posedge clk_10M)
+@(posedge sys_clk)
 test_data_to = 32'h1010_0101;
-@(posedge clk_10M)
-@(posedge clk_10M)
+@(posedge sys_clk)
+@(posedge sys_clk)
 test_data_to = 32'h0000_0000;
 #200;
 //// read trig out - low 16 bits
@@ -506,7 +626,7 @@ $display(" Wait for rise of w_done_frame");
 	
 #0; 
 //// test trig out : level signal case  //{
-@(posedge clk_10M)
+@(posedge sys_clk)
 test_data_to = 32'h1010_0101;  // pulse on
 #200;
 //// read trig out - low 16 bits
@@ -541,7 +661,7 @@ begin
 $display(" Wait for rise of w_done_frame"); 
 @(posedge w_done_frame)
 #200;
-@(posedge clk_10M)
+@(posedge sys_clk)
 test_data_to = 32'h0000_0000; // pulse off
 #200;
 //}
@@ -550,10 +670,10 @@ test_data_to = 32'h0000_0000; // pulse off
 
 	
 #0; 
-//// test trig out
-@(posedge clk_210M)
+//// test trig out //{
+@(posedge base_adc_clk)
 test_data_to_210M = 32'h1100_1001;
-@(posedge clk_210M)
+@(posedge base_adc_clk)
 test_data_to_210M = 32'h0000_0000;
 #200;
 //// read trig out
@@ -572,21 +692,22 @@ begin : frame_rd__trig__h19C
 $display(" Wait for rise of w_done_frame"); 
 @(posedge w_done_frame)
 #200;
+//}
 ///////////////////////
 	$finish;
 
 #0; 
-//// test trig out // simultaneous trigout-in and readout
+//// test trig out : simultaneous trigout-in and readout //{
 // frame start
 begin : frame_rd__trig__h19C__simult
 	test_frame_rdwr		= 1'b1; // 1 for read
 	test_adrs       = 10'h19C;
 	#200;
-	@(posedge clk_104M)
+	@(posedge base_sspi_clk)
 	test_frame 		= 1'b1; 
-	@(posedge clk_210M)
+	@(posedge base_adc_clk)
 	test_data_to_210M = 32'h0011_0101;
-	@(posedge clk_210M)
+	@(posedge base_adc_clk)
 	test_data_to_210M = 32'h0000_0000;
 	#200;
 	test_frame 		= 1'b0; 
@@ -596,11 +717,12 @@ begin : frame_rd__trig__h19C__simult
 $display(" Wait for rise of w_done_frame"); 
 @(posedge w_done_frame)
 #200;
+//}
 ///////////////////////
 	$finish;
 
 #0; 
-//// test pipe out
+//// test pipe out //{
 // frame start
 begin : frame_rd__trig__h280
 	test_frame_rdwr		= 1'b1; // 1 for read
@@ -615,11 +737,12 @@ begin : frame_rd__trig__h280
 $display(" Wait for rise of w_done_frame"); 
 @(posedge w_done_frame)
 #200;
+//}
 ///////////////////////
 	$finish;
 	
 #0; 
-//// test pipe in 
+//// test pipe in //{
 // frame start
 begin : frame_wr__trig__h24C
 	test_frame_rdwr	= 1'b0; // 1/0 for read/write
@@ -635,6 +758,14 @@ begin : frame_wr__trig__h24C
 $display(" Wait for rise of w_done_frame"); 
 @(posedge w_done_frame)
 #200;
+//}
+///////////////////////
+	$finish;
+
+
+//// adc test to come
+
+#200;
 ///////////////////////
 	$finish;
 
@@ -642,6 +773,35 @@ $display(" Wait for rise of w_done_frame");
 end
 
 
+
+//// test tasks //{
+
+//$$ wire [31:0] w_port_wi_sadrs_h01C;  assign w_ADC_CON_WI = w_port_wi_sadrs_h01C;
+//$$ wire [31:0] w_port_wi_sadrs_h040;  assign w_ADC_PAR_WI= w_port_wi_sadrs_h040;
+//$$ wire [31:0] w_port_ti_sadrs_h11C;  assign w_ADC_TRIG_TI = w_port_ti_sadrs_h11C;
+//$$ wire [31:0] w_port_to_sadrs_h19C = test_data_to_210M | w_ADC_TRIG_TO;
+
+// TASK__SEND_FRAME(temp_frame_rdwr_1b, temp_adrs_10b, temp_data_15b)
+task  TASK__SEND_FRAME;
+	input         temp_frame_rdwr; // 1/0 for read/write
+	input  [ 9:0] temp_adrs      ;
+	input  [15:0] temp_data      ;
+	begin 
+		@(posedge sys_clk);
+		test_frame_rdwr = temp_frame_rdwr ;
+		test_adrs       = temp_adrs       ;
+		test_data       = temp_data       ;
+		//
+		@(posedge sys_clk);
+		test_frame 		= 1'b1; 
+		@(posedge sys_clk);
+		test_frame 		= 1'b0; 
+		//
+		@(posedge w_done_frame); // wait for frame done 
+	end
+endtask 
+
+//}
 
 //  // test_MISO
 //  always @(negedge w_SCLK) begin : pattern_MISO__gen
@@ -654,8 +814,6 @@ end
 //  end
 //  //
 //  assign w_MISO = pattern_MISO[31];
-
-
 
 
 //initial begin
