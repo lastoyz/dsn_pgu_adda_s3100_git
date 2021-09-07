@@ -3762,9 +3762,9 @@ wire w_M2_rd__sadrs_h2F4; assign epBDrd = w_M2_rd__sadrs_h2F4;  wire [31:0] w_M2
 wire       w_M2_loopback_en           = w_SSPI_CON_WI[24]   ; //$$ (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[24]    : w_SSPI_CON_WI[24]    ;
 wire       w_M2_MISO_one_bit_ahead_en = w_SSPI_CON_WI[25]   ; //$$ (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[25]    : w_SSPI_CON_WI[25]    ;
 //wire [2:0] w_M2_slack_count_MISO      = w_SSPI_CON_WI[30:28]; //$$ (~w_SSPI_CON_WI[0])? w_M2_port_wi_sadrs_h008[30:28] : w_SSPI_CON_WI[30:28] ;
-wire [2:0] w_M2_slack_count_MISO      = (w_SSPI_CON_WI[20:16]+5'd5); //$$ slack offset 5 for fall edge aligned
+wire [4:0] w_M2_slack_count_MISO      = (w_SSPI_CON_WI[20:16]+5'd5); //$$ slack offset 5 for fall edge aligned
 //
-wire [7:0] w_board_status = 8'b0; // test
+wire [7:0] w_board_status = 8'hC5; // test
 
 //}
 
