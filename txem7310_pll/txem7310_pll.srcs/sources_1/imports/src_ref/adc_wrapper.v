@@ -259,6 +259,8 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 endmodule //}
 
 
+////------------------------------------------------------------------------------------------////
+
 //// testbench
 module tb_adc_wrapper (); //{
 
@@ -294,24 +296,79 @@ always begin
 	#4.80769231;
 	clk_104M = ~clk_104M;  // toggle every 1/(104MHz)/2=4.80769231ns
 	end
-	
-wire sys_clk  = clk_10M;
-wire host_clk = clk_140M;
-wire spi_clk  = clk_104M; 
+
+reg clk_210M = 1'b0; // 210Mz
+	always
+	#2.38095238 	clk_210M = ~clk_210M; // toggle every 2.38095238 ns --> clock 4.76190476 ns 
+
+reg clk_60M = 1'b0; // 60MHz
+	always
+	#8.33333333 	clk_60M = ~clk_60M; // toggle every 8ns --> clock 16ns 
+
+// rename
+wire sys_clk      = clk_10M ;
+wire host_clk     = clk_140M;
+wire spi_clk      = clk_104M; 
+wire base_adc_clk = clk_210M; // base clock for ADC // 210MHz
+wire adc_fifo_clk = clk_60M ; // adc fifo clock     // 60MHz
 	
 //}
 
 
 //// DUT //{
 
-reg           r_FMC_NCE ; 
-reg  [31 : 0] r_FMC_ADD ; 
-reg           r_FMC_NOE ; 
-wire [15 : 0] w_FMC_DRD ; 
-reg           r_FMC_NWE ; 
-reg  [15 : 0] r_FMC_DWR ; 
+//// adc test model
 
-// wire [31 : 0] w_ep62trig_loopback ;
+wire w_test_model_en; // enable test mode without controller
+wire w_test_model_trig;
+
+wire w_cnv_adc_mdl; // from model
+wire w_clk_adc_mdl; // from model
+//
+wire w_cnv_adc_ctl = 1'b0; // from control 
+wire w_clk_adc_ctl = 1'b0; // from control 
+wire w_cnv_adc; // mux
+wire w_clk_adc; // mux
+	assign w_cnv_adc = (w_test_model_en)? w_cnv_adc_mdl : w_cnv_adc_ctl;
+	assign w_clk_adc = (w_test_model_en)? w_clk_adc_mdl : w_clk_adc_ctl;
+wire w_pin_test_adc = 1'b0; // 0 for fixed pattern disabled
+
+test_model_adc_ddr_two_lane_LTC2387 #(
+	.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
+	//.PERIOD_CLK_LOGIC_NS (8 ), // ns // for 125MHz @ clk_logic
+	.PERIOD_CLK_CNV_NS   (57.14285712), // ns // period of test_cnv_adc // 57.14285712=12*4.76190476
+	//.PERIOD_CLK_CNV_NS   (96), // ns // period of test_cnv_adc // 96=12*8
+	//.PERIOD_CLK_CNV_NS   (88), // ns // period of test_cnv_adc // 88=11*8
+	//
+	.DAT1_OUTPUT_POLARITY(1'b0),
+	.DAT2_OUTPUT_POLARITY(1'b0),
+	.DCLK_OUTPUT_POLARITY(1'b0)	
+	) test_model_adc_ddr_two_lane_LTC2387_inst (
+	.clk_logic	(base_adc_clk), // 
+	.reset_n	(reset_n),
+	.en			(1'b1), // test fo connected ADC
+	//
+	.test					(w_test_model_trig), // generate test pattern on dco_adc / dat1_adc / dat2_adc, without external clock.
+	.test_cnv_adc			(w_cnv_adc_mdl	  ), // o // auto conversion output signal for test 
+	.test_clk_adc			(w_clk_adc_mdl	  ), // o // auto conversion output signal for test 
+	.test_clk_reset_serdes	(w_clk_reset_mdl  ), // o // auto clk_reset for serdes
+	.test_io_reset_serdes	(w_io_reset_mdl	  ), // o // auto io_reset for serdes
+	.test_valid_fifo		(w_valid_fifo_mdl ), // o // auto valid for fifo
+	//
+	.i_cnv_adc	(w_cnv_adc), // trigger input for conversion 
+	.i_clk_adc	(w_clk_adc), // clock input for adc data ... connected to dco_adc
+	//
+	.test_mode_inc_data (~w_pin_test_adc), // increasing data or fixed data
+	//
+	.dco_adc	(w_dco_adc ),  // o
+	.dat1_adc	(w_dat1_adc),  // o
+	.dat2_adc	(w_dat2_adc),  // o
+	//
+	.debug_out	() // o
+);
+
+
+//// adc control 
 
 adc_wrapper  adc_wrapper__inst ();
 
@@ -413,8 +470,28 @@ adc_wrapper  adc_wrapper__inst ();
 //}
 
 
+//// test signals //{
+
+// 
+reg           r_FMC_NCE ; 
+reg  [31 : 0] r_FMC_ADD ; 
+reg           r_FMC_NOE ; 
+wire [15 : 0] w_FMC_DRD ; 
+reg           r_FMC_NWE ; 
+reg  [15 : 0] r_FMC_DWR ; 
+
+//
+reg test_model_en; // adc test without controller
+assign w_test_model_en = test_model_en;
+reg test_model_trig; // trigger test model
+assign w_test_model_trig = test_model_trig;
+
+//}
+
+
 //// test sequence //{
 
+// reset seq
 initial begin : reset_n__gen
 #0	reset_n 	= 1'b0;
 #200;
@@ -422,7 +499,40 @@ initial begin : reset_n__gen
 #200;
 end
 
+// test mode seq 
 initial begin 
+#0;
+	test_model_en   = 1'b1;
+	test_model_trig = 1'b0;
+@(posedge reset_n)
+#200;
+@(posedge base_adc_clk)
+	test_model_trig = 1'b1; // start adc model output
+	//
+repeat(55) begin // find 55 dco clocks
+@(posedge w_dco_adc);
+end
+	//
+#200;
+@(posedge base_adc_clk)
+	test_model_trig = 1'b1; // start adc model output
+#200;
+	test_model_en   = 1'b0;
+end 
+
+// main test 
+initial begin
+
+// find reset done 
+@(posedge reset_n)
+// find test mode done
+@(negedge test_model_en)
+
+///////////////////////
+#200;
+$finish;
+
+ 
 // init
 TASK__FMC__IDLE();
 //
