@@ -2680,7 +2680,7 @@ wire [31:0] w_ADCH_WI        = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_
 wire [31:0] w_ADCH_FREQ_WI   = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1C_1 : ep1Cwire; 
 wire [31:0] w_ADCH_UPD_SM_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1D_1 : ep1Dwire; 
 wire [31:0] w_ADCH_SMP_PR_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1E_1 : ep1Ewire; 
-wire [31:0] w_ADCH_DLY_TA_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1F_1 : ep1Fwire; 
+wire [31:0] w_ADCH_DLY_TP_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1F_1 : ep1Fwire; 
 
 wire [31:0] w_ADCH_WO       ;  assign w_port_wo_38_1 = w_ADCH_WO       ;  assign ep38wire = w_ADCH_WO       ;
 wire [31:0] w_ADCH_B_FRQ_WO ;  assign w_port_wo_39_1 = w_ADCH_B_FRQ_WO ;  assign ep39wire = w_ADCH_B_FRQ_WO ;
