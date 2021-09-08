@@ -238,7 +238,8 @@ module slave_spi_mth_brd (
 	input  wire i_loopback_en  ,
 	
 	//// timing control 
-	input  wire  [2:0] i_slack_count_MISO, // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
+	//input  wire  [2:0] i_slack_count_MISO, // [2:0] // '0' for MISO on SCLK falling edge; 'n' for earlier location
+	input  wire  [4:0] i_slack_count_MISO, // [4:0] // rev
 	input  wire i_MISO_one_bit_ahead_en, // '1' for MISO one bit ahead mode.
 	
 	//// miso return contents
@@ -550,24 +551,75 @@ always @(posedge clk, negedge reset_n)
 (* keep = "true" *) wire w_frame_miso_trig;
 (* keep = "true" *) wire w_frame_miso_trig_pre;
 //  miso trig phase ... 
-wire w_phase__miso_trig =
-                           (i_slack_count_MISO == 3'h0)? (r_SPI_CLK[1:0]== 2'b10        ) :  // fall edge     
-                           (i_slack_count_MISO == 3'h1)? (r_SPI_CLK[3:0]== 4'b0111      ) :  // rise edge + 2 
-                           (i_slack_count_MISO == 3'h2)? (r_SPI_CLK[4:0]== 5'b01111     ) :  // rise edge + 3 
-                           (i_slack_count_MISO == 3'h3)? (r_SPI_CLK[5:0]== 6'b011111    ) :  // rise edge + 4 
-                           (i_slack_count_MISO == 3'h4)? (r_SPI_CLK[6:0]== 7'b0111111   ) :  // rise edge + 5
-                           (i_slack_count_MISO == 3'h5)? (r_SPI_CLK[7:0]== 8'b01111111  ) :  // rise edge + 6
-                           (i_slack_count_MISO == 3'h6)? (r_SPI_CLK[8:0]== 9'b011111111 ) :  // rise edge + 7
-                           (i_slack_count_MISO == 3'h7)? (r_SPI_CLK[9:0]==10'b0111111111) :  // rise edge + 8
-                           1'b0;
+(* keep = "true" *) reg [31:0] r_sh_phase__miso_trig;
+always @(posedge clk, negedge reset_n)
+	if (!reset_n) begin
+		r_sh_phase__miso_trig <=  32'b0;
+	end
+	else begin
+		if (r_SPI_CLK[1:0]== 2'b01) begin 
+			r_sh_phase__miso_trig <=  {r_sh_phase__miso_trig[30:0], 1'b1};
+			end
+		else begin
+			r_sh_phase__miso_trig <=  {r_sh_phase__miso_trig[30:0], 1'b0};
+			end
+	end	
+	
+(* keep = "true" *) wire w_phase__miso_trig = 
+    (i_slack_count_MISO == 5'd0 )? r_sh_phase__miso_trig[0 ] :  // rise edge + 1 + 0  
+    (i_slack_count_MISO == 5'd1 )? r_sh_phase__miso_trig[1 ] :  // rise edge + 1 + 1  
+    (i_slack_count_MISO == 5'd2 )? r_sh_phase__miso_trig[2 ] :  // rise edge + 1 + 2  
+    (i_slack_count_MISO == 5'd3 )? r_sh_phase__miso_trig[3 ] :  // rise edge + 1 + 3  
+    (i_slack_count_MISO == 5'd4 )? r_sh_phase__miso_trig[4 ] :  // rise edge + 1 + 4 
+    (i_slack_count_MISO == 5'd5 )? r_sh_phase__miso_trig[5 ] :  // rise edge + 1 + 5 
+    (i_slack_count_MISO == 5'd6 )? r_sh_phase__miso_trig[6 ] :  // rise edge + 1 + 6 
+    (i_slack_count_MISO == 5'd7 )? r_sh_phase__miso_trig[7 ] :  // rise edge + 1 + 7 
+    (i_slack_count_MISO == 5'd8 )? r_sh_phase__miso_trig[8 ] :  // rise edge + 1 + 8  
+    (i_slack_count_MISO == 5'd9 )? r_sh_phase__miso_trig[9 ] :  // rise edge + 1 + 9  
+    (i_slack_count_MISO == 5'd10)? r_sh_phase__miso_trig[10] :  // rise edge + 1 + 10 
+    (i_slack_count_MISO == 5'd11)? r_sh_phase__miso_trig[11] :  // rise edge + 1 + 11 
+    (i_slack_count_MISO == 5'd12)? r_sh_phase__miso_trig[12] :  // rise edge + 1 + 12
+    (i_slack_count_MISO == 5'd13)? r_sh_phase__miso_trig[13] :  // rise edge + 1 + 13
+    (i_slack_count_MISO == 5'd14)? r_sh_phase__miso_trig[14] :  // rise edge + 1 + 14
+    (i_slack_count_MISO == 5'd15)? r_sh_phase__miso_trig[15] :  // rise edge + 1 + 15
+    (i_slack_count_MISO == 5'd16)? r_sh_phase__miso_trig[16] :  // rise edge + 1 + 16
+    (i_slack_count_MISO == 5'd17)? r_sh_phase__miso_trig[17] :  // rise edge + 1 + 17
+    (i_slack_count_MISO == 5'd18)? r_sh_phase__miso_trig[18] :  // rise edge + 1 + 18 
+    (i_slack_count_MISO == 5'd19)? r_sh_phase__miso_trig[19] :  // rise edge + 1 + 19 
+    (i_slack_count_MISO == 5'd20)? r_sh_phase__miso_trig[20] :  // rise edge + 1 + 20 
+    (i_slack_count_MISO == 5'd21)? r_sh_phase__miso_trig[21] :  // rise edge + 1 + 21 
+    (i_slack_count_MISO == 5'd22)? r_sh_phase__miso_trig[22] :  // rise edge + 1 + 22
+    (i_slack_count_MISO == 5'd23)? r_sh_phase__miso_trig[23] :  // rise edge + 1 + 23
+    (i_slack_count_MISO == 5'd24)? r_sh_phase__miso_trig[24] :  // rise edge + 1 + 24
+    (i_slack_count_MISO == 5'd25)? r_sh_phase__miso_trig[25] :  // rise edge + 1 + 25
+    (i_slack_count_MISO == 5'd26)? r_sh_phase__miso_trig[26] :  // rise edge + 1 + 26
+    (i_slack_count_MISO == 5'd27)? r_sh_phase__miso_trig[27] :  // rise edge + 1 + 27
+    (i_slack_count_MISO == 5'd28)? r_sh_phase__miso_trig[28] :  // rise edge + 1 + 28 
+    (i_slack_count_MISO == 5'd29)? r_sh_phase__miso_trig[29] :  // rise edge + 1 + 29 
+    (i_slack_count_MISO == 5'd30)? r_sh_phase__miso_trig[30] :  // rise edge + 1 + 30 
+    (i_slack_count_MISO == 5'd31)? r_sh_phase__miso_trig[31] :  // rise edge + 1 + 31 
+    1'b0;
+//  wire w_phase__miso_trig =
+//                             (i_slack_count_MISO == 3'h0)? (r_SPI_CLK[1:0]== 2'b10        ) :  // fall edge     
+//                             (i_slack_count_MISO == 3'h1)? (r_SPI_CLK[3:0]== 4'b0111      ) :  // rise edge + 2 
+//                             (i_slack_count_MISO == 3'h2)? (r_SPI_CLK[4:0]== 5'b01111     ) :  // rise edge + 3 
+//                             (i_slack_count_MISO == 3'h3)? (r_SPI_CLK[5:0]== 6'b011111    ) :  // rise edge + 4 
+//                             (i_slack_count_MISO == 3'h4)? (r_SPI_CLK[6:0]== 7'b0111111   ) :  // rise edge + 5
+//                             (i_slack_count_MISO == 3'h5)? (r_SPI_CLK[7:0]== 8'b01111111  ) :  // rise edge + 6
+//                             (i_slack_count_MISO == 3'h6)? (r_SPI_CLK[8:0]== 9'b011111111 ) :  // rise edge + 7
+//                             (i_slack_count_MISO == 3'h7)? (r_SPI_CLK[9:0]==10'b0111111111) :  // rise edge + 8
+//                             1'b0;
+
+wire [5:0] w_frame_index_add = (i_slack_count_MISO > 5'd15)? 6'd1 : 6'd0; // for next frame
+
 //
 assign w_frame_miso_trig = (~i_MISO_one_bit_ahead_en)? 
-							((w_phase__miso_trig & (r_frame_index==6'd16) )? 1'b1 : 1'b0) :
-							((w_phase__miso_trig & (r_frame_index==6'd15) )? 1'b1 : 1'b0) ;
+							((w_phase__miso_trig & (r_frame_index==6'd16 + w_frame_index_add) )? 1'b1 : 1'b0) :
+							((w_phase__miso_trig & (r_frame_index==6'd15 + w_frame_index_add) )? 1'b1 : 1'b0) ;
 //
 assign w_frame_miso_trig_pre = (~i_MISO_one_bit_ahead_en)? 
-							((w_phase__miso_trig & (r_frame_index==6'd2) )? 1'b1 : 1'b0) :
-							((w_phase__miso_trig & (r_frame_index==6'd1) )? 1'b1 : 1'b0) ;
+							((w_phase__miso_trig & (r_frame_index==6'd2 + w_frame_index_add) )? 1'b1 : 1'b0) :
+							((w_phase__miso_trig & (r_frame_index==6'd1 + w_frame_index_add) )? 1'b1 : 1'b0) ;
 // r_frame_miso_trig
 always @(posedge clk, negedge reset_n)
 	if (!reset_n) begin

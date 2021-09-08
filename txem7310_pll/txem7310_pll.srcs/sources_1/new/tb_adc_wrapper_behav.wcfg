@@ -12,27 +12,36 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="25270000001fs"></ZoomEndTime>
-      <Cursor1Time time="25270000000fs"></Cursor1Time>
+      <ZoomStartTime time="1793905000fs"></ZoomStartTime>
+      <ZoomEndTime time="3749905001fs"></ZoomEndTime>
+      <Cursor1Time time="2217905000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="181"></NameColumnWidth>
-      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+      <NameColumnWidth column_width="227"></NameColumnWidth>
+      <ValueColumnWidth column_width="106"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="133" />
+   <WVObjectSize size="165" />
    <wave_markers>
       <marker label="" time="8819343000" />
       <marker label="" time="8862201000" />
-      <marker label="" time="2585885000" />
       <marker label="" time="5757377000" />
-      <marker label="" time="2519217000" />
-      <marker label="" time="3758183000" />
       <marker label="" time="8991307000" />
       <marker label="" time="17924283000" />
       <marker label="" time="17990947000" />
       <marker label="" time="8550000000" />
       <marker label="" time="9074637000" />
+      <marker label="" time="774500000" />
+      <marker label="" time="509653000" />
+      <marker label="" time="452509000" />
+      <marker label="" time="1073831000" />
+      <marker label="" time="1464307000" />
+      <marker label="" time="1550000000" />
+      <marker label="" time="2508000000" />
+      <marker label="" time="2844000000" />
+      <marker label="" time="3172000000" />
+      <marker label="" time="3508000000" />
+      <marker label="" time="3844000000" />
+      <marker label="" time="6116995000" />
    </wave_markers>
    <wvobject type="logic" fp_name="/tb_adc_wrapper/tb_ref__inst/clk">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -93,6 +102,18 @@
    <wvobject type="logic" fp_name="/tb_adc_wrapper/tb_ref__inst/test">
       <obj_property name="ElementShortName">test</obj_property>
       <obj_property name="ObjectShortName">test</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/tb_ref__inst/control_adc_ddr_two_lane_LTC2387_inst/init_done">
+      <obj_property name="ElementShortName">init_done</obj_property>
+      <obj_property name="ObjectShortName">init_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/tb_ref__inst/control_adc_ddr_two_lane_LTC2387_inst/update_done">
+      <obj_property name="ElementShortName">update_done</obj_property>
+      <obj_property name="ObjectShortName">update_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/tb_ref__inst/control_adc_ddr_two_lane_LTC2387_inst/test_done">
+      <obj_property name="ElementShortName">test_done</obj_property>
+      <obj_property name="ObjectShortName">test_done</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_adc_wrapper/tb_ref__inst/test_model_en">
       <obj_property name="ElementShortName">test_model_en</obj_property>
@@ -833,7 +854,133 @@
       <obj_property name="ObjectShortName">SEQ_END_WAIT[7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="divider487" type="divider">
-      <obj_property name="label">-------ref-------</obj_property>
+      <obj_property name="label">-------above: ref-------</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider487" type="divider">
+      <obj_property name="label">-------below: adc wrapper-------</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/clk_logic">
+      <obj_property name="ElementShortName">clk_logic</obj_property>
+      <obj_property name="ObjectShortName">clk_logic</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/reset_n">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_en">
+      <obj_property name="ElementShortName">test_model_en</obj_property>
+      <obj_property name="ObjectShortName">test_model_en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_trig">
+      <obj_property name="ElementShortName">test_model_trig</obj_property>
+      <obj_property name="ObjectShortName">test_model_trig</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/trig_clk_adc">
+      <obj_property name="ElementShortName">trig_clk_adc</obj_property>
+      <obj_property name="ObjectShortName">trig_clk_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/trig_dat_adc">
+      <obj_property name="ElementShortName">trig_dat_adc</obj_property>
+      <obj_property name="ObjectShortName">trig_dat_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/dco_adc">
+      <obj_property name="ElementShortName">dco_adc</obj_property>
+      <obj_property name="ObjectShortName">dco_adc</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/dat1_adc">
+      <obj_property name="ElementShortName">dat1_adc</obj_property>
+      <obj_property name="ObjectShortName">dat1_adc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/dat2_adc">
+      <obj_property name="ElementShortName">dat2_adc</obj_property>
+      <obj_property name="ObjectShortName">dat2_adc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_adc_wrapper/test_model_adc_ddr_two_lane_LTC2387_inst/r_data_adc">
+      <obj_property name="ElementShortName">r_data_adc[17:0]</obj_property>
+      <obj_property name="ObjectShortName">r_data_adc[17:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_fifo_adc0_din">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc0_din[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc0_din[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/w_hsadc_fifo_adc0_wr">
+      <obj_property name="ElementShortName">w_hsadc_fifo_adc0_wr</obj_property>
+      <obj_property name="ObjectShortName">w_hsadc_fifo_adc0_wr</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_fifo_adc1_din">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc1_din[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc1_din[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/w_hsadc_fifo_adc1_wr">
+      <obj_property name="ElementShortName">w_hsadc_fifo_adc1_wr</obj_property>
+      <obj_property name="ObjectShortName">w_hsadc_fifo_adc1_wr</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/i_hsadc_en">
+      <obj_property name="ElementShortName">i_hsadc_en</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/i_hsadc_init">
+      <obj_property name="ElementShortName">i_hsadc_init</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/i_hsadc_update">
+      <obj_property name="ElementShortName">i_hsadc_update</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_update</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_init_done">
+      <obj_property name="ElementShortName">o_hsadc_init_done</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_init_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_init_done_to">
+      <obj_property name="ElementShortName">o_hsadc_init_done_to</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_init_done_to</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/i_hsadc_test">
+      <obj_property name="ElementShortName">i_hsadc_test</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_test</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/i_hsadc_fifo_rst">
+      <obj_property name="ElementShortName">i_hsadc_fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_fifo_rst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_update_done">
+      <obj_property name="ElementShortName">o_hsadc_update_done</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_update_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_test_done">
+      <obj_property name="ElementShortName">o_hsadc_test_done</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_test_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_update_done_to">
+      <obj_property name="ElementShortName">o_hsadc_update_done_to</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_update_done_to</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_test_done_to">
+      <obj_property name="ElementShortName">o_hsadc_test_done_to</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_test_done_to</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_pin_conv">
+      <obj_property name="ElementShortName">o_hsadc_pin_conv</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_conv</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_pin_sclk">
+      <obj_property name="ElementShortName">o_hsadc_pin_sclk</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_sclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_adc_wrapper/adc_wrapper__inst/o_hsadc_pin_test">
+      <obj_property name="ElementShortName">o_hsadc_pin_test</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_test</obj_property>
    </wvobject>
 </wave_config>
