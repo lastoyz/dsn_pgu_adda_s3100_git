@@ -10,6 +10,7 @@
 //
 // test :  master_spi_mth_brd.v 
 // test :  slave_spi_mth_brd.v  test_model__master_spi__from_mth_brd.v
+// test :  adc_wrapper.v
 //
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -210,11 +211,9 @@ assign w_SSPI_MISO_EN = ~w_SSPI_SS_B;
 //// test_model__master_spi__from_mth_brd //{
 
 wire [ 5:0] w_frame_data_C = {1'b0,test_frame_rdwr,4'b0000}; // control  data on MOSI
-//wire [ 9:0] w_frame_data_A = 10'h380;  // address  data on MOSI
-wire [ 9:0] w_frame_data_A = test_adrs;  // address  data on MOSI
-//wire [15:0] w_frame_data_D = 16'hA35C; // register data on MOSI
+wire [ 9:0] w_frame_data_A = test_adrs; // address  data on MOSI
 wire [15:0] w_frame_data_D = test_data; // register data on MOSI
-wire [15:0] w_frame_data_B;            // readback data on MISO
+wire [15:0] w_frame_data_B;             // readback data on MISO
 //
 wire w_trig_frame = test_frame;
 wire w_done_frame;
@@ -255,22 +254,44 @@ test_model__master_spi__from_mth_brd  test_model__master_spi__from_mth_brd__inst
 
 //// adc control to come //{
 
+
 //}
 
 
 //// slave_spi_mth_brd //{
 
-// slave SPI
+// slave SPI wires
 wire w_MISO_S    ;
 wire w_MISO_S_EN ;
-//
+
+wire [31:0] w_port_wi_sadrs_h000;
+wire [31:0] w_port_wi_sadrs_h008;
+wire [31:0] w_port_wi_sadrs_h060;  // | ADCH  | ADCH_WI       | 0x060      | wire_in_18 |
+wire [31:0] w_port_wi_sadrs_h070;  // | ADCH  | ADCH_FREQ_WI  | 0x070      | wire_in_1C |
+wire [31:0] w_port_wi_sadrs_h074;  // | ADCH  | ADCH_UPD_SM_WI| 0x074      | wire_in_1D |
+wire [31:0] w_port_wi_sadrs_h078;  // | ADCH  | ADCH_SMP_PR_WI| 0x078      | wire_in_1E |
+wire [31:0] w_port_wi_sadrs_h07C;  // | ADCH  | ADCH_DLY_TP_WI| 0x07C      | wire_in_1F |
+
+wire [31:0] w_port_wo_sadrs_h0E0;// | ADCH  | ADCH_WO       | 0x0E0      | wireout_38 |
+wire [31:0] w_port_wo_sadrs_h0E4;// | ADCH  | ADCH_B_FRQ_WO | 0x0E4      | wireout_39 |
+wire [31:0] w_port_wo_sadrs_h0F0;// | ADCH  | ADCH_DOUT0_WO | 0x0F0      | wireout_3C |
+wire [31:0] w_port_wo_sadrs_h0F4;// | ADCH  | ADCH_DOUT1_WO | 0x0F4      | wireout_3D |
+wire [31:0] w_port_wo_sadrs_h0F8;// | ADCH  | ADCH_DOUT2_WO | 0x0F8      | wireout_3E |
+wire [31:0] w_port_wo_sadrs_h0FC;// | ADCH  | ADCH_DOUT3_WO | 0x0FC      | wireout_3F |
 wire [31:0] w_port_wo_sadrs_h080 = 32'hD020_0529;
 wire [31:0] w_port_wo_sadrs_h088 = 32'h0000_1010; 
 wire [31:0] w_port_wo_sadrs_h380 = 32'h33AA_CC55; // 0x33AACC55
-//
+
+wire [31:0] w_port_ti_sadrs_h160; // | ADCH  | ADCH_TI       | 0x160      | trig_in_58 |
 wire [31:0] w_port_ti_sadrs_h104;
+
+wire [31:0] w_port_to_sadrs_h1E0; // | ADCH  | ADCH_TO       | 0x1E0      | trigout_78 |
 wire [31:0] w_port_to_sadrs_h194 = test_data_to;
 wire [31:0] w_port_to_sadrs_h19C = test_data_to_210M;
+
+wire [31:0] w_port_po_sadrs_h2F0; wire w_rd__sadrs_h2F0; // | ADCH  | ADCH_DOUT0_PO | 0x2F0      | pipeout_BC |
+wire [31:0] w_port_po_sadrs_h2F4; wire w_rd__sadrs_h2F4; // | ADCH  | ADCH_DOUT1_PO | 0x2F4      | pipeout_BD |
+
 
 //wire w_loopback_en = 1'b1; // loopback mode control on
 wire w_loopback_en = 1'b0; // loopback mode control off
@@ -289,22 +310,37 @@ slave_spi_mth_brd  slave_spi_mth_brd__inst (
 	.o_SPI_MISO_EN   (w_MISO_S_EN), // MISO buffer control
 
 	//// test register interface
-	.o_port_wi_sadrs_h000    (), // [31:0] // adrs h003~h000
-	.o_port_wi_sadrs_h008    (),
+	.o_port_wi_sadrs_h000    (w_port_wi_sadrs_h000), // [31:0] // adrs h003~h000
+	.o_port_wi_sadrs_h008    (w_port_wi_sadrs_h008),
+	.o_port_wi_sadrs_h060    (w_port_wi_sadrs_h060), // ADCH
+	.o_port_wi_sadrs_h070    (w_port_wi_sadrs_h070), // ADCH
+	.o_port_wi_sadrs_h074    (w_port_wi_sadrs_h074), // ADCH
+	.o_port_wi_sadrs_h078    (w_port_wi_sadrs_h078), // ADCH
+	.o_port_wi_sadrs_h07C    (w_port_wi_sadrs_h07C), // ADCH
 	//
+	.i_port_wo_sadrs_h380    (w_port_wo_sadrs_h380), // [31:0] // adrs h383~h380
 	.i_port_wo_sadrs_h080    (w_port_wo_sadrs_h080),
 	.i_port_wo_sadrs_h088    (w_port_wo_sadrs_h088),
-	.i_port_wo_sadrs_h380    (w_port_wo_sadrs_h380), // [31:0] // adrs h383~h380
+	.i_port_wo_sadrs_h0E0    (w_port_wo_sadrs_h0E0), // ADCH
+	.i_port_wo_sadrs_h0E4    (w_port_wo_sadrs_h0E4), // ADCH
+	.i_port_wo_sadrs_h0F0    (w_port_wo_sadrs_h0F0), // ADCH
+	.i_port_wo_sadrs_h0F4    (w_port_wo_sadrs_h0F4), // ADCH
+	.i_port_wo_sadrs_h0F8    (w_port_wo_sadrs_h0F8), // ADCH
+	.i_port_wo_sadrs_h0FC    (w_port_wo_sadrs_h0FC), // ADCH
 	//
-	.i_ck__sadrs_h104(clk_10M),  .o_port_ti_sadrs_h104(w_port_ti_sadrs_h104),
+	.i_ck__sadrs_h104(clk_10M ),  .o_port_ti_sadrs_h104(w_port_ti_sadrs_h104),
+	.i_ck__sadrs_h160(clk_10M ),  .o_port_ti_sadrs_h104(w_port_ti_sadrs_h160), // ADCH
 	//
 	.i_ck__sadrs_h194(clk_10M ),  .i_port_to_sadrs_h194(w_port_to_sadrs_h194), // [31:0]
 	.i_ck__sadrs_h19C(clk_210M),  .i_port_to_sadrs_h19C(w_port_to_sadrs_h19C), // [31:0]
+	.i_ck__sadrs_h1E0(clk_10M ),  .i_port_to_sadrs_h1E0(w_port_to_sadrs_h1E0), // [31:0] // ADCH
 
 	//
 	.o_wr__sadrs_h24C (),  .o_port_pi_sadrs_h24C (), // [31:0]  // MEM_PI	0x24C	pi93 //$$
 	//
-	.o_rd__sadrs_h280 (),  .i_port_po_sadrs_h280 (32'h32AB_CD54), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
+	.o_rd__sadrs_h280 (                ),  .i_port_po_sadrs_h280 (32'h32AB_CD54       ), // [31:0]  // ADC_S1_CH1_PO	0x280	poA0
+	.o_rd__sadrs_h2F0 (w_rd__sadrs_h2F0),  .i_port_po_sadrs_h2F0 (w_port_po_sadrs_h2F0), // ADCH
+	.o_rd__sadrs_h2F4 (w_rd__sadrs_h2F4),  .i_port_po_sadrs_h2F4 (w_port_po_sadrs_h2F4), // ADCH
 	
 	//// loopback mode control 
 	.i_loopback_en           (w_loopback_en),
@@ -768,8 +804,6 @@ $display(" Wait for rise of w_done_frame");
 #200;
 ///////////////////////
 	$finish;
-
-
 end
 
 
