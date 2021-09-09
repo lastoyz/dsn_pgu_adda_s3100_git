@@ -467,8 +467,12 @@ test_model_adc_ddr_two_lane_LTC2387 #(
 	//.PERIOD_CLK_CNV_NS   (96), // ns // period of test_cnv_adc // 96=12*8
 	//.PERIOD_CLK_CNV_NS   (88), // ns // period of test_cnv_adc // 88=11*8
 	//
-	//.DELAY_NS_delay_locked(973), // ns // only for simulation // 0 or 973ns
-	.DELAY_NS_delay_locked(400), // ns // test
+	.DELAY_NS_delay_locked(973), // ns // only for simulation // 0 or 973ns
+	//.DELAY_NS_delay_locked(400), // ns // test
+	//
+	//parameter DELAY_CLK = 32'd9; // 65ns min < 8ns*9=72ns @125MHz
+	//parameter DELAY_CLK = 32'd14; // 65ns min < 1/(210MHz)*14=66.7ns @210MHz
+	.DELAY_CLK(14),
 	//
 	.DAT1_OUTPUT_POLARITY(1'b0),
 	.DAT2_OUTPUT_POLARITY(1'b0),
