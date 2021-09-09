@@ -261,10 +261,10 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 	//.DELAY_CLK (12), // 65ns min < 5.56ns*12=66.7ns @180MHz
 	//.DELAY_CLK (13), // 65ns min < 5.12820513ns*13=66.7ns @195MHz
 	//
-	.DAT1_OUTPUT_POLARITY(4'b0000), // set 1 for inversion
-	.DAT2_OUTPUT_POLARITY(4'b0000), // set 1 for inversion
-	.DCLK_OUTPUT_POLARITY(4'b0000), // set 1 for inversion
-	.MODE_ADC_CONTROL    (4'b0011) // enable adc1 adc0
+	.DAT1_OUTPUT_POLARITY(2'b00), // set 1 for inversion
+	.DAT2_OUTPUT_POLARITY(2'b00), // set 1 for inversion
+	.DCLK_OUTPUT_POLARITY(2'b00), // set 1 for inversion
+	.MODE_ADC_CONTROL    (2'b11)  // enable adc1 adc0
 	
 	)  control_hsadc_dual__inst(
 	
