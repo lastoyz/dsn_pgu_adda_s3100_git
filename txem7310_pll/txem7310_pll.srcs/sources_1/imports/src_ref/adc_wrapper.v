@@ -518,7 +518,7 @@ wire [31:0] w_ADCH_DOUT1_WO  ; // not yet
 wire [31:0] w_ADCH_DOUT2_WO  ; // not yet
 wire [31:0] w_ADCH_DOUT3_WO  ; // not yet
 wire [31:0] w_ADCH_TI        ;
-wire [31:0] w_ADCH_TO        ;  assign w_ADCH_TO[31:4] = 28'b0;
+wire [31:0] w_ADCH_TO        ;  assign w_ADCH_TO[31:5] = 27'b0;
 wire [31:0] w_ADCH_DOUT0_PO  ;  wire w_ADCH_DOUT0_PO_rd;
 wire [31:0] w_ADCH_DOUT1_PO  ;  wire w_ADCH_DOUT1_PO_rd;
 wire [31:0] w_DFT_TI         ; // not yet
@@ -533,7 +533,7 @@ wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
 wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2];
 wire        w_hsadc_test              = w_ADCH_WI[3] | w_ADCH_TI[3];
 
-wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];
+wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;
 
 wire        w_hsadc_init_done         ;  assign w_ADCH_WO[1] = w_hsadc_init_done  ;
 wire        w_hsadc_update_done       ;  assign w_ADCH_WO[2] = w_hsadc_update_done;
@@ -801,13 +801,13 @@ reg test_hsadc_init;
 assign w_ADCH_WI[1] = 1'b0;
 assign w_ADCH_TI[1] = test_hsadc_init;
 
-reg test_hsadc_test;
-assign w_ADCH_WI[2] = 1'b0;
-assign w_ADCH_TI[2] = test_hsadc_test;
-
 reg test_hsadc_update;
+assign w_ADCH_WI[2] = 1'b0;
+assign w_ADCH_TI[2] = test_hsadc_update;
+
+reg test_hsadc_test;
 assign w_ADCH_WI[3] = 1'b0;
-assign w_ADCH_TI[3] = test_hsadc_update;
+assign w_ADCH_TI[3] = test_hsadc_test;
 
 // wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];
 reg test_hsadc_fifo_rst;
@@ -815,6 +815,8 @@ assign w_ADCH_TI[4] = test_hsadc_fifo_rst;
 
 //
 reg test_fifo_rd_en;
+assign w_ADCH_DOUT0_PO_rd = test_fifo_rd_en;
+assign w_ADCH_DOUT1_PO_rd = test_fifo_rd_en;
 
 
 //}
@@ -885,30 +887,106 @@ test_hsadc_en = 1'b1;
 test_hsadc_init   = 1'b1;
 @(posedge sys_clk)
 test_hsadc_init   = 1'b0;
-
 // find init done 
 @(posedge w_hsadc_init_done_to)
+
+///////////////////////
+#200;
+//$finish;
+
+//// adc test 
+@(posedge sys_clk)
+test_hsadc_test   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_test   = 1'b0;
+// find done 
+@(posedge w_hsadc_test_done_to)
+
+//// adc test 
+@(posedge sys_clk)
+test_hsadc_test   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_test   = 1'b0;
+// find done 
+@(posedge w_hsadc_test_done_to)
+
+///////////////////////
+#200;
+$finish;
+
+//  //// adc fifo reset
+//  @(posedge sys_clk)
+//  test_hsadc_fifo_rst   = 1'b1;
+//  @(posedge sys_clk)
+//  test_hsadc_fifo_rst   = 1'b0;
+
+//// adc update
+@(posedge sys_clk)
+test_hsadc_update   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_update   = 1'b0;
+// find done 
+@(posedge w_hsadc_update_done_to)
+
+
+//// adc fifo read : 
+// test_fifo_rd_en
+// w_hsadc_fifo_adc0_empty
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b1;
+// find done 
+@(posedge w_hsadc_fifo_adc0_empty)
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b0;
 
 ///////////////////////
 #200;
 $finish;
 
 
-//// adc test 
+//// adc init 
+@(posedge sys_clk)
+test_hsadc_init   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_init   = 1'b0;
+// find init done 
+@(posedge w_hsadc_init_done_to)
 
 
-//// adc test 
+//// adc fifo reset
+@(posedge sys_clk)
+test_hsadc_fifo_rst   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_fifo_rst   = 1'b0;
 
 
-//// adc update
+//// adc update 
+@(posedge sys_clk)
+test_hsadc_update   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_update   = 1'b0;
+// find done 
+@(posedge w_hsadc_update_done_to)
 
 
 //// adc fifo read
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b1;
+// find done 
+@(posedge w_hsadc_fifo_adc0_empty)
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b0;
+
+///////////////////////
+#200;
+$finish;
+
+//// slave SPI cowork test ...
+
 
 
 //// test done
 test_hsadc_en = 1'b0;
-
 
 ///////////////////////
 #200;
