@@ -81,22 +81,13 @@ module control_adc_ddr_two_lane_LTC2387_reg_serdes_dual (
 	input wire        i_clk_in_adc1,
 	input wire [1:0] i_data_in_adc1,
 	//
-	input wire        i_clk_in_adc2,
-	input wire [1:0] i_data_in_adc2,
-	//
-	input wire        i_clk_in_adc3,
-	input wire [1:0] i_data_in_adc3,
-	//
+
 	// monitoring path for adc ddr after serdes
 	output wire [17:0] o_data_in_fifo_0,
 	output wire [17:0] o_data_in_fifo_1,
-	output wire [17:0] o_data_in_fifo_2,
-	output wire [17:0] o_data_in_fifo_3,
 	//
 	output wire             o_wr_fifo_0,
 	output wire             o_wr_fifo_1,
-	output wire             o_wr_fifo_2,
-	output wire             o_wr_fifo_3,
 	//
 	// data out path for fifo 
 	output wire [17:0] o_data_out_fifo_0,
@@ -120,30 +111,7 @@ module control_adc_ddr_two_lane_LTC2387_reg_serdes_dual (
 	output wire           o_oflow_fifo_1,
 	output wire           o_pfull_fifo_1,
 	output wire            o_full_fifo_1,
-	//
-	output wire [17:0] o_data_out_fifo_2,
-	input  wire              i_rd_fifo_2,
-	output wire           o_valid_fifo_2,
-	output wire           o_uflow_fifo_2,
-	output wire          o_pempty_fifo_2,
-	output wire           o_empty_fifo_2,
-	output wire          o_wr_ack_fifo_2,
-	output wire           o_oflow_fifo_2,
-	output wire           o_pfull_fifo_2,
-	output wire            o_full_fifo_2,
-	//
-	output wire [17:0] o_data_out_fifo_3,
-	input  wire              i_rd_fifo_3,
-	output wire           o_valid_fifo_3,
-	output wire           o_uflow_fifo_3,
-	output wire          o_pempty_fifo_3,
-	output wire           o_empty_fifo_3,
-	output wire          o_wr_ack_fifo_3,
-	output wire           o_oflow_fifo_3,
-	output wire           o_pfull_fifo_3,
-	output wire            o_full_fifo_3,
-	//
-	//
+	
 	// flag
 	output wire init_done,
 	output wire update_done,
@@ -157,7 +125,8 @@ module control_adc_ddr_two_lane_LTC2387_reg_serdes_dual (
 parameter PERIOD_CLK_LOGIC_NS = 8; // ns // for 125MHz @ clk_logic
 //parameter PERIOD_CLK_CNV_NS = 96; // ns --> INIT_r_sampling_period_count
 //
-parameter MODE_ADC_CONTROL = 4'b1111; //$$ 4'b1111 for quad adc, 4'b0011 for dual, 4'b0001 for single.
+//parameter MODE_ADC_CONTROL = 4'b1111; //$$ 4'b1111 for quad adc, 4'b0011 for dual, 4'b0001 for single.
+parameter MODE_ADC_CONTROL = 2'b11; //$$ 4'b1111 for quad adc, 4'b0011 for dual, 4'b0001 for single.
 
 
 
@@ -477,7 +446,8 @@ assign #(DELAY_NS_delay_locked,0) w_delay_locked = delay_locked_pre;
 ////
 // data input delay : IDELAYE2
 //
-localparam NUM_IN_DELAY = 8;
+//localparam NUM_IN_DELAY = 8;
+localparam NUM_IN_DELAY = 4;
 genvar in_delay_idx;
 //
 wire [NUM_IN_DELAY-1:0] w_in_delay_data_in; // adc in 
@@ -485,30 +455,30 @@ wire [NUM_IN_DELAY-1:0] w_in_delay_data_in; // adc in
 	assign w_in_delay_data_in[1] = i_data_in_adc0[1];
 	assign w_in_delay_data_in[2] = i_data_in_adc1[0];
 	assign w_in_delay_data_in[3] = i_data_in_adc1[1];
-	assign w_in_delay_data_in[4] = i_data_in_adc2[0];
-	assign w_in_delay_data_in[5] = i_data_in_adc2[1];
-	assign w_in_delay_data_in[6] = i_data_in_adc3[0];
-	assign w_in_delay_data_in[7] = i_data_in_adc3[1];
+	//$$assign w_in_delay_data_in[4] = i_data_in_adc2[0];
+	//$$assign w_in_delay_data_in[5] = i_data_in_adc2[1];
+	//$$assign w_in_delay_data_in[6] = i_data_in_adc3[0];
+	//$$assign w_in_delay_data_in[7] = i_data_in_adc3[1];
 //
 wire [4:0]  w_in_delay_tap_in[0:NUM_IN_DELAY-1];
 	assign w_in_delay_tap_in[0] = r_in_delay_tap_serdes0[4:0];
 	assign w_in_delay_tap_in[1] = r_in_delay_tap_serdes0[9:5];
 	assign w_in_delay_tap_in[2] = r_in_delay_tap_serdes1[4:0];
 	assign w_in_delay_tap_in[3] = r_in_delay_tap_serdes1[9:5];
-	assign w_in_delay_tap_in[4] = r_in_delay_tap_serdes2[4:0];
-	assign w_in_delay_tap_in[5] = r_in_delay_tap_serdes2[9:5];
-	assign w_in_delay_tap_in[6] = r_in_delay_tap_serdes3[4:0];
-	assign w_in_delay_tap_in[7] = r_in_delay_tap_serdes3[9:5];
+	//$$assign w_in_delay_tap_in[4] = r_in_delay_tap_serdes2[4:0];
+	//$$assign w_in_delay_tap_in[5] = r_in_delay_tap_serdes2[9:5];
+	//$$assign w_in_delay_tap_in[6] = r_in_delay_tap_serdes3[4:0];
+	//$$assign w_in_delay_tap_in[7] = r_in_delay_tap_serdes3[9:5];
 //
 wire [0:NUM_IN_DELAY-1] w_in_delay_data_out; // delayed out
 wire [4:0]  w_in_delay_tap_out[0:NUM_IN_DELAY-1];
 //
 wire [(5*NUM_IN_DELAY-1):0] w_in_delay_tap_out_aug; // to be connected
 	assign w_in_delay_tap_out_aug = {
-		w_in_delay_tap_out[7], 
-		w_in_delay_tap_out[6], 
-		w_in_delay_tap_out[5], 
-		w_in_delay_tap_out[4], 
+		//$$w_in_delay_tap_out[7], 
+		//$$w_in_delay_tap_out[6], 
+		//$$w_in_delay_tap_out[5], 
+		//$$w_in_delay_tap_out[4], 
 		w_in_delay_tap_out[3], 
 		w_in_delay_tap_out[2], 
 		w_in_delay_tap_out[1], 
@@ -562,24 +532,21 @@ endgenerate
 //parameter DAT1_OUTPUT_POLARITY = 1'b1; // 1 for inversion
 //parameter DAT2_OUTPUT_POLARITY = 1'b0; // 1 for inversion
 //parameter DCLK_OUTPUT_POLARITY = 1'b1; // 1 for inversion
-parameter DAT1_OUTPUT_POLARITY = 4'b0000; // 1 for inversion
-parameter DAT2_OUTPUT_POLARITY = 4'b0000; // 1 for inversion
-parameter DCLK_OUTPUT_POLARITY = 4'b0000; // 1 for inversion
+//parameter DAT1_OUTPUT_POLARITY = 4'b0000; // 1 for inversion
+//parameter DAT2_OUTPUT_POLARITY = 4'b0000; // 1 for inversion
+//parameter DCLK_OUTPUT_POLARITY = 4'b0000; // 1 for inversion
+parameter DAT1_OUTPUT_POLARITY = 2'b00; // 1 for inversion
+parameter DAT2_OUTPUT_POLARITY = 2'b00; // 1 for inversion
+parameter DCLK_OUTPUT_POLARITY = 2'b00; // 1 for inversion
 //
-localparam NUM_ADC = 4; //$$ check for mode
+//localparam NUM_ADC = 4; //$$ check for mode
+localparam NUM_ADC = 2; //$$ check for mode
 genvar adc_idx;
 //
 //wire [1:0] w_data_adc_out_pol[0:NUM_ADC-1];
 wire [1:0] w_data_adc_out[0:NUM_ADC-1]; //$$
 //
 generate for (adc_idx=0;adc_idx<NUM_ADC;adc_idx=adc_idx+1) begin: adc
-	//
-	//$$assign w_data_adc_out_pol[adc_idx][0] = (DAT1_OUTPUT_POLARITY[adc_idx])? 
-	//$$		~w_in_delay_data_out[adc_idx*2+0] : 
-	//$$		 w_in_delay_data_out[adc_idx*2+0]; // even - DB
-	//$$assign w_data_adc_out_pol[adc_idx][1] = (DAT2_OUTPUT_POLARITY[adc_idx])? 
-	//$$		~w_in_delay_data_out[adc_idx*2+1] : 
-	//$$		 w_in_delay_data_out[adc_idx*2+1]; // odd - DA
 	//
 	assign w_data_adc_out[adc_idx][0] = 
 			 w_in_delay_data_out[adc_idx*2+0]; // even - DB
@@ -592,12 +559,6 @@ endgenerate
 // DCLK_OUTPUT_POLARITY[*]
 wire w_clk_in_adc0 = (DCLK_OUTPUT_POLARITY[0])? ~i_clk_in_adc0 : i_clk_in_adc0;
 wire w_clk_in_adc1 = (DCLK_OUTPUT_POLARITY[1])? ~i_clk_in_adc1 : i_clk_in_adc1;
-wire w_clk_in_adc2 = (DCLK_OUTPUT_POLARITY[2])? ~i_clk_in_adc2 : i_clk_in_adc2;
-wire w_clk_in_adc3 = (DCLK_OUTPUT_POLARITY[3])? ~i_clk_in_adc3 : i_clk_in_adc3;
-//wire w_clk_in_adc0 = i_clk_in_adc0;
-//wire w_clk_in_adc1 = i_clk_in_adc1;
-//wire w_clk_in_adc2 = i_clk_in_adc2;
-//wire w_clk_in_adc3 = i_clk_in_adc3;
 //
 ////
 
@@ -608,28 +569,20 @@ wire w_clk_in_adc3 = (DCLK_OUTPUT_POLARITY[3])? ~i_clk_in_adc3 : i_clk_in_adc3;
 //  serdes_ddr_2lane_in_20bit_out_nodly.v -- no delay control 
 //
 //
-localparam NUM_SERDES = 4; //$$ mode will touch
+//localparam NUM_SERDES = 4; //$$ mode will touch
+localparam NUM_SERDES = 2; //$$ mode will touch
 genvar serdes_idx;
 //
 wire [NUM_SERDES-1:0] w_serdes_clk_in;
 	assign w_serdes_clk_in[0] = (MODE_ADC_CONTROL[0])? w_clk_in_adc0 : 1'b0;
 	assign w_serdes_clk_in[1] = (MODE_ADC_CONTROL[1])? w_clk_in_adc1 : 1'b0;
-	assign w_serdes_clk_in[2] = (MODE_ADC_CONTROL[2])? w_clk_in_adc2 : 1'b0;
-	assign w_serdes_clk_in[3] = (MODE_ADC_CONTROL[3])? w_clk_in_adc3 : 1'b0;
 	//
 wire [1:0]   w_serdes_data_in[0:NUM_SERDES-1];
-	//$$assign w_serdes_data_in[0] = (MODE_ADC_CONTROL[0])? w_data_adc_out_pol[0] : 2'b0;
-	//$$assign w_serdes_data_in[1] = (MODE_ADC_CONTROL[1])? w_data_adc_out_pol[1] : 2'b0;
-	//$$assign w_serdes_data_in[2] = (MODE_ADC_CONTROL[2])? w_data_adc_out_pol[2] : 2'b0;
-	//$$assign w_serdes_data_in[3] = (MODE_ADC_CONTROL[3])? w_data_adc_out_pol[3] : 2'b0;
 	assign w_serdes_data_in[0] = (MODE_ADC_CONTROL[0])? w_data_adc_out[0] : 2'b0;
 	assign w_serdes_data_in[1] = (MODE_ADC_CONTROL[1])? w_data_adc_out[1] : 2'b0;
-	assign w_serdes_data_in[2] = (MODE_ADC_CONTROL[2])? w_data_adc_out[2] : 2'b0;
-	assign w_serdes_data_in[3] = (MODE_ADC_CONTROL[3])? w_data_adc_out[3] : 2'b0;
 	//
 wire [19:0] w_serdes_data_out[0:NUM_SERDES-1];
 wire [19:0] w_serdes_data_out_pre[0:NUM_SERDES-1];
-//wire [19:0] w_serdes_data_out_pre_dco[0:NUM_SERDES-1];
 //
 wire [NUM_SERDES-1:0] w_serdes_en_wr_fifo; // replace en_wr_fifo
 //
@@ -718,28 +671,18 @@ endgenerate
 //
 wire fifo_adc0_wr_en; // from fifo control
 wire fifo_adc1_wr_en; // from fifo control
-wire fifo_adc2_wr_en; // from fifo control
-wire fifo_adc3_wr_en; // from fifo control
 //
 wire [17:0] fifo_adc0_din;
 wire [17:0] fifo_adc1_din;
-wire [17:0] fifo_adc2_din;
-wire [17:0] fifo_adc3_din;
 //
 wire [17:0] w_data_out_fifo_0;
 wire [17:0] w_data_out_fifo_1;
-wire [17:0] w_data_out_fifo_2;
-wire [17:0] w_data_out_fifo_3;
 //
 assign o_data_out_fifo_0 = (MODE_ADC_CONTROL[0])? w_data_out_fifo_0 : 18'b0;
 assign o_data_out_fifo_1 = (MODE_ADC_CONTROL[1])? w_data_out_fifo_1 : 18'b0;
-assign o_data_out_fifo_2 = (MODE_ADC_CONTROL[2])? w_data_out_fifo_2 : 18'b0;
-assign o_data_out_fifo_3 = (MODE_ADC_CONTROL[3])? w_data_out_fifo_3 : 18'b0;
 //
 wire w_rd_fifo_0 = (MODE_ADC_CONTROL[0])? i_rd_fifo_0 : 1'b0;
 wire w_rd_fifo_1 = (MODE_ADC_CONTROL[1])? i_rd_fifo_1 : 1'b0;
-wire w_rd_fifo_2 = (MODE_ADC_CONTROL[2])? i_rd_fifo_2 : 1'b0;
-wire w_rd_fifo_3 = (MODE_ADC_CONTROL[3])? i_rd_fifo_3 : 1'b0;
 //
 //
 fifo_generator_2  fifo_generator_2_inst_0 (
@@ -780,48 +723,6 @@ fifo_generator_2  fifo_generator_2_inst_1 (
 	.empty		(   o_empty_fifo_1	) 
 );
 
-//$$ removed
-//$$  fifo_generator_2  fifo_generator_2_inst_2 (
-//$$  	.rst		(~reset_n | ~en | ~MODE_ADC_CONTROL[2]),
-//$$  	.wr_clk		(clk_fifo			),
-//$$  	.wr_en		(fifo_adc2_wr_en	),
-//$$  	.din		(fifo_adc2_din		),
-//$$  	.wr_ack		(o_wr_ack_fifo_2	),
-//$$  	.overflow	( o_oflow_fifo_2	),
-//$$  	.prog_full	( o_pfull_fifo_2	),
-//$$  	.full		(  o_full_fifo_2	),
-//$$  	//	
-//$$  	.rd_clk		(clk_bus			),
-//$$  	.rd_en		(      w_rd_fifo_2	),
-//$$  	.dout		(w_data_out_fifo_2	),
-//$$  	.valid		(   o_valid_fifo_2	),
-//$$  	.underflow	(   o_uflow_fifo_2	),
-//$$  	.prog_empty	(  o_pempty_fifo_2	),
-//$$  	.empty		(   o_empty_fifo_2	) 
-//$$  );
-//$$  //
-//$$  fifo_generator_2  fifo_generator_2_inst_3 (
-//$$  	.rst		(~reset_n | ~en | ~MODE_ADC_CONTROL[3]),
-//$$  	.wr_clk		(clk_fifo			),
-//$$  	.wr_en		(fifo_adc3_wr_en	),
-//$$  	.din		(fifo_adc3_din		),
-//$$  	.wr_ack		(o_wr_ack_fifo_3	),
-//$$  	.overflow	( o_oflow_fifo_3	),
-//$$  	.prog_full	( o_pfull_fifo_3	),
-//$$  	.full		(  o_full_fifo_3	),
-//$$  	//	
-//$$  	.rd_clk		(clk_bus			),
-//$$  	.rd_en		(      w_rd_fifo_3	),
-//$$  	.dout		(w_data_out_fifo_3	),
-//$$  	.valid		(   o_valid_fifo_3	),
-//$$  	.underflow	(   o_uflow_fifo_3	),
-//$$  	.prog_empty	(  o_pempty_fifo_3	),
-//$$  	.empty		(   o_empty_fifo_3	) 
-//$$  );
-
-
-//
-////
 
 
 
@@ -869,20 +770,10 @@ wire check_cnt_cnv__init__adc1 =
 	(w_serdes_cnt_fall_clk_div[1]==0)? 
 		w_cnt_cnv < NUM_CNV_INIT - 1:
 		w_serdes_cnt_wr_fifo[1] < NUM_FIFO_INIT ;
-wire check_cnt_cnv__init__adc2 = 
-	(w_serdes_cnt_fall_clk_div[2]==0)? 
-		w_cnt_cnv < NUM_CNV_INIT - 1:
-		w_serdes_cnt_wr_fifo[2] < NUM_FIFO_INIT ;
-wire check_cnt_cnv__init__adc3 = 
-	(w_serdes_cnt_fall_clk_div[3]==0)? 
-		w_cnt_cnv < NUM_CNV_INIT - 1:
-		w_serdes_cnt_wr_fifo[3] < NUM_FIFO_INIT ;
 
 wire check_cnt_cnv__init = |{
 		check_cnt_cnv__init__adc0 & MODE_ADC_CONTROL[0],
-		check_cnt_cnv__init__adc1 & MODE_ADC_CONTROL[1],
-		check_cnt_cnv__init__adc2 & MODE_ADC_CONTROL[2],
-		check_cnt_cnv__init__adc3 & MODE_ADC_CONTROL[3]};
+		check_cnt_cnv__init__adc1 & MODE_ADC_CONTROL[1]};
 //
 wire check_cnt_cnv__test__adc0 = 
 	(w_serdes_cnt_fall_clk_div[0]==0)? 
@@ -892,20 +783,10 @@ wire check_cnt_cnv__test__adc1 =
 	(w_serdes_cnt_fall_clk_div[1]==0)? 
 		w_cnt_cnv < NUM_CNV_TEST - 1:
 		w_serdes_cnt_wr_fifo[1] < NUM_FIFO_TEST ;
-wire check_cnt_cnv__test__adc2 = 
-	(w_serdes_cnt_fall_clk_div[2]==0)? 
-		w_cnt_cnv < NUM_CNV_TEST - 1:
-		w_serdes_cnt_wr_fifo[2] < NUM_FIFO_TEST ;
-wire check_cnt_cnv__test__adc3 = 
-	(w_serdes_cnt_fall_clk_div[3]==0)? 
-		w_cnt_cnv < NUM_CNV_TEST - 1:
-		w_serdes_cnt_wr_fifo[3] < NUM_FIFO_TEST ;
 
 wire check_cnt_cnv__test = |{
 		check_cnt_cnv__test__adc0 & MODE_ADC_CONTROL[0],
-		check_cnt_cnv__test__adc1 & MODE_ADC_CONTROL[1],
-		check_cnt_cnv__test__adc2 & MODE_ADC_CONTROL[2],
-		check_cnt_cnv__test__adc3 & MODE_ADC_CONTROL[3]};
+		check_cnt_cnv__test__adc1 & MODE_ADC_CONTROL[1]};
 //
 wire check_cnt_cnv__update__adc0 =
 	(w_serdes_cnt_fall_clk_div[0]==0)? 
@@ -915,20 +796,10 @@ wire check_cnt_cnv__update__adc1 =
 	(w_serdes_cnt_fall_clk_div[1]==0)? 
 		w_cnt_cnv < w_num_update_samples + 3:
 		w_serdes_cnt_wr_fifo[1] < w_num_update_samples ;
-wire check_cnt_cnv__update__adc2 =
-	(w_serdes_cnt_fall_clk_div[2]==0)? 
-		w_cnt_cnv < w_num_update_samples + 3:
-		w_serdes_cnt_wr_fifo[2] < w_num_update_samples ;
-wire check_cnt_cnv__update__adc3 =
-	(w_serdes_cnt_fall_clk_div[3]==0)? 
-		w_cnt_cnv < w_num_update_samples + 3:
-		w_serdes_cnt_wr_fifo[3] < w_num_update_samples ;
 
 wire check_cnt_cnv__update = |{
 		check_cnt_cnv__update__adc0 & MODE_ADC_CONTROL[0],
-		check_cnt_cnv__update__adc1 & MODE_ADC_CONTROL[1],
-		check_cnt_cnv__update__adc2 & MODE_ADC_CONTROL[2],
-		check_cnt_cnv__update__adc3 & MODE_ADC_CONTROL[3]};
+		check_cnt_cnv__update__adc1 & MODE_ADC_CONTROL[1]};
 //
 wire check_cnt_cnv = 
 	(r_init_busy)? check_cnt_cnv__init :
@@ -1178,26 +1049,13 @@ generate for (serdes_idx=0;serdes_idx<NUM_SERDES;serdes_idx=serdes_idx+1) begin:
 	//
 	end
 endgenerate
-//
-//assign o_wr_fifo_0     = r_serdes_wr_fifo[0];
-//assign o_wr_fifo_1     = r_serdes_wr_fifo[1];
-//assign o_wr_fifo_2     = r_serdes_wr_fifo[2];
-//assign o_wr_fifo_3     = r_serdes_wr_fifo[3];
+
 assign o_wr_fifo_0     = w_serdes_wr_fifo[0];
 assign o_wr_fifo_1     = w_serdes_wr_fifo[1];
-assign o_wr_fifo_2     = w_serdes_wr_fifo[2];
-assign o_wr_fifo_3     = w_serdes_wr_fifo[3];
-//
+
 // fifo wr_en 
-//$$
-//assign fifo_adc0_wr_en = (MODE_ADC_CONTROL[0])? r_serdes_wr_fifo[0] : 1'b0;
-//assign fifo_adc1_wr_en = (MODE_ADC_CONTROL[1])? r_serdes_wr_fifo[1] : 1'b0;
-//assign fifo_adc2_wr_en = (MODE_ADC_CONTROL[2])? r_serdes_wr_fifo[2] : 1'b0;
-//assign fifo_adc3_wr_en = (MODE_ADC_CONTROL[3])? r_serdes_wr_fifo[3] : 1'b0;
 assign fifo_adc0_wr_en = w_serdes_wr_fifo[0];
 assign fifo_adc1_wr_en = w_serdes_wr_fifo[1];
-assign fifo_adc2_wr_en = w_serdes_wr_fifo[2];
-assign fifo_adc3_wr_en = w_serdes_wr_fifo[3];
 //
 ////
 
@@ -1255,14 +1113,6 @@ assign fifo_adc1_din = (MODE_ADC_CONTROL[1])?
 	(r_pttn_cnt_up_en)? w_serdes_cnt_wr_fifo[1][17:0] 
 		: w_serdes_data_out[1][19:2] 
 	: 18'b0;
-assign fifo_adc2_din = (MODE_ADC_CONTROL[2])? 
-	(r_pttn_cnt_up_en)? w_serdes_cnt_wr_fifo[2][17:0] 
-		: w_serdes_data_out[2][19:2] 
-	: 18'b0;
-assign fifo_adc3_din = (MODE_ADC_CONTROL[3])? 
-	(r_pttn_cnt_up_en)? w_serdes_cnt_wr_fifo[3][17:0] 
-		: w_serdes_data_out[3][19:2] 
-	: 18'b0;
 //
 ////
 
@@ -1292,8 +1142,6 @@ endgenerate
 //$$ monitoring
 assign o_data_in_fifo_0 = r_data_in_fifo[0];
 assign o_data_in_fifo_1 = r_data_in_fifo[1];
-assign o_data_in_fifo_2 = r_data_in_fifo[2];
-assign o_data_in_fifo_3 = r_data_in_fifo[3];
 //
 ////
 
@@ -1310,20 +1158,10 @@ wire w_adc_done_init__adc1 =
 	(w_serdes_cnt_fall_clk_div[1]==0)? 
 		w_cnt_cnv >= NUM_CNV_INIT - 1:
 		w_serdes_cnt_wr_fifo[1] >= NUM_FIFO_INIT ;
-wire w_adc_done_init__adc2 =  
-	(w_serdes_cnt_fall_clk_div[2]==0)? 
-		w_cnt_cnv >= NUM_CNV_INIT - 1:
-		w_serdes_cnt_wr_fifo[2] >= NUM_FIFO_INIT ;
-wire w_adc_done_init__adc3 =  
-	(w_serdes_cnt_fall_clk_div[3]==0)? 
-		w_cnt_cnv >= NUM_CNV_INIT - 1:
-		w_serdes_cnt_wr_fifo[3] >= NUM_FIFO_INIT ;
 
 wire w_adc_done_init = &{
 	w_adc_done_init__adc0 | ~MODE_ADC_CONTROL[0],
-	w_adc_done_init__adc1 | ~MODE_ADC_CONTROL[1],
-	w_adc_done_init__adc2 | ~MODE_ADC_CONTROL[2],
-	w_adc_done_init__adc3 | ~MODE_ADC_CONTROL[3]};
+	w_adc_done_init__adc1 | ~MODE_ADC_CONTROL[1]};
 //
 wire w_adc_done_update__adc0 = 
 	(w_serdes_cnt_fall_clk_div[0]==0)? 
@@ -1333,20 +1171,10 @@ wire w_adc_done_update__adc1 =
 	(w_serdes_cnt_fall_clk_div[1]==0)? 
 		w_cnt_cnv >= w_num_update_samples + 3:
 		w_serdes_cnt_wr_fifo[1] >= w_num_update_samples ;
-wire w_adc_done_update__adc2 = 
-	(w_serdes_cnt_fall_clk_div[2]==0)? 
-		w_cnt_cnv >= w_num_update_samples + 3:
-		w_serdes_cnt_wr_fifo[2] >= w_num_update_samples ;
-wire w_adc_done_update__adc3 = 
-	(w_serdes_cnt_fall_clk_div[3]==0)? 
-		w_cnt_cnv >= w_num_update_samples + 3:
-		w_serdes_cnt_wr_fifo[3] >= w_num_update_samples ;
 
 wire w_adc_done_update = &{
 	w_adc_done_update__adc0 | ~MODE_ADC_CONTROL[0],
-	w_adc_done_update__adc1 | ~MODE_ADC_CONTROL[1],
-	w_adc_done_update__adc2 | ~MODE_ADC_CONTROL[2],
-	w_adc_done_update__adc3 | ~MODE_ADC_CONTROL[3]};
+	w_adc_done_update__adc1 | ~MODE_ADC_CONTROL[1]};
 //
 wire w_adc_done_test__adc0 =
 	(w_serdes_cnt_fall_clk_div[0]==0)? 
@@ -1356,20 +1184,10 @@ wire w_adc_done_test__adc1 =
 	(w_serdes_cnt_fall_clk_div[1]==0)? 
 		w_cnt_cnv >= NUM_CNV_TEST - 1:
 		w_serdes_cnt_wr_fifo[1] >= NUM_FIFO_TEST ;
-wire w_adc_done_test__adc2 =
-	(w_serdes_cnt_fall_clk_div[2]==0)? 
-		w_cnt_cnv >= NUM_CNV_TEST - 1:
-		w_serdes_cnt_wr_fifo[2] >= NUM_FIFO_TEST ;
-wire w_adc_done_test__adc3 =
-	(w_serdes_cnt_fall_clk_div[3]==0)? 
-		w_cnt_cnv >= NUM_CNV_TEST - 1:
-		w_serdes_cnt_wr_fifo[3] >= NUM_FIFO_TEST ;
 
 wire w_adc_done_test = &{
 	w_adc_done_test__adc0 | ~MODE_ADC_CONTROL[0],
-	w_adc_done_test__adc1 | ~MODE_ADC_CONTROL[1],
-	w_adc_done_test__adc2 | ~MODE_ADC_CONTROL[2],
-	w_adc_done_test__adc3 | ~MODE_ADC_CONTROL[3]};
+	w_adc_done_test__adc1 | ~MODE_ADC_CONTROL[1]};
 //
 ////
 

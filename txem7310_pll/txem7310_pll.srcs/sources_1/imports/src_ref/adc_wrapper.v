@@ -261,10 +261,10 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 	//.DELAY_CLK (12), // 65ns min < 5.56ns*12=66.7ns @180MHz
 	//.DELAY_CLK (13), // 65ns min < 5.12820513ns*13=66.7ns @195MHz
 	//
-	.DAT1_OUTPUT_POLARITY(4'b0000), // set 1 for inversion
-	.DAT2_OUTPUT_POLARITY(4'b0000), // set 1 for inversion
-	.DCLK_OUTPUT_POLARITY(4'b0000), // set 1 for inversion
-	.MODE_ADC_CONTROL    (4'b0011) // enable adc1 adc0
+	.DAT1_OUTPUT_POLARITY(2'b00), // set 1 for inversion
+	.DAT2_OUTPUT_POLARITY(2'b00), // set 1 for inversion
+	.DCLK_OUTPUT_POLARITY(2'b00), // set 1 for inversion
+	.MODE_ADC_CONTROL    (2'b11)  // enable adc1 adc0
 	
 	)  control_hsadc_dual__inst(
 	
@@ -518,7 +518,7 @@ wire [31:0] w_ADCH_DOUT1_WO  ; // not yet
 wire [31:0] w_ADCH_DOUT2_WO  ; // not yet
 wire [31:0] w_ADCH_DOUT3_WO  ; // not yet
 wire [31:0] w_ADCH_TI        ;
-wire [31:0] w_ADCH_TO        ;  assign w_ADCH_TO[31:4] = 28'b0;
+wire [31:0] w_ADCH_TO        ;  assign w_ADCH_TO[31:5] = 27'b0;
 wire [31:0] w_ADCH_DOUT0_PO  ;  wire w_ADCH_DOUT0_PO_rd;
 wire [31:0] w_ADCH_DOUT1_PO  ;  wire w_ADCH_DOUT1_PO_rd;
 wire [31:0] w_DFT_TI         ; // not yet
@@ -533,7 +533,7 @@ wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
 wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2];
 wire        w_hsadc_test              = w_ADCH_WI[3] | w_ADCH_TI[3];
 
-wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];
+wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;
 
 wire        w_hsadc_init_done         ;  assign w_ADCH_WO[1] = w_hsadc_init_done  ;
 wire        w_hsadc_update_done       ;  assign w_ADCH_WO[2] = w_hsadc_update_done;
@@ -664,113 +664,10 @@ adc_wrapper  adc_wrapper__inst (
 
 //}
 
-// remove....  adc_wrapper  adc_wrapper__inst (
-//  	
-//  	// clock and reset
-//  	.clk      (sys_clk  ),
-//  	.reset_n  (reset_n  ),
-//  	.host_clk (host_clk ), // monitoring async bus signals
-//  	
-//  	// IO bus interface // async for arm io
-//  	.i_FMC_NCE  ( r_FMC_NCE ),  // input  wire          // FMC_NCE
-//  	.i_FMC_ADD  ( r_FMC_ADD ),  // input  wire [31 : 0] // FMC_ADD
-//  	.i_FMC_NOE  ( r_FMC_NOE ),  // input  wire          // FMC_NOE
-//  	.o_FMC_DRD  ( w_FMC_DRD ),  // output wire [31 : 0] // FMC_DRD
-//  	.i_FMC_NWE  ( r_FMC_NWE ),  // input  wire          // FMC_NWE
-//  	.i_FMC_DWR  ( r_FMC_DWR ),  // input  wire [15 : 0] // FMC_DWR
-//  	
-//  	// end-points
-//  	
-//  	//// end-point address offset between high and low 16 bits //{
-//  	.ep_offs_hadrs     (32'h0000_0004),  // input wire [31:0]
-//  	//}
-//  	
-//  	//// wire-in //{
-//  	.ep00_hadrs(32'h6010_0008),  .ep00wire     (),  // input wire [31:0] // output wire [31:0] // ERR_LED
-//  	.ep01_hadrs(32'h6010_0010),  .ep01wire     (),  // input wire [31:0] // output wire [31:0] // FPGA_LED
-//  	.ep02_hadrs(32'h6010_0030),  .ep02wire     (),  // input wire [31:0] // output wire [31:0] // H I/F OUT 
-//  	.ep03_hadrs(32'h6010_0068),  .ep03wire     (),  // input wire [31:0] // output wire [31:0] // {INTER_LOCK RELAY, INTER_LOCK LED}
-//  	.ep04_hadrs(32'h6030_0008),  .ep04wire     (),  // input wire [31:0] // output wire [31:0] // GPIB CONTROL // Control Read & Write     
-//  	//
-//  	.ep12_hadrs(32'h0000_0000),  .ep12wire     (),  // input wire [31:0] // output wire [31:0] //
-//  	.ep13_hadrs(32'h0000_0000),  .ep13wire     (),  // input wire [31:0] // output wire [31:0] //
-//  	//
-//  	.ep16_hadrs(32'h6060_0000),  .ep16wire     (),  // input wire [31:0] // output wire [31:0] // MSPI_EN_CS_WI // {SPI_CH_SELEC, SLOT_CS_MASK}
-//  	.ep17_hadrs(32'h6070_0000),  .ep17wire     (),  // input wire [31:0] // output wire [31:0] // MSPI_CON_WI   // {Mx_SPI_MOSI_DATA_H, Mx_SPI_MOSI_DATA_L}
-//  	//
-//  	.ep1A_hadrs(32'h0000_0000),  .ep1Awire     (),  // input wire [31:0] // output wire [31:0] //
-//  	.ep1B_hadrs(32'h0000_0000),  .ep1Bwire     (),  // input wire [31:0] // output wire [31:0] //
-//  	.ep1C_hadrs(32'h0000_0000),  .ep1Cwire     (),  // input wire [31:0] // output wire [31:0] //
-//  	.ep1D_hadrs(32'h0000_0000),  .ep1Dwire     (),  // input wire [31:0] // output wire [31:0] //
-//  	.ep1E_hadrs(32'h0000_0000),  .ep1Ewire     (),  // input wire [31:0] // output wire [31:0] //	
-//  	//}
-//  	
-//  	//// wire-out //{
-//  	.ep20_hadrs(32'h0000_0000),  .ep20wire     (),  // input wire [31:0] // input wire [31:0] //
-//  	.ep21_hadrs(32'h0000_0000),  .ep21wire     (),  // input wire [31:0] // input wire [31:0] //
-//  	.ep22_hadrs(32'h0000_0000),  .ep22wire     (),  // input wire [31:0] // input wire [31:0] //
-//  	.ep23_hadrs(32'h0000_0000),  .ep23wire     (),  // input wire [31:0] // input wire [31:0] //
-//  	.ep24_hadrs(32'h6070_0008),  .ep24wire     (),  // input wire [31:0] // input wire [31:0] // MSPI_FLAG_WO // {Mx_SPI_MISO_DATA_H, Mx_SPI_MISO_DATA_L}
-//  	//
-//  	.ep30_hadrs(32'h6010_0000),  .ep30wire     (32'h33AA_CC55),  // input wire [31:0] // input wire [31:0] // {MAGIC CODE_H, MAGIC CODE_L}
-//  	.ep31_hadrs(32'h6010_0018),  .ep31wire     (),  // input wire [31:0] // input wire [31:0] // MASTER MODE LAN IP Address 
-//  	.ep32_hadrs(32'h6010_0020),  .ep32wire     (32'hA021_0805),  // input wire [31:0] // input wire [31:0] // {FPGA_IMAGE_ID_H, FPGA_IMAGE_ID_L}
-//  	.ep33_hadrs(32'h6010_0038),  .ep33wire     (),  // input wire [31:0] // input wire [31:0] // H I/F IN
-//  	.ep34_hadrs(32'h6010_0040),  .ep34wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#1 FAN SPEED, FAN#0 FAN SPEED}
-//  	.ep35_hadrs(32'h6010_0048),  .ep35wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#3 FAN SPEED, FAN#2 FAN SPEED}
-//  	.ep36_hadrs(32'h6010_0050),  .ep36wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#5 FAN SPEED, FAN#4 FAN SPEED}
-//  	.ep37_hadrs(32'h6010_0058),  .ep37wire     (),  // input wire [31:0] // input wire [31:0] // {FAN#7 FAN SPEED, FAN#6 FAN SPEED}
-//  	.ep38_hadrs(32'h6010_0060),  .ep38wire     (),  // input wire [31:0] // input wire [31:0] // INTER_LOCK
-//  	.ep39_hadrs(32'h6030_0000),  .ep39wire     (),  // input wire [31:0] // input wire [31:0] // {GPIB Switch Read, GPIB Status Read}
-//  	.ep3A_hadrs(32'h0000_0000),  .ep3Awire     (),  // input wire [31:0] // input wire [31:0] //
-//  	.ep3B_hadrs(32'h0000_0000),  .ep3Bwire     (),  // input wire [31:0] // input wire [31:0] //
-//  	//}
-//  	
-//  	//// trig-in //{
-//  	.ep42_hadrs(32'h6070_0010),  .ep42ck       (spi_clk),  .ep42trig   (w_ep62trig_loopback),  // input wire [31:0] // input wire  // output wire [31:0] // MSPI_TI // Mx_SPI_Trig
-//  	//
-//  	.ep50_hadrs(32'h6010_0028),  .ep50ck       (),  .ep50trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // S/W Reset
-//  	.ep51_hadrs(32'h60A0_0000),  .ep51ck       (),  .ep51trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // {PRE_Trig, Trig}
-//  	.ep52_hadrs(32'h60A0_0008),  .ep52ck       (),  .ep52trig   (),  // input wire [31:0] // input wire  // output wire [31:0] // SOT
-//  	//}
-//  	
-//  	//// trig-out //{
-//  	.ep60_hadrs(32'h0000_0000),  .ep60ck       (       ),  .ep60trig   (                   ),  // input wire [31:0] // input wire  // input wire [31:0] //
-//  	.ep62_hadrs(32'h6070_0018),  .ep62ck       (spi_clk),  .ep62trig   (w_ep62trig_loopback),  // input wire [31:0] // input wire  // input wire [31:0] // MSPI_TO // Mx_SPI_DONE
-//  	.ep73_hadrs(32'h0000_0000),  .ep73ck       (       ),  .ep73trig   (                   ),  // input wire [31:0] // input wire  // input wire [31:0] //
-//  	//}
-//  	
-//  	//// pipe-in //{
-//  	//.ep80_hadrs(),  .ep80wr       (),  .ep80pipe   (),  // input wire [31:0] // output wire  // output wire [31:0]
-//  	.ep93_hadrs(32'h6070_00A0),  .ep93wr       (),  .ep93pipe   (), // input wire [31:0] // output wire  // output wire [31:0]
-//  	//}
-//  	
-//  	//// pipe-out //{
-//  	//.epA0_hadrs(),  .epA0rd       (),  .epA0pipe   (),  // input wire [31:0] // output wire  // input wire [31:0]
-//  	.epB3_hadrs(32'h6070_00A8),  .epB3rd       (),  .epB3pipe   (32'hCA53_3AC5),  // input wire [31:0] // output wire  // input wire [31:0]
-//  	//}
-//  	
-//  	//// pipe-ck //{
-//  	.epPPck       (),  // output wire  // sync with write/read of pipe
-//  	//}
-//  	
-//  	// test //{
-//  	.valid    ()
-//  	//}
-//  );
-
 //}
 
 
 //// test signals //{
-
-// remove
-reg           r_FMC_NCE ; 
-reg  [31 : 0] r_FMC_ADD ; 
-reg           r_FMC_NOE ; 
-wire [15 : 0] w_FMC_DRD ; 
-reg           r_FMC_NWE ; 
-reg  [15 : 0] r_FMC_DWR ; 
 
 //// test model setup 
 reg test_model_en; // adc test without controller
@@ -801,13 +698,13 @@ reg test_hsadc_init;
 assign w_ADCH_WI[1] = 1'b0;
 assign w_ADCH_TI[1] = test_hsadc_init;
 
-reg test_hsadc_test;
-assign w_ADCH_WI[2] = 1'b0;
-assign w_ADCH_TI[2] = test_hsadc_test;
-
 reg test_hsadc_update;
+assign w_ADCH_WI[2] = 1'b0;
+assign w_ADCH_TI[2] = test_hsadc_update;
+
+reg test_hsadc_test;
 assign w_ADCH_WI[3] = 1'b0;
-assign w_ADCH_TI[3] = test_hsadc_update;
+assign w_ADCH_TI[3] = test_hsadc_test;
 
 // wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];
 reg test_hsadc_fifo_rst;
@@ -815,6 +712,8 @@ assign w_ADCH_TI[4] = test_hsadc_fifo_rst;
 
 //
 reg test_fifo_rd_en;
+assign w_ADCH_DOUT0_PO_rd = test_fifo_rd_en;
+assign w_ADCH_DOUT1_PO_rd = test_fifo_rd_en;
 
 
 //}
@@ -885,98 +784,106 @@ test_hsadc_en = 1'b1;
 test_hsadc_init   = 1'b1;
 @(posedge sys_clk)
 test_hsadc_init   = 1'b0;
-
 // find init done 
 @(posedge w_hsadc_init_done_to)
 
 ///////////////////////
 #200;
-$finish;
-
-
-//// adc test 
-
+//$finish;
 
 //// adc test 
+@(posedge sys_clk)
+test_hsadc_test   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_test   = 1'b0;
+// find done 
+@(posedge w_hsadc_test_done_to)
 
-
-//// adc update
-
-
-//// adc fifo read
-
-
-//// test done
-test_hsadc_en = 1'b0;
-
+//// adc test 
+@(posedge sys_clk)
+test_hsadc_test   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_test   = 1'b0;
+// find done 
+@(posedge w_hsadc_test_done_to)
 
 ///////////////////////
 #200;
 $finish;
 
- 
-// init
-TASK__FMC__IDLE();
-//
-$display(" Wait for rise of reset_n"); 
-@(posedge reset_n)
-#200;
+//  //// adc fifo reset
+//  @(posedge sys_clk)
+//  test_hsadc_fifo_rst   = 1'b1;
+//  @(posedge sys_clk)
+//  test_hsadc_fifo_rst   = 1'b0;
 
-// test
-TASK__FMC__IDLE();
+//// adc update
+@(posedge sys_clk)
+test_hsadc_update   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_update   = 1'b0;
+// find done 
+@(posedge w_hsadc_update_done_to)
+
+
+//// adc fifo read : 
+// test_fifo_rd_en
+// w_hsadc_fifo_adc0_empty
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b1;
+// find done 
+@(posedge w_hsadc_fifo_adc0_empty)
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b0;
+
+///////////////////////
 #200;
-TASK__FMC__READ (32'h6010_0000); // WO
+$finish;
+
+
+//// adc init 
+@(posedge sys_clk)
+test_hsadc_init   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_init   = 1'b0;
+// find init done 
+@(posedge w_hsadc_init_done_to)
+
+
+//// adc fifo reset
+@(posedge sys_clk)
+test_hsadc_fifo_rst   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_fifo_rst   = 1'b0;
+
+
+//// adc update 
+@(posedge sys_clk)
+test_hsadc_update   = 1'b1;
+@(posedge sys_clk)
+test_hsadc_update   = 1'b0;
+// find done 
+@(posedge w_hsadc_update_done_to)
+
+
+//// adc fifo read
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b1;
+// find done 
+@(posedge w_hsadc_fifo_adc0_empty)
+@(posedge base_sspi_clk)
+test_fifo_rd_en   = 1'b0;
+
+///////////////////////
 #200;
-TASK__FMC__READ (32'h6010_0004);
-#200;
-TASK__FMC__READ (32'h6010_0020);
-#200;
-TASK__FMC__READ (32'h6010_0024);
-#200;
-TASK__FMC__WRITE(32'h6060_0004, 16'h0003); // WI
-#200;
-TASK__FMC__WRITE(32'h6060_0000, 16'h1FFF);
-#200;
-TASK__FMC__WRITE(32'h6070_0004, 16'h4380); // WI
-#200;
-TASK__FMC__WRITE(32'h6070_0000, 16'h0000);
-#200;
-TASK__FMC__WRITE(32'h6070_0010, 16'h0001); // TI
-#200;
-TASK__FMC__WRITE(32'h6070_0010, 16'h0002); // TI
-#200;
-TASK__FMC__WRITE(32'h6070_0010, 16'h0004); // TI
-#200;
-TASK__FMC__READ (32'h6070_0018); // TO
-#200;
-//
-TASK__FMC__WRITE(32'h6060_0000, 16'h1FFF); // WI
-#200;
-TASK__FMC__WRITE(32'h6060_0004, 16'h0003);
-#200;
-TASK__FMC__READ (32'h6060_0000);
-#200;
-TASK__FMC__READ (32'h6060_0004);
-#200;
-//
-TASK__FMC__WRITE(32'h6070_00A0+4, 16'h1234); // PI
-#200;
-TASK__FMC__WRITE(32'h6070_00A0+0, 16'hABCD); // PI
-#200;
-TASK__FMC__WRITE(32'h6070_00A0+4, 16'h5678); // PI
-#200;
-TASK__FMC__WRITE(32'h6070_00A0+0, 16'hFEFE); // PI
-#200;
-// 
-TASK__FMC__READ (32'h6070_00A8+4); // PO
-#200;
-TASK__FMC__READ (32'h6070_00A8+0); // PO
-#200;
-TASK__FMC__READ (32'h6070_00A8+4); // PO
-#200;
-TASK__FMC__READ (32'h6070_00A8+0); // PO
-#200;
-// 
+$finish;
+
+//// slave SPI cowork test ... may come
+
+
+
+//// test done
+test_hsadc_en = 1'b0;
 
 ///////////////////////
 #200;
@@ -989,115 +896,16 @@ end
 //// test task //{
 
 // task bus idle
-task TASK__FMC__IDLE;
-begin
-	r_FMC_NCE =  1'b1;
-	r_FMC_ADD = 32'b0;
-	r_FMC_NOE =  1'b1;
-	r_FMC_NWE =  1'b1;
-	r_FMC_DWR = 16'b0;
-	@(posedge host_clk);
-end 
-endtask
-
-// task bus read  (address_32b)
-task TASK__FMC__READ;
-input [31:0] temp_adrs;
-begin
-//    FMC_NCE  --______________---
-//    FMC_ADD  xxAAAAAAAAAAAAAAxxx
-//    FMC_NOE  --______________---
-//    FMC_DRD  xxxDDDDDDDDDDDDDxxx
-//    FMC_NWE  -------------------
-//    FMC_DWR  -------------------
-	@(posedge host_clk); // 0
-	r_FMC_NCE =  1'b0;
-	r_FMC_ADD = temp_adrs; // set address
-	r_FMC_NOE =  1'b0;
-	r_FMC_NWE =  1'b1;
-	r_FMC_DWR = 16'b0;
-	repeat (13) begin
-		@(posedge host_clk); // 1~13
-	end
-	@(posedge host_clk); // 14
-	r_FMC_NCE =  1'b1;
-	r_FMC_ADD = 32'b0;
-	r_FMC_NOE =  1'b1;
-	r_FMC_NWE =  1'b1;
-	r_FMC_DWR = 16'b0;
-end 
-endtask
-
-// task bus write (address_32b, data_16b)
-task TASK__FMC__WRITE;
-input [31:0] temp_adrs;
-input [15:0] temp_data;
-begin
-
-//// case a // OK
-//    idx      --01234567890123---
-//    FMC_NCE  --______________---
-//    FMC_ADD  xxAAAAAAAAAAAAAAxxx
-//    FMC_NOE  -------------------
-//    FMC_DRD  xxxxxxxxxxxxxxxxxxx
-//    FMC_NWE  --------_____------
-//    FMC_DWR  xxxxxxxxxxxDDDDDxxx
-
-//// case b // rev
-//    idx      --01234567890123---
-//    FMC_NCE  --______________---
-//    FMC_ADD  xxAAAAAAAAAAAAAAxxx
-//    FMC_NOE  -------------------
-//    FMC_DRD  xxxxxxxxxxxxxxxxxxx
-//    FMC_NWE  --------________---
-//    FMC_DWR  xxxxxxxxxxxDDDDDxxx
-
-
-	@(posedge host_clk); // 0
-	r_FMC_NCE =  1'b0;
-	r_FMC_ADD = temp_adrs; // set address
-	r_FMC_NOE =  1'b1;
-	r_FMC_NWE =  1'b1;
-	r_FMC_DWR = 16'b0;
-	@(posedge host_clk); // 0
-	@(posedge host_clk); // 1
-	@(posedge host_clk); // 2
-	@(posedge host_clk); // 3
-	@(posedge host_clk); // 4
-	@(posedge host_clk); // 5
-	@(posedge host_clk); // 6
-	r_FMC_NCE =  1'b0;
-	r_FMC_ADD = temp_adrs; // set address
-	r_FMC_NOE =  1'b1;
-	r_FMC_NWE =  1'b0;
-	r_FMC_DWR = 16'b0;
-	@(posedge host_clk); // 7
-	@(posedge host_clk); // 8
-	@(posedge host_clk); // 9
-	r_FMC_NCE =  1'b0;
-	r_FMC_ADD = temp_adrs; // set address
-	r_FMC_NOE =  1'b1;
-	r_FMC_NWE =  1'b0;
-	r_FMC_DWR = temp_data; // set data
-	@(posedge host_clk); // 10
-	@(posedge host_clk); // 11
-	r_FMC_NCE =  1'b0;
-	r_FMC_ADD = temp_adrs; // set address
-	r_FMC_NOE =  1'b1;
-	//r_FMC_NWE =  1'b1; // case a
-	r_FMC_NWE =  1'b0; // case b
-	r_FMC_DWR = temp_data; // set data
-	@(posedge host_clk); // 12
-	@(posedge host_clk); // 13
-	@(posedge host_clk); // 14
-	r_FMC_NCE =  1'b1;
-	r_FMC_ADD = 32'b0;
-	r_FMC_NOE =  1'b1;
-	r_FMC_NWE =  1'b1;
-	r_FMC_DWR = 16'b0;
-end 
-endtask
-
+// task TASK__FMC__IDLE;
+// begin
+// 	r_FMC_NCE =  1'b1;
+// 	r_FMC_ADD = 32'b0;
+// 	r_FMC_NOE =  1'b1;
+// 	r_FMC_NWE =  1'b1;
+// 	r_FMC_DWR = 16'b0;
+// 	@(posedge host_clk);
+// end 
+// endtask
 
 //}
 
