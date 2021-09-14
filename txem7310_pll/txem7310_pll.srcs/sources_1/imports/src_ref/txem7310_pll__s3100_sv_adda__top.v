@@ -1214,12 +1214,12 @@ wire ADC0_DB;
 IBUFDS ibufds_ADC0_DA_inst  (.I(i_B34D_L18P), .IB(i_B34D_L18N), .O(ADC0_DA) );
 IBUFDS ibufds_ADC0_DB_inst  (.I(i_B34D_L22P), .IB(i_B34D_L22N), .O(ADC0_DB) );
 //
-wire ADCx_CNV   = 1'b0; // not yet
-wire ADCx_CLK   = 1'b0; // not yet
+wire ADCx_CNV ;
+wire ADCx_CLK ;
 OBUFDS obufds_ADCx_CNV_inst (.O(o_B34D_L6P ), .OB(o_B34D_L6N), .I(ADCx_CNV)	); //
 OBUFDS obufds_ADCx_CLK_inst (.O(o_B34D_L8P ), .OB(o_B34D_L8N), .I(ADCx_CLK)	); //
 //
-wire ADCx_TPT_B = 1'b0; // not yet
+wire ADCx_TPT_B;
 OBUF obuf_ADCx_TPT_B_inst   (.O(o_B34_L5P    ), .I(ADCx_TPT_B   ) ); // 
 
 //// MEM_SIO
@@ -3294,7 +3294,146 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 
 //// note: ADCH and DFT 
 
-adc_wrapper  adc_wrapper__inst();
+// control wires //{
+wire        w_hsadc_reset             = w_ADCH_TI[0];  assign w_ADCH_TO[0] = w_hsadc_reset;
+wire        w_hsadc_en                = w_ADCH_WI[0];  assign w_ADCH_WO[0] = w_hsadc_en;
+
+wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
+wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2];
+wire        w_hsadc_test              = w_ADCH_WI[3] | w_ADCH_TI[3];
+
+wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;
+
+wire        w_hsadc_init_done         ;  assign w_ADCH_WO[1] = w_hsadc_init_done  ;
+wire        w_hsadc_update_done       ;  assign w_ADCH_WO[2] = w_hsadc_update_done;
+wire        w_hsadc_test_done         ;  assign w_ADCH_WO[3] = w_hsadc_test_done  ;
+
+wire        w_hsadc_init_done_to      ;  assign w_ADCH_TO[1] = w_hsadc_init_done_to  ;
+wire        w_hsadc_update_done_to    ;  assign w_ADCH_TO[2] = w_hsadc_update_done_to;
+wire        w_hsadc_test_done_to      ;  assign w_ADCH_TO[3] = w_hsadc_test_done_to  ;
+
+
+wire [31:0] w_HSADC_UPD_SMP           = w_ADCH_UPD_SM_WI;
+wire [31:0] w_HSADC_SMP_PRD           = w_ADCH_SMP_PR_WI;
+
+wire [ 9:0] w_HSADC_DLY_TAP0          = w_ADCH_DLY_TP_WI[21:12]; // serdes input delay // 5 bits/lane, 2 lanes/ADC // {[9:5],[4:0]} for i_data_in_adc[1:0]
+wire [ 9:0] w_HSADC_DLY_TAP1          = w_ADCH_DLY_TP_WI[31:22]; // serdes input delay // 5 bits/lane, 2 lanes/ADC // {[9:5],[4:0]} for i_data_in_adc[1:0]
+wire        w_hsadc_pin_test_frc_high = w_ADCH_DLY_TP_WI[0];
+wire        w_hsadc_pttn_cnt_up_en    = w_ADCH_DLY_TP_WI[2];
+
+wire [17:0] w_hsadc_fifo_adc0_din     ;  assign w_ADCH_DOUT0_WO = {w_hsadc_fifo_adc0_din , 14'b0};
+wire [17:0] w_hsadc_fifo_adc0_dout    ;  assign w_ADCH_DOUT0_PO = {w_hsadc_fifo_adc0_dout, 14'b0};
+wire        w_hsadc_fifo_adc0_rd_en   = w_ADCH_DOUT0_PO_rd;
+wire        w_hsadc_fifo_adc0_pempty  ;  assign w_ADCH_WO[ 8] = w_hsadc_fifo_adc0_pempty;
+wire        w_hsadc_fifo_adc0_empty   ;  assign w_ADCH_WO[ 9] = w_hsadc_fifo_adc0_empty ;
+wire        w_hsadc_fifo_adc0_wr_ack  ;  assign w_ADCH_WO[10] = w_hsadc_fifo_adc0_wr_ack;
+wire        w_hsadc_fifo_adc0_oflow   ;  assign w_ADCH_WO[11] = w_hsadc_fifo_adc0_oflow ;
+wire        w_hsadc_fifo_adc0_pfull   ;  assign w_ADCH_WO[12] = w_hsadc_fifo_adc0_pfull ;
+wire        w_hsadc_fifo_adc0_full    ;  assign w_ADCH_WO[13] = w_hsadc_fifo_adc0_full  ;
+
+wire [17:0] w_hsadc_fifo_adc1_din     ;  assign w_ADCH_DOUT1_WO = {w_hsadc_fifo_adc1_din , 14'b0};
+wire [17:0] w_hsadc_fifo_adc1_dout    ;  assign w_ADCH_DOUT1_PO = {w_hsadc_fifo_adc1_dout, 14'b0};
+wire        w_hsadc_fifo_adc1_rd_en   = w_ADCH_DOUT1_PO_rd;
+wire        w_hsadc_fifo_adc1_pempty  ;  assign w_ADCH_WO[14] = w_hsadc_fifo_adc1_pempty;
+wire        w_hsadc_fifo_adc1_empty   ;  assign w_ADCH_WO[15] = w_hsadc_fifo_adc1_empty ;
+wire        w_hsadc_fifo_adc1_wr_ack  ;  assign w_ADCH_WO[16] = w_hsadc_fifo_adc1_wr_ack;
+wire        w_hsadc_fifo_adc1_oflow   ;  assign w_ADCH_WO[17] = w_hsadc_fifo_adc1_oflow ;
+wire        w_hsadc_fifo_adc1_pfull   ;  assign w_ADCH_WO[18] = w_hsadc_fifo_adc1_pfull ;
+wire        w_hsadc_fifo_adc1_full    ;  assign w_ADCH_WO[19] = w_hsadc_fifo_adc1_full  ;
+
+//}
+
+// io wires //{
+wire   w_hsadc_pin_conv  ;  assign ADCx_CNV       = w_hsadc_pin_conv; // out
+wire   w_hsadc_pin_sclk  ;  assign ADCx_CLK       = w_hsadc_pin_sclk; // out
+wire   w_hsadc_pin_test  ;  assign ADCx_TPT_B     = w_hsadc_pin_test; // out
+wire   w_hsadc_dco__adc_0                         = ADC0_DCO        ; // in
+wire   w_hsadc_dat2_adc_0                         = ADC0_DB         ; // in
+wire   w_hsadc_dat1_adc_0                         = ADC0_DA         ; // in
+wire   w_hsadc_dco__adc_1                         = ADC1_DCO        ; // in
+wire   w_hsadc_dat2_adc_1                         = ADC1_DB         ; // in
+wire   w_hsadc_dat1_adc_1                         = ADC1_DA         ; // in
+
+//}
+
+adc_wrapper  adc_wrapper__inst (
+
+	//// clocks and reset //{
+	
+	.reset_n        (reset_n),	
+	.sys_clk        (sys_clk), // 10MHz
+	
+	// adc related clocks
+	.base_adc_clk   (base_adc_clk), // 210MHz
+	.adc_fifo_clk   (adc_fifo_clk), // 60MHz
+	.ref_200M_clk   (ref_200M_clk), // 200MHz
+	
+	// endpoint related clock
+	.base_sspi_clk  (base_sspi_clk), // 104MHz // for sspi endpoints
+	.mcs_clk        (mcs_clk      ), // 72MHz  // for lan  endpoints
+	
+	//}
+	
+	//// endpoint controls //{
+	
+	.i_hsadc_reset              (w_hsadc_reset            ), //        // 
+	.i_hsadc_en                 (w_hsadc_en               ), //        // 
+	.i_hsadc_init               (w_hsadc_init             ), //        // 
+	.i_hsadc_update             (w_hsadc_update           ), //        // 
+	.i_hsadc_test               (w_hsadc_test             ), //        // 
+	.i_hsadc_fifo_rst           (w_hsadc_fifo_rst         ), //        //  
+	.o_hsadc_init_done          (w_hsadc_init_done        ), //        // 
+	.o_hsadc_update_done        (w_hsadc_update_done      ), //        // 
+	.o_hsadc_test_done          (w_hsadc_test_done        ), //        // 
+	.o_hsadc_init_done_to       (w_hsadc_init_done_to     ), //        // 
+	.o_hsadc_update_done_to     (w_hsadc_update_done_to   ), //        // 
+	.o_hsadc_test_done_to       (w_hsadc_test_done_to     ), //        // 
+	.i_HSADC_UPD_SMP            (w_HSADC_UPD_SMP          ), // [31:0] // 
+	.i_HSADC_SMP_PRD            (w_HSADC_SMP_PRD          ), // [31:0] // 
+	.i_HSADC_DLY_TAP0           (w_HSADC_DLY_TAP0         ), // [ 9:0] // 
+	.i_HSADC_DLY_TAP1           (w_HSADC_DLY_TAP1         ), // [ 9:0] // 
+	.i_hsadc_pin_test_frc_high  (w_hsadc_pin_test_frc_high), //        // 
+	.i_hsadc_pttn_cnt_up_en     (w_hsadc_pttn_cnt_up_en   ), //        // 
+	.o_hsadc_fifo_adc0_din      (w_hsadc_fifo_adc0_din    ), // [17:0] // 
+	.o_hsadc_fifo_adc0_dout     (w_hsadc_fifo_adc0_dout   ), // [17:0] // 
+	.i_hsadc_fifo_adc0_rd_en    (w_hsadc_fifo_adc0_rd_en  ), //        // 
+	.o_hsadc_fifo_adc0_pempty   (w_hsadc_fifo_adc0_pempty ), //        // 
+	.o_hsadc_fifo_adc0_empty    (w_hsadc_fifo_adc0_empty  ), //        // 
+	.o_hsadc_fifo_adc0_wr_ack   (w_hsadc_fifo_adc0_wr_ack ), //        // 
+	.o_hsadc_fifo_adc0_oflow    (w_hsadc_fifo_adc0_oflow  ), //        // 
+	.o_hsadc_fifo_adc0_pfull    (w_hsadc_fifo_adc0_pfull  ), //        // 
+	.o_hsadc_fifo_adc0_full     (w_hsadc_fifo_adc0_full   ), //        // 
+	.o_hsadc_fifo_adc1_din      (w_hsadc_fifo_adc1_din    ), // [17:0] // 
+	.o_hsadc_fifo_adc1_dout     (w_hsadc_fifo_adc1_dout   ), // [17:0] // 
+	.i_hsadc_fifo_adc1_rd_en    (w_hsadc_fifo_adc1_rd_en  ), //        // 
+	.o_hsadc_fifo_adc1_pempty   (w_hsadc_fifo_adc1_pempty ), //        // 
+	.o_hsadc_fifo_adc1_empty    (w_hsadc_fifo_adc1_empty  ), //        // 
+	.o_hsadc_fifo_adc1_wr_ack   (w_hsadc_fifo_adc1_wr_ack ), //        // 
+	.o_hsadc_fifo_adc1_oflow    (w_hsadc_fifo_adc1_oflow  ), //        // 
+	.o_hsadc_fifo_adc1_pfull    (w_hsadc_fifo_adc1_pfull  ), //        // 
+	.o_hsadc_fifo_adc1_full     (w_hsadc_fifo_adc1_full   ), //        // 
+	
+	//}
+	
+	//// ios //{
+
+	.o_hsadc_pin_conv    (w_hsadc_pin_conv  ),
+	.o_hsadc_pin_sclk    (w_hsadc_pin_sclk  ),
+	.o_hsadc_pin_test    (w_hsadc_pin_test  ),
+	.i_hsadc_dco__adc_0  (w_hsadc_dco__adc_0),
+	.i_hsadc_dat2_adc_0  (w_hsadc_dat2_adc_0),
+	.i_hsadc_dat1_adc_0  (w_hsadc_dat1_adc_0),
+	.i_hsadc_dco__adc_1  (w_hsadc_dco__adc_1),
+	.i_hsadc_dat2_adc_1  (w_hsadc_dat2_adc_1),
+	.i_hsadc_dat1_adc_1  (w_hsadc_dat1_adc_1),
+	
+	//}
+	
+	// test //{
+	.valid    ()
+	//}
+);
+
 
 //}
 
