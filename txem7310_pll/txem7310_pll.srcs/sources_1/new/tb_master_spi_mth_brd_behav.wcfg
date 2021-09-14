@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="94885027780fs"></ZoomStartTime>
-      <ZoomEndTime time="149118244438fs"></ZoomEndTime>
-      <Cursor1Time time="188293768000fs"></Cursor1Time>
+      <ZoomStartTime time="123185481337fs"></ZoomStartTime>
+      <ZoomEndTime time="226772593318fs"></ZoomEndTime>
+      <Cursor1Time time="183949272000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="278"></NameColumnWidth>
       <ValueColumnWidth column_width="76"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="71" />
+   <WVObjectSize size="89" />
    <wave_markers>
       <marker label="" time="3581960000" />
       <marker label="" time="1620296000" />
@@ -32,6 +32,10 @@
       <marker label="" time="46661640000" />
       <marker label="" time="46584712000" />
       <marker label="" time="98018760000" />
+      <marker label="" time="140450000000" />
+      <marker label="" time="152150000000" />
+      <marker label="" time="162750000000" />
+      <marker label="" time="183949272000" />
    </wave_markers>
    <wvobject type="group" fp_name="group327">
       <obj_property name="label">clocks</obj_property>
@@ -308,6 +312,8 @@
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_wi_sadrs_h060">
       <obj_property name="ElementShortName">w_port_wi_sadrs_h060[31:0]</obj_property>
       <obj_property name="ObjectShortName">w_port_wi_sadrs_h060[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_wi_sadrs_h074">
       <obj_property name="ElementShortName">w_port_wi_sadrs_h074[31:0]</obj_property>
@@ -324,6 +330,8 @@
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_ti_sadrs_h160">
       <obj_property name="ElementShortName">w_port_ti_sadrs_h160[31:0]</obj_property>
       <obj_property name="ObjectShortName">w_port_ti_sadrs_h160[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_to_sadrs_h1E0">
       <obj_property name="ElementShortName">w_port_to_sadrs_h1E0[31:0]</obj_property>
@@ -374,5 +382,81 @@
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/o_cnt_sspi_cs">
       <obj_property name="ElementShortName">o_cnt_sspi_cs[15:0]</obj_property>
       <obj_property name="ObjectShortName">o_cnt_sspi_cs[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider81" type="divider">
+      <obj_property name="label">adc test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/init">
+      <obj_property name="ElementShortName">init</obj_property>
+      <obj_property name="ObjectShortName">init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/init_done">
+      <obj_property name="ElementShortName">init_done</obj_property>
+      <obj_property name="ObjectShortName">init_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/i_fifo_rst">
+      <obj_property name="ElementShortName">i_fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">i_fifo_rst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/update">
+      <obj_property name="ElementShortName">update</obj_property>
+      <obj_property name="ObjectShortName">update</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/update_done">
+      <obj_property name="ElementShortName">update_done</obj_property>
+      <obj_property name="ObjectShortName">update_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/test">
+      <obj_property name="ElementShortName">test</obj_property>
+      <obj_property name="ObjectShortName">test</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/test_done">
+      <obj_property name="ElementShortName">test_done</obj_property>
+      <obj_property name="ObjectShortName">test_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_pin_conv">
+      <obj_property name="ElementShortName">o_hsadc_pin_conv</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_conv</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_pin_sclk">
+      <obj_property name="ElementShortName">o_hsadc_pin_sclk</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_sclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_pin_test">
+      <obj_property name="ElementShortName">o_hsadc_pin_test</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_test</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_dco__adc_0">
+      <obj_property name="ElementShortName">i_hsadc_dco__adc_0</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_dco__adc_0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_dat2_adc_0">
+      <obj_property name="ElementShortName">i_hsadc_dat2_adc_0</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_dat2_adc_0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_dat1_adc_0">
+      <obj_property name="ElementShortName">i_hsadc_dat1_adc_0</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_dat1_adc_0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_fifo_adc0_wr_ack">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc0_wr_ack</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc0_wr_ack</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_fifo_adc0_din">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc0_din[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc0_din[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_fifo_adc0_rd_en">
+      <obj_property name="ElementShortName">i_hsadc_fifo_adc0_rd_en</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_fifo_adc0_rd_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_fifo_adc0_dout">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc0_dout[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc0_dout[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
 </wave_config>

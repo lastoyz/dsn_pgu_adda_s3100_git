@@ -460,6 +460,11 @@ wire w_clk_adc; // mux
 	assign w_clk_adc = (w_test_model_en)? w_clk_adc_mdl : w_clk_adc_ctl;
 wire w_pin_test_adc ; // 0 for fixed pattern disabled
 
+wire w_dco_adc ;
+wire w_dat1_adc;
+wire w_dat2_adc;
+
+
 test_model_adc_ddr_two_lane_LTC2387 #(
 	.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (8 ), // ns // for 125MHz @ clk_logic

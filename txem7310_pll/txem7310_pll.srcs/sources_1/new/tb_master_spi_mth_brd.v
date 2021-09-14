@@ -39,6 +39,13 @@ reg clk_210M = 1'b0; // 210MHz
 	always
 	#2.38095238  clk_210M = ~clk_210M; // toggle every 2.38095238 nanoseconds
 
+reg clk_200M = 1'b0; // 200Mz
+	always
+	#2.5 	clk_200M = ~clk_200M; // toggle every 2.5 ns --> clock 5.0 ns 
+
+reg clk_60M = 1'b0; // 60MHz
+	always
+	#8.33333333 	clk_60M = ~clk_60M; // toggle every 8ns --> clock 16ns 
 	
 reg clk_104M = 1'b0; // 104MHz
 reg clk_52M  = 1'b0; //  52MHz
@@ -124,11 +131,14 @@ always begin
 
 wire sys_clk       = clk_10M;
 wire base_sspi_clk = clk_104M;
+wire mcs_clk       = clk_72M ; // for LAN endpoints   // 72MHz
+//
+wire base_adc_clk  = clk_210M; // base clock for ADC  // 210MHz
+wire adc_fifo_clk  = clk_60M ; // adc fifo clock      // 60MHz
+wire ref_200M_clk  = clk_200M;
 
-wire base_adc_clk = clk_210M; // for CMU
 //wire base_adc_clk = clk_192M; // for MHVSU-BASE
-
-wire p_adc_clk    = clk_12M;
+//wire p_adc_clk    = clk_12M;
 
 //}
 
@@ -249,6 +259,53 @@ test_model__master_spi__from_mth_brd  test_model__master_spi__from_mth_brd__inst
 
 //// adc test model to come //{
 
+wire w_cnv_adc ; // i
+wire w_clk_adc ; // i
+wire w_pin_test_adc ; // i
+wire w_dco_adc ; // o
+wire w_dat1_adc; // o
+wire w_dat2_adc; // o
+
+test_model_adc_ddr_two_lane_LTC2387 #(
+	.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
+	//.PERIOD_CLK_LOGIC_NS (8 ), // ns // for 125MHz @ clk_logic
+	.PERIOD_CLK_CNV_NS   (57.14285712), // ns // period of test_cnv_adc // 57.14285712=12*4.76190476
+	//.PERIOD_CLK_CNV_NS   (96), // ns // period of test_cnv_adc // 96=12*8
+	//.PERIOD_CLK_CNV_NS   (88), // ns // period of test_cnv_adc // 88=11*8
+	//
+	.DELAY_NS_delay_locked(973), // ns // only for simulation // 0 or 973ns
+	//
+	//parameter DELAY_CLK = 32'd9; // 65ns min < 8ns*9=72ns @125MHz
+	//parameter DELAY_CLK = 32'd14; // 65ns min < 1/(210MHz)*14=66.7ns @210MHz
+	.DELAY_CLK(14),
+	//
+	.DAT1_OUTPUT_POLARITY(1'b0),
+	.DAT2_OUTPUT_POLARITY(1'b0),
+	.DCLK_OUTPUT_POLARITY(1'b0)	
+	) test_model_adc_ddr_two_lane_LTC2387_inst (
+	.clk_logic	(base_adc_clk), // 210MHz
+	.reset_n	(reset_n),
+	.en			(1'b1), // test fo connected ADC
+	//
+	.test					(1'b0), // generate test pattern on dco_adc / dat1_adc / dat2_adc, without external clock.
+	.test_cnv_adc			(    ), // o // auto conversion output signal for test 
+	.test_clk_adc			(    ), // o // auto conversion output signal for test 
+	.test_clk_reset_serdes	(    ), // o // auto clk_reset for serdes
+	.test_io_reset_serdes	(    ), // o // auto io_reset for serdes
+	.test_valid_fifo		(    ), // o // auto valid for fifo
+	//
+	.i_cnv_adc	(w_cnv_adc), // trigger input for conversion 
+	.i_clk_adc	(w_clk_adc), // clock input for adc data ... connected to dco_adc
+	//
+	.test_mode_inc_data (~w_pin_test_adc), // increasing data or fixed data
+	//
+	.dco_adc	(w_dco_adc ),  // o
+	.dat1_adc	(w_dat1_adc),  // o
+	.dat2_adc	(w_dat2_adc),  // o
+	//
+	.debug_out	() // o
+);
+
 //}
 
 
@@ -256,18 +313,174 @@ test_model__master_spi__from_mth_brd  test_model__master_spi__from_mth_brd__inst
 
 parameter TEST_num_update_samples    = 32'd136;
 parameter TEST_sampling_period_count = 32'd14 ; // 210MHz/14 = 15 Msps //
-wire [31:0] w_ADCH_UPD_SM_WI = TEST_num_update_samples;
-wire [31:0] w_ADCH_SMP_PR_WI = TEST_sampling_period_count;
-
+wire [31:0] w_ADCH_UPD_SM_WI_test = TEST_num_update_samples;
+wire [31:0] w_ADCH_SMP_PR_WI_test = TEST_sampling_period_count;
 // serdes input delay // 5 bits/lane, 2 lanes/ADC // {[9:5],[4:0]} for i_data_in_adc[1:0]
 parameter TEST_in_delay_tap    = 5'd15;
-wire [31:0] w_ADCH_DLY_TP_WI;
-assign w_ADCH_DLY_TP_WI[0]     = 1'b0; //wire w_hsadc_pin_test_frc_high = w_ADCH_DLY_TP_WI[0];
-assign w_ADCH_DLY_TP_WI[1]     = 1'b0; //
-assign w_ADCH_DLY_TP_WI[2]     = 1'b0; //wire w_hsadc_pttn_cnt_up_en    = w_ADCH_DLY_TP_WI[2];
-assign w_ADCH_DLY_TP_WI[11: 3] = 9'b0; //
-assign w_ADCH_DLY_TP_WI[21:12] = { TEST_in_delay_tap, TEST_in_delay_tap };
-assign w_ADCH_DLY_TP_WI[31:22] = { TEST_in_delay_tap, TEST_in_delay_tap };
+wire [31:0] w_ADCH_DLY_TP_WI_test;
+assign w_ADCH_DLY_TP_WI_test[0]     = 1'b0; //wire w_hsadc_pin_test_frc_high = w_ADCH_DLY_TP_WI[0];
+assign w_ADCH_DLY_TP_WI_test[1]     = 1'b0; //
+assign w_ADCH_DLY_TP_WI_test[2]     = 1'b0; //wire w_hsadc_pttn_cnt_up_en    = w_ADCH_DLY_TP_WI[2];
+assign w_ADCH_DLY_TP_WI_test[11: 3] = 9'b0; //
+assign w_ADCH_DLY_TP_WI_test[21:12] = { TEST_in_delay_tap, TEST_in_delay_tap };
+assign w_ADCH_DLY_TP_WI_test[31:22] = { TEST_in_delay_tap, TEST_in_delay_tap };
+
+// endpoint wires : ADC and DFT
+wire [31:0] w_ADCH_WI        ;
+wire [31:0] w_ADCH_FREQ_WI   ; // not yet
+wire [31:0] w_ADCH_UPD_SM_WI ;
+wire [31:0] w_ADCH_SMP_PR_WI ;
+wire [31:0] w_ADCH_DLY_TP_WI ;
+wire [31:0] w_ADCH_WO        ;  assign w_ADCH_WO[31:20] = 12'b0;  assign w_ADCH_WO[7:4] = 4'b0;
+wire [31:0] w_ADCH_B_FRQ_WO  ; // not yet
+wire [31:0] w_ADCH_DOUT0_WO  ; // not yet
+wire [31:0] w_ADCH_DOUT1_WO  ; // not yet
+wire [31:0] w_ADCH_DOUT2_WO  ; // not yet
+wire [31:0] w_ADCH_DOUT3_WO  ; // not yet
+wire [31:0] w_ADCH_TI        ;
+wire [31:0] w_ADCH_TO        ;  assign w_ADCH_TO[31:5] = 27'b0;
+wire [31:0] w_ADCH_DOUT0_PO  ;  wire w_ADCH_DOUT0_PO_rd;
+wire [31:0] w_ADCH_DOUT1_PO  ;  wire w_ADCH_DOUT1_PO_rd;
+wire [31:0] w_DFT_TI         ; // not yet
+wire [31:0] w_DFT_COEF_RE_PI ;  wire w_DFT_COEF_RE_PI_wr; // not yet
+wire [31:0] w_DFT_COEF_IM_PI ;  wire w_DFT_COEF_IM_PI_wr; // not yet
+
+// control wires
+wire        w_hsadc_reset             = w_ADCH_TI[0];  assign w_ADCH_TO[0] = w_hsadc_reset;
+wire        w_hsadc_en                = w_ADCH_WI[0];  assign w_ADCH_WO[0] = w_hsadc_en;
+
+wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
+wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2];
+wire        w_hsadc_test              = w_ADCH_WI[3] | w_ADCH_TI[3];
+
+wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;
+
+wire        w_hsadc_init_done         ;  assign w_ADCH_WO[1] = w_hsadc_init_done  ;
+wire        w_hsadc_update_done       ;  assign w_ADCH_WO[2] = w_hsadc_update_done;
+wire        w_hsadc_test_done         ;  assign w_ADCH_WO[3] = w_hsadc_test_done  ;
+
+wire        w_hsadc_init_done_to      ;  assign w_ADCH_TO[1] = w_hsadc_init_done_to  ;
+wire        w_hsadc_update_done_to    ;  assign w_ADCH_TO[2] = w_hsadc_update_done_to;
+wire        w_hsadc_test_done_to      ;  assign w_ADCH_TO[3] = w_hsadc_test_done_to  ;
+
+
+wire [31:0] w_HSADC_UPD_SMP           = w_ADCH_UPD_SM_WI;
+wire [31:0] w_HSADC_SMP_PRD           = w_ADCH_SMP_PR_WI;
+
+wire [ 9:0] w_HSADC_DLY_TAP0          = w_ADCH_DLY_TP_WI[21:12]; // serdes input delay // 5 bits/lane, 2 lanes/ADC // {[9:5],[4:0]} for i_data_in_adc[1:0]
+wire [ 9:0] w_HSADC_DLY_TAP1          = w_ADCH_DLY_TP_WI[31:22]; // serdes input delay // 5 bits/lane, 2 lanes/ADC // {[9:5],[4:0]} for i_data_in_adc[1:0]
+wire        w_hsadc_pin_test_frc_high = w_ADCH_DLY_TP_WI[0];
+wire        w_hsadc_pttn_cnt_up_en    = w_ADCH_DLY_TP_WI[2];
+
+wire [17:0] w_hsadc_fifo_adc0_din     ;  assign w_ADCH_DOUT0_WO = {w_hsadc_fifo_adc0_din , 14'b0};
+wire [17:0] w_hsadc_fifo_adc0_dout    ;  assign w_ADCH_DOUT0_PO = {w_hsadc_fifo_adc0_dout, 14'b0};
+wire        w_hsadc_fifo_adc0_rd_en   = w_ADCH_DOUT0_PO_rd;
+wire        w_hsadc_fifo_adc0_pempty  ;  assign w_ADCH_WO[ 8] = w_hsadc_fifo_adc0_pempty;
+wire        w_hsadc_fifo_adc0_empty   ;  assign w_ADCH_WO[ 9] = w_hsadc_fifo_adc0_empty ;
+wire        w_hsadc_fifo_adc0_wr_ack  ;  assign w_ADCH_WO[10] = w_hsadc_fifo_adc0_wr_ack;
+wire        w_hsadc_fifo_adc0_oflow   ;  assign w_ADCH_WO[11] = w_hsadc_fifo_adc0_oflow ;
+wire        w_hsadc_fifo_adc0_pfull   ;  assign w_ADCH_WO[12] = w_hsadc_fifo_adc0_pfull ;
+wire        w_hsadc_fifo_adc0_full    ;  assign w_ADCH_WO[13] = w_hsadc_fifo_adc0_full  ;
+
+wire [17:0] w_hsadc_fifo_adc1_din     ;  assign w_ADCH_DOUT1_WO = {w_hsadc_fifo_adc1_din , 14'b0};
+wire [17:0] w_hsadc_fifo_adc1_dout    ;  assign w_ADCH_DOUT1_PO = {w_hsadc_fifo_adc1_dout, 14'b0};
+wire        w_hsadc_fifo_adc1_rd_en   = w_ADCH_DOUT1_PO_rd;
+wire        w_hsadc_fifo_adc1_pempty  ;  assign w_ADCH_WO[14] = w_hsadc_fifo_adc1_pempty;
+wire        w_hsadc_fifo_adc1_empty   ;  assign w_ADCH_WO[15] = w_hsadc_fifo_adc1_empty ;
+wire        w_hsadc_fifo_adc1_wr_ack  ;  assign w_ADCH_WO[16] = w_hsadc_fifo_adc1_wr_ack;
+wire        w_hsadc_fifo_adc1_oflow   ;  assign w_ADCH_WO[17] = w_hsadc_fifo_adc1_oflow ;
+wire        w_hsadc_fifo_adc1_pfull   ;  assign w_ADCH_WO[18] = w_hsadc_fifo_adc1_pfull ;
+wire        w_hsadc_fifo_adc1_full    ;  assign w_ADCH_WO[19] = w_hsadc_fifo_adc1_full  ;
+
+// io wires
+wire   w_hsadc_pin_conv  ;  assign w_cnv_adc      = w_hsadc_pin_conv; //$$
+wire   w_hsadc_pin_sclk  ;  assign w_clk_adc      = w_hsadc_pin_sclk; //$$
+wire   w_hsadc_pin_test  ;  assign w_pin_test_adc = w_hsadc_pin_test;
+wire   w_hsadc_dco__adc_0 = w_dco_adc ;
+wire   w_hsadc_dat2_adc_0 = w_dat2_adc;
+wire   w_hsadc_dat1_adc_0 = w_dat1_adc;
+wire   w_hsadc_dco__adc_1 = w_dco_adc ;
+wire   w_hsadc_dat2_adc_1 = w_dat2_adc;
+wire   w_hsadc_dat1_adc_1 = w_dat1_adc;
+
+adc_wrapper  adc_wrapper__inst (
+
+	//// clocks and reset //{
+	
+	.reset_n        (reset_n),	
+	.sys_clk        (sys_clk), // 10MHz
+	
+	// adc related clocks
+	.base_adc_clk   (base_adc_clk), // 210MHz
+	.adc_fifo_clk   (adc_fifo_clk), // 60MHz
+	.ref_200M_clk   (ref_200M_clk), // 200MHz
+	
+	// endpoint related clock
+	.base_sspi_clk  (base_sspi_clk), // 104MHz // for sspi endpoints
+	.mcs_clk        (mcs_clk      ), // 72MHz  // for lan  endpoints
+	
+	//}
+	
+	//// endpoint controls //{
+	
+	.i_hsadc_reset              (w_hsadc_reset            ), //        // 
+	.i_hsadc_en                 (w_hsadc_en               ), //        // 
+	.i_hsadc_init               (w_hsadc_init             ), //        // 
+	.i_hsadc_update             (w_hsadc_update           ), //        // 
+	.i_hsadc_test               (w_hsadc_test             ), //        // 
+	.i_hsadc_fifo_rst           (w_hsadc_fifo_rst         ), //        //  
+	.o_hsadc_init_done          (w_hsadc_init_done        ), //        // 
+	.o_hsadc_update_done        (w_hsadc_update_done      ), //        // 
+	.o_hsadc_test_done          (w_hsadc_test_done        ), //        // 
+	.o_hsadc_init_done_to       (w_hsadc_init_done_to     ), //        // 
+	.o_hsadc_update_done_to     (w_hsadc_update_done_to   ), //        // 
+	.o_hsadc_test_done_to       (w_hsadc_test_done_to     ), //        // 
+	.i_HSADC_UPD_SMP            (w_HSADC_UPD_SMP          ), // [31:0] // 
+	.i_HSADC_SMP_PRD            (w_HSADC_SMP_PRD          ), // [31:0] // 
+	.i_HSADC_DLY_TAP0           (w_HSADC_DLY_TAP0         ), // [ 9:0] // 
+	.i_HSADC_DLY_TAP1           (w_HSADC_DLY_TAP1         ), // [ 9:0] // 
+	.i_hsadc_pin_test_frc_high  (w_hsadc_pin_test_frc_high), //        // 
+	.i_hsadc_pttn_cnt_up_en     (w_hsadc_pttn_cnt_up_en   ), //        // 
+	.o_hsadc_fifo_adc0_din      (w_hsadc_fifo_adc0_din    ), // [17:0] // 
+	.o_hsadc_fifo_adc0_dout     (w_hsadc_fifo_adc0_dout   ), // [17:0] // 
+	.i_hsadc_fifo_adc0_rd_en    (w_hsadc_fifo_adc0_rd_en  ), //        // 
+	.o_hsadc_fifo_adc0_pempty   (w_hsadc_fifo_adc0_pempty ), //        // 
+	.o_hsadc_fifo_adc0_empty    (w_hsadc_fifo_adc0_empty  ), //        // 
+	.o_hsadc_fifo_adc0_wr_ack   (w_hsadc_fifo_adc0_wr_ack ), //        // 
+	.o_hsadc_fifo_adc0_oflow    (w_hsadc_fifo_adc0_oflow  ), //        // 
+	.o_hsadc_fifo_adc0_pfull    (w_hsadc_fifo_adc0_pfull  ), //        // 
+	.o_hsadc_fifo_adc0_full     (w_hsadc_fifo_adc0_full   ), //        // 
+	.o_hsadc_fifo_adc1_din      (w_hsadc_fifo_adc1_din    ), // [17:0] // 
+	.o_hsadc_fifo_adc1_dout     (w_hsadc_fifo_adc1_dout   ), // [17:0] // 
+	.i_hsadc_fifo_adc1_rd_en    (w_hsadc_fifo_adc1_rd_en  ), //        // 
+	.o_hsadc_fifo_adc1_pempty   (w_hsadc_fifo_adc1_pempty ), //        // 
+	.o_hsadc_fifo_adc1_empty    (w_hsadc_fifo_adc1_empty  ), //        // 
+	.o_hsadc_fifo_adc1_wr_ack   (w_hsadc_fifo_adc1_wr_ack ), //        // 
+	.o_hsadc_fifo_adc1_oflow    (w_hsadc_fifo_adc1_oflow  ), //        // 
+	.o_hsadc_fifo_adc1_pfull    (w_hsadc_fifo_adc1_pfull  ), //        // 
+	.o_hsadc_fifo_adc1_full     (w_hsadc_fifo_adc1_full   ), //        // 
+	
+	//}
+	
+	//// ios //{
+
+	.o_hsadc_pin_conv    (w_hsadc_pin_conv  ),
+	.o_hsadc_pin_sclk    (w_hsadc_pin_sclk  ),
+	.o_hsadc_pin_test    (w_hsadc_pin_test  ),
+	.i_hsadc_dco__adc_0  (w_hsadc_dco__adc_0),
+	.i_hsadc_dat2_adc_0  (w_hsadc_dat2_adc_0),
+	.i_hsadc_dat1_adc_0  (w_hsadc_dat1_adc_0),
+	.i_hsadc_dco__adc_1  (w_hsadc_dco__adc_1),
+	.i_hsadc_dat2_adc_1  (w_hsadc_dat2_adc_1),
+	.i_hsadc_dat1_adc_1  (w_hsadc_dat1_adc_1),
+	
+	//}
+	
+	// test //{
+	.valid    ()
+	//}
+);
+
 
 
 //}
@@ -281,31 +494,31 @@ wire w_MISO_S_EN ;
 
 wire [31:0] w_port_wi_sadrs_h000;
 wire [31:0] w_port_wi_sadrs_h008;
-wire [31:0] w_port_wi_sadrs_h060;  // | ADCH  | ADCH_WI       | 0x060      | wire_in_18 |
-wire [31:0] w_port_wi_sadrs_h070;  // | ADCH  | ADCH_FREQ_WI  | 0x070      | wire_in_1C |
-wire [31:0] w_port_wi_sadrs_h074;  // | ADCH  | ADCH_UPD_SM_WI| 0x074      | wire_in_1D |
-wire [31:0] w_port_wi_sadrs_h078;  // | ADCH  | ADCH_SMP_PR_WI| 0x078      | wire_in_1E |
-wire [31:0] w_port_wi_sadrs_h07C;  // | ADCH  | ADCH_DLY_TP_WI| 0x07C      | wire_in_1F |
+wire [31:0] w_port_wi_sadrs_h060;  assign w_ADCH_WI        = w_port_wi_sadrs_h060;// | ADCH  | ADCH_WI       | 0x060      | wire_in_18 |
+wire [31:0] w_port_wi_sadrs_h070;  assign w_ADCH_FREQ_WI   = w_port_wi_sadrs_h070;// | ADCH  | ADCH_FREQ_WI  | 0x070      | wire_in_1C |
+wire [31:0] w_port_wi_sadrs_h074;  assign w_ADCH_UPD_SM_WI = w_port_wi_sadrs_h074;// | ADCH  | ADCH_UPD_SM_WI| 0x074      | wire_in_1D |
+wire [31:0] w_port_wi_sadrs_h078;  assign w_ADCH_SMP_PR_WI = w_port_wi_sadrs_h078;// | ADCH  | ADCH_SMP_PR_WI| 0x078      | wire_in_1E |
+wire [31:0] w_port_wi_sadrs_h07C;  assign w_ADCH_DLY_TP_WI = w_port_wi_sadrs_h07C;// | ADCH  | ADCH_DLY_TP_WI| 0x07C      | wire_in_1F |
 
-wire [31:0] w_port_wo_sadrs_h0E0 = 32'h0000_0000;// | ADCH  | ADCH_WO       | 0x0E0      | wireout_38 |
-wire [31:0] w_port_wo_sadrs_h0E4 = 32'h0000_0000;// | ADCH  | ADCH_B_FRQ_WO | 0x0E4      | wireout_39 |
-wire [31:0] w_port_wo_sadrs_h0F0 = 32'h0000_0000;// | ADCH  | ADCH_DOUT0_WO | 0x0F0      | wireout_3C |
-wire [31:0] w_port_wo_sadrs_h0F4 = 32'h0000_0000;// | ADCH  | ADCH_DOUT1_WO | 0x0F4      | wireout_3D |
-wire [31:0] w_port_wo_sadrs_h0F8 = 32'h0000_0000;// | ADCH  | ADCH_DOUT2_WO | 0x0F8      | wireout_3E |
-wire [31:0] w_port_wo_sadrs_h0FC = 32'h0000_0000;// | ADCH  | ADCH_DOUT3_WO | 0x0FC      | wireout_3F |
+wire [31:0] w_port_wo_sadrs_h0E0 = w_ADCH_WO      ;// | ADCH  | ADCH_WO       | 0x0E0      | wireout_38 |
+wire [31:0] w_port_wo_sadrs_h0E4 = w_ADCH_B_FRQ_WO;// | ADCH  | ADCH_B_FRQ_WO | 0x0E4      | wireout_39 |
+wire [31:0] w_port_wo_sadrs_h0F0 = w_ADCH_DOUT0_WO;// | ADCH  | ADCH_DOUT0_WO | 0x0F0      | wireout_3C |
+wire [31:0] w_port_wo_sadrs_h0F4 = w_ADCH_DOUT1_WO;// | ADCH  | ADCH_DOUT1_WO | 0x0F4      | wireout_3D |
+wire [31:0] w_port_wo_sadrs_h0F8 = w_ADCH_DOUT2_WO;// | ADCH  | ADCH_DOUT2_WO | 0x0F8      | wireout_3E |
+wire [31:0] w_port_wo_sadrs_h0FC = w_ADCH_DOUT3_WO;// | ADCH  | ADCH_DOUT3_WO | 0x0FC      | wireout_3F |
 wire [31:0] w_port_wo_sadrs_h080 = 32'hD020_0529;
 wire [31:0] w_port_wo_sadrs_h088 = 32'h0000_1010; 
 wire [31:0] w_port_wo_sadrs_h380 = 32'h33AA_CC55; // 0x33AACC55
 
-wire [31:0] w_port_ti_sadrs_h160; // | ADCH  | ADCH_TI       | 0x160      | trig_in_58 |
+wire [31:0] w_port_ti_sadrs_h160;  assign w_ADCH_TI = w_port_ti_sadrs_h160;// | ADCH  | ADCH_TI       | 0x160      | trig_in_58 |
 wire [31:0] w_port_ti_sadrs_h104;
 
-wire [31:0] w_port_to_sadrs_h1E0 = 32'h0000_0000; // | ADCH  | ADCH_TO       | 0x1E0      | trigout_78 |
+wire [31:0] w_port_to_sadrs_h1E0 = w_ADCH_TO; // | ADCH  | ADCH_TO       | 0x1E0      | trigout_78 |
 wire [31:0] w_port_to_sadrs_h194 = test_data_to;
 wire [31:0] w_port_to_sadrs_h19C = test_data_to_210M;
 
-wire [31:0] w_port_po_sadrs_h2F0 = 32'h0000_0000; wire w_rd__sadrs_h2F0; // | ADCH  | ADCH_DOUT0_PO | 0x2F0      | pipeout_BC |
-wire [31:0] w_port_po_sadrs_h2F4 = 32'h0000_0000; wire w_rd__sadrs_h2F4; // | ADCH  | ADCH_DOUT1_PO | 0x2F4      | pipeout_BD |
+wire [31:0] w_port_po_sadrs_h2F0 = w_ADCH_DOUT0_PO; wire w_rd__sadrs_h2F0; assign w_ADCH_DOUT0_PO_rd = w_rd__sadrs_h2F0;// | ADCH  | ADCH_DOUT0_PO | 0x2F0      | pipeout_BC |
+wire [31:0] w_port_po_sadrs_h2F4 = w_ADCH_DOUT1_PO; wire w_rd__sadrs_h2F4; assign w_ADCH_DOUT1_PO_rd = w_rd__sadrs_h2F4;// | ADCH  | ADCH_DOUT1_PO | 0x2F4      | pipeout_BD |
 
 
 //wire w_loopback_en = 1'b1; // loopback mode control on
@@ -817,30 +1030,38 @@ $display(" Wait for rise of w_done_frame");
 //// adc test to come //{
 
 // adc setup 
-TASK__SEND_FRAME(1'b0, 10'h074+2, w_ADCH_UPD_SM_WI[31:16]); // w_ADCH_UPD_SM_WI high
-TASK__SEND_FRAME(1'b0, 10'h074+0, w_ADCH_UPD_SM_WI[15: 0]); // w_ADCH_UPD_SM_WI low
-TASK__SEND_FRAME(1'b0, 10'h078+2, w_ADCH_SMP_PR_WI[31:16]); // w_ADCH_SMP_PR_WI high
-TASK__SEND_FRAME(1'b0, 10'h078+0, w_ADCH_SMP_PR_WI[15: 0]); // w_ADCH_SMP_PR_WI low
-TASK__SEND_FRAME(1'b0, 10'h07C+2, w_ADCH_DLY_TP_WI[31:16]); // w_ADCH_DLY_TP_WI high 
-TASK__SEND_FRAME(1'b0, 10'h07C+0, w_ADCH_DLY_TP_WI[15: 0]); // w_ADCH_DLY_TP_WI low
+TASK__SEND_FRAME(1'b0, 10'h074+2, w_ADCH_UPD_SM_WI_test[31:16]); // w_ADCH_UPD_SM_WI high
+TASK__SEND_FRAME(1'b0, 10'h074+0, w_ADCH_UPD_SM_WI_test[15: 0]); // w_ADCH_UPD_SM_WI low
+TASK__SEND_FRAME(1'b0, 10'h078+2, w_ADCH_SMP_PR_WI_test[31:16]); // w_ADCH_SMP_PR_WI high
+TASK__SEND_FRAME(1'b0, 10'h078+0, w_ADCH_SMP_PR_WI_test[15: 0]); // w_ADCH_SMP_PR_WI low
+TASK__SEND_FRAME(1'b0, 10'h07C+2, w_ADCH_DLY_TP_WI_test[31:16]); // w_ADCH_DLY_TP_WI high 
+TASK__SEND_FRAME(1'b0, 10'h07C+0, w_ADCH_DLY_TP_WI_test[15: 0]); // w_ADCH_DLY_TP_WI low
 
 // adc enable 
 TASK__SEND_FRAME(1'b0, 10'h060, 16'h0001); // ADCH_WI
 
 // adc init 
 TASK__SEND_FRAME(1'b0, 10'h160, 16'h0002); // ADCH_TI
+@(posedge w_hsadc_init_done);
 TASK__SEND_FRAME(1'b1, 10'h1E0, 16'h0000); // ADCH_TO
+///////////////////////
+	$finish;
 
 // adc fifo reset
-TASK__SEND_FRAME(1'b0, 10'h160, 16'h0008); // ADCH_TI
+TASK__SEND_FRAME(1'b0, 10'h160, 16'h0010); // ADCH_TI
 TASK__SEND_FRAME(1'b1, 10'h1E0, 16'h0000); // ADCH_TO
+///////////////////////
+	$finish;
 
 // adc update
 TASK__SEND_FRAME(1'b0, 10'h160, 16'h0004); // ADCH_TI
+@(posedge w_hsadc_update_done);
 TASK__SEND_FRAME(1'b1, 10'h1E0, 16'h0000); // ADCH_TO
+///////////////////////
+	$finish;
 
 // adc fifo read
-repeat (4) begin
+repeat (136+2) begin
 TASK__SEND_FRAME(1'b1, 10'h2F0, 16'h0000); // ADCH
 end
 
