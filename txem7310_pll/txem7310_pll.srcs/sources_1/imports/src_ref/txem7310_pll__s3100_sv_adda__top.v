@@ -1844,7 +1844,7 @@ wire ep74ck = 1'b0;             wire [31:0] ep74trig = 32'b0;
 wire ep75ck = 1'b0;             wire [31:0] ep75trig = 32'b0;
 wire ep76ck = 1'b0;             wire [31:0] ep76trig = 32'b0;
 wire ep77ck = 1'b0;             wire [31:0] ep77trig = 32'b0;
-wire ep78ck = sys_clk;          wire [31:0] ep78trig = 32'b0; // ADCH
+wire ep78ck = sys_clk;          wire [31:0] ep78trig; // ADCH
 wire ep79ck = 1'b0;             wire [31:0] ep79trig = 32'b0;
 wire ep7Ack = 1'b0;             wire [31:0] ep7Atrig = 32'b0;
 wire ep7Bck = 1'b0;             wire [31:0] ep7Btrig = 32'b0;
