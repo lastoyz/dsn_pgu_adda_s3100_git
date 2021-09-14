@@ -3933,6 +3933,11 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.o_port_wi_sadrs_h024    (w_M2_port_wi_sadrs_h024),
 	.o_port_wi_sadrs_h04C    (w_M2_port_wi_sadrs_h04C),
 	.o_port_wi_sadrs_h048    (w_M2_port_wi_sadrs_h048),
+	.o_port_wi_sadrs_h060    (w_M2_port_wi_sadrs_h060), // ADCH
+	.o_port_wi_sadrs_h070    (w_M2_port_wi_sadrs_h070), // ADCH
+	.o_port_wi_sadrs_h074    (w_M2_port_wi_sadrs_h074), // ADCH
+	.o_port_wi_sadrs_h078    (w_M2_port_wi_sadrs_h078), // ADCH
+	.o_port_wi_sadrs_h07C    (w_M2_port_wi_sadrs_h07C), // ADCH
 	
 	// wo
 	.i_port_wo_sadrs_h080    (w_M2_port_wo_sadrs_h080),
@@ -3947,6 +3952,12 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.i_port_wo_sadrs_h0E8    (w_M2_port_wo_sadrs_h0E8), 
 	.i_port_wo_sadrs_h0EC    (w_M2_port_wo_sadrs_h0EC), 
 	.i_port_wo_sadrs_h380    (w_M2_port_wo_sadrs_h380), 
+	.i_port_wo_sadrs_h0E0    (w_M2_port_wo_sadrs_h0E0), // ADCH
+	.i_port_wo_sadrs_h0E4    (w_M2_port_wo_sadrs_h0E4), // ADCH
+	.i_port_wo_sadrs_h0F0    (w_M2_port_wo_sadrs_h0F0), // ADCH
+	.i_port_wo_sadrs_h0F4    (w_M2_port_wo_sadrs_h0F4), // ADCH
+	.i_port_wo_sadrs_h0F8    (w_M2_port_wo_sadrs_h0F8), // ADCH
+	.i_port_wo_sadrs_h0FC    (w_M2_port_wo_sadrs_h0FC), // ADCH
 	
 	// ti
 	.i_ck__sadrs_h114  (w_M2_ck__sadrs_h114),    .o_port_ti_sadrs_h114  (w_M2_port_ti_sadrs_h114), // [31:0] 
@@ -3955,9 +3966,11 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.i_ck__sadrs_h120  (w_M2_ck__sadrs_h120),    .o_port_ti_sadrs_h120  (w_M2_port_ti_sadrs_h120), // [31:0] 
 	.i_ck__sadrs_h124  (w_M2_ck__sadrs_h124),    .o_port_ti_sadrs_h124  (w_M2_port_ti_sadrs_h124), // [31:0] 
 	.i_ck__sadrs_h14C  (w_M2_ck__sadrs_h14C),    .o_port_ti_sadrs_h14C  (w_M2_port_ti_sadrs_h14C), // [31:0] 
+	.i_ck__sadrs_h160  (w_M2_ck__sadrs_h160),    .o_port_ti_sadrs_h160  (w_M2_port_ti_sadrs_h160), // ADCH
 
 	// to
 	.i_ck__sadrs_h1CC  (w_M2_ck__sadrs_h1CC),    .i_port_to_sadrs_h1CC  (w_M2_port_to_sadrs_h1CC), // [31:0] 
+	.i_ck__sadrs_h1E0  (w_M2_ck__sadrs_h1E0),    .i_port_to_sadrs_h1E0  (w_M2_port_to_sadrs_h1E0), // [31:0] // ADCH
 
 	// pi
 	.o_wr__sadrs_h218  (w_M2_wr__sadrs_h218),    .o_port_pi_sadrs_h218  (w_M2_port_pi_sadrs_h218), // [31:0]  
@@ -3970,6 +3983,8 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	// po
 	.o_rd__sadrs_h2A8  (w_M2_rd__sadrs_h2A8),    .i_port_po_sadrs_h2A8  (w_M2_port_po_sadrs_h2A8), // [31:0]  
 	.o_rd__sadrs_h2CC  (w_M2_rd__sadrs_h2CC),    .i_port_po_sadrs_h2CC  (w_M2_port_po_sadrs_h2CC), // [31:0]  
+	.o_rd__sadrs_h2F0  (w_M2_rd__sadrs_h2F0),    .i_port_po_sadrs_h2F0  (w_M2_port_po_sadrs_h2F0), // ADCH
+	.o_rd__sadrs_h2F4  (w_M2_rd__sadrs_h2F4),    .i_port_po_sadrs_h2F4  (w_M2_port_po_sadrs_h2F4), // ADCH
 	
 	//}
 	
