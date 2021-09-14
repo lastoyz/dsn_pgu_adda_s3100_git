@@ -235,7 +235,7 @@ test_model__master_spi__from_mth_brd  test_model__master_spi__from_mth_brd__inst
 	.i_frame_data_D(w_frame_data_D) , // [15:0] // register data on MOSI
 	.o_frame_data_B(w_frame_data_B) , // [15:0] // readback data on MISO
 	//
-	.i_trig_frame (w_trig_frame),
+	.i_trig_frame (w_trig_frame), // @ clk
 	.o_done_frame (w_done_frame),
 	//
 	.o_SS_B (w_SS_B),
@@ -253,6 +253,21 @@ test_model__master_spi__from_mth_brd  test_model__master_spi__from_mth_brd__inst
 
 
 //// adc control to come //{
+
+parameter TEST_num_update_samples    = 32'd136;
+parameter TEST_sampling_period_count = 32'd14 ; // 210MHz/14 = 15 Msps //
+wire [31:0] w_ADCH_UPD_SM_WI = TEST_num_update_samples;
+wire [31:0] w_ADCH_SMP_PR_WI = TEST_sampling_period_count;
+
+// serdes input delay // 5 bits/lane, 2 lanes/ADC // {[9:5],[4:0]} for i_data_in_adc[1:0]
+parameter TEST_in_delay_tap    = 5'd15;
+wire [31:0] w_ADCH_DLY_TP_WI;
+assign w_ADCH_DLY_TP_WI[0]     = 1'b0; //wire w_hsadc_pin_test_frc_high = w_ADCH_DLY_TP_WI[0];
+assign w_ADCH_DLY_TP_WI[1]     = 1'b0; //
+assign w_ADCH_DLY_TP_WI[2]     = 1'b0; //wire w_hsadc_pttn_cnt_up_en    = w_ADCH_DLY_TP_WI[2];
+assign w_ADCH_DLY_TP_WI[11: 3] = 9'b0; //
+assign w_ADCH_DLY_TP_WI[21:12] = { TEST_in_delay_tap, TEST_in_delay_tap };
+assign w_ADCH_DLY_TP_WI[31:22] = { TEST_in_delay_tap, TEST_in_delay_tap };
 
 
 //}
@@ -272,12 +287,12 @@ wire [31:0] w_port_wi_sadrs_h074;  // | ADCH  | ADCH_UPD_SM_WI| 0x074      | wir
 wire [31:0] w_port_wi_sadrs_h078;  // | ADCH  | ADCH_SMP_PR_WI| 0x078      | wire_in_1E |
 wire [31:0] w_port_wi_sadrs_h07C;  // | ADCH  | ADCH_DLY_TP_WI| 0x07C      | wire_in_1F |
 
-wire [31:0] w_port_wo_sadrs_h0E0;// | ADCH  | ADCH_WO       | 0x0E0      | wireout_38 |
-wire [31:0] w_port_wo_sadrs_h0E4;// | ADCH  | ADCH_B_FRQ_WO | 0x0E4      | wireout_39 |
-wire [31:0] w_port_wo_sadrs_h0F0;// | ADCH  | ADCH_DOUT0_WO | 0x0F0      | wireout_3C |
-wire [31:0] w_port_wo_sadrs_h0F4;// | ADCH  | ADCH_DOUT1_WO | 0x0F4      | wireout_3D |
-wire [31:0] w_port_wo_sadrs_h0F8;// | ADCH  | ADCH_DOUT2_WO | 0x0F8      | wireout_3E |
-wire [31:0] w_port_wo_sadrs_h0FC;// | ADCH  | ADCH_DOUT3_WO | 0x0FC      | wireout_3F |
+wire [31:0] w_port_wo_sadrs_h0E0 = 32'h0000_0000;// | ADCH  | ADCH_WO       | 0x0E0      | wireout_38 |
+wire [31:0] w_port_wo_sadrs_h0E4 = 32'h0000_0000;// | ADCH  | ADCH_B_FRQ_WO | 0x0E4      | wireout_39 |
+wire [31:0] w_port_wo_sadrs_h0F0 = 32'h0000_0000;// | ADCH  | ADCH_DOUT0_WO | 0x0F0      | wireout_3C |
+wire [31:0] w_port_wo_sadrs_h0F4 = 32'h0000_0000;// | ADCH  | ADCH_DOUT1_WO | 0x0F4      | wireout_3D |
+wire [31:0] w_port_wo_sadrs_h0F8 = 32'h0000_0000;// | ADCH  | ADCH_DOUT2_WO | 0x0F8      | wireout_3E |
+wire [31:0] w_port_wo_sadrs_h0FC = 32'h0000_0000;// | ADCH  | ADCH_DOUT3_WO | 0x0FC      | wireout_3F |
 wire [31:0] w_port_wo_sadrs_h080 = 32'hD020_0529;
 wire [31:0] w_port_wo_sadrs_h088 = 32'h0000_1010; 
 wire [31:0] w_port_wo_sadrs_h380 = 32'h33AA_CC55; // 0x33AACC55
@@ -285,12 +300,12 @@ wire [31:0] w_port_wo_sadrs_h380 = 32'h33AA_CC55; // 0x33AACC55
 wire [31:0] w_port_ti_sadrs_h160; // | ADCH  | ADCH_TI       | 0x160      | trig_in_58 |
 wire [31:0] w_port_ti_sadrs_h104;
 
-wire [31:0] w_port_to_sadrs_h1E0; // | ADCH  | ADCH_TO       | 0x1E0      | trigout_78 |
+wire [31:0] w_port_to_sadrs_h1E0 = 32'h0000_0000; // | ADCH  | ADCH_TO       | 0x1E0      | trigout_78 |
 wire [31:0] w_port_to_sadrs_h194 = test_data_to;
 wire [31:0] w_port_to_sadrs_h19C = test_data_to_210M;
 
-wire [31:0] w_port_po_sadrs_h2F0; wire w_rd__sadrs_h2F0; // | ADCH  | ADCH_DOUT0_PO | 0x2F0      | pipeout_BC |
-wire [31:0] w_port_po_sadrs_h2F4; wire w_rd__sadrs_h2F4; // | ADCH  | ADCH_DOUT1_PO | 0x2F4      | pipeout_BD |
+wire [31:0] w_port_po_sadrs_h2F0 = 32'h0000_0000; wire w_rd__sadrs_h2F0; // | ADCH  | ADCH_DOUT0_PO | 0x2F0      | pipeout_BC |
+wire [31:0] w_port_po_sadrs_h2F4 = 32'h0000_0000; wire w_rd__sadrs_h2F4; // | ADCH  | ADCH_DOUT1_PO | 0x2F4      | pipeout_BD |
 
 
 //wire w_loopback_en = 1'b1; // loopback mode control on
@@ -329,7 +344,7 @@ slave_spi_mth_brd  slave_spi_mth_brd__inst (
 	.i_port_wo_sadrs_h0FC    (w_port_wo_sadrs_h0FC), // ADCH
 	//
 	.i_ck__sadrs_h104(clk_10M ),  .o_port_ti_sadrs_h104(w_port_ti_sadrs_h104),
-	.i_ck__sadrs_h160(clk_10M ),  .o_port_ti_sadrs_h104(w_port_ti_sadrs_h160), // ADCH
+	.i_ck__sadrs_h160(clk_10M ),  .o_port_ti_sadrs_h160(w_port_ti_sadrs_h160), // ADCH
 	//
 	.i_ck__sadrs_h194(clk_10M ),  .i_port_to_sadrs_h194(w_port_to_sadrs_h194), // [31:0]
 	.i_ck__sadrs_h19C(clk_210M),  .i_port_to_sadrs_h19C(w_port_to_sadrs_h19C), // [31:0]
@@ -798,10 +813,40 @@ $display(" Wait for rise of w_done_frame");
 ///////////////////////
 	$finish;
 
+#0;
+//// adc test to come //{
 
-//// adc test to come
+// adc setup 
+TASK__SEND_FRAME(1'b0, 10'h074+2, w_ADCH_UPD_SM_WI[31:16]); // w_ADCH_UPD_SM_WI high
+TASK__SEND_FRAME(1'b0, 10'h074+0, w_ADCH_UPD_SM_WI[15: 0]); // w_ADCH_UPD_SM_WI low
+TASK__SEND_FRAME(1'b0, 10'h078+2, w_ADCH_SMP_PR_WI[31:16]); // w_ADCH_SMP_PR_WI high
+TASK__SEND_FRAME(1'b0, 10'h078+0, w_ADCH_SMP_PR_WI[15: 0]); // w_ADCH_SMP_PR_WI low
+TASK__SEND_FRAME(1'b0, 10'h07C+2, w_ADCH_DLY_TP_WI[31:16]); // w_ADCH_DLY_TP_WI high 
+TASK__SEND_FRAME(1'b0, 10'h07C+0, w_ADCH_DLY_TP_WI[15: 0]); // w_ADCH_DLY_TP_WI low
+
+// adc enable 
+TASK__SEND_FRAME(1'b0, 10'h060, 16'h0001); // ADCH_WI
+
+// adc init 
+TASK__SEND_FRAME(1'b0, 10'h160, 16'h0002); // ADCH_TI
+TASK__SEND_FRAME(1'b1, 10'h1E0, 16'h0000); // ADCH_TO
+
+// adc fifo reset
+TASK__SEND_FRAME(1'b0, 10'h160, 16'h0008); // ADCH_TI
+TASK__SEND_FRAME(1'b1, 10'h1E0, 16'h0000); // ADCH_TO
+
+// adc update
+TASK__SEND_FRAME(1'b0, 10'h160, 16'h0004); // ADCH_TI
+TASK__SEND_FRAME(1'b1, 10'h1E0, 16'h0000); // ADCH_TO
+
+// adc fifo read
+repeat (4) begin
+TASK__SEND_FRAME(1'b1, 10'h2F0, 16'h0000); // ADCH
+end
+
 
 #200;
+//}
 ///////////////////////
 	$finish;
 end
@@ -815,7 +860,7 @@ end
 //$$ wire [31:0] w_port_ti_sadrs_h11C;  assign w_ADC_TRIG_TI = w_port_ti_sadrs_h11C;
 //$$ wire [31:0] w_port_to_sadrs_h19C = test_data_to_210M | w_ADC_TRIG_TO;
 
-// TASK__SEND_FRAME(temp_frame_rdwr_1b, temp_adrs_10b, temp_data_15b)
+// TASK__SEND_FRAME(temp_frame_rdwr_1b, temp_adrs_10b, temp_data_16b)
 task  TASK__SEND_FRAME;
 	input         temp_frame_rdwr; // 1/0 for read/write
 	input  [ 9:0] temp_adrs      ;
