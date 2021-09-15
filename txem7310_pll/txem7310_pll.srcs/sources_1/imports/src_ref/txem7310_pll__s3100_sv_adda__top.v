@@ -3973,6 +3973,7 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.i_ck__sadrs_h124  (w_M2_ck__sadrs_h124),    .o_port_ti_sadrs_h124  (w_M2_port_ti_sadrs_h124), // [31:0] 
 	.i_ck__sadrs_h14C  (w_M2_ck__sadrs_h14C),    .o_port_ti_sadrs_h14C  (w_M2_port_ti_sadrs_h14C), // [31:0] 
 	.i_ck__sadrs_h160  (w_M2_ck__sadrs_h160),    .o_port_ti_sadrs_h160  (w_M2_port_ti_sadrs_h160), // ADCH
+	.i_ck__sadrs_h170  (w_M2_ck__sadrs_h170),    .o_port_ti_sadrs_h170  (w_M2_port_ti_sadrs_h170), // ADCH
 
 	// to
 	.i_ck__sadrs_h1CC  (w_M2_ck__sadrs_h1CC),    .i_port_to_sadrs_h1CC  (w_M2_port_to_sadrs_h1CC), // [31:0] 
@@ -3985,6 +3986,8 @@ slave_spi_mth_brd  slave_spi_mth_brd__M2_inst(
 	.o_wr__sadrs_h224  (w_M2_wr__sadrs_h224),    .o_port_pi_sadrs_h224  (w_M2_port_pi_sadrs_h224), // [31:0]  
 	.o_wr__sadrs_h228  (w_M2_wr__sadrs_h228),    .o_port_pi_sadrs_h228  (w_M2_port_pi_sadrs_h228), // [31:0]  
 	.o_wr__sadrs_h24C  (w_M2_wr__sadrs_h24C),    .o_port_pi_sadrs_h24C  (w_M2_port_pi_sadrs_h24C), // [31:0]  
+	.o_wr__sadrs_h270  (w_M2_wr__sadrs_h270),    .o_port_pi_sadrs_h270  (w_M2_port_pi_sadrs_h270), // [31:0]  
+	.o_wr__sadrs_h274  (w_M2_wr__sadrs_h274),    .o_port_pi_sadrs_h274  (w_M2_port_pi_sadrs_h274), // [31:0]  
 	 
 	// po
 	.o_rd__sadrs_h2A8  (w_M2_rd__sadrs_h2A8),    .i_port_po_sadrs_h2A8  (w_M2_port_po_sadrs_h2A8), // [31:0]  
