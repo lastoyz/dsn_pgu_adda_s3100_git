@@ -2677,37 +2677,36 @@ wire        c_TEST_FIFO  = (w_mcs_ep_po_en & ~w_SSPI_TEST_mode_en)?        mcs_c
 
 //// ADC wires: ADCH and DFT //{
 
-wire [31:0] w_ADCH_WI        = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_18_1 : ep18wire; 
-wire [31:0] w_ADCH_FREQ_WI   = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1C_1 : ep1Cwire; 
-wire [31:0] w_ADCH_UPD_SM_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1D_1 : ep1Dwire; 
-wire [31:0] w_ADCH_SMP_PR_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1E_1 : ep1Ewire; 
-wire [31:0] w_ADCH_DLY_TP_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1F_1 : ep1Fwire; 
+(* keep = "true" *) wire [31:0] w_ADCH_WI        = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_18_1 : ep18wire; 
+(* keep = "true" *) wire [31:0] w_ADCH_FREQ_WI   = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1C_1 : ep1Cwire; 
+(* keep = "true" *) wire [31:0] w_ADCH_UPD_SM_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1D_1 : ep1Dwire; 
+(* keep = "true" *) wire [31:0] w_ADCH_SMP_PR_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1E_1 : ep1Ewire; 
+(* keep = "true" *) wire [31:0] w_ADCH_DLY_TP_WI = ( w_mcs_ep_wi_en & ~w_SSPI_TEST_mode_en)? w_port_wi_1F_1 : ep1Fwire; 
 
-wire [31:0] w_ADCH_WO       ;  assign w_port_wo_38_1 = w_ADCH_WO       ;  assign ep38wire = w_ADCH_WO       ;
-wire [31:0] w_ADCH_B_FRQ_WO ;  assign w_port_wo_39_1 = w_ADCH_B_FRQ_WO ;  assign ep39wire = w_ADCH_B_FRQ_WO ;
-wire [31:0] w_ADCH_DOUT0_WO ;  assign w_port_wo_3C_1 = w_ADCH_DOUT0_WO ;  assign ep3Cwire = w_ADCH_DOUT0_WO ;
-wire [31:0] w_ADCH_DOUT1_WO ;  assign w_port_wo_3D_1 = w_ADCH_DOUT1_WO ;  assign ep3Dwire = w_ADCH_DOUT1_WO ;
-wire [31:0] w_ADCH_DOUT2_WO ;  assign w_port_wo_3E_1 = w_ADCH_DOUT2_WO ;  assign ep3Ewire = w_ADCH_DOUT2_WO ;
-wire [31:0] w_ADCH_DOUT3_WO ;  assign w_port_wo_3F_1 = w_ADCH_DOUT3_WO ;  assign ep3Fwire = w_ADCH_DOUT3_WO ;
+(* keep = "true" *) wire [31:0] w_ADCH_WO       ;  assign w_port_wo_38_1 = w_ADCH_WO       ;  assign ep38wire = w_ADCH_WO       ;
+(* keep = "true" *) wire [31:0] w_ADCH_B_FRQ_WO ;  assign w_port_wo_39_1 = w_ADCH_B_FRQ_WO ;  assign ep39wire = w_ADCH_B_FRQ_WO ;
+(* keep = "true" *) wire [31:0] w_ADCH_DOUT0_WO ;  assign w_port_wo_3C_1 = w_ADCH_DOUT0_WO ;  assign ep3Cwire = w_ADCH_DOUT0_WO ;
+(* keep = "true" *) wire [31:0] w_ADCH_DOUT1_WO ;  assign w_port_wo_3D_1 = w_ADCH_DOUT1_WO ;  assign ep3Dwire = w_ADCH_DOUT1_WO ;
+(* keep = "true" *) wire [31:0] w_ADCH_DOUT2_WO ;  assign w_port_wo_3E_1 = w_ADCH_DOUT2_WO ;  assign ep3Ewire = w_ADCH_DOUT2_WO ;
+(* keep = "true" *) wire [31:0] w_ADCH_DOUT3_WO ;  assign w_port_wo_3F_1 = w_ADCH_DOUT3_WO ;  assign ep3Fwire = w_ADCH_DOUT3_WO ;
 
-wire [31:0] w_ADCH_TI     = w_port_ti_58_1 | ep58trig ;
+(* keep = "true" *) wire [31:0] w_ADCH_TI     = w_port_ti_58_1 | ep58trig ;
 
-wire [31:0] w_ADCH_TO;
+(* keep = "true" *) wire [31:0] w_ADCH_TO;
 assign w_port_to_78_1     = ( w_mcs_ep_to_en & ~w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
 assign         ep78trig   = (~w_mcs_ep_to_en |  w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
 
-wire [31:0] w_ADCH_DOUT0_PO;  assign w_port_po_BC_1 = w_ADCH_DOUT0_PO;  assign epBCpipe = w_ADCH_DOUT0_PO;
-wire [31:0] w_ADCH_DOUT1_PO;  assign w_port_po_BD_1 = w_ADCH_DOUT1_PO;  assign epBDpipe = w_ADCH_DOUT1_PO;
-wire        w_ADCH_DOUT0_PO_rd = w_rd_BC_1 | epBCrd;
-wire        w_ADCH_DOUT1_PO_rd = w_rd_BD_1 | epBDrd;
+(* keep = "true" *) wire [31:0] w_ADCH_DOUT0_PO;  assign w_port_po_BC_1 = w_ADCH_DOUT0_PO;  assign epBCpipe = w_ADCH_DOUT0_PO;
+(* keep = "true" *) wire [31:0] w_ADCH_DOUT1_PO;  assign w_port_po_BD_1 = w_ADCH_DOUT1_PO;  assign epBDpipe = w_ADCH_DOUT1_PO;
+(* keep = "true" *) wire        w_ADCH_DOUT0_PO_rd = w_rd_BC_1 | epBCrd;
+(* keep = "true" *) wire        w_ADCH_DOUT1_PO_rd = w_rd_BD_1 | epBDrd;
 
+(* keep = "true" *) wire [31:0] w_DFT_TI              = w_port_ti_5C_1 | ep5Ctrig ;
 
-wire [31:0] w_DFT_TI              = w_port_ti_5C_1 | ep5Ctrig ;
-
-wire [31:0] w_DFT_COEF_RE_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9C_1 : ep9Cpipe;
-wire [31:0] w_DFT_COEF_IM_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9D_1 : ep9Dpipe;
-wire        w_DFT_COEF_RE_PI_wr   = w_wr_9C_1 | ep9Cwr;
-wire        w_DFT_COEF_IM_PI_wr   = w_wr_9D_1 | ep9Dwr;
+(* keep = "true" *) wire [31:0] w_DFT_COEF_RE_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9C_1 : ep9Cpipe;
+(* keep = "true" *) wire [31:0] w_DFT_COEF_IM_PI      = ( w_mcs_ep_pi_en & ~w_SSPI_TEST_mode_en)? w_port_pi_9D_1 : ep9Dpipe;
+(* keep = "true" *) wire        w_DFT_COEF_RE_PI_wr   = w_wr_9C_1 | ep9Cwr;
+(* keep = "true" *) wire        w_DFT_COEF_IM_PI_wr   = w_wr_9D_1 | ep9Dwr;
 
 
 //} 
