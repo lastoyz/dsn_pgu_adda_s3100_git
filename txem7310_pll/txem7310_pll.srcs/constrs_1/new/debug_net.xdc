@@ -83,6 +83,59 @@ set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern
 set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac1]
 
 
+##== ADC ==##
+
+# adc_wrapper__inst/control_hsadc_dual__inst/
+
+set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/state[*]}]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_clk_adc]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_cnv_adc]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_clk_reset]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_io_reset]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_pin_dlln_frc_low]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_pttn_cnt_up_en]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_delay_locked]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_io_reset]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_valid_serdes]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_cnv_adc_en]
+
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_init_trig]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_init_busy]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_init_done]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_adc_done_init]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv__init]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv__init__adc0]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv__init__adc1]
+#set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/cnt_wr_fifo[0]__0[*]}]
+#set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/cnt_wr_fifo[1]__0[*]}]
+set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/cnt_cnv[*]}]
+
+
+
+##== DFT ==##
+
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT0[*]]
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT1[*]]
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT2[*]]
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT3[*]]
+
+# # based on adc fifo clock
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/addra[*] ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/dina[*]  ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/wea[*]   ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/addra[*] ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/dina[*]  ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/wea[*]   ]
+# 
+# # based on mcs clock
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_wr_9C    ]
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_pi_9C[*] ]
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_wr_9D    ]
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_pi_9D[*] ]
+
+
+
 ##------------------------------------------------------------------------##
 
 #### LOC for mmcm pll ####
