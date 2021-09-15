@@ -109,6 +109,11 @@ add_cells_to_pblock [get_pblocks pblock_mth] [get_cells -quiet [list  master_spi
 resize_pblock [get_pblocks pblock_mth] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y1}
 
 
+create_pblock pblock_adc_wrapper__inst
+add_cells_to_pblock [get_pblocks pblock_adc_wrapper__inst] [get_cells -quiet [list  adc_wrapper__inst]]
+resize_pblock [get_pblocks pblock_adc_wrapper__inst] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y4}
+
+
 create_pblock pblock_dac
 add_cells_to_pblock [get_pblocks pblock_dac] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_*]]
 resize_pblock [get_pblocks pblock_dac] -add {CLOCKREGION_X1Y2:CLOCKREGION_X1Y3}

@@ -800,8 +800,8 @@ module txem7310_pll__s3100_sv_adda__top (
 	output wire  o_B34D_L9N       , // # AA3   # MC1-47  ## DAC0_DAT_N5
 	output wire  o_B34D_L10P      , // # AA5   # MC1-31  ## DAC0_DCI_P
 	output wire  o_B34D_L10N      , // # AB5   # MC1-33  ## DAC0_DCI_N
-	input  wire  i_B34D_L11P_SRCC , // # Y4    # MC1-38  ## ADC0_DCO_P
-	input  wire  i_B34D_L11N_SRCC , // # AA4   # MC1-40  ## ADC0_DCO_N
+	input  wire  c_B34D_L11P_SRCC , // # Y4    # MC1-38  ## ADC0_DCO_P
+	input  wire  c_B34D_L11N_SRCC , // # AA4   # MC1-40  ## ADC0_DCO_N
 	output wire  o_B34D_L12P_MRCC , // # V4    # MC1-77  ## DAC0_DAT_P0
 	output wire  o_B34D_L12N_MRCC , // # W4    # MC1-79  ## DAC0_DAT_N0
 	output wire  o_B34D_L13P_MRCC , // # R4    # MC1-32  ## DAC0_DAT_P11
@@ -856,8 +856,8 @@ module txem7310_pll__s3100_sv_adda__top (
 	input  wire  i_B35D_L9N       , // # J2    # MC2-39  ## ADC1_DB_N
 	output wire  o_B35D_L10P      , // # J5    # MC2-42  ## DAC1_DAT_N8  // PN swap
 	output wire  o_B35D_L10N      , // # H5    # MC2-44  ## DAC1_DAT_P8  // PN swap
-	input  wire  i_B35D_L11P_SRCC , // # H3    # MC2-45  ## ADC1_DCO_P
-	input  wire  i_B35D_L11N_SRCC , // # G3    # MC2-47  ## ADC1_DCO_N
+	input  wire  c_B35D_L11P_SRCC , // # H3    # MC2-45  ## ADC1_DCO_P
+	input  wire  c_B35D_L11N_SRCC , // # G3    # MC2-47  ## ADC1_DCO_N
 	output wire  o_B35D_L12P_MRCC , // # H4    # MC2-67  ## DAC1_DAT_N15 // PN swap
 	output wire  o_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // PN swap
 	output wire  o_B35D_L13P_MRCC , // # K4    # MC2-63  ## DAC1_DAT_N14 // PN swap
@@ -1207,7 +1207,7 @@ BUFG     bufg_DAC0_DCO_inst 	(.I(c_DAC0_DCO), .O(DAC0_DCO) );
 //// ADC
 wire   ADC0_DCO;
 wire c_ADC0_DCO;
-IBUFDS ibufds_ADC0_DCO_inst (.I(i_B34D_L11P_SRCC), .IB(i_B34D_L11N_SRCC), .O(c_ADC0_DCO) );
+IBUFDS ibufds_ADC0_DCO_inst (.I(c_B34D_L11P_SRCC), .IB(c_B34D_L11N_SRCC), .O(c_ADC0_DCO) );
 BUFG     bufg_ADC0_DCO_inst (.I(c_ADC0_DCO), .O(ADC0_DCO) ); 
 //
 wire ADC0_DA;
@@ -1296,7 +1296,7 @@ BUFG     bufg_DAC1_DCO_inst 	(.I(c_DAC1_DCO), .O(DAC1_DCO) ); // PN swap by PLL 
 //// ADC
 wire   ADC1_DCO;
 wire c_ADC1_DCO;
-IBUFDS ibufds_ADC1_DCO_inst (.I(i_B35D_L11P_SRCC), .IB(i_B35D_L11N_SRCC), .O(c_ADC1_DCO) );
+IBUFDS ibufds_ADC1_DCO_inst (.I(c_B35D_L11P_SRCC), .IB(c_B35D_L11N_SRCC), .O(c_ADC1_DCO) );
 BUFG     bufg_ADC1_DCO_inst (.I(c_ADC1_DCO), .O(ADC1_DCO) ); 
 //
 wire ADC1_DA;

@@ -284,8 +284,8 @@ set_property PACKAGE_PIN  Y3   [get_ports   o_B34D_L9P       ] ; # IO_L9P_T1_DQS
 set_property PACKAGE_PIN  AA3  [get_ports   o_B34D_L9N       ] ; # IO_L9N_T1_DQS_34              1                  34    HR        
 set_property PACKAGE_PIN  AA5  [get_ports   o_B34D_L10P      ] ; # IO_L10P_T1_34                 1                  34    HR        
 set_property PACKAGE_PIN  AB5  [get_ports   o_B34D_L10N      ] ; # IO_L10N_T1_34                 1                  34    HR        
-set_property PACKAGE_PIN  Y4   [get_ports   i_B34D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_34            1                  34    HR        
-set_property PACKAGE_PIN  AA4  [get_ports   i_B34D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_34            1                  34    HR        
+set_property PACKAGE_PIN  Y4   [get_ports   c_B34D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_34            1                  34    HR        
+set_property PACKAGE_PIN  AA4  [get_ports   c_B34D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_34            1                  34    HR        
 set_property PACKAGE_PIN  V4   [get_ports   o_B34D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_34            1                  34    HR        
 set_property PACKAGE_PIN  W4   [get_ports   o_B34D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_34            1                  34    HR        
 set_property PACKAGE_PIN  R4   [get_ports   o_B34D_L13P_MRCC ] ; # IO_L13P_T2_MRCC_34            2                  34    HR        
@@ -336,8 +336,8 @@ set_property PACKAGE_PIN  K2   [get_ports  i_B35D_L9P       ] ; # IO_L9P_T1_DQS_
 set_property PACKAGE_PIN  J2   [get_ports  i_B35D_L9N       ] ; # IO_L9N_T1_DQS_AD7N_35         1                  35    HR        
 set_property PACKAGE_PIN  J5   [get_ports  o_B35D_L10P      ] ; # IO_L10P_T1_AD15P_35           1                  35    HR        
 set_property PACKAGE_PIN  H5   [get_ports  o_B35D_L10N      ] ; # IO_L10N_T1_AD15N_35           1                  35    HR        
-set_property PACKAGE_PIN  H3   [get_ports  i_B35D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_35            1                  35    HR        
-set_property PACKAGE_PIN  G3   [get_ports  i_B35D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  H3   [get_ports  c_B35D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  G3   [get_ports  c_B35D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_35            1                  35    HR        
 set_property PACKAGE_PIN  H4   [get_ports  o_B35D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_35            1                  35    HR        
 set_property PACKAGE_PIN  G4   [get_ports  o_B35D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_35            1                  35    HR        
 set_property PACKAGE_PIN  K4   [get_ports  o_B35D_L13P_MRCC ] ; # IO_L13P_T2_MRCC_35            2                  35    HR        
@@ -583,8 +583,8 @@ set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks 
 
 ## for serdes ##
 #// 9.5ns for serdesCLK_0 @ 210MHz/2
-create_clock -period 9.5 -name serdesCLK_0 [get_ports i_B34D_L11P_SRCC]
-create_clock -period 9.5 -name serdesCLK_1 [get_ports i_B35D_L11P_SRCC]
+create_clock -period 9.5 -name serdesCLK_0 [get_ports c_B34D_L11P_SRCC]
+create_clock -period 9.5 -name serdesCLK_1 [get_ports c_B35D_L11P_SRCC]
 #
 create_generated_clock -name serdesCLK_0_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
 create_generated_clock -name serdesCLK_1_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
