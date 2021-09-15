@@ -3341,6 +3341,12 @@ wire        w_hsadc_fifo_adc1_oflow   ;  assign w_ADCH_WO[17] = w_hsadc_fifo_adc
 wire        w_hsadc_fifo_adc1_pfull   ;  assign w_ADCH_WO[18] = w_hsadc_fifo_adc1_pfull ;
 wire        w_hsadc_fifo_adc1_full    ;  assign w_ADCH_WO[19] = w_hsadc_fifo_adc1_full  ;
 
+// others 
+parameter ADC_BASE_FREQ= 32'd210_000_000; // 210MHz
+assign w_ADCH_B_FRQ_WO = ADC_BASE_FREQ; // adc basse freq
+assign w_ADCH_DOUT2_WO = 32'h0; // not yet
+assign w_ADCH_DOUT3_WO = 32'h0; // not yet
+
 //}
 
 // io wires //{
