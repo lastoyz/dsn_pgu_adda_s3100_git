@@ -589,6 +589,25 @@ create_clock -period 9.5 -name serdesCLK_1 [get_ports i_B35D_L11P_SRCC]
 create_generated_clock -name serdesCLK_0_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
 create_generated_clock -name serdesCLK_1_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
 
+## async
+#
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {sys_clk ref_200M_clk base_adc_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {adc_fifo_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {mcs_clk base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {dac0_clk dac1_clk  dac0_dci_clk dac1_dci_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {sys_clk ref_200M_clk base_adc_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {adc_fifo_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {mcs_clk base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {dac0_clk dac1_clk  dac0_dci_clk dac1_dci_clk}]
+#
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks serdesCLK_1]
+#
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0_div] -group [get_clocks {sys_clk adc_fifo_clk ref_200M_clk base_adc_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1_div] -group [get_clocks {sys_clk adc_fifo_clk ref_200M_clk base_adc_clk}]
+
+
+
+
 ## io delay 
 #input  wire  i_B34D_L18P      , // # Y6    # MC1-42  ## ADC0_DA_P
 #input  wire  i_B34D_L18N      , // # AA6   # MC1-44  ## ADC0_DA_N
