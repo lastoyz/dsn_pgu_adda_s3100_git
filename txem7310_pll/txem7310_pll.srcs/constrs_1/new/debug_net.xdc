@@ -114,12 +114,16 @@ set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_conv    ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_sclk    ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_test    ]
+#
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_0  ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_0  ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_0  ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/i_data_s[*] ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_0  ] # NG
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_0  ] # NG
+
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_1  ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_1  ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_1  ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/i_data_s[*] ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_1  ] # NG
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_1  ] # NG
 
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_reset           ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_en              ]
