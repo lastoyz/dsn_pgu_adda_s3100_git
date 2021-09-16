@@ -1,0 +1,1000 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:54:30 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Thu Sep 16 18:10:22 2021
+# Process ID: 15353
+# Current directory: /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2
+# Command line: vivado -log txem7310_pll__s3100_sv_adda__top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source txem7310_pll__s3100_sv_adda__top.tcl -notrace
+# Log file: /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top.vdi
+# Journal file: /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/vivado.jou
+#-----------------------------------------------------------
+source txem7310_pll__s3100_sv_adda__top.tcl -notrace
+WARNING: [Common 17-1361] You have specified a new message control rule that is equivalent to an existing rule with attributes ' -ruleid {13}  -id {[BD 41-1271]}  -suppress '. The existing rule will be replaced.
+Command: link_design -top txem7310_pll__s3100_sv_adda__top -part xc7a200tfbg484-2
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Netlist 29-17] Analyzing 979 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2017.4
+INFO: [Device 21-403] Loading part xc7a200tfbg484-2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_2/fifo_generator_3_2.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_2/fifo_generator_3_2.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_1/fifo_generator_3_1.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_1/fifo_generator_3_1.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/xadc_wiz_0/xadc_wiz_0.xdc] for cell 'master_drp_ug480_inst/xadc_wiz_0_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/xadc_wiz_0/xadc_wiz_0.xdc] for cell 'master_drp_ug480_inst/xadc_wiz_0_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_4/fifo_generator_4.xdc] for cell 'TEST_fifo_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_4/fifo_generator_4.xdc] for cell 'TEST_fifo_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_rd_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_rd_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_wr_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_wr_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/bd_3c9d_microblaze_I_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/microblaze_I/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/bd_3c9d_microblaze_I_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/microblaze_I/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_1/bd_3c9d_rst_0_0_board.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/rst_0/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_1/bd_3c9d_rst_0_0_board.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/rst_0/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_1/bd_3c9d_rst_0_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/rst_0/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_1/bd_3c9d_rst_0_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/rst_0/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_2/bd_3c9d_ilmb_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/ilmb/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_2/bd_3c9d_ilmb_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/ilmb/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_3/bd_3c9d_dlmb_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/dlmb/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_3/bd_3c9d_dlmb_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/dlmb/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_7/bd_3c9d_mdm_0_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/mdm_0/U0'
+INFO: [Timing 38-35] Done setting XDC timing constraints. [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_7/bd_3c9d_mdm_0_0.xdc:50]
+get_clocks: Time (s): cpu = 00:00:10 ; elapsed = 00:00:23 . Memory (MB): peak = 2159.680 ; gain = 514.641 ; free physical = 2806 ; free virtual = 3871
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_7/bd_3c9d_mdm_0_0.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/mdm_0/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_9/bd_3c9d_iomodule_0_0_board.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/iomodule_0/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_9/bd_3c9d_iomodule_0_0_board.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst/iomodule_0/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/microblaze_mcs_1_board.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/microblaze_mcs_1_board.xdc] for cell 'lan_endpoint_wrapper_inst/soft_cpu_mcs_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_3_1/clk_wiz_0_3_1_board.xdc] for cell 'clk_wiz_0_3_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_3_1/clk_wiz_0_3_1_board.xdc] for cell 'clk_wiz_0_3_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_3_1/clk_wiz_0_3_1.xdc] for cell 'clk_wiz_0_3_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_3_1/clk_wiz_0_3_1.xdc] for cell 'clk_wiz_0_3_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_0_1/clk_wiz_0_0_1_board.xdc] for cell 'clk_wiz_0_0_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_0_1/clk_wiz_0_0_1_board.xdc] for cell 'clk_wiz_0_0_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_0_1/clk_wiz_0_0_1.xdc] for cell 'clk_wiz_0_0_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_0_1/clk_wiz_0_0_1.xdc] for cell 'clk_wiz_0_0_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc] for cell 'clk_wiz_0_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc] for cell 'clk_wiz_0_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc] for cell 'clk_wiz_0_inst/inst'
+INFO: [Timing 38-2] Deriving generated clocks [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc:57]
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc] for cell 'clk_wiz_0_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2_board.xdc] for cell 'clk_wiz_2_2_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2_board.xdc] for cell 'clk_wiz_2_2_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2.xdc] for cell 'clk_wiz_2_2_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2.xdc] for cell 'clk_wiz_2_2_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_board.xdc] for cell 'clk_wiz_1_2_0_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_board.xdc] for cell 'clk_wiz_1_2_0_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_board.xdc] for cell 'clk_wiz_1_2_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_board.xdc] for cell 'clk_wiz_1_2_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_board.xdc] for cell 'clk_wiz_1_2_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_board.xdc] for cell 'clk_wiz_1_2_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2.xdc] for cell 'clk_wiz_1_2_0_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2.xdc] for cell 'clk_wiz_1_2_0_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2.xdc] for cell 'clk_wiz_1_2_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2.xdc] for cell 'clk_wiz_1_2_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2.xdc] for cell 'clk_wiz_1_2_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2.xdc] for cell 'clk_wiz_1_2_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_2_3/clk_wiz_0_2_3_board.xdc] for cell 'clk_wiz_0_2_3_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_2_3/clk_wiz_0_2_3_board.xdc] for cell 'clk_wiz_0_2_3_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_2_3/clk_wiz_0_2_3.xdc] for cell 'clk_wiz_0_2_3_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_2_3/clk_wiz_0_2_3.xdc] for cell 'clk_wiz_0_2_3_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_0/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_0/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_1/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_1/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/new/debug_net.xdc]
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/new/debug_net.xdc]
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/new/debug_cores.xdc]
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/new/debug_cores.xdc]
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/imports/src_ref/txem7310_pll__s3100_sv_adda__top.xdc]
+INFO: [Timing 38-2] Deriving generated clocks [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/imports/src_ref/txem7310_pll__s3100_sv_adda__top.xdc:541]
+INFO: [Timing 38-2] Deriving generated clocks [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/imports/src_ref/txem7310_pll__s3100_sv_adda__top.xdc:593]
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/constrs_1/imports/src_ref/txem7310_pll__s3100_sv_adda__top.xdc]
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_2/fifo_generator_3_2_clocks.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_2/fifo_generator_3_2_clocks.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_1/fifo_generator_3_1_clocks.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3_1/fifo_generator_3_1_clocks.xdc] for cell 'control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_4/fifo_generator_4_clocks.xdc] for cell 'TEST_fifo_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_4/fifo_generator_4_clocks.xdc] for cell 'TEST_fifo_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3_clocks.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_rd_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3_clocks.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_rd_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3_clocks.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_wr_inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_3/fifo_generator_3_clocks.xdc] for cell 'lan_endpoint_wrapper_inst/LAN_fifo_wr_inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_3_1/clk_wiz_0_3_1_late.xdc] for cell 'clk_wiz_0_3_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_3_1/clk_wiz_0_3_1_late.xdc] for cell 'clk_wiz_0_3_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_0_1/clk_wiz_0_0_1_late.xdc] for cell 'clk_wiz_0_0_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_0_1/clk_wiz_0_0_1_late.xdc] for cell 'clk_wiz_0_0_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2_late.xdc] for cell 'clk_wiz_2_2_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_2_2/clk_wiz_2_2_late.xdc] for cell 'clk_wiz_2_2_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_late.xdc] for cell 'clk_wiz_1_2_0_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_late.xdc] for cell 'clk_wiz_1_2_0_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_late.xdc] for cell 'clk_wiz_1_2_1_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_late.xdc] for cell 'clk_wiz_1_2_1_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_late.xdc] for cell 'clk_wiz_1_2_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_1_2/clk_wiz_1_2_late.xdc] for cell 'clk_wiz_1_2_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_5_1_2/fifo_generator_5_1_2_clocks.xdc] for cell 'dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_2_3/clk_wiz_0_2_3_late.xdc] for cell 'clk_wiz_0_2_3_inst/inst'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/clk_wiz_0_2_3/clk_wiz_0_2_3_late.xdc] for cell 'clk_wiz_0_2_3_inst/inst'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2_clocks.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_0/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2_clocks.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_0/U0'
+Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2_clocks.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_1/U0'
+Finished Parsing XDC File [/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/fifo_generator_2/fifo_generator_2_clocks.xdc] for cell 'adc_wrapper__inst/control_hsadc_dual__inst/fifo_generator_2_inst_1/U0'
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Generating merged BMM file for the design top 'txem7310_pll__s3100_sv_adda__top'...
+INFO: [Memdata 28-144] Successfully populated the BRAM INIT strings from the following elf files: /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf 
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 152 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 20 instances
+  LUT6_2 => LUT6_2 (LUT5, LUT6): 80 instances
+  OBUFDS => OBUFDS_DUAL_BUF (INV, OBUFDS, OBUFDS): 36 instances
+  RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 16 instances
+
+12 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:26 ; elapsed = 00:00:54 . Memory (MB): peak = 2191.680 ; gain = 1017.109 ; free physical = 2814 ; free virtual = 3879
+Command: opt_design -directive Explore
+INFO: [Vivado_Tcl 4-136] Directive used for opt_design is: Explore
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a200t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2223.695 ; gain = 32.016 ; free physical = 2808 ; free virtual = 3873
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Starting Logic Optimization Task
+
+Phase 1 Generate And Synthesize Debug Cores
+INFO: [Chipscope 16-318] Generating core instance : dbg_hub
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:xsdbm:3.0 for cell dbg_hub_CV.
+INFO: [Chipscope 16-220] Re-using generated and synthesized IP, "xilinx.com:ip:xsdbm:3.0", from Vivado IP cache entry "ab985fe224a31ec9".
+INFO: [Netlist 29-17] Analyzing 839 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Chipscope 16-318] Generating core instance : u_ila_0
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:ila:6.2 for cell u_ila_0_CV.
+INFO: [Chipscope 16-220] Re-using generated and synthesized IP, "xilinx.com:ip:ila:6.2", from Vivado IP cache entry "161a5c6d8061483d".
+INFO: [Netlist 29-17] Analyzing 863 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Chipscope 16-318] Generating core instance : u_ila_1
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:ila:6.2 for cell u_ila_1_CV.
+INFO: [Chipscope 16-220] Re-using generated and synthesized IP, "xilinx.com:ip:ila:6.2", from Vivado IP cache entry "161a5c6d8061483d".
+INFO: [Netlist 29-17] Analyzing 887 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Chipscope 16-318] Generating core instance : u_ila_2
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:ila:6.2 for cell u_ila_2_CV.
+INFO: [Chipscope 16-220] Re-using generated and synthesized IP, "xilinx.com:ip:ila:6.2", from Vivado IP cache entry "9bedf3606c898c20".
+INFO: [Netlist 29-17] Analyzing 919 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Chipscope 16-318] Generating core instance : u_ila_3
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:ila:6.2 for cell u_ila_3_CV.
+INFO: [Chipscope 16-220] Re-using generated and synthesized IP, "xilinx.com:ip:ila:6.2", from Vivado IP cache entry "cf3232172eb64a74".
+INFO: [Netlist 29-17] Analyzing 1186 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Chipscope 16-318] Generating core instance : u_ila_4
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:ila:6.2 for cell u_ila_4_CV.
+INFO: [Chipscope 16-220] Re-using generated and synthesized IP, "xilinx.com:ip:ila:6.2", from Vivado IP cache entry "92ed95aec80f546d".
+INFO: [Netlist 29-17] Analyzing 1220 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+Netlist sorting complete. Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.09 . Memory (MB): peak = 2302.414 ; gain = 0.000 ; free physical = 2639 ; free virtual = 3706
+Phase 1 Generate And Synthesize Debug Cores | Checksum: 2b302f0c2
+
+Time (s): cpu = 00:03:09 ; elapsed = 00:05:51 . Memory (MB): peak = 2302.414 ; gain = 78.719 ; free physical = 2639 ; free virtual = 3706
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 2 Retarget
+INFO: [Opt 31-138] Pushed 6 inverter(s) to 13 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 2 Retarget | Checksum: 1760844b1
+
+Time (s): cpu = 00:03:16 ; elapsed = 00:05:56 . Memory (MB): peak = 2430.414 ; gain = 206.719 ; free physical = 2621 ; free virtual = 3689
+INFO: [Opt 31-389] Phase Retarget created 390 cells and removed 795 cells
+
+Phase 3 Constant propagation
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 2 load pin(s).
+Phase 3 Constant propagation | Checksum: 1bd0223c2
+
+Time (s): cpu = 00:03:17 ; elapsed = 00:05:57 . Memory (MB): peak = 2430.414 ; gain = 206.719 ; free physical = 2621 ; free virtual = 3689
+INFO: [Opt 31-389] Phase Constant propagation created 377 cells and removed 1310 cells
+
+Phase 4 Sweep
+Phase 4 Sweep | Checksum: 11994301e
+
+Time (s): cpu = 00:03:21 ; elapsed = 00:06:01 . Memory (MB): peak = 2430.414 ; gain = 206.719 ; free physical = 2621 ; free virtual = 3689
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 2235 cells
+
+Phase 5 BUFG optimization
+Phase 5 BUFG optimization | Checksum: 11994301e
+
+Time (s): cpu = 00:03:21 ; elapsed = 00:06:01 . Memory (MB): peak = 2430.414 ; gain = 206.719 ; free physical = 2623 ; free virtual = 3691
+INFO: [Opt 31-389] Phase BUFG optimization created 0 cells and removed 0 cells
+
+Phase 6 Shift Register Optimization
+Phase 6 Shift Register Optimization | Checksum: 11994301e
+
+Time (s): cpu = 00:03:22 ; elapsed = 00:06:02 . Memory (MB): peak = 2430.414 ; gain = 206.719 ; free physical = 2622 ; free virtual = 3690
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00.10 ; elapsed = 00:00:00.10 . Memory (MB): peak = 2430.414 ; gain = 0.000 ; free physical = 2621 ; free virtual = 3688
+Ending Logic Optimization Task | Checksum: 11994301e
+
+Time (s): cpu = 00:03:23 ; elapsed = 00:06:03 . Memory (MB): peak = 2430.414 ; gain = 206.719 ; free physical = 2621 ; free virtual = 3689
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.422 | TNS=-2.766 |
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 11 BRAM(s) out of a total of 45 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 13 newly gated: 0 Total Ports: 90
+Ending PowerOpt Patch Enables Task | Checksum: 1a041651f
+
+Time (s): cpu = 00:00:00.30 ; elapsed = 00:00:00.32 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2535 ; free virtual = 3602
+Ending Power Optimization Task | Checksum: 1a041651f
+
+Time (s): cpu = 00:00:23 ; elapsed = 00:00:13 . Memory (MB): peak = 2942.746 ; gain = 512.332 ; free physical = 2572 ; free virtual = 3640
+INFO: [Common 17-83] Releasing license: Implementation
+83 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:03:50 ; elapsed = 00:06:20 . Memory (MB): peak = 2942.746 ; gain = 751.066 ; free physical = 2575 ; free virtual = 3643
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00.21 ; elapsed = 00:00:00.09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2574 ; free virtual = 3642
+INFO: [Common 17-1381] The checkpoint '/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top_opt.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2572 ; free virtual = 3640
+INFO: [runtcl-4] Executing : report_drc -file txem7310_pll__s3100_sv_adda__top_drc_opted.rpt -pb txem7310_pll__s3100_sv_adda__top_drc_opted.pb -rpx txem7310_pll__s3100_sv_adda__top_drc_opted.rpx
+Command: report_drc -file txem7310_pll__s3100_sv_adda__top_drc_opted.rpt -pb txem7310_pll__s3100_sv_adda__top_drc_opted.pb -rpx txem7310_pll__s3100_sv_adda__top_drc_opted.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Coretcl 2-168] The results of DRC are in file /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top_drc_opted.rpt.
+report_drc completed successfully
+INFO: [Chipscope 16-240] Debug cores have already been implemented
+Command: place_design -directive Explore
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 46-5] The placer was invoked with the 'Explore' directive.
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 4 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2567 ; free virtual = 3635
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: a49cdc86
+
+Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.14 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2567 ; free virtual = 3635
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2568 ; free virtual = 3636
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+WARNING: [Place 30-568] A LUT 'dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_datinc__inst_i_2' is driving clock pin of 15 registers. This could lead to large hold time violations. First few involved registers are:
+	dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [Place 30-568] A LUT 'dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_dur_____inst_i_1' is driving clock pin of 15 registers. This could lead to large hold time violations. First few involved registers are:
+	dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [Place 30-568] A LUT 'dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_datinc__inst_i_2' is driving clock pin of 15 registers. This could lead to large hold time violations. First few involved registers are:
+	dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [Place 30-568] A LUT 'dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_dur_____inst_i_1' is driving clock pin of 15 registers. This could lead to large hold time violations. First few involved registers are:
+	dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+	dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [Place 30-568] A LUT 'lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/EEPROM_fifo_wr_inst_i_2' is driving clock pin of 10 registers. This could lead to large hold time violations. First few involved registers are:
+	control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf18e1_inst.sngfifo18e1 {FIFO18E1}
+	control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf18e1_inst.sngfifo18e1 {FIFO18E1}
+	control_eeprom__11AA160T_inst/r_EEPROM_fifo_rd__dout_reg[0] {FDCE}
+	control_eeprom__11AA160T_inst/r_EEPROM_fifo_rd__dout_reg[1] {FDCE}
+	control_eeprom__11AA160T_inst/r_EEPROM_fifo_rd__dout_reg[2] {FDCE}
+WARNING: [Place 30-568] A LUT 'lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/TEST_fifo_inst_i_1' is driving clock pin of 18 registers. This could lead to large hold time violations. First few involved registers are:
+	TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[2].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[3].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[4].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+	TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 1322f660d
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:16 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2517 ; free virtual = 3585
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: 142c850e6
+
+Time (s): cpu = 00:00:31 ; elapsed = 00:00:25 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2443 ; free virtual = 3512
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: 142c850e6
+
+Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2443 ; free virtual = 3512
+Phase 1 Placer Initialization | Checksum: 142c850e6
+
+Time (s): cpu = 00:00:31 ; elapsed = 00:00:26 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2445 ; free virtual = 3514
+
+Phase 2 Global Placement
+Phase 2 Global Placement | Checksum: 1e9d7b9eb
+
+Time (s): cpu = 00:01:28 ; elapsed = 00:01:09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2402 ; free virtual = 3472
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1e9d7b9eb
+
+Time (s): cpu = 00:01:28 ; elapsed = 00:01:09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2402 ; free virtual = 3472
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 19ac03d22
+
+Time (s): cpu = 00:01:34 ; elapsed = 00:01:17 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2398 ; free virtual = 3468
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 235bae1a2
+
+Time (s): cpu = 00:01:35 ; elapsed = 00:01:17 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2398 ; free virtual = 3468
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 1a7d5b06f
+
+Time (s): cpu = 00:01:35 ; elapsed = 00:01:18 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2398 ; free virtual = 3468
+
+Phase 3.5 Timing Path Optimizer
+Phase 3.5 Timing Path Optimizer | Checksum: 1a7d5b06f
+
+Time (s): cpu = 00:01:35 ; elapsed = 00:01:18 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2398 ; free virtual = 3468
+
+Phase 3.6 Fast Optimization
+Phase 3.6 Fast Optimization | Checksum: 1d2c4d018
+
+Time (s): cpu = 00:01:35 ; elapsed = 00:01:18 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2398 ; free virtual = 3467
+
+Phase 3.7 Small Shape Detail Placement
+
+Phase 3.7.1 Place Remaining
+Phase 3.7.1 Place Remaining | Checksum: 13f0e45ad
+
+Time (s): cpu = 00:02:01 ; elapsed = 00:02:02 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2339 ; free virtual = 3409
+Phase 3.7 Small Shape Detail Placement | Checksum: 13f0e45ad
+
+Time (s): cpu = 00:02:01 ; elapsed = 00:02:02 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2351 ; free virtual = 3421
+
+Phase 3.8 Re-assign LUT pins
+Phase 3.8 Re-assign LUT pins | Checksum: 16c166b56
+
+Time (s): cpu = 00:02:02 ; elapsed = 00:02:04 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2353 ; free virtual = 3423
+
+Phase 3.9 Pipeline Register Optimization
+Phase 3.9 Pipeline Register Optimization | Checksum: 1652a0415
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:02:04 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2353 ; free virtual = 3423
+Phase 3 Detail Placement | Checksum: 1652a0415
+
+Time (s): cpu = 00:02:03 ; elapsed = 00:02:05 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2353 ; free virtual = 3423
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+Post Placement Optimization Initialization | Checksum: bb589455
+
+Phase 4.1.1.1 BUFG Insertion
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 4 CPUs
+INFO: [Place 46-31] BUFG insertion identified 0 candidate nets, 0 success, 0 skipped for placement/routing, 0 skipped for timing, 0 skipped for netlist change reason.
+Phase 4.1.1.1 BUFG Insertion | Checksum: bb589455
+
+Time (s): cpu = 00:02:14 ; elapsed = 00:02:11 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2370 ; free virtual = 3439
+INFO: [Place 30-746] Post Placement Timing Summary WNS=0.008. For the most accurate timing information please run report_timing.
+Phase 4.1.1 Post Placement Optimization | Checksum: 166249bf0
+
+Time (s): cpu = 00:02:24 ; elapsed = 00:02:20 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2363 ; free virtual = 3433
+Phase 4.1 Post Commit Optimization | Checksum: 166249bf0
+
+Time (s): cpu = 00:02:24 ; elapsed = 00:02:20 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2363 ; free virtual = 3433
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 166249bf0
+
+Time (s): cpu = 00:02:25 ; elapsed = 00:02:21 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2364 ; free virtual = 3433
+
+Phase 4.3 Placer Reporting
+Phase 4.3 Placer Reporting | Checksum: 166249bf0
+
+Time (s): cpu = 00:02:25 ; elapsed = 00:02:21 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2364 ; free virtual = 3433
+
+Phase 4.4 Final Placement Cleanup
+Phase 4.4 Final Placement Cleanup | Checksum: 18f43bcdd
+
+Time (s): cpu = 00:02:25 ; elapsed = 00:02:21 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2364 ; free virtual = 3433
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 18f43bcdd
+
+Time (s): cpu = 00:02:26 ; elapsed = 00:02:22 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2363 ; free virtual = 3433
+Ending Placer Task | Checksum: dc98c5bd
+
+Time (s): cpu = 00:02:26 ; elapsed = 00:02:22 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2415 ; free virtual = 3485
+INFO: [Common 17-83] Releasing license: Implementation
+106 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:02:31 ; elapsed = 00:02:26 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2415 ; free virtual = 3485
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:09 ; elapsed = 00:00:04 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2398 ; free virtual = 3468
+INFO: [Common 17-1381] The checkpoint '/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top_placed.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:14 ; elapsed = 00:00:13 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2412 ; free virtual = 3482
+INFO: [runtcl-4] Executing : report_io -file txem7310_pll__s3100_sv_adda__top_io_placed.rpt
+report_io: Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.24 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2399 ; free virtual = 3469
+INFO: [runtcl-4] Executing : report_utilization -file txem7310_pll__s3100_sv_adda__top_utilization_placed.rpt -pb txem7310_pll__s3100_sv_adda__top_utilization_placed.pb
+report_utilization: Time (s): cpu = 00:00:00.43 ; elapsed = 00:00:00.52 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2408 ; free virtual = 3478
+INFO: [runtcl-4] Executing : report_control_sets -verbose -file txem7310_pll__s3100_sv_adda__top_control_sets_placed.rpt
+report_control_sets: Time (s): cpu = 00:00:00.19 ; elapsed = 00:00:00.30 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2407 ; free virtual = 3477
+Command: phys_opt_design -directive Explore
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [Vivado_Tcl 4-137] Directive used for phys_opt_design is: Explore
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Netlist sorting complete. Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2404 ; free virtual = 3474
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 4 CPUs
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=0.008 | TNS=0.000 |
+Phase 1 Physical Synthesis Initialization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:06 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2379 ; free virtual = 3449
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=0.008 | TNS=0.000 |
+
+Phase 2 Fanout Optimization
+INFO: [Physopt 32-670] No setup violation found.  Fanout Optimization was not performed.
+Phase 2 Fanout Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:06 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 3 Placement Based Optimization
+INFO: [Physopt 32-670] No setup violation found.  Placement Based Optimization was not performed.
+Phase 3 Placement Based Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:06 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 4 Rewire
+INFO: [Physopt 32-670] No setup violation found.  Rewire was not performed.
+Phase 4 Rewire | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:06 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 5 Critical Cell Optimization
+INFO: [Physopt 32-670] No setup violation found.  Critical Cell Optimization was not performed.
+Phase 5 Critical Cell Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:06 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 6 Fanout Optimization
+INFO: [Physopt 32-670] No setup violation found.  Fanout Optimization was not performed.
+Phase 6 Fanout Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 7 Placement Based Optimization
+INFO: [Physopt 32-670] No setup violation found.  Placement Based Optimization was not performed.
+Phase 7 Placement Based Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 8 Rewire
+INFO: [Physopt 32-670] No setup violation found.  Rewire was not performed.
+Phase 8 Rewire | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 9 Critical Cell Optimization
+INFO: [Physopt 32-670] No setup violation found.  Critical Cell Optimization was not performed.
+Phase 9 Critical Cell Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:13 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 10 Fanout Optimization
+INFO: [Physopt 32-670] No setup violation found.  Fanout Optimization was not performed.
+Phase 10 Fanout Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 11 Placement Based Optimization
+INFO: [Physopt 32-670] No setup violation found.  Placement Based Optimization was not performed.
+Phase 11 Placement Based Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 12 Rewire
+INFO: [Physopt 32-670] No setup violation found.  Rewire was not performed.
+Phase 12 Rewire | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 13 Critical Cell Optimization
+INFO: [Physopt 32-670] No setup violation found.  Critical Cell Optimization was not performed.
+Phase 13 Critical Cell Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 14 DSP Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  DSP Register Optimization was not performed.
+Phase 14 DSP Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 15 BRAM Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  BRAM Register Optimization was not performed.
+Phase 15 BRAM Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 16 URAM Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  URAM Register Optimization was not performed.
+Phase 16 URAM Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 17 Shift Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  Shift Register Optimization was not performed.
+Phase 17 Shift Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 18 DSP Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  DSP Register Optimization was not performed.
+Phase 18 DSP Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 19 BRAM Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  BRAM Register Optimization was not performed.
+Phase 19 BRAM Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 20 URAM Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  URAM Register Optimization was not performed.
+Phase 20 URAM Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 21 Shift Register Optimization
+INFO: [Physopt 32-670] No setup violation found.  Shift Register Optimization was not performed.
+Phase 21 Shift Register Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 22 Critical Pin Optimization
+INFO: [Physopt 32-670] No setup violation found.  Critical Pin Optimization was not performed.
+Phase 22 Critical Pin Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+
+Phase 23 Very High Fanout Optimization
+INFO: [Physopt 32-65] No nets found for high-fanout optimization.
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Phase 23 Very High Fanout Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2376 ; free virtual = 3447
+
+Phase 24 Placement Based Optimization
+INFO: [Physopt 32-670] No setup violation found.  Placement Based Optimization was not performed.
+Phase 24 Placement Based Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:15 ; elapsed = 00:00:09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2376 ; free virtual = 3446
+
+Phase 25 Critical Path Optimization
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=0.008 | TNS=0.000 |
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=0.008 | TNS=0.000 |
+Phase 25 Critical Path Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2376 ; free virtual = 3447
+
+Phase 26 BRAM Enable Optimization
+Phase 26 BRAM Enable Optimization | Checksum: 176aa7656
+
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:09 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2376 ; free virtual = 3446
+Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+INFO: [Physopt 32-603] Post Physical Optimization Timing Summary | WNS=0.008 | TNS=0.000 |
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization       |  WNS Gain (ns)  |  TNS Gain (ns)  |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Fanout             |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Placement Based    |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Rewire             |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Critical Cell      |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  DSP Register       |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  BRAM Register      |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  URAM Register      |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Shift Register     |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Critical Pin       |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           0  |  00:00:00  |
+|  Very High Fanout   |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  BRAM Enable        |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Critical Path      |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Total              |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           3  |  00:00:00  |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Ending Physical Synthesis Task | Checksum: 23c4fa2b2
+
+Time (s): cpu = 00:00:17 ; elapsed = 00:00:11 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2377 ; free virtual = 3447
+INFO: [Common 17-83] Releasing license: Implementation
+147 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+phys_opt_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:19 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2396 ; free virtual = 3466
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:08 ; elapsed = 00:00:04 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2383 ; free virtual = 3453
+INFO: [Common 17-1381] The checkpoint '/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top_physopt.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2394 ; free virtual = 3464
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 4 CPUs
+Checksum: PlaceDB: 9bdf9089 ConstDB: 0 ShapeSum: ff675d81 RouteDB: 0
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: 18c0f815d
+
+Time (s): cpu = 00:00:53 ; elapsed = 00:00:39 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2169 ; free virtual = 3240
+Post Restoration Checksum: NetGraph: f62d8a4c NumContArr: 95e1f711 Constraints: 0 Timing: 0
+
+Phase 2 Router Initialization
+
+Phase 2.1 Create Timer
+Phase 2.1 Create Timer | Checksum: 18c0f815d
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:00:40 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2172 ; free virtual = 3243
+
+Phase 2.2 Fix Topology Constraints
+Phase 2.2 Fix Topology Constraints | Checksum: 18c0f815d
+
+Time (s): cpu = 00:00:55 ; elapsed = 00:00:41 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2149 ; free virtual = 3220
+
+Phase 2.3 Pre Route Cleanup
+Phase 2.3 Pre Route Cleanup | Checksum: 18c0f815d
+
+Time (s): cpu = 00:00:55 ; elapsed = 00:00:41 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2149 ; free virtual = 3220
+ Number of Nodes with overlaps = 0
+
+Phase 2.4 Update Timing
+Phase 2.4 Update Timing | Checksum: 13ff21e23
+
+Time (s): cpu = 00:01:16 ; elapsed = 00:00:56 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2129 ; free virtual = 3200
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.008  | TNS=0.000  | WHS=-1.336 | THS=-1485.423|
+
+Phase 2 Router Initialization | Checksum: 10ed1203e
+
+Time (s): cpu = 00:01:23 ; elapsed = 00:01:02 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2122 ; free virtual = 3194
+
+Phase 3 Initial Routing
+Phase 3 Initial Routing | Checksum: 14e17f3c8
+
+Time (s): cpu = 00:01:40 ; elapsed = 00:01:08 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2114 ; free virtual = 3185
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 4741
+ Number of Nodes with overlaps = 376
+ Number of Nodes with overlaps = 30
+ Number of Nodes with overlaps = 7
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.008  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 4.1 Global Iteration 0 | Checksum: 23b128b52
+
+Time (s): cpu = 00:02:43 ; elapsed = 00:01:36 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2103 ; free virtual = 3175
+
+Phase 4.2 Global Iteration 1
+ Number of Nodes with overlaps = 54
+ Number of Nodes with overlaps = 23
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 3
+ Number of Nodes with overlaps = 5
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.044 | TNS=-0.044 | WHS=N/A    | THS=N/A    |
+
+Phase 4.2 Global Iteration 1 | Checksum: 163da4202
+
+Time (s): cpu = 00:02:56 ; elapsed = 00:01:44 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2103 ; free virtual = 3175
+Phase 4 Rip-up And Reroute | Checksum: 163da4202
+
+Time (s): cpu = 00:02:56 ; elapsed = 00:01:44 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2103 ; free virtual = 3174
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+
+Phase 5.1.1 Update Timing
+Phase 5.1.1 Update Timing | Checksum: 196a31ca3
+
+Time (s): cpu = 00:02:59 ; elapsed = 00:01:46 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2105 ; free virtual = 3176
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.008  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+
+Phase 5.1 Delay CleanUp | Checksum: 196a31ca3
+
+Time (s): cpu = 00:02:59 ; elapsed = 00:01:46 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2103 ; free virtual = 3174
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 196a31ca3
+
+Time (s): cpu = 00:02:59 ; elapsed = 00:01:46 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2103 ; free virtual = 3174
+Phase 5 Delay and Skew Optimization | Checksum: 196a31ca3
+
+Time (s): cpu = 00:02:59 ; elapsed = 00:01:46 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2103 ; free virtual = 3174
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 15f7c6e7c
+
+Time (s): cpu = 00:03:03 ; elapsed = 00:01:48 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2103 ; free virtual = 3175
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.008  | TNS=0.000  | WHS=-0.117 | THS=-0.223 |
+
+Phase 6.1 Hold Fix Iter | Checksum: 148abb2cd
+
+Time (s): cpu = 00:03:03 ; elapsed = 00:01:48 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2099 ; free virtual = 3170
+Phase 6 Post Hold Fix | Checksum: 123f60eac
+
+Time (s): cpu = 00:03:03 ; elapsed = 00:01:49 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2099 ; free virtual = 3170
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 4.18261 %
+  Global Horizontal Routing Utilization  = 5.50859 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Phase 7 Route finalize | Checksum: 1e3d1f908
+
+Time (s): cpu = 00:03:04 ; elapsed = 00:01:49 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2097 ; free virtual = 3168
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 1e3d1f908
+
+Time (s): cpu = 00:03:04 ; elapsed = 00:01:49 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2097 ; free virtual = 3168
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 1500abde1
+
+Time (s): cpu = 00:03:07 ; elapsed = 00:01:52 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2095 ; free virtual = 3166
+
+Phase 10 Post Router Timing
+
+Phase 10.1 Update Timing
+Phase 10.1 Update Timing | Checksum: fef59bf4
+
+Time (s): cpu = 00:03:09 ; elapsed = 00:01:53 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2100 ; free virtual = 3171
+INFO: [Route 35-57] Estimated Timing Summary | WNS=0.008  | TNS=0.000  | WHS=0.050  | THS=0.000  |
+
+INFO: [Route 35-327] The final timing numbers are based on the router estimated timing analysis. For a complete and accurate timing signoff, please run report_timing_summary.
+Phase 10 Post Router Timing | Checksum: fef59bf4
+
+Time (s): cpu = 00:03:09 ; elapsed = 00:01:53 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2100 ; free virtual = 3171
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:03:10 ; elapsed = 00:01:53 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2145 ; free virtual = 3216
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+165 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:03:16 ; elapsed = 00:01:58 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2145 ; free virtual = 3216
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:09 ; elapsed = 00:00:05 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2134 ; free virtual = 3205
+INFO: [Common 17-1381] The checkpoint '/media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top_routed.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 2942.746 ; gain = 0.000 ; free physical = 2141 ; free virtual = 3212
+INFO: [runtcl-4] Executing : report_drc -file txem7310_pll__s3100_sv_adda__top_drc_routed.rpt -pb txem7310_pll__s3100_sv_adda__top_drc_routed.pb -rpx txem7310_pll__s3100_sv_adda__top_drc_routed.rpx
+Command: report_drc -file txem7310_pll__s3100_sv_adda__top_drc_routed.rpt -pb txem7310_pll__s3100_sv_adda__top_drc_routed.pb -rpx txem7310_pll__s3100_sv_adda__top_drc_routed.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Coretcl 2-168] The results of DRC are in file /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top_drc_routed.rpt.
+report_drc completed successfully
+report_drc: Time (s): cpu = 00:00:13 ; elapsed = 00:00:05 . Memory (MB): peak = 2989.715 ; gain = 46.969 ; free physical = 2106 ; free virtual = 3177
+INFO: [runtcl-4] Executing : report_methodology -file txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpt -pb txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.pb -rpx txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpx
+Command: report_methodology -file txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpt -pb txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.pb -rpx txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 4 threads
+INFO: [Coretcl 2-1520] The results of Report Methodology are in file /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.runs/impl_1_2/txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpt.
+report_methodology completed successfully
+report_methodology: Time (s): cpu = 00:00:23 ; elapsed = 00:00:12 . Memory (MB): peak = 3026.688 ; gain = 36.973 ; free physical = 1950 ; free virtual = 3022
+INFO: [runtcl-4] Executing : report_power -file txem7310_pll__s3100_sv_adda__top_power_routed.rpt -pb txem7310_pll__s3100_sv_adda__top_power_summary_routed.pb -rpx txem7310_pll__s3100_sv_adda__top_power_routed.rpx
+Command: report_power -file txem7310_pll__s3100_sv_adda__top_power_routed.rpt -pb txem7310_pll__s3100_sv_adda__top_power_summary_routed.pb -rpx txem7310_pll__s3100_sv_adda__top_power_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+WARNING: [Power 33-332] Found switching activity that implies high-fanout reset nets being asserted for excessive periods of time which may result in inaccurate power analysis.
+Resolution: To review and fix problems, please run Power Constraints Advisor in the GUI from Tools > Power Constraints Advisor or run report_power with the -advisory option to generate a text report.
+177 Infos, 8 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+report_power: Time (s): cpu = 00:00:18 ; elapsed = 00:00:11 . Memory (MB): peak = 3104.062 ; gain = 77.375 ; free physical = 1914 ; free virtual = 2986
+INFO: [runtcl-4] Executing : report_route_status -file txem7310_pll__s3100_sv_adda__top_route_status.rpt -pb txem7310_pll__s3100_sv_adda__top_route_status.pb
+INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -file txem7310_pll__s3100_sv_adda__top_timing_summary_routed.rpt -rpx txem7310_pll__s3100_sv_adda__top_timing_summary_routed.rpx -warn_on_violation 
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [runtcl-4] Executing : report_incremental_reuse -file txem7310_pll__s3100_sv_adda__top_incremental_reuse_routed.rpt
+INFO: [Vivado_Tcl 4-545] No incremental reuse to report, no incremental placement and routing data was found.
+INFO: [runtcl-4] Executing : report_clock_utilization -file txem7310_pll__s3100_sv_adda__top_clock_utilization_routed.rpt
+report_clock_utilization: Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3104.062 ; gain = 0.000 ; free physical = 1899 ; free virtual = 2971
+Command: write_bitstream -force txem7310_pll__s3100_sv_adda__top.bit
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a200t'
+Running DRC as a precondition to command write_bitstream
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf_S_IO_1_inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf_S_IO_2_inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED0__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED1__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED2__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED3__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED4__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED5__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED6__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__F_LED7__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP0__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP1__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP2__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP3__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP4__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP5__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP6__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC BUFC-1] Input Buffer Connections: Input buffer iobuf__TP7__inst/IBUF has no loads. It is recommended to have an input buffer drive an internal load.
+WARNING: [DRC FLBO-1] Pblock overlap: pblock_dac0 overlaps with pblock_dac0_fifo_dur, and pblock_dac0_fifo_datinc :  1.18%  1.18% .
+WARNING: [DRC FLBO-1] Pblock overlap: pblock_dac1 overlaps with pblock_dac1_fifo_dur, and pblock_dac1_fifo_datinc :  1.18%  1.18% .
+WARNING: [DRC PDRC-153] Gated clock check: Net dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/gwakn.WR_ACK_reg is a gated clock net sourced by a combinational pin dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_dur_____inst_i_1/O, cell dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_dur_____inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+WARNING: [DRC PDRC-153] Gated clock check: Net dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/gwakn.WR_ACK_reg_1 is a gated clock net sourced by a combinational pin dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_datinc__inst_i_2/O, cell dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_datinc__inst_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+WARNING: [DRC PDRC-153] Gated clock check: Net dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/gwakn.WR_ACK_reg_3 is a gated clock net sourced by a combinational pin dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_dur_____inst_i_1/O, cell dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_dur_____inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+WARNING: [DRC PDRC-153] Gated clock check: Net dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/wr_clk is a gated clock net sourced by a combinational pin dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_datinc__inst_i_2/O, cell dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_datinc__inst_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+WARNING: [DRC PDRC-153] Gated clock check: Net lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/gunf.gunf1.gunb.UNDERFLOW_reg is a gated clock net sourced by a combinational pin lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/EEPROM_fifo_wr_inst_i_2/O, cell lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/EEPROM_fifo_wr_inst_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+WARNING: [DRC PDRC-153] Gated clock check: Net lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/rd_clk is a gated clock net sourced by a combinational pin lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/TEST_fifo_inst_i_1/O, cell lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/TEST_fifo_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+WARNING: [DRC PLHOLDVIO-2] Non-Optimal connections which could lead to hold violations: A LUT dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_datinc__inst_i_2 is driving clock pin of 15 cells. This could lead to large hold time violations. First few involved cells are:
+    dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [DRC PLHOLDVIO-2] Non-Optimal connections which could lead to hold violations: A LUT dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac0_fifo_dur_____inst_i_1 is driving clock pin of 15 cells. This could lead to large hold time violations. First few involved cells are:
+    dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac0_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [DRC PLHOLDVIO-2] Non-Optimal connections which could lead to hold violations: A LUT dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_datinc__inst_i_2 is driving clock pin of 15 cells. This could lead to large hold time violations. First few involved cells are:
+    dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_datinc__inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [DRC PLHOLDVIO-2] Non-Optimal connections which could lead to hold violations: A LUT dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dac1_fifo_dur_____inst_i_1 is driving clock pin of 15 cells. This could lead to large hold time violations. First few involved cells are:
+    dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[1] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[2] {FDRE}
+    dac_pattern_gen_wrapper__inst/dac1_fifo_dur_____inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[3] {FDRE}
+WARNING: [DRC PLHOLDVIO-2] Non-Optimal connections which could lead to hold violations: A LUT lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/EEPROM_fifo_wr_inst_i_2 is driving clock pin of 10 cells. This could lead to large hold time violations. First few involved cells are:
+    control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf18e1_inst.sngfifo18e1 {FIFO18E1}
+    control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf18e1_inst.sngfifo18e1 {FIFO18E1}
+    control_eeprom__11AA160T_inst/r_EEPROM_fifo_rd__dout_reg[0] {FDCE}
+    control_eeprom__11AA160T_inst/r_EEPROM_fifo_rd__dout_reg[1] {FDCE}
+    control_eeprom__11AA160T_inst/r_EEPROM_fifo_rd__dout_reg[2] {FDCE}
+WARNING: [DRC PLHOLDVIO-2] Non-Optimal connections which could lead to hold violations: A LUT lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__port_wi_03/TEST_fifo_inst_i_1 is driving clock pin of 18 cells. This could lead to large hold time violations. First few involved cells are:
+    TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[2].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[3].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/v7_bi_fifo.fblk/gextw[4].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1 {FIFO36E1}
+    TEST_fifo_inst/U0/inst_fifo_gen/gconvfifo.rf/gbi.bi/g7ser_birst.rstbt/rsync.ric.power_on_wr_rst_reg[0] {FDRE}
+INFO: [Vivado 12-3199] DRC finished with 0 Errors, 43 Warnings
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+INFO: [Project 1-821] Please set project.enableDesignId to be 'true'.
+INFO: [Designutils 20-2272] Running write_bitstream with 4 threads.
+Loading data files...
+Loading site data...
+Loading route data...
+Processing options...
+Creating bitmap...
+Creating bitstream...
+Bitstream compression saved 42294752 bits.
+Writing bitstream ./txem7310_pll__s3100_sv_adda__top.bit...
+INFO: [Vivado 12-1842] Bitgen Completed Successfully.
+INFO: [Project 1-120] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
+INFO: [Common 17-83] Releasing license: Implementation
+194 Infos, 40 Warnings, 0 Critical Warnings and 0 Errors encountered.
+write_bitstream completed successfully
+write_bitstream: Time (s): cpu = 00:01:04 ; elapsed = 00:00:38 . Memory (MB): peak = 3532.852 ; gain = 428.789 ; free physical = 1854 ; free virtual = 2934
+INFO: [Common 17-206] Exiting Vivado at Thu Sep 16 18:25:00 2021...
