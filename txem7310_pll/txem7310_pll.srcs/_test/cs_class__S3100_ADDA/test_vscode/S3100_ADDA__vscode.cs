@@ -7206,9 +7206,11 @@ namespace __test__
             Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU (alias)   ", TOP_PGU._test()));
 
             int ret = 0;
+            
             ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
-            //
+            // new adc test : adc power on // adc enable // adc init // adc fifo reset // adc update // fifo data read 
             ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 			
 
