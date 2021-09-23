@@ -954,7 +954,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_0915   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_0923   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -969,7 +969,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0813; // S3100-ADDA // initial setup
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0824; // S3100-ADDA // CMU adc endpoint added
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0907; // S3100-ADDA // revise miso timing control
-parameter FPGA_IMAGE_ID = 32'h_A6_21_0915; // S3100-ADDA // img test adc control
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_0915; // S3100-ADDA // img test adc control
+parameter FPGA_IMAGE_ID = 32'h_A6_21_0923; // S3100-ADDA // adc timing revision 
 
 //}
 
@@ -3350,15 +3351,15 @@ assign w_ADCH_DOUT3_WO = 32'h0; // not yet
 //}
 
 // io wires //{
-wire   w_hsadc_pin_conv  ;  assign ADCx_CNV       = w_hsadc_pin_conv; // out
-wire   w_hsadc_pin_sclk  ;  assign ADCx_CLK       = w_hsadc_pin_sclk; // out
-wire   w_hsadc_pin_test  ;  assign ADCx_TPT_B     = w_hsadc_pin_test; // out
-wire   w_hsadc_dco__adc_0                         = ADC0_DCO        ; // in
-wire   w_hsadc_dat2_adc_0                         = ADC0_DB         ; // in
-wire   w_hsadc_dat1_adc_0                         = ADC0_DA         ; // in
-wire   w_hsadc_dco__adc_1                         = ADC1_DCO        ; // in
-wire   w_hsadc_dat2_adc_1                         = ADC1_DB         ; // in
-wire   w_hsadc_dat1_adc_1                         = ADC1_DA         ; // in
+wire   w_hsadc_pin_conv  ;  assign ADCx_CNV       =  w_hsadc_pin_conv; // out
+wire   w_hsadc_pin_sclk  ;  assign ADCx_CLK       =  w_hsadc_pin_sclk; // out
+wire   w_hsadc_pin_test  ;  assign ADCx_TPT_B     = ~w_hsadc_pin_test; // out // invert
+wire   w_hsadc_dco__adc_0                         =  ADC0_DCO        ; // in
+wire   w_hsadc_dat2_adc_0                         =  ADC0_DB         ; // in
+wire   w_hsadc_dat1_adc_0                         =  ADC0_DA         ; // in
+wire   w_hsadc_dco__adc_1                         =  ADC1_DCO        ; // in
+wire   w_hsadc_dat2_adc_1                         =  ADC1_DB         ; // in
+wire   w_hsadc_dat1_adc_1                         =  ADC1_DA         ; // in
 
 //}
 

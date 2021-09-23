@@ -610,29 +610,49 @@ set_clock_groups -asynchronous -group [get_clocks serdesCLK_0_div] -group [get_c
 set_clock_groups -asynchronous -group [get_clocks serdesCLK_1_div] -group [get_clocks {sys_clk adc_fifo_clk ref_200M_clk base_adc_clk}]
 
 
-
+## ADC input :  2.4ns or 4.8ns delay for serdesCLK_0 @ 210MHz/2 ...9.5ns
 
 ## io delay 
-#input  wire  i_B34D_L18P      , // # Y6    # MC1-42  ## ADC0_DA_P
-#input  wire  i_B34D_L18N      , // # AA6   # MC1-44  ## ADC0_DA_N
-#input  wire  i_B34D_L22P      , // # AA8   # MC1-46  ## ADC0_DB_P
-#input  wire  i_B35D_L7P       , // # K1    # MC2-41  ## ADC1_DA_P
-#input  wire  i_B35D_L7N       , // # J1    # MC2-43  ## ADC1_DA_N
-#input  wire  i_B35D_L9P       , // # K2    # MC2-37  ## ADC1_DB_P
-#input  wire  i_B35D_L9N       , // # J2    # MC2-39  ## ADC1_DB_N
+#input  wire  i_B34D_L18P     ## ADC0_DA_P
+#input  wire  i_B34D_L22P     ## ADC0_DB_P
+#input  wire  i_B35D_L7P      ## ADC1_DA_P
+#input  wire  i_B35D_L9P      ## ADC1_DB_P
 #
 set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L18P]
-set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay -0.500 [get_ports i_B34D_L18P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L18P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L18P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L18P] -clock_fall
 #
 set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L22P]
-set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay -0.500 [get_ports i_B34D_L22P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L22P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L22P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L22P] -clock_fall
 #
 set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L7P]
-set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay -0.500 [get_ports i_B35D_L7P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L7P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L7P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L7P] -clock_fall
 #
 set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L9P]
-set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay -0.500 [get_ports i_B35D_L9P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L9P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L9P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L9P] -clock_fall
 #
+
+
+#output wire  o_B34_L5P       ## ADCx_TPT_B
+set_max_delay -to [get_ports o_B34_L5P] 12.0
+set_output_delay -clock [get_clocks base_adc_clk] 0.000 [get_ports o_B34_L5P]
+
+#output wire  o_B34D_L6P      ## ADCx_CNV_P
+#output wire  o_B34D_L6N      ## ADCx_CNV_N
+#output wire  o_B34D_L8P      ## ADCx_CLK_P
+#output wire  o_B34D_L8N      ## ADCx_CLK_N
+set_max_delay   -to [get_ports o_B34D_L6P] 9.7
+set_max_delay   -to [get_ports o_B34D_L6N] 9.7
+set_max_delay   -to [get_ports o_B34D_L8P] 9.7
+set_max_delay   -to [get_ports o_B34D_L8N] 9.7
+
 
 ###########################################################################
 ###########################################################################

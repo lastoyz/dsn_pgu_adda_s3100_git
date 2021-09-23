@@ -2674,7 +2674,7 @@ namespace TopInstrument
             u32 val_s1;
 
             // force to enable LAN endpoint
-            enable_mcs_ep(); // just in case // not necessary in S3100-PGu
+            enable_mcs_ep(); // just in case // not necessary in S3100-PGU
 
             // read power control status
             val = pgu_spio_ext_pwr_led_readback();
@@ -3473,6 +3473,411 @@ namespace TopInstrument
         }
     }
 
+
+    public class ADDA_control_by_eps : EPS_Dev
+    {
+
+        //// EPS address map info ......
+        private string EP_ADRS__GROUP_STR         = "_S3100_ADDA_";
+
+        //private u32   EP_ADRS__SSPI_TEST_WO     = 0xE0;
+        //private u32   EP_ADRS__SSPI_CON_WI      = 0x02;
+        //private u32   EP_ADRS__SSPI_FLAG_WO     = 0x00;
+
+        private u32   EP_ADRS__FPGA_IMAGE_ID_WO = 0x20;
+        private u32   EP_ADRS__XADC_TEMP_WO     = 0x3A;
+        //private u32   EP_ADRS__XADC_VOLT_WO     = 0x3B;
+        //private u32   EP_ADRS__TIMESTAMP_WO     = 0x22;
+        //private u32   EP_ADRS__TEST_MON_WO      = 0x23;
+        //private u32   EP_ADRS__TEST_CON_WI      = 0x01; // LAN only
+        //private u32   EP_ADRS__TEST_OUT_WO      = 0x21; // LAN only
+        //private u32   EP_ADRS__TEST_TI          = 0x40; // LAN only
+        //private u32   EP_ADRS__TEST_TO          = 0x60; // LAN only
+        //private u32   EP_ADRS__TEST_PI          = 0x8A;
+        //private u32   EP_ADRS__TEST_PO          = 0xAA;
+
+        //private u32   EP_ADRS__BRD_CON_WI       = 0x03; // LAN only
+        //private u32   EP_ADRS__MCS_SETUP_WI     = 0x19; // LAN only
+        //private u32   EP_ADRS__MSPI_EN_CS_WI    = 0x16; // LAN only
+        //private u32   EP_ADRS__MSPI_CON_WI      = 0x17; // LAN only
+        //private u32   EP_ADRS__MSPI_FLAG_WO     = 0x24; // LAN only
+        //private u32   EP_ADRS__MSPI_TI          = 0x42; // LAN only
+        //private u32   EP_ADRS__MSPI_TO          = 0x62; // LAN only
+
+        private u32   EP_ADRS__MEM_FDAT_WI        = 0x12;
+        private u32   EP_ADRS__MEM_WI             = 0x13;
+        private u32   EP_ADRS__MEM_TI             = 0x53;
+        private u32   EP_ADRS__MEM_TO             = 0x73;
+        private u32   EP_ADRS__MEM_PI             = 0x93;
+        private u32   EP_ADRS__MEM_PO             = 0xB3;
+        private u32   EP_ADRS__DACX_WI            = 0x05;
+        private u32   EP_ADRS__DACX_WO            = 0x25;
+        private u32   EP_ADRS__DACX_TI            = 0x45;
+        private u32   EP_ADRS__DACZ_DAT_WI        = 0x08;
+        private u32   EP_ADRS__DACZ_DAT_WO        = 0x28;
+        private u32   EP_ADRS__DACZ_DAT_TI        = 0x48;
+        private u32   EP_ADRS__DAC0_DAT_INC_PI    = 0x86;
+        private u32   EP_ADRS__DAC0_DUR_PI        = 0x87;
+        private u32   EP_ADRS__DAC1_DAT_INC_PI    = 0x88;
+        private u32   EP_ADRS__DAC1_DUR_PI        = 0x89;
+        private u32   EP_ADRS__CLKD_WI            = 0x06;
+        private u32   EP_ADRS__CLKD_WO            = 0x26;
+        private u32   EP_ADRS__CLKD_TI            = 0x46;
+        private u32   EP_ADRS__SPIO_WI            = 0x07;
+        private u32   EP_ADRS__SPIO_WO            = 0x27;
+        private u32   EP_ADRS__SPIO_TI            = 0x47;
+
+        //private u32   EP_ADRS__TRIG_DAT_WI        = 0x09;
+        //private u32   EP_ADRS__TRIG_DAT_WO        = 0x29;
+        //private u32   EP_ADRS__TRIG_DAT_TI        = 0x49;
+
+        private u32   EP_ADRS__ADCH_WI            = 0x18;
+        private u32   EP_ADRS__ADCH_FREQ_WI       = 0x1C;
+        private u32   EP_ADRS__ADCH_UPD_SM_WI     = 0x1D;
+        private u32   EP_ADRS__ADCH_SMP_PR_WI     = 0x1E;
+        private u32   EP_ADRS__ADCH_DLY_TP_WI     = 0x1F;
+        private u32   EP_ADRS__ADCH_WO            = 0x38;
+        private u32   EP_ADRS__ADCH_B_FRQ_WO      = 0x39;
+        private u32   EP_ADRS__ADCH_DOUT0_WO      = 0x3C;
+        private u32   EP_ADRS__ADCH_DOUT1_WO      = 0x3D;
+        private u32   EP_ADRS__ADCH_DOUT2_WO      = 0x3E;
+        private u32   EP_ADRS__ADCH_DOUT3_WO      = 0x3F;
+        private u32   EP_ADRS__ADCH_TI            = 0x58;
+        private u32   EP_ADRS__ADCH_TO            = 0x78;
+        private u32   EP_ADRS__ADCH_DOUT0_PO      = 0xBC;
+        private u32   EP_ADRS__ADCH_DOUT1_PO      = 0xBD;
+
+        private u32   EP_ADRS__DFT_TI             = 0x5C;
+        private u32   EP_ADRS__DFT_COEF_RE_PI     = 0x9C;
+        private u32   EP_ADRS__DFT_COEF_IM_PI     = 0x9D;
+
+
+        //// functions 
+
+        // spio functions
+        private u32 spio_send_spi_frame(u32 frame_data) {
+            //# write control 
+            SetWireInValue(EP_ADRS__SPIO_WI, frame_data);  //# (ep,val,mask)
+
+            //# trig spi frame
+            //#   wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1];
+            ActivateTriggerIn(EP_ADRS__SPIO_TI, 1); //# (ep,bit) 
+            
+            //# check spi frame done
+            //#   assign w_SPIO_WO[25] = w_done_SPIO_SPI_frame;
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            s32 bit_loc  = 25   ;
+            u32 flag;
+            u32 flag_done;
+            while (true) {
+            	flag = GetWireOutValue(EP_ADRS__SPIO_WO);
+            	flag_done = (flag>>bit_loc) & 0x00000001;
+            	if (flag_done==1)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+
+            //# read received data 
+            //#   assign w_SPIO_WO[15:8] = w_SPIO_rd_DA;
+            //#   assign w_SPIO_WO[ 7:0] = w_SPIO_rd_DB;
+            u32 val_recv = flag & 0x0000FFFF;
+            return val_recv;
+        }        
+        private u32 sp1_reg_read_b16(u32 reg_adrs_b8) {
+            u32 val_b16    = 0;
+            //
+            u32 CS_id      = 1;
+            u32 pin_adrs_A = 0; 
+            u32 R_W_bar    = 1; // read
+            u32 reg_adrs_A = reg_adrs_b8;
+            //#
+            u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+            //#
+            return spio_send_spi_frame(framedata);
+        }
+        private u32 sp1_reg_write_b16(u32 reg_adrs_b8, u32 val_b16) {
+            //
+            u32 CS_id      = 1;
+            u32 pin_adrs_A = 0; 
+            u32 R_W_bar    = 0; // write
+            u32 reg_adrs_A = reg_adrs_b8;
+            //#
+            u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+            //#
+            return spio_send_spi_frame(framedata);
+        }
+
+        private u32 sp1_ext_init(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+            //...
+            u32 dir_read;
+            u32 lat_read;
+            u32 inp_read;
+
+            // SP1 pin map:
+            //  SP1_GPB7 = AUX_CS_B           // o
+            //  SP1_GPB6 = AUX_SCLK           // o    
+            //  SP1_GPB5 = AUX_MOSI           // o    
+            //  SP1_GPB4 = AUX_MISO           // i    
+            //  SP1_GPB3 = USER_LED           // o    
+            //  SP1_GPB2 = PWR_ANAL_DAC_ON    // o           
+            //  SP1_GPB1 = PWR_ANAL_ON (ADC)  // o             
+            //  SP1_GPB0 = PWR_AMP_ON         // o      
+            //
+            //  SP1_GPA7 = SLOT_ID3_BUF       // i        
+            //  SP1_GPA6 = SLOT_ID2_BUF       // i        
+            //  SP1_GPA5 = SLOT_ID1_BUF       // i        
+            //  SP1_GPA4 = SLOT_ID0_BUF       // i        
+            //  SP1_GPA3 = NA                 // i
+            //  SP1_GPA2 = NA                 // i
+            //  SP1_GPA1 = SW_RL_K2           // o    
+            //  SP1_GPA0 = SW_RL_K1           // o    
+
+            //
+            //# read IO direction 
+            //# check IO direction : (SPA,SPB)
+            dir_read = sp1_reg_read_b16(0x00); // 0 for out, 1 for in.
+
+            //# read output Latch
+            lat_read = sp1_reg_read_b16(0x14);
+            
+            //# set IO direction for SP1 PA[1:0] - output
+            //# set IO direction for SP1 PB[7:5] - output
+            //# set IO direction for SP1 PB[3:0] - output
+            sp1_reg_write_b16(0x00, dir_read & 0xFC10);
+            
+            //# set IO for SP1 PB[3:0]
+            u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            sp1_reg_write_b16(0x12,val);
+
+            // power stability delay 
+            Delay(10); // 10ms
+
+            // read IO 
+            inp_read = sp1_reg_read_b16(0x12);
+            return inp_read & 0xFFFF;
+        }
+
+        /*
+        private u32 sp1_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+            //...
+            u32 dir_read;
+            u32 lat_read;
+            //
+            //# read IO direction 
+            //# check IO direction : 0xFFX0 where (SPA,SPB)
+            dir_read = sp1_reg_read_b16(0x00); // 0 for out, 1 for in.
+
+            //# read output Latch
+            lat_read = sp1_reg_read_b16(0x14);
+            
+            //# set IO direction for SP1 PB[3:0] - all output
+            sp1_reg_write_b16(0x00, dir_read & 0xFFF0);
+            
+            //# set IO for SP1 PB[3:0]
+            u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            sp1_reg_write_b16(0x12,val);
+        }
+        private u32 sp1_ext_pwr_led_readback() {
+            //...
+            u32 lat_read;
+            //# read output Latch
+            lat_read = sp1_reg_read_b16(0x14);
+            return lat_read & 0x000F;
+        }
+        */
+
+        
+
+        // adc fuctions
+        private u32 adc_pwr(u32 val) {
+
+            // read IO 
+            u32 inp_read = sp1_reg_read_b16(0x12);
+
+            // read power control status
+            u32 val_s0 = (inp_read>>0) & 0x0001;
+            u32 val_s1 = (inp_read>>1) & 0x0001;
+            u32 val_s2 = (inp_read>>2) & 0x0001;
+            u32 val_s3 = (inp_read>>3) & 0x0001;
+
+            // ADC power on 
+            if      (val==1) val_s1 = 1;
+            else if (val==0) val_s1 = 0;
+            sp1_ext_init(val_s3, val_s2, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+
+            // power stability delay 1ms or more.
+            Delay(10);
+
+            return inp_read;
+        }
+
+        private u32 adc_enable() {
+            SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001);
+            u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
+            return ret;
+        }
+
+        private u32 adc_disable() {
+            SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0000);
+            u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
+            return ret;
+        }
+
+        private u32 adc_trig_check(s32 bit_loc) {
+            ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
+
+            //# check done
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            bool flag_done;
+            while (true) {
+            	flag_done = IsTriggered(EP_ADRS__ADCH_TO, (u32)(0x1<<bit_loc));
+            	if (flag_done==true)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+
+            u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
+            return ret;
+        }
+
+        private u32 adc_reset() {
+            return adc_trig_check(0);
+        }
+        private u32 adc_init() {
+            return adc_trig_check(1);
+        }
+        private u32 adc_update() {
+            return adc_trig_check(2);
+        }
+        private u32 adc_test() {
+            return adc_trig_check(3);
+        }
+        private u32 adc_fifo_rst() {
+            return adc_trig_check(4);
+        }
+
+        private u32 adc_set_sampling_period(u32 val) {
+            // 210MHz/val = x  Msps
+            // 210MHz/14  = 15 Msps
+            SetWireInValue(EP_ADRS__ADCH_SMP_PR_WI, val);
+            return val;
+        }
+        private u32 adc_set_update_sample_num(u32 val) {
+            SetWireInValue(EP_ADRS__ADCH_UPD_SM_WI, val);
+            return val;
+        }
+        private u32 adc_set_tap_control(
+            u32 val_tap0a_b5, u32 val_tap0b_b5, 
+            u32 val_tap1a_b5, u32 val_tap1b_b5,
+            u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) {
+            
+            // note: val_tst_fix_pat_en_b1 for adc fixed test pattern 18-bit 0x330FC
+            u32 val = 
+                (val_tap1b_b5<<27) | (val_tap1a_b5<<22) | 
+                (val_tap0b_b5<<17) | (val_tap0a_b5<<12) | 
+                (val_tst_inc_pat_en_b1<<2) | (val_tst_fix_pat_en_b1);
+            
+            SetWireInValue(EP_ADRS__ADCH_DLY_TP_WI, val);
+
+            return val;
+        }
+
+        // test var
+        private int __test_int = 0;
+        
+        // test function
+        public new static string _test() {
+            string ret = EPS_Dev._test() + ":_class__ADDA_control_by_eps_";
+            return ret;
+        }
+
+        public static int __test_ADDA_control_by_eps() {
+            Console.WriteLine(">>>>>> test: __test_ADDA_control_by_eps");
+
+            // test member
+            ADDA_control_by_eps dev_eps = new ADDA_control_by_eps();
+            dev_eps.__test_int = dev_eps.__test_int - 1;
+            Console.WriteLine(">>> EP_ADRS__GROUP_STR = " + dev_eps.EP_ADRS__GROUP_STR);
+
+            // test LAN
+            dev_eps.my_open(__test__.Program.test_host_ip);
+            Console.WriteLine(dev_eps.get_IDN());
+            Console.WriteLine(dev_eps.eps_enable());
+
+            // ... test eps addresses
+            Console.WriteLine(string.Format("FID = 0x{0,8:X8} ",dev_eps.GetWireOutValue(dev_eps.EP_ADRS__FPGA_IMAGE_ID_WO)));
+            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3} ",(float)dev_eps.GetWireOutValue(dev_eps.EP_ADRS__XADC_TEMP_WO)/1000));
+
+            // ... test subfunctions
+            u32 val;
+
+            // spio init for power control
+            val = dev_eps.sp1_ext_init(1,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+            Console.WriteLine(string.Format("{0} = 0x{1,4:X4} ", "sp1_ext_init", val));
+
+            // adc power on 
+            dev_eps.adc_pwr(1);
+            
+            // adc enable 
+            val = dev_eps.adc_enable();
+            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
+            
+            // adc reset
+            val = dev_eps.adc_reset();
+            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_reset", val));
+
+            // adc fixed pattern setup 
+            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,1,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            
+            // adc sampling period
+            //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
+            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            //dev_eps.adc_set_sampling_period( 42); // 210MHz/42   =   5 Msps
+            //dev_eps.adc_set_sampling_period(105); // 210MHz/105  =   2 Msps
+            //dev_eps.adc_set_sampling_period(210); // 210MHz/210  =   1 Msps
+            //dev_eps.adc_set_sampling_period( 42); // 210MHz/420  = 0.5 Msps
+            //dev_eps.adc_set_sampling_period(105); // 210MHz/1050 = 0.2 Msps
+            //dev_eps.adc_set_sampling_period(210); // 210MHz/2100 = 0.1 Msps
+
+            // adc update sample numbers
+            dev_eps.adc_set_update_sample_num(40); // 40 samples
+
+            // adc init 
+            val = dev_eps.adc_init();
+            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_init", val));
+            
+            // adc fifo reset 
+            val = dev_eps.adc_fifo_rst();
+            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_fifo_rst", val));
+            
+            // adc update 
+            val = dev_eps.adc_update();
+            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_update", val));
+            
+            // fifo data read 
+
+            // adc disable 
+            val = dev_eps.adc_disable();
+            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_disable", val));
+
+            // adc power off
+            dev_eps.adc_pwr(0);
+
+            // test finish
+            Console.WriteLine(dev_eps.eps_disable());
+            dev_eps.scpi_close();
+
+            return dev_eps.__test_int;
+        }
+
+    }
+    
     //// top class case1
     public class TOP_PGU__LAN : PGU_control_by_lan
     {
@@ -7198,17 +7603,22 @@ namespace __test__
             Console.WriteLine("Hello, world!");
 
             //call something in TopInstrument
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "SCPI_base         ", TopInstrument.SCPI_base._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "EPS_Dev           ", TopInstrument.EPS_Dev._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_lan", TopInstrument.PGU_control_by_lan._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_eps", TopInstrument.PGU_control_by_eps._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "SCPI_base          ", TopInstrument.SCPI_base._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "EPS_Dev            ", TopInstrument.EPS_Dev._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_lan ", TopInstrument.PGU_control_by_lan._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_eps ", TopInstrument.PGU_control_by_eps._test()));
             //
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU (alias)   ", TOP_PGU._test()));
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU (alias)    ", TOP_PGU._test()));
+            //
+            Console.WriteLine(string.Format(">>> {0} - {1} ", "ADDA_control_by_eps", TopInstrument.ADDA_control_by_eps._test()));
 
             int ret = 0;
             
-            ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
+            //ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
+
             // new adc test : adc power on // adc enable // adc init // adc fifo reset // adc update // fifo data read 
+            ret = TopInstrument.ADDA_control_by_eps.__test_ADDA_control_by_eps(); 
+
             ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
 
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
