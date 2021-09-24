@@ -3788,6 +3788,34 @@ namespace TopInstrument
             return val;
         }
 
+        private u32 adc_read_fifo(u32 ch, u32 num_data, s32[] buf_s32) {
+            u32 ret;
+            u32 adrs = EP_ADRS__MEM_PO;
+            u8[] buf_pipe = new u8[num_data*4]; // *4 for 32-bit pipe 
+            
+            if (ch==0) {
+                adrs = EP_ADRS__ADCH_DOUT0_PO;
+            } else if (ch==1) {
+                adrs = EP_ADRS__ADCH_DOUT1_PO;
+            } else {
+                return 0;
+            }
+
+            ret = (u32)ReadFromPipeOut(adrs, ref buf_pipe); // buf_pipe ... u8 buffer
+
+            // collect and copy data : buf => buf_dataout
+            s32 ii;
+            s32 tmp;
+            for (ii=0;ii<num_data;ii++) {
+                tmp = BitConverter.ToInt32(buf_pipe, ii*4); // read one pipe data every 4 bytes
+                //buf_s32[ii] = (u8) (tmp & 0x000000FF); // 8 bit limit
+                buf_s32[ii] = tmp;
+            }
+
+            return ret/4; // number of bytes --> number of int
+        }
+
+
         // test var
         private int __test_int = 0;
         
@@ -3868,10 +3896,16 @@ namespace TopInstrument
             dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
             dev_eps.adc_set_update_sample_num(40); // 40 samples
             dev_eps.adc_init(); // init with setup parameters
+            dev_eps.adc_fifo_rst(); // clear fifo for new data
             dev_eps.adc_update();
 
             // fifo data read 
+            s32[] buf0_s32 = new s32[40];
+            s32[] buf1_s32 = new s32[40];
+            dev_eps.adc_read_fifo(0, 40, buf0_s32); // (u32 ch, u32 num_data, s32[] buf_s32);
+            dev_eps.adc_read_fifo(1, 40, buf1_s32); // (u32 ch, u32 num_data, s32[] buf_s32);
 
+            // log and display fifo data // to come
 
             // adc disable 
             val = dev_eps.adc_disable();

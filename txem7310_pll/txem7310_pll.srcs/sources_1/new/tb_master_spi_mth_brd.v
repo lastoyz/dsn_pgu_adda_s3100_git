@@ -414,6 +414,7 @@ adc_wrapper  adc_wrapper__inst (
 	.base_adc_clk   (base_adc_clk), // 210MHz
 	.adc_fifo_clk   (adc_fifo_clk), // 60MHz
 	.ref_200M_clk   (ref_200M_clk), // 200MHz
+	.adc_bus_clk    (base_sspi_clk), // no mux // only for simulation
 	
 	// endpoint related clock
 	.base_sspi_clk  (base_sspi_clk), // 104MHz // for sspi endpoints
@@ -1062,7 +1063,8 @@ TASK__SEND_FRAME(1'b1, 10'h1E0, 16'h0000); // ADCH_TO
 
 // adc fifo read
 repeat (136+2) begin
-TASK__SEND_FRAME(1'b1, 10'h2F0, 16'h0000); // ADCH
+TASK__SEND_FRAME(1'b1, 10'h2F2, 16'h0000); // ADCH // ADCH_DOUT0_PO high
+TASK__SEND_FRAME(1'b1, 10'h2F0, 16'h0000); // ADCH // ADCH_DOUT0_PO low
 end
 
 

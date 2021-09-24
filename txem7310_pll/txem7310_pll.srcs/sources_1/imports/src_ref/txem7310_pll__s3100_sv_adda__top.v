@@ -3342,6 +3342,9 @@ wire        w_hsadc_fifo_adc1_oflow   ;  assign w_ADCH_WO[17] = w_hsadc_fifo_adc
 wire        w_hsadc_fifo_adc1_pfull   ;  assign w_ADCH_WO[18] = w_hsadc_fifo_adc1_pfull ;
 wire        w_hsadc_fifo_adc1_full    ;  assign w_ADCH_WO[19] = w_hsadc_fifo_adc1_full  ;
 
+// fifo rd clock // mux btwn base_sspi_clk and mcs_clk
+wire  c_adc_fifo_read = (w_mcs_ep_po_en & ~w_SSPI_TEST_mode_en)? mcs_clk : base_sspi_clk ;
+
 // others 
 parameter ADC_BASE_FREQ= 32'd210_000_000; // 210MHz
 assign w_ADCH_B_FRQ_WO = ADC_BASE_FREQ; // adc basse freq
@@ -3371,9 +3374,10 @@ adc_wrapper  adc_wrapper__inst (
 	.sys_clk        (sys_clk), // 10MHz
 	
 	// adc related clocks
-	.base_adc_clk   (base_adc_clk), // 210MHz
-	.adc_fifo_clk   (adc_fifo_clk), // 60MHz
-	.ref_200M_clk   (ref_200M_clk), // 200MHz
+	.base_adc_clk   (base_adc_clk   ), // 210MHz
+	.adc_fifo_clk   (adc_fifo_clk   ), // 60MHz // fifo wr clock
+	.ref_200M_clk   (ref_200M_clk   ), // 200MHz
+	.adc_bus_clk    (c_adc_fifo_read), // fifo rd clock // mux btwn base_sspi_clk and mcs_clk
 	
 	// endpoint related clock
 	.base_sspi_clk  (base_sspi_clk), // 104MHz // for sspi endpoints

@@ -50,8 +50,9 @@ module adc_wrapper ( //{
 	
 	// adc related clocks
 	input  wire        base_adc_clk, // 210MHz
-	input  wire        adc_fifo_clk, // 60MHz
+	input  wire        adc_fifo_clk, // 60MHz // writing fifo 
 	input  wire        ref_200M_clk, // 200MHz
+	input  wire        adc_bus_clk , // reading fifo // 104MHz or 72MHz
 	
 	// endpoint related clock
 	input  wire        base_sspi_clk, // 104MHz // for sspi endpoints
@@ -240,7 +241,8 @@ always @(posedge sys_clk, negedge reset_n)
 
 
 // fifo pipe read clock 
-wire c_adc_fifo_read = base_sspi_clk; // only for sspi in sim
+//wire c_adc_fifo_read = base_sspi_clk; // only for sspi in sim
+wire c_adc_fifo_read = adc_bus_clk; 
 
 // DFT interface signals
 wire  w_hsadc_fifo_adc0_wr;
@@ -599,6 +601,7 @@ adc_wrapper  adc_wrapper__inst (
 	.base_adc_clk   (base_adc_clk), // 210MHz
 	.adc_fifo_clk   (adc_fifo_clk), // 60MHz
 	.ref_200M_clk   (ref_200M_clk), // 200MHz
+	.adc_bus_clk    (base_sspi_clk), // no mux // only for simulation
 	
 	// endpoint related clock
 	.base_sspi_clk  (base_sspi_clk), // 104MHz // for sspi endpoints
