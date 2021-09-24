@@ -7,20 +7,21 @@
 
 ## ports for master_spi_mth_brd__inst
 
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_init  ]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_init  ]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_frame ]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_frame ]
+
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_C[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_A[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_D[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_B[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_E[*]]
+
+
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_trig_frame]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_done_frame]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_trig_init]
-
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_init  ]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_init  ]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_frame ]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_frame ]
-
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_C[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_A[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_D[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_B[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_E[*]]
 
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_SS_B]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_MOSI]
@@ -64,14 +65,23 @@ set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO_EN 
 
 #set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[*] ]
 
-set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_ctrl[*] ]
-set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_adrs[*] ]
-set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_mosi[*] ]
-set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_miso[*] ]
+#set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_ctrl[*] ]
+#set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_adrs[*] ]
+#set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_mosi[*] ]
+#set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_miso[*] ]
 
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2F0        ] 
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2F0[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2F4        ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2F4[*] ]
 
 ##== LAN ==##
 
+#lan_endpoint_wrapper_inst
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBCrd      ]
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBCpipe[*] ]
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBDrd      ]
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBDpipe[*] ]
 
 
 ##== DAC Pattern Gen ==##
@@ -113,14 +123,14 @@ set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern
 
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_conv    ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_sclk    ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_test    ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_test    ]
 #
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_0  ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_0  ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/i_data_s[*] ]
 #set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_0  ] # NG
 #set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_0  ] # NG
 
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_1  ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_1  ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/i_data_s[*] ]
 #set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_1  ] # NG
 #set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_1  ] # NG
@@ -129,14 +139,14 @@ set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_reset         
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_en              ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_init            ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_update          ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_test            ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_test            ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_rst        ] 
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_init_done       ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_update_done     ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_test_done       ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_init_done_to    ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_update_done_to  ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_test_done_to    ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_test_done       ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_init_done_to    ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_update_done_to  ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_test_done_to    ]
 
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_HSADC_UPD_SMP[*] ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_HSADC_SMP_PRD[*] ]
