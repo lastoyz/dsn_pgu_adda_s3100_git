@@ -70,6 +70,13 @@ set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO_EN 
 #set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_mosi[*] ]
 #set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_miso[*] ]
 
+# eeprom fifo
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_wr__sadrs_h24C        ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h24C[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2CC        ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2CC[*] ]
+
+# adc fifo
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2F0        ] 
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2F0[*] ]
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2F4        ]
@@ -91,6 +98,24 @@ set_property MARK_DEBUG true [get_nets {DAC1_DAT[*]}]
 
 set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac0]
 set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac1]
+
+
+##== EEPROM ==##
+
+# control_eeprom__11AA160T_inst/
+#  EEPROM_fifo_wr_inst  EEPROM_fifo_rd_inst
+#  rst wr_en din[*]  rd_en dout[*]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/rst    ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/wr_en  ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/din[*] ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/rd_en  ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/dout[*]]
+
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/rst    ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/wr_en  ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/din[*] ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/rd_en  ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/dout[*]]
 
 
 ##== ADC ==##
