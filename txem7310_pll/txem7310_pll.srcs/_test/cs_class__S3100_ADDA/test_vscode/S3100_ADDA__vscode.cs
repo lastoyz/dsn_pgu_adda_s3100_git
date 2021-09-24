@@ -3818,7 +3818,8 @@ namespace TopInstrument
             u32 val;
 
             // spio init for power control
-            val = dev_eps.sp1_ext_init(1,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+            //val = dev_eps.sp1_ext_init(1,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+            val = dev_eps.sp1_ext_init(1,1,1,1); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
             Console.WriteLine(string.Format("{0} = 0x{1,4:X4} ", "sp1_ext_init", val));
 
             // adc power on 
@@ -3860,7 +3861,17 @@ namespace TopInstrument
             val = dev_eps.adc_update();
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_update", val));
             
+            // check fifo in data in logic debugger
+
+            // adc normal setup and data collection
+            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            dev_eps.adc_set_update_sample_num(40); // 40 samples
+            dev_eps.adc_init(); // init with setup parameters
+            dev_eps.adc_update();
+
             // fifo data read 
+
 
             // adc disable 
             val = dev_eps.adc_disable();
@@ -3868,6 +3879,7 @@ namespace TopInstrument
 
             // adc power off
             dev_eps.adc_pwr(0);
+            dev_eps.sp1_ext_init(0,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
 
             // test finish
             Console.WriteLine(dev_eps.eps_disable());
