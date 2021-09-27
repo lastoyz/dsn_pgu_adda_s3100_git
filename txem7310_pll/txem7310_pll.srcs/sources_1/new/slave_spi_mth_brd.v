@@ -1695,14 +1695,14 @@ always @(posedge clk, negedge reset_n) // clk // base clock 72MHz or 104MHz
 // for o_wr__sadrs_h24C
 // sync with r_frame_mosi_trig (not r_frame_miso_trig)
 
-(* keep = "true" *) reg r_wr__sadrs_h218;
-(* keep = "true" *) reg r_wr__sadrs_h21C;
-(* keep = "true" *) reg r_wr__sadrs_h220;
-(* keep = "true" *) reg r_wr__sadrs_h224;
-(* keep = "true" *) reg r_wr__sadrs_h228;
-(* keep = "true" *) reg r_wr__sadrs_h24C;
-(* keep = "true" *) reg r_wr__sadrs_h270;
-(* keep = "true" *) reg r_wr__sadrs_h274;
+reg r_wr__sadrs_h218;
+reg r_wr__sadrs_h21C;
+reg r_wr__sadrs_h220;
+reg r_wr__sadrs_h224;
+reg r_wr__sadrs_h228;
+reg r_wr__sadrs_h24C;
+reg r_wr__sadrs_h270;
+reg r_wr__sadrs_h274;
 //
 always @(posedge clk, negedge reset_n) // clk // base clock 72MHz or 104MHz
 	if (!reset_n) begin
