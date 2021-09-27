@@ -81,3 +81,7 @@ dsn/1.sch/_ref/a200273mh-FPGA-MODULE-V1_1-200820/
 dsn/1.sch/_ref/a210231mj-S3100-PGU-ADDA-REVA-210525/
 
 
+txem7310_pll/txem7310_pll.srcs/_sdk/txem7310_pll__s3100_sv_adda__top_hw_platform_0/cache/
+txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_ADDA/test_vscode/obj/
+txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_ADDA/test_vscode/.vscode/
+txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_ADDA/test_vscode/bin/

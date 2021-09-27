@@ -50,8 +50,9 @@ module adc_wrapper ( //{
 	
 	// adc related clocks
 	input  wire        base_adc_clk, // 210MHz
-	input  wire        adc_fifo_clk, // 60MHz
+	input  wire        adc_fifo_clk, // 60MHz // writing fifo 
 	input  wire        ref_200M_clk, // 200MHz
+	input  wire        adc_bus_clk , // reading fifo // 104MHz or 72MHz
 	
 	// endpoint related clock
 	input  wire        base_sspi_clk, // 104MHz // for sspi endpoints
@@ -240,7 +241,8 @@ always @(posedge sys_clk, negedge reset_n)
 
 
 // fifo pipe read clock 
-wire c_adc_fifo_read = base_sspi_clk; // only for sspi in sim
+//wire c_adc_fifo_read = base_sspi_clk; // only for sspi in sim
+wire c_adc_fifo_read = adc_bus_clk; 
 
 // DFT interface signals
 wire  w_hsadc_fifo_adc0_wr;
@@ -460,6 +462,11 @@ wire w_clk_adc; // mux
 	assign w_clk_adc = (w_test_model_en)? w_clk_adc_mdl : w_clk_adc_ctl;
 wire w_pin_test_adc ; // 0 for fixed pattern disabled
 
+wire w_dco_adc ;
+wire w_dat1_adc;
+wire w_dat2_adc;
+
+
 test_model_adc_ddr_two_lane_LTC2387 #(
 	.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (8 ), // ns // for 125MHz @ clk_logic
@@ -468,7 +475,6 @@ test_model_adc_ddr_two_lane_LTC2387 #(
 	//.PERIOD_CLK_CNV_NS   (88), // ns // period of test_cnv_adc // 88=11*8
 	//
 	.DELAY_NS_delay_locked(973), // ns // only for simulation // 0 or 973ns
-	//.DELAY_NS_delay_locked(400), // ns // test
 	//
 	//parameter DELAY_CLK = 32'd9; // 65ns min < 8ns*9=72ns @125MHz
 	//parameter DELAY_CLK = 32'd14; // 65ns min < 1/(210MHz)*14=66.7ns @210MHz
@@ -595,6 +601,7 @@ adc_wrapper  adc_wrapper__inst (
 	.base_adc_clk   (base_adc_clk), // 210MHz
 	.adc_fifo_clk   (adc_fifo_clk), // 60MHz
 	.ref_200M_clk   (ref_200M_clk), // 200MHz
+	.adc_bus_clk    (base_sspi_clk), // no mux // only for simulation
 	
 	// endpoint related clock
 	.base_sspi_clk  (base_sspi_clk), // 104MHz // for sspi endpoints

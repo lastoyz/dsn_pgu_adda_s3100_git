@@ -7,19 +7,20 @@
          <top_modules>
             <top_module name="glbl" />
             <top_module name="tb_master_spi_mth_brd" />
+            <top_module name="vcomponents" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="52631240001fs"></ZoomEndTime>
-      <Cursor1Time time="52631240000fs"></Cursor1Time>
+      <ZoomStartTime time="172057304000fs"></ZoomStartTime>
+      <ZoomEndTime time="210857304001fs"></ZoomEndTime>
+      <Cursor1Time time="197286664000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="278"></NameColumnWidth>
-      <ValueColumnWidth column_width="80"></ValueColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="64" />
+   <WVObjectSize size="93" />
    <wave_markers>
       <marker label="" time="3581960000" />
       <marker label="" time="1620296000" />
@@ -31,6 +32,15 @@
       <marker label="" time="42045960000" />
       <marker label="" time="46661640000" />
       <marker label="" time="46584712000" />
+      <marker label="" time="98018760000" />
+      <marker label="" time="140450000000" />
+      <marker label="" time="152150000000" />
+      <marker label="" time="162750000000" />
+      <marker label="" time="1644194632000" />
+      <marker label="" time="181362568000" />
+      <marker label="" time="186670600000" />
+      <marker label="" time="191978632000" />
+      <marker label="" time="197286664000" />
    </wave_markers>
    <wvobject type="group" fp_name="group327">
       <obj_property name="label">clocks</obj_property>
@@ -304,6 +314,38 @@
       <obj_property name="ElementShortName">w_MISO_one_bit_ahead_en</obj_property>
       <obj_property name="ObjectShortName">w_MISO_one_bit_ahead_en</obj_property>
    </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_wi_sadrs_h060">
+      <obj_property name="ElementShortName">w_port_wi_sadrs_h060[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wi_sadrs_h060[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_wi_sadrs_h074">
+      <obj_property name="ElementShortName">w_port_wi_sadrs_h074[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wi_sadrs_h074[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_wi_sadrs_h078">
+      <obj_property name="ElementShortName">w_port_wi_sadrs_h078[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wi_sadrs_h078[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_wi_sadrs_h07C">
+      <obj_property name="ElementShortName">w_port_wi_sadrs_h07C[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wi_sadrs_h07C[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_ti_sadrs_h160">
+      <obj_property name="ElementShortName">w_port_ti_sadrs_h160[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_ti_sadrs_h160[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_to_sadrs_h1E0">
+      <obj_property name="ElementShortName">w_port_to_sadrs_h1E0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_to_sadrs_h1E0[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/w_port_po_sadrs_h2F0">
+      <obj_property name="ElementShortName">w_port_po_sadrs_h2F0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_po_sadrs_h2F0[31:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="divider185" type="divider">
       <obj_property name="label">slave spi</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -342,8 +384,176 @@
       <obj_property name="ElementShortName">o_SPI_MISO_EN</obj_property>
       <obj_property name="ObjectShortName">o_SPI_MISO_EN</obj_property>
    </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_frame_miso">
+      <obj_property name="ElementShortName">r_frame_miso[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_frame_miso[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/r_frame_miso_trig">
+      <obj_property name="ElementShortName">r_frame_miso_trig</obj_property>
+      <obj_property name="ObjectShortName">r_frame_miso_trig</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="vbus" fp_name="vbus228">
+      <obj_property name="label">miso_32b_msb_side</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[31]">
+         <obj_property name="ElementShortName">[31]</obj_property>
+         <obj_property name="ObjectShortName">[31]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[30]">
+         <obj_property name="ElementShortName">[30]</obj_property>
+         <obj_property name="ObjectShortName">[30]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[29]">
+         <obj_property name="ElementShortName">[29]</obj_property>
+         <obj_property name="ObjectShortName">[29]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[28]">
+         <obj_property name="ElementShortName">[28]</obj_property>
+         <obj_property name="ObjectShortName">[28]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[27]">
+         <obj_property name="ElementShortName">[27]</obj_property>
+         <obj_property name="ObjectShortName">[27]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[26]">
+         <obj_property name="ElementShortName">[26]</obj_property>
+         <obj_property name="ObjectShortName">[26]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[25]">
+         <obj_property name="ElementShortName">[25]</obj_property>
+         <obj_property name="ObjectShortName">[25]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[24]">
+         <obj_property name="ElementShortName">[24]</obj_property>
+         <obj_property name="ObjectShortName">[24]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[23]">
+         <obj_property name="ElementShortName">[23]</obj_property>
+         <obj_property name="ObjectShortName">[23]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[22]">
+         <obj_property name="ElementShortName">[22]</obj_property>
+         <obj_property name="ObjectShortName">[22]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[21]">
+         <obj_property name="ElementShortName">[21]</obj_property>
+         <obj_property name="ObjectShortName">[21]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[20]">
+         <obj_property name="ElementShortName">[20]</obj_property>
+         <obj_property name="ObjectShortName">[20]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[19]">
+         <obj_property name="ElementShortName">[19]</obj_property>
+         <obj_property name="ObjectShortName">[19]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[18]">
+         <obj_property name="ElementShortName">[18]</obj_property>
+         <obj_property name="ObjectShortName">[18]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[17]">
+         <obj_property name="ElementShortName">[17]</obj_property>
+         <obj_property name="ObjectShortName">[17]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[16]">
+         <obj_property name="ElementShortName">[16]</obj_property>
+         <obj_property name="ObjectShortName">[16]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[15]">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">[15]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32[14]">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">[14]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/w_frame_miso_b32">
+      <obj_property name="ElementShortName">w_frame_miso_b32[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_miso_b32[31:0]</obj_property>
+   </wvobject>
    <wvobject type="array" fp_name="/tb_master_spi_mth_brd/slave_spi_mth_brd__inst/o_cnt_sspi_cs">
       <obj_property name="ElementShortName">o_cnt_sspi_cs[15:0]</obj_property>
       <obj_property name="ObjectShortName">o_cnt_sspi_cs[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider81" type="divider">
+      <obj_property name="label">adc test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_fifo_adc0_rd_en">
+      <obj_property name="ElementShortName">i_hsadc_fifo_adc0_rd_en</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_fifo_adc0_rd_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_fifo_adc0_dout">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc0_dout[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc0_dout[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/init">
+      <obj_property name="ElementShortName">init</obj_property>
+      <obj_property name="ObjectShortName">init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/init_done">
+      <obj_property name="ElementShortName">init_done</obj_property>
+      <obj_property name="ObjectShortName">init_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/i_fifo_rst">
+      <obj_property name="ElementShortName">i_fifo_rst</obj_property>
+      <obj_property name="ObjectShortName">i_fifo_rst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/update">
+      <obj_property name="ElementShortName">update</obj_property>
+      <obj_property name="ObjectShortName">update</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/update_done">
+      <obj_property name="ElementShortName">update_done</obj_property>
+      <obj_property name="ObjectShortName">update_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/test">
+      <obj_property name="ElementShortName">test</obj_property>
+      <obj_property name="ObjectShortName">test</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/control_hsadc_dual__inst/test_done">
+      <obj_property name="ElementShortName">test_done</obj_property>
+      <obj_property name="ObjectShortName">test_done</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_pin_conv">
+      <obj_property name="ElementShortName">o_hsadc_pin_conv</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_conv</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_pin_sclk">
+      <obj_property name="ElementShortName">o_hsadc_pin_sclk</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_sclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_pin_test">
+      <obj_property name="ElementShortName">o_hsadc_pin_test</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_pin_test</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_dco__adc_0">
+      <obj_property name="ElementShortName">i_hsadc_dco__adc_0</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_dco__adc_0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_dat2_adc_0">
+      <obj_property name="ElementShortName">i_hsadc_dat2_adc_0</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_dat2_adc_0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/i_hsadc_dat1_adc_0">
+      <obj_property name="ElementShortName">i_hsadc_dat1_adc_0</obj_property>
+      <obj_property name="ObjectShortName">i_hsadc_dat1_adc_0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_fifo_adc0_wr_ack">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc0_wr_ack</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc0_wr_ack</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd/adc_wrapper__inst/o_hsadc_fifo_adc0_din">
+      <obj_property name="ElementShortName">o_hsadc_fifo_adc0_din[17:0]</obj_property>
+      <obj_property name="ObjectShortName">o_hsadc_fifo_adc0_din[17:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
 </wave_config>

@@ -284,8 +284,8 @@ set_property PACKAGE_PIN  Y3   [get_ports   o_B34D_L9P       ] ; # IO_L9P_T1_DQS
 set_property PACKAGE_PIN  AA3  [get_ports   o_B34D_L9N       ] ; # IO_L9N_T1_DQS_34              1                  34    HR        
 set_property PACKAGE_PIN  AA5  [get_ports   o_B34D_L10P      ] ; # IO_L10P_T1_34                 1                  34    HR        
 set_property PACKAGE_PIN  AB5  [get_ports   o_B34D_L10N      ] ; # IO_L10N_T1_34                 1                  34    HR        
-set_property PACKAGE_PIN  Y4   [get_ports   i_B34D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_34            1                  34    HR        
-set_property PACKAGE_PIN  AA4  [get_ports   i_B34D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_34            1                  34    HR        
+set_property PACKAGE_PIN  Y4   [get_ports   c_B34D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_34            1                  34    HR        
+set_property PACKAGE_PIN  AA4  [get_ports   c_B34D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_34            1                  34    HR        
 set_property PACKAGE_PIN  V4   [get_ports   o_B34D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_34            1                  34    HR        
 set_property PACKAGE_PIN  W4   [get_ports   o_B34D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_34            1                  34    HR        
 set_property PACKAGE_PIN  R4   [get_ports   o_B34D_L13P_MRCC ] ; # IO_L13P_T2_MRCC_34            2                  34    HR        
@@ -336,8 +336,8 @@ set_property PACKAGE_PIN  K2   [get_ports  i_B35D_L9P       ] ; # IO_L9P_T1_DQS_
 set_property PACKAGE_PIN  J2   [get_ports  i_B35D_L9N       ] ; # IO_L9N_T1_DQS_AD7N_35         1                  35    HR        
 set_property PACKAGE_PIN  J5   [get_ports  o_B35D_L10P      ] ; # IO_L10P_T1_AD15P_35           1                  35    HR        
 set_property PACKAGE_PIN  H5   [get_ports  o_B35D_L10N      ] ; # IO_L10N_T1_AD15N_35           1                  35    HR        
-set_property PACKAGE_PIN  H3   [get_ports  i_B35D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_35            1                  35    HR        
-set_property PACKAGE_PIN  G3   [get_ports  i_B35D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  H3   [get_ports  c_B35D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  G3   [get_ports  c_B35D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_35            1                  35    HR        
 set_property PACKAGE_PIN  H4   [get_ports  o_B35D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_35            1                  35    HR        
 set_property PACKAGE_PIN  G4   [get_ports  o_B35D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_35            1                  35    HR        
 set_property PACKAGE_PIN  K4   [get_ports  o_B35D_L13P_MRCC ] ; # IO_L13P_T2_MRCC_35            2                  35    HR        
@@ -555,26 +555,104 @@ create_generated_clock  -name dac1_dci_clk    [get_pins  clk_wiz_1_2_1_inst/inst
 
 set_clock_groups -asynchronous -group [get_clocks  dac_test_clk] -group [get_clocks {sys_clk}]
 #
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_dci_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
 #
 set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
 #
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_dci_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
 #
 set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {sys_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {mcs_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
 #
+set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_dci_clk}]
+set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_dci_clk}]
 set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks dac1_clk]
 #
+
+
+############################################################################
+## TODO: ADC clock 
+############################################################################
+
+## for serdes ##
+#// 9.5ns for serdesCLK_0 @ 210MHz/2
+create_clock -period 9.5 -name serdesCLK_0 [get_ports c_B34D_L11P_SRCC]
+create_clock -period 9.5 -name serdesCLK_1 [get_ports c_B35D_L11P_SRCC]
+#
+create_generated_clock -name serdesCLK_0_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
+create_generated_clock -name serdesCLK_1_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
+
+## async
+#
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {sys_clk ref_200M_clk base_adc_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {adc_fifo_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {mcs_clk base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {dac0_clk dac1_clk  dac0_dci_clk dac1_dci_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {sys_clk ref_200M_clk base_adc_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {adc_fifo_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {mcs_clk base_sspi_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {dac0_clk dac1_clk  dac0_dci_clk dac1_dci_clk}]
+#
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks serdesCLK_1]
+#
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_0_div] -group [get_clocks {sys_clk adc_fifo_clk ref_200M_clk base_adc_clk}]
+set_clock_groups -asynchronous -group [get_clocks serdesCLK_1_div] -group [get_clocks {sys_clk adc_fifo_clk ref_200M_clk base_adc_clk}]
+
+
+## ADC input :  2.4ns or 4.8ns delay for serdesCLK_0 @ 210MHz/2 ...9.5ns
+
+## io delay 
+#input  wire  i_B34D_L18P     ## ADC0_DA_P
+#input  wire  i_B34D_L22P     ## ADC0_DB_P
+#input  wire  i_B35D_L7P      ## ADC1_DA_P
+#input  wire  i_B35D_L9P      ## ADC1_DB_P
+#
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L18P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L18P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L18P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L18P] -clock_fall
+#
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L22P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L22P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L22P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L22P] -clock_fall
+#
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L7P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L7P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L7P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L7P] -clock_fall
+#
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L9P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L9P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L9P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L9P] -clock_fall
+#
+
+
+#output wire  o_B34_L5P       ## ADCx_TPT_B
+set_max_delay -to [get_ports o_B34_L5P] 12.0
+set_output_delay -clock [get_clocks base_adc_clk] 0.000 [get_ports o_B34_L5P]
+
+#output wire  o_B34D_L6P      ## ADCx_CNV_P
+#output wire  o_B34D_L6N      ## ADCx_CNV_N
+#output wire  o_B34D_L8P      ## ADCx_CLK_P
+#output wire  o_B34D_L8N      ## ADCx_CLK_N
+set_max_delay   -to [get_ports o_B34D_L6P] 9.9
+set_max_delay   -to [get_ports o_B34D_L6N] 9.9
+set_max_delay   -to [get_ports o_B34D_L8P] 9.7
+set_max_delay   -to [get_ports o_B34D_L8N] 9.7
+
 
 ###########################################################################
 ###########################################################################

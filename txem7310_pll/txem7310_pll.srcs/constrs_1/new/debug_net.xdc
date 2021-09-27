@@ -1,26 +1,27 @@
 ##== TIME STAMP ==##
 #set_property MARK_DEBUG true [get_nets {w_TIMESTAMP_WO[*]}]
-set_property MARK_DEBUG true [get_nets {sub_timestamp_inst/r_global_time_idx[*]}]
+#set_property MARK_DEBUG true [get_nets {sub_timestamp_inst/r_global_time_idx[*]}]
 
 
 ##== MTH SPI ==##
 
 ## ports for master_spi_mth_brd__inst
 
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_init  ]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_init  ]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_frame ]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_frame ]
+
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_C[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_A[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_D[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_B[*]]
+#set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_E[*]]
+
+
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_trig_frame]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_done_frame]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_trig_init]
-
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_init  ]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_init  ]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_trig_frame ]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_done_frame ]
-
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_C[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_A[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/i_frame_data_D[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_B[*]]
-set_property MARK_DEBUG true [get_nets master_spi_mth_brd__inst/o_frame_data_E[*]]
 
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_SS_B]
 #set_property MARK_DEBUG true [get_nets w_SSPI_TEST_MOSI]
@@ -59,19 +60,42 @@ set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_SPI_MOSI    
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO    ]
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_SPI_MISO_EN ]
 
-set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[*] ]
-set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[*] ]
+#set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h228[*] ]
+#set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2A8[*] ]
 
-set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[*] ]
+#set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_cnt_sspi_cs[*] ]
 
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_ctrl[*] ]
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_adrs[*] ]
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_mosi[*] ]
 set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_miso[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/r_frame_miso_trig ]
+
+# eeprom fifo
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_wr__sadrs_h24C        ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_port_pi_sadrs_h24C[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2CC        ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2CC[*] ]
+
+# adc fifo
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2F0        ] 
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2F0[*] ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/o_rd__sadrs_h2F4        ]
+set_property MARK_DEBUG true [get_nets slave_spi_mth_brd__M2_inst/i_port_po_sadrs_h2F4[*] ]
 
 
 ##== LAN ==##
 
+#lan_endpoint_wrapper_inst
+
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/ep93pipe[*] ] ;# MEM_PI
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/ep93wr      ]
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epB3pipe[*] ] ;# MEM_PO
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epB3rd      ]
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBCpipe[*] ] ;# ADCH_DOUT0_PO
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBCrd      ]
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBDpipe[*] ] ;# ADCH_DOUT1_PO
+set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/epBDrd      ]
 
 
 ##== DAC Pattern Gen ==##
@@ -81,6 +105,142 @@ set_property MARK_DEBUG true [get_nets {DAC1_DAT[*]}]
 
 set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac0]
 set_property MARK_DEBUG true [get_nets dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac1]
+
+
+##== EEPROM ==##
+
+## EEPROM_fifo_wr_inst : framer <-- pipe-in
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/rst    ]
+# set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/wr_en  ]
+#set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/din[*] ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/rd_en  ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_wr_inst/dout[*]]
+ 
+## EEPROM_fifo_rd_inst : framer --> pipe-out
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/rst    ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/wr_en  ]
+set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/din[*] ]
+#set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/rd_en  ]
+#set_property MARK_DEBUG true [get_nets control_eeprom__11AA160T_inst/EEPROM_fifo_rd_inst/dout[*]]
+
+
+##== ADC ==##
+
+# adc_wrapper__inst/control_hsadc_dual__inst/
+
+#set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/state[*]}]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_clk_adc]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_cnv_adc]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_clk_reset]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_io_reset]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_pin_dlln_frc_low]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_pttn_cnt_up_en]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_delay_locked]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_io_reset]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_valid_serdes]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_cnv_adc_en]
+
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_init_trig]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_init_busy]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/r_init_done]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/w_adc_done_init]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv__init]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv__init__adc0]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/check_cnt_cnv__init__adc1]
+#set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/cnt_wr_fifo[0]__0[*]}]
+#set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/cnt_wr_fifo[1]__0[*]}]
+#set_property MARK_DEBUG true [get_nets {adc_wrapper__inst/control_hsadc_dual__inst/cnt_cnv[*]}]
+
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_conv    ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_sclk    ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_pin_test    ]
+#
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_0  ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/i_data_s[*] ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_0  ] # NG
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_0  ] # NG
+
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dco__adc_1  ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/i_data_s[*] ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat2_adc_1  ] # NG
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_1  ] # NG
+
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_reset           ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_en              ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_init            ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_update          ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_test            ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_rst        ] 
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_init_done       ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_update_done     ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_test_done       ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_init_done_to    ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_update_done_to  ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_test_done_to    ]
+
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_HSADC_UPD_SMP[*] ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_HSADC_SMP_PRD[*] ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_HSADC_DLY_TAP0[*]]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_HSADC_DLY_TAP1[*]]
+
+
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc0_din[*] ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc0_wr_ack ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc0_dout[*]]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_adc0_rd_en  ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc1_din[*] ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc1_wr_ack ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc1_dout[*]]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_adc1_rd_en  ]
+
+
+#set_property MARK_DEBUG true [get_nets  w_ADCH_WI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_FREQ_WI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_UPD_SM_WI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_SMP_PR_WI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DLY_TP_WI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_WO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_B_FRQ_WO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT0_WO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT1_WO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT2_WO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT3_WO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_TI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_TO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT0_PO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT1_PO[*] ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT0_PO_rd  ]
+#set_property MARK_DEBUG true [get_nets  w_ADCH_DOUT1_PO_rd  ]
+
+
+##== DFT ==##
+
+#set_property MARK_DEBUG true [get_nets  w_DFT_TI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_DFT_COEF_RE_PI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_DFT_COEF_IM_PI[*] ]
+#set_property MARK_DEBUG true [get_nets  w_DFT_COEF_RE_PI_wr ]
+#set_property MARK_DEBUG true [get_nets  w_DFT_COEF_IM_PI_wr ]
+
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT0[*]]
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT1[*]]
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT2[*]]
+#set_property MARK_DEBUG true [get_nets w_ADC_HS_DOUT3[*]]
+
+# # based on adc fifo clock
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/addra[*] ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/dina[*]  ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_re__inst0/wea[*]   ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/addra[*] ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/dina[*]  ]
+# set_property MARK_DEBUG true [get_nets calculate_dft_wrapper__inst/blk_mem_gen_dft_im__inst0/wea[*]   ]
+# 
+# # based on mcs clock
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_wr_9C    ]
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_pi_9C[*] ]
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_wr_9D    ]
+# set_property MARK_DEBUG true [get_nets lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_port_pi_9D[*] ]
+
 
 
 ##------------------------------------------------------------------------##
@@ -107,6 +267,11 @@ resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y2:C
 create_pblock pblock_mth
 add_cells_to_pblock [get_pblocks pblock_mth] [get_cells -quiet [list  master_spi_mth_brd__inst slave_spi_mth_brd__M2_inst]]
 resize_pblock [get_pblocks pblock_mth] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y1}
+
+
+create_pblock pblock_adc_wrapper__inst
+add_cells_to_pblock [get_pblocks pblock_adc_wrapper__inst] [get_cells -quiet [list  adc_wrapper__inst]]
+resize_pblock [get_pblocks pblock_adc_wrapper__inst] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y4}
 
 
 create_pblock pblock_dac
