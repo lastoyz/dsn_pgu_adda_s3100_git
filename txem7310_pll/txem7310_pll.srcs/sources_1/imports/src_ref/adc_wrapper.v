@@ -144,105 +144,13 @@ always @(posedge sys_clk, negedge reset_n)
 //}
 
 
-//// sampling signals //{
-
-//  
-//  (* keep = "true" *) 
-//  reg         r_smp_NCE; //{
-//  
-//  always @(posedge host_clk, negedge reset_n) begin
-//      if (!reset_n) begin
-//          r_smp_NCE <= 1'b1;
-//      end
-//      else begin
-//          r_smp_NCE <= i_FMC_NCE;
-//      end
-//  end
-//  
-//  //}
-//  
-//  (* keep = "true" *) 
-//  reg   [1:0] r_smp_WE_BUS; //{
-//  
-//  wire w_WE_BUS = i_FMC_NWE | i_FMC_NCE; //$$ check NCE
-//  wire w_rise_WE_BUS = (~(r_smp_WE_BUS[1])) & ( (r_smp_WE_BUS[0]));
-//  wire w_fall_WE_BUS = ( (r_smp_WE_BUS[1])) & (~(r_smp_WE_BUS[0]));
-//  always @(posedge host_clk, negedge reset_n) begin
-//      if (!reset_n) begin
-//          r_smp_WE_BUS <= 2'b11;
-//      end
-//      else begin
-//          r_smp_WE_BUS <= {r_smp_WE_BUS[0], w_WE_BUS};
-//      end
-//  end
-//  
-//  //}
-//  
-//  (* keep = "true" *) 
-//  reg   [1:0] r_smp_OE_BUS; //{
-//  
-//  wire w_OE_BUS = i_FMC_NOE | i_FMC_NCE; //$$ check NCE
-//  wire w_rise_OE_BUS = (~(r_smp_OE_BUS[1])) & ( (r_smp_OE_BUS[0]));
-//  wire w_fall_OE_BUS = ( (r_smp_OE_BUS[1])) & (~(r_smp_OE_BUS[0]));
-//  always @(posedge host_clk, negedge reset_n) begin
-//      if (!reset_n) begin
-//          r_smp_OE_BUS <= 2'b11;
-//      end
-//      else begin
-//          r_smp_OE_BUS <= {r_smp_OE_BUS[0], w_OE_BUS};
-//      end
-//  end
-//  
-//  //}
-//  
-//  (* keep = "true" *) 
-//  reg  [31:0] r_ADRS_BUS; //{ 
-//  
-//  reg  [31:0] r_ADRS_BUS__smp;
-//  
-//  wire [31:0] w_ADRS_BUS = i_FMC_ADD;
-//  always @(posedge host_clk, negedge reset_n) begin
-//      if (!reset_n) begin
-//          r_ADRS_BUS      <= 32'b0;
-//          r_ADRS_BUS__smp <= 32'b0;
-//      end
-//      else begin
-//          //r_ADRS_BUS <= ( w_fall_WE_BUS | w_fall_OE_BUS ) ? w_ADRS_BUS : r_ADRS_BUS; // method 0
-//  		//r_ADRS_BUS <= ( !r_smp_NCE ) ? w_ADRS_BUS : r_ADRS_BUS; // method 1
-//  		// add delay for rise dection 
-//  		r_ADRS_BUS__smp <= ( !r_smp_NCE ) ? w_ADRS_BUS : r_ADRS_BUS; // method 1
-//  		r_ADRS_BUS      <= r_ADRS_BUS__smp;
-//      end
-//  end
-//  
-//  //}
-//  
-//  (* keep = "true" *) 
-//  reg  [15:0] r_DATA_WR; //{
-//  
-//  reg  [15:0] r_DATA_WR_smp;
-//  
-//  wire [15:0] w_DATA_WR = i_FMC_DWR;
-//  always @(posedge host_clk, negedge reset_n) begin
-//      if (!reset_n) begin
-//          r_DATA_WR     <= 16'b0;
-//          r_DATA_WR_smp <= 16'b0;
-//      end
-//      else begin
-//  		r_DATA_WR_smp <= ( !r_smp_WE_BUS[0] ) ? w_DATA_WR : r_DATA_WR;
-//  		r_DATA_WR     <= r_DATA_WR_smp;
-//      end
-//  end
-//  
-//  //}
-//
-  
-//}
-
-
 // fifo pipe read clock 
 //wire c_adc_fifo_read = base_sspi_clk; // only for sspi in sim
+
 wire c_adc_fifo_read = adc_bus_clk; 
+wire [17:0] w_hsadc_fifo_adc0_dout;
+wire [17:0] w_hsadc_fifo_adc1_dout;
+
 
 // DFT interface signals
 wire  w_hsadc_fifo_adc0_wr;
@@ -315,7 +223,7 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 	      .o_wr_fifo_0	(w_hsadc_fifo_adc0_wr		), // monitor //$$ for DFT calc
 	      .o_wr_fifo_1	(w_hsadc_fifo_adc1_wr		), // monitor //$$ for DFT calc
 	 //
-	.o_data_out_fifo_0	(o_hsadc_fifo_adc0_dout		), // [17:0] // to endpoint
+	.o_data_out_fifo_0	(w_hsadc_fifo_adc0_dout		), // [17:0] // to endpoint
 	      .i_rd_fifo_0	(i_hsadc_fifo_adc0_rd_en	), // to endpoint
 	  .o_pempty_fifo_0	(o_hsadc_fifo_adc0_pempty	), // to endpoint
 	   .o_empty_fifo_0	(o_hsadc_fifo_adc0_empty	), // to endpoint
@@ -326,7 +234,7 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 	   .o_valid_fifo_0	(), // unused // fifo_adc0_valid
 	   .o_uflow_fifo_0	(), // unused // fifo_adc0_uflow
 	//
-	.o_data_out_fifo_1	(o_hsadc_fifo_adc1_dout		), // [17:0] // to endpoint
+	.o_data_out_fifo_1	(w_hsadc_fifo_adc1_dout		), // [17:0] // to endpoint
 	      .i_rd_fifo_1	(i_hsadc_fifo_adc1_rd_en	), // to endpoint
 	  .o_pempty_fifo_1	(o_hsadc_fifo_adc1_pempty	), // to endpoint
 	   .o_empty_fifo_1	(o_hsadc_fifo_adc1_empty	), // to endpoint
@@ -366,6 +274,25 @@ detect_rise_edge  detect_rise_edge__inst__test_done (
 	.i_sig   (o_hsadc_test_done),
 	.o_pulse (o_hsadc_test_done_to)
 ); 
+
+
+
+// fifo read data latency one clock : c_adc_fifo_read
+reg [17:0] r_hsadc_fifo_adc0_dout;
+reg [17:0] r_hsadc_fifo_adc1_dout;
+assign o_hsadc_fifo_adc0_dout = r_hsadc_fifo_adc0_dout;
+assign o_hsadc_fifo_adc1_dout = r_hsadc_fifo_adc1_dout;
+//
+always @(posedge c_adc_fifo_read, negedge reset_n)
+	if (!reset_n) begin
+		r_hsadc_fifo_adc0_dout <=  18'b0;
+		r_hsadc_fifo_adc1_dout <=  18'b0;
+	end
+	else begin
+		r_hsadc_fifo_adc0_dout <= w_hsadc_fifo_adc0_dout;
+		r_hsadc_fifo_adc1_dout <= w_hsadc_fifo_adc1_dout;
+	end
+
 
 
 endmodule //}
