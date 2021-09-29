@@ -3809,10 +3809,38 @@ namespace TopInstrument
             for (ii=0;ii<num_data;ii++) {
                 tmp = BitConverter.ToInt32(buf_pipe, ii*4); // read one pipe data every 4 bytes
                 //buf_s32[ii] = (u8) (tmp & 0x000000FF); // 8 bit limit
-                buf_s32[ii] = tmp;
+                buf_s32[ii] = tmp; // adc uses 32 bits ... msb side 18 bits are valid.
             }
 
             return ret/4; // number of bytes --> number of int
+        }
+
+        private void adc_log_buf(char[] log_filename, s32[] buf0_s32, s32[] buf1_s32) {
+            //
+		    string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
+            string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
+
+            // open or create a file
+            try {
+                using (StreamWriter ws = new StreamWriter(LogFileName, false))
+                    ws.WriteLine("## log start"); //$$ add python comment header
+            }
+            catch {
+                System.IO.Directory.CreateDirectory(LogFilePath);
+                using (StreamWriter ws = new StreamWriter(LogFileName, false))
+                    ws.WriteLine("## log start"); //$$ add python comment header
+            }
+
+            // write data on the file
+            using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
+                //ws.WriteLine("Tdata_seg = [" + merge_time_ns_str          + "]"); // time point
+                //ws.WriteLine("Ddata_seg = [" + merge_duration_ns_str      + "]"); // duration time
+                //ws.WriteLine("Vdata_seg = [" + merge_code_value_float_str + "] \n"); // voltage value
+                ws.WriteLine("test data = [0, 1, 2, 3]"); // test
+            }
+
+
+
         }
 
 
@@ -3906,6 +3934,8 @@ namespace TopInstrument
             dev_eps.adc_read_fifo(1, 40, buf1_s32); // (u32 ch, u32 num_data, s32[] buf_s32);
 
             // log and display fifo data // to come
+            char[] log_filename = "log__adc_buf.py".ToCharArray();
+            dev_eps.adc_log_buf(log_filename, buf0_s32, buf1_s32); // (char[] log_filename, s32[] buf0_s32, s32[] buf1_s32)
 
             // adc disable 
             val = dev_eps.adc_disable();
