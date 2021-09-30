@@ -10,6 +10,7 @@
 #
 
 import log__adc_buf as adc_log
+#import log__adc_buf__dac as adc_log
 
 test_data_list        = adc_log.test_data # test
 adc_buf0_list_s32     = adc_log.adc_buf0  # adc buf0

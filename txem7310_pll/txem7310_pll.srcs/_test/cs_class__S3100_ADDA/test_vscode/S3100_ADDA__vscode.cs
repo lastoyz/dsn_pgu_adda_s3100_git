@@ -3610,7 +3610,7 @@ namespace TopInstrument
             return spio_send_spi_frame(framedata);
         }
 
-        private u32 sp1_ext_init(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp) {
+        private u32 sp1_ext_init(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0) {
             //...
             u32 dir_read;
             u32 lat_read;
@@ -3649,7 +3649,8 @@ namespace TopInstrument
             sp1_reg_write_b16(0x00, dir_read & 0xFC10);
             
             //# set IO for SP1 PB[3:0]
-            u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            //u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            u32 val = (lat_read & 0xFCF0) | ( (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
             sp1_reg_write_b16(0x12,val);
 
             // power stability delay 
@@ -3702,11 +3703,14 @@ namespace TopInstrument
             u32 val_s1 = (inp_read>>1) & 0x0001;
             u32 val_s2 = (inp_read>>2) & 0x0001;
             u32 val_s3 = (inp_read>>3) & 0x0001;
+            u32 val_s8 = (inp_read>>8) & 0x0001;
+            u32 val_s9 = (inp_read>>9) & 0x0001;
 
             // ADC power on 
             if      (val==1) val_s1 = 1;
             else if (val==0) val_s1 = 0;
-            sp1_ext_init(val_s3, val_s2, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+            //sp1_ext_init(val_s3, val_s2, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+            sp1_ext_init(val_s3, val_s2, val_s1, val_s0, val_s8, val_s9); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
 
             // power stability delay 1ms or more.
             Delay(10);
@@ -3902,7 +3906,8 @@ namespace TopInstrument
 
             // spio init for power control
             //val = dev_eps.sp1_ext_init(1,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
-            val = dev_eps.sp1_ext_init(1,1,1,1); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+            //val = dev_eps.sp1_ext_init(1,1,1,1); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+            val = dev_eps.sp1_ext_init(1,1,1,1,1,1); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
             Console.WriteLine(string.Format("{0} = 0x{1,4:X4} ", "sp1_ext_init", val));
 
             // adc power on 
@@ -3946,11 +3951,15 @@ namespace TopInstrument
             
             // check fifo in data in logic debugger
 
+            //// DAC DC test
+
+            // no setup for DAC
+
             // adc normal setup and data collection
+            s32 len_adc_data = 10000;
             //dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
-            s32 len_adc_data = 10000;
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
             dev_eps.adc_fifo_rst(); // clear fifo for new data
@@ -3963,8 +3972,37 @@ namespace TopInstrument
             dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
-            char[] log_filename = "log__adc_buf.py".ToCharArray();
-            dev_eps.adc_log_buf(log_filename, len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
+            dev_eps.adc_log_buf("log__adc_buf.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
+
+
+            //// DAC wave test
+
+            // DAC setup
+
+
+            // adc normal setup and data collection
+            len_adc_data = 10000;
+            //dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
+            dev_eps.adc_init(); // init with setup parameters
+            dev_eps.adc_fifo_rst(); // clear fifo for new data
+            dev_eps.adc_update();
+
+            // clear local buffers
+            buf0_s32 = null;
+            buf1_s32 = null;
+            GC.Collect(); // Collect all generations of memory.
+
+            // fifo data read 
+            buf0_s32 = new s32[len_adc_data];
+            buf1_s32 = new s32[len_adc_data];
+            dev_eps.adc_read_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+
+            // log fifo data into a file
+            dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
             // adc disable 
             val = dev_eps.adc_disable();
@@ -3972,7 +4010,8 @@ namespace TopInstrument
 
             // adc power off
             dev_eps.adc_pwr(0);
-            dev_eps.sp1_ext_init(0,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+            //dev_eps.sp1_ext_init(0,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
+            dev_eps.sp1_ext_init(0,0,0,0,0,0); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
 
             // test finish
             Console.WriteLine(dev_eps.eps_disable());
