@@ -3768,8 +3768,8 @@ namespace TopInstrument
             SetWireInValue(EP_ADRS__ADCH_SMP_PR_WI, val);
             return val;
         }
-        private u32 adc_set_update_sample_num(u32 val) {
-            SetWireInValue(EP_ADRS__ADCH_UPD_SM_WI, val);
+        private s32 adc_set_update_sample_num(s32 val) {
+            SetWireInValue(EP_ADRS__ADCH_UPD_SM_WI, (u32)val);
             return val;
         }
         private u32 adc_set_tap_control(
@@ -3788,7 +3788,7 @@ namespace TopInstrument
             return val;
         }
 
-        private u32 adc_read_fifo(u32 ch, u32 num_data, s32[] buf_s32) {
+        private u32 adc_read_fifo(u32 ch, s32 num_data, s32[] buf_s32) {
             u32 ret;
             u32 adrs = EP_ADRS__MEM_PO;
             u8[] buf_pipe = new u8[num_data*4]; // *4 for 32-bit pipe 
@@ -3831,10 +3831,15 @@ namespace TopInstrument
                     ws.WriteLine("## log start"); //$$ add python comment header
             }
 
+            // note adc full scale : +/-4.096V with 2^31-1 ~ -2^31
+            float adc_scale = (float)4.096 / ((float)Math.Pow(2,31)-(float)1.0);
+
             string buf0_s32_str = "";
             string buf1_s32_str = "";
             string buf0_s32_hex_str = "";
             string buf1_s32_hex_str = "";
+            string buf0_flt_str = "";
+            string buf1_flt_str = "";
 
             for (s32 i = 0; i < len_data; i++) {
                 //
@@ -3842,6 +3847,8 @@ namespace TopInstrument
                 buf1_s32_str     = buf1_s32_str + string.Format("{0,11:D}, ",buf1_s32[i]);
                 buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X}', ",buf0_s32[i]);
                 buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X}', ",buf1_s32[i]);
+                buf0_flt_str     = buf0_flt_str + string.Format("{0,11:F8}, ",(float)buf0_s32[i]*adc_scale);
+                buf1_flt_str     = buf1_flt_str + string.Format("{0,11:F8}, ",(float)buf1_s32[i]*adc_scale);
             }
 
             // write data string on the file
@@ -3855,6 +3862,8 @@ namespace TopInstrument
                 ws.WriteLine("adc_buf1     = [" + buf1_s32_str + "]"); // from buf1_s32
                 ws.WriteLine("adc_buf0_hex = [" + buf0_s32_hex_str + "]"); // from buf0_s32
                 ws.WriteLine("adc_buf1_hex = [" + buf1_s32_hex_str + "]"); // from buf1_s32
+                ws.WriteLine("adc_buf0_flt = [" + buf0_flt_str + "]"); // from buf0_s32
+                ws.WriteLine("adc_buf1_flt = [" + buf1_flt_str + "]"); // from buf1_s32
             }
 
 
@@ -3921,7 +3930,7 @@ namespace TopInstrument
             //dev_eps.adc_set_sampling_period(210); // 210MHz/2100 = 0.1 Msps
 
             // adc update sample numbers
-            dev_eps.adc_set_update_sample_num(40); // 40 samples
+            dev_eps.adc_set_update_sample_num(40); // 40 samples for test
 
             // adc init 
             val = dev_eps.adc_init();
@@ -3938,22 +3947,24 @@ namespace TopInstrument
             // check fifo in data in logic debugger
 
             // adc normal setup and data collection
-            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            //dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
-            dev_eps.adc_set_update_sample_num(40); // 40 samples
+            s32 len_adc_data = 10000;
+            dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
             dev_eps.adc_fifo_rst(); // clear fifo for new data
             dev_eps.adc_update();
 
             // fifo data read 
-            s32[] buf0_s32 = new s32[40];
-            s32[] buf1_s32 = new s32[40];
-            dev_eps.adc_read_fifo(0, 40, buf0_s32); // (u32 ch, u32 num_data, s32[] buf_s32);
-            dev_eps.adc_read_fifo(1, 40, buf1_s32); // (u32 ch, u32 num_data, s32[] buf_s32);
+            s32[] buf0_s32 = new s32[len_adc_data];
+            s32[] buf1_s32 = new s32[len_adc_data];
+            dev_eps.adc_read_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
             char[] log_filename = "log__adc_buf.py".ToCharArray();
-            dev_eps.adc_log_buf(log_filename, 40, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
+            dev_eps.adc_log_buf(log_filename, len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
             // adc disable 
             val = dev_eps.adc_disable();

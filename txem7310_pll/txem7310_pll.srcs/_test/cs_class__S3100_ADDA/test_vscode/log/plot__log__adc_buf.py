@@ -14,8 +14,10 @@ import log__adc_buf as adc_log
 test_data_list        = adc_log.test_data # test
 adc_buf0_list_s32     = adc_log.adc_buf0  # adc buf0
 adc_buf1_list_s32     = adc_log.adc_buf1  # adc buf1
-adc_buf0_list_hex_str = adc_log.adc_buf0_hex  # adc buf0
-adc_buf1_list_hex_str = adc_log.adc_buf1_hex  # adc buf1
+adc_buf0_list_hex_str = adc_log.adc_buf0_hex  # adc buf0 hex
+adc_buf1_list_hex_str = adc_log.adc_buf1_hex  # adc buf1 hex
+adc_buf0_list_flt     = adc_log.adc_buf0_flt  # adc buf0 float
+adc_buf1_list_flt     = adc_log.adc_buf1_flt  # adc buf1 float
 
 
 import matplotlib.pyplot as plt
@@ -29,6 +31,8 @@ def plot_test():
 	global adc_buf1_list_s32    
 	global adc_buf0_list_hex_str
 	global adc_buf1_list_hex_str	
+	global adc_buf0_list_flt    
+	global adc_buf1_list_flt    
 
 	###
 
@@ -37,7 +41,42 @@ def plot_test():
 	print(">> length of adc_buf1  = {} ".format(len(adc_buf1_list_s32 )))
 	print(">> length of adc_buf0  = {} ".format(len(adc_buf0_list_hex_str )))
 	print(">> length of adc_buf1  = {} ".format(len(adc_buf1_list_hex_str )))
+	print(">> length of adc_buf0  = {} ".format(len(adc_buf0_list_flt )))
+	print(">> length of adc_buf1  = {} ".format(len(adc_buf1_list_flt )))
 
+	# plot 1 - overview
+	FIG_NUM = 1
+	plt.figure(FIG_NUM, figsize=(8, 6))
+	
+	title_str = 'adc0(red) and adc1(blue)'
+	t_list = range(len(adc_buf0_list_s32))
+
+	plt.plot(t_list, adc_buf0_list_s32, 'ro-', markersize=10)
+	plt.plot(t_list, adc_buf1_list_s32, 'bs-', markersize=10, alpha=0.5)
+
+	plt.title(title_str)
+	plt.ylabel('adc_32bit_scale')
+	plt.xlabel('data index')
+	plt.grid(True)
+
+
+	# plot 2 - voltages
+	FIG_NUM = 2
+	plt.figure(FIG_NUM, figsize=(8, 6))
+	
+	title_str = 'adc0(red) and adc1(blue)'
+	t_list = range(len(adc_buf0_list_s32))
+
+	plt.plot(t_list, adc_buf0_list_flt, 'ro-', markersize=10)
+	plt.plot(t_list, adc_buf1_list_flt, 'bs-', markersize=10, alpha=0.5)
+
+	plt.title(title_str)
+	plt.ylabel('adc_voltage')
+	plt.xlabel('data index')
+	plt.grid(True)
+
+	##
+	plt.show()
 
 #	# data
 #	#t_list = [0,  1, 2 ] ## time
