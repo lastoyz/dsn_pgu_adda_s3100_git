@@ -3815,7 +3815,7 @@ namespace TopInstrument
             return ret/4; // number of bytes --> number of int
         }
 
-        private void adc_log_buf(char[] log_filename, s32[] buf0_s32, s32[] buf1_s32) {
+        private void adc_log_buf(char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32) {
             //
 		    string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
@@ -3831,15 +3831,30 @@ namespace TopInstrument
                     ws.WriteLine("## log start"); //$$ add python comment header
             }
 
-            // write data on the file
+            string buf0_s32_str = "";
+            string buf1_s32_str = "";
+            string buf0_s32_hex_str = "";
+            string buf1_s32_hex_str = "";
+
+            for (s32 i = 0; i < len_data; i++) {
+                //
+                buf0_s32_str     = buf0_s32_str + string.Format("{0,11:D}, ",buf0_s32[i]);
+                buf1_s32_str     = buf1_s32_str + string.Format("{0,11:D}, ",buf1_s32[i]);
+                buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X}', ",buf0_s32[i]);
+                buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X}', ",buf1_s32[i]);
+            }
+
+            // write data string on the file
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                 //ws.WriteLine("Tdata_seg = [" + merge_time_ns_str          + "]"); // time point
                 //ws.WriteLine("Ddata_seg = [" + merge_duration_ns_str      + "]"); // duration time
                 //ws.WriteLine("Vdata_seg = [" + merge_code_value_float_str + "] \n"); // voltage value
                 ws.WriteLine("test_data = [0, 1, 2, 3]"); // test
                 ws.WriteLine(""); // newline
-                ws.WriteLine("adc_buf0 = [" + "]"); // 
-                ws.WriteLine("adc_buf1 = [" + "]"); //
+                ws.WriteLine("adc_buf0     = [" + buf0_s32_str + "]"); // from buf0_s32
+                ws.WriteLine("adc_buf1     = [" + buf1_s32_str + "]"); // from buf1_s32
+                ws.WriteLine("adc_buf0_hex = [" + buf0_s32_hex_str + "]"); // from buf0_s32
+                ws.WriteLine("adc_buf1_hex = [" + buf1_s32_hex_str + "]"); // from buf1_s32
             }
 
 
@@ -3938,7 +3953,7 @@ namespace TopInstrument
 
             // log fifo data into a file
             char[] log_filename = "log__adc_buf.py".ToCharArray();
-            dev_eps.adc_log_buf(log_filename, buf0_s32, buf1_s32); // (char[] log_filename, s32[] buf0_s32, s32[] buf1_s32)
+            dev_eps.adc_log_buf(log_filename, 40, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
             // adc disable 
             val = dev_eps.adc_disable();

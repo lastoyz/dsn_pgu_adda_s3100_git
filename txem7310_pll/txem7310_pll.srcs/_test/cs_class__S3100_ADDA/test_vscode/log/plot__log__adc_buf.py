@@ -2,16 +2,20 @@
 # plot data from log__adc_buf.py
 
 ## import info
-# test_data
-# adc_buf0
-# adc_buf1
+# test_data_list
+# adc_buf0_list_s32
+# adc_buf1_list_s32
+# adc_buf0_list_hex_str
+# adc_buf1_list_hex_str
 #
 
 import log__adc_buf as adc_log
 
-test_data  = adc_log.test_data # test
-adc_buf0   = adc_log.adc_buf0  # adc buf0
-adc_buf1   = adc_log.adc_buf1  # adc buf1
+test_data_list        = adc_log.test_data # test
+adc_buf0_list_s32     = adc_log.adc_buf0  # adc buf0
+adc_buf1_list_s32     = adc_log.adc_buf1  # adc buf1
+adc_buf0_list_hex_str = adc_log.adc_buf0_hex  # adc buf0
+adc_buf1_list_hex_str = adc_log.adc_buf1_hex  # adc buf1
 
 
 import matplotlib.pyplot as plt
@@ -20,15 +24,19 @@ import matplotlib.pyplot as plt
 def plot_test():
 	## data from outside
 	# in global
-	global test_data
-	global adc_buf0 
-	global adc_buf1 
-	
+	global test_data_list       
+	global adc_buf0_list_s32    
+	global adc_buf1_list_s32    
+	global adc_buf0_list_hex_str
+	global adc_buf1_list_hex_str	
+
 	###
 
-	print(">> length of test_data = {} ".format(len(test_data)))
-	print(">> length of adc_buf0  = {} ".format(len(adc_buf0 )))
-	print(">> length of adc_buf1  = {} ".format(len(adc_buf1 )))
+	print(">> length of test_data = {} ".format(len(test_data_list)))
+	print(">> length of adc_buf0  = {} ".format(len(adc_buf0_list_s32 )))
+	print(">> length of adc_buf1  = {} ".format(len(adc_buf1_list_s32 )))
+	print(">> length of adc_buf0  = {} ".format(len(adc_buf0_list_hex_str )))
+	print(">> length of adc_buf1  = {} ".format(len(adc_buf1_list_hex_str )))
 
 
 #	# data
