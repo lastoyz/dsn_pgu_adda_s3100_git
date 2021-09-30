@@ -3836,7 +3836,10 @@ namespace TopInstrument
                 //ws.WriteLine("Tdata_seg = [" + merge_time_ns_str          + "]"); // time point
                 //ws.WriteLine("Ddata_seg = [" + merge_duration_ns_str      + "]"); // duration time
                 //ws.WriteLine("Vdata_seg = [" + merge_code_value_float_str + "] \n"); // voltage value
-                ws.WriteLine("test data = [0, 1, 2, 3]"); // test
+                ws.WriteLine("test_data = [0, 1, 2, 3]"); // test
+                ws.WriteLine(""); // newline
+                ws.WriteLine("adc_buf0 = [" + "]"); // 
+                ws.WriteLine("adc_buf1 = [" + "]"); //
             }
 
 
@@ -3933,7 +3936,7 @@ namespace TopInstrument
             dev_eps.adc_read_fifo(0, 40, buf0_s32); // (u32 ch, u32 num_data, s32[] buf_s32);
             dev_eps.adc_read_fifo(1, 40, buf1_s32); // (u32 ch, u32 num_data, s32[] buf_s32);
 
-            // log and display fifo data // to come
+            // log fifo data into a file
             char[] log_filename = "log__adc_buf.py".ToCharArray();
             dev_eps.adc_log_buf(log_filename, buf0_s32, buf1_s32); // (char[] log_filename, s32[] buf0_s32, s32[] buf1_s32)
 
