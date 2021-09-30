@@ -3910,6 +3910,7 @@ namespace TopInstrument
             val = dev_eps.sp1_ext_init(1,1,1,1,1,1); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
             Console.WriteLine(string.Format("{0} = 0x{1,4:X4} ", "sp1_ext_init", val));
 
+
             // adc power on 
             dev_eps.adc_pwr(1);
             
@@ -3979,8 +3980,48 @@ namespace TopInstrument
 
             // DAC setup
 
+            //$$ note: DAC/CLKD IC, FPGA PLL setup and Pattern generator setup
+            // dac_dev_*
+            // dac_clk_*
+            // dac_pll_*
+            // dac_pat_*
+            // dac_out_* : dac output direct control (reserved)
 
-            // adc normal setup and data collection
+            // dac init
+            //...
+            
+            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
+            //pgu_freq__send(time_ns__dac_update);
+
+            //double DAC_full_scale_current__mA = 25.5; // 20.1Vpp
+            //pgu_gain__send(1, DAC_full_scale_current__mA);
+            //pgu_gain__send(2, DAC_full_scale_current__mA);
+
+            //float DAC_offset_current__mA = 0; // 0 min // # 0.625 mA
+            //float DAC_offset_current__mA = 1; // 
+            //float DAC_offset_current__mA = 2; // 2 max
+            //int N_pol_sel = 1; // 1
+            //int Sink_sel = 1; // 1
+            //pgu_ofst__send(1, DAC_offset_current__mA, N_pol_sel, Sink_sel);
+            //pgu_ofst__send(2, DAC_offset_current__mA, N_pol_sel, Sink_sel);
+
+            //$$ generate waveform
+            //var range = set_setup_pgu(PG_Ch, OutputRange, StepTime__no_dup, StepLevel__no_dup); //$$ return Tuple<long[], string[], int>
+
+            //$$ download waveform into FPGA FIFO
+            //load_pgu_waveform_Cid(PG_Ch, range.Item1, range.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
+
+            // subfunctions:
+            // pgu_pwr__on
+            // pgu_pwr__off
+            // pgu_nfdt__send_log
+            // pgu_fdac__send_log
+            // pgu_frpt__send_log
+            // pgu_trig__on_log
+            // pgu_trig__off
+
+
+            // adc normal setup 
             len_adc_data = 10000;
             //dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
@@ -3988,7 +4029,19 @@ namespace TopInstrument
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
             dev_eps.adc_fifo_rst(); // clear fifo for new data
-            dev_eps.adc_update();
+            
+            // trigger DAC wave
+            //...
+
+            // trigger adc data collection
+            dev_eps.adc_update(); 
+
+            // clear DAC wave
+            //...
+
+            // dac finish
+            //...
+
 
             // clear local buffers
             buf0_s32 = null;
@@ -4003,6 +4056,7 @@ namespace TopInstrument
 
             // log fifo data into a file
             dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
+
 
             // adc disable 
             val = dev_eps.adc_disable();
