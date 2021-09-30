@@ -5181,7 +5181,7 @@ namespace TopInstrument
         private Tuple<long[], string[], long> set_setup_pgu(int Ch, int OutputRange, long[] time_ns_list, double[] level_volt_list)
         {          
 
-            double __gui_load_impedance_ohm = 50; //$$ must come from parameter list
+            double __gui_load_impedance_ohm = 1e6; //$$ must come from parameter list
             int    time_ns__code_duration   = 10; //$$ must come from parameter list
 
             string Timedata;
@@ -5543,6 +5543,8 @@ namespace TopInstrument
             StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
             
             dev_eps.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
+            //dev_eps.InitializePGU(20, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
+            //dev_eps.InitializePGU(50, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
 
             //$$ generate waveform and download
             dev_eps.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
@@ -5572,7 +5574,7 @@ namespace TopInstrument
             // trigger DAC wave
             //...
             //dev.ForcePGU_ON__delayed_OFF(2,  true,  true, 3500); // (int CycleCount, bool Ch1, bool Ch2)
-            dev_eps.trig_pgu_output_Cid_ON(10, true, true);
+            dev_eps.trig_pgu_output_Cid_ON(100, true, true);
 
             // trigger adc data collection
             dev_eps.adc_update(); 
