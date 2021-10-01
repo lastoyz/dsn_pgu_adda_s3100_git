@@ -5563,19 +5563,54 @@ namespace TopInstrument
             long[]   StepTime;
             double[] StepLevel;
 
+            //// case base
+            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
+            StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
+
             //// case 0
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
-            //StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
+            //StepLevel = new double[] { 0.0,  0.0, 20.0, 20.0, 40.0, 40.0,   11,   11,  0.0,  0.0 }; // V
             //// case 1
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
-            //StepLevel = new double[] { 0.0,  0.0, 20.0, 20.0, 40.0, 40.0,   11,   11,  0.0,  0.0 }; // V
+            //StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
             //// case 2
-            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
-            //StepLevel = new double[] { 0.0,  0.0,  5.0,  5.0, 10.0, 10.0,  2.3,  2.3,  0.0,  0.0 }; // V
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000,  6000,  7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  5.0,  5.0, 10.0, 10.0,  2.75,  2.75,  0.0,  0.0 }; // V
             //// case 3
-            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0,  2.5,  2.5,  5.0,  5.0,  1.3,  1.3,  0.0,  0.0 }; // V
-            
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000,   6000,   7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  2.5,  2.5,  5.0,  5.0,  1.375,  1.375,  0.0,  0.0 }; // V
+            //// case 4
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000,   6000,   7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0, 1.25, 1.25,  2.5,  2.5, 0.6875, 0.6875,  0.0,  0.0 }; // V
+            //// case 5
+            //StepTime  = new long[]   {   0, 1000,  2000,  3000, 4000, 5000,    6000,    7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0, 0.625, 0.625, 1.25, 1.25, 0.34375, 0.34375,  0.0,  0.0 }; // V
+            //// case 6
+            //StepTime  = new long[]   {   0, 1000,   2000,   3000,  4000,  5000,     6000,     7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0, 0.3125, 0.3125, 0.625, 0.625, 0.171875, 0.171875,  0.0,  0.0 }; // V
+
+            //// case 7
+            //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0, -0.3125, -0.3125, -0.625, -0.625, -0.171875, -0.171875,  0.0,  0.0 }; // V
+            //// case 8
+            //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  -0.625,  -0.625,  -1.25,  -1.25,  -0.34375,  -0.34375,  0.0,  0.0 }; // V
+            //// case 9
+            //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,   -1.25,   -1.25,   -2.5,   -2.5,   -0.6875,   -0.6875,  0.0,  0.0 }; // V
+            //// case 10
+            //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,    -2.5,    -2.5,   -5.0,   -5.0,    -1.375,    -1.375,  0.0,  0.0 }; // V
+            //// case 11
+            //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,    -5.0,    -5.0,  -10.0,  -10.0,     -2.75,     -2.75,  0.0,  0.0 }; // V
+            //// case 12
+            //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,   -10.0,   -10.0,  -20.0,  -20.0,      -5.5,      -5.5,  0.0,  0.0 }; // V
+            //// case 13
+            //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,   -20.0,   -20.0,  -40.0,  -40.0,     -11.0,     -11.0,  0.0,  0.0 }; // V
+
             dev_eps.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
             //dev_eps.InitializePGU(20, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
             //dev_eps.InitializePGU(50, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
