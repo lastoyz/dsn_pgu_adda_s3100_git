@@ -4463,9 +4463,9 @@ namespace TopInstrument
 
             //// new try 
             if (val_0_cnt_seek_hi>0) val_0_center_new = val_0_seek_w_sum / val_0_cnt_seek_hi;
-            else                     val_0_center_new = val_0_seek_w_sum;
+            else                     val_0_center_new = 15; // no seek_hi
             if (val_1_cnt_seek_hi>0) val_1_center_new = val_1_seek_w_sum / val_1_cnt_seek_hi;
-            else                     val_1_center_new = val_1_seek_w_sum;
+            else                     val_1_center_new = 15; // no seek_hi
 
             xil_printf(" >>>> weighted sum \r\n");
             xil_printf(" > val_0_seek_w_sum  : %02d \r\n", val_0_seek_w_sum  );
@@ -4597,12 +4597,6 @@ namespace TopInstrument
 
             //$$ DAC input delay tap calibration
             pgu_dacx_cal_input_dtap();
-
-
-            //// previous LAN command for freq setting
-            //string pgu_freq_in_100kHz_str = string.Format(" {0,4:D4} \n", pgu_freq_in_100kHz);
-            //byte[] PGU_FREQ_100kHz_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_FREQ + pgu_freq_in_100kHz_str);
-            //ret = scpi_comm_resp_ss(PGU_FREQ_100kHz_STR);
 
             return ret;
         }        
@@ -5383,8 +5377,37 @@ namespace TopInstrument
 
 
         private void SetSetupPGU(int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel) {
-            //
-            var range = set_setup_pgu(PG_Ch, OutputRange, StepTime, StepLevel); //$$ return Tuple<long[], string[], int>
+            // copy buffer and remove duplicate data
+            List<long>   StepTime_List  = new List<long>();
+            List<double> StepLevel_List = new List<double>();
+            
+            // add the first elements into list
+            StepTime_List.Add(StepTime[0]);
+            StepLevel_List.Add(StepLevel[0]);
+
+            for (int i = 1; i < StepTime.Length; i++)
+            {
+                if (StepTime[i]  == StepTime[i-1]) {
+                    if (StepLevel[i] == StepLevel[i-1] ) {
+                        continue; // leave for removing dup data with same voltage
+                    } 
+                    else {
+                        break; // not able to remove dup data due to difference voltage
+                    }
+                    
+                }
+
+                StepTime_List.Add(StepTime[i]);
+                StepLevel_List.Add(StepLevel[i]);
+                
+            }
+
+            // You can convert it back to an array if you would like to
+            long[] StepTime__no_dup  = StepTime_List.ToArray();
+            double[] StepLevel__no_dup = StepLevel_List.ToArray();
+
+            // call setup functions
+            var range = set_setup_pgu(PG_Ch, OutputRange, StepTime__no_dup, StepLevel__no_dup); //$$ return Tuple<long[], string[], int>
             load_pgu_waveform_Cid(PG_Ch, range.Item1, range.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
             
         }
@@ -5539,8 +5562,19 @@ namespace TopInstrument
             //$$ pulse setup
             long[]   StepTime;
             double[] StepLevel;
+
+            //// case 0
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
+            //// case 1
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0, 20.0, 20.0, 40.0, 40.0,   11,   11,  0.0,  0.0 }; // V
+            //// case 2
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  5.0,  5.0, 10.0, 10.0,  2.3,  2.3,  0.0,  0.0 }; // V
+            //// case 3
             StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
+            StepLevel = new double[] { 0.0,  0.0,  2.5,  2.5,  5.0,  5.0,  1.3,  1.3,  0.0,  0.0 }; // V
             
             dev_eps.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
             //dev_eps.InitializePGU(20, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)

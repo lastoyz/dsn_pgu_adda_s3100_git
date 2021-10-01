@@ -45,7 +45,15 @@ def plot_test():
 	print(">> length of adc_buf0  = {} ".format(len(adc_buf0_list_flt )))
 	print(">> length of adc_buf1  = {} ".format(len(adc_buf1_list_flt )))
 
-	# plot 1 - overview
+	###
+
+	# calculate 18-bit adc list
+	adc_buf0_list_s32_18b = [ x>>14 for x in adc_buf0_list_s32]
+	adc_buf1_list_s32_18b = [ x>>14 for x in adc_buf1_list_s32]
+
+	###
+
+	# plot 1 - ADC 32-bit
 	FIG_NUM = 1
 	plt.figure(FIG_NUM, figsize=(8, 6))
 	
@@ -61,7 +69,7 @@ def plot_test():
 	plt.grid(True)
 
 
-	# plot 2 - voltages
+	# plot 2 - voltages : float 
 	FIG_NUM = 2
 	plt.figure(FIG_NUM, figsize=(8, 6))
 	
@@ -75,6 +83,23 @@ def plot_test():
 	plt.ylabel('adc_voltage')
 	plt.xlabel('data index')
 	plt.grid(True)
+
+
+	# plot 3 - ADC 18-bit
+	FIG_NUM = 3
+	plt.figure(FIG_NUM, figsize=(8, 6))
+	
+	title_str = 'adc0(red) and adc1(blue)'
+	t_list = range(len(adc_buf0_list_s32_18b))
+
+	plt.plot(t_list, adc_buf0_list_s32_18b, 'ro-', markersize=10)
+	plt.plot(t_list, adc_buf1_list_s32_18b, 'bs-', markersize=10, alpha=0.5)
+
+	plt.title(title_str)
+	plt.ylabel('adc_18bit_scale')
+	plt.xlabel('data index')
+	plt.grid(True)
+
 
 	##
 	plt.show()
