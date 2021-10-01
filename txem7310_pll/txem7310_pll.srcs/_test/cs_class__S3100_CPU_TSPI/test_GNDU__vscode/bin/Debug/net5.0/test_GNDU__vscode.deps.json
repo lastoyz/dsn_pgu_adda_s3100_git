@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "test_GNDU__vscode/1.0.0": {
+        "runtime": {
+          "test_GNDU__vscode.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "test_GNDU__vscode/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

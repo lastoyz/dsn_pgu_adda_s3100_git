@@ -76,7 +76,7 @@ module control_adc_ddr_two_lane_LTC2387_reg_serdes_dual (
 	//
 	// ADC clock and data in 
 	input wire        i_clk_in_adc0,
-	input wire [1:0] i_data_in_adc0,
+	input wire [1:0] i_data_in_adc0, // [1] - odd - DA // [0] - even - DB
 	//
 	input wire        i_clk_in_adc1,
 	input wire [1:0] i_data_in_adc1,
@@ -663,10 +663,12 @@ endgenerate
 
 
 ////
-// TODO: fifo-hsadc // fifo_generator_2
+// TODO: fifo-hsadc // fifo_generator_2 --> fifo_generator_2_1
 //   width "18-bit"
 //   depth "131072 = 2^17"
-//   standard read mode
+//   standard read mode --> FWFT mode
+//                          reading 104MHz
+//                          writing 60MHz
 //
 //
 wire fifo_adc0_wr_en; // from fifo control
@@ -685,7 +687,7 @@ wire w_rd_fifo_0 = (MODE_ADC_CONTROL[0])? i_rd_fifo_0 : 1'b0;
 wire w_rd_fifo_1 = (MODE_ADC_CONTROL[1])? i_rd_fifo_1 : 1'b0;
 //
 //
-fifo_generator_2  fifo_generator_2_inst_0 (
+fifo_generator_2_1  fifo_generator_2_inst_0 (
 	.rst		(~reset_n | ~en | ~MODE_ADC_CONTROL[0] | i_fifo_rst),  // input wire rst 
 	.wr_clk		(clk_fifo			),  // input wire wr_clk
 	.wr_en		(fifo_adc0_wr_en	),  // input wire wr_en
@@ -704,7 +706,7 @@ fifo_generator_2  fifo_generator_2_inst_0 (
 	.empty		(   o_empty_fifo_0	)   // output wire empty
 );
 //
-fifo_generator_2  fifo_generator_2_inst_1 (
+fifo_generator_2_1  fifo_generator_2_inst_1 (
 	.rst		(~reset_n | ~en | ~MODE_ADC_CONTROL[1]  | i_fifo_rst),
 	.wr_clk		(clk_fifo			),
 	.wr_en		(fifo_adc1_wr_en	),

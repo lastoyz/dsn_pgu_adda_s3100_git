@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1_2" LaunchPart="xc7a200tfbg484-2" LaunchTime="1632391383">
+<GenRun Id="impl_1_2" LaunchPart="xc7a200tfbg484-2" LaunchTime="1633070902">
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <File Type="BG-DRC" Name="txem7310_pll__s3100_sv_adda__top.drc"/>
   <File Type="BG-BGN" Name="txem7310_pll__s3100_sv_adda__top.bgn"/>
@@ -26,43 +26,43 @@
   <File Type="ROUTE-STATUS-PB" Name="txem7310_pll__s3100_sv_adda__top_route_status.pb"/>
   <File Type="ROUTE-STATUS" Name="txem7310_pll__s3100_sv_adda__top_route_status.rpt"/>
   <File Type="ROUTE-PWR-RPX" Name="txem7310_pll__s3100_sv_adda__top_power_routed.rpx"/>
-  <File Type="ROUTE-PWR-SUM" Name="txem7310_pll__s3100_sv_adda__top_power_summary_routed.pb"/>
-  <File Type="ROUTE-PWR" Name="txem7310_pll__s3100_sv_adda__top_power_routed.rpt"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.pb"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpx"/>
-  <File Type="ROUTE-METHODOLOGY-DRC" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpt"/>
-  <File Type="ROUTE-DRC-RPX" Name="txem7310_pll__s3100_sv_adda__top_drc_routed.rpx"/>
-  <File Type="ROUTE-DRC-PB" Name="txem7310_pll__s3100_sv_adda__top_drc_routed.pb"/>
-  <File Type="ROUTE-DRC" Name="txem7310_pll__s3100_sv_adda__top_drc_routed.rpt"/>
-  <File Type="ROUTE-BLACKBOX-DCP" Name="txem7310_pll__s3100_sv_adda__top_routed_bb.dcp"/>
-  <File Type="ROUTE-DCP" Name="txem7310_pll__s3100_sv_adda__top_routed.dcp"/>
-  <File Type="ROUTE-ERROR-DCP" Name="txem7310_pll__s3100_sv_adda__top_routed_error.dcp"/>
-  <File Type="PHYSOPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_physopted.rpt"/>
-  <File Type="PHYSOPT-DRC" Name="txem7310_pll__s3100_sv_adda__top_drc_physopted.rpt"/>
-  <File Type="PHYSOPT-DCP" Name="txem7310_pll__s3100_sv_adda__top_physopt.dcp"/>
-  <File Type="POSTPLACE-PWROPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_postplace_pwropted.rpt"/>
-  <File Type="POSTPLACE-PWROPT-DCP" Name="txem7310_pll__s3100_sv_adda__top_postplace_pwropt.dcp"/>
-  <File Type="PLACE-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_placed.rpt"/>
-  <File Type="PLACE-PRE-SIMILARITY" Name="txem7310_pll__s3100_sv_adda__top_incremental_reuse_pre_placed.rpt"/>
-  <File Type="PLACE-SIMILARITY" Name="txem7310_pll__s3100_sv_adda__top_incremental_reuse_placed.rpt"/>
-  <File Type="PLACE-CTRL" Name="txem7310_pll__s3100_sv_adda__top_control_sets_placed.rpt"/>
-  <File Type="PLACE-UTIL-PB" Name="txem7310_pll__s3100_sv_adda__top_utilization_placed.pb"/>
-  <File Type="PLACE-UTIL" Name="txem7310_pll__s3100_sv_adda__top_utilization_placed.rpt"/>
-  <File Type="PLACE-CLK" Name="txem7310_pll__s3100_sv_adda__top_clock_utilization_placed.rpt"/>
-  <File Type="PLACE-IO" Name="txem7310_pll__s3100_sv_adda__top_io_placed.rpt"/>
-  <File Type="RDI-RDI" Name="txem7310_pll__s3100_sv_adda__top.vdi"/>
-  <File Type="PWROPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_pwropted.rpt"/>
-  <File Type="PWROPT-DRC" Name="txem7310_pll__s3100_sv_adda__top_drc_pwropted.rpt"/>
-  <File Type="OPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_opted.rpt"/>
-  <File Type="OPT-HWDEF" Name="txem7310_pll__s3100_sv_adda__top.hwdef"/>
-  <File Type="OPT-METHODOLOGY-DRC" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_init.rpt"/>
   <File Type="OPT-DRC" Name="txem7310_pll__s3100_sv_adda__top_drc_opted.rpt"/>
   <File Type="OPT-DCP" Name="txem7310_pll__s3100_sv_adda__top_opt.dcp"/>
-  <File Type="INIT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_init.rpt"/>
-  <File Type="PWROPT-DCP" Name="txem7310_pll__s3100_sv_adda__top_pwropt.dcp"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_opted.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="txem7310_pll__s3100_sv_adda__top_incremental_reuse_pre_placed.rpt"/>
+  <File Type="OPT-HWDEF" Name="txem7310_pll__s3100_sv_adda__top.hwdef"/>
+  <File Type="OPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_opted.rpt"/>
   <File Type="REPORTS-TCL" Name="txem7310_pll__s3100_sv_adda__top_reports.tcl"/>
-  <File Type="PLACE-DCP" Name="txem7310_pll__s3100_sv_adda__top_placed.dcp"/>
+  <File Type="PWROPT-DCP" Name="txem7310_pll__s3100_sv_adda__top_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="txem7310_pll__s3100_sv_adda__top_drc_pwropted.rpt"/>
+  <File Type="RDI-RDI" Name="txem7310_pll__s3100_sv_adda__top.vdi"/>
+  <File Type="PWROPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-IO" Name="txem7310_pll__s3100_sv_adda__top_io_placed.rpt"/>
   <File Type="PA-TCL" Name="txem7310_pll__s3100_sv_adda__top.tcl"/>
+  <File Type="PLACE-DCP" Name="txem7310_pll__s3100_sv_adda__top_placed.dcp"/>
+  <File Type="PLACE-CLK" Name="txem7310_pll__s3100_sv_adda__top_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="txem7310_pll__s3100_sv_adda__top_utilization_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="txem7310_pll__s3100_sv_adda__top_utilization_placed.pb"/>
+  <File Type="PHYSOPT-TIMING" Name="txem7310_pll__s3100_sv_adda__top_timing_summary_physopted.rpt"/>
+  <File Type="PLACE-CTRL" Name="txem7310_pll__s3100_sv_adda__top_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="txem7310_pll__s3100_sv_adda__top_incremental_reuse_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="txem7310_pll__s3100_sv_adda__top_postplace_pwropt.dcp"/>
+  <File Type="PHYSOPT-DCP" Name="txem7310_pll__s3100_sv_adda__top_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="txem7310_pll__s3100_sv_adda__top_drc_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="txem7310_pll__s3100_sv_adda__top_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="txem7310_pll__s3100_sv_adda__top_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="txem7310_pll__s3100_sv_adda__top_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="txem7310_pll__s3100_sv_adda__top_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="txem7310_pll__s3100_sv_adda__top_drc_routed.pb"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="txem7310_pll__s3100_sv_adda__top_drc_routed.rpx"/>
+  <File Type="ROUTE-PWR" Name="txem7310_pll__s3100_sv_adda__top_power_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="txem7310_pll__s3100_sv_adda__top_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-PWR-SUM" Name="txem7310_pll__s3100_sv_adda__top_power_summary_routed.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/imports/src_ref/txem7310_pll__s3100_sv_adda__top.v">
@@ -286,14 +286,14 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/ip/fifo_generator_2/fifo_generator_2.xci">
+    <File Path="$PSRCDIR/sources_1/new/control_adc_ddr_two_lane_LTC2387_reg_serdes_dual.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/control_adc_ddr_two_lane_LTC2387_reg_serdes_dual.v">
+    <File Path="$PSRCDIR/sources_1/ip/fifo_generator_2_1/fifo_generator_2_1.xci">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
