@@ -954,7 +954,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_0928   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_1001   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -972,7 +972,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0915; // S3100-ADDA // img test adc control
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0923; // S3100-ADDA // adc timing revision 
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0924; // S3100-ADDA // adc/eeprom fifo timing debug
-parameter FPGA_IMAGE_ID = 32'h_A6_21_0928; // S3100-ADDA // rev adc fifo read latency one with fifo FWFT.
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_0928; // S3100-ADDA // rev adc fifo read latency one with fifo FWFT.
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1001; // S3100-ADDA // rev adc data line swap fixed
 
 //}
 
@@ -3359,12 +3360,13 @@ assign w_ADCH_DOUT3_WO = 32'h0; // not yet
 wire   w_hsadc_pin_conv  ;  assign ADCx_CNV       =  w_hsadc_pin_conv; // out
 wire   w_hsadc_pin_sclk  ;  assign ADCx_CLK       =  w_hsadc_pin_sclk; // out
 wire   w_hsadc_pin_test  ;  assign ADCx_TPT_B     = ~w_hsadc_pin_test; // out // invert
+// [1] - odd - DA - MSB // [0] - even - DB - LSB
 wire   w_hsadc_dco__adc_0                         =  ADC0_DCO        ; // in
-wire   w_hsadc_dat2_adc_0                         =  ADC0_DB         ; // in
-wire   w_hsadc_dat1_adc_0                         =  ADC0_DA         ; // in
+wire   w_hsadc_dat2_adc_0                         =  ADC0_DA         ; // in
+wire   w_hsadc_dat1_adc_0                         =  ADC0_DB         ; // in
 wire   w_hsadc_dco__adc_1                         =  ADC1_DCO        ; // in
-wire   w_hsadc_dat2_adc_1                         =  ADC1_DB         ; // in
-wire   w_hsadc_dat1_adc_1                         =  ADC1_DA         ; // in
+wire   w_hsadc_dat2_adc_1                         =  ADC1_DA         ; // in
+wire   w_hsadc_dat1_adc_1                         =  ADC1_DB         ; // in
 
 //}
 
@@ -3434,8 +3436,8 @@ adc_wrapper  adc_wrapper__inst (
 	.o_hsadc_pin_sclk    (w_hsadc_pin_sclk  ),
 	.o_hsadc_pin_test    (w_hsadc_pin_test  ),
 	.i_hsadc_dco__adc_0  (w_hsadc_dco__adc_0),
-	.i_hsadc_dat2_adc_0  (w_hsadc_dat2_adc_0),
-	.i_hsadc_dat1_adc_0  (w_hsadc_dat1_adc_0),
+	.i_hsadc_dat2_adc_0  (w_hsadc_dat2_adc_0), // [1] - odd - DA // [0] - even - DB
+	.i_hsadc_dat1_adc_0  (w_hsadc_dat1_adc_0), // [1] - odd - DA // [0] - even - DB
 	.i_hsadc_dco__adc_1  (w_hsadc_dco__adc_1),
 	.i_hsadc_dat2_adc_1  (w_hsadc_dat2_adc_1),
 	.i_hsadc_dat1_adc_1  (w_hsadc_dat1_adc_1),

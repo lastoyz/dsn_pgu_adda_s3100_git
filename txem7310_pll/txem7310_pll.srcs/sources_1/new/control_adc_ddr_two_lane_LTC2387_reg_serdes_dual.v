@@ -76,7 +76,7 @@ module control_adc_ddr_two_lane_LTC2387_reg_serdes_dual (
 	//
 	// ADC clock and data in 
 	input wire        i_clk_in_adc0,
-	input wire [1:0] i_data_in_adc0,
+	input wire [1:0] i_data_in_adc0, // [1] - odd - DA // [0] - even - DB
 	//
 	input wire        i_clk_in_adc1,
 	input wire [1:0] i_data_in_adc1,
