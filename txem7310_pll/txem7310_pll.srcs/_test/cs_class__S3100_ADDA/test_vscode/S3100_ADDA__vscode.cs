@@ -3624,14 +3624,14 @@ namespace TopInstrument
             //  SP1_GPB3 = USER_LED           // o    
             //  SP1_GPB2 = PWR_ANAL_DAC_ON    // o           
             //  SP1_GPB1 = PWR_ANAL_ON (ADC)  // o             
-            //  SP1_GPB0 = PWR_AMP_ON         // o      
+            //  SP1_GPB0 = PWR_AMP_ON         // o  // reserved // with pwr_amp
             //
             //  SP1_GPA7 = SLOT_ID3_BUF       // i        
             //  SP1_GPA6 = SLOT_ID2_BUF       // i        
             //  SP1_GPA5 = SLOT_ID1_BUF       // i        
             //  SP1_GPA4 = SLOT_ID0_BUF       // i        
             //  SP1_GPA3 = NA                 // i
-            //  SP1_GPA2 = NA                 // i
+            //  SP1_GPA2 = PWR_AMP_DAC_ON     // i  // 5/-5V dac amp power enable // shared with pwr_amp
             //  SP1_GPA1 = SW_RL_K2           // o    
             //  SP1_GPA0 = SW_RL_K1           // o    
 
@@ -3643,14 +3643,18 @@ namespace TopInstrument
             //# read output Latch
             lat_read = sp1_reg_read_b16(0x14);
             
-            //# set IO direction for SP1 PA[1:0] - output
+            //# set IO direction for SP1 PA[2:0] - output // PA[1:0] --> PA[2:0]
             //# set IO direction for SP1 PB[7:5] - output
             //# set IO direction for SP1 PB[3:0] - output
-            sp1_reg_write_b16(0x00, dir_read & 0xFC10);
+            //sp1_reg_write_b16(0x00, dir_read & 0xFC10);
+            sp1_reg_write_b16(0x00, dir_read & 0xF810);
             
             //# set IO for SP1 PB[3:0]
             //u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
-            u32 val = (lat_read & 0xFCF0) | ( (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            //u32 val = (lat_read & 0xFCF0) | ( (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            u32 val = (lat_read & 0xFCF0) | ( (pwr_amp<<10) + (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | 
+                                            ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+
             sp1_reg_write_b16(0x12,val);
 
             // power stability delay 
@@ -9403,8 +9407,8 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
         //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
-        //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
+        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
 
