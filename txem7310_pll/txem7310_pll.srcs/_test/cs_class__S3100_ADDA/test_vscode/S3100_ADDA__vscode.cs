@@ -5683,13 +5683,12 @@ namespace TopInstrument
             dev_eps.adc_fifo_rst(); // clear fifo for new data
             
             //// trigger DAC wave and adc data collection -- method 1
-            //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            //dev_eps.adc_update(); 
+            dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            dev_eps.adc_update(); // including done_check
 
             //// trigger linked DAC wave and adc update -- method 2
-            dev_eps.trig_pgu_output_Cid_ON(100, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            dev_eps.adc_update_check(); // without triggering
-
+            //dev_eps.trig_pgu_output_Cid_ON(100, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            //dev_eps.adc_update_check(); // check done without triggering
 
             // clear DAC wave
             //...
@@ -9474,7 +9473,7 @@ namespace __test__
             // new adc test : adc power on // adc enable // adc init // adc fifo reset // adc update // fifo data read 
             ret = TopInstrument.ADDA_control_by_eps.__test_ADDA_control_by_eps(); 
 
-            ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+            //ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
 
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 			
