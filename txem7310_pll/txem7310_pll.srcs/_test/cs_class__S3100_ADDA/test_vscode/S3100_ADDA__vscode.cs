@@ -3724,6 +3724,27 @@ namespace TopInstrument
             return ret;
         }
 
+        private u32 adc_trig_check__wo_trig(s32 bit_loc) {
+            //$$ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
+
+            //# check done
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            bool flag_done;
+            while (true) {
+            	flag_done = IsTriggered(EP_ADRS__ADCH_TO, (u32)(0x1<<bit_loc));
+            	if (flag_done==true)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+
+            u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
+            return ret;
+        }
+        
+
         private u32 adc_reset() {
             return adc_trig_check(0);
         }
@@ -3732,6 +3753,9 @@ namespace TopInstrument
         }
         private u32 adc_update() {
             return adc_trig_check(2);
+        }
+        private u32 adc_update_check() {
+            return adc_trig_check__wo_trig(2);
         }
         private u32 adc_test() {
             return adc_trig_check(3);
@@ -4975,7 +4999,7 @@ namespace TopInstrument
         }
 
 
-        public string pgu_trig__on(bool Ch1, bool Ch2) {
+        public string pgu_trig__on(bool Ch1, bool Ch2, bool force_trig = false) {
             string ret = "OK\n";
 
             u32 val;
@@ -4986,8 +5010,22 @@ namespace TopInstrument
             else
                 val = 0x00000020;
             //
+
+            if (force_trig)
+                val = val + 0x100;
+
             //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
             //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            //wire w_enable_dac0_bias           = r_cid_reg_ctrl[0];
+            //wire w_enable_dac1_bias           = r_cid_reg_ctrl[1];
+            //wire w_enable_dac0_pulse_out_seq  = r_cid_reg_ctrl[2]; 
+            //wire w_enable_dac1_pulse_out_seq  = r_cid_reg_ctrl[3]; 
+            //wire w_enable_dac0_pulse_out_fifo = r_cid_reg_ctrl[4];
+            //wire w_enable_dac1_pulse_out_fifo = r_cid_reg_ctrl[5];
+            //wire w_rst_dac0_fifo              = r_cid_reg_ctrl[6]; //$$ false path try
+            //wire w_rst_dac1_fifo              = r_cid_reg_ctrl[7]; //$$ false path try
+            //wire w_force_trig_out             = r_cid_reg_ctrl[8];// new control for trig out  
+
             pgu_dacz_dat_write(val, 12); // trig control
 
             return ret;
@@ -5416,7 +5454,7 @@ namespace TopInstrument
             
         }
 
-        private void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2)
+        private void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
         {
 
             // send repeat numbers
@@ -5426,7 +5464,7 @@ namespace TopInstrument
                 pgu_frpt__send(2, CycleCount);
 
             // trig and log
-            pgu_trig__on(Ch1, Ch2);
+            pgu_trig__on(Ch1, Ch2, force_trig);
 
         }
 
@@ -5486,7 +5524,7 @@ namespace TopInstrument
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_reset", val));
 
             // adc fixed pattern setup 
-            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,1,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,1,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5, u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             
             // adc sampling period
             //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
@@ -5644,13 +5682,14 @@ namespace TopInstrument
             dev_eps.adc_init(); // init with setup parameters
             dev_eps.adc_fifo_rst(); // clear fifo for new data
             
-            // trigger DAC wave
-            //...
-            //dev.ForcePGU_ON__delayed_OFF(2,  true,  true, 3500); // (int CycleCount, bool Ch1, bool Ch2)
-            dev_eps.trig_pgu_output_Cid_ON(100, true, true);
+            //// trigger DAC wave and adc data collection -- method 1
+            //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            //dev_eps.adc_update(); 
 
-            // trigger adc data collection
-            dev_eps.adc_update(); 
+            //// trigger linked DAC wave and adc update -- method 2
+            dev_eps.trig_pgu_output_Cid_ON(100, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            dev_eps.adc_update_check(); // without triggering
+
 
             // clear DAC wave
             //...
@@ -9406,9 +9445,9 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
-        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
+        public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
         //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
-        public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
+        //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
 

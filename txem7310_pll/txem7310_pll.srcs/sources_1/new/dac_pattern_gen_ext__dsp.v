@@ -256,6 +256,8 @@ module dac_pattern_gen_ext__dsp ( //{
 	
 	//}
 	
+	output wire        o_dac_pttn_trig_out, 
+	
 	// flag
 	output wire valid
 );
@@ -438,6 +440,9 @@ wire w_enable_dac0_pulse_out_fifo = r_cid_reg_ctrl[4];
 wire w_enable_dac1_pulse_out_fifo = r_cid_reg_ctrl[5];
 wire w_rst_dac0_fifo              = r_cid_reg_ctrl[6]; //$$ false path try
 wire w_rst_dac1_fifo              = r_cid_reg_ctrl[7]; //$$ false path try
+
+wire w_force_trig_out             = r_cid_reg_ctrl[8];// new control for trig out     
+assign o_dac_pttn_trig_out        = w_force_trig_out;
 
 //}
 
