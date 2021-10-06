@@ -47,6 +47,8 @@ module dac_pattern_gen_wrapper__dsp ( //{
 	output wire        o_dac0_active_clk,
 	output wire        o_dac1_active_clk,
 	
+	output wire        o_dac_pttn_trig_out,
+	
 	
 	// flag
 	output wire valid
@@ -170,6 +172,8 @@ dac_pattern_gen_ext__dsp  dac_pattern_gen_inst (
 	.i_dac1_fifo_dur____valid     (w_dac1_fifo_dur____valid), //       
 	
 	//}
+	
+	.o_dac_pttn_trig_out (o_dac_pttn_trig_out),	
 	
 	//
 	.valid()

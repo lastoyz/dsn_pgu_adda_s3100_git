@@ -954,7 +954,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_1001   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_1006   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -973,7 +973,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0923; // S3100-ADDA // adc timing revision 
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0924; // S3100-ADDA // adc/eeprom fifo timing debug
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0928; // S3100-ADDA // rev adc fifo read latency one with fifo FWFT.
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1001; // S3100-ADDA // rev adc data line swap fixed
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_1001; // S3100-ADDA // rev adc data line swap fixed
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1006; // S3100-ADDA // add pattern gen linked adc-upate
 
 //}
 
@@ -3203,6 +3204,8 @@ assign DAC1_DAT = w_dac1_data_pin;
 //wire       w_dac0_active_clk;
 //wire       w_dac1_active_clk;
 
+wire w_dac_pttn_trig_out;
+
 //}
 
 // dac_pattern_gen_wrapper --> dac_pattern_gen_wrapper__dsp //{
@@ -3220,7 +3223,7 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 	.i_rstn_dac1_dco    (dac1_reset_n), //
 	
 	// DACZ control port // new control 
-	.i_trig_dacz_ctrl   (w_trig_dacz_ctrl    ), // [31:0]
+	.i_trig_dacz_ctrl   (w_trig_dacz_ctrl    ), // [31:0] //$$ @ sys_clk
 	.i_wire_dacz_data   (w_wire_in__dacz_data), // [31:0]
 	.o_wire_dacz_data   (w_wire_out_dacz_data), // [31:0]
 	
@@ -3251,26 +3254,9 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 	.o_dac0_active_clk  (), // alternatively read from o_wire_dacx_data
 	.o_dac1_active_clk  (), // alternatively read from o_wire_dacx_data
 	
-	//  // fifo data and control   // remove
-	//  .i_dac0_fifo_wr_clk     (w_dac0_fifo_wr_clk), //
-	//  .i_dac0_fifo_wr_en      (w_dac0_fifo_wr_en ), //
-	//  .i_dac0_fifo_din        (w_dac0_fifo_din   ), // [31:0]
-	//  .i_dac1_fifo_wr_clk     (w_dac1_fifo_wr_clk), //
-	//  .i_dac1_fifo_wr_en      (w_dac1_fifo_wr_en ), //
-	//  .i_dac1_fifo_din        (w_dac1_fifo_din   ), // [31:0]
-	//  //
-	//  .i_dac0_fifo_rd_en_test (1'b0), // test read out
-	//  .i_dac1_fifo_rd_en_test (1'b0), // test read out
-	//  
-	//  // FIFO flag 
-	//  .o_fifo_dac0_full   (w_fifo_dac0_full ),
-	//  .o_fifo_dac0_wrack  (w_fifo_dac0_wrack),
-	//  .o_fifo_dac0_empty  (w_fifo_dac0_empty),
-	//  .o_fifo_dac0_valid  (w_fifo_dac0_valid),
-	//  .o_fifo_dac1_full   (w_fifo_dac1_full ),
-	//  .o_fifo_dac1_wrack  (w_fifo_dac1_wrack),
-	//  .o_fifo_dac1_empty  (w_fifo_dac1_empty),
-	//  .o_fifo_dac1_valid  (w_fifo_dac1_valid),
+	// external trig out 
+	.o_dac_pttn_trig_out (w_dac_pttn_trig_out), // one pulse with fifo activity @ sys_clk
+	
 	
 	// flag
 	.valid              ()
@@ -3303,7 +3289,7 @@ wire        w_hsadc_reset             = w_ADCH_TI[0];  assign w_ADCH_TO[0] = w_h
 wire        w_hsadc_en                = w_ADCH_WI[0];  assign w_ADCH_WO[0] = w_hsadc_en;
 
 wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
-wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2];
+wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2] | w_dac_pttn_trig_out; // linked with PGU pattern
 wire        w_hsadc_test              = w_ADCH_WI[3] | w_ADCH_TI[3];
 
 wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;

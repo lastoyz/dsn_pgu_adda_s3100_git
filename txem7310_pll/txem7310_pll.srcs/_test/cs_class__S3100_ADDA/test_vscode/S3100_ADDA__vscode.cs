@@ -3624,14 +3624,14 @@ namespace TopInstrument
             //  SP1_GPB3 = USER_LED           // o    
             //  SP1_GPB2 = PWR_ANAL_DAC_ON    // o           
             //  SP1_GPB1 = PWR_ANAL_ON (ADC)  // o             
-            //  SP1_GPB0 = PWR_AMP_ON         // o      
+            //  SP1_GPB0 = PWR_AMP_ON         // o  // reserved // with pwr_amp
             //
             //  SP1_GPA7 = SLOT_ID3_BUF       // i        
             //  SP1_GPA6 = SLOT_ID2_BUF       // i        
             //  SP1_GPA5 = SLOT_ID1_BUF       // i        
             //  SP1_GPA4 = SLOT_ID0_BUF       // i        
             //  SP1_GPA3 = NA                 // i
-            //  SP1_GPA2 = NA                 // i
+            //  SP1_GPA2 = PWR_AMP_DAC_ON     // i  // 5/-5V dac amp power enable // shared with pwr_amp
             //  SP1_GPA1 = SW_RL_K2           // o    
             //  SP1_GPA0 = SW_RL_K1           // o    
 
@@ -3643,14 +3643,18 @@ namespace TopInstrument
             //# read output Latch
             lat_read = sp1_reg_read_b16(0x14);
             
-            //# set IO direction for SP1 PA[1:0] - output
+            //# set IO direction for SP1 PA[2:0] - output // PA[1:0] --> PA[2:0]
             //# set IO direction for SP1 PB[7:5] - output
             //# set IO direction for SP1 PB[3:0] - output
-            sp1_reg_write_b16(0x00, dir_read & 0xFC10);
+            //sp1_reg_write_b16(0x00, dir_read & 0xFC10);
+            sp1_reg_write_b16(0x00, dir_read & 0xF810);
             
             //# set IO for SP1 PB[3:0]
             //u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
-            u32 val = (lat_read & 0xFCF0) | ( (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            //u32 val = (lat_read & 0xFCF0) | ( (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            u32 val = (lat_read & 0xFCF0) | ( (pwr_amp<<10) + (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | 
+                                            ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+
             sp1_reg_write_b16(0x12,val);
 
             // power stability delay 
@@ -3720,6 +3724,27 @@ namespace TopInstrument
             return ret;
         }
 
+        private u32 adc_trig_check__wo_trig(s32 bit_loc) {
+            //$$ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
+
+            //# check done
+            u32 cnt_done = 0    ;
+            u32 MAX_CNT  = 20000;
+            bool flag_done;
+            while (true) {
+            	flag_done = IsTriggered(EP_ADRS__ADCH_TO, (u32)(0x1<<bit_loc));
+            	if (flag_done==true)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=MAX_CNT)
+            		break;
+            }
+
+            u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
+            return ret;
+        }
+        
+
         private u32 adc_reset() {
             return adc_trig_check(0);
         }
@@ -3728,6 +3753,9 @@ namespace TopInstrument
         }
         private u32 adc_update() {
             return adc_trig_check(2);
+        }
+        private u32 adc_update_check() {
+            return adc_trig_check__wo_trig(2);
         }
         private u32 adc_test() {
             return adc_trig_check(3);
@@ -4971,7 +4999,7 @@ namespace TopInstrument
         }
 
 
-        public string pgu_trig__on(bool Ch1, bool Ch2) {
+        public string pgu_trig__on(bool Ch1, bool Ch2, bool force_trig = false) {
             string ret = "OK\n";
 
             u32 val;
@@ -4982,8 +5010,22 @@ namespace TopInstrument
             else
                 val = 0x00000020;
             //
+
+            if (force_trig)
+                val = val + 0x100;
+
             //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
             //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            //wire w_enable_dac0_bias           = r_cid_reg_ctrl[0];
+            //wire w_enable_dac1_bias           = r_cid_reg_ctrl[1];
+            //wire w_enable_dac0_pulse_out_seq  = r_cid_reg_ctrl[2]; 
+            //wire w_enable_dac1_pulse_out_seq  = r_cid_reg_ctrl[3]; 
+            //wire w_enable_dac0_pulse_out_fifo = r_cid_reg_ctrl[4];
+            //wire w_enable_dac1_pulse_out_fifo = r_cid_reg_ctrl[5];
+            //wire w_rst_dac0_fifo              = r_cid_reg_ctrl[6]; //$$ false path try
+            //wire w_rst_dac1_fifo              = r_cid_reg_ctrl[7]; //$$ false path try
+            //wire w_force_trig_out             = r_cid_reg_ctrl[8];// new control for trig out  
+
             pgu_dacz_dat_write(val, 12); // trig control
 
             return ret;
@@ -5412,7 +5454,7 @@ namespace TopInstrument
             
         }
 
-        private void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2)
+        private void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
         {
 
             // send repeat numbers
@@ -5422,7 +5464,7 @@ namespace TopInstrument
                 pgu_frpt__send(2, CycleCount);
 
             // trig and log
-            pgu_trig__on(Ch1, Ch2);
+            pgu_trig__on(Ch1, Ch2, force_trig);
 
         }
 
@@ -5482,7 +5524,7 @@ namespace TopInstrument
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_reset", val));
 
             // adc fixed pattern setup 
-            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,1,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,1,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5, u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             
             // adc sampling period
             //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
@@ -5640,13 +5682,13 @@ namespace TopInstrument
             dev_eps.adc_init(); // init with setup parameters
             dev_eps.adc_fifo_rst(); // clear fifo for new data
             
-            // trigger DAC wave
-            //...
-            //dev.ForcePGU_ON__delayed_OFF(2,  true,  true, 3500); // (int CycleCount, bool Ch1, bool Ch2)
-            dev_eps.trig_pgu_output_Cid_ON(100, true, true);
+            //// trigger DAC wave and adc data collection -- method 1
+            //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            //dev_eps.adc_update(); // including done_check
 
-            // trigger adc data collection
-            dev_eps.adc_update(); 
+            //// trigger linked DAC wave and adc update -- method 2
+            dev_eps.trig_pgu_output_Cid_ON(100, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            dev_eps.adc_update_check(); // check done without triggering
 
             // clear DAC wave
             //...
@@ -9402,8 +9444,8 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
-        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
+        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
@@ -9431,7 +9473,7 @@ namespace __test__
             // new adc test : adc power on // adc enable // adc init // adc fifo reset // adc update // fifo data read 
             ret = TopInstrument.ADDA_control_by_eps.__test_ADDA_control_by_eps(); 
 
-            ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
+            //ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
 
             Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
 			
