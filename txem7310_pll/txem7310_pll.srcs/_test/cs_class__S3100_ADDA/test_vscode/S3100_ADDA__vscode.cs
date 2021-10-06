@@ -5683,12 +5683,12 @@ namespace TopInstrument
             dev_eps.adc_fifo_rst(); // clear fifo for new data
             
             //// trigger DAC wave and adc data collection -- method 1
-            dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            dev_eps.adc_update(); // including done_check
+            //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            //dev_eps.adc_update(); // including done_check
 
             //// trigger linked DAC wave and adc update -- method 2
-            //dev_eps.trig_pgu_output_Cid_ON(100, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            //dev_eps.adc_update_check(); // check done without triggering
+            dev_eps.trig_pgu_output_Cid_ON(100, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            dev_eps.adc_update_check(); // check done without triggering
 
             // clear DAC wave
             //...
