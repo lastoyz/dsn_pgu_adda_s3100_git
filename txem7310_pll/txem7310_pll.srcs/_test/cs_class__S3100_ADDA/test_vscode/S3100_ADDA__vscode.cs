@@ -5644,9 +5644,13 @@ namespace TopInstrument
             long[]   StepTime;
             double[] StepLevel;
 
+            //// case base for 10V mode with neg
+            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+
             //// case base for 10V mode
-            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0,  2.3,  2.3,  0.0,  0.0 }; // V
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0,  2.3,  2.3,  0.0,  0.0 }; // V
 
             //// case base
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -5763,7 +5767,7 @@ namespace TopInstrument
 
 
             // adc normal setup 
-            len_adc_data = 500; // 0.1ms @ 10MHz
+            len_adc_data = 1000; // 0.1ms @ 10MHz
             dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             //dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
