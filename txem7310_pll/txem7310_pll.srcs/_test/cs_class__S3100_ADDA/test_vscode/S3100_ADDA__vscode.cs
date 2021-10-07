@@ -4699,10 +4699,10 @@ namespace TopInstrument
 
             // set data
             if (Ch == 1) { // Ch == 1 or DAC0
-                pgu_dac0_reg_write_b8(0x0E, val1_high);
-                pgu_dac0_reg_write_b8(0x0D, val1_low );
-                pgu_dac0_reg_write_b8(0x12, val0_high);
-                pgu_dac0_reg_write_b8(0x11, val0_low );
+                pgu_dac0_reg_write_b8(0x0E, val1_high); // AUXDAC1 MSB
+                pgu_dac0_reg_write_b8(0x0D, val1_low ); // AUXDAC1
+                pgu_dac0_reg_write_b8(0x12, val0_high); // AUXDAC2 MSB
+                pgu_dac0_reg_write_b8(0x11, val0_low ); // AUXDAC2
             } else {
                 pgu_dac1_reg_write_b8(0x0E, val1_high);
                 pgu_dac1_reg_write_b8(0x0D, val1_low );
@@ -5191,24 +5191,34 @@ namespace TopInstrument
             return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str,duration_ns_str);
         }
 
-
-
-        private void InitializePGU(double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50) {
+        private void pgu__setup_freq(double time_ns__dac_update) {
 
             //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
             pgu_freq__send(time_ns__dac_update);
 
-            double DAC_full_scale_current__mA = 25.5; // 20.1Vpp
-            pgu_gain__send(1, DAC_full_scale_current__mA);
-            pgu_gain__send(2, DAC_full_scale_current__mA);
+        }
 
-            float DAC_offset_current__mA = 0; // 0 min // # 0.625 mA
+        private void pgu__setup_gain_offset(int Ch, 
+            double DAC_full_scale_current__mA = 25.5, float DAC_offset_current__mA = 0, 
+            int N_pol_sel = 1, int Sink_sel = 1) {
+
+            //$$ double DAC_full_scale_current__mA = 25.5; // 20.1Vpp
+            pgu_gain__send(Ch, DAC_full_scale_current__mA);
+
+            //$$ float DAC_offset_current__mA = 0; // 0 min // # 0.625 mA
             //float DAC_offset_current__mA = 1; // 
             //float DAC_offset_current__mA = 2; // 2 max
-            int N_pol_sel = 1; // 1
-            int Sink_sel = 1; // 1
-            pgu_ofst__send(1, DAC_offset_current__mA, N_pol_sel, Sink_sel);
-            pgu_ofst__send(2, DAC_offset_current__mA, N_pol_sel, Sink_sel);
+            //$$ int N_pol_sel = 1; // 1
+            //$$ int Sink_sel = 1; // 1
+            pgu_ofst__send(Ch, DAC_offset_current__mA, N_pol_sel, Sink_sel);
+
+        }
+
+        private void InitializePGU(double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50) {
+
+            // call sub
+            pgu__setup_gain_offset(1);
+            pgu__setup_gain_offset(2);
 
             //$$ note not used:  time_ns__code_duration  scale_voltage_10V_mode  output_impedance_ohm 
 
@@ -5217,8 +5227,31 @@ namespace TopInstrument
         private Tuple<long[], string[], long> set_setup_pgu(int Ch, int OutputRange, long[] time_ns_list, double[] level_volt_list)
         {          
 
-            double __gui_load_impedance_ohm = 1e6; //$$ must come from parameter list
-            int    time_ns__code_duration   = 10; //$$ must come from parameter list
+            int    time_ns__code_duration          = 10;                        
+            double load_impedance_ohm              = 1e6;                       
+            double output_impedance_ohm            = 50;                        
+            double out_scale                       = 1.0;
+            double out_offset                      = 0.0;
+            double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
+            double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
+
+            //// call sub
+            return pgu__gen_pulse_info(OutputRange, time_ns_list, level_volt_list, 
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm, 
+                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
+                out_scale, out_offset);
+
+            //return Tuple.Create(num_steps_list, num_block_str__sample_code__list, FIFO_Count);
+        }
+        private Tuple<long[], string[], long> pgu__gen_pulse_info(int OutputRange, long[] time_ns_list, double[] level_volt_list,
+            int    time_ns__code_duration, 
+            double load_impedance_ohm, double output_impedance_ohm,
+            double scale_voltage_10V_mode, double gain_voltage_10V_to_40V_mode, 
+            double out_scale, double out_offset)
+        {          
+
+            ////
 
             string Timedata;
             string Timedata_str = "";
@@ -5239,20 +5272,21 @@ namespace TopInstrument
                 Vdata_str = Vdata_str + Vdata;
             }
 
-            double gui_out_scale  = 1.0;
-            double gui_out_offset = 0.0;
+            //double gui_out_scale  = 1.0;
+            //double gui_out_offset = 0.0;
 
             double Devide_V = 1; //$$ int --> double
-            double scale_voltage_10V_mode = 7.650 / 10;
-            double output_impedance_ohm = 50;
+            //double scale_voltage_10V_mode = 8.5 / 10; //$$ 7.650 / 10
+            //double output_impedance_ohm = 50;
 
             if (OutputRange == 40)
             {
-                Devide_V = 4;
-                scale_voltage_10V_mode = (6.95 / 10);
+                Devide_V = gain_voltage_10V_to_40V_mode;
+                //Devide_V = 4;
+                //scale_voltage_10V_mode = (6.95 / 10);
             }
 
-            scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + __gui_load_impedance_ohm) / __gui_load_impedance_ohm);
+            scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
             // Console.WriteLine("output_impedance_ohm     = " + Convert.ToString(output_impedance_ohm    ));
             // Console.WriteLine("__gui_load_impedance_ohm = " + Convert.ToString(__gui_load_impedance_ohm));
             // Console.WriteLine("scale_voltage_10V_mode   = " + Convert.ToString(scale_voltage_10V_mode  ));
@@ -5263,7 +5297,7 @@ namespace TopInstrument
 				// # HVPGU B/D 사용 시 Gain 4배 증폭, Base전압을 1/4로 감소해야 함.
                 //$$level_volt_list[i] = level_volt_list[i] * scale_voltage_10V_mode / Devide_V;  
                 //$$level_volt_list[i]     = level_volt_list[i] * scale_voltage_10V_mode / Devide_V * gui_out_scale + gui_out_offset; //$$ NG due to 10V scaling
-                level_volt_list[i]     = (level_volt_list[i]* gui_out_scale + gui_out_offset) * scale_voltage_10V_mode / Devide_V; 
+                level_volt_list[i]     = (level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V_mode / Devide_V; 
 
 				
 				// update string 
@@ -5417,8 +5451,7 @@ namespace TopInstrument
         }
 
 
-
-        private void SetSetupPGU(int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel) {
+        private Tuple<long[], double[]> pgu__gen_time_voltage_list__remove_dup(long[] StepTime, double[] StepLevel) {
             // copy buffer and remove duplicate data
             List<long>   StepTime_List  = new List<long>();
             List<double> StepLevel_List = new List<double>();
@@ -5436,21 +5469,27 @@ namespace TopInstrument
                     else {
                         break; // not able to remove dup data due to difference voltage
                     }
-                    
                 }
-
                 StepTime_List.Add(StepTime[i]);
                 StepLevel_List.Add(StepLevel[i]);
-                
             }
 
             // You can convert it back to an array if you would like to
             long[] StepTime__no_dup  = StepTime_List.ToArray();
             double[] StepLevel__no_dup = StepLevel_List.ToArray();
 
+            return Tuple.Create(StepTime__no_dup, StepLevel__no_dup);
+        }
+
+        private void SetSetupPGU(int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel) {
+            // remove dup 
+            var ret_list = pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
+
             // call setup functions
-            var range = set_setup_pgu(PG_Ch, OutputRange, StepTime__no_dup, StepLevel__no_dup); //$$ return Tuple<long[], string[], int>
-            load_pgu_waveform_Cid(PG_Ch, range.Item1, range.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
+            var pulse_info = set_setup_pgu(PG_Ch, OutputRange, ret_list.Item1, ret_list.Item2); //$$ return Tuple<long[], string[], int>
+
+            // download waveform into FPGA
+            load_pgu_waveform_Cid(PG_Ch, pulse_info.Item1, pulse_info.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
             
         }
 
@@ -5605,9 +5644,13 @@ namespace TopInstrument
             long[]   StepTime;
             double[] StepLevel;
 
-            //// case base
+            //// case base for 10V mode
             StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
+            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0,  2.3,  2.3,  0.0,  0.0 }; // V
+
+            //// case base
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0, 10.0, 10.0, 20.0, 20.0,  5.5,  5.5,  0.0,  0.0 }; // V
 
             //// case 0
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -5653,13 +5696,61 @@ namespace TopInstrument
             //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
             //StepLevel = new double[] { 0.0,  0.0,   -20.0,   -20.0,  -40.0,  -40.0,     -11.0,     -11.0,  0.0,  0.0 }; // V
 
-            dev_eps.InitializePGU(10, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
-            //dev_eps.InitializePGU(20, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
-            //dev_eps.InitializePGU(50, 10, 7.650 / 10, 50); // (double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50)
+
+            // setup pgu-clock device
+            double time_ns__dac_update          = 10;
+            dev_eps.pgu__setup_freq(time_ns__dac_update);
+
+
+            // setup pgu-dac device
+            double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
+            double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
+            float DAC_offset_current__mA_1      = (float)0.44; // for BD2
+            float DAC_offset_current__mA_2      = (float)0.79; // for BD2
+            int N_pol_sel_1                     = 0;           // for BD2
+            int N_pol_sel_2                     = 0;           // for BD2
+            int Sink_sel_1                      = 0;           // for BD2
+            int Sink_sel_2                      = 0;           // for BD2
+            //
+            dev_eps.pgu__setup_gain_offset(1, 
+                DAC_full_scale_current__mA_1, DAC_offset_current__mA_1, 
+                N_pol_sel_1, Sink_sel_1);
+            dev_eps.pgu__setup_gain_offset(2, 
+                DAC_full_scale_current__mA_2, DAC_offset_current__mA_2, 
+                N_pol_sel_2, Sink_sel_2);
+
 
             //$$ generate waveform and download
-            dev_eps.SetSetupPGU(1, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
-            dev_eps.SetSetupPGU(2, 40, 1e6, StepTime, StepLevel); // (int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel)
+            var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
+            var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
+
+            // call setup 
+            int    OutputRange                     = 10;   
+            int    time_ns__code_duration          = 10;                        
+            double load_impedance_ohm              = 1e6;                       
+            double output_impedance_ohm            = 50;                        
+            double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
+            double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
+            double out_scale                       = 1.0;
+            double out_offset                      = 0.0;
+            //
+            var pulse_info1 = dev_eps.pgu__gen_pulse_info(OutputRange, 
+                time_volt_list1.Item1, time_volt_list1.Item2, 
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm, 
+                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
+                out_scale, out_offset);
+            var pulse_info2 = dev_eps.pgu__gen_pulse_info(OutputRange, 
+                time_volt_list2.Item1, time_volt_list2.Item2, 
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm, 
+                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
+                out_scale, out_offset);
+
+            // download waveform into FPGA
+            dev_eps.load_pgu_waveform_Cid(1, pulse_info1.Item1, pulse_info1.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
+            dev_eps.load_pgu_waveform_Cid(2, pulse_info2.Item1, pulse_info2.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
+
 
             // previoud subfunctions:
             // pgu_pwr__on
@@ -5672,7 +5763,7 @@ namespace TopInstrument
 
 
             // adc normal setup 
-            len_adc_data = 20000;
+            len_adc_data = 500; // 0.1ms @ 10MHz
             dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             //dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
@@ -5687,7 +5778,7 @@ namespace TopInstrument
             //dev_eps.adc_update(); // including done_check
 
             //// trigger linked DAC wave and adc update -- method 2
-            dev_eps.trig_pgu_output_Cid_ON(100, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             dev_eps.adc_update_check(); // check done without triggering
 
             // clear DAC wave
@@ -9444,8 +9535,8 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
-        public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
+        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
