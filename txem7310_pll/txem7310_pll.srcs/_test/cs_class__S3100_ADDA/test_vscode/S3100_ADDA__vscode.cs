@@ -5650,14 +5650,14 @@ namespace TopInstrument
 
             //// case for sine wave
 
-            double test_freq_kHz       = 100; 
-            int len_dac_command_points = 40;
-            double amplitude  = 8.0; // no distortion
+            // double test_freq_kHz       = 100; 
+            // int len_dac_command_points = 40;
+            // double amplitude  = 8.0; // no distortion
 
-            // double test_freq_kHz       = 1000; 
-            // int len_dac_command_points = 20; // 4
-            // //double amplitude  = 8.0; // some distortion
-            // double amplitude  = 2.0; // best waveform
+            double test_freq_kHz       = 1000; 
+            int len_dac_command_points = 20; // 4
+            //double amplitude  = 8.0; // some distortion
+            double amplitude  = 2.0; // best waveform
 
             // double test_freq_kHz       = 5000; 
             // int len_dac_command_points = 20; // 4

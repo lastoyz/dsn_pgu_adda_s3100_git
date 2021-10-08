@@ -975,7 +975,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_0928; // S3100-ADDA // rev adc fifo read latency one with fifo FWFT.
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1001; // S3100-ADDA // rev adc data line swap fixed
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1006; // S3100-ADDA // add pattern gen linked adc-upate
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1008; // S3100-ADDA // adc base freq test 210MHz --> 189MHz
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_1008; // S3100-ADDA // adc base freq test 210MHz --> 189MHz
+parameter FPGA_IMAGE_ID = 32'h_A6_21_10A8; // S3100-ADDA // adc base freq 210MHz, 189MHz, 63MHz.
 
 //}
 
@@ -1674,25 +1675,40 @@ clk_wiz_2_2  clk_wiz_2_2_inst (
 //  
 //  base adc freq : 210, 189, 224, 244 MHz
 
-wire base_adc_clk; // base clock for ADC // 210MHz
-wire adc_fifo_clk; // // adc fifo clock // 60MHz
+wire base_adc_clk; // base clock for ADC  
+wire base_adc_clk0;
+wire base_adc_clk1;
+wire adc_fifo_clk; // // adc fifo clock // 60MHz or 63MHz
 
 // ref clock for adc buffer 
 wire ref_200M_clk = clk_out1_200M;
 
 wire clk_0_2_3_locked; //$$ unused
 
-//clk_wiz_0_2_3    clk_wiz_0_2_3_inst ( //$$ for 210MHz
-clk_wiz_0_2_3_1  clk_wiz_0_2_3_inst ( //$$ for 189MHz
-//clk_wiz_0_2_3_2  clk_wiz_0_2_3_inst ( //$$ for 224MHz
-//clk_wiz_0_2_3_3  clk_wiz_0_2_3_inst ( //$$ for 244MHz
+//  //clk_wiz_0_2_3    clk_wiz_0_2_3_inst ( //$$ for 210MHz
+//  clk_wiz_0_2_3_1  clk_wiz_0_2_3_inst ( //$$ for 189MHz
+//  //clk_wiz_0_2_3_2  clk_wiz_0_2_3_inst ( //$$ for 224MHz
+//  //clk_wiz_0_2_3_3  clk_wiz_0_2_3_inst ( //$$ for 244MHz
+//  	// Clock out ports  
+//  	//.clk_out1_210M(base_adc_clk ),  //$$ for 210MHz
+//  	.clk_out1_189M(base_adc_clk ),  //$$ for 189MHz
+//  	//.clk_out1_224M(base_adc_clk ),  //$$ for 224MHz
+//  	//.clk_out1_244M(base_adc_clk ),  //$$ for 244MHz
+//  	.clk_out2_30M (             ),  
+//  	.clk_out3_60M (adc_fifo_clk ),  
+//  	// Status and control signals     
+//  	.resetn       (clk_locked_pre),          
+//  	.locked       (clk_0_2_3_locked   ),
+//  	// Clock in ports
+//  	.clk_in1_140M (clk_out2_140M ) //
+//  );
+
+// to-do: use clock mux after this
+clk_wiz_0_2_3_4  clk_wiz_0_2_3_inst ( //$$ for 210MHz or 189MHz
 	// Clock out ports  
-	//.clk_out1_210M(base_adc_clk ),  //$$ for 210MHz
-	.clk_out1_189M(base_adc_clk ),  //$$ for 189MHz
-	//.clk_out1_224M(base_adc_clk ),  //$$ for 224MHz
-	//.clk_out1_244M(base_adc_clk ),  //$$ for 244MHz
-	.clk_out2_30M (             ),  
-	.clk_out3_60M (adc_fifo_clk ),  
+	.clk_out1_210M(base_adc_clk0),  // CLKOUT0 $$ for 210MHz
+	.clk_out2_189M(base_adc_clk1),  // CLKOUT1 $$ for 189MHz
+	.clk_out3_63M (adc_fifo_clk ),  // CLKOUT2
 	// Status and control signals     
 	.resetn       (clk_locked_pre),          
 	.locked       (clk_0_2_3_locked   ),
@@ -1700,15 +1716,26 @@ clk_wiz_0_2_3_1  clk_wiz_0_2_3_inst ( //$$ for 189MHz
 	.clk_in1_140M (clk_out2_140M ) //
 );
 
-//parameter PERIOD_CLK_LOGIC_NS = 4.76190476; // // ns // for 210MHz @ clk_logic
-parameter PERIOD_CLK_LOGIC_NS = 5.29100529; // // ns // for 189MHz @ clk_logic
+wire w_sel__base_adc_clk;
+assign base_adc_clk = (w_sel__base_adc_clk==1'b0)? base_adc_clk0 : base_adc_clk1;
+
+parameter PERIOD_CLK_LOGIC_NS = 4.76190476; // // ns // for 210MHz @ clk_logic
+//parameter PERIOD_CLK_LOGIC_NS = 5.29100529; // // ns // for 189MHz @ clk_logic
 //parameter PERIOD_CLK_LOGIC_NS = 4.46428571; // // ns // for 224MHz @ clk_logic
 //parameter PERIOD_CLK_LOGIC_NS = 4.09836066; // // ns // for 244MHz @ clk_logic
 
-//parameter DELAY_CLK           = 14; // 65ns min < 1/(210MHz)*14=66.7ns @210MHz
-parameter DELAY_CLK           = 13; // 65ns min < 1/(189MHz)*13=68.8ns @189MHz
+parameter DELAY_CLK           = 14; // 65ns min < 1/(210MHz)*14=66.7ns @210MHz
+//parameter DELAY_CLK           = 13; // 65ns min < 1/(189MHz)*13=68.8ns @189MHz
 //parameter DELAY_CLK           = 15; // 65ns min < 1/(224MHz)*15=67.0ns @224MHz
 //parameter DELAY_CLK           = 16; // 65ns min < 1/(244MHz)*16=65.6ns @244MHz
+
+// to-do: use WIDTH_CLK_RESET and WIDTH_IO_RESET, instead of PERIOD_CLK_LOGIC_NS
+//
+// parameter WIDTH_CLK_RESET_NS = 32'd50; // ns
+// parameter WIDTH_CLK_RESET = WIDTH_CLK_RESET_NS/PERIOD_CLK_LOGIC_NS; // period count of r_clk_reset
+// 
+// parameter WIDTH_IO_RESET_NS = 32'd150; // ns
+// parameter WIDTH_IO_RESET = WIDTH_IO_RESET_NS/PERIOD_CLK_LOGIC_NS; // period count of r_io_reset
 
 
 //}
@@ -3358,8 +3385,12 @@ wire        w_hsadc_fifo_adc1_full    ;  assign w_ADCH_WO[19] = w_hsadc_fifo_adc
 wire  c_adc_fifo_read = (w_mcs_ep_po_en & ~w_SSPI_TEST_mode_en)? mcs_clk : base_sspi_clk ;
 
 // others 
-parameter ADC_BASE_FREQ= 32'd210_000_000; // 210MHz
-assign w_ADCH_B_FRQ_WO = ADC_BASE_FREQ; // adc basse freq
+assign w_sel__base_adc_clk = w_ADCH_WI[8];
+
+parameter ADC_BASE_FREQ_210M = 32'd210_000_000; // 210MHz
+parameter ADC_BASE_FREQ_189M = 32'd189_000_000; // 189MHz
+assign w_ADCH_B_FRQ_WO = (w_sel__base_adc_clk==1'b0)? ADC_BASE_FREQ_210M : ADC_BASE_FREQ_189M; // adc basse freq
+
 assign w_ADCH_DOUT2_WO = 32'h0; // not yet
 assign w_ADCH_DOUT3_WO = 32'h0; // not yet
 
