@@ -156,18 +156,22 @@ wire [17:0] w_hsadc_fifo_adc1_dout;
 wire  w_hsadc_fifo_adc0_wr;
 wire  w_hsadc_fifo_adc1_wr;
 
+parameter PERIOD_CLK_LOGIC_NS = 4.76190476; // // ns // for 210MHz @ clk_logic
+parameter DELAY_CLK           = 14; // 65ns min < 4.76ns*14=66.7ns @210MHz
 
 //// call module adc control
 control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
+	.PERIOD_CLK_LOGIC_NS (PERIOD_CLK_LOGIC_NS),
 	//.PERIOD_CLK_LOGIC_NS (5 ), // ns // for 200MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (4 ), // ns // for 250MHz @ clk_logic
-	.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
+	//.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (5.5556 ), // ns // for 180MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (5.12820513 ), // ns // for 195MHz @ clk_logic
 	//
+	.DELAY_CLK (DELAY_CLK),
 	//.DELAY_CLK (14), // 65ns min < 5ns*14=70ns @200MHz
 	//.DELAY_CLK (17), // 65ns min < 4ns*17=68ns @250MHz
-	.DELAY_CLK (14), // 65ns min < 4.76ns*14=66.7ns @210MHz
+	//.DELAY_CLK (14), // 65ns min < 4.76ns*14=66.7ns @210MHz
 	//.DELAY_CLK (12), // 65ns min < 5.56ns*12=66.7ns @180MHz
 	//.DELAY_CLK (13), // 65ns min < 5.12820513ns*13=66.7ns @195MHz
 	//

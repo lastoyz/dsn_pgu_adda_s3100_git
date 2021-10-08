@@ -5821,12 +5821,16 @@ namespace TopInstrument
             len_adc_data = 2000; // 0.1ms @ 10MHz
             dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             //dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            //
             //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
             //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
             //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
-            dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
+            //dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
+            //
+            dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
+            //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
             dev_eps.adc_fifo_rst(); // clear fifo for new data
