@@ -5641,8 +5641,8 @@ namespace TopInstrument
             dev_eps.dac_init(); 
 
             //$$ pulse setup
-            long[]   StepTime;
-            double[] StepLevel;
+            //long[]   StepTime;
+            //double[] StepLevel;
             long[]   StepTime_1;
             double[] StepLevel_1;
             long[]   StepTime_2;
@@ -5650,28 +5650,63 @@ namespace TopInstrument
 
             //// case for sine wave
 
-            //  int sampleRate = 8000;
-            //  short[] buffer = new short[8000];
-            //  double amplitude = 0.25 * short.MaxValue;
-            //  double frequency = 1000;
-            //  for (int n = 0; n < buffer.Length; n++)
-            //  {
-            //      buffer[n] = (short)(amplitude * Math.Sin((2 * Math.PI * n * frequency) / sampleRate));
-            //  }
+            //int len_dac_command_points = 40;
+            //double test_freq_kHz       = 100; 
+            //double amplitude  = 8.0;
 
-            //Math.Sin()
+            int len_dac_command_points = 20; // 4
+            double test_freq_kHz       = 1000; 
+            //double amplitude  = 8.0; // some distortion
+            double amplitude  = 2.0; // best waveform
 
-            // 5MHz wave test
-            StepTime_1  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
-            StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
-            StepTime_2  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
-            StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+            // int len_dac_command_points = 20; // 4
+            // double test_freq_kHz       = 5000; 
+            // //double amplitude  = 8.0; // waveform distortion
+            // //double amplitude  = 2.0;
+            // double amplitude  = 1.0; // best waveform
+            // //double amplitude  = 0.5;
 
-            // 1MHz wave test
+            //
+            long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
+            long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
+            double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
+            double phase_diff = Math.PI/2;
+            
+            long[]   buf_time = new long  [len_dac_command_points+1];
+            double[] buf_dac1 = new double[len_dac_command_points+1];
+            double[] buf_dac2 = new double[len_dac_command_points+1];
+
+            for (int n = 0; n < buf_time.Length; n++)
+            {
+                buf_time[n] = sample_period_ns*n;
+                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
+                buf_dac2[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
+            }
+
+            StepTime_1  = buf_time;
+            StepLevel_1 = buf_dac1;
+            StepTime_2  = buf_time;
+            StepLevel_2 = buf_dac2;
+
+
+            //// rough wave test
+
+            // 5MHz wave test - rough
+            //StepTime_1  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
+            //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
+            //StepTime_2  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
+            //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+
+            // 1MHz wave test // note code dutation 10ns may not work.
             //StepTime_1  = new long[]   {   0,   125,  250,    375,  500,    625,  750,    875,  1000 }; // ns
             //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
             //StepTime_2  = new long[]   {   0,   125,  250,    375,  500,    625,  750,    875,  1000 }; // ns
             //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+            //
+            //StepTime_1  = new long[]   {   0,           250,          500,          750,          1000 }; // ns
+            //StepLevel_1 = new double[] { 0.0,           8.0,          0.0,         -8.0,           0.0 }; // V
+            //StepTime_2  = new long[]   {   0,           250,          500,          750,          1000 }; // ns
+            //StepLevel_2 = new double[] { 8.0,           0.0,         -8.0,          0.0,           8.0 }; // V
 
             // 100kHz wave test
             //StepTime_1  = new long[]   {   0,  1250, 2500,   3750, 5000,   6250, 7500,   8750, 10000 }; // ns
@@ -5829,7 +5864,8 @@ namespace TopInstrument
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
-            dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
+            //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
+            dev_eps.adc_set_sampling_period(190); // 189MHz/38   =  0.994737 Msps   //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
