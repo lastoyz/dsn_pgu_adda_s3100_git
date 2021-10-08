@@ -5643,10 +5643,45 @@ namespace TopInstrument
             //$$ pulse setup
             long[]   StepTime;
             double[] StepLevel;
+            long[]   StepTime_1;
+            double[] StepLevel_1;
+            long[]   StepTime_2;
+            double[] StepLevel_2;
+
+            //// case for sine wave
+
+            //  int sampleRate = 8000;
+            //  short[] buffer = new short[8000];
+            //  double amplitude = 0.25 * short.MaxValue;
+            //  double frequency = 1000;
+            //  for (int n = 0; n < buffer.Length; n++)
+            //  {
+            //      buffer[n] = (short)(amplitude * Math.Sin((2 * Math.PI * n * frequency) / sampleRate));
+            //  }
+
+            //Math.Sin()
+
+            // 5MHz wave test
+            StepTime_1  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
+            StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
+            StepTime_2  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
+            StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+
+            // 1MHz wave test
+            //StepTime_1  = new long[]   {   0,   125,  250,    375,  500,    625,  750,    875,  1000 }; // ns
+            //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
+            //StepTime_2  = new long[]   {   0,   125,  250,    375,  500,    625,  750,    875,  1000 }; // ns
+            //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+
+            // 100kHz wave test
+            //StepTime_1  = new long[]   {   0,  1250, 2500,   3750, 5000,   6250, 7500,   8750, 10000 }; // ns
+            //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
+            //StepTime_2  = new long[]   {   0,  1250, 2500,   3750, 5000,   6250, 7500,   8750, 10000 }; // ns
+            //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
 
             //// case base for 10V mode with neg
-            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
 
             //// case base for 10V mode
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -5700,6 +5735,15 @@ namespace TopInstrument
             //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
             //StepLevel = new double[] { 0.0,  0.0,   -20.0,   -20.0,  -40.0,  -40.0,     -11.0,     -11.0,  0.0,  0.0 }; // V
 
+            //$$ generate waveform and download
+            
+            //StepTime_1  = StepTime;
+            //StepLevel_1 = StepLevel;
+            //StepTime_2  = StepTime;
+            //StepLevel_2 = StepLevel;
+
+            var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_1, StepLevel_1);
+            var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
 
             // setup pgu-clock device
             double time_ns__dac_update          = 10;
@@ -5734,9 +5778,6 @@ namespace TopInstrument
                 N_pol_sel_2, Sink_sel_2);
 
 
-            //$$ generate waveform and download
-            var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
-            var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
 
             // call setup 
             int    OutputRange                     = 10;   
@@ -5777,10 +5818,13 @@ namespace TopInstrument
 
 
             // adc normal setup 
-            len_adc_data = 1000; // 0.1ms @ 10MHz
+            len_adc_data = 2000; // 0.1ms @ 10MHz
             dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             //dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
-            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
+            //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
+            //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
@@ -5792,7 +5836,8 @@ namespace TopInstrument
             //dev_eps.adc_update(); // including done_check
 
             //// trigger linked DAC wave and adc update -- method 2
-            dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            dev_eps.trig_pgu_output_Cid_ON(1000, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            //dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             dev_eps.adc_update_check(); // check done without triggering
 
             // clear DAC wave
