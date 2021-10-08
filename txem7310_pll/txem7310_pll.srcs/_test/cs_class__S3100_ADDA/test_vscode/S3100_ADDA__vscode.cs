@@ -4632,8 +4632,8 @@ namespace TopInstrument
         public string pgu_gain__send(int Ch, double DAC_full_scale_current__mA = 25.5) {
             string ret = "OK\n";
 
-            //// calculate parameters
-            double I_FS__mA = DAC_full_scale_current__mA;
+            //// calculate parameters // from https://www.analog.com/media/en/technical-documentation/data-sheets/AD9780_9781_9783.pdf
+            double I_FS__mA = DAC_full_scale_current__mA; //$$ 8.66 ~ 31.66mA
             double R_FS__ohm = 10e3; // from schematic
             int DAC_gain = Convert.ToInt32((I_FS__mA / 1000 * R_FS__ohm - 86.6) / 0.220 + 0.5);
             // ((25.5 / 1000 * 10e3 - 86.6) / 0.220 + 0.5) = 765.954545455 ~ 0x2FD
@@ -5706,7 +5706,7 @@ namespace TopInstrument
             dev_eps.pgu__setup_freq(time_ns__dac_update);
 
 
-            // setup pgu-dac device
+            //// setup pgu-dac device
             double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
             double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
             float DAC_offset_current__mA_1      = (float)0.44; // for BD2
@@ -5715,6 +5715,16 @@ namespace TopInstrument
             int N_pol_sel_2                     = 0;           // for BD2
             int Sink_sel_1                      = 0;           // for BD2
             int Sink_sel_2                      = 0;           // for BD2
+            //
+            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //double DAC_full_scale_current__mA_2 = 25.62;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //float DAC_offset_current__mA_1      = (float)0.58; // for BD3
+            //float DAC_offset_current__mA_2      = (float)0.29; // for BD3
+            //int N_pol_sel_1                     = 0;           // for BD3
+            //int N_pol_sel_2                     = 0;           // for BD3
+            //int Sink_sel_1                      = 0;           // for BD3
+            //int Sink_sel_2                      = 0;           // for BD3
+            //
             //
             dev_eps.pgu__setup_gain_offset(1, 
                 DAC_full_scale_current__mA_1, DAC_offset_current__mA_1, 
