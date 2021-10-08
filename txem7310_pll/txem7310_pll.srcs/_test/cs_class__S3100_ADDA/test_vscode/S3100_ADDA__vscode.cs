@@ -5650,17 +5650,17 @@ namespace TopInstrument
 
             //// case for sine wave
 
-            //int len_dac_command_points = 40;
-            //double test_freq_kHz       = 100; 
-            //double amplitude  = 8.0;
+            double test_freq_kHz       = 100; 
+            int len_dac_command_points = 40;
+            double amplitude  = 8.0; // no distortion
 
-            int len_dac_command_points = 20; // 4
-            double test_freq_kHz       = 1000; 
-            //double amplitude  = 8.0; // some distortion
-            double amplitude  = 2.0; // best waveform
-
+            // double test_freq_kHz       = 1000; 
             // int len_dac_command_points = 20; // 4
+            // //double amplitude  = 8.0; // some distortion
+            // double amplitude  = 2.0; // best waveform
+
             // double test_freq_kHz       = 5000; 
+            // int len_dac_command_points = 20; // 4
             // //double amplitude  = 8.0; // waveform distortion
             // //double amplitude  = 2.0;
             // double amplitude  = 1.0; // best waveform
@@ -5691,11 +5691,16 @@ namespace TopInstrument
 
             //// rough wave test
 
-            // 5MHz wave test - rough
+            // 5MHz wave test - rough // note code dutation 10ns may not work.
             //StepTime_1  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
             //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
             //StepTime_2  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
             //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+            //
+            //StepTime_1  = new long[]   {   0,          50,          100,          150,           200 }; // ns
+            //StepLevel_1 = new double[] { 0.0,         8.0,          0.0,         -8.0,           0.0 }; // V
+            //StepTime_2  = new long[]   {   0,          50,          100,          150,           200 }; // ns
+            //StepLevel_2 = new double[] { 8.0,         0.0,         -8.0,          0.0,           8.0 }; // V
 
             // 1MHz wave test // note code dutation 10ns may not work.
             //StepTime_1  = new long[]   {   0,   125,  250,    375,  500,    625,  750,    875,  1000 }; // ns
@@ -5859,13 +5864,13 @@ namespace TopInstrument
             //
             //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
             //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
-            //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
             //dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
             //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
-            dev_eps.adc_set_sampling_period(190); // 189MHz/38   =  0.994737 Msps   //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
+            //dev_eps.adc_set_sampling_period(190); // 189MHz/38   =  0.994737 Msps   //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
