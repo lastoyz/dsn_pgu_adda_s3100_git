@@ -482,7 +482,8 @@ namespace TopInstrument
             }
             return ret;
         }
-        public bool IsTriggered(uint adrs, uint mask) {
+        
+		public bool IsTriggered(uint adrs, uint mask) {
             return __IsTriggered__(adrs, mask);
         }
 
@@ -787,27 +788,28 @@ namespace TopInstrument
             //
             // more endpoint access test : PI, PO
             // scpi_comm_resp_numb_ss
-            //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
+			//
+            //  dev_eps.scpi_comm_resp_numb_ss(cmd_str);
 
             //// test fifo : pipein at 0x8A; pipeout at 0xAA.
-            //byte[] datain_bytearray;
-            //datain_bytearray = new byte[] { 
-            //    (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
-            //    (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
-            //    (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
-            //    (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
-            //    };
-            //Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
-            ////
-            //byte[] dataout_bytearray = new byte[16];
-            //Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
-            //// compare
-            //Console.WriteLine(BitConverter.ToString(datain_bytearray));
-            //Console.WriteLine(BitConverter.ToString(dataout_bytearray));
-            //bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
-            //if (comp ==  false) {
-            //    Console.WriteLine(comp);
-            //}
+            //  byte[] datain_bytearray;
+            //  datain_bytearray = new byte[] { 
+            //      (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+            //      (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
+            //      (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
+            //      (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
+            //      };
+            //  Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
+            //  //
+            //  byte[] dataout_bytearray = new byte[16];
+            //  Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
+            //  // compare
+            //  Console.WriteLine(BitConverter.ToString(datain_bytearray));
+            //  Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+            //  bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
+            //  if (comp ==  false) {
+            //      Console.WriteLine(comp);
+            //  }
             
 
             // MSPI test : 
@@ -3377,16 +3379,16 @@ namespace TopInstrument
             //// previous LAN commmand for eeprom read
             // # ':PGU:MEMR' # new ':PGU:MEMR #H00000058 \n'
             //
-            //string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
-            //byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
-            //string ret;
-            //try {
-            //    ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
-            //}
-            //catch {
-            //    ret = "#H00000000\n";
-            //}
-            //ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
+            // string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
+            // byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
+            // string ret;
+            // try {
+            //     ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
+            // }
+            // catch {
+            //     ret = "#H00000000\n";
+            // }
+            // ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
 
             //
             return ret_int;
@@ -3410,24 +3412,24 @@ namespace TopInstrument
             //// previous LAN commmand for eeprom write
             // # ':PGU:MEMW' # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
             //
-            //string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
-            //                + string.Format(" #H{0,8:X8}"  , adrs_b32)
-            //                + string.Format(" #H{0,8:X8}\n", val_b32 );
-            //byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
-            //string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
-            //
-            ////Delay(1); //$$ 1ms wait for write done // NG  read right after write
-            ////Delay(2); //$$ 2ms wait for write done // some NG 
-            ////Delay(10); //$$ 10ms wait for write done 
-            //Delay(interval_ms); //$$ ms wait for write done 
-            ////
-            //int ret_int = 0;
-            //if (ret.Substring(0,2)=="OK") {
-            //    ret_int = 0;
-            //}
-            //else {
-            //    ret_int = -1;
-            //}
+            // string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
+            //                 + string.Format(" #H{0,8:X8}"  , adrs_b32)
+            //                 + string.Format(" #H{0,8:X8}\n", val_b32 );
+            // byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
+            // string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
+            // 
+            // //Delay(1); //$$ 1ms wait for write done // NG  read right after write
+            // //Delay(2); //$$ 2ms wait for write done // some NG 
+            // //Delay(10); //$$ 10ms wait for write done 
+            // Delay(interval_ms); //$$ ms wait for write done 
+            // //
+            // int ret_int = 0;
+            // if (ret.Substring(0,2)=="OK") {
+            //     ret_int = 0;
+            // }
+            // else {
+            //     ret_int = -1;
+            // }
 
             //
             return ret_int;
