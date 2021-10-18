@@ -4493,9 +4493,9 @@ namespace TopInstrument
 
             //// new try 
             if (val_0_cnt_seek_hi>0) val_0_center_new = val_0_seek_w_sum / val_0_cnt_seek_hi;
-            else                     val_0_center_new = 15; // no seek_hi
+            else                     val_0_center_new = 5; //15; // no seek_hi
             if (val_1_cnt_seek_hi>0) val_1_center_new = val_1_seek_w_sum / val_1_cnt_seek_hi;
-            else                     val_1_center_new = 15; // no seek_hi
+            else                     val_1_center_new = 5; //15; // no seek_hi
 
             xil_printf(" >>>> weighted sum \r\n");
             xil_printf(" > val_0_seek_w_sum  : %02d \r\n", val_0_seek_w_sum  );
@@ -5656,23 +5656,24 @@ namespace TopInstrument
             // int len_dac_command_points = 40;
             // double amplitude  = 8.0; // no distortion
 
-            double test_freq_kHz       = 1000; 
-            int len_dac_command_points = 20; // 4
-            //double amplitude  = 8.0; // some distortion
-            double amplitude  = 2.0; // best waveform
-
-            // double test_freq_kHz       = 5000; 
+            // double test_freq_kHz       = 1000; 
             // int len_dac_command_points = 20; // 4
-            // //double amplitude  = 8.0; // waveform distortion
-            // //double amplitude  = 2.0;
-            // double amplitude  = 1.0; // best waveform
-            // //double amplitude  = 0.5;
+            // //double amplitude  = 8.0; // some distortion
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0;
+
+            double test_freq_kHz       = 5000; 
+            int len_dac_command_points = 20; // 4
+            //double amplitude  = 8.0; // waveform distortion
+            //double amplitude  = 2.0;
+            //double amplitude  = 1.0; // best waveform
+            double amplitude  = 0.5;
 
             //
             long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
             long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
             double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
-            double phase_diff = Math.PI/2;
+            double phase_diff = Math.PI/2; // pi/2 = 90 degree
             
             long[]   buf_time = new long  [len_dac_command_points+1];
             double[] buf_dac1 = new double[len_dac_command_points+1];
@@ -5866,13 +5867,15 @@ namespace TopInstrument
             //
             //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
             //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
-            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
             //dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
+            //dev_eps.adc_set_sampling_period( 211); // 210MHz/211   =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
-            //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
-            //dev_eps.adc_set_sampling_period(190); // 189MHz/38   =  0.994737 Msps   //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
+            //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
+            dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
+            //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
