@@ -3416,7 +3416,7 @@ wire   w_hsadc_dat1_adc_1                         =  ADC1_DB         ; // in
 
 adc_wrapper #(
 	//.PERIOD_CLK_LOGIC_NS  (PERIOD_CLK_LOGIC_NS), // replaced
-	.DELAY_CLK            (ADC_DELAY_CLK      )
+	.DELAY_CLK            (ADC_DELAY_CLK      ),
 	.WIDTH_CLK_RESET      (ADC_WIDTH_CLK_RESET),
 	.WIDTH_IO_RESET       (ADC_WIDTH_IO_RESET )
 	) adc_wrapper__inst(

@@ -167,7 +167,7 @@ set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/control_hsadc_dual__in
 #set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_dat1_adc_1  ] # NG
 
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_reset           ]
-set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_en              ]
+#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_en              ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_init            ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_update          ]
 #set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_test            ]
