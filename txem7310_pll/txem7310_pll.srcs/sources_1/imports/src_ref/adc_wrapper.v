@@ -62,7 +62,7 @@ module adc_wrapper ( //{
 	
 	//// endpoint controls //{
 	input  wire  i_hsadc_reset   ,
-	input  wire  i_hsadc_en      ,
+	//input  wire  i_hsadc_en      ,
 	input  wire  i_hsadc_init    ,
 	input  wire  i_hsadc_update  ,
 	input  wire  i_hsadc_test    ,
@@ -156,12 +156,14 @@ wire [17:0] w_hsadc_fifo_adc1_dout;
 wire  w_hsadc_fifo_adc0_wr;
 wire  w_hsadc_fifo_adc1_wr;
 
-parameter PERIOD_CLK_LOGIC_NS = 4.76190476; // // ns // for 210MHz @ clk_logic
-parameter DELAY_CLK           = 14; // 65ns min < 4.76ns*14=66.7ns @210MHz
+//parameter PERIOD_CLK_LOGIC_NS = 4.76190476; // // ns // for 210MHz @ clk_logic
+parameter DELAY_CLK           = 14; //  65ns min < 1/(210MHz)*14=66.7ns    @210MHz // also for 189MHz
+parameter WIDTH_CLK_RESET     = 11; //  50ns min < 1/(210MHz)*11=52.38ns   @210MHz // also for 189MHz
+parameter WIDTH_IO_RESET      = 32; // 150ns min < 1/(210MHz)*32=152.381ns @210MHz // also for 189MHz
 
 //// call module adc control
 control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
-	.PERIOD_CLK_LOGIC_NS (PERIOD_CLK_LOGIC_NS),
+	//.PERIOD_CLK_LOGIC_NS (PERIOD_CLK_LOGIC_NS), // replaced
 	//.PERIOD_CLK_LOGIC_NS (5 ), // ns // for 200MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (4 ), // ns // for 250MHz @ clk_logic
 	//.PERIOD_CLK_LOGIC_NS (4.76190476), // ns // for 210MHz @ clk_logic
@@ -175,6 +177,9 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 	//.DELAY_CLK (12), // 65ns min < 5.56ns*12=66.7ns @180MHz
 	//.DELAY_CLK (13), // 65ns min < 5.12820513ns*13=66.7ns @195MHz
 	//
+	.WIDTH_CLK_RESET      (WIDTH_CLK_RESET),
+	.WIDTH_IO_RESET       (WIDTH_IO_RESET ),
+	//
 	.DAT1_OUTPUT_POLARITY(2'b00), // set 1 for inversion
 	.DAT2_OUTPUT_POLARITY(2'b00), // set 1 for inversion
 	.DCLK_OUTPUT_POLARITY(2'b00), // set 1 for inversion
@@ -183,8 +188,9 @@ control_adc_ddr_two_lane_LTC2387_reg_serdes_dual #( //$$ TODO: adc rev
 	)  control_hsadc_dual__inst(
 	
 	.clk			(sys_clk), // assume 10MHz or 100ns
-	.reset_n		(reset_n & ~i_hsadc_reset),
-	.en				(i_hsadc_en), //
+	.reset_n		(reset_n & (~i_hsadc_reset) ),
+	//.en				(i_hsadc_en), //
+	.en				(1'b1), //
 	//
 	.clk_logic		(base_adc_clk), 
 	//
@@ -542,8 +548,9 @@ adc_wrapper  adc_wrapper__inst (
 	
 	//// endpoint controls //{
 	
-	.i_hsadc_reset              (w_hsadc_reset            ), //        // 
-	.i_hsadc_en                 (w_hsadc_en               ), //        // 
+	.i_hsadc_reset              (w_hsadc_reset|(~w_hsadc_en)), //        // 
+	//.i_hsadc_en                 (w_hsadc_en               ), //        // 
+	//.i_hsadc_en                 (1'b1                     ), //        // 
 	.i_hsadc_init               (w_hsadc_init             ), //        // 
 	.i_hsadc_update             (w_hsadc_update           ), //        // 
 	.i_hsadc_test               (w_hsadc_test             ), //        // 
