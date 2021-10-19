@@ -3819,20 +3819,31 @@ namespace TopInstrument
             return ret/4; // number of bytes --> number of int
         }
 
-        private void adc_log_buf(char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32) {
+        private void adc_log_buf(char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32, 
+                                string buf_time_str="", string buf_dac0_str="", string buf_dac1_str="") {
             //
 		    string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
 
             // open or create a file
             try {
-                using (StreamWriter ws = new StreamWriter(LogFileName, false))
+                using (StreamWriter ws = new StreamWriter(LogFileName, false)) {
+                    ws.WriteLine("\"\"\" data log file : import data as CONSTANT \"\"\"");
+                    ws.WriteLine("# pylint: disable=C0301");
+                    ws.WriteLine("# pylint: disable=line-too-long");
+                    ws.WriteLine("# pylint: disable=C0326 ## disable-exactly-one-space");
                     ws.WriteLine("## log start"); //$$ add python comment header
+                }
             }
             catch {
                 System.IO.Directory.CreateDirectory(LogFilePath);
-                using (StreamWriter ws = new StreamWriter(LogFileName, false))
+                using (StreamWriter ws = new StreamWriter(LogFileName, false)) {
+                    ws.WriteLine("\"\"\" data log file : import data as CONSTANT \"\"\"");
+                    ws.WriteLine("# pylint: disable=C0301");
+                    ws.WriteLine("# pylint: disable=line-too-long");
+                    ws.WriteLine("# pylint: disable=C0326 ## disable-exactly-one-space");
                     ws.WriteLine("## log start"); //$$ add python comment header
+                }
             }
 
             // note adc full scale : +/-4.096V with 2^31-1 ~ -2^31
@@ -3857,17 +3868,18 @@ namespace TopInstrument
 
             // write data string on the file
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
-                //ws.WriteLine("Tdata_seg = [" + merge_time_ns_str          + "]"); // time point
-                //ws.WriteLine("Ddata_seg = [" + merge_duration_ns_str      + "]"); // duration time
-                //ws.WriteLine("Vdata_seg = [" + merge_code_value_float_str + "] \n"); // voltage value
-                ws.WriteLine("test_data = [0, 1, 2, 3]"); // test
+                ws.WriteLine("TEST_DATA = [0, 1, 2, 3]"); // test
+                // command info
+                ws.WriteLine("BUF_TIME     = [" + buf_time_str + "]"); // command info
+                ws.WriteLine("BUF_DAC0     = [" + buf_dac0_str + "]"); // command info
+                ws.WriteLine("BUF_DAC1     = [" + buf_dac1_str + "]"); // command info
                 ws.WriteLine(""); // newline
-                ws.WriteLine("adc_buf0     = [" + buf0_s32_str + "]"); // from buf0_s32
-                ws.WriteLine("adc_buf1     = [" + buf1_s32_str + "]"); // from buf1_s32
-                ws.WriteLine("adc_buf0_hex = [" + buf0_s32_hex_str + "]"); // from buf0_s32
-                ws.WriteLine("adc_buf1_hex = [" + buf1_s32_hex_str + "]"); // from buf1_s32
-                ws.WriteLine("adc_buf0_flt = [" + buf0_flt_str + "]"); // from buf0_s32
-                ws.WriteLine("adc_buf1_flt = [" + buf1_flt_str + "]"); // from buf1_s32
+                ws.WriteLine("ADC_BUF0     = [" + buf0_s32_str + "]"); // from buf0_s32
+                ws.WriteLine("ADC_BUF1     = [" + buf1_s32_str + "]"); // from buf1_s32
+                ws.WriteLine("ADC_BUF0_HEX = [" + buf0_s32_hex_str + "]"); // from buf0_s32
+                ws.WriteLine("ADC_BUF1_HEX = [" + buf1_s32_hex_str + "]"); // from buf1_s32
+                ws.WriteLine("ADC_BUF0_FLT = [" + buf0_flt_str + "]"); // from buf0_s32
+                ws.WriteLine("ADC_BUF1_FLT = [" + buf1_flt_str + "]"); // from buf1_s32
             }
 
 
@@ -5666,8 +5678,8 @@ namespace TopInstrument
             int len_dac_command_points = 20; // 4
             //double amplitude  = 8.0; // waveform distortion
             //double amplitude  = 2.0;
-            //double amplitude  = 1.0; // best waveform
-            double amplitude  = 0.5;
+            double amplitude  = 1.0; // best waveform
+            //double amplitude  = 0.5;
 
             //
             long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
@@ -5676,20 +5688,28 @@ namespace TopInstrument
             double phase_diff = Math.PI/2; // pi/2 = 90 degree
             
             long[]   buf_time = new long  [len_dac_command_points+1];
+            double[] buf_dac0 = new double[len_dac_command_points+1];
             double[] buf_dac1 = new double[len_dac_command_points+1];
-            double[] buf_dac2 = new double[len_dac_command_points+1];
 
             for (int n = 0; n < buf_time.Length; n++)
             {
                 buf_time[n] = sample_period_ns*n;
-                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
-                buf_dac2[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
+                buf_dac0[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
+                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
             }
 
+            // print out
+            string buf_time_str = String.Join(", ", buf_time);
+            string buf_dac0_str = String.Join(", ", buf_dac0);
+            string buf_dac1_str = String.Join(", ", buf_dac1);
+            Console.WriteLine(buf_time_str);
+            Console.WriteLine(buf_dac0_str);
+            Console.WriteLine(buf_dac1_str);
+
             StepTime_1  = buf_time;
-            StepLevel_1 = buf_dac1;
+            StepLevel_1 = buf_dac0;
             StepTime_2  = buf_time;
-            StepLevel_2 = buf_dac2;
+            StepLevel_2 = buf_dac1;
 
 
             //// rough wave test
@@ -5789,7 +5809,9 @@ namespace TopInstrument
             var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
 
             // setup pgu-clock device
-            double time_ns__dac_update          = 10;
+            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
+            //double time_ns__dac_update          = 10; // 10ns = 100MHz
+            double time_ns__dac_update          = 5; // 5ns = 200MHz
             dev_eps.pgu__setup_freq(time_ns__dac_update);
 
 
@@ -5824,7 +5846,8 @@ namespace TopInstrument
 
             // call setup 
             int    OutputRange                     = 10;   
-            int    time_ns__code_duration          = 10;                        
+            //int    time_ns__code_duration          = 10; // 10ns = 100MHz
+            int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
             double output_impedance_ohm            = 50;                        
             double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
@@ -5911,7 +5934,8 @@ namespace TopInstrument
             dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
-            dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
+            dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32,
+                                buf_time_str, buf_dac0_str, buf_dac1_str); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
 
             // adc disable 
