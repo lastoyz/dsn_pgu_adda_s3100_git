@@ -632,10 +632,10 @@ set_output_delay -clock [get_clocks base_adc_clk] 0.000 [get_ports o_B34_L5P]
 #output wire  o_B34D_L6N      ## ADCx_CNV_N
 #output wire  o_B34D_L8P      ## ADCx_CLK_P
 #output wire  o_B34D_L8N      ## ADCx_CLK_N
-set_max_delay   -to [get_ports o_B34D_L6P] 9.9
-set_max_delay   -to [get_ports o_B34D_L6N] 9.9
-set_max_delay   -to [get_ports o_B34D_L8P] 9.7
-set_max_delay   -to [get_ports o_B34D_L8N] 9.7
+set_max_delay   -to [get_ports o_B34D_L6P] 10.6 ;# <--9.9
+set_max_delay   -to [get_ports o_B34D_L6N] 10.6 ;# <--9.9
+set_max_delay   -to [get_ports o_B34D_L8P]  9.6 ;# <- 9.7  
+set_max_delay   -to [get_ports o_B34D_L8N]  9.6 ;# <- 9.7  
 
 
 ###########################################################################

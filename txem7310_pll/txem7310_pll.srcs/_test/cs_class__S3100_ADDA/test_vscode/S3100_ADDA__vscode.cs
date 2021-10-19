@@ -5668,18 +5668,18 @@ namespace TopInstrument
             // int len_dac_command_points = 40;
             // double amplitude  = 8.0; // no distortion
 
-            // double test_freq_kHz       = 1000; 
-            // int len_dac_command_points = 20; // 4
-            // //double amplitude  = 8.0; // some distortion
-            // double amplitude  = 2.0; // best waveform
-            // //double amplitude  = 1.0;
-
-            double test_freq_kHz       = 5000; 
+            double test_freq_kHz       = 1000; 
             int len_dac_command_points = 20; // 4
-            //double amplitude  = 8.0; // waveform distortion
-            //double amplitude  = 2.0;
-            double amplitude  = 1.0; // best waveform
-            //double amplitude  = 0.5;
+            //double amplitude  = 8.0; // some distortion
+            double amplitude  = 2.0; // best waveform
+            //double amplitude  = 1.0;
+
+            // double test_freq_kHz       = 5000; 
+            // int len_dac_command_points = 20; // 4
+            // //double amplitude  = 8.0; // waveform distortion
+            // //double amplitude  = 2.0;
+            // double amplitude  = 1.0; // best waveform
+            // //double amplitude  = 0.5;
 
             //
             long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
@@ -5897,8 +5897,8 @@ namespace TopInstrument
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
             //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
-            dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
-            //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
+            //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
+            dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
