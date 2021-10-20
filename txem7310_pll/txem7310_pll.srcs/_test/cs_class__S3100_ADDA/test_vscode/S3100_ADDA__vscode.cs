@@ -3694,8 +3694,14 @@ namespace TopInstrument
             return inp_read;
         }
 
-        private u32 adc_enable() {
-            SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001);
+        private u32 adc_enable(u32 sel_freq_mode_MHz = 210) {
+            if (sel_freq_mode_MHz == 210) 
+                SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001); // enable with 210MHz base freq
+            else if (sel_freq_mode_MHz == 189) 
+                SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0101); // enable with 189MHz base freq
+            else // default 210MHz
+                SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001); // enable with 210MHz base freq
+            //
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
@@ -3705,6 +3711,7 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
+
 
         private u32 adc_trig_check(s32 bit_loc) {
             ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
@@ -3766,6 +3773,9 @@ namespace TopInstrument
             return adc_trig_check(4);
         }
 
+        private u32 adc_get_base_freq() {
+            return GetWireOutValue(EP_ADRS__ADCH_B_FRQ_WO);
+        }
         private u32 adc_set_sampling_period(u32 val) {
             // 210MHz/val = x  Msps
             // 210MHz/14  = 15 Msps
@@ -4505,9 +4515,13 @@ namespace TopInstrument
 
             //// new try 
             if (val_0_cnt_seek_hi>0) val_0_center_new = val_0_seek_w_sum / val_0_cnt_seek_hi;
-            else                     val_0_center_new = 5; //15; // no seek_hi
+            else                     val_0_center_new = 0; //15; // no seek_hi
             if (val_1_cnt_seek_hi>0) val_1_center_new = val_1_seek_w_sum / val_1_cnt_seek_hi;
-            else                     val_1_center_new = 5; //15; // no seek_hi
+            else                     val_1_center_new = 0; //15; // no seek_hi
+
+            //// add more for too few seek_hi
+            if (val_0_cnt_seek_hi>0 && val_0_cnt_seek_hi<8) val_0_center_new = 0; // few seek_hi
+            if (val_1_cnt_seek_hi>0 && val_1_cnt_seek_hi<8) val_1_center_new = 0; // few seek_hi
 
             xil_printf(" >>>> weighted sum \r\n");
             xil_printf(" > val_0_seek_w_sum  : %02d \r\n", val_0_seek_w_sum  );
@@ -5568,10 +5582,15 @@ namespace TopInstrument
             // adc power on 
             dev_eps.adc_pwr(1);
             
-            // adc enable 
-            val = dev_eps.adc_enable();
+            // adc enable : 210MHz vs 189MHz
+            val = dev_eps.adc_enable(); // adc_enable(u32 sel_freq_mode_MHz = 210) // 210MHz
+            //val = dev_eps.adc_enable(189); // 189MHz
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
             
+            // adc base freq check 
+            val = dev_eps.adc_get_base_freq();
+            Console.WriteLine(string.Format("{0} = {1} [MHz]", "adc_base_freq", val/1000000));
+
             // adc reset
             val = dev_eps.adc_reset();
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_reset", val));
@@ -5664,15 +5683,15 @@ namespace TopInstrument
 
             //// case for sine wave
 
-            // double test_freq_kHz       = 100; 
-            // int len_dac_command_points = 40;
-            // double amplitude  = 8.0; // no distortion
+            double test_freq_kHz       = 100; 
+            int len_dac_command_points = 40;
+            double amplitude  = 8.0; // no distortion
 
-            double test_freq_kHz       = 1000; 
-            int len_dac_command_points = 20; // 4
-            //double amplitude  = 8.0; // some distortion
-            double amplitude  = 2.0; // best waveform
-            //double amplitude  = 1.0;
+            // double test_freq_kHz       = 1000; 
+            // int len_dac_command_points = 20; // 4
+            // //double amplitude  = 8.0; // some distortion
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0;
 
             // double test_freq_kHz       = 5000; 
             // int len_dac_command_points = 20; // 4
@@ -5810,8 +5829,8 @@ namespace TopInstrument
 
             // setup pgu-clock device
             //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
-            //double time_ns__dac_update          = 10; // 10ns = 100MHz
-            double time_ns__dac_update          = 5; // 5ns = 200MHz
+            double time_ns__dac_update          = 10; // 10ns = 100MHz
+            //double time_ns__dac_update          = 5; // 5ns = 200MHz
             dev_eps.pgu__setup_freq(time_ns__dac_update);
 
 
@@ -5846,8 +5865,8 @@ namespace TopInstrument
 
             // call setup 
             int    OutputRange                     = 10;   
-            //int    time_ns__code_duration          = 10; // 10ns = 100MHz
-            int    time_ns__code_duration          = 5; // 5ns = 200MHz
+            int    time_ns__code_duration          = 10; // 10ns = 100MHz
+            //int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
             double output_impedance_ohm            = 50;                        
             double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
@@ -5890,15 +5909,15 @@ namespace TopInstrument
             //
             //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
             //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
-            //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
             //dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
             //dev_eps.adc_set_sampling_period( 211); // 210MHz/211   =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
             //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
-            //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave // 5000	189	38 26.315789 4.973684
-            dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave // 1000	189	190	189	1	5.263158	0.994737
+            //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
+            //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters

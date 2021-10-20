@@ -76,7 +76,7 @@ def plot_test():
     plt.figure(fig_num, figsize=(8, 6))
 
     title_str = 'dac0(red) and dac1(blue)'
-    t_list = range(len(buf_time))
+    t_list = buf_time
 
     plt.plot(t_list, buf_dac0, 'ro-', markersize=10, alpha=0.5)
     plt.plot(t_list, buf_dac1, 'bs-', markersize=10, alpha=0.5)
