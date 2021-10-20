@@ -5583,8 +5583,8 @@ namespace TopInstrument
             dev_eps.adc_pwr(1);
             
             // adc enable : 210MHz vs 189MHz
-            val = dev_eps.adc_enable(); // adc_enable(u32 sel_freq_mode_MHz = 210) // 210MHz
-            //val = dev_eps.adc_enable(189); // 189MHz
+            //val = dev_eps.adc_enable(); // adc_enable(u32 sel_freq_mode_MHz = 210) // 210MHz
+            val = dev_eps.adc_enable(189); // 189MHz
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
             
             // adc base freq check 
@@ -5683,12 +5683,39 @@ namespace TopInstrument
 
             //// case for sine wave
 
-            double test_freq_kHz       = 100; 
-            int len_dac_command_points = 40;
+            double test_freq_kHz       = 10; 
+            int len_dac_command_points = 500; //80;
             double amplitude  = 8.0; // no distortion
 
+            // double test_freq_kHz       = 20; 
+            // int len_dac_command_points = 500; //80;
+            // double amplitude  = 8.0; // no distortion
+
+            // double test_freq_kHz       = 50; 
+            // int len_dac_command_points = 500; //80;
+            // double amplitude  = 8.0; // no distortion
+
+            //double test_freq_kHz       = 100; 
+            //int len_dac_command_points = 500; //40;
+            //double amplitude  = 8.0; // no distortion
+
+            // double test_freq_kHz       = 200; 
+            // int len_dac_command_points = 500; //40;
+            // double amplitude  = 8.0; // no distortion
+
+            // double test_freq_kHz       = 500; 
+            // int len_dac_command_points = 200; //40;
+            // double amplitude  = 8.0; // no distortion
+
+
             // double test_freq_kHz       = 1000; 
-            // int len_dac_command_points = 20; // 4
+            // int len_dac_command_points = 100; // 20; // 4
+            // //double amplitude  = 8.0; // some distortion
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0;
+
+            // double test_freq_kHz       = 2000; 
+            // int len_dac_command_points = 50; // 20; // 4
             // //double amplitude  = 8.0; // some distortion
             // double amplitude  = 2.0; // best waveform
             // //double amplitude  = 1.0;
@@ -5909,14 +5936,18 @@ namespace TopInstrument
             //
             //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
             //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
-            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
             //dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
+            //dev_eps.adc_set_sampling_period( 106); // 210MHz/106   =  1.98113208 Msps //$$ 18.8679245kHz image with 2MHz wave
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
             //dev_eps.adc_set_sampling_period( 211); // 210MHz/211   =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
-            //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
+            //dev_eps.adc_set_sampling_period( 15); // 189MHz/14   =  13.5 Msps
+            dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
             //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
+            //dev_eps.adc_set_sampling_period( 95); // 189MHz/any
+            //dev_eps.adc_set_sampling_period( 95); // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
             //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
