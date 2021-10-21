@@ -5703,16 +5703,17 @@ namespace TopInstrument
             // int len_dac_command_points = 500; //40;
             // double amplitude  = 8.0; // no distortion
 
-            // double test_freq_kHz       = 500; 
-            // int len_dac_command_points = 200; //40;
-            // double amplitude  = 8.0; // no distortion
+            double test_freq_kHz       = 500; 
+            int len_dac_command_points = 200; //40;
+            //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
+            double amplitude  = 4.0; // no distortion
 
 
-            double test_freq_kHz       = 1000; 
-            int len_dac_command_points = 100; // 20; // 4
-            //double amplitude  = 8.0; // some distortion
-            double amplitude  = 2.0; // best waveform
-            //double amplitude  = 1.0;
+            // double test_freq_kHz       = 1000; 
+            // int len_dac_command_points = 100; // 20; // 4
+            // //double amplitude  = 8.0; // some distortion
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0;
 
             // double test_freq_kHz       = 2000; 
             // int len_dac_command_points = 50; // 20; // 4
@@ -5947,7 +5948,8 @@ namespace TopInstrument
             //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
             //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
             //dev_eps.adc_set_sampling_period( 95); // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
-            dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
+            //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
+            dev_eps.adc_set_sampling_period(379); // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
