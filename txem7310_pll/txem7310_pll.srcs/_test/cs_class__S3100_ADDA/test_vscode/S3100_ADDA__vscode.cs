@@ -3475,7 +3475,7 @@ namespace TopInstrument
         }
     }
 
-
+    //// S3100-ADDA class using EPS_Dev
     public class ADDA_control_by_eps : EPS_Dev
     {
 
@@ -3870,8 +3870,8 @@ namespace TopInstrument
                 //
                 buf0_s32_str     = buf0_s32_str + string.Format("{0,11:D}, ",buf0_s32[i]);
                 buf1_s32_str     = buf1_s32_str + string.Format("{0,11:D}, ",buf1_s32[i]);
-                buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X}', ",buf0_s32[i]);
-                buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X}', ",buf1_s32[i]);
+                buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X8}', ",buf0_s32[i]);
+                buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X8}', ",buf1_s32[i]);
                 buf0_flt_str     = buf0_flt_str + string.Format("{0,11:F8}, ",(float)buf0_s32[i]*adc_scale);
                 buf1_flt_str     = buf1_flt_str + string.Format("{0,11:F8}, ",(float)buf1_s32[i]*adc_scale);
             }
@@ -5583,6 +5583,7 @@ namespace TopInstrument
             dev_eps.adc_pwr(1);
             
             // adc enable : 210MHz vs 189MHz
+            dev_eps.adc_disable();
             //val = dev_eps.adc_enable(); // adc_enable(u32 sel_freq_mode_MHz = 210) // 210MHz
             val = dev_eps.adc_enable(189); // 189MHz
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
