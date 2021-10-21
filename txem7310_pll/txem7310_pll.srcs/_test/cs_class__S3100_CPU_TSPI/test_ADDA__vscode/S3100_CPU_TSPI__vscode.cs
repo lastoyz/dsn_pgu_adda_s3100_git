@@ -5486,6 +5486,10 @@ namespace TopInstrument
             // ... test subfunctions
             u32 val;
 
+
+            ////
+            Console.WriteLine(">>> ADC setup");
+
             // spio init for power control
             //val = dev_eps.sp1_ext_init(1,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
             //val = dev_eps.sp1_ext_init(1,1,1,1); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
@@ -5540,6 +5544,7 @@ namespace TopInstrument
             // check fifo in data in logic debugger
 
             //// DAC DC test
+            Console.WriteLine(">>> ADC test run");
 
             // no setup for DAC
 
@@ -5583,10 +5588,8 @@ namespace TopInstrument
             // dac_trig_off()
 
 
-            // dac init
-            //...
-            dev_eps.dac_pwr(1);
-            dev_eps.dac_init(); 
+            ////
+            Console.WriteLine(">>> DAC pulse setup");
 
             //$$ pulse setup
             //long[]   StepTime;
@@ -5770,6 +5773,15 @@ namespace TopInstrument
             var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_1, StepLevel_1);
             var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
 
+
+            ////
+            Console.WriteLine(">>> DAC setup");
+
+            // dac init
+            //...
+            dev_eps.dac_pwr(1);
+            dev_eps.dac_init(); 
+
             // setup pgu-clock device
             //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
             double time_ns__dac_update          = 10; // 10ns = 100MHz
@@ -5805,6 +5817,8 @@ namespace TopInstrument
                 N_pol_sel_2, Sink_sel_2);
 
 
+            ////
+            Console.WriteLine(">>> DAC pulse download");
 
             // call setup 
             int    OutputRange                     = 10;   
@@ -5844,6 +5858,8 @@ namespace TopInstrument
             // pgu_trig__on_log
             // pgu_trig__off
 
+            ////
+            Console.WriteLine(">>> ADC setup");
 
             // adc normal setup 
             //len_adc_data = 2000; // 0.19047619 @ 10.5MHz
@@ -5876,11 +5892,19 @@ namespace TopInstrument
             //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             //dev_eps.adc_update(); // including done_check
 
+
+            ////
+            Console.WriteLine(">>> DAC pulse trigger");
+
             //// trigger linked DAC wave and adc update -- method 2
             int num_repeat_pulses = 2000;
             dev_eps.trig_pgu_output_Cid_ON(num_repeat_pulses, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             //dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             dev_eps.adc_update_check(); // check done without triggering
+
+
+            ////
+            Console.WriteLine(">>> DAC closed");
 
             // clear DAC wave
             //...
@@ -5890,6 +5914,9 @@ namespace TopInstrument
             //...
             dev_eps.dac_pwr(0);
 
+
+            ////
+            Console.WriteLine(">>> ADC FIFO read");
 
             // clear local buffers
             buf0_s32 = null;
@@ -5906,6 +5933,9 @@ namespace TopInstrument
             dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32,
                                 buf_time_str, buf_dac0_str, buf_dac1_str); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
+
+            ////
+            Console.WriteLine(">>> ADC closed");
 
             // adc disable 
             val = dev_eps.adc_disable();
