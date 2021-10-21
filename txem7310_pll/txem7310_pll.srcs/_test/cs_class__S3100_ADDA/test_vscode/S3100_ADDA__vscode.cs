@@ -5683,9 +5683,9 @@ namespace TopInstrument
 
             //// case for sine wave
 
-            double test_freq_kHz       = 10; 
-            int len_dac_command_points = 500; //80;
-            double amplitude  = 8.0; // no distortion
+            // double test_freq_kHz       = 10; 
+            // int len_dac_command_points = 500; //80;
+            // double amplitude  = 8.0; // no distortion
 
             // double test_freq_kHz       = 20; 
             // int len_dac_command_points = 500; //80;
@@ -5708,11 +5708,11 @@ namespace TopInstrument
             // double amplitude  = 8.0; // no distortion
 
 
-            // double test_freq_kHz       = 1000; 
-            // int len_dac_command_points = 100; // 20; // 4
-            // //double amplitude  = 8.0; // some distortion
-            // double amplitude  = 2.0; // best waveform
-            // //double amplitude  = 1.0;
+            double test_freq_kHz       = 1000; 
+            int len_dac_command_points = 100; // 20; // 4
+            //double amplitude  = 8.0; // some distortion
+            double amplitude  = 2.0; // best waveform
+            //double amplitude  = 1.0;
 
             // double test_freq_kHz       = 2000; 
             // int len_dac_command_points = 50; // 20; // 4
@@ -5723,9 +5723,9 @@ namespace TopInstrument
             // double test_freq_kHz       = 5000; 
             // int len_dac_command_points = 20; // 4
             // //double amplitude  = 8.0; // waveform distortion
-            // //double amplitude  = 2.0;
-            // double amplitude  = 1.0; // best waveform
-            // //double amplitude  = 0.5;
+            // //double amplitude  = 3.0;
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0; 
 
             //
             long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
@@ -5944,11 +5944,10 @@ namespace TopInstrument
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
             //dev_eps.adc_set_sampling_period( 15); // 189MHz/14   =  13.5 Msps
-            dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
+            //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
             //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
-            //dev_eps.adc_set_sampling_period( 95); // 189MHz/any
             //dev_eps.adc_set_sampling_period( 95); // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
-            //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
+            dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
@@ -5959,7 +5958,8 @@ namespace TopInstrument
             //dev_eps.adc_update(); // including done_check
 
             //// trigger linked DAC wave and adc update -- method 2
-            dev_eps.trig_pgu_output_Cid_ON(1000, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            int num_repeat_pulses = 2000;
+            dev_eps.trig_pgu_output_Cid_ON(num_repeat_pulses, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             //dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             dev_eps.adc_update_check(); // check done without triggering
 
