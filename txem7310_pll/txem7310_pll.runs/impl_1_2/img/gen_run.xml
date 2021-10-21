@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1_2" LaunchPart="xc7a200tfbg484-2" LaunchTime="1633515575">
+<GenRun Id="impl_1_2" LaunchPart="xc7a200tfbg484-2" LaunchTime="1634695069">
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <File Type="BG-DRC" Name="txem7310_pll__s3100_sv_adda__top.drc"/>
   <File Type="BG-BGN" Name="txem7310_pll__s3100_sv_adda__top.bgn"/>
@@ -265,13 +265,6 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0_2_3/clk_wiz_0_2_3.xci">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/imports/src_ref/adc_wrapper.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -294,6 +287,13 @@
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/ip/fifo_generator_2_1/fifo_generator_2_1.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0_2_3_4/clk_wiz_0_2_3_4.xci">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>

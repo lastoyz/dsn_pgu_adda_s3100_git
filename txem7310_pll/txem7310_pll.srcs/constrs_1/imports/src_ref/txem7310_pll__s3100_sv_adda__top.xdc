@@ -460,47 +460,34 @@ create_generated_clock  -name mcs_eeprom_fifo_clk      [get_pins  clk_wiz_0_3_1_
 create_generated_clock  -name base_sspi_clk   [get_pins  clk_wiz_2_2_inst/inst/plle2_adv_inst/CLKOUT0]
 
 ## TODO: define clock - base_adc_clk 
-create_generated_clock  -name base_adc_clk    [get_pins  clk_wiz_0_2_3_inst/inst/plle2_adv_inst/CLKOUT0]
+create_generated_clock  -name base_adc_clk    [get_pins  clk_wiz_0_2_3_inst/inst/mmcm_adv_inst/CLKOUT0]
+
+## TODO: define clock - base_adc_alt_clk 
+create_generated_clock  -name base_adc_alt_clk  [get_pins  clk_wiz_0_2_3_inst/inst/mmcm_adv_inst/CLKOUT1]
 
 ## TODO: define clock - adc_fifo_clk 
-create_generated_clock  -name adc_fifo_clk    [get_pins  clk_wiz_0_2_3_inst/inst/plle2_adv_inst/CLKOUT2]
+create_generated_clock  -name adc_fifo_clk    [get_pins  clk_wiz_0_2_3_inst/inst/mmcm_adv_inst/CLKOUT2]
 
 ## TODO: define clock - ref_200M_clk 
 create_generated_clock  -name ref_200M_clk    [get_pins  clk_wiz_0_inst/inst/mmcm_adv_inst/CLKOUT0]
 
 
-####
-set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks sys_clk]
-
-
-## for MCS
+## async for MCS
 # mcs_clk
 # lan_clk
-set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks lan_clk]
-set_clock_groups -asynchronous -group [get_clocks mcs_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks lan_clk] -group [get_clocks sys_clk]
-set_clock_groups -asynchronous -group [get_clocks xadc_clk] -group [get_clocks mcs_clk]
-set_clock_groups -asynchronous -group [get_clocks mcs_eeprom_fifo_clk] -group [get_clocks mcs_clk]
-
 ## for base_sspi_clk
-set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks sys_clk            ]
-set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_clk            ]
-set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks mcs_eeprom_fifo_clk]
-set_clock_groups -asynchronous -group [get_clocks base_sspi_clk] -group [get_clocks xadc_clk           ]
-
 ## for adc
-set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks sys_clk            ]
-set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks mcs_clk            ]
-set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks base_sspi_clk      ]
-set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks sys_clk            ]
-set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks mcs_clk            ]
-set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks base_sspi_clk      ]
-set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks sys_clk            ]
-set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks mcs_clk            ]
-set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks base_sspi_clk      ]
-set_clock_groups -asynchronous -group [get_clocks base_adc_clk] -group [get_clocks adc_fifo_clk       ]
-set_clock_groups -asynchronous -group [get_clocks adc_fifo_clk] -group [get_clocks ref_200M_clk       ]
-set_clock_groups -asynchronous -group [get_clocks ref_200M_clk] -group [get_clocks base_adc_clk       ]
+set_clock_groups -asynchronous          \
+-group [get_clocks mcs_clk            ] \
+-group [get_clocks lan_clk            ] \
+-group [get_clocks sys_clk            ] \
+-group [get_clocks xadc_clk           ] \
+-group [get_clocks mcs_eeprom_fifo_clk] \
+-group [get_clocks base_sspi_clk      ] \
+-group [get_clocks base_adc_clk       ] \
+-group [get_clocks base_adc_alt_clk   ] \
+-group [get_clocks adc_fifo_clk       ] \
+-group [get_clocks ref_200M_clk       ]
 
 
 
@@ -552,32 +539,23 @@ create_generated_clock  -name dac1_clk        [get_pins  clk_wiz_1_2_1_inst/inst
 ## TODO: define clock - dac1_dci_clk // replace clk_out5_400M_clk_wiz_1_1
 create_generated_clock  -name dac1_dci_clk    [get_pins  clk_wiz_1_2_1_inst/inst/plle2_adv_inst/CLKOUT0]
 
-
-set_clock_groups -asynchronous -group [get_clocks  dac_test_clk] -group [get_clocks {sys_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {sys_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {mcs_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {base_sspi_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {sys_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {mcs_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {base_sspi_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_dci_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {sys_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {mcs_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {base_sspi_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {sys_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {mcs_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {base_sspi_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_dci_clk] -group [get_clocks {base_adc_clk  adc_fifo_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks {dac0_dci_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac1_clk] -group [get_clocks {dac1_dci_clk}]
-set_clock_groups -asynchronous -group [get_clocks  dac0_clk] -group [get_clocks dac1_clk]
+## async for DAC
+set_clock_groups -asynchronous          \
+-group [get_clocks mcs_clk            ] \
+-group [get_clocks lan_clk            ] \
+-group [get_clocks sys_clk            ] \
+-group [get_clocks xadc_clk           ] \
+-group [get_clocks mcs_eeprom_fifo_clk] \
+-group [get_clocks base_sspi_clk      ] \
+-group [get_clocks base_adc_clk       ] \
+-group [get_clocks base_adc_alt_clk   ] \
+-group [get_clocks adc_fifo_clk       ] \
+-group [get_clocks ref_200M_clk       ] \
+-group [get_clocks dac_test_clk       ] \
+-group [get_clocks dac0_clk           ] \
+-group [get_clocks dac0_dci_clk       ] \
+-group [get_clocks dac1_clk           ] \
+-group [get_clocks dac1_dci_clk       ] 
 #
 
 
@@ -593,21 +571,27 @@ create_clock -period 9.5 -name serdesCLK_1 [get_ports c_B35D_L11P_SRCC]
 create_generated_clock -name serdesCLK_0_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
 create_generated_clock -name serdesCLK_1_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
 
-## async
-#
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {sys_clk ref_200M_clk base_adc_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {adc_fifo_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {mcs_clk base_sspi_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks {dac0_clk dac1_clk  dac0_dci_clk dac1_dci_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {sys_clk ref_200M_clk base_adc_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {adc_fifo_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {mcs_clk base_sspi_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_1] -group [get_clocks {dac0_clk dac1_clk  dac0_dci_clk dac1_dci_clk}]
-#
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_0] -group [get_clocks serdesCLK_1]
-#
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_0_div] -group [get_clocks {sys_clk adc_fifo_clk ref_200M_clk base_adc_clk}]
-set_clock_groups -asynchronous -group [get_clocks serdesCLK_1_div] -group [get_clocks {sys_clk adc_fifo_clk ref_200M_clk base_adc_clk}]
+## async for ADC
+set_clock_groups -asynchronous          \
+-group [get_clocks mcs_clk            ] \
+-group [get_clocks lan_clk            ] \
+-group [get_clocks sys_clk            ] \
+-group [get_clocks xadc_clk           ] \
+-group [get_clocks mcs_eeprom_fifo_clk] \
+-group [get_clocks base_sspi_clk      ] \
+-group [get_clocks base_adc_clk       ] \
+-group [get_clocks base_adc_alt_clk   ] \
+-group [get_clocks adc_fifo_clk       ] \
+-group [get_clocks ref_200M_clk       ] \
+-group [get_clocks dac_test_clk       ] \
+-group [get_clocks dac0_clk           ] \
+-group [get_clocks dac0_dci_clk       ] \
+-group [get_clocks dac1_clk           ] \
+-group [get_clocks dac1_dci_clk       ] \
+-group [get_clocks serdesCLK_0        ] \
+-group [get_clocks serdesCLK_1        ] \
+-group [get_clocks serdesCLK_0_div    ] \
+-group [get_clocks serdesCLK_1_div    ] 
 
 
 ## ADC input :  2.4ns or 4.8ns delay for serdesCLK_0 @ 210MHz/2 ...9.5ns
@@ -648,10 +632,10 @@ set_output_delay -clock [get_clocks base_adc_clk] 0.000 [get_ports o_B34_L5P]
 #output wire  o_B34D_L6N      ## ADCx_CNV_N
 #output wire  o_B34D_L8P      ## ADCx_CLK_P
 #output wire  o_B34D_L8N      ## ADCx_CLK_N
-set_max_delay   -to [get_ports o_B34D_L6P] 9.9
-set_max_delay   -to [get_ports o_B34D_L6N] 9.9
-set_max_delay   -to [get_ports o_B34D_L8P] 9.7
-set_max_delay   -to [get_ports o_B34D_L8N] 9.7
+set_max_delay   -to [get_ports o_B34D_L6P] 12.0 ;# <-- 11.1 <-- 10.6 <--9.9
+set_max_delay   -to [get_ports o_B34D_L6N] 12.0 ;# <-- 11.1 <-- 10.6 <--9.9
+set_max_delay   -to [get_ports o_B34D_L8P] 12.0 ;# <-- 10.1 <--  9.6 <- 9.7  
+set_max_delay   -to [get_ports o_B34D_L8N] 12.0 ;# <-- 10.1 <--  9.6 <- 9.7  
 
 
 ###########################################################################

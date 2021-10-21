@@ -482,7 +482,8 @@ namespace TopInstrument
             }
             return ret;
         }
-        public bool IsTriggered(uint adrs, uint mask) {
+        
+		public bool IsTriggered(uint adrs, uint mask) {
             return __IsTriggered__(adrs, mask);
         }
 
@@ -787,27 +788,28 @@ namespace TopInstrument
             //
             // more endpoint access test : PI, PO
             // scpi_comm_resp_numb_ss
-            //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
+			//
+            //  dev_eps.scpi_comm_resp_numb_ss(cmd_str);
 
             //// test fifo : pipein at 0x8A; pipeout at 0xAA.
-            //byte[] datain_bytearray;
-            //datain_bytearray = new byte[] { 
-            //    (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
-            //    (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
-            //    (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
-            //    (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
-            //    };
-            //Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
-            ////
-            //byte[] dataout_bytearray = new byte[16];
-            //Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
-            //// compare
-            //Console.WriteLine(BitConverter.ToString(datain_bytearray));
-            //Console.WriteLine(BitConverter.ToString(dataout_bytearray));
-            //bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
-            //if (comp ==  false) {
-            //    Console.WriteLine(comp);
-            //}
+            //  byte[] datain_bytearray;
+            //  datain_bytearray = new byte[] { 
+            //      (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+            //      (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
+            //      (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
+            //      (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
+            //      };
+            //  Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
+            //  //
+            //  byte[] dataout_bytearray = new byte[16];
+            //  Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
+            //  // compare
+            //  Console.WriteLine(BitConverter.ToString(datain_bytearray));
+            //  Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+            //  bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
+            //  if (comp ==  false) {
+            //      Console.WriteLine(comp);
+            //  }
             
 
             // MSPI test : 
@@ -3377,16 +3379,16 @@ namespace TopInstrument
             //// previous LAN commmand for eeprom read
             // # ':PGU:MEMR' # new ':PGU:MEMR #H00000058 \n'
             //
-            //string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
-            //byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
-            //string ret;
-            //try {
-            //    ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
-            //}
-            //catch {
-            //    ret = "#H00000000\n";
-            //}
-            //ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
+            // string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
+            // byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
+            // string ret;
+            // try {
+            //     ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
+            // }
+            // catch {
+            //     ret = "#H00000000\n";
+            // }
+            // ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
 
             //
             return ret_int;
@@ -3410,24 +3412,24 @@ namespace TopInstrument
             //// previous LAN commmand for eeprom write
             // # ':PGU:MEMW' # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
             //
-            //string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
-            //                + string.Format(" #H{0,8:X8}"  , adrs_b32)
-            //                + string.Format(" #H{0,8:X8}\n", val_b32 );
-            //byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
-            //string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
-            //
-            ////Delay(1); //$$ 1ms wait for write done // NG  read right after write
-            ////Delay(2); //$$ 2ms wait for write done // some NG 
-            ////Delay(10); //$$ 10ms wait for write done 
-            //Delay(interval_ms); //$$ ms wait for write done 
-            ////
-            //int ret_int = 0;
-            //if (ret.Substring(0,2)=="OK") {
-            //    ret_int = 0;
-            //}
-            //else {
-            //    ret_int = -1;
-            //}
+            // string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
+            //                 + string.Format(" #H{0,8:X8}"  , adrs_b32)
+            //                 + string.Format(" #H{0,8:X8}\n", val_b32 );
+            // byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
+            // string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
+            // 
+            // //Delay(1); //$$ 1ms wait for write done // NG  read right after write
+            // //Delay(2); //$$ 2ms wait for write done // some NG 
+            // //Delay(10); //$$ 10ms wait for write done 
+            // Delay(interval_ms); //$$ ms wait for write done 
+            // //
+            // int ret_int = 0;
+            // if (ret.Substring(0,2)=="OK") {
+            //     ret_int = 0;
+            // }
+            // else {
+            //     ret_int = -1;
+            // }
 
             //
             return ret_int;
@@ -3473,7 +3475,7 @@ namespace TopInstrument
         }
     }
 
-
+    //// S3100-ADDA class using EPS_Dev
     public class ADDA_control_by_eps : EPS_Dev
     {
 
@@ -3692,8 +3694,14 @@ namespace TopInstrument
             return inp_read;
         }
 
-        private u32 adc_enable() {
-            SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001);
+        private u32 adc_enable(u32 sel_freq_mode_MHz = 210) {
+            if (sel_freq_mode_MHz == 210) 
+                SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001); // enable with 210MHz base freq
+            else if (sel_freq_mode_MHz == 189) 
+                SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0101); // enable with 189MHz base freq
+            else // default 210MHz
+                SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001); // enable with 210MHz base freq
+            //
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
@@ -3703,6 +3711,7 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
+
 
         private u32 adc_trig_check(s32 bit_loc) {
             ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
@@ -3764,6 +3773,9 @@ namespace TopInstrument
             return adc_trig_check(4);
         }
 
+        private u32 adc_get_base_freq() {
+            return GetWireOutValue(EP_ADRS__ADCH_B_FRQ_WO);
+        }
         private u32 adc_set_sampling_period(u32 val) {
             // 210MHz/val = x  Msps
             // 210MHz/14  = 15 Msps
@@ -3817,20 +3829,31 @@ namespace TopInstrument
             return ret/4; // number of bytes --> number of int
         }
 
-        private void adc_log_buf(char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32) {
+        private void adc_log_buf(char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32, 
+                                string buf_time_str="", string buf_dac0_str="", string buf_dac1_str="") {
             //
 		    string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_vscode", "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
 
             // open or create a file
             try {
-                using (StreamWriter ws = new StreamWriter(LogFileName, false))
+                using (StreamWriter ws = new StreamWriter(LogFileName, false)) {
+                    ws.WriteLine("\"\"\" data log file : import data as CONSTANT \"\"\"");
+                    ws.WriteLine("# pylint: disable=C0301");
+                    ws.WriteLine("# pylint: disable=line-too-long");
+                    ws.WriteLine("# pylint: disable=C0326 ## disable-exactly-one-space");
                     ws.WriteLine("## log start"); //$$ add python comment header
+                }
             }
             catch {
                 System.IO.Directory.CreateDirectory(LogFilePath);
-                using (StreamWriter ws = new StreamWriter(LogFileName, false))
+                using (StreamWriter ws = new StreamWriter(LogFileName, false)) {
+                    ws.WriteLine("\"\"\" data log file : import data as CONSTANT \"\"\"");
+                    ws.WriteLine("# pylint: disable=C0301");
+                    ws.WriteLine("# pylint: disable=line-too-long");
+                    ws.WriteLine("# pylint: disable=C0326 ## disable-exactly-one-space");
                     ws.WriteLine("## log start"); //$$ add python comment header
+                }
             }
 
             // note adc full scale : +/-4.096V with 2^31-1 ~ -2^31
@@ -3847,25 +3870,26 @@ namespace TopInstrument
                 //
                 buf0_s32_str     = buf0_s32_str + string.Format("{0,11:D}, ",buf0_s32[i]);
                 buf1_s32_str     = buf1_s32_str + string.Format("{0,11:D}, ",buf1_s32[i]);
-                buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X}', ",buf0_s32[i]);
-                buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X}', ",buf1_s32[i]);
+                buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X8}', ",buf0_s32[i]);
+                buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X8}', ",buf1_s32[i]);
                 buf0_flt_str     = buf0_flt_str + string.Format("{0,11:F8}, ",(float)buf0_s32[i]*adc_scale);
                 buf1_flt_str     = buf1_flt_str + string.Format("{0,11:F8}, ",(float)buf1_s32[i]*adc_scale);
             }
 
             // write data string on the file
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
-                //ws.WriteLine("Tdata_seg = [" + merge_time_ns_str          + "]"); // time point
-                //ws.WriteLine("Ddata_seg = [" + merge_duration_ns_str      + "]"); // duration time
-                //ws.WriteLine("Vdata_seg = [" + merge_code_value_float_str + "] \n"); // voltage value
-                ws.WriteLine("test_data = [0, 1, 2, 3]"); // test
+                ws.WriteLine("TEST_DATA = [0, 1, 2, 3]"); // test
+                // command info
+                ws.WriteLine("BUF_TIME     = [" + buf_time_str + "]"); // command info
+                ws.WriteLine("BUF_DAC0     = [" + buf_dac0_str + "]"); // command info
+                ws.WriteLine("BUF_DAC1     = [" + buf_dac1_str + "]"); // command info
                 ws.WriteLine(""); // newline
-                ws.WriteLine("adc_buf0     = [" + buf0_s32_str + "]"); // from buf0_s32
-                ws.WriteLine("adc_buf1     = [" + buf1_s32_str + "]"); // from buf1_s32
-                ws.WriteLine("adc_buf0_hex = [" + buf0_s32_hex_str + "]"); // from buf0_s32
-                ws.WriteLine("adc_buf1_hex = [" + buf1_s32_hex_str + "]"); // from buf1_s32
-                ws.WriteLine("adc_buf0_flt = [" + buf0_flt_str + "]"); // from buf0_s32
-                ws.WriteLine("adc_buf1_flt = [" + buf1_flt_str + "]"); // from buf1_s32
+                ws.WriteLine("ADC_BUF0     = [" + buf0_s32_str + "]"); // from buf0_s32
+                ws.WriteLine("ADC_BUF1     = [" + buf1_s32_str + "]"); // from buf1_s32
+                ws.WriteLine("ADC_BUF0_HEX = [" + buf0_s32_hex_str + "]"); // from buf0_s32
+                ws.WriteLine("ADC_BUF1_HEX = [" + buf1_s32_hex_str + "]"); // from buf1_s32
+                ws.WriteLine("ADC_BUF0_FLT = [" + buf0_flt_str + "]"); // from buf0_s32
+                ws.WriteLine("ADC_BUF1_FLT = [" + buf1_flt_str + "]"); // from buf1_s32
             }
 
 
@@ -4491,9 +4515,13 @@ namespace TopInstrument
 
             //// new try 
             if (val_0_cnt_seek_hi>0) val_0_center_new = val_0_seek_w_sum / val_0_cnt_seek_hi;
-            else                     val_0_center_new = 15; // no seek_hi
+            else                     val_0_center_new = 0; //15; // no seek_hi
             if (val_1_cnt_seek_hi>0) val_1_center_new = val_1_seek_w_sum / val_1_cnt_seek_hi;
-            else                     val_1_center_new = 15; // no seek_hi
+            else                     val_1_center_new = 0; //15; // no seek_hi
+
+            //// add more for too few seek_hi
+            if (val_0_cnt_seek_hi>0 && val_0_cnt_seek_hi<8) val_0_center_new = 0; // few seek_hi
+            if (val_1_cnt_seek_hi>0 && val_1_cnt_seek_hi<8) val_1_center_new = 0; // few seek_hi
 
             xil_printf(" >>>> weighted sum \r\n");
             xil_printf(" > val_0_seek_w_sum  : %02d \r\n", val_0_seek_w_sum  );
@@ -4632,8 +4660,8 @@ namespace TopInstrument
         public string pgu_gain__send(int Ch, double DAC_full_scale_current__mA = 25.5) {
             string ret = "OK\n";
 
-            //// calculate parameters
-            double I_FS__mA = DAC_full_scale_current__mA;
+            //// calculate parameters // from https://www.analog.com/media/en/technical-documentation/data-sheets/AD9780_9781_9783.pdf
+            double I_FS__mA = DAC_full_scale_current__mA; //$$ 8.66 ~ 31.66mA
             double R_FS__ohm = 10e3; // from schematic
             int DAC_gain = Convert.ToInt32((I_FS__mA / 1000 * R_FS__ohm - 86.6) / 0.220 + 0.5);
             // ((25.5 / 1000 * 10e3 - 86.6) / 0.220 + 0.5) = 765.954545455 ~ 0x2FD
@@ -5554,10 +5582,16 @@ namespace TopInstrument
             // adc power on 
             dev_eps.adc_pwr(1);
             
-            // adc enable 
-            val = dev_eps.adc_enable();
+            // adc enable : 210MHz vs 189MHz
+            dev_eps.adc_disable();
+            //val = dev_eps.adc_enable(); // adc_enable(u32 sel_freq_mode_MHz = 210) // 210MHz
+            val = dev_eps.adc_enable(189); // 189MHz
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
             
+            // adc base freq check 
+            val = dev_eps.adc_get_base_freq();
+            Console.WriteLine(string.Format("{0} = {1} [MHz]", "adc_base_freq", val/1000000));
+
             // adc reset
             val = dev_eps.adc_reset();
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_reset", val));
@@ -5641,12 +5675,124 @@ namespace TopInstrument
             dev_eps.dac_init(); 
 
             //$$ pulse setup
-            long[]   StepTime;
-            double[] StepLevel;
+            //long[]   StepTime;
+            //double[] StepLevel;
+            long[]   StepTime_1;
+            double[] StepLevel_1;
+            long[]   StepTime_2;
+            double[] StepLevel_2;
+
+            //// case for sine wave
+
+            // double test_freq_kHz       = 10; 
+            // int len_dac_command_points = 500; //80;
+            // double amplitude  = 8.0; // no distortion
+
+            // double test_freq_kHz       = 20; 
+            // int len_dac_command_points = 500; //80;
+            // double amplitude  = 8.0; // no distortion
+
+            // double test_freq_kHz       = 50; 
+            // int len_dac_command_points = 500; //80;
+            // double amplitude  = 8.0; // no distortion
+
+            //double test_freq_kHz       = 100; 
+            //int len_dac_command_points = 500; //40;
+            //double amplitude  = 8.0; // no distortion
+
+            // double test_freq_kHz       = 200; 
+            // int len_dac_command_points = 500; //40;
+            // double amplitude  = 8.0; // no distortion
+
+            double test_freq_kHz       = 500; 
+            int len_dac_command_points = 200; //40;
+            //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
+            double amplitude  = 4.0; // no distortion
+
+
+            // double test_freq_kHz       = 1000; 
+            // int len_dac_command_points = 100; // 20; // 4
+            // //double amplitude  = 8.0; // some distortion
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0;
+
+            // double test_freq_kHz       = 2000; 
+            // int len_dac_command_points = 50; // 20; // 4
+            // //double amplitude  = 8.0; // some distortion
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0;
+
+            // double test_freq_kHz       = 5000; 
+            // int len_dac_command_points = 20; // 4
+            // //double amplitude  = 8.0; // waveform distortion
+            // //double amplitude  = 3.0;
+            // double amplitude  = 2.0; // best waveform
+            // //double amplitude  = 1.0; 
+
+            //
+            long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
+            long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
+            double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
+            double phase_diff = Math.PI/2; // pi/2 = 90 degree
+            
+            long[]   buf_time = new long  [len_dac_command_points+1];
+            double[] buf_dac0 = new double[len_dac_command_points+1];
+            double[] buf_dac1 = new double[len_dac_command_points+1];
+
+            for (int n = 0; n < buf_time.Length; n++)
+            {
+                buf_time[n] = sample_period_ns*n;
+                buf_dac0[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
+                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
+            }
+
+            // print out
+            string buf_time_str = String.Join(", ", buf_time);
+            string buf_dac0_str = String.Join(", ", buf_dac0);
+            string buf_dac1_str = String.Join(", ", buf_dac1);
+            Console.WriteLine(buf_time_str);
+            Console.WriteLine(buf_dac0_str);
+            Console.WriteLine(buf_dac1_str);
+
+            StepTime_1  = buf_time;
+            StepLevel_1 = buf_dac0;
+            StepTime_2  = buf_time;
+            StepLevel_2 = buf_dac1;
+
+
+            //// rough wave test
+
+            // 5MHz wave test - rough // note code dutation 10ns may not work.
+            //StepTime_1  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
+            //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
+            //StepTime_2  = new long[]   {   0,    25,   50,     75,  100,    125,  150,    175,   200 }; // ns
+            //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+            //
+            //StepTime_1  = new long[]   {   0,          50,          100,          150,           200 }; // ns
+            //StepLevel_1 = new double[] { 0.0,         8.0,          0.0,         -8.0,           0.0 }; // V
+            //StepTime_2  = new long[]   {   0,          50,          100,          150,           200 }; // ns
+            //StepLevel_2 = new double[] { 8.0,         0.0,         -8.0,          0.0,           8.0 }; // V
+
+            // 1MHz wave test // note code dutation 10ns may not work.
+            //StepTime_1  = new long[]   {   0,   125,  250,    375,  500,    625,  750,    875,  1000 }; // ns
+            //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
+            //StepTime_2  = new long[]   {   0,   125,  250,    375,  500,    625,  750,    875,  1000 }; // ns
+            //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
+            //
+            //StepTime_1  = new long[]   {   0,           250,          500,          750,          1000 }; // ns
+            //StepLevel_1 = new double[] { 0.0,           8.0,          0.0,         -8.0,           0.0 }; // V
+            //StepTime_2  = new long[]   {   0,           250,          500,          750,          1000 }; // ns
+            //StepLevel_2 = new double[] { 8.0,           0.0,         -8.0,          0.0,           8.0 }; // V
+
+            // 100kHz wave test
+            //StepTime_1  = new long[]   {   0,  1250, 2500,   3750, 5000,   6250, 7500,   8750, 10000 }; // ns
+            //StepLevel_1 = new double[] { 0.0, 5.657,  8.0,  5.657,  0.0, -5.657, -8.0, -5.657,   0.0 }; // V
+            //StepTime_2  = new long[]   {   0,  1250, 2500,   3750, 5000,   6250, 7500,   8750, 10000 }; // ns
+            //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
 
             //// case base for 10V mode with neg
-            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
 
             //// case base for 10V mode
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -5700,13 +5846,24 @@ namespace TopInstrument
             //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
             //StepLevel = new double[] { 0.0,  0.0,   -20.0,   -20.0,  -40.0,  -40.0,     -11.0,     -11.0,  0.0,  0.0 }; // V
 
+            //$$ generate waveform and download
+            
+            //StepTime_1  = StepTime;
+            //StepLevel_1 = StepLevel;
+            //StepTime_2  = StepTime;
+            //StepLevel_2 = StepLevel;
+
+            var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_1, StepLevel_1);
+            var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
 
             // setup pgu-clock device
-            double time_ns__dac_update          = 10;
+            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
+            double time_ns__dac_update          = 10; // 10ns = 100MHz
+            //double time_ns__dac_update          = 5; // 5ns = 200MHz
             dev_eps.pgu__setup_freq(time_ns__dac_update);
 
 
-            // setup pgu-dac device
+            //// setup pgu-dac device
             double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
             double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
             float DAC_offset_current__mA_1      = (float)0.44; // for BD2
@@ -5716,6 +5873,16 @@ namespace TopInstrument
             int Sink_sel_1                      = 0;           // for BD2
             int Sink_sel_2                      = 0;           // for BD2
             //
+            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //double DAC_full_scale_current__mA_2 = 25.62;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //float DAC_offset_current__mA_1      = (float)0.58; // for BD3
+            //float DAC_offset_current__mA_2      = (float)0.29; // for BD3
+            //int N_pol_sel_1                     = 0;           // for BD3
+            //int N_pol_sel_2                     = 0;           // for BD3
+            //int Sink_sel_1                      = 0;           // for BD3
+            //int Sink_sel_2                      = 0;           // for BD3
+            //
+            //
             dev_eps.pgu__setup_gain_offset(1, 
                 DAC_full_scale_current__mA_1, DAC_offset_current__mA_1, 
                 N_pol_sel_1, Sink_sel_1);
@@ -5724,13 +5891,11 @@ namespace TopInstrument
                 N_pol_sel_2, Sink_sel_2);
 
 
-            //$$ generate waveform and download
-            var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
-            var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
 
             // call setup 
             int    OutputRange                     = 10;   
-            int    time_ns__code_duration          = 10;                        
+            int    time_ns__code_duration          = 10; // 10ns = 100MHz
+            //int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
             double output_impedance_ohm            = 50;                        
             double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
@@ -5767,12 +5932,26 @@ namespace TopInstrument
 
 
             // adc normal setup 
-            len_adc_data = 1000; // 0.1ms @ 10MHz
+            len_adc_data = 2000; // 0.1ms @ 10MHz
             dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             //dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
-            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            //
+            //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
+            //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
+            //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
+            //dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
+            //dev_eps.adc_set_sampling_period( 106); // 210MHz/106   =  1.98113208 Msps //$$ 18.8679245kHz image with 2MHz wave
             //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
+            //dev_eps.adc_set_sampling_period( 211); // 210MHz/211   =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
+            //
+            //dev_eps.adc_set_sampling_period( 15); // 189MHz/14   =  13.5 Msps
+            //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
+            //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
+            //dev_eps.adc_set_sampling_period( 95); // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
+            //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
+            dev_eps.adc_set_sampling_period(379); // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+            //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
             dev_eps.adc_fifo_rst(); // clear fifo for new data
@@ -5782,7 +5961,9 @@ namespace TopInstrument
             //dev_eps.adc_update(); // including done_check
 
             //// trigger linked DAC wave and adc update -- method 2
-            dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            int num_repeat_pulses = 2000;
+            dev_eps.trig_pgu_output_Cid_ON(num_repeat_pulses, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
+            //dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             dev_eps.adc_update_check(); // check done without triggering
 
             // clear DAC wave
@@ -5806,7 +5987,8 @@ namespace TopInstrument
             dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
-            dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
+            dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32,
+                                buf_time_str, buf_dac0_str, buf_dac1_str); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
 
             // adc disable 
