@@ -3463,14 +3463,15 @@ namespace TopInstrument
         private u32   EP_ADRS__ADCH_DOUT0_PO      = 0xBC;
         private u32   EP_ADRS__ADCH_DOUT1_PO      = 0xBD;
 
-        private u32   EP_ADRS__DFT_TI             = 0x5C;
-        private u32   EP_ADRS__DFT_COEF_RE_PI     = 0x9C;
-        private u32   EP_ADRS__DFT_COEF_IM_PI     = 0x9D;
+        //private u32   EP_ADRS__DFT_TI             = 0x5C; // reserved
+        //private u32   EP_ADRS__DFT_COEF_RE_PI     = 0x9C; // reserved
+        //private u32   EP_ADRS__DFT_COEF_IM_PI     = 0x9D; // reserved
 
 
         //// functions 
 
         // spio functions
+
         private u32 spio_send_spi_frame(u32 frame_data) {
             //# write control 
             SetWireInValue(EP_ADRS__SPIO_WI, frame_data);  //# (ep,val,mask)
@@ -3525,7 +3526,6 @@ namespace TopInstrument
             //#
             return spio_send_spi_frame(framedata);
         }
-
         private u32 sp1_ext_init(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0) {
             //...
             u32 dir_read;
@@ -3607,7 +3607,6 @@ namespace TopInstrument
 
             return inp_read;
         }
-
         private u32 adc_enable(u32 sel_freq_mode_MHz = 210) {
             if (sel_freq_mode_MHz == 210) 
                 SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001); // enable with 210MHz base freq
@@ -3619,14 +3618,11 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-
         private u32 adc_disable() {
             SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0000);
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-
-
         private u32 adc_trig_check(s32 bit_loc) {
             ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
 
@@ -3646,7 +3642,6 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-
         private u32 adc_trig_check__wo_trig(s32 bit_loc) {
             //$$ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
 
@@ -3666,8 +3661,6 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-        
-
         private u32 adc_reset() {
             return adc_trig_check(0);
         }
@@ -3686,7 +3679,6 @@ namespace TopInstrument
         private u32 adc_fifo_rst() {
             return adc_trig_check(4);
         }
-
         private u32 adc_get_base_freq() {
             return GetWireOutValue(EP_ADRS__ADCH_B_FRQ_WO);
         }
@@ -3700,9 +3692,7 @@ namespace TopInstrument
             SetWireInValue(EP_ADRS__ADCH_UPD_SM_WI, (u32)val);
             return val;
         }
-        private u32 adc_set_tap_control(
-            u32 val_tap0a_b5, u32 val_tap0b_b5, 
-            u32 val_tap1a_b5, u32 val_tap1b_b5,
+        private u32 adc_set_tap_control(u32 val_tap0a_b5, u32 val_tap0b_b5, u32 val_tap1a_b5, u32 val_tap1b_b5,
             u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) {
             
             // note: val_tst_fix_pat_en_b1 for adc fixed test pattern 18-bit 0x330FC
@@ -3715,7 +3705,6 @@ namespace TopInstrument
 
             return val;
         }
-
         private u32 adc_read_fifo(u32 ch, s32 num_data, s32[] buf_s32) {
             u32 ret;
             u32 adrs;
@@ -3742,7 +3731,6 @@ namespace TopInstrument
 
             return ret/4; // number of bytes --> number of int
         }
-
         private void adc_log_buf(char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32, 
                                 string buf_time_str="", string buf_dac0_str="", string buf_dac1_str="") {
             //
@@ -3810,7 +3798,52 @@ namespace TopInstrument
 
         }
 
-        
+        // dac functions
+        private u32 dac_pwr(u32 val) {
+
+            // read IO 
+            u32 inp_read = sp1_reg_read_b16(0x12);
+
+            // read power control status
+            u32 val_s0 = (inp_read>>0) & 0x0001;
+            u32 val_s1 = (inp_read>>1) & 0x0001;
+            u32 val_s2 = (inp_read>>2) & 0x0001;
+            u32 val_s3 = (inp_read>>3) & 0x0001;
+            u32 val_s8 = (inp_read>>8) & 0x0001;
+            u32 val_s9 = (inp_read>>9) & 0x0001;
+
+            // DAC power on 
+            if      (val==1) val_s2 = 1;
+            else if (val==0) val_s2 = 0;
+            //sp1_ext_init(val_s3, val_s2, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+            inp_read = sp1_ext_init(val_s3, val_s2, val_s1, val_s0, val_s8, val_s9); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
+
+            // power stability delay 1ms or more.
+            Delay(10);
+
+            return inp_read;
+        }
+        private void dac_init() {
+            // DACX fpga pll reset
+            pgu_dacx_fpga_pll_rst(1, 1, 1);
+
+            // CLKD init
+            pgu_clkd_init();
+
+            // CLKD setup // not must
+            //pgu_clkd_setup(2000); // preset 200MHz
+
+            // DACX init 
+            pgu_dacx_init();
+
+            // DACX fpga pll run
+            pgu_dacx_fpga_pll_rst(0, 0, 0);
+            pgu_dacx_fpga_clk_dis(0, 0);
+
+            // update input delay tap inside DAC IC // not must
+            //pgu_dacx_cal_input_dtap();
+        }
+
         // clkd ... external clock IC control // to rename
         private u32  pgu_clkd_init() {
             //
@@ -3836,7 +3869,6 @@ namespace TopInstrument
             //
             return flag_done;
         }
-
         private u32  pgu_clkd_send_spi_frame(u32 frame_data) {
             //
             // write control 
@@ -3886,7 +3918,6 @@ namespace TopInstrument
             //
             return val_recv;
         }
-        
         private u32  pgu_clkd_reg_write_b8(u32 reg_adrs_b10, u32 val_b8) {
             //
             u32 R_W_bar     = 0           ;
@@ -3898,7 +3929,6 @@ namespace TopInstrument
             //
             return pgu_clkd_send_spi_frame(framedata);        
         }
-
         private u32  pgu_clkd_reg_read_b8(u32 reg_adrs_b10) {
             //
             u32 R_W_bar     = 1           ;
@@ -3910,7 +3940,6 @@ namespace TopInstrument
             //
             return pgu_clkd_send_spi_frame(framedata);
         }
-        
         private u32  pgu_clkd_reg_write_b8_check (u32 reg_adrs_b10, u32 val_b8) {
             u32 tmp;
             u32 retry_count = 0;
@@ -3925,7 +3954,6 @@ namespace TopInstrument
             }
             return retry_count;
         }
-        
         private u32  pgu_clkd_reg_read_b8_check (u32 reg_adrs_b10, u32 val_b8) {
             u32 tmp;
             u32 retry_count = 0;
@@ -3938,7 +3966,6 @@ namespace TopInstrument
             }
             return retry_count;
         }
-
         private u32  pgu_clkd_setup(u32 freq_preset) {
             u32 ret = freq_preset;
             u32 tmp = 0;
@@ -4094,8 +4121,6 @@ namespace TopInstrument
 
             return ret;
         }
-
-        
         // dacx ... DAC IC control // to rename
         private u32  pgu_dacx_init() { // EP access
             //
@@ -4123,7 +4148,6 @@ namespace TopInstrument
             //
             return flag_done;
         }
-
         private u32  pgu_dacx_fpga_pll_rst(u32 clkd_out_rst, u32 dac0_dco_rst, u32 dac1_dco_rst) {
             u32 control_data;
             u32 status_pll;
@@ -4157,7 +4181,6 @@ namespace TopInstrument
             //
             return status_pll;
         }
-
         private u32  pgu_dacx_fpga_clk_dis(u32 dac0_clk_dis, u32 dac1_clk_dis) {
             u32 ret = 0;
             u32 control_data;
@@ -4171,7 +4194,6 @@ namespace TopInstrument
 
             return ret;
         }
-
         private u32  pgu_dacx_send_spi_frame(u32 frame_data) { // EP access
             //
             // write control 
@@ -4204,7 +4226,6 @@ namespace TopInstrument
             //
             return val_recv;
         }
-
         private u32  pgu_dac0_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
             //
             u32 CS_id       = 0          ;
@@ -4217,7 +4238,6 @@ namespace TopInstrument
             //
             return pgu_dacx_send_spi_frame(framedata);
         }
-
         private u32  pgu_dac0_reg_read_b8(u32 reg_adrs_b5) {
             //
             u32 CS_id       = 0          ;
@@ -4230,7 +4250,6 @@ namespace TopInstrument
             //
             return pgu_dacx_send_spi_frame(framedata);
         }
-
         private u32  pgu_dac1_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
             //
             u32 CS_id       = 1          ;
@@ -4243,7 +4262,6 @@ namespace TopInstrument
             //
             return pgu_dacx_send_spi_frame(framedata);
         }
-        
         private u32  pgu_dac1_reg_read_b8(u32 reg_adrs_b5) {
             //
             u32 CS_id       = 1          ;
@@ -4257,7 +4275,7 @@ namespace TopInstrument
             return pgu_dacx_send_spi_frame(framedata);
         }
 
-
+        // test printf emulation
         private void xil_printf(string fmt) { // for test print
             // remove "\r\n" 
             if (fmt.Substring(fmt.Length-2)=="\r\n") {
@@ -4266,7 +4284,6 @@ namespace TopInstrument
             }
             Console.WriteLine(fmt);
         }
-
         private void xil_printf(string fmt, s32 val) { // for test print
             // check "%02d \r\n"
             if (fmt.Substring(fmt.Length-7)=="%02d \r\n") {
@@ -4280,7 +4297,6 @@ namespace TopInstrument
             }
             Console.WriteLine(fmt);
         }
-
         private void xil_printf(string fmt, s32 val1 , s32 val2 , s32 val3) { // for test print
             // remove "| %3d || %9d | %9d |\r\n" 
             if (fmt.Substring(fmt.Length-22)=="| %3d || %9d | %9d |\r\n") {
@@ -4465,7 +4481,6 @@ namespace TopInstrument
             return 0;
         }
 
-
         // dacz ... Pattern generator control // to rename
         private void pgu_dacz_dat_write(u32 dacx_dat, s32 bit_loc_trig) { // EP access
             //$$write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, dacx_dat, MASK_ALL); //$$ DACZ
@@ -4473,14 +4488,12 @@ namespace TopInstrument
             SetWireInValue   (EP_ADRS__DACZ_DAT_WI, dacx_dat    );
             ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
         }
-
         private u32  pgu_dacz_dat_read(s32 bit_loc_trig) { // EP access
 	        //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
             //$$return read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WO, MASK_ALL); //$$ DACZ
             ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
             return (u32)GetWireOutValue(EP_ADRS__DACZ_DAT_WO);
         }
-
         private u32  pgu_dacz__read_status() {
             // return status : 
             // wire w_read_status   = i_trig_dacz_ctrl[5]; //$$
@@ -4488,57 +4501,7 @@ namespace TopInstrument
             return pgu_dacz_dat_read(5); 
         }
 
-
-        // dac functions
-        private u32 dac_pwr(u32 val) {
-
-            // read IO 
-            u32 inp_read = sp1_reg_read_b16(0x12);
-
-            // read power control status
-            u32 val_s0 = (inp_read>>0) & 0x0001;
-            u32 val_s1 = (inp_read>>1) & 0x0001;
-            u32 val_s2 = (inp_read>>2) & 0x0001;
-            u32 val_s3 = (inp_read>>3) & 0x0001;
-            u32 val_s8 = (inp_read>>8) & 0x0001;
-            u32 val_s9 = (inp_read>>9) & 0x0001;
-
-            // DAC power on 
-            if      (val==1) val_s2 = 1;
-            else if (val==0) val_s2 = 0;
-            //sp1_ext_init(val_s3, val_s2, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
-            inp_read = sp1_ext_init(val_s3, val_s2, val_s1, val_s0, val_s8, val_s9); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
-
-            // power stability delay 1ms or more.
-            Delay(10);
-
-            return inp_read;
-        }
-
-        private void dac_init() {
-            // DACX fpga pll reset
-            pgu_dacx_fpga_pll_rst(1, 1, 1);
-
-            // CLKD init
-            pgu_clkd_init();
-
-            // CLKD setup
-            pgu_clkd_setup(2000); // preset 200MHz
-
-            // DACX init 
-            pgu_dacx_init();
-
-            // DACX fpga pll run
-            pgu_dacx_fpga_pll_rst(0, 0, 0);
-            pgu_dacx_fpga_clk_dis(0, 0);
-
-            // update input delay tap inside DAC IC
-            pgu_dacx_cal_input_dtap();
-        }
-
-
         // temp for dac test // to replace
-
         public string pgu_freq__send(double time_ns__dac_update) {
             //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
             string ret = "OK\n";
@@ -4565,12 +4528,11 @@ namespace TopInstrument
             //usleep(500); // 500us
             Delay(1); // 1ms
 
-            //$$ DAC input delay tap calibration
-            pgu_dacx_cal_input_dtap();
+            //$$ DAC input delay tap calibration // option
+            //pgu_dacx_cal_input_dtap();
 
             return ret;
         }        
-
         public string pgu_gain__send(int Ch, double DAC_full_scale_current__mA = 25.5) {
             string ret = "OK\n";
 
@@ -4607,7 +4569,6 @@ namespace TopInstrument
 
             return ret;
         }
-
         public string pgu_ofst__send(int Ch, float DAC_offset_current__mA = 0, int N_pol_sel = 1, int Sink_sel = 1) {
             string ret = "OK\n";
 
@@ -4655,6 +4616,7 @@ namespace TopInstrument
             return ret;
         }
 
+        // data converters
         private long conv_dec_to_bit_2s_comp_16bit(double dec, double full_scale = 20) //$$ int to double
         {
 			//$$ // Console.WriteLine(">>> ... in conv_dec_to_bit_2s_comp_16bit() "); //$$
@@ -4682,7 +4644,6 @@ namespace TopInstrument
 
             return bit_2s_comp;
         }
-
         public double conv_bit_2s_comp_16bit_to_dec(int bit_2s_comp, double full_scale = 20) //$$ int to double
         {
             if (bit_2s_comp >= 0x8000) //$$ negative
@@ -4710,7 +4671,6 @@ namespace TopInstrument
             }
 
         }
-
         private u32 decchr2data_u32(char decchr) { // u8 --> char
             // '0' -->  0
             u32 val;
@@ -4727,7 +4687,6 @@ namespace TopInstrument
             //
             return val; 
         }
-
         private u32 decstr2data_u32(char[] decstr, u32 len) { // u8* hexstr --> char[] hexstr
             u32 val;
             u32 loc;
@@ -4739,7 +4698,6 @@ namespace TopInstrument
             }
             return val;
         }
-
         private u32 hexchr2data_u32(char hexchr) { // u8 --> char
             // '0' -->  0
             // 'A' --> 10
@@ -4763,7 +4721,6 @@ namespace TopInstrument
             //
             return val; 
         }
-
         private u32 hexstr2data_u32(char[] hexstr, u32 len) { // u8* hexstr --> char[] hexstr
             u32 val;
             u32 loc;
@@ -4823,7 +4780,6 @@ namespace TopInstrument
 
             return ret;
         }
-
         private string pgu_fdac__send(int Ch, string pulse_info_num_block_str) {
             string ret = "OK\n";
 
@@ -4915,7 +4871,6 @@ namespace TopInstrument
 
             return ret;
         }
-
         private string pgu_frpt__send(int Ch, int CycleCount) {
             string ret = "OK\n";
 
@@ -4939,9 +4894,7 @@ namespace TopInstrument
 
             return ret;
         }
-
-
-        public string pgu_trig__on(bool Ch1, bool Ch2, bool force_trig = false) {
+        public string pgu_trig__on(bool Ch1, bool Ch2, bool force_adc_trig = false) {
             string ret = "OK\n";
 
             u32 val;
@@ -4953,7 +4906,7 @@ namespace TopInstrument
                 val = 0x00000020;
             //
 
-            if (force_trig)
+            if (force_adc_trig)
                 val = val + 0x100;
 
             //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
@@ -4972,7 +4925,6 @@ namespace TopInstrument
 
             return ret;
         }
-        
         public string pgu_trig__off()
         {
             string ret = "OK\n";
@@ -5132,14 +5084,15 @@ namespace TopInstrument
 			//return (pulse_info_num_block_str, code_value_float_str, time_ns_str, duration_ns_str);
             return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str,duration_ns_str);
         }
-
         private void pgu__setup_freq(double time_ns__dac_update) {
 
             //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
             pgu_freq__send(time_ns__dac_update);
 
+            //$$ DAC input delay tap calibration // option
+            if (time_ns__dac_update <= 5) // conduct dac input delay tap check only when update rate >= 200MHz.
+                pgu_dacx_cal_input_dtap();
         }
-
         private void pgu__setup_gain_offset(int Ch, 
             double DAC_full_scale_current__mA = 25.5, float DAC_offset_current__mA = 0, 
             int N_pol_sel = 1, int Sink_sel = 1) {
@@ -5156,36 +5109,6 @@ namespace TopInstrument
 
         }
 
-        private void InitializePGU(double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50) {
-
-            // call sub
-            pgu__setup_gain_offset(1);
-            pgu__setup_gain_offset(2);
-
-            //$$ note not used:  time_ns__code_duration  scale_voltage_10V_mode  output_impedance_ohm 
-
-        }
-
-        private Tuple<long[], string[], long> set_setup_pgu(int Ch, int OutputRange, long[] time_ns_list, double[] level_volt_list)
-        {          
-
-            int    time_ns__code_duration          = 10;                        
-            double load_impedance_ohm              = 1e6;                       
-            double output_impedance_ohm            = 50;                        
-            double out_scale                       = 1.0;
-            double out_offset                      = 0.0;
-            double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
-
-            //// call sub
-            return pgu__gen_pulse_info(OutputRange, time_ns_list, level_volt_list, 
-                time_ns__code_duration, 
-                load_impedance_ohm, output_impedance_ohm, 
-                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
-                out_scale, out_offset);
-
-            //return Tuple.Create(num_steps_list, num_block_str__sample_code__list, FIFO_Count);
-        }
         private Tuple<long[], string[], long> pgu__gen_pulse_info(int OutputRange, long[] time_ns_list, double[] level_volt_list,
             int    time_ns__code_duration, 
             double load_impedance_ohm, double output_impedance_ohm,
@@ -5371,7 +5294,6 @@ namespace TopInstrument
             //return num_block_str__sample_code__list;
 
         }
-
         private void load_pgu_waveform_Cid(int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
         {
 
@@ -5391,8 +5313,6 @@ namespace TopInstrument
                 pgu_fdac__send(Ch, pulse_info_num_block_str[i]);
             }
         }
-
-
         private Tuple<long[], double[]> pgu__gen_time_voltage_list__remove_dup(long[] StepTime, double[] StepLevel) {
             // copy buffer and remove duplicate data
             List<long>   StepTime_List  = new List<long>();
@@ -5423,40 +5343,6 @@ namespace TopInstrument
             return Tuple.Create(StepTime__no_dup, StepLevel__no_dup);
         }
 
-        private void SetSetupPGU(int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel) {
-            // remove dup 
-            var ret_list = pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
-
-            // call setup functions
-            var pulse_info = set_setup_pgu(PG_Ch, OutputRange, ret_list.Item1, ret_list.Item2); //$$ return Tuple<long[], string[], int>
-
-            // download waveform into FPGA
-            load_pgu_waveform_Cid(PG_Ch, pulse_info.Item1, pulse_info.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
-            
-        }
-
-        private void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-        {
-
-            // send repeat numbers
-            if (Ch1)
-                pgu_frpt__send(1, CycleCount);
-            if (Ch2)
-                pgu_frpt__send(2, CycleCount);
-
-            // trig and log
-            pgu_trig__on(Ch1, Ch2, force_trig);
-
-        }
-
-        private void trig_pgu_output_Cid_OFF()
-        {          
-            // trig off 
-            pgu_trig__off();
-        }
-
-
-
         // test var
         private int __test_int = 0;
         
@@ -5484,13 +5370,12 @@ namespace TopInstrument
             Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3} ",(float)dev_eps.GetWireOutValue(dev_eps.EP_ADRS__XADC_TEMP_WO)/1000));
 
             // ... test subfunctions
-            u32 val;
-
 
             ////
             Console.WriteLine(">>> ADC setup");
 
             // spio init for power control
+            u32 val;
             //val = dev_eps.sp1_ext_init(1,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
             //val = dev_eps.sp1_ext_init(1,1,1,1); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
             val = dev_eps.sp1_ext_init(1,1,1,1,1,1); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
@@ -5863,8 +5748,10 @@ namespace TopInstrument
 
             // adc normal setup 
             //len_adc_data = 2000; // 0.19047619 @ 10.5MHz
-            //len_adc_data = 1000; // 0.0.0952380952 ms @ 10.5MHz
-            len_adc_data = 500; // 0.0476190476 ms @ 10.5MHz
+            //len_adc_data = 1000; // 0.0952380952 ms @ 10.5MHz
+            //len_adc_data = 800; // 0.0761904762 ms @ 10.5MHz
+            len_adc_data = 600;
+            //len_adc_data = 500; // 0.0476190476 ms @ 10.5MHz
             dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             //dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
             //
@@ -5892,26 +5779,28 @@ namespace TopInstrument
             //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
             //dev_eps.adc_update(); // including done_check
 
-
             ////
-            Console.WriteLine(">>> DAC pulse trigger");
+            Console.WriteLine(">>> DAC pulse trigger linked with ADC trigger");
 
             //// trigger linked DAC wave and adc update -- method 2
-            int num_repeat_pulses = 2000;
-            dev_eps.trig_pgu_output_Cid_ON(num_repeat_pulses, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            //dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            dev_eps.adc_update_check(); // check done without triggering
+            //int num_repeat_pulses = 100; // 100/(500kHz)=0.2ms
+            int num_repeat_pulses = 500; // 500/(500kHz)=1.0ms
+            //int num_repeat_pulses = 2000; // 2000/(500kHz)=4ms
+            dev_eps.pgu_frpt__send(1, num_repeat_pulses);
+            dev_eps.pgu_frpt__send(2, num_repeat_pulses);
+            dev_eps.pgu_trig__on(true, true, true); // (bool Ch1, bool Ch2, bool force_adc_trig = false) 
+
+            dev_eps.adc_update_check(); // check done without triggering // vs. adc_update() with triggering
+            Console.WriteLine(">>>>>> ADC update done");
 
 
             ////
             Console.WriteLine(">>> DAC closed");
 
             // clear DAC wave
-            //...
-            dev_eps.trig_pgu_output_Cid_OFF();
+            dev_eps.pgu_trig__off();
 
             // dac finish
-            //...
             dev_eps.dac_pwr(0);
 
 
@@ -7899,7 +7788,7 @@ namespace __test__
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
 
         //// S3100 frame slot selection:
-        // loc_slot bit 0  = slot location 0
+        // loc_slot bit 0  = slot location 0`
         // loc_slot bit 1  = slot location 1
         // ...
         // loc_slot bit 12 = slot location 12
