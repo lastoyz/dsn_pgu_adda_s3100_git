@@ -4934,27 +4934,16 @@ namespace TopInstrument
 				long time_start_ns = 0, long max_duration_a_code__in_flat_segment = 16, long max_num_codes__in_slope_segment = 16,
                 int time_ns__code_duration = 10)
         {
-			
-            //int time_ns__code_duration = 10; //$$ must come from parameter list
-
             long num_codes = num_steps;
-			
-			//$$int time_ns__code_duration = this.time_ns__code_duration; //$$ consider float??
 
             string pulse_info_num_block_str = ""; // = String.Format(" #N8_{0,6:D6}", num_codes * 16); //$$ must revise
 
-            //$$int[] code_list = new int[num_codes];     //$$ unused
-            //$$int[] duration_list = new int[num_codes]; //$$ unused
-            //$$int[] sample_list = new int[num_codes];   //$$ unused
-            //$$int[] sample_code = new int[num_codes];   //$$ unused
-
-            //$$int sample_value = 0;
 			long time_ns = (long)time_start_ns;
 			long duration_ns = 0; //$$
             int code_value = code_start;
-            //int test_value;
+
             string test_str;
-            //int code_value_prev;
+
 			
 			string code_value_str = ""; //$$
 			string code_value_float_str = ""; //$$
@@ -4963,17 +4952,6 @@ namespace TopInstrument
 			//string duration_ns_str = ""; //$$
 			
 			long total_duration_segment = num_steps*(code_duration + 1); //$$
-			// Console.WriteLine("total_duration_segment = " + Convert.ToString(total_duration_segment) );
-			// Console.WriteLine("code_start             = " + Convert.ToString(code_start   ) );
-			// Console.WriteLine("volt_diff              = " + Convert.ToString(volt_diff    ) ); //$$ new para
-			// Console.WriteLine("code_diff              = " + Convert.ToString(code_diff    ) ); //$$ new para
-			// Console.WriteLine("code_step              = " + Convert.ToString(code_step    ) );
-			// Console.WriteLine("num_steps              = " + Convert.ToString(num_steps    ) );
-			// Console.WriteLine("code_duration          = " + Convert.ToString(code_duration) );
-			
-			//long max_duration_a_code__in_flat_segment = Math.Pow(2, 31)-1; // 2^32-1
-			//long max_duration_a_code__in_flat_segment = Math.Pow(2, 16)-1; // 2^16-1
-			//long max_duration_a_code__in_flat_segment = 16; // 16
 			
 			int    num_merge_steps = 1;
 			double code_start_float = conv_bit_2s_comp_16bit_to_dec(code_start);
@@ -5001,10 +4979,6 @@ namespace TopInstrument
 				// Console.WriteLine("num_merge_steps                                 = " + Convert.ToString(num_merge_steps) );
 				
 				code_duration = (int)((code_duration+1)*num_merge_steps - 1); //$$ 
-				//$$code_step     = code_step*num_merge_steps; //$$ test // NG must use code_diff
-				
-				// code_step = conv_dec_to_bit_2s_comp_16bit(code_diff_float * (code_duration+1) / total_duration_segment)
-				
 			}
 			else 
 			{
@@ -5032,10 +5006,6 @@ namespace TopInstrument
 				
 				count_codes++; //$$ increase count
 
-                //$$code_list[i] = code_value;
-                //$$duration_list[i] = code_duration + 1;
-                //$$sample_list[i] = sample_value;
-
 				duration_ns = (code_duration + 1) * (long)time_ns__code_duration;
 
 				//$$ report string
@@ -5046,10 +5016,8 @@ namespace TopInstrument
 				//duration_ns_str      += string.Format("{0,6:d}, ", duration_ns);
 
 				// update code // in float 
-				//$$code_value_float += (code_diff_float * (code_duration+1) / total_duration_segment); //$$
 				code_value_float += (volt_diff * (code_duration+1) / total_duration_segment); //$$ get more accuracy
 
-				
 				// update time_ns 
 				time_ns += duration_ns;
 				
@@ -5066,7 +5034,6 @@ namespace TopInstrument
             }
 
             pulse_info_num_block_str += " \n";
-            //sample_code = {code_list, duration_list, sample_list};
 			
 			//$$ header generation
 			string pulse_info_num_block_header_str = String.Format(" #N8_{0,6:D6}", count_codes * 16); //$$ must revise
@@ -5074,10 +5041,6 @@ namespace TopInstrument
 			// merge string 
 			pulse_info_num_block_str = pulse_info_num_block_header_str + pulse_info_num_block_str;
 			
-
-            //return Tuple.Create(pulse_info_num_block_str, sample_code); //$$ string 
-            //return pulse_info_num_block_str;
-			//return (pulse_info_num_block_str, code_value_float_str, time_ns_str, duration_ns_str);
             //return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str,duration_ns_str);
             return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str);
         }
@@ -5148,63 +5111,33 @@ namespace TopInstrument
             int    time_ns__code_duration, 
             double load_impedance_ohm, double output_impedance_ohm,
             double scale_voltage_10V_mode, double gain_voltage_10V_to_40V_mode, 
-            double out_scale, double out_offset)
-        {          
-
-            ////
-
-            // string Timedata;
-            // string Timedata_str = "";
-            // string Vdata;
-            // string Vdata_str = "";
-            // // time_ns_list
-            // for (int i = 0; i < time_ns_list.Length; i++)
-            // {
-			// 	Timedata = string.Format("{0,6:d}, ",time_ns_list[i]);
-            //     Timedata_str = Timedata_str + Timedata;
-            // }
-            // for (int i = 0; i < level_volt_list.Length; i++)
-            // {
-			// 	Vdata = string.Format("{0,6:f3}, ",level_volt_list[i]);
-            //     Vdata_str = Vdata_str + Vdata;
-            // }
-
-
-            double Devide_V = 1; //$$ int --> double
-
+            double out_scale, double out_offset) 
+        {
+            double Devide_V = 1;
             if (output_range == 40)
             {
                 Devide_V = gain_voltage_10V_to_40V_mode;
             }
 
+            // apply load_impedance_ohm
             scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
 
-			//string level_volt_list_str = ""; //$$
             // apply calibration to voltages
-            for (int i = 0; i < level_volt_list.Length; i++) //$$ for (int i = 1; i < level_volt_list.Length; i++) //$$ from i = 0
+            for (int i = 0; i < level_volt_list.Length; i++) 
             {
                 level_volt_list[i]     = (level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V_mode / Devide_V; 
-				//level_volt_list_str += string.Format("{0,6:f3}, ",level_volt_list[i]);
             }
 
             long[] num_steps_list = new long[time_ns_list.Length - 1]; //$$ <<<
-
-
-			//string num_steps_list_str = ""; 
             for (int i = 1; i < time_ns_list.Length; i++)
             {
 				num_steps_list[i - 1] = Convert.ToInt64(((time_ns_list[i] - time_ns_list[i - 1]) / time_ns__code_duration));  //$$ number of DAC points in eash segment
-				//num_steps_list_str += string.Format("{0,6:d}, ",num_steps_list[i - 1]);
             }
 
-			//string level_diff_volt_list_str = "";
             double[] level_diff_volt_list = new double[level_volt_list.Length - 1]; //$$ <<<
-			//num_steps_list_str = ""; //$$ clear
             for (int i = 1; i < level_volt_list.Length; i++)
             {
                 level_diff_volt_list[i - 1] = level_volt_list[i] - level_volt_list[i - 1]; //$$ dac incremental value in each segment
-				//level_diff_volt_list_str += string.Format("{0,6:f3}, ", level_diff_volt_list[i - 1]);
-				
             }
 
             int[] level_code_list = new int[level_volt_list.Length]; //$$ <<<
@@ -5231,13 +5164,11 @@ namespace TopInstrument
                 level_diff_code_list[i] = (int)conv_dec_to_bit_2s_comp_16bit((level_diff_volt_list[i]) ); //$$ dac full difference in each segment
             }
 
-			//string   time_step_code_list_str = ""; //$$
             int[]    time_step_code_list        = new int   [time_ns_list.Length - 1]; //$$ <<<
 			double[] time_step_code_double_list = new double[time_ns_list.Length - 1];
             for (int i = 1; i < time_ns_list.Length; i++)
             {
 				time_step_code_list[i - 1] = 0; //$$ basic step 1
-				//time_step_code_list_str += string.Format("{0,6:d}, ",time_step_code_list[i - 1]);
             }
 
             string[] num_block_str__sample_code__list = new string[level_step_code_list.Length]; //$$ <<<
@@ -5249,7 +5180,6 @@ namespace TopInstrument
 			long time_step_code; //$$
 			long time_start_ns; //$$
 			
-
 			long max_duration_a_code__in_flat_segment = Convert.ToInt64(Math.Pow(2, 31)-1); // 2^32-1
 			//long max_duration_a_code__in_flat_segment = Convert.ToInt64(Math.Pow(2, 16)-1); // 2^16-1
 			//long max_duration_a_code__in_flat_segment = 16; // 16
@@ -5274,10 +5204,10 @@ namespace TopInstrument
 
 				num_block_str__sample_code__list[i] = ret.Item1; //$$
 				
-				//$$ update new number of codes 
-				string time_ns_str = ret.Item3;
-				double[] time_ns_str_double = Array.ConvertAll(time_ns_str.Remove(time_ns_str.Length-2,1).Split(','), Double.Parse);
-				num_steps_list[i] = (long)(time_ns_str_double.Length); //$$
+				//$$ update new number of codes //$$ must or not
+				// string time_ns_str = ret.Item3;
+				// double[] time_ns_str_double = Array.ConvertAll(time_ns_str.Remove(time_ns_str.Length-2,1).Split(','), Double.Parse);
+				// num_steps_list[i] = (long)(time_ns_str_double.Length); //$$
 				
             }
 			
