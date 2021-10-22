@@ -3676,7 +3676,7 @@ namespace TopInstrument
         private u32 adc_test() {
             return adc_trig_check(3);
         }
-        private u32 adc_fifo_rst() {
+        private u32 adc_reset_fifo() {
             return adc_trig_check(4);
         }
         private u32 adc_get_base_freq() {
@@ -3705,7 +3705,7 @@ namespace TopInstrument
 
             return val;
         }
-        private u32 adc_read_fifo(u32 ch, s32 num_data, s32[] buf_s32) {
+        private u32 adc_get_fifo(u32 ch, s32 num_data, s32[] buf_s32) {
             u32 ret;
             u32 adrs;
             u8[] buf_pipe = new u8[num_data*4]; // *4 for 32-bit pipe 
@@ -5109,7 +5109,30 @@ namespace TopInstrument
 
         }
 
-        private Tuple<long[], string[], long> pgu__gen_pulse_info(int OutputRange, long[] time_ns_list, double[] level_volt_list,
+        private void dac_set_fifo(
+            int    ch,
+            long[] time_ns_list, double[] level_volt_list,
+            int    time_ns__code_duration, 
+            double out_scale, double out_offset,
+            double load_impedance_ohm, double output_impedance_ohm,
+            double scale_voltage_10V_mode, 
+            int output_range, double gain_voltage_10V_to_40V_mode) {
+
+            // generate pulse waveform
+            var pulse_info = pgu__gen_pulse_info(
+                output_range, 
+                time_ns_list, level_volt_list, 
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm, 
+                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
+                out_scale, out_offset);
+
+            // download waveform into FPGA
+            load_pgu_waveform_Cid(ch, pulse_info.Item1, pulse_info.Item2); 
+
+        }
+
+        private Tuple<long[], string[], long> pgu__gen_pulse_info(int output_range, long[] time_ns_list, double[] level_volt_list,
             int    time_ns__code_duration, 
             double load_impedance_ohm, double output_impedance_ohm,
             double scale_voltage_10V_mode, double gain_voltage_10V_to_40V_mode, 
@@ -5144,7 +5167,7 @@ namespace TopInstrument
             //double scale_voltage_10V_mode = 8.5 / 10; //$$ 7.650 / 10
             //double output_impedance_ohm = 50;
 
-            if (OutputRange == 40)
+            if (output_range == 40)
             {
                 Devide_V = gain_voltage_10V_to_40V_mode;
                 //Devide_V = 4;
@@ -5419,7 +5442,7 @@ namespace TopInstrument
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_init", val));
             
             // adc fifo reset 
-            val = dev_eps.adc_fifo_rst();
+            val = dev_eps.adc_reset_fifo();
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_fifo_rst", val));
             
             // adc update 
@@ -5441,14 +5464,14 @@ namespace TopInstrument
             dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
-            dev_eps.adc_fifo_rst(); // clear fifo for new data
+            dev_eps.adc_reset_fifo(); // clear fifo for new data
             dev_eps.adc_update();
 
             // fifo data read 
             s32[] buf0_s32 = new s32[len_adc_data];
             s32[] buf1_s32 = new s32[len_adc_data];
-            dev_eps.adc_read_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
-            dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            dev_eps.adc_get_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            dev_eps.adc_get_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
             dev_eps.adc_log_buf("log__adc_buf.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
@@ -5706,7 +5729,7 @@ namespace TopInstrument
             Console.WriteLine(">>> DAC pulse download");
 
             // call setup 
-            int    OutputRange                     = 10;   
+            int    output_range                     = 10;   
             int    time_ns__code_duration          = 10; // 10ns = 100MHz
             //int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
@@ -5715,23 +5738,26 @@ namespace TopInstrument
             double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
             double out_scale                       = 1.0;
             double out_offset                      = 0.0;
-            //
-            var pulse_info1 = dev_eps.pgu__gen_pulse_info(OutputRange, 
+            
+            // dac_set_fifo(...) : download dac data to fifo after reading data from time-voltage list
+            Console.WriteLine(">>>>>> DAC0 download");
+            dev_eps.dac_set_fifo(
+                1,
                 time_volt_list1.Item1, time_volt_list1.Item2, 
                 time_ns__code_duration, 
+                out_scale, out_offset,
                 load_impedance_ohm, output_impedance_ohm, 
-                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
-                out_scale, out_offset);
-            var pulse_info2 = dev_eps.pgu__gen_pulse_info(OutputRange, 
+                scale_voltage_10V_mode, 
+                output_range, gain_voltage_10V_to_40V_mode);
+            Console.WriteLine(">>>>>> DAC1 download");
+            dev_eps.dac_set_fifo(
+                2,
                 time_volt_list2.Item1, time_volt_list2.Item2, 
                 time_ns__code_duration, 
+                out_scale, out_offset,
                 load_impedance_ohm, output_impedance_ohm, 
-                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
-                out_scale, out_offset);
-
-            // download waveform into FPGA
-            dev_eps.load_pgu_waveform_Cid(1, pulse_info1.Item1, pulse_info1.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
-            dev_eps.load_pgu_waveform_Cid(2, pulse_info2.Item1, pulse_info2.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
+                scale_voltage_10V_mode, 
+                output_range, gain_voltage_10V_to_40V_mode);
 
 
             // previoud subfunctions:
@@ -5773,7 +5799,7 @@ namespace TopInstrument
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
-            dev_eps.adc_fifo_rst(); // clear fifo for new data
+            dev_eps.adc_reset_fifo(); // clear fifo for new data
             
             //// trigger DAC wave and adc data collection -- method 1
             //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
@@ -5815,10 +5841,13 @@ namespace TopInstrument
             // fifo data read 
             buf0_s32 = new s32[len_adc_data];
             buf1_s32 = new s32[len_adc_data];
-            dev_eps.adc_read_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
-            dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            Console.WriteLine(">>>>>> ADC0 FIFO read");
+            dev_eps.adc_get_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            Console.WriteLine(">>>>>> ADC1 FIFO read");
+            dev_eps.adc_get_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
+            Console.WriteLine(">>>>>> write ADC log file");
             dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32,
                                 buf_time_str, buf_dac0_str, buf_dac1_str); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
