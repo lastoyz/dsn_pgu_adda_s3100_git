@@ -3823,15 +3823,32 @@ namespace TopInstrument
 
             return inp_read;
         }
-        private void dac_init() {
+        private void dac_init(double time_ns__dac_update = 5,
+            double DAC_full_scale_current__mA_1 = 25.5,
+            double DAC_full_scale_current__mA_2 = 25.5,
+            float  DAC_offset_current__mA_1     = (float)0.0,
+            float  DAC_offset_current__mA_2     = (float)0.0,
+            int    N_pol_sel_1                  = 0,
+            int    N_pol_sel_2                  = 0,
+            int    Sink_sel_1                   = 0,
+            int    Sink_sel_2                   = 0
+        ) {
+            // setup pgu-clock device
+            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
+            //pgu__setup_freq(time_ns__dac_update);
+
+            //// calculate parameters
+            int pgu_freq_in_100kHz = Convert.ToInt32(1 / (time_ns__dac_update * 1e-9) / 100000);
+            u32 val = (u32)pgu_freq_in_100kHz;
+
             // DACX fpga pll reset
             pgu_dacx_fpga_pll_rst(1, 1, 1);
 
             // CLKD init
             pgu_clkd_init();
 
-            // CLKD setup // not must
-            //pgu_clkd_setup(2000); // preset 200MHz
+            // CLKD freq setup 
+            pgu_clkd_setup(val);
 
             // DACX init 
             pgu_dacx_init();
@@ -3840,8 +3857,25 @@ namespace TopInstrument
             pgu_dacx_fpga_pll_rst(0, 0, 0);
             pgu_dacx_fpga_clk_dis(0, 0);
 
-            // update input delay tap inside DAC IC // not must
-            //pgu_dacx_cal_input_dtap();
+            // wait for pll stable
+            Delay(1); // 1ms
+
+            //$$ DAC device input delay tap calibration 
+            if (time_ns__dac_update <= 5) // conduct dac input delay tap check only when update rate >= 200MHz.
+                pgu_dacx_cal_input_dtap();
+            else
+                dac__dev_set_dtap((u32)0, (u32)0); // set 0 taps
+
+
+            //$$ DAC device full-scale current, offset setup
+            pgu__setup_gain_offset(1, 
+                DAC_full_scale_current__mA_1, DAC_offset_current__mA_1, 
+                N_pol_sel_1, Sink_sel_1);
+            pgu__setup_gain_offset(2, 
+                DAC_full_scale_current__mA_2, DAC_offset_current__mA_2, 
+                N_pol_sel_2, Sink_sel_2);
+
+
         }
 
         // clkd ... external clock IC control // to rename
@@ -4306,6 +4340,12 @@ namespace TopInstrument
             Console.WriteLine(fmt);
         }
 
+        private void dac__dev_set_dtap(u32 val_dac0_dtap, u32 val_dac1_dtap) {
+            // input delay tap 0 ~ 31
+            pgu_dac0_reg_write_b8(0x05, (u32)val_dac0_dtap);
+            pgu_dac1_reg_write_b8(0x05, (u32)val_dac1_dtap);
+        }
+
         private u32  pgu_dacx_cal_input_dtap() {
             //$$ dac input delay tap calibration
             //$$   set initial smp value for input delay tap : try 8
@@ -4473,8 +4513,10 @@ namespace TopInstrument
             // set center
             //pgu_dac0_reg_write_b8(0x05, val_0_center);
             //pgu_dac1_reg_write_b8(0x05, val_1_center);
-            pgu_dac0_reg_write_b8(0x05, (u32)val_0_center_new);
-            pgu_dac1_reg_write_b8(0x05, (u32)val_1_center_new);
+            //pgu_dac0_reg_write_b8(0x05, (u32)val_0_center_new);
+            //pgu_dac1_reg_write_b8(0x05, (u32)val_1_center_new);
+
+            dac__dev_set_dtap((u32)val_0_center_new, (u32)val_1_center_new);
 
             xil_printf(">>> DAC input delay taps are chosen at each center\r\n");
 
@@ -4926,6 +4968,10 @@ namespace TopInstrument
         }
         private void dac_reset_trig() {
             dac_set_trig();
+        }
+
+        private void dac_gen_wave_cmd(){
+
         }
 
         private Tuple<List<s32>, List<long>> gen_pulse_info_segment__inc_step(int code_start, double volt_diff, int code_diff, int code_step, long num_steps, long code_duration, 
@@ -5481,11 +5527,55 @@ namespace TopInstrument
 
 
             ////
+            Console.WriteLine(">>> DAC setup");
+
+            // dac init
+            Console.WriteLine(">>>>>> DAC power on");
+            dev_eps.dac_pwr(1);
+
+            
+            Console.WriteLine(">>>>>> DAC init");
+            
+            //// DAC update period
+            //double time_ns__dac_update = 5; // 200MHz dac update
+            double time_ns__dac_update = 10; // 100MHz dac update
+
+            //// DAC IC gain and offset // not must
+            double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
+            double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
+            float DAC_offset_current__mA_1      = (float)0.44; // for BD2
+            float DAC_offset_current__mA_2      = (float)0.79; // for BD2
+            int N_pol_sel_1                     = 0;           // for BD2
+            int N_pol_sel_2                     = 0;           // for BD2
+            int Sink_sel_1                      = 0;           // for BD2
+            int Sink_sel_2                      = 0;           // for BD2
+            //
+            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //double DAC_full_scale_current__mA_2 = 25.62;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //float DAC_offset_current__mA_1      = (float)0.58; // for BD3
+            //float DAC_offset_current__mA_2      = (float)0.29; // for BD3
+            //int N_pol_sel_1                     = 0;           // for BD3
+            //int N_pol_sel_2                     = 0;           // for BD3
+            //int Sink_sel_1                      = 0;           // for BD3
+            //int Sink_sel_2                      = 0;           // for BD3
+            //
+            
+            dev_eps.dac_init(time_ns__dac_update,
+                DAC_full_scale_current__mA_1,
+                DAC_full_scale_current__mA_2,
+                DAC_offset_current__mA_1    ,
+                DAC_offset_current__mA_2    ,
+                N_pol_sel_1                 ,
+                N_pol_sel_2                 ,
+                Sink_sel_1                  ,
+                Sink_sel_2
+            ); 
+
+
+            ////
             Console.WriteLine(">>> DAC pulse setup");
 
             //$$ pulse setup
-            //long[]   StepTime;
-            //double[] StepLevel;
             long[]   StepTime_1;
             double[] StepLevel_1;
             long[]   StepTime_2;
@@ -5516,7 +5606,8 @@ namespace TopInstrument
             double test_freq_kHz       = 500; 
             int len_dac_command_points = 200; //40;
             //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
-            double amplitude  = 4.0; // no distortion
+            //double amplitude  = 4.0; // no distortion
+            double amplitude  = 1.0; // test
 
 
             // double test_freq_kHz       = 1000; 
@@ -5599,9 +5690,14 @@ namespace TopInstrument
             //StepTime_2  = new long[]   {   0,  1250, 2500,   3750, 5000,   6250, 7500,   8750, 10000 }; // ns
             //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
 
+            
+            ////
+            long[]   StepTime;
+            double[] StepLevel;
+
             //// case base for 10V mode with neg
-            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            //StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
 
             //// case base for 10V mode
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -5656,7 +5752,6 @@ namespace TopInstrument
             //StepLevel = new double[] { 0.0,  0.0,   -20.0,   -20.0,  -40.0,  -40.0,     -11.0,     -11.0,  0.0,  0.0 }; // V
 
             //$$ generate waveform and download
-            
             //StepTime_1  = StepTime;
             //StepLevel_1 = StepLevel;
             //StepTime_2  = StepTime;
@@ -5665,57 +5760,22 @@ namespace TopInstrument
             var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_1, StepLevel_1);
             var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
 
+            ////
+            Console.WriteLine(">>> DAC waveform command generation");
+            dev_eps.dac_gen_wave_cmd();
+            //dev_eps.dac_gen_test_cmd(int case_idx);
 
             ////
-            Console.WriteLine(">>> DAC setup");
-
-            // dac init
-            //...
-            dev_eps.dac_pwr(1);
-            dev_eps.dac_init(); 
-
-            // setup pgu-clock device
-            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
-            //double time_ns__dac_update          = 10; // 10ns = 100MHz
-            double time_ns__dac_update          = 5; // 5ns = 200MHz
-            dev_eps.pgu__setup_freq(time_ns__dac_update);
-
-
-            //// setup pgu-dac device
-            double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
-            double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
-            float DAC_offset_current__mA_1      = (float)0.44; // for BD2
-            float DAC_offset_current__mA_2      = (float)0.79; // for BD2
-            int N_pol_sel_1                     = 0;           // for BD2
-            int N_pol_sel_2                     = 0;           // for BD2
-            int Sink_sel_1                      = 0;           // for BD2
-            int Sink_sel_2                      = 0;           // for BD2
-            //
-            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD3 //$$ 8.66 ~ 31.66mA
-            //double DAC_full_scale_current__mA_2 = 25.62;       // for BD3 //$$ 8.66 ~ 31.66mA
-            //float DAC_offset_current__mA_1      = (float)0.58; // for BD3
-            //float DAC_offset_current__mA_2      = (float)0.29; // for BD3
-            //int N_pol_sel_1                     = 0;           // for BD3
-            //int N_pol_sel_2                     = 0;           // for BD3
-            //int Sink_sel_1                      = 0;           // for BD3
-            //int Sink_sel_2                      = 0;           // for BD3
-            //
-            //
-            dev_eps.pgu__setup_gain_offset(1, 
-                DAC_full_scale_current__mA_1, DAC_offset_current__mA_1, 
-                N_pol_sel_1, Sink_sel_1);
-            dev_eps.pgu__setup_gain_offset(2, 
-                DAC_full_scale_current__mA_2, DAC_offset_current__mA_2, 
-                N_pol_sel_2, Sink_sel_2);
-
+            Console.WriteLine(">>> DAC FIFO data gerenation");
+            //dev_eps.dac_gen_fifo_dat();
 
             ////
             Console.WriteLine(">>> DAC pulse download");
 
             // call setup 
             int    output_range                     = 10;   
-            //int    time_ns__code_duration          = 10; // 10ns = 100MHz
-            int    time_ns__code_duration          = 5; // 5ns = 200MHz
+            int    time_ns__code_duration          = 10; // 10ns = 100MHz
+            //int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
             double output_impedance_ohm            = 50;                        
             double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
@@ -5778,11 +5838,11 @@ namespace TopInstrument
             //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
             //
             //dev_eps.adc_set_sampling_period( 15); // 189MHz/14   =  13.5 Msps
-            //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
+            dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
             //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
             //dev_eps.adc_set_sampling_period( 95); // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
             //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
-            dev_eps.adc_set_sampling_period(379); // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+            //dev_eps.adc_set_sampling_period(379); // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
             //
             dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
             dev_eps.adc_init(); // init with setup parameters
