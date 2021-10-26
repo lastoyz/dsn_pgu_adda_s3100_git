@@ -4970,8 +4970,77 @@ namespace TopInstrument
             dac_set_trig();
         }
 
-        private void dac_gen_wave_cmd(){
+        private Tuple<long[], double[], double[]> dac_gen_wave_cmd(
+            double test_freq_kHz        = 500,
+            int len_dac_command_points  = 200,
+            double amplitude            = 1.0,
+            double phase_diff           = Math.PI/2
+        ) {
+            //// case for sine wave
 
+            long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
+            long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
+            double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
+            //double phase_diff = Math.PI/2; // pi/2 = 90 degree
+            
+            long[]   buf_time = new long  [len_dac_command_points+1];
+            double[] buf_dac0 = new double[len_dac_command_points+1];
+            double[] buf_dac1 = new double[len_dac_command_points+1];
+
+            for (int n = 0; n < buf_time.Length; n++)
+            {
+                buf_time[n] = sample_period_ns*n;
+                buf_dac0[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
+                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
+            }
+
+            return Tuple.Create(buf_time, buf_dac0, buf_dac1);
+
+        }
+
+        private Tuple<long[], double[], double[]> dac_gen_test_cmd(long[] StepTime, double[] StepLevel) {
+            // generate dac command dual list from single time-voltage list
+            int len_dac_command_points = StepTime.Length;
+            long[]   buf_time = new long  [len_dac_command_points];
+            double[] buf_dac0 = new double[len_dac_command_points];
+            double[] buf_dac1 = new double[len_dac_command_points];
+
+            Array.Copy(StepTime,  buf_time, len_dac_command_points);
+
+            // same data on dac0 and dac1
+            Array.Copy(StepLevel, buf_dac0, len_dac_command_points);
+            Array.Copy(StepLevel, buf_dac1, len_dac_command_points);
+
+            return Tuple.Create(buf_time, buf_dac0, buf_dac1);
+        }
+
+        private Tuple<s32[], long[]> dac_gen_fifo_dat(long[] time_ns_list, double[] level_volt_list, 
+            int    time_ns__code_duration, 
+            double load_impedance_ohm, double output_impedance_ohm,
+            double scale_voltage_10V_mode, int output_range, double gain_voltage_10V_to_40V_mode, 
+            double out_scale, double out_offset)
+        {
+
+            // generate pulse waveform
+            var pulse_info = pgu__gen_pulse_info(
+                output_range, 
+                time_ns_list, level_volt_list, 
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm, 
+                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
+                out_scale, out_offset);
+
+            // download waveform into FPGA
+            //load_pgu_waveform_Cid(ch, pulse_info.Item1, pulse_info.Item2); 
+            //long[] len_fifo_data = pulse_info.Item1;
+            //string[] pulse_info_num_block_str = pulse_info.Item2; //$$ must remove
+            List<s32>[]  code_value__list    = pulse_info.Item1;
+            List<long>[] code_duration__list = pulse_info.Item2;            
+
+            s32[]  code_inc_value__s32_buf = new s32[] {0};
+            long[] code_duration__long_buf = new long[] {0}; //$$ long --> u32 ?? to check later.
+            
+            return Tuple.Create(code_inc_value__s32_buf, code_duration__long_buf);
         }
 
         private Tuple<List<s32>, List<long>> gen_pulse_info_segment__inc_step(int code_start, double volt_diff, int code_diff, int code_step, long num_steps, long code_duration, 
@@ -5170,7 +5239,8 @@ namespace TopInstrument
 
             s32[]  code_value__s32_buf;
             s32[]  code_inc_value__s32_buf;
-            long[] code_duration__long_buf;
+            long[] code_duration__long_buf; //$$
+            u32[]  code_duration__u32_buf; //$$ test
 
             // set the number of fifo data length
             long fifo_data = 0;
@@ -5232,10 +5302,11 @@ namespace TopInstrument
                 code_inc_value__s32_buf = code_value__s32_buf.Select(x => (x<<16)).ToArray();
                 //code_duration__list[i]
                 code_duration__long_buf = code_duration__list[i].ToArray();
+                code_duration__u32_buf  = Array.ConvertAll(code_duration__long_buf, x => (u32)x);
 
                 //// send arrays to FIFOs 
                 byte[] dat_bytearray = code_inc_value__s32_buf.SelectMany(BitConverter.GetBytes).ToArray();
-                byte[] dur_bytearray = code_duration__long_buf.SelectMany(BitConverter.GetBytes).ToArray();
+                byte[] dur_bytearray = code_duration__u32_buf.SelectMany(BitConverter.GetBytes).ToArray(); //$$ long to u32
 
                 if (ch == 1) { // Ch == 1 or DAC0
                     WriteToPipeIn(EP_ADRS__DAC0_DAT_INC_PI, ref dat_bytearray);
@@ -5537,8 +5608,8 @@ namespace TopInstrument
             Console.WriteLine(">>>>>> DAC init");
             
             //// DAC update period
-            //double time_ns__dac_update = 5; // 200MHz dac update
-            double time_ns__dac_update = 10; // 100MHz dac update
+            double time_ns__dac_update = 5; // 200MHz dac update
+            //double time_ns__dac_update = 10; // 100MHz dac update
 
             //// DAC IC gain and offset // not must
             double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
@@ -5574,12 +5645,6 @@ namespace TopInstrument
 
             ////
             Console.WriteLine(">>> DAC pulse setup");
-
-            //$$ pulse setup
-            long[]   StepTime_1;
-            double[] StepLevel_1;
-            long[]   StepTime_2;
-            double[] StepLevel_2;
 
             //// case for sine wave
 
@@ -5629,35 +5694,8 @@ namespace TopInstrument
             // double amplitude  = 2.0; // best waveform
             // //double amplitude  = 1.0; 
 
-            //
-            long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
-            long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
-            double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
-            double phase_diff = Math.PI/2; // pi/2 = 90 degree
-            
-            long[]   buf_time = new long  [len_dac_command_points+1];
-            double[] buf_dac0 = new double[len_dac_command_points+1];
-            double[] buf_dac1 = new double[len_dac_command_points+1];
 
-            for (int n = 0; n < buf_time.Length; n++)
-            {
-                buf_time[n] = sample_period_ns*n;
-                buf_dac0[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
-                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
-            }
 
-            // print out
-            string buf_time_str = String.Join(", ", buf_time);
-            string buf_dac0_str = String.Join(", ", buf_dac0);
-            string buf_dac1_str = String.Join(", ", buf_dac1);
-            Console.WriteLine(buf_time_str);
-            Console.WriteLine(buf_dac0_str);
-            Console.WriteLine(buf_dac1_str);
-
-            StepTime_1  = buf_time;
-            StepLevel_1 = buf_dac0;
-            StepTime_2  = buf_time;
-            StepLevel_2 = buf_dac1;
 
 
             //// rough wave test
@@ -5751,31 +5789,49 @@ namespace TopInstrument
             //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
             //StepLevel = new double[] { 0.0,  0.0,   -20.0,   -20.0,  -40.0,  -40.0,     -11.0,     -11.0,  0.0,  0.0 }; // V
 
+            //$$ pulse setup
+            //long[]   StepTime_1;
+            //double[] StepLevel_1;
+            //long[]   StepTime_2;
+            //double[] StepLevel_2;
+
             //$$ generate waveform and download
             //StepTime_1  = StepTime;
             //StepLevel_1 = StepLevel;
             //StepTime_2  = StepTime;
             //StepLevel_2 = StepLevel;
 
-            var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_1, StepLevel_1);
-            var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
+            //var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_1, StepLevel_1);
+            //var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
 
             ////
             Console.WriteLine(">>> DAC waveform command generation");
-            dev_eps.dac_gen_wave_cmd();
-            //dev_eps.dac_gen_test_cmd(int case_idx);
+            
+            int test_case__wave = 0;
+            Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
 
-            ////
-            Console.WriteLine(">>> DAC FIFO data gerenation");
-            //dev_eps.dac_gen_fifo_dat();
+            if (test_case__wave==1) {
+                double phase_diff = Math.PI/2;
+                time_volt_dual_list = dev_eps.dac_gen_wave_cmd(
+                    test_freq_kHz, len_dac_command_points, 
+                    amplitude, phase_diff);
+            } else {
+                time_volt_dual_list = dev_eps.dac_gen_test_cmd(StepTime, StepLevel);
+            }
 
-            ////
-            Console.WriteLine(">>> DAC pulse download");
+            // print out
+            string buf_time_str = String.Join(", ", time_volt_dual_list.Item1);
+            string buf_dac0_str = String.Join(", ", time_volt_dual_list.Item2);
+            string buf_dac1_str = String.Join(", ", time_volt_dual_list.Item3);
+            Console.WriteLine("> buf_time_str =" + buf_time_str);
+            Console.WriteLine("> buf_dac0_str =" + buf_dac0_str);
+            Console.WriteLine("> buf_dac1_str =" + buf_dac1_str);
 
-            // call setup 
+
+            // dac output ... setup 
             int    output_range                     = 10;   
-            int    time_ns__code_duration          = 10; // 10ns = 100MHz
-            //int    time_ns__code_duration          = 5; // 5ns = 200MHz
+            //int    time_ns__code_duration          = 10; // 10ns = 100MHz
+            int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
             double output_impedance_ohm            = 50;                        
             double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
@@ -5786,11 +5842,23 @@ namespace TopInstrument
             int num_repeat_pulses = 500; // 500/(500kHz)=1.0ms
             //int num_repeat_pulses = 2000; // 2000/(500kHz)=4ms
 
+            ////
+            Console.WriteLine(">>> DAC FIFO data gerenation");
+            // var ret__fifo_dat = dev_eps.dac_gen_fifo_dat(
+            //     time_volt_dual_list.Item1, time_volt_dual_list.Item2,
+            //     time_ns__code_duration, 
+            //     load_impedance_ohm, output_impedance_ohm,
+            //     scale_voltage_10V_mode, output_range, gain_voltage_10V_to_40V_mode, 
+            //     out_scale, out_offset
+            // ); // test
+
+            ////
+            Console.WriteLine(">>> DAC pulse download");
             // dac_set_fifo(...) : download dac data to fifo after reading data from time-voltage list
             Console.WriteLine(">>>>>> DAC0 download");
             dev_eps.dac_set_fifo(
                 1, num_repeat_pulses,
-                time_volt_list1.Item1, time_volt_list1.Item2, 
+                time_volt_dual_list.Item1, time_volt_dual_list.Item2, 
                 time_ns__code_duration, 
                 out_scale, out_offset,
                 load_impedance_ohm, output_impedance_ohm, 
@@ -5799,7 +5867,7 @@ namespace TopInstrument
             Console.WriteLine(">>>>>> DAC1 download");
             dev_eps.dac_set_fifo(
                 2, num_repeat_pulses,
-                time_volt_list2.Item1, time_volt_list2.Item2, 
+                time_volt_dual_list.Item1, time_volt_dual_list.Item3, 
                 time_ns__code_duration, 
                 out_scale, out_offset,
                 load_impedance_ohm, output_impedance_ohm, 
