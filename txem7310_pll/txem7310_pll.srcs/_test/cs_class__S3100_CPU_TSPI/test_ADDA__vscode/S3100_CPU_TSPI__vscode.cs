@@ -791,24 +791,24 @@ namespace TopInstrument
             //dev_eps.scpi_comm_resp_numb_ss(cmd_str);
 
             //// test fifo : pipein at 0x8A; pipeout at 0xAA.
-            //byte[] datain_bytearray;
-            //datain_bytearray = new byte[] { 
-            //    (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
-            //    (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
-            //    (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
-            //    (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
-            //    };
-            //Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
+            // byte[] datain_bytearray;
+            // datain_bytearray = new byte[] { 
+            //     (byte)0x33, (byte)0x34, (byte)0x35, (byte)0x36,
+            //     (byte)0x03, (byte)0x04, (byte)0x05, (byte)0x06,
+            //     (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
+            //     (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
+            //     };
+            // Console.WriteLine(dev_eps.WriteToPipeIn(0x8A, ref datain_bytearray));
             ////
-            //byte[] dataout_bytearray = new byte[16];
-            //Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
-            //// compare
-            //Console.WriteLine(BitConverter.ToString(datain_bytearray));
-            //Console.WriteLine(BitConverter.ToString(dataout_bytearray));
-            //bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
-            //if (comp ==  false) {
-            //    Console.WriteLine(comp);
-            //}
+            // byte[] dataout_bytearray = new byte[16];
+            // Console.WriteLine(dev_eps.ReadFromPipeOut(0xAA, ref dataout_bytearray));
+            // // compare
+            // Console.WriteLine(BitConverter.ToString(datain_bytearray));
+            // Console.WriteLine(BitConverter.ToString(dataout_bytearray));
+            // bool comp = datain_bytearray.SequenceEqual(dataout_bytearray);
+            // if (comp ==  false) {
+            //     Console.WriteLine(comp);
+            // }
             
 
             // MSPI test : 
@@ -3144,9 +3144,9 @@ namespace TopInstrument
 
 
             //// previous LAN command for freq setting
-            //string pgu_freq_in_100kHz_str = string.Format(" {0,4:D4} \n", pgu_freq_in_100kHz);
-            //byte[] PGU_FREQ_100kHz_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_FREQ + pgu_freq_in_100kHz_str);
-            //ret = scpi_comm_resp_ss(PGU_FREQ_100kHz_STR);
+            // string pgu_freq_in_100kHz_str = string.Format(" {0,4:D4} \n", pgu_freq_in_100kHz);
+            // byte[] PGU_FREQ_100kHz_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_FREQ + pgu_freq_in_100kHz_str);
+            // ret = scpi_comm_resp_ss(PGU_FREQ_100kHz_STR);
 
             return ret;
         }
@@ -3192,14 +3192,14 @@ namespace TopInstrument
             // data = {DAC_ch1_fsc, DAC_ch2_fsc}
             // DAC_ch#_fsc = {000000, 10 bit data}
             //
-            //string pgu_fsc_gain_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_gain, DAC_gain);
-            //byte[] PGU_GAIN_DAC__STR;
-            //if (Ch == 1)
-            //    PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC0 + pgu_fsc_gain_str);
-            //else
-            //    PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC1 + pgu_fsc_gain_str);
-            //ret = scpi_comm_resp_ss(PGU_GAIN_DAC__STR);
-            //
+            // string pgu_fsc_gain_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_gain, DAC_gain);
+            // byte[] PGU_GAIN_DAC__STR;
+            // if (Ch == 1)
+            //     PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC0 + pgu_fsc_gain_str);
+            // else
+            //     PGU_GAIN_DAC__STR = Encoding.UTF8.GetBytes(cmd_str__PGU_GAIN_DAC1 + pgu_fsc_gain_str);
+            // ret = scpi_comm_resp_ss(PGU_GAIN_DAC__STR);
+            
             return ret;
         }
 
@@ -3260,14 +3260,14 @@ namespace TopInstrument
             //
             // # offset DAC : 0x140 0.625mA, AUX2N active[7] (1) , sink current[6] (1)
             //
-            //string pgu_offset_con_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_offset, DAC_offset); // set subchannel as well
-            //byte[] PGU_OFST_DAC__OFFSET_STR;
-            //if (Ch == 1)
-            //    PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC0 + pgu_offset_con_str);
-            //else
-            //    PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC1 + pgu_offset_con_str);
-            //ret = scpi_comm_resp_ss(PGU_OFST_DAC__OFFSET_STR);
-            //
+            // string pgu_offset_con_str = string.Format(" #H{0,4:X4}{1,4:X4} \n", DAC_offset, DAC_offset); // set subchannel as well
+            // byte[] PGU_OFST_DAC__OFFSET_STR;
+            // if (Ch == 1)
+            //     PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC0 + pgu_offset_con_str);
+            // else
+            //     PGU_OFST_DAC__OFFSET_STR = Encoding.UTF8.GetBytes(cmd_str__PGU_OFST_DAC1 + pgu_offset_con_str);
+            // ret = scpi_comm_resp_ss(PGU_OFST_DAC__OFFSET_STR);
+            
             return ret;
         }
 
@@ -3292,18 +3292,17 @@ namespace TopInstrument
             //// previous LAN commmand for eeprom read
             // # ':PGU:MEMR' # new ':PGU:MEMR #H00000058 \n'
             //
-            //string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
-            //byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
-            //string ret;
-            //try {
-            //    ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
-            //}
-            //catch {
-            //    ret = "#H00000000\n";
-            //}
-            //ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
+            // string PGU_MEMR = Convert.ToString(cmd_str__PGU_MEMR) + string.Format(" #H{0,8:X8}\n", adrs_b32);
+            // byte[] PGU_MEMR_CMD = Encoding.UTF8.GetBytes(PGU_MEMR);
+            // string ret;
+            // try {
+            //     ret = scpi_comm_resp_ss(PGU_MEMR_CMD);
+            // }
+            // catch {
+            //     ret = "#H00000000\n";
+            // }
+            // ret_int = (int)Convert.ToInt32(ret.Substring(2,8),16); // convert hex into int32
 
-            //
             return ret_int;
         }
 
@@ -3325,26 +3324,25 @@ namespace TopInstrument
             //// previous LAN commmand for eeprom write
             // # ':PGU:MEMW' # new ':PGU:MEMW #H0000005C #H1234ABCD \n'
             //
-            //string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
-            //                + string.Format(" #H{0,8:X8}"  , adrs_b32)
-            //                + string.Format(" #H{0,8:X8}\n", val_b32 );
-            //byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
-            //string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
-            //
-            ////Delay(1); //$$ 1ms wait for write done // NG  read right after write
-            ////Delay(2); //$$ 2ms wait for write done // some NG 
-            ////Delay(10); //$$ 10ms wait for write done 
-            //Delay(interval_ms); //$$ ms wait for write done 
-            ////
-            //int ret_int = 0;
-            //if (ret.Substring(0,2)=="OK") {
-            //    ret_int = 0;
-            //}
-            //else {
-            //    ret_int = -1;
-            //}
+            // string PGU_MEMW = Convert.ToString(cmd_str__PGU_MEMW) 
+            //                 + string.Format(" #H{0,8:X8}"  , adrs_b32)
+            //                 + string.Format(" #H{0,8:X8}\n", val_b32 );
+            // byte[] PGU_MEMW_CMD = Encoding.UTF8.GetBytes(PGU_MEMW);
+            // string ret = scpi_comm_resp_ss(PGU_MEMW_CMD);
+            // 
+            // //Delay(1); //$$ 1ms wait for write done // NG  read right after write
+            // //Delay(2); //$$ 2ms wait for write done // some NG 
+            // //Delay(10); //$$ 10ms wait for write done 
+            // Delay(interval_ms); //$$ ms wait for write done 
+            // //
+            // int ret_int = 0;
+            // if (ret.Substring(0,2)=="OK") {
+            //     ret_int = 0;
+            // }
+            // else {
+            //     ret_int = -1;
+            // }
 
-            //
             return ret_int;
         }
 
@@ -3463,14 +3461,17 @@ namespace TopInstrument
         private u32   EP_ADRS__ADCH_DOUT0_PO      = 0xBC;
         private u32   EP_ADRS__ADCH_DOUT1_PO      = 0xBD;
 
-        private u32   EP_ADRS__DFT_TI             = 0x5C;
-        private u32   EP_ADRS__DFT_COEF_RE_PI     = 0x9C;
-        private u32   EP_ADRS__DFT_COEF_IM_PI     = 0x9D;
+        //private u32   EP_ADRS__DFT_TI             = 0x5C; // reserved
+        //private u32   EP_ADRS__DFT_COEF_RE_PI     = 0x9C; // reserved
+        //private u32   EP_ADRS__DFT_COEF_IM_PI     = 0x9D; // reserved
 
+        //// firmware control const
+        private u32   MAX_CNT = 2000000; // max counter when checking done trig_out.
 
         //// functions 
 
         // spio functions
+
         private u32 spio_send_spi_frame(u32 frame_data) {
             //# write control 
             SetWireInValue(EP_ADRS__SPIO_WI, frame_data);  //# (ep,val,mask)
@@ -3482,7 +3483,7 @@ namespace TopInstrument
             //# check spi frame done
             //#   assign w_SPIO_WO[25] = w_done_SPIO_SPI_frame;
             u32 cnt_done = 0    ;
-            u32 MAX_CNT  = 20000;
+            //u32 MAX_CNT  = 20000;
             s32 bit_loc  = 25   ;
             u32 flag;
             u32 flag_done;
@@ -3525,7 +3526,6 @@ namespace TopInstrument
             //#
             return spio_send_spi_frame(framedata);
         }
-
         private u32 sp1_ext_init(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0) {
             //...
             u32 dir_read;
@@ -3607,7 +3607,6 @@ namespace TopInstrument
 
             return inp_read;
         }
-
         private u32 adc_enable(u32 sel_freq_mode_MHz = 210) {
             if (sel_freq_mode_MHz == 210) 
                 SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0001); // enable with 210MHz base freq
@@ -3619,20 +3618,17 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-
         private u32 adc_disable() {
             SetWireInValue(EP_ADRS__ADCH_WI, 0x0000_0000);
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-
-
         private u32 adc_trig_check(s32 bit_loc) {
             ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
 
             //# check done
             u32 cnt_done = 0    ;
-            u32 MAX_CNT  = 20000;
+            //u32 MAX_CNT  = 20000; 
             bool flag_done;
             while (true) {
             	flag_done = IsTriggered(EP_ADRS__ADCH_TO, (u32)(0x1<<bit_loc));
@@ -3646,13 +3642,12 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-
         private u32 adc_trig_check__wo_trig(s32 bit_loc) {
             //$$ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
 
             //# check done
             u32 cnt_done = 0    ;
-            u32 MAX_CNT  = 20000;
+            //u32 MAX_CNT  = 20000;
             bool flag_done;
             while (true) {
             	flag_done = IsTriggered(EP_ADRS__ADCH_TO, (u32)(0x1<<bit_loc));
@@ -3666,12 +3661,24 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
-        
-
         private u32 adc_reset() {
             return adc_trig_check(0);
         }
-        private u32 adc_init() {
+        private u32 adc_init(s32 len_adc_data = 4, u32 cnt_sampling_period = 21,
+            u32 val_tst_fix_pat_en_b1 = 0, u32 val_tst_inc_pat_en_b1 = 0,
+            u32 val_tap0a_b5 = 0x0, u32 val_tap0b_b5 = 0x0, u32 val_tap1a_b5 = 0x0, u32 val_tap1b_b5 = 0x0
+        ) {
+            // ADC parameter setup
+            adc_set_update_sample_num(len_adc_data); // set the number of ADC samples
+            adc_set_sampling_period(cnt_sampling_period); // 210MHz/21   =  10 Msps
+            adc_set_tap_control(val_tap0a_b5,val_tap0b_b5,val_tap1a_b5,val_tap1b_b5,val_tst_fix_pat_en_b1,val_tst_inc_pat_en_b1); // (u32 val_tap0a_b5, u32 val_tap0b_b5, u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+
+            // print out base freq and sampling rate
+            u32 val = adc_get_base_freq(); // adc base freq check 
+            Console.WriteLine(string.Format("{0} = {1} [MHz]", "adc_base_freq    ", (float)val/1000000.0));
+            Console.WriteLine(string.Format("{0} = {1,5:0.##} [MHz]", "adc_sampling_freq", (float)val/1000000.0/cnt_sampling_period));
+
+            // trigger init
             return adc_trig_check(1);
         }
         private u32 adc_update() {
@@ -3683,10 +3690,9 @@ namespace TopInstrument
         private u32 adc_test() {
             return adc_trig_check(3);
         }
-        private u32 adc_fifo_rst() {
+        private u32 adc_reset_fifo() {
             return adc_trig_check(4);
         }
-
         private u32 adc_get_base_freq() {
             return GetWireOutValue(EP_ADRS__ADCH_B_FRQ_WO);
         }
@@ -3700,9 +3706,7 @@ namespace TopInstrument
             SetWireInValue(EP_ADRS__ADCH_UPD_SM_WI, (u32)val);
             return val;
         }
-        private u32 adc_set_tap_control(
-            u32 val_tap0a_b5, u32 val_tap0b_b5, 
-            u32 val_tap1a_b5, u32 val_tap1b_b5,
+        private u32 adc_set_tap_control(u32 val_tap0a_b5, u32 val_tap0b_b5, u32 val_tap1a_b5, u32 val_tap1b_b5,
             u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) {
             
             // note: val_tst_fix_pat_en_b1 for adc fixed test pattern 18-bit 0x330FC
@@ -3715,8 +3719,7 @@ namespace TopInstrument
 
             return val;
         }
-
-        private u32 adc_read_fifo(u32 ch, s32 num_data, s32[] buf_s32) {
+        private u32 adc_get_fifo(u32 ch, s32 num_data, s32[] buf_s32) {
             u32 ret;
             u32 adrs;
             u8[] buf_pipe = new u8[num_data*4]; // *4 for 32-bit pipe 
@@ -3742,7 +3745,6 @@ namespace TopInstrument
 
             return ret/4; // number of bytes --> number of int
         }
-
         private void adc_log_buf(char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32, 
                                 string buf_time_str="", string buf_dac0_str="", string buf_dac1_str="") {
             //
@@ -3810,7 +3812,86 @@ namespace TopInstrument
 
         }
 
-        
+        // dac functions
+        private u32 dac_pwr(u32 val) {
+
+            // read IO 
+            u32 inp_read = sp1_reg_read_b16(0x12);
+
+            // read power control status
+            u32 val_s0 = (inp_read>>0) & 0x0001;
+            u32 val_s1 = (inp_read>>1) & 0x0001;
+            u32 val_s2 = (inp_read>>2) & 0x0001;
+            u32 val_s3 = (inp_read>>3) & 0x0001;
+            u32 val_s8 = (inp_read>>8) & 0x0001;
+            u32 val_s9 = (inp_read>>9) & 0x0001;
+
+            // DAC power on 
+            if      (val==1) val_s2 = 1;
+            else if (val==0) val_s2 = 0;
+            //sp1_ext_init(val_s3, val_s2, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
+            inp_read = sp1_ext_init(val_s3, val_s2, val_s1, val_s0, val_s8, val_s9); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
+
+            // power stability delay 1ms or more.
+            Delay(10);
+
+            return inp_read;
+        }
+        private void dac_init(double time_ns__dac_update = 5,
+            double DAC_full_scale_current__mA_1 = 25.5,
+            double DAC_full_scale_current__mA_2 = 25.5,
+            float  DAC_offset_current__mA_1     = (float)0.0,
+            float  DAC_offset_current__mA_2     = (float)0.0,
+            int    N_pol_sel_1                  = 0,
+            int    N_pol_sel_2                  = 0,
+            int    Sink_sel_1                   = 0,
+            int    Sink_sel_2                   = 0
+        ) {
+            // setup pgu-clock device
+            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
+            //pgu__setup_freq(time_ns__dac_update);
+
+            //// calculate parameters
+            int pgu_freq_in_100kHz = Convert.ToInt32(1 / (time_ns__dac_update * 1e-9) / 100000);
+            u32 val = (u32)pgu_freq_in_100kHz;
+
+            // DACX fpga pll reset
+            pgu_dacx_fpga_pll_rst(1, 1, 1);
+
+            // CLKD init
+            pgu_clkd_init();
+
+            // CLKD freq setup 
+            pgu_clkd_setup(val);
+
+            // DACX init 
+            pgu_dacx_init();
+
+            // DACX fpga pll run
+            pgu_dacx_fpga_pll_rst(0, 0, 0);
+            pgu_dacx_fpga_clk_dis(0, 0);
+
+            // wait for pll stable
+            Delay(1); // 1ms
+
+            //$$ DAC device input delay tap calibration 
+            if (time_ns__dac_update <= 5) // conduct dac input delay tap check only when update rate >= 200MHz.
+                dac__dev_cal_dtap();
+            else
+                dac__dev_set_dtap((u32)0, (u32)0); // set 0 taps
+
+
+            //$$ DAC device full-scale current, offset setup
+            pgu__setup_gain_offset(1, 
+                DAC_full_scale_current__mA_1, DAC_offset_current__mA_1, 
+                N_pol_sel_1, Sink_sel_1);
+            pgu__setup_gain_offset(2, 
+                DAC_full_scale_current__mA_2, DAC_offset_current__mA_2, 
+                N_pol_sel_2, Sink_sel_2);
+
+
+        }
+
         // clkd ... external clock IC control // to rename
         private u32  pgu_clkd_init() {
             //
@@ -3818,7 +3899,7 @@ namespace TopInstrument
             ActivateTriggerIn(EP_ADRS__CLKD_TI, 0);
             //
             u32 cnt_done = 0    ;
-            u32 MAX_CNT  = 20000;
+            //u32 MAX_CNT  = 20000;
             s32 bit_loc  = 24   ;
             u32 flag            ;
             u32 flag_done       ;
@@ -3836,7 +3917,6 @@ namespace TopInstrument
             //
             return flag_done;
         }
-
         private u32  pgu_clkd_send_spi_frame(u32 frame_data) {
             //
             // write control 
@@ -3847,7 +3927,7 @@ namespace TopInstrument
             //
             // check spi frame done
             u32 cnt_done = 0    ;
-            u32 MAX_CNT  = 20000;
+            //u32 MAX_CNT  = 20000;
             s32 bit_loc  = 25   ;
             u32 flag;
             u32 flag_done;
@@ -3886,7 +3966,6 @@ namespace TopInstrument
             //
             return val_recv;
         }
-        
         private u32  pgu_clkd_reg_write_b8(u32 reg_adrs_b10, u32 val_b8) {
             //
             u32 R_W_bar     = 0           ;
@@ -3898,7 +3977,6 @@ namespace TopInstrument
             //
             return pgu_clkd_send_spi_frame(framedata);        
         }
-
         private u32  pgu_clkd_reg_read_b8(u32 reg_adrs_b10) {
             //
             u32 R_W_bar     = 1           ;
@@ -3910,7 +3988,6 @@ namespace TopInstrument
             //
             return pgu_clkd_send_spi_frame(framedata);
         }
-        
         private u32  pgu_clkd_reg_write_b8_check (u32 reg_adrs_b10, u32 val_b8) {
             u32 tmp;
             u32 retry_count = 0;
@@ -3925,7 +4002,6 @@ namespace TopInstrument
             }
             return retry_count;
         }
-        
         private u32  pgu_clkd_reg_read_b8_check (u32 reg_adrs_b10, u32 val_b8) {
             u32 tmp;
             u32 retry_count = 0;
@@ -3938,7 +4014,6 @@ namespace TopInstrument
             }
             return retry_count;
         }
-
         private u32  pgu_clkd_setup(u32 freq_preset) {
             u32 ret = freq_preset;
             u32 tmp = 0;
@@ -4094,8 +4169,6 @@ namespace TopInstrument
 
             return ret;
         }
-
-        
         // dacx ... DAC IC control // to rename
         private u32  pgu_dacx_init() { // EP access
             //
@@ -4103,7 +4176,7 @@ namespace TopInstrument
             ActivateTriggerIn(EP_ADRS__DACX_TI, 0);
             //
             u32 cnt_done = 0    ;
-            u32 MAX_CNT  = 20000;
+            //u32 MAX_CNT  = 20000;
             s32 bit_loc  = 24   ;
             u32 flag            ;
             u32 flag_done       ;
@@ -4123,7 +4196,6 @@ namespace TopInstrument
             //
             return flag_done;
         }
-
         private u32  pgu_dacx_fpga_pll_rst(u32 clkd_out_rst, u32 dac0_dco_rst, u32 dac1_dco_rst) {
             u32 control_data;
             u32 status_pll;
@@ -4157,7 +4229,6 @@ namespace TopInstrument
             //
             return status_pll;
         }
-
         private u32  pgu_dacx_fpga_clk_dis(u32 dac0_clk_dis, u32 dac1_clk_dis) {
             u32 ret = 0;
             u32 control_data;
@@ -4171,7 +4242,6 @@ namespace TopInstrument
 
             return ret;
         }
-
         private u32  pgu_dacx_send_spi_frame(u32 frame_data) { // EP access
             //
             // write control 
@@ -4182,7 +4252,7 @@ namespace TopInstrument
             //
             // check spi frame done
             u32 cnt_done = 0    ;
-            u32 MAX_CNT  = 20000;
+            //u32 MAX_CNT  = 20000;
             s32 bit_loc  = 25   ;
             u32 flag;
             u32 flag_done;
@@ -4204,7 +4274,6 @@ namespace TopInstrument
             //
             return val_recv;
         }
-
         private u32  pgu_dac0_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
             //
             u32 CS_id       = 0          ;
@@ -4217,7 +4286,6 @@ namespace TopInstrument
             //
             return pgu_dacx_send_spi_frame(framedata);
         }
-
         private u32  pgu_dac0_reg_read_b8(u32 reg_adrs_b5) {
             //
             u32 CS_id       = 0          ;
@@ -4230,7 +4298,6 @@ namespace TopInstrument
             //
             return pgu_dacx_send_spi_frame(framedata);
         }
-
         private u32  pgu_dac1_reg_write_b8(u32 reg_adrs_b5, u32 val_b8) {
             //
             u32 CS_id       = 1          ;
@@ -4243,7 +4310,6 @@ namespace TopInstrument
             //
             return pgu_dacx_send_spi_frame(framedata);
         }
-        
         private u32  pgu_dac1_reg_read_b8(u32 reg_adrs_b5) {
             //
             u32 CS_id       = 1          ;
@@ -4257,7 +4323,7 @@ namespace TopInstrument
             return pgu_dacx_send_spi_frame(framedata);
         }
 
-
+        // test printf emulation
         private void xil_printf(string fmt) { // for test print
             // remove "\r\n" 
             if (fmt.Substring(fmt.Length-2)=="\r\n") {
@@ -4266,7 +4332,6 @@ namespace TopInstrument
             }
             Console.WriteLine(fmt);
         }
-
         private void xil_printf(string fmt, s32 val) { // for test print
             // check "%02d \r\n"
             if (fmt.Substring(fmt.Length-7)=="%02d \r\n") {
@@ -4280,7 +4345,6 @@ namespace TopInstrument
             }
             Console.WriteLine(fmt);
         }
-
         private void xil_printf(string fmt, s32 val1 , s32 val2 , s32 val3) { // for test print
             // remove "| %3d || %9d | %9d |\r\n" 
             if (fmt.Substring(fmt.Length-22)=="| %3d || %9d | %9d |\r\n") {
@@ -4290,7 +4354,13 @@ namespace TopInstrument
             Console.WriteLine(fmt);
         }
 
-        private u32  pgu_dacx_cal_input_dtap() {
+        private void dac__dev_set_dtap(u32 val_dac0_dtap, u32 val_dac1_dtap) {
+            // input delay tap 0 ~ 31
+            pgu_dac0_reg_write_b8(0x05, (u32)val_dac0_dtap);
+            pgu_dac1_reg_write_b8(0x05, (u32)val_dac1_dtap);
+        }
+
+        private u32  dac__dev_cal_dtap() { 
             //$$ dac input delay tap calibration
             //$$   set initial smp value for input delay tap : try 8
             //     https://www.analog.com/media/en/technical-documentation/data-sheets/AD9780_9781_9783.pdf
@@ -4457,14 +4527,15 @@ namespace TopInstrument
             // set center
             //pgu_dac0_reg_write_b8(0x05, val_0_center);
             //pgu_dac1_reg_write_b8(0x05, val_1_center);
-            pgu_dac0_reg_write_b8(0x05, (u32)val_0_center_new);
-            pgu_dac1_reg_write_b8(0x05, (u32)val_1_center_new);
+            //pgu_dac0_reg_write_b8(0x05, (u32)val_0_center_new);
+            //pgu_dac1_reg_write_b8(0x05, (u32)val_1_center_new);
+
+            dac__dev_set_dtap((u32)val_0_center_new, (u32)val_1_center_new);
 
             xil_printf(">>> DAC input delay taps are chosen at each center\r\n");
 
             return 0;
         }
-
 
         // dacz ... Pattern generator control // to rename
         private void pgu_dacz_dat_write(u32 dacx_dat, s32 bit_loc_trig) { // EP access
@@ -4473,14 +4544,12 @@ namespace TopInstrument
             SetWireInValue   (EP_ADRS__DACZ_DAT_WI, dacx_dat    );
             ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
         }
-
         private u32  pgu_dacz_dat_read(s32 bit_loc_trig) { // EP access
 	        //$$activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, bit_loc_trig); //$$ DACZ
             //$$return read_mcs_ep_wo(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WO, MASK_ALL); //$$ DACZ
             ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, bit_loc_trig); // trig location
             return (u32)GetWireOutValue(EP_ADRS__DACZ_DAT_WO);
         }
-
         private u32  pgu_dacz__read_status() {
             // return status : 
             // wire w_read_status   = i_trig_dacz_ctrl[5]; //$$
@@ -4488,89 +4557,7 @@ namespace TopInstrument
             return pgu_dacz_dat_read(5); 
         }
 
-
-        // dac functions
-        private u32 dac_pwr(u32 val) {
-
-            // read IO 
-            u32 inp_read = sp1_reg_read_b16(0x12);
-
-            // read power control status
-            u32 val_s0 = (inp_read>>0) & 0x0001;
-            u32 val_s1 = (inp_read>>1) & 0x0001;
-            u32 val_s2 = (inp_read>>2) & 0x0001;
-            u32 val_s3 = (inp_read>>3) & 0x0001;
-            u32 val_s8 = (inp_read>>8) & 0x0001;
-            u32 val_s9 = (inp_read>>9) & 0x0001;
-
-            // DAC power on 
-            if      (val==1) val_s2 = 1;
-            else if (val==0) val_s2 = 0;
-            //sp1_ext_init(val_s3, val_s2, val_s1, val_s0); // (led, pwr_dac, pwr_adc, pwr_amp)
-            inp_read = sp1_ext_init(val_s3, val_s2, val_s1, val_s0, val_s8, val_s9); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
-
-            // power stability delay 1ms or more.
-            Delay(10);
-
-            return inp_read;
-        }
-
-        private void dac_init() {
-            // DACX fpga pll reset
-            pgu_dacx_fpga_pll_rst(1, 1, 1);
-
-            // CLKD init
-            pgu_clkd_init();
-
-            // CLKD setup
-            pgu_clkd_setup(2000); // preset 200MHz
-
-            // DACX init 
-            pgu_dacx_init();
-
-            // DACX fpga pll run
-            pgu_dacx_fpga_pll_rst(0, 0, 0);
-            pgu_dacx_fpga_clk_dis(0, 0);
-
-            // update input delay tap inside DAC IC
-            pgu_dacx_cal_input_dtap();
-        }
-
-
-        // temp for dac test // to replace
-
-        public string pgu_freq__send(double time_ns__dac_update) {
-            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
-            string ret = "OK\n";
-
-            //// calculate parameters
-            int pgu_freq_in_100kHz = Convert.ToInt32(1 / (time_ns__dac_update * 1e-9) / 100000);
-
-            u32 val = (u32)pgu_freq_in_100kHz;
-
-            //// DACX fpga pll reset
-            pgu_dacx_fpga_pll_rst(1, 1, 1);
-            //
-            //usleep(500); // 500us
-            Delay(1); // 1ms
-            //// set freq parameter
-            pgu_clkd_setup(val);
-            //
-            //usleep(500); // 500us
-            Delay(1); // 1ms
-            //
-            //// DACX fpga pll run : all clock work again.
-            pgu_dacx_fpga_pll_rst(0, 0, 0);
-            //
-            //usleep(500); // 500us
-            Delay(1); // 1ms
-
-            //$$ DAC input delay tap calibration
-            pgu_dacx_cal_input_dtap();
-
-            return ret;
-        }        
-
+        // temp for dac setup // to name
         public string pgu_gain__send(int Ch, double DAC_full_scale_current__mA = 25.5) {
             string ret = "OK\n";
 
@@ -4607,7 +4594,6 @@ namespace TopInstrument
 
             return ret;
         }
-
         public string pgu_ofst__send(int Ch, float DAC_offset_current__mA = 0, int N_pol_sel = 1, int Sink_sel = 1) {
             string ret = "OK\n";
 
@@ -4655,6 +4641,7 @@ namespace TopInstrument
             return ret;
         }
 
+        // data converters
         private long conv_dec_to_bit_2s_comp_16bit(double dec, double full_scale = 20) //$$ int to double
         {
 			//$$ // Console.WriteLine(">>> ... in conv_dec_to_bit_2s_comp_16bit() "); //$$
@@ -4682,7 +4669,6 @@ namespace TopInstrument
 
             return bit_2s_comp;
         }
-
         public double conv_bit_2s_comp_16bit_to_dec(int bit_2s_comp, double full_scale = 20) //$$ int to double
         {
             if (bit_2s_comp >= 0x8000) //$$ negative
@@ -4710,7 +4696,6 @@ namespace TopInstrument
             }
 
         }
-
         private u32 decchr2data_u32(char decchr) { // u8 --> char
             // '0' -->  0
             u32 val;
@@ -4727,7 +4712,6 @@ namespace TopInstrument
             //
             return val; 
         }
-
         private u32 decstr2data_u32(char[] decstr, u32 len) { // u8* hexstr --> char[] hexstr
             u32 val;
             u32 loc;
@@ -4739,7 +4723,6 @@ namespace TopInstrument
             }
             return val;
         }
-
         private u32 hexchr2data_u32(char hexchr) { // u8 --> char
             // '0' -->  0
             // 'A' --> 10
@@ -4763,7 +4746,6 @@ namespace TopInstrument
             //
             return val; 
         }
-
         private u32 hexstr2data_u32(char[] hexstr, u32 len) { // u8* hexstr --> char[] hexstr
             u32 val;
             u32 loc;
@@ -4776,13 +4758,347 @@ namespace TopInstrument
             return val;
         }
 
-        private string pgu_nfdt__send(int Ch, long fifo_data) {
-            // send the number of fifo_data
-            string ret = "OK\n";
+        private void dac_set_trig(bool trig_ch1 =false, bool trig_ch2 = false, bool trig_adc_linked = false) {
+            u32 val;
+            if (trig_ch1 && trig_ch2)
+                val = 0x00000030;
+            else if ( (trig_ch1 == true) && (trig_ch2 == false) )
+                val = 0x00000010;
+            else if ( (trig_ch1 == false) && (trig_ch2 == true) )
+                val = 0x00000020;
+            else
+                val = 0x00000000;
+            //
 
-            u32 val = (u32)fifo_data;
+            if (trig_adc_linked)
+                val = val + 0x100;
 
-            if (Ch == 1) { // Ch == 1 or DAC0
+            //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
+            //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
+            //wire w_enable_dac0_bias           = r_cid_reg_ctrl[0];
+            //wire w_enable_dac1_bias           = r_cid_reg_ctrl[1];
+            //wire w_enable_dac0_pulse_out_seq  = r_cid_reg_ctrl[2]; 
+            //wire w_enable_dac1_pulse_out_seq  = r_cid_reg_ctrl[3]; 
+            //wire w_enable_dac0_pulse_out_fifo = r_cid_reg_ctrl[4];
+            //wire w_enable_dac1_pulse_out_fifo = r_cid_reg_ctrl[5];
+            //wire w_rst_dac0_fifo              = r_cid_reg_ctrl[6]; //$$ false path try
+            //wire w_rst_dac1_fifo              = r_cid_reg_ctrl[7]; //$$ false path try
+            //wire w_force_trig_out             = r_cid_reg_ctrl[8];// new control for trig out  
+
+            pgu_dacz_dat_write(val, 12); // trig control
+        }
+        private void dac_reset_trig() {
+            dac_set_trig();
+        }
+
+        private Tuple<long[], double[], double[]> dac_gen_wave_cmd(
+            double test_freq_kHz        = 500,
+            int len_dac_command_points  = 200,
+            double amplitude            = 1.0,
+            double phase_diff           = Math.PI/2
+        ) {
+            //// case for sine wave
+
+            long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
+            long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
+            double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
+            //double phase_diff = Math.PI/2; // pi/2 = 90 degree
+            
+            long[]   buf_time = new long  [len_dac_command_points+1];
+            double[] buf_dac0 = new double[len_dac_command_points+1];
+            double[] buf_dac1 = new double[len_dac_command_points+1];
+
+            for (int n = 0; n < buf_time.Length; n++)
+            {
+                buf_time[n] = sample_period_ns*n;
+                buf_dac0[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
+                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
+            }
+
+            return Tuple.Create(buf_time, buf_dac0, buf_dac1);
+
+        }
+
+        private Tuple<long[], double[], double[]> dac_gen_pulse_cmd(long[] StepTime, double[] StepLevel) {
+            // generate dac command dual list from single time-voltage list
+            int len_dac_command_points = StepTime.Length;
+            long[]   buf_time = new long  [len_dac_command_points];
+            double[] buf_dac0 = new double[len_dac_command_points];
+            double[] buf_dac1 = new double[len_dac_command_points];
+
+            Array.Copy(StepTime,  buf_time, len_dac_command_points);
+
+            // same data on dac0 and dac1
+            Array.Copy(StepLevel, buf_dac0, len_dac_command_points);
+            Array.Copy(StepLevel, buf_dac1, len_dac_command_points);
+
+            return Tuple.Create(buf_time, buf_dac0, buf_dac1);
+        }
+
+        private Tuple<s32[], u32[]> dac_gen_fifo_dat(long[] time_ns_list, double[] level_volt_list, 
+            int    time_ns__code_duration, 
+            double load_impedance_ohm, double output_impedance_ohm,
+            double scale_voltage_10V_mode, int output_range, double gain_voltage_10V_to_40V_mode, 
+            double out_scale, double out_offset)
+        {
+            // copy to new lists
+            int len_data = time_ns_list.Length;
+            long[]   time_ns_list__ref    = new long  [len_data];
+            double[] level_volt_list__ref = new double[len_data];
+
+            Array.Copy(time_ns_list,    time_ns_list__ref,    len_data);
+            Array.Copy(level_volt_list, level_volt_list__ref, len_data);
+
+            // generate pulse waveform
+            var pulse_info = pgu__gen_pulse_info(
+                output_range, 
+                time_ns_list__ref, level_volt_list__ref, 
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm, 
+                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
+                out_scale, out_offset);
+
+            // download waveform into FPGA
+            //load_pgu_waveform_Cid(ch, pulse_info.Item1, pulse_info.Item2); 
+            //long[] len_fifo_data = pulse_info.Item1;
+            //string[] pulse_info_num_block_str = pulse_info.Item2; //$$ must remove
+            List<s32>[]  code_value__list    = pulse_info.Item1;
+            List<long>[] code_duration__list = pulse_info.Item2;            
+
+            // set the number of fifo data length
+            u32 len_fifo_data = 0;
+            for (int i = 0; i < code_value__list.Length; i++)
+            {
+                len_fifo_data = len_fifo_data + (u32)code_value__list[i].Count;
+            }
+
+            s32[]  code_value__s32_buf    ;
+            s32[]  code_inc_value__s32_buf;
+            long[] code_duration__long_buf; 
+            u32[]  code_duration__u32_buf ; 
+
+            s32[]  merge_code_inc_value__s32_buf = new s32[len_fifo_data];
+            u32[]  merge_code_duration__u32_buf  = new u32[len_fifo_data]; 
+            
+
+
+            // send DAC data into FPGA FIFO
+            //for (int i = 0; i < pulse_info_num_block_str.Length; i++)
+            int idx_merge = 0;
+            for (int i = 0; i < code_value__list.Length; i++)
+            {
+                //pgu_fdac__send(ch, pulse_info_num_block_str[i]); //$$ replaced
+
+                //// collect DAC data into arrays
+                //code_value__list[i]   
+                code_value__s32_buf = code_value__list[i].ToArray();
+                // shift 16 bits due to 0 incremental code
+                code_inc_value__s32_buf = code_value__s32_buf.Select(x => (x<<16)).ToArray();
+                //code_duration__list[i]
+                code_duration__long_buf = code_duration__list[i].ToArray();
+                code_duration__u32_buf  = Array.ConvertAll(code_duration__long_buf, x => (u32)x);
+
+                //// accumulate arrays 
+                int len_code_buf = code_inc_value__s32_buf.Length;
+                Array.Copy(code_inc_value__s32_buf, 0, merge_code_inc_value__s32_buf, idx_merge, len_code_buf);
+                Array.Copy(code_duration__u32_buf,  0, merge_code_duration__u32_buf,  idx_merge, len_code_buf);
+                idx_merge += len_code_buf;
+
+                //// send arrays to FIFOs 
+                // byte[] dat_bytearray = code_inc_value__s32_buf.SelectMany(BitConverter.GetBytes).ToArray();
+                // byte[] dur_bytearray = code_duration__u32_buf.SelectMany(BitConverter.GetBytes).ToArray(); //$$ long to u32
+// 
+                // if (ch == 1) { // Ch == 1 or DAC0
+                //     WriteToPipeIn(EP_ADRS__DAC0_DAT_INC_PI, ref dat_bytearray);
+                //     WriteToPipeIn(EP_ADRS__DAC0_DUR_PI    , ref dur_bytearray);
+                // }
+                // else { // Ch == 2 or DAC1
+                //     WriteToPipeIn(EP_ADRS__DAC1_DAT_INC_PI, ref dat_bytearray);
+                //     WriteToPipeIn(EP_ADRS__DAC1_DUR_PI    , ref dur_bytearray);
+                // }
+
+            }
+
+            ////
+
+            //s32[]  code_inc_value__s32_buf = new s32[] {0};
+            //long[] code_duration__long_buf = new long[] {0}; //$$ long --> u32 ?? to check later.
+            
+            return Tuple.Create(merge_code_inc_value__s32_buf, merge_code_duration__u32_buf);
+        }
+
+        private Tuple<List<s32>, List<long>> gen_pulse_info_segment__inc_step(int code_start, double volt_diff, int code_diff, int code_step, long num_steps, long code_duration, 
+				long time_start_ns = 0, long max_duration_a_code__in_flat_segment = 16, long max_num_codes__in_slope_segment = 16,
+                int time_ns__code_duration = 10)
+        {
+            long num_codes = num_steps;
+
+            //string pulse_info_num_block_str = ""; // = String.Format(" #N8_{0,6:D6}", num_codes * 16); //$$ must revise
+
+			long time_ns = (long)time_start_ns;
+			long duration_ns = 0; //$$
+            int code_value = code_start;
+
+            //string test_str;
+
+			
+			//string code_value_str = ""; //$$
+			//string code_value_float_str = ""; //$$
+			//string code_duration_str = ""; //$$
+			//string time_ns_str = ""; //$$
+			//string duration_ns_str = ""; //$$
+			
+			long total_duration_segment = num_steps*(code_duration + 1); //$$
+			
+			int    num_merge_steps = 1;
+			double code_start_float = conv_bit_2s_comp_16bit_to_dec(code_start);
+			
+			//$$ note if code_step == 0, flat segment
+			//   re-calculate code_duration
+			if ((volt_diff == 0) && (total_duration_segment > max_duration_a_code__in_flat_segment )) 
+			{
+				// use max_duration_a_code__in_flat_segment
+				code_duration = (int)max_duration_a_code__in_flat_segment - 1;
+			}
+			else if ((volt_diff == 0) && (total_duration_segment <= max_duration_a_code__in_flat_segment )) 
+			{
+				// use one step for total_duration_segment 
+				//num_codes     = 1; // not used
+				code_duration = (int)total_duration_segment - 1; //$$ 
+			}
+			else if (num_steps > max_num_codes__in_slope_segment)
+			{
+				//$$ slope segment ...
+				// use max_num_codes__in_slope_segment
+				double ratio_num_steps_max_num_codes__in_slope_segment = (double)num_steps/max_num_codes__in_slope_segment;
+				// Console.WriteLine("ratio_num_steps_max_num_codes__in_slope_segment = " + Convert.ToString(ratio_num_steps_max_num_codes__in_slope_segment) );
+				num_merge_steps = (int)Math.Ceiling(ratio_num_steps_max_num_codes__in_slope_segment);
+				// Console.WriteLine("num_merge_steps                                 = " + Convert.ToString(num_merge_steps) );
+				
+				code_duration = (int)((code_duration+1)*num_merge_steps - 1); //$$ 
+			}
+			else 
+			{
+				// as it is ...
+			}
+			
+			//$$ code list and duration list
+            List<s32>  code_value_list    = new List<s32>();
+            List<long> code_duration_list = new List<long>();
+			
+            long duration_send = total_duration_segment;
+			double code_value_float = code_start_float;
+			long count_codes = 0; // count number of codes in a segment
+			while (true)
+            {
+				//$$ calculate dac code 
+				code_value = (int)conv_dec_to_bit_2s_comp_16bit(code_value_float);
+				
+                ////test_value = (code_value << 16) + code_duration;
+                //test_str = string.Format("_{0,4:X4}", code_value);
+                //pulse_info_num_block_str = pulse_info_num_block_str + test_str;
+                //test_str = string.Format("{0,4:X4}", 0); //$$ incremental code 0
+                //pulse_info_num_block_str = pulse_info_num_block_str + test_str;
+                //test_str = string.Format("{0,8:X8}", code_duration);
+                //pulse_info_num_block_str = pulse_info_num_block_str + test_str;
+
+				
+				count_codes++; //$$ increase count
+
+				duration_ns = (code_duration + 1) * (long)time_ns__code_duration;
+
+				//$$ report as string
+				//code_value_str       += string.Format("{0,6:X4}, ", code_value  ); //$$ must convert to s32 array or list
+				//code_value_float_str += string.Format("{0,6:f3}, ", conv_bit_2s_comp_16bit_to_dec(code_value)  );
+				//code_duration_str    += string.Format("{0,6:d}, ", code_duration); //$$ must convert to long array or list
+				//time_ns_str          += string.Format("{0,6:d}, ", time_ns      );
+				//duration_ns_str      += string.Format("{0,6:d}, ", duration_ns);
+
+                // report data as list
+                code_value_list   .Add(code_value);
+                code_duration_list.Add(code_duration);
+
+				// update code in float 
+				code_value_float += (volt_diff * (code_duration+1) / total_duration_segment); //$$ get more accuracy
+
+				// update time_ns 
+				time_ns += duration_ns;
+				
+				//$$ update loop 
+				duration_send -= (code_duration+1);
+				
+				if (duration_send < (code_duration+1) ) 
+				{
+					code_duration = (int)duration_send-1;
+				}
+
+				if (duration_send == 0) break;
+				
+            }
+
+            //pulse_info_num_block_str += " \n";
+			
+			//$$ header generation
+			//string pulse_info_num_block_header_str = String.Format(" #N8_{0,6:D6}", count_codes * 16); //$$ must revise
+			
+			// merge string 
+			//pulse_info_num_block_str = pulse_info_num_block_header_str + pulse_info_num_block_str;
+			
+            //return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str,duration_ns_str);
+            //return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str);
+            //return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str,code_value_list,code_duration_list);
+            return Tuple.Create(code_value_list, code_duration_list);
+        }
+        private void pgu__setup_gain_offset(int Ch, 
+            double DAC_full_scale_current__mA = 25.5, float DAC_offset_current__mA = 0, 
+            int N_pol_sel = 1, int Sink_sel = 1) {
+
+            //$$ double DAC_full_scale_current__mA = 25.5; // 20.1Vpp
+            pgu_gain__send(Ch, DAC_full_scale_current__mA);
+
+            //$$ float DAC_offset_current__mA = 0; // 0 min // # 0.625 mA
+            //float DAC_offset_current__mA = 1; // 
+            //float DAC_offset_current__mA = 2; // 2 max
+            //$$ int N_pol_sel = 1; // 1
+            //$$ int Sink_sel = 1; // 1
+            pgu_ofst__send(Ch, DAC_offset_current__mA, N_pol_sel, Sink_sel);
+
+        }
+
+        private void dac_set_fifo_dat(
+            int ch, int num_repeat_pulses,
+            s32[] code_inc_value__s32_buf,
+            u32[] code_duration__u32_buf) {
+
+            u32 val;
+            //$$ note pgu_dacz_dat_write --> dac__pat*...
+
+            // set pulse repeat number
+            //pgu_frpt__send(ch, num_repeat_pulses); //$$ replaced
+            val = (u32)num_repeat_pulses;
+            if (ch == 1) { // Ch == 1 or DAC0
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000020); // cid_adrs for r_cid_reg_dac0_num_repeat
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                pgu_dacz_dat_write(0x00000020,  8); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                pgu_dacz_dat_write(val, 10); // trig control
+            } else { // Ch == 2 or DAC1
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000030); // cid_adrs for r_cid_reg_dac1_num_repeat
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
+                pgu_dacz_dat_write(0x00000030,  8); // trig control
+                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
+                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
+                pgu_dacz_dat_write(val, 10); // trig control
+            }
+
+
+            //// download waveform into FPGA
+
+            // set the number of fifo data length
+            u32 len_fifo_data = (u32)code_inc_value__s32_buf.Length;
+            val = (u32)len_fifo_data;
+            if (ch == 1) { // Ch == 1 or DAC0
                 //// dac0 fifo reset 
                 //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000040); // w_rst_dac0_fifo   
                 //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         12); // w_trig_cid_ctrl_wr
@@ -4819,92 +5135,12 @@ namespace TopInstrument
                 //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
                 //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
                 pgu_dacz_dat_write(val, 10); // trig control
-            }
-
-            return ret;
-        }
-
-        private string pgu_fdac__send(int Ch, string pulse_info_num_block_str) {
-            string ret = "OK\n";
-
-            //// collect data from numberic block string
-            char[] buf = pulse_info_num_block_str.ToCharArray();
-            s32 loc;
-            u32 flag_found__hdr_N8 = 0;
-            u32 len_byte;
-            u32 val_dat;
-            u32 val_dur;
-            u32[] buf_val_dat;
-            u32[] buf_val_dur;
-            u32 idx_buf;
-            char[] buf_tmp_dat;
-            char[] buf_tmp_dur;
-            
-
-            // skip space in buf
-            loc = 0;
-            while (true) {
-                if      (buf[loc]==' ' ) loc++;
-                else if (buf[loc]=='\t') loc++;
-                else break;
             }            
 
-            // find header in buf : "#N8_"
-            if (buf.Skip(loc).Take(4).SequenceEqual("#N8_")) {
-                //...
-                loc += 4; // skip for header
-                // find len_byte in 6-bytes
-                //$$len_byte = decstr2data_u32((u8*)(buf+loc),6);
-                len_byte = decstr2data_u32(buf.Skip(loc).Take(6).ToArray(), 6);
-                loc += 7; // skip for 6 bytes + '_'
-                // set flag
-                flag_found__hdr_N8 = 1;
-            } else {
-                // ...
-                ret = "NG\n";
-                return ret;
-            }
-
-            // collect data and repeat
-            if (flag_found__hdr_N8 == 1) {
-                //...
-                // define buffers to collect
-                buf_val_dat = new u32[len_byte/16]; // len_byte/2/8
-                buf_val_dur = new u32[len_byte/16];
-                // loop
-                idx_buf = 0;
-                while (len_byte > 0) {
-                    // collect data in 16 bytes
-                    len_byte -= 16;
-                    // first part - collect 8 bytes for val_DAT
-                    buf_tmp_dat = buf.Skip(loc).Take(8).ToArray();
-                    val_dat = hexstr2data_u32(buf.Skip(loc).Take(8).ToArray(), 8);
-                    loc += 8;
-                    // second part - collect 8 bytes for val_DUR
-                    buf_tmp_dur = buf.Skip(loc).Take(8).ToArray();
-                    val_dur = hexstr2data_u32(buf.Skip(loc).Take(8).ToArray(), 8);
-                    loc += 8;
-                    // save in buffers
-                    buf_val_dat[idx_buf] = val_dat;
-                    buf_val_dur[idx_buf] = val_dur;
-                    idx_buf++;
-                    // skip '_'
-                    while (true) {
-                        if (buf[loc]=='_' ) loc++;
-                        else break;
-                    }            
-                }
-            } else {
-                // ...
-                ret = "NG\n";
-                return ret;
-            }
-
-            //// send at once.
-            byte[] dat_bytearray = buf_val_dat.SelectMany(BitConverter.GetBytes).ToArray();
-            byte[] dur_bytearray = buf_val_dur.SelectMany(BitConverter.GetBytes).ToArray();
-            //
-            if (Ch == 1) { // Ch == 1 or DAC0
+            //// send merged DAC data into FPGA FIFO
+            byte[] dat_bytearray = code_inc_value__s32_buf.SelectMany(BitConverter.GetBytes).ToArray();
+            byte[] dur_bytearray = code_duration__u32_buf.SelectMany(BitConverter.GetBytes).ToArray();
+            if (ch == 1) { // Ch == 1 or DAC0
                 WriteToPipeIn(EP_ADRS__DAC0_DAT_INC_PI, ref dat_bytearray);
                 WriteToPipeIn(EP_ADRS__DAC0_DUR_PI    , ref dur_bytearray);
             }
@@ -4913,374 +5149,48 @@ namespace TopInstrument
                 WriteToPipeIn(EP_ADRS__DAC1_DUR_PI    , ref dur_bytearray);
             }
 
-            return ret;
         }
 
-        private string pgu_frpt__send(int Ch, int CycleCount) {
-            string ret = "OK\n";
-
-            u32 val = (u32)CycleCount;
-
-            if (Ch == 1) { // Ch == 1 or DAC0
-                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000020); // cid_adrs for r_cid_reg_dac0_num_repeat
-                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
-                pgu_dacz_dat_write(0x00000020,  8); // trig control
-                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
-                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
-                pgu_dacz_dat_write(val, 10); // trig control
-            } else { // Ch == 2 or DAC1
-                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, 0x00000030); // cid_adrs for r_cid_reg_dac1_num_repeat
-                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,          8); // w_trig_cid_adrs_wr
-                pgu_dacz_dat_write(0x00000030,  8); // trig control
-                //SetWireInValue   (EP_ADRS__DACZ_DAT_WI,        val); // data for cid_data
-                //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI,         10); // w_trig_cid_data_wr 
-                pgu_dacz_dat_write(val, 10); // trig control
-            }
-
-            return ret;
-        }
-
-
-        public string pgu_trig__on(bool Ch1, bool Ch2, bool force_trig = false) {
-            string ret = "OK\n";
-
-            u32 val;
-            if (Ch1 && Ch2)
-                val = 0x00000030;
-            else if ( (Ch1 == true) && (Ch2 == false) )
-                val = 0x000000010;
-            else
-                val = 0x00000020;
-            //
-
-            if (force_trig)
-                val = val + 0x100;
-
-            //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
-            //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
-            //wire w_enable_dac0_bias           = r_cid_reg_ctrl[0];
-            //wire w_enable_dac1_bias           = r_cid_reg_ctrl[1];
-            //wire w_enable_dac0_pulse_out_seq  = r_cid_reg_ctrl[2]; 
-            //wire w_enable_dac1_pulse_out_seq  = r_cid_reg_ctrl[3]; 
-            //wire w_enable_dac0_pulse_out_fifo = r_cid_reg_ctrl[4];
-            //wire w_enable_dac1_pulse_out_fifo = r_cid_reg_ctrl[5];
-            //wire w_rst_dac0_fifo              = r_cid_reg_ctrl[6]; //$$ false path try
-            //wire w_rst_dac1_fifo              = r_cid_reg_ctrl[7]; //$$ false path try
-            //wire w_force_trig_out             = r_cid_reg_ctrl[8];// new control for trig out  
-
-            pgu_dacz_dat_write(val, 12); // trig control
-
-            return ret;
-        }
-        
-        public string pgu_trig__off()
-        {
-            string ret = "OK\n";
-            u32 val = 0x00000000;
-            //SetWireInValue   (EP_ADRS__DACZ_DAT_WI, val);
-            //ActivateTriggerIn(EP_ADRS__DACZ_DAT_TI, 12); // trig location
-            pgu_dacz_dat_write(val, 12); // trig control
-            return ret;
-        }
-
-        private Tuple<string, string, string, string> gen_pulse_info_num_block__inc_step(int code_start, double volt_diff, int code_diff, int code_step, long num_steps, long code_duration, 
-				long time_start_ns = 0, long max_duration_a_code__in_flat_segment = 16, long max_num_codes__in_slope_segment = 16)
-        {
-			
-            int time_ns__code_duration = 10; //$$ must come from parameter list
-
-            long num_codes = num_steps;
-			
-			//$$int time_ns__code_duration = this.time_ns__code_duration; //$$ consider float??
-
-            string pulse_info_num_block_str = ""; // = String.Format(" #N8_{0,6:D6}", num_codes * 16); //$$ must revise
-
-            //$$int[] code_list = new int[num_codes];     //$$ unused
-            //$$int[] duration_list = new int[num_codes]; //$$ unused
-            //$$int[] sample_list = new int[num_codes];   //$$ unused
-            //$$int[] sample_code = new int[num_codes];   //$$ unused
-
-            //$$int sample_value = 0;
-			long time_ns = (long)time_start_ns;
-			long duration_ns = 0; //$$
-            int code_value = code_start;
-            //int test_value;
-            string test_str;
-            //int code_value_prev;
-			
-			string code_value_str = ""; //$$
-			string code_value_float_str = ""; //$$
-			string code_duration_str = ""; //$$
-			string time_ns_str = ""; //$$
-			string duration_ns_str = ""; //$$
-			
-			long total_duration_segment = num_steps*(code_duration + 1); //$$
-			// Console.WriteLine("total_duration_segment = " + Convert.ToString(total_duration_segment) );
-			// Console.WriteLine("code_start             = " + Convert.ToString(code_start   ) );
-			// Console.WriteLine("volt_diff              = " + Convert.ToString(volt_diff    ) ); //$$ new para
-			// Console.WriteLine("code_diff              = " + Convert.ToString(code_diff    ) ); //$$ new para
-			// Console.WriteLine("code_step              = " + Convert.ToString(code_step    ) );
-			// Console.WriteLine("num_steps              = " + Convert.ToString(num_steps    ) );
-			// Console.WriteLine("code_duration          = " + Convert.ToString(code_duration) );
-			
-			//long max_duration_a_code__in_flat_segment = Math.Pow(2, 31)-1; // 2^32-1
-			//long max_duration_a_code__in_flat_segment = Math.Pow(2, 16)-1; // 2^16-1
-			//long max_duration_a_code__in_flat_segment = 16; // 16
-			
-			int    num_merge_steps = 1;
-			double code_start_float = conv_bit_2s_comp_16bit_to_dec(code_start);
-			
-			//$$ note if code_step == 0, flat segment
-			//   re-calculate code_duration
-			if ((volt_diff == 0) && (total_duration_segment > max_duration_a_code__in_flat_segment )) 
-			{
-				// use max_duration_a_code__in_flat_segment
-				code_duration = (int)max_duration_a_code__in_flat_segment - 1;
-			}
-			else if ((volt_diff == 0) && (total_duration_segment <= max_duration_a_code__in_flat_segment )) 
-			{
-				// use one step for total_duration_segment 
-				//num_codes     = 1; // not used
-				code_duration = (int)total_duration_segment - 1; //$$ 
-			}
-			else if (num_steps > max_num_codes__in_slope_segment)
-			{
-				//$$ slope segment ...
-				// use max_num_codes__in_slope_segment
-				double ratio_num_steps_max_num_codes__in_slope_segment = (double)num_steps/max_num_codes__in_slope_segment;
-				// Console.WriteLine("ratio_num_steps_max_num_codes__in_slope_segment = " + Convert.ToString(ratio_num_steps_max_num_codes__in_slope_segment) );
-				num_merge_steps = (int)Math.Ceiling(ratio_num_steps_max_num_codes__in_slope_segment);
-				// Console.WriteLine("num_merge_steps                                 = " + Convert.ToString(num_merge_steps) );
-				
-				code_duration = (int)((code_duration+1)*num_merge_steps - 1); //$$ 
-				//$$code_step     = code_step*num_merge_steps; //$$ test // NG must use code_diff
-				
-				// code_step = conv_dec_to_bit_2s_comp_16bit(code_diff_float * (code_duration+1) / total_duration_segment)
-				
-			}
-			else 
-			{
-				// as it is ...
-			}
-			
-			
-			
-            //$$for (int i = 0; i < num_codes; i++)
-			long duration_send = total_duration_segment;
-			double code_value_float = code_start_float;
-			long count_codes = 0; // count number of codes in a segment
-			while (true)
-            {
-				//$$ calculate dac code 
-				code_value = (int)conv_dec_to_bit_2s_comp_16bit(code_value_float);
-				
-                //test_value = (code_value << 16) + code_duration;
-                test_str = string.Format("_{0,4:X4}", code_value);
-                pulse_info_num_block_str = pulse_info_num_block_str + test_str;
-                test_str = string.Format("{0,4:X4}", 0);
-                pulse_info_num_block_str = pulse_info_num_block_str + test_str;
-                test_str = string.Format("{0,8:X8}", code_duration);
-                pulse_info_num_block_str = pulse_info_num_block_str + test_str;
-				
-				count_codes++; //$$ increase count
-
-                //$$code_list[i] = code_value;
-                //$$duration_list[i] = code_duration + 1;
-                //$$sample_list[i] = sample_value;
-
-				duration_ns = (code_duration + 1) * (long)time_ns__code_duration;
-
-				//$$ report string
-				code_value_str       += string.Format("{0,6:X4}, ", code_value   );
-				code_value_float_str += string.Format("{0,6:f3}, ", conv_bit_2s_comp_16bit_to_dec(code_value)  );
-				code_duration_str    += string.Format("{0,6:d}, ", code_duration);
-				time_ns_str          += string.Format("{0,6:d}, ", time_ns      );
-				duration_ns_str      += string.Format("{0,6:d}, ", duration_ns);
-
-				// update code // in float 
-				//$$code_value_float += (code_diff_float * (code_duration+1) / total_duration_segment); //$$
-				code_value_float += (volt_diff * (code_duration+1) / total_duration_segment); //$$ get more accuracy
-
-				
-				// update time_ns 
-				time_ns += duration_ns;
-				
-				//$$ update loop 
-				duration_send -= (code_duration+1);
-				
-				if (duration_send < (code_duration+1) ) 
-				{
-					code_duration = (int)duration_send-1;
-				}
-
-				if (duration_send == 0) break;
-				
-            }
-
-            pulse_info_num_block_str += " \n";
-            //sample_code = {code_list, duration_list, sample_list};
-			
-			//$$ header generation
-			string pulse_info_num_block_header_str = String.Format(" #N8_{0,6:D6}", count_codes * 16); //$$ must revise
-			
-			// merge string 
-			pulse_info_num_block_str = pulse_info_num_block_header_str + pulse_info_num_block_str;
-			
-
-            //return Tuple.Create(pulse_info_num_block_str, sample_code); //$$ string 
-            //return pulse_info_num_block_str;
-			//return (pulse_info_num_block_str, code_value_float_str, time_ns_str, duration_ns_str);
-            return Tuple.Create(pulse_info_num_block_str,code_value_float_str,time_ns_str,duration_ns_str);
-        }
-
-        private void pgu__setup_freq(double time_ns__dac_update) {
-
-            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
-            pgu_freq__send(time_ns__dac_update);
-
-        }
-
-        private void pgu__setup_gain_offset(int Ch, 
-            double DAC_full_scale_current__mA = 25.5, float DAC_offset_current__mA = 0, 
-            int N_pol_sel = 1, int Sink_sel = 1) {
-
-            //$$ double DAC_full_scale_current__mA = 25.5; // 20.1Vpp
-            pgu_gain__send(Ch, DAC_full_scale_current__mA);
-
-            //$$ float DAC_offset_current__mA = 0; // 0 min // # 0.625 mA
-            //float DAC_offset_current__mA = 1; // 
-            //float DAC_offset_current__mA = 2; // 2 max
-            //$$ int N_pol_sel = 1; // 1
-            //$$ int Sink_sel = 1; // 1
-            pgu_ofst__send(Ch, DAC_offset_current__mA, N_pol_sel, Sink_sel);
-
-        }
-
-        private void InitializePGU(double time_ns__dac_update, int time_ns__code_duration, double scale_voltage_10V_mode, double output_impedance_ohm = 50) {
-
-            // call sub
-            pgu__setup_gain_offset(1);
-            pgu__setup_gain_offset(2);
-
-            //$$ note not used:  time_ns__code_duration  scale_voltage_10V_mode  output_impedance_ohm 
-
-        }
-
-        private Tuple<long[], string[], long> set_setup_pgu(int Ch, int OutputRange, long[] time_ns_list, double[] level_volt_list)
-        {          
-
-            int    time_ns__code_duration          = 10;                        
-            double load_impedance_ohm              = 1e6;                       
-            double output_impedance_ohm            = 50;                        
-            double out_scale                       = 1.0;
-            double out_offset                      = 0.0;
-            double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
-
-            //// call sub
-            return pgu__gen_pulse_info(OutputRange, time_ns_list, level_volt_list, 
-                time_ns__code_duration, 
-                load_impedance_ohm, output_impedance_ohm, 
-                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
-                out_scale, out_offset);
-
-            //return Tuple.Create(num_steps_list, num_block_str__sample_code__list, FIFO_Count);
-        }
-        private Tuple<long[], string[], long> pgu__gen_pulse_info(int OutputRange, long[] time_ns_list, double[] level_volt_list,
+        private Tuple<List<s32>[], List<long>[]> pgu__gen_pulse_info(int output_range, long[] time_ns_list, double[] level_volt_list,
             int    time_ns__code_duration, 
             double load_impedance_ohm, double output_impedance_ohm,
             double scale_voltage_10V_mode, double gain_voltage_10V_to_40V_mode, 
-            double out_scale, double out_offset)
-        {          
-
-            ////
-
-            string Timedata;
-            string Timedata_str = "";
-
-            string Vdata;
-            string Vdata_str = "";
-
-            // time_ns_list
-            for (int i = 0; i < time_ns_list.Length; i++)
-            {
-				Timedata = string.Format("{0,6:d}, ",time_ns_list[i]);
-                Timedata_str = Timedata_str + Timedata;
-            }
-
-            for (int i = 0; i < level_volt_list.Length; i++)
-            {
-				Vdata = string.Format("{0,6:f3}, ",level_volt_list[i]);
-                Vdata_str = Vdata_str + Vdata;
-            }
-
-            //double gui_out_scale  = 1.0;
-            //double gui_out_offset = 0.0;
-
-            double Devide_V = 1; //$$ int --> double
-            //double scale_voltage_10V_mode = 8.5 / 10; //$$ 7.650 / 10
-            //double output_impedance_ohm = 50;
-
-            if (OutputRange == 40)
+            double out_scale, double out_offset) 
+        {
+            double Devide_V = 1;
+            if (output_range == 40)
             {
                 Devide_V = gain_voltage_10V_to_40V_mode;
-                //Devide_V = 4;
-                //scale_voltage_10V_mode = (6.95 / 10);
             }
 
+            // apply load_impedance_ohm
             scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
-            // Console.WriteLine("output_impedance_ohm     = " + Convert.ToString(output_impedance_ohm    ));
-            // Console.WriteLine("__gui_load_impedance_ohm = " + Convert.ToString(__gui_load_impedance_ohm));
-            // Console.WriteLine("scale_voltage_10V_mode   = " + Convert.ToString(scale_voltage_10V_mode  ));
 
-			string level_volt_list_str = ""; //$$
-            for (int i = 0; i < level_volt_list.Length; i++) //$$ for (int i = 1; i < level_volt_list.Length; i++) //$$ from i = 0
+            // apply calibration to voltages
+            for (int i = 0; i < level_volt_list.Length; i++) 
             {
-				// # HVPGU B/D 사용 시 Gain 4배 증폭, Base전압을 1/4로 감소해야 함.
-                //$$level_volt_list[i] = level_volt_list[i] * scale_voltage_10V_mode / Devide_V;  
-                //$$level_volt_list[i]     = level_volt_list[i] * scale_voltage_10V_mode / Devide_V * gui_out_scale + gui_out_offset; //$$ NG due to 10V scaling
                 level_volt_list[i]     = (level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V_mode / Devide_V; 
-
-				
-				// update string 
-				level_volt_list_str += string.Format("{0,6:f3}, ",level_volt_list[i]);
             }
-			// Console.WriteLine("level_volt_list = [" + level_volt_list_str + "]");
 
-            long[] num_steps_list = new long[time_ns_list.Length - 1];
-            //long[] num_steps_list = new long[time_ns_list.Length - 1];
-
-            int Point_NUM = Convert.ToInt32(1000 / (num_steps_list.Length));    //$$ FIFO Count limit 
-			// Console.WriteLine("Point_NUM = " + Convert.ToString(Point_NUM));
-
-			string num_steps_list_str = ""; //$$
+            long[] num_steps_list = new long[time_ns_list.Length - 1]; //$$ <<<
             for (int i = 1; i < time_ns_list.Length; i++)
             {
 				num_steps_list[i - 1] = Convert.ToInt64(((time_ns_list[i] - time_ns_list[i - 1]) / time_ns__code_duration));  //$$ number of DAC points in eash segment
-
-				//
-				num_steps_list_str += string.Format("{0,6:d}, ",num_steps_list[i - 1]);
             }
-			// Console.WriteLine("num_steps_list       = [" + num_steps_list_str + "]");
-            //#lyh_201221_rev
 
-			string level_diff_volt_list_str = ""; //$$
-            double[] level_diff_volt_list = new double[level_volt_list.Length - 1];
-			num_steps_list_str = ""; //$$ clear
+            double[] level_diff_volt_list = new double[level_volt_list.Length - 1]; //$$ <<<
             for (int i = 1; i < level_volt_list.Length; i++)
             {
                 level_diff_volt_list[i - 1] = level_volt_list[i] - level_volt_list[i - 1]; //$$ dac incremental value in each segment
-				level_diff_volt_list_str += string.Format("{0,6:f3}, ", level_diff_volt_list[i - 1]);
-				
             }
 
-            int[] level_code_list = new int[level_volt_list.Length];
+            int[] level_code_list = new int[level_volt_list.Length]; //$$ <<<
             for (int i = 0; i < level_volt_list.Length; i++)
             {
                 level_code_list[i] = (int)conv_dec_to_bit_2s_comp_16bit(level_volt_list[i]); //$$ dac starting code in ease segment
             }
 
-            int[] level_step_code_list = new int[level_diff_volt_list.Length];
+            int[] level_step_code_list = new int[level_diff_volt_list.Length]; //$$ <<<
             for (int i = 0; i < level_diff_volt_list.Length; i++)
             {
                 //$$ num_steps_list[i] == 0 means data duplicate.
@@ -5292,23 +5202,24 @@ namespace TopInstrument
                 }
             }
 			
-			int[] level_diff_code_list = new int[level_diff_volt_list.Length];
+			int[] level_diff_code_list = new int[level_diff_volt_list.Length]; //$$ <<<
             for (int i = 0; i < level_diff_volt_list.Length; i++)
             {
                 level_diff_code_list[i] = (int)conv_dec_to_bit_2s_comp_16bit((level_diff_volt_list[i]) ); //$$ dac full difference in each segment
             }
 
-			string   time_step_code_list_str = ""; //$$
-            int[]    time_step_code_list        = new int   [time_ns_list.Length - 1];
+            int[]    time_step_code_list        = new int   [time_ns_list.Length - 1]; //$$ <<<
 			double[] time_step_code_double_list = new double[time_ns_list.Length - 1];
             for (int i = 1; i < time_ns_list.Length; i++)
             {
 				time_step_code_list[i - 1] = 0; //$$ basic step 1
-				
-				time_step_code_list_str += string.Format("{0,6:d}, ",time_step_code_list[i - 1]);
             }
 
-            string[] num_block_str__sample_code__list = new string[level_step_code_list.Length];
+            string[] num_block_str__sample_code__list = new string[level_step_code_list.Length]; //$$ <<<
+
+            List<s32>[]  code_value__list    = new List<s32> [level_step_code_list.Length];
+            List<long>[] code_duration__list = new List<long>[level_step_code_list.Length];
+
             int code_start;
 			double volt_diff;
 			int code_diff;
@@ -5317,14 +5228,11 @@ namespace TopInstrument
 			long time_step_code; //$$
 			long time_start_ns; //$$
 			
-			string merge_code_value_float_str = ""; //$$
-			string merge_duration_ns_str      = ""; //$$
-			string merge_time_ns_str          = ""; //$$
-
 			long max_duration_a_code__in_flat_segment = Convert.ToInt64(Math.Pow(2, 31)-1); // 2^32-1
-			//$$long max_duration_a_code__in_flat_segment = Convert.ToInt64(Math.Pow(2, 16)-1); // 2^16-1
+			//long max_duration_a_code__in_flat_segment = Convert.ToInt64(Math.Pow(2, 16)-1); // 2^16-1
 			//long max_duration_a_code__in_flat_segment = 16; // 16
 			
+            int Point_NUM = Convert.ToInt32(1000 / (num_steps_list.Length));    //$$ FIFO Count limit 
 			//long max_num_codes__in_slope_segment = (long)16; //Point_NUM;
 			long max_num_codes__in_slope_segment = Point_NUM;
 
@@ -5338,124 +5246,27 @@ namespace TopInstrument
                 time_step_code = time_step_code_list[i];  //$$ duration count 32 bit in each segment // share it with all points
 				time_start_ns  = time_ns_list[i];         //$$ start time each segment in ns
 				
-				var ret = gen_pulse_info_num_block__inc_step(code_start, volt_diff, code_diff, code_step, num_steps, time_step_code, 
-							time_start_ns, max_duration_a_code__in_flat_segment, max_num_codes__in_slope_segment); //$$ (pulse_info_num_block_str, code_value_float_str, time_ns_str) 
+				var ret = gen_pulse_info_segment__inc_step(code_start, volt_diff, code_diff, code_step, num_steps, time_step_code, 
+							time_start_ns, max_duration_a_code__in_flat_segment, max_num_codes__in_slope_segment, time_ns__code_duration); //$$ (pulse_info_num_block_str, code_value_float_str, time_ns_str) 
 
-				//num_block_str__sample_code__list[i] = ret.pulse_info_num_block_str;				
-				//merge_code_value_float_str += ret.code_value_float_str;
-				//merge_time_ns_str          += ret.time_ns_str;
-				//merge_duration_ns_str      += ret.duration_ns_str;
 
-				num_block_str__sample_code__list[i] = ret.Item1;				
-				merge_code_value_float_str         += ret.Item2;
-                merge_time_ns_str                  += ret.Item3;
-				merge_duration_ns_str              += ret.Item4;
+				//num_block_str__sample_code__list[i] = ret.Item1; //$$ in string // removed
+
+                //$$ segment info by list not string
+                code_value__list[i]    = ret.Item1;
+                code_duration__list[i] = ret.Item2;
 				
-				//$$ update new number of codes 
-				string time_ns_str = ret.Item3;
-				double[] time_ns_str_double = Array.ConvertAll(time_ns_str.Remove(time_ns_str.Length-2,1).Split(','), Double.Parse);
-				// Console.WriteLine("time_ns_str_double        = " + Convert.ToString(time_ns_str_double));
-				// Console.WriteLine("time_ns_str_double.Length = " + Convert.ToString(time_ns_str_double.Length));
-				num_steps_list[i] = (long)(time_ns_str_double.Length);
+				//$$ update new number of codes //$$ must or not
+				// string time_ns_str = ret.Item3;
+				// double[] time_ns_str_double = Array.ConvertAll(time_ns_str.Remove(time_ns_str.Length-2,1).Split(','), Double.Parse);
+				// num_steps_list[i] = (long)(time_ns_str_double.Length); //$$
 				
             }
-
-			//$$ FIFO count = size of (Tdata_seg)
-			double[] Tdata_seg_double = Array.ConvertAll(merge_time_ns_str.Remove(merge_time_ns_str.Length-2,1).Split(','), Double.Parse);
 			
-			//$$ datacount in FIFO
-			long FIFO_Count = Tdata_seg_double.Length;
-			
-			return Tuple.Create(num_steps_list, num_block_str__sample_code__list, FIFO_Count);
-            //$$return Tuple.Create(num_steps_list, num_block_str__sample_code__list);
-            //return num_block_str__sample_code__list;
-
+			//return Tuple.Create(num_steps_list, num_block_str__sample_code__list, FIFO_Count);
+            //return Tuple.Create(num_steps_list, num_block_str__sample_code__list, code_value__list, code_duration__list);
+            return Tuple.Create(code_value__list, code_duration__list);
         }
-
-        private void load_pgu_waveform_Cid(int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
-        {
-
-            long fifo_data = 0;
-
-            for (int i = 0; i < len_fifo_data.Length; i++)
-            {
-                fifo_data = fifo_data + len_fifo_data[i];
-            }
-
-            //$$string len_fifo_data_str = string.Format(" #H{0,8:X8}", fifo_data);
-
-            pgu_nfdt__send(Ch, fifo_data);
-                
-            for (int i = 0; i < pulse_info_num_block_str.Length; i++)
-            {
-                pgu_fdac__send(Ch, pulse_info_num_block_str[i]);
-            }
-        }
-
-
-        private Tuple<long[], double[]> pgu__gen_time_voltage_list__remove_dup(long[] StepTime, double[] StepLevel) {
-            // copy buffer and remove duplicate data
-            List<long>   StepTime_List  = new List<long>();
-            List<double> StepLevel_List = new List<double>();
-            
-            // add the first elements into list
-            StepTime_List.Add(StepTime[0]);
-            StepLevel_List.Add(StepLevel[0]);
-
-            for (int i = 1; i < StepTime.Length; i++)
-            {
-                if (StepTime[i]  == StepTime[i-1]) {
-                    if (StepLevel[i] == StepLevel[i-1] ) {
-                        continue; // leave for removing dup data with same voltage
-                    } 
-                    else {
-                        break; // not able to remove dup data due to difference voltage
-                    }
-                }
-                StepTime_List.Add(StepTime[i]);
-                StepLevel_List.Add(StepLevel[i]);
-            }
-
-            // You can convert it back to an array if you would like to
-            long[] StepTime__no_dup  = StepTime_List.ToArray();
-            double[] StepLevel__no_dup = StepLevel_List.ToArray();
-
-            return Tuple.Create(StepTime__no_dup, StepLevel__no_dup);
-        }
-
-        private void SetSetupPGU(int PG_Ch, int OutputRange, double Impedance, long[] StepTime, double[] StepLevel) {
-            // remove dup 
-            var ret_list = pgu__gen_time_voltage_list__remove_dup(StepTime, StepLevel);
-
-            // call setup functions
-            var pulse_info = set_setup_pgu(PG_Ch, OutputRange, ret_list.Item1, ret_list.Item2); //$$ return Tuple<long[], string[], int>
-
-            // download waveform into FPGA
-            load_pgu_waveform_Cid(PG_Ch, pulse_info.Item1, pulse_info.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
-            
-        }
-
-        private void trig_pgu_output_Cid_ON(int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-        {
-
-            // send repeat numbers
-            if (Ch1)
-                pgu_frpt__send(1, CycleCount);
-            if (Ch2)
-                pgu_frpt__send(2, CycleCount);
-
-            // trig and log
-            pgu_trig__on(Ch1, Ch2, force_trig);
-
-        }
-
-        private void trig_pgu_output_Cid_OFF()
-        {          
-            // trig off 
-            pgu_trig__off();
-        }
-
-
 
         // test var
         private int __test_int = 0;
@@ -5484,13 +5295,12 @@ namespace TopInstrument
             Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3} ",(float)dev_eps.GetWireOutValue(dev_eps.EP_ADRS__XADC_TEMP_WO)/1000));
 
             // ... test subfunctions
-            u32 val;
-
 
             ////
             Console.WriteLine(">>> ADC setup");
 
             // spio init for power control
+            u32 val;
             //val = dev_eps.sp1_ext_init(1,0,0,0); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
             //val = dev_eps.sp1_ext_init(1,1,1,1); //(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp);
             val = dev_eps.sp1_ext_init(1,1,1,1,1,1); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
@@ -5505,37 +5315,20 @@ namespace TopInstrument
             val = dev_eps.adc_enable(189); // 189MHz
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
             
-            // adc base freq check 
-            val = dev_eps.adc_get_base_freq();
-            Console.WriteLine(string.Format("{0} = {1} [MHz]", "adc_base_freq", val/1000000));
-
             // adc reset
             val = dev_eps.adc_reset();
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_reset", val));
 
+            //// adc init 
+            // 40 samples for test
+            // 210MHz/21   =  10 Msps  or  189MHz/18   =  10.5 Msps
             // adc fixed pattern setup 
-            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,1,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5, u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
-            
-            // adc sampling period
-            //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
-            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
-            //dev_eps.adc_set_sampling_period( 42); // 210MHz/42   =   5 Msps
-            //dev_eps.adc_set_sampling_period(105); // 210MHz/105  =   2 Msps
-            //dev_eps.adc_set_sampling_period(210); // 210MHz/210  =   1 Msps
-            //dev_eps.adc_set_sampling_period( 42); // 210MHz/420  = 0.5 Msps
-            //dev_eps.adc_set_sampling_period(105); // 210MHz/1050 = 0.2 Msps
-            //dev_eps.adc_set_sampling_period(210); // 210MHz/2100 = 0.1 Msps
-
-            // adc update sample numbers
-            dev_eps.adc_set_update_sample_num(40); // 40 samples for test
-
-            // adc init 
-            val = dev_eps.adc_init();
+            val = dev_eps.adc_init(40, 18, 1);
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_init", val));
             
             // adc fifo reset 
-            val = dev_eps.adc_fifo_rst();
-            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_fifo_rst", val));
+            val = dev_eps.adc_reset_fifo();
+            Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_reset_fifo", val));
             
             // adc update 
             val = dev_eps.adc_update();
@@ -5551,19 +5344,16 @@ namespace TopInstrument
             // adc normal setup and data collection
             //s32 len_adc_data = 10000; // 100s during SPI emulation
             s32 len_adc_data = 100; // 1s during SPI emulation
-            //dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
-            dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
-            dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
-            dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
-            dev_eps.adc_init(); // init with setup parameters
-            dev_eps.adc_fifo_rst(); // clear fifo for new data
+            u32 cnt_sampling_period = 21; // 210MHz/21   =  10 Msps
+            dev_eps.adc_init(len_adc_data, cnt_sampling_period, 0); // init with setup parameters
+            dev_eps.adc_reset_fifo(); // clear fifo for new data
             dev_eps.adc_update();
 
             // fifo data read 
             s32[] buf0_s32 = new s32[len_adc_data];
             s32[] buf1_s32 = new s32[len_adc_data];
-            dev_eps.adc_read_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
-            dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            dev_eps.adc_get_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            dev_eps.adc_get_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
             dev_eps.adc_log_buf("log__adc_buf.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
@@ -5573,31 +5363,54 @@ namespace TopInstrument
 
             // DAC setup
 
-            //$$ note: DAC/CLKD IC, FPGA PLL setup and Pattern generator setup
-            // dac__dev_*
-            // dac__clk_*
-            // dac__pll_*
-            // dac__pat_*
-            // dac__out_* : dac output direct control (reserved)
+            ////
+            Console.WriteLine(">>> DAC setup");
+
+            // dac init
+            Console.WriteLine(">>>>>> DAC power on");
+            dev_eps.dac_pwr(1);
+
+            
+            Console.WriteLine(">>>>>> DAC init");
+            
+            //// DAC update period
+            double time_ns__dac_update = 5; // 200MHz dac update
+            //double time_ns__dac_update = 10; // 100MHz dac update
+
+            //// DAC IC gain and offset // not must
+            double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
+            double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
+            float DAC_offset_current__mA_1      = (float)0.44; // for BD2
+            float DAC_offset_current__mA_2      = (float)0.79; // for BD2
+            int N_pol_sel_1                     = 0;           // for BD2
+            int N_pol_sel_2                     = 0;           // for BD2
+            int Sink_sel_1                      = 0;           // for BD2
+            int Sink_sel_2                      = 0;           // for BD2
             //
-            // dac_pwr(...)
-            // dac_init()
-            // dac_setup(...)
-            // dac_waveform(...)
-            // dac_trig_on(...)
-            // dac_trig_off()
+            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //double DAC_full_scale_current__mA_2 = 25.62;       // for BD3 //$$ 8.66 ~ 31.66mA
+            //float DAC_offset_current__mA_1      = (float)0.58; // for BD3
+            //float DAC_offset_current__mA_2      = (float)0.29; // for BD3
+            //int N_pol_sel_1                     = 0;           // for BD3
+            //int N_pol_sel_2                     = 0;           // for BD3
+            //int Sink_sel_1                      = 0;           // for BD3
+            //int Sink_sel_2                      = 0;           // for BD3
+            //
+            
+            dev_eps.dac_init(time_ns__dac_update,
+                DAC_full_scale_current__mA_1,
+                DAC_full_scale_current__mA_2,
+                DAC_offset_current__mA_1    ,
+                DAC_offset_current__mA_2    ,
+                N_pol_sel_1                 ,
+                N_pol_sel_2                 ,
+                Sink_sel_1                  ,
+                Sink_sel_2
+            ); 
 
 
             ////
             Console.WriteLine(">>> DAC pulse setup");
-
-            //$$ pulse setup
-            //long[]   StepTime;
-            //double[] StepLevel;
-            long[]   StepTime_1;
-            double[] StepLevel_1;
-            long[]   StepTime_2;
-            double[] StepLevel_2;
 
             //// case for sine wave
 
@@ -5624,7 +5437,8 @@ namespace TopInstrument
             double test_freq_kHz       = 500; 
             int len_dac_command_points = 200; //40;
             //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
-            double amplitude  = 4.0; // no distortion
+            //double amplitude  = 4.0; // no distortion
+            double amplitude  = 1.0; // test
 
 
             // double test_freq_kHz       = 1000; 
@@ -5646,35 +5460,6 @@ namespace TopInstrument
             // double amplitude  = 2.0; // best waveform
             // //double amplitude  = 1.0; 
 
-            //
-            long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
-            long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
-            double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
-            double phase_diff = Math.PI/2; // pi/2 = 90 degree
-            
-            long[]   buf_time = new long  [len_dac_command_points+1];
-            double[] buf_dac0 = new double[len_dac_command_points+1];
-            double[] buf_dac1 = new double[len_dac_command_points+1];
-
-            for (int n = 0; n < buf_time.Length; n++)
-            {
-                buf_time[n] = sample_period_ns*n;
-                buf_dac0[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
-                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
-            }
-
-            // print out
-            string buf_time_str = String.Join(", ", buf_time);
-            string buf_dac0_str = String.Join(", ", buf_dac0);
-            string buf_dac1_str = String.Join(", ", buf_dac1);
-            Console.WriteLine(buf_time_str);
-            Console.WriteLine(buf_dac0_str);
-            Console.WriteLine(buf_dac1_str);
-
-            StepTime_1  = buf_time;
-            StepLevel_1 = buf_dac0;
-            StepTime_2  = buf_time;
-            StepLevel_2 = buf_dac1;
 
 
             //// rough wave test
@@ -5707,9 +5492,14 @@ namespace TopInstrument
             //StepTime_2  = new long[]   {   0,  1250, 2500,   3750, 5000,   6250, 7500,   8750, 10000 }; // ns
             //StepLevel_2 = new double[] { 8.0, 5.657,  0.0, -5.657, -8.0, -5.657,  0.0,  5.657,   8.0 }; // V
 
+            
+            ////
+            long[]   StepTime;
+            double[] StepLevel;
+
             //// case base for 10V mode with neg
-            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            //StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
 
             //// case base for 10V mode
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -5763,155 +5553,142 @@ namespace TopInstrument
             //StepTime  = new long[]   {   0, 1000,    2000,    3000,   4000,   5000,      6000,      7000, 8000, 9000 }; // ns
             //StepLevel = new double[] { 0.0,  0.0,   -20.0,   -20.0,  -40.0,  -40.0,     -11.0,     -11.0,  0.0,  0.0 }; // V
 
-            //$$ generate waveform and download
+
+            ////
+            Console.WriteLine(">>> DAC waveform command generation");
             
-            //StepTime_1  = StepTime;
-            //StepLevel_1 = StepLevel;
-            //StepTime_2  = StepTime;
-            //StepLevel_2 = StepLevel;
+            int test_case__wave = 1; // 0 for pulse, 1 for sine
+            Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
 
-            var time_volt_list1 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_1, StepLevel_1);
-            var time_volt_list2 = dev_eps.pgu__gen_time_voltage_list__remove_dup(StepTime_2, StepLevel_2);
+            if (test_case__wave==1) {
+                double phase_diff = Math.PI/2;
+                time_volt_dual_list = dev_eps.dac_gen_wave_cmd(
+                    test_freq_kHz, len_dac_command_points, 
+                    amplitude, phase_diff);
+            } else {
+                time_volt_dual_list = dev_eps.dac_gen_pulse_cmd(StepTime, StepLevel);
+            }
 
-
-            ////
-            Console.WriteLine(">>> DAC setup");
-
-            // dac init
-            //...
-            dev_eps.dac_pwr(1);
-            dev_eps.dac_init(); 
-
-            // setup pgu-clock device
-            //$$ note ... hardware support freq: 20MHz, 50MHz, 80MHz, 100MHz, 200MHz(default), 400MHz.
-            double time_ns__dac_update          = 10; // 10ns = 100MHz
-            //double time_ns__dac_update          = 5; // 5ns = 200MHz
-            dev_eps.pgu__setup_freq(time_ns__dac_update);
+            // print out and log data
+            string buf_time_str = String.Join(", ", time_volt_dual_list.Item1);
+            string buf_dac0_str = String.Join(", ", time_volt_dual_list.Item2);
+            string buf_dac1_str = String.Join(", ", time_volt_dual_list.Item3);
+            // Console.WriteLine("> buf_time_str =" + buf_time_str);
+            // Console.WriteLine("> buf_dac0_str =" + buf_dac0_str);
+            // Console.WriteLine("> buf_dac1_str =" + buf_dac1_str);
 
 
-            //// setup pgu-dac device
-            double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
-            double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
-            float DAC_offset_current__mA_1      = (float)0.44; // for BD2
-            float DAC_offset_current__mA_2      = (float)0.79; // for BD2
-            int N_pol_sel_1                     = 0;           // for BD2
-            int N_pol_sel_2                     = 0;           // for BD2
-            int Sink_sel_1                      = 0;           // for BD2
-            int Sink_sel_2                      = 0;           // for BD2
-            //
-            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD3 //$$ 8.66 ~ 31.66mA
-            //double DAC_full_scale_current__mA_2 = 25.62;       // for BD3 //$$ 8.66 ~ 31.66mA
-            //float DAC_offset_current__mA_1      = (float)0.58; // for BD3
-            //float DAC_offset_current__mA_2      = (float)0.29; // for BD3
-            //int N_pol_sel_1                     = 0;           // for BD3
-            //int N_pol_sel_2                     = 0;           // for BD3
-            //int Sink_sel_1                      = 0;           // for BD3
-            //int Sink_sel_2                      = 0;           // for BD3
-            //
-            //
-            dev_eps.pgu__setup_gain_offset(1, 
-                DAC_full_scale_current__mA_1, DAC_offset_current__mA_1, 
-                N_pol_sel_1, Sink_sel_1);
-            dev_eps.pgu__setup_gain_offset(2, 
-                DAC_full_scale_current__mA_2, DAC_offset_current__mA_2, 
-                N_pol_sel_2, Sink_sel_2);
-
-
-            ////
-            Console.WriteLine(">>> DAC pulse download");
-
-            // call setup 
-            int    OutputRange                     = 10;   
-            int    time_ns__code_duration          = 10; // 10ns = 100MHz
-            //int    time_ns__code_duration          = 5; // 5ns = 200MHz
+            // dac output ... setup 
+            int    output_range                     = 10;   
+            //int    time_ns__code_duration          = 10; // 10ns = 100MHz
+            int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
             double output_impedance_ohm            = 50;                        
             double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
             double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
             double out_scale                       = 1.0;
             double out_offset                      = 0.0;
-            //
-            var pulse_info1 = dev_eps.pgu__gen_pulse_info(OutputRange, 
-                time_volt_list1.Item1, time_volt_list1.Item2, 
+
+            //int num_repeat_pulses = 100; // 100/(500kHz)=0.2ms
+            //int num_repeat_pulses = 500; // 500/(500kHz)=1.0ms
+            int num_repeat_pulses = 1000;
+            //int num_repeat_pulses = 2000; // 2000/(500kHz)=4ms
+
+            ////
+            Console.WriteLine(">>> DAC FIFO data generation");
+
+            Console.WriteLine(">>>>>> DAC0 FIFO data generation");
+            var ret__dac0_fifo_dat = dev_eps.dac_gen_fifo_dat(
+                time_volt_dual_list.Item1, time_volt_dual_list.Item2,
                 time_ns__code_duration, 
-                load_impedance_ohm, output_impedance_ohm, 
-                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
-                out_scale, out_offset);
-            var pulse_info2 = dev_eps.pgu__gen_pulse_info(OutputRange, 
-                time_volt_list2.Item1, time_volt_list2.Item2, 
+                load_impedance_ohm, output_impedance_ohm,
+                scale_voltage_10V_mode, output_range, gain_voltage_10V_to_40V_mode, 
+                out_scale, out_offset
+            );  
+
+            Console.WriteLine(">>>>>> DAC1 FIFO data generation");
+            var ret__dac1_fifo_dat = dev_eps.dac_gen_fifo_dat(
+                time_volt_dual_list.Item1, time_volt_dual_list.Item3,
                 time_ns__code_duration, 
-                load_impedance_ohm, output_impedance_ohm, 
-                scale_voltage_10V_mode, gain_voltage_10V_to_40V_mode,
-                out_scale, out_offset);
+                load_impedance_ohm, output_impedance_ohm,
+                scale_voltage_10V_mode, output_range, gain_voltage_10V_to_40V_mode, 
+                out_scale, out_offset
+            ); 
 
-            // download waveform into FPGA
-            dev_eps.load_pgu_waveform_Cid(1, pulse_info1.Item1, pulse_info1.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
-            dev_eps.load_pgu_waveform_Cid(2, pulse_info2.Item1, pulse_info2.Item2); //$$ (int Ch, long[] len_fifo_data, string[] pulse_info_num_block_str)
+            // print out
+            // string buf_code_str = String.Join(", ", ret__dac0_fifo_dat.Item1); // s32[]
+            // string buf_dur_str  = String.Join(", ", ret__dac0_fifo_dat.Item2); // u32[]
+            // Console.WriteLine("> buf_code_str =" + buf_code_str);
+            // Console.WriteLine("> buf_dur_str  =" + buf_dur_str);
+
+            s32[] dac0_code_inc_value__s32_buf = ret__dac0_fifo_dat.Item1;
+            u32[] dac0_code_duration__u32_buf  = ret__dac0_fifo_dat.Item2;
+            s32[] dac1_code_inc_value__s32_buf = ret__dac1_fifo_dat.Item1;
+            u32[] dac1_code_duration__u32_buf  = ret__dac1_fifo_dat.Item2;
 
 
-            // previoud subfunctions:
-            // pgu_pwr__on
-            // pgu_pwr__off
-            // pgu_nfdt__send_log
-            // pgu_fdac__send_log
-            // pgu_frpt__send_log
-            // pgu_trig__on_log
-            // pgu_trig__off
+            ////
+            Console.WriteLine(">>> DAC pulse download");
+            
+            Console.WriteLine(">>>>>> DAC0 download");
+            dev_eps.dac_set_fifo_dat(
+                1, num_repeat_pulses,
+                dac0_code_inc_value__s32_buf, dac0_code_duration__u32_buf);
+
+            Console.WriteLine(">>>>>> DAC1 download");
+            dev_eps.dac_set_fifo_dat(
+                2, num_repeat_pulses,
+                dac1_code_inc_value__s32_buf, dac1_code_duration__u32_buf);
+
 
             ////
             Console.WriteLine(">>> ADC setup");
 
             // adc normal setup 
             //len_adc_data = 2000; // 0.19047619 @ 10.5MHz
-            //len_adc_data = 1000; // 0.0.0952380952 ms @ 10.5MHz
-            len_adc_data = 500; // 0.0476190476 ms @ 10.5MHz
-            dev_eps.adc_set_tap_control(0x0,0x0,0x0,0x0,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
-            //dev_eps.adc_set_tap_control(0xF,0xF,0xF,0xF,0,0); // (u32 val_tap0a_b5, u32 val_tap0b_b5,             u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
-            //
-            //dev_eps.adc_set_sampling_period( 14); // 210MHz/14   =  15 Msps
-            //dev_eps.adc_set_sampling_period( 15); // 210MHz/15   =  14 Msps
-            //dev_eps.adc_set_sampling_period( 21); // 210MHz/21   =  10 Msps
-            //dev_eps.adc_set_sampling_period( 43); // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
-            //dev_eps.adc_set_sampling_period( 106); // 210MHz/106   =  1.98113208 Msps //$$ 18.8679245kHz image with 2MHz wave
-            //dev_eps.adc_set_sampling_period( 210); // 210MHz/210   =  1 Msps
-            //dev_eps.adc_set_sampling_period( 211); // 210MHz/211   =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
-            //dev_eps.adc_set_sampling_period( 2100); // 210MHz/210   =  0.1 Msps
-            //
-            //dev_eps.adc_set_sampling_period( 15); // 189MHz/14   =  13.5 Msps
-            //dev_eps.adc_set_sampling_period( 18); // 189MHz/18   =  10.5 Msps
-            //dev_eps.adc_set_sampling_period( 38); // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
-            //dev_eps.adc_set_sampling_period( 95); // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
-            //dev_eps.adc_set_sampling_period(190); // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
-            dev_eps.adc_set_sampling_period(379); // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
-            //
-            dev_eps.adc_set_update_sample_num(len_adc_data); // any number of samples
-            dev_eps.adc_init(); // init with setup parameters
-            dev_eps.adc_fifo_rst(); // clear fifo for new data
-            
-            //// trigger DAC wave and adc data collection -- method 1
-            //dev_eps.trig_pgu_output_Cid_ON(100, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            //dev_eps.adc_update(); // including done_check
+            len_adc_data = 1200;
+            //len_adc_data = 1000; // 0.0952380952 ms @ 10.5MHz
+            //len_adc_data = 800; // 0.0761904762 ms @ 10.5MHz
+            //len_adc_data = 600;
+            //len_adc_data = 500; // 0.0476190476 ms @ 10.5MHz
 
+            //cnt_sampling_period = 14   ; // 210MHz/14   =  15 Msps
+            //cnt_sampling_period = 15   ; // 210MHz/15   =  14 Msps
+            //cnt_sampling_period = 21   ; // 210MHz/21   =  10 Msps
+            //cnt_sampling_period = 43   ; // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
+            //cnt_sampling_period = 106  ; // 210MHz/106  =  1.98113208 Msps //$$ 18.8679245kHz image with 2MHz wave
+            //cnt_sampling_period = 210  ; // 210MHz/210  =  1 Msps
+            //cnt_sampling_period = 211  ; // 210MHz/211  =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
+            //cnt_sampling_period = 2100 ; // 210MHz/210  =  0.1 Msps
+
+            //cnt_sampling_period =  15  ; // 189MHz/14   =  13.5 Msps
+            //cnt_sampling_period =  18  ; // 189MHz/18   =  10.5 Msps
+            //cnt_sampling_period =  38  ; // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
+            //cnt_sampling_period =  95  ; // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
+            //cnt_sampling_period = 190  ; // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
+            cnt_sampling_period = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+            
+            dev_eps.adc_init(len_adc_data, cnt_sampling_period); // init with setup parameters
+            dev_eps.adc_reset_fifo(); // clear fifo for new data
+            
 
             ////
-            Console.WriteLine(">>> DAC pulse trigger");
+            Console.WriteLine(">>> DAC pulse trigger linked with ADC trigger");
 
             //// trigger linked DAC wave and adc update -- method 2
-            int num_repeat_pulses = 2000;
-            dev_eps.trig_pgu_output_Cid_ON(num_repeat_pulses, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            //dev_eps.trig_pgu_output_Cid_ON(5, true, true, true); // (int CycleCount, bool Ch1, bool Ch2, bool force_trig = false)
-            dev_eps.adc_update_check(); // check done without triggering
+            dev_eps.dac_set_trig(true, true, true); // (bool Ch1, bool Ch2, bool force_adc_trig = false) 
+
+            dev_eps.adc_update_check(); // check done without triggering // vs. adc_update() with triggering
+            Console.WriteLine(">>>>>> ADC update done");
 
 
             ////
             Console.WriteLine(">>> DAC closed");
 
             // clear DAC wave
-            //...
-            dev_eps.trig_pgu_output_Cid_OFF();
+            dev_eps.dac_reset_trig();
 
             // dac finish
-            //...
             dev_eps.dac_pwr(0);
 
 
@@ -5926,10 +5703,13 @@ namespace TopInstrument
             // fifo data read 
             buf0_s32 = new s32[len_adc_data];
             buf1_s32 = new s32[len_adc_data];
-            dev_eps.adc_read_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
-            dev_eps.adc_read_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            Console.WriteLine(">>>>>> ADC0 FIFO read");
+            dev_eps.adc_get_fifo(0, len_adc_data, buf0_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
+            Console.WriteLine(">>>>>> ADC1 FIFO read");
+            dev_eps.adc_get_fifo(1, len_adc_data, buf1_s32); // (u32 ch, s32 num_data, s32[] buf_s32);
 
             // log fifo data into a file
+            Console.WriteLine(">>>>>> write ADC log file");
             dev_eps.adc_log_buf("log__adc_buf__dac.py".ToCharArray(), len_adc_data, buf0_s32, buf1_s32,
                                 buf_time_str, buf_dac0_str, buf_dac1_str); // (char[] log_filename, s32 len_data, s32[] buf0_s32, s32[] buf1_s32)
 
@@ -7899,7 +7679,7 @@ namespace __test__
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
 
         //// S3100 frame slot selection:
-        // loc_slot bit 0  = slot location 0
+        // loc_slot bit 0  = slot location 0`
         // loc_slot bit 1  = slot location 1
         // ...
         // loc_slot bit 12 = slot location 12
