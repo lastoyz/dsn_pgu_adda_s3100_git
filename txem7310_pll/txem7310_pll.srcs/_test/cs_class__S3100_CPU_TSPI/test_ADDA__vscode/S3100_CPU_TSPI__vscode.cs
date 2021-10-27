@@ -5571,6 +5571,10 @@ namespace TopInstrument
 
             //// case for sine wave
 
+            double test_freq_kHz       =  1; 
+            int len_dac_command_points = 500; //80;
+            double amplitude  = 8.0; // no distortion
+
             // double test_freq_kHz       = 10; 
             // int len_dac_command_points = 500; //80;
             // double amplitude  = 8.0; // no distortion
@@ -5591,11 +5595,11 @@ namespace TopInstrument
             // int len_dac_command_points = 500; //40;
             // double amplitude  = 8.0; // no distortion
 
-            double test_freq_kHz       = 500; 
-            int len_dac_command_points = 200; //40;
-            //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
-            //double amplitude  = 4.0; // no distortion
-            double amplitude  = 1.0; // test
+            // double test_freq_kHz       = 500; 
+            // int len_dac_command_points = 200; //40;
+            // //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
+            // //double amplitude  = 4.0; // no distortion
+            // double amplitude  = 1.0; // test
 
 
             // double test_freq_kHz       = 1000; 
@@ -5892,7 +5896,8 @@ namespace TopInstrument
             //double test_freq_kHz             = 500      ; // kHz
             int    adc_base_freq_MHz         = 189      ; // MHz
             int    adc_sampling_period_count = 379      ;
-            int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+            //int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+            int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
             int    len_dft_coef              = 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
             //
             double[] dft_coef_i_buf;
