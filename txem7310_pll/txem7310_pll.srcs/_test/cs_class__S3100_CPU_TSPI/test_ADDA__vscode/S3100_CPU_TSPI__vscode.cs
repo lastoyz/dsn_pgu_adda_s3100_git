@@ -5355,10 +5355,10 @@ namespace TopInstrument
             return new double[] {adc0_i, adc0_q, adc1_i, adc1_q};
         }
 
-        private double[] dft_calc_cmp_ratio(
+        private double[] dft_calc_impedance_ratio(
             double adc0_i, double adc0_q, double adc1_i, double adc1_q
         ) {
-            // calculate complex ratio
+            // calculate impedance ratio : assume adc0 as voltage, and  adc1 as negative current.
 
             //## referece:
             //  def test_dft_calc(acc_flt32__list):
@@ -5396,19 +5396,19 @@ namespace TopInstrument
             // complex ratio = Vx * conj(-Vr) / abs(Vr))^2
             //   Vx * conj(-Vr) = (adc0_i,  adc0_q) * (-adc1_i,  adc1_q)
             //                  = (-adc0_i*adc1_i-adc0_q*adc1_q,  adc0_i*adc1_q-adc0_q*adc1_i)
-            double cmp_ratio_i = (-adc0_i*adc1_i-adc0_q*adc1_q) / (adc1_i*adc1_i + adc1_q*adc1_q) ; 
-            double cmp_ratio_q = ( adc0_i*adc1_q-adc0_q*adc1_i) / (adc1_i*adc1_i + adc1_q*adc1_q) ;
-            double cmp_ratio_abs   = Math.Sqrt(cmp_ratio_i*cmp_ratio_i+cmp_ratio_q*cmp_ratio_q) ;
-            double cmp_ratio_phase = Math.Atan2( cmp_ratio_q, cmp_ratio_i );
-            double cmp_ratio_angle = Math.Atan2( cmp_ratio_q, cmp_ratio_i )*180/Math.PI;
+            double imp_ratio_i = (-adc0_i*adc1_i-adc0_q*adc1_q) / (adc1_i*adc1_i + adc1_q*adc1_q) ; 
+            double imp_ratio_q = ( adc0_i*adc1_q-adc0_q*adc1_i) / (adc1_i*adc1_i + adc1_q*adc1_q) ;
+            double imp_ratio_abs   = Math.Sqrt(imp_ratio_i*imp_ratio_i+imp_ratio_q*imp_ratio_q) ;
+            double imp_ratio_phase = Math.Atan2( imp_ratio_q, imp_ratio_i );
+            double imp_ratio_angle = Math.Atan2( imp_ratio_q, imp_ratio_i )*180/Math.PI;
 
             Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "Vx * conj(-Vr)",  -adc0_i*adc1_i-adc0_q*adc1_q,  adc0_i*adc1_q-adc0_q*adc1_i )); 
-            Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "Vx / Vr       ",                   cmp_ratio_i,  cmp_ratio_q )); 
-            Console.WriteLine(string.Format(" {0} = {1}        ", "abs(Vx / Vr)  ",    cmp_ratio_abs    )); 
-            Console.WriteLine(string.Format(" {0} = {1}        ", "phase(Vx / Vr)",    cmp_ratio_phase  )); 
-            Console.WriteLine(string.Format(" {0} = {1}        ", "angle(Vx / Vr)",    cmp_ratio_angle  )); 
+            Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "Z = Vx / (-Vr)",                   imp_ratio_i,  imp_ratio_q )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "abs  (Z)      ",    imp_ratio_abs    )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "phase(Z)      ",    imp_ratio_phase  )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "angle(Z)      ",    imp_ratio_angle  )); 
 
-            return new double [5] {cmp_ratio_i, cmp_ratio_q, cmp_ratio_abs, cmp_ratio_phase, cmp_ratio_angle};
+            return new double [5] {imp_ratio_i, imp_ratio_q, imp_ratio_abs, imp_ratio_phase, imp_ratio_angle};
         }
 
         private Tuple<double[], double[], double[], double[]> dft_compute(
@@ -5464,7 +5464,7 @@ namespace TopInstrument
 
 
             //// calculate complex ratio
-            double[] cmp_ratio_info = dft_calc_cmp_ratio(iq_info[0], iq_info[1], iq_info[2], iq_info[3]);
+            double[] cmp_ratio_info = dft_calc_impedance_ratio(iq_info[0], iq_info[1], iq_info[2], iq_info[3]);
 
 
             return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf, iq_info, cmp_ratio_info);
@@ -5867,7 +5867,10 @@ namespace TopInstrument
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
 
             if (test_case__wave==1) {
-                double phase_diff = Math.PI/2;
+                //double phase_diff = Math.PI/2;  //$$ inductor load in IV balanced circuit (adc0 = voltage, adc1 = -currrent)
+                //double phase_diff = Math.PI;    //$$ resistor load in IV balanced circuit
+                double phase_diff = -Math.PI/2;   //$$ capacitor   load in IV balanced circuit
+                //double phase_diff = 0;          //$$ neg resistor  load in IV balanced circuit
                 time_volt_dual_list = dev_eps.dac_gen_wave_cmd(
                     test_freq_kHz, len_dac_command_points, 
                     amplitude, phase_diff);
