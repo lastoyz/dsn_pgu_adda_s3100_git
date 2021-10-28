@@ -5319,13 +5319,45 @@ namespace TopInstrument
 
             return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf);
         }
-        private void dft_sum_prod() {
+        private double[] dft_calc_iq(
+            int len_dft_buf = 0, double[] dft_coef_buf0_double = null, double[] dft_coef_buf1_double = null,
+            int num_repeat_block_coef =   1,
+            int idx_offset_adc_data   =   0,
+            int len_adc_buf = 0,    int[] adc_data_buf0_s32    = null,    int[] adc_data_buf1_s32    = null,
+            double adc_scale_s32_volt =   1 // 4.096 / (Math.Pow(2,31)-1.0)
+        ) {
             // do sum_product
-        }
-        private void dft_calc_iq() {
+            double[] sum_prod = new double[4]; // IQ sum_prod list for ADC0 and ADC1 = {sp_ADC0_I, sp_ADC0_Q, sp_ADC1_I, sp_ADC1_Q}
+            sum_prod[0] = 0.0;
+            sum_prod[1] = 0.0;
+            sum_prod[2] = 0.0;
+            sum_prod[3] = 0.0;
+
+            // find min length to compute
+            int len_sum = len_dft_buf*num_repeat_block_coef;
+            if (len_sum>(len_adc_buf-idx_offset_adc_data))
+                len_sum = len_adc_buf-idx_offset_adc_data;
+
+            for (int i = 0; i < len_sum; i++)
+            {
+                sum_prod[0] += dft_coef_buf0_double[i % len_dft_buf]*(double)adc_data_buf0_s32[i+idx_offset_adc_data];
+                sum_prod[1] += dft_coef_buf1_double[i % len_dft_buf]*(double)adc_data_buf0_s32[i+idx_offset_adc_data];
+                sum_prod[2] += dft_coef_buf0_double[i % len_dft_buf]*(double)adc_data_buf1_s32[i+idx_offset_adc_data];
+                sum_prod[3] += dft_coef_buf1_double[i % len_dft_buf]*(double)adc_data_buf1_s32[i+idx_offset_adc_data];
+            }
+
             // calculate IQ values
+            double adc0_i = sum_prod[0]/len_sum * adc_scale_s32_volt;
+            double adc0_q = sum_prod[1]/len_sum * adc_scale_s32_volt;
+            double adc1_i = sum_prod[2]/len_sum * adc_scale_s32_volt;
+            double adc1_q = sum_prod[3]/len_sum * adc_scale_s32_volt;
+
+            return new double[] {adc0_i, adc0_q, adc1_i, adc1_q};
         }
-        private void dft_calc_cmp_ratio() {
+
+        private double[] dft_calc_cmp_ratio(
+            double adc0_i, double adc0_q, double adc1_i, double adc1_q
+        ) {
             // calculate complex ratio
 
             //## referece:
@@ -5352,22 +5384,49 @@ namespace TopInstrument
             //  
             //  	return RR
 
+            // print out 
+            Console.WriteLine("> iq related calculataion : "); // test ptint
+            Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "Vx",              adc0_i,  adc0_q )); 
+            Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "Vr",              adc1_i,  adc1_q )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "abs(Vx)",         Math.Sqrt(adc0_i*adc0_i + adc0_q*adc0_q) )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "abs(Vr)",         Math.Sqrt(adc1_i*adc1_i + adc1_q*adc1_q) )); 
+            Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "conj(-Vr)",      -adc1_i,  adc1_q )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "abs(Vr))^2",      adc1_i*adc1_i + adc1_q*adc1_q )); 
+
+            // complex ratio = Vx * conj(-Vr) / abs(Vr))^2
+            //   Vx * conj(-Vr) = (adc0_i,  adc0_q) * (-adc1_i,  adc1_q)
+            //                  = (-adc0_i*adc1_i-adc0_q*adc1_q,  adc0_i*adc1_q-adc0_q*adc1_i)
+            double cmp_ratio_i = (-adc0_i*adc1_i-adc0_q*adc1_q) / (adc1_i*adc1_i + adc1_q*adc1_q) ; 
+            double cmp_ratio_q = ( adc0_i*adc1_q-adc0_q*adc1_i) / (adc1_i*adc1_i + adc1_q*adc1_q) ;
+            double cmp_ratio_abs   = Math.Sqrt(cmp_ratio_i*cmp_ratio_i+cmp_ratio_q*cmp_ratio_q) ;
+            double cmp_ratio_phase = Math.Atan2( cmp_ratio_q, cmp_ratio_i );
+            double cmp_ratio_angle = Math.Atan2( cmp_ratio_q, cmp_ratio_i )*180/Math.PI;
+
+            Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "Vx * conj(-Vr)",  -adc0_i*adc1_i-adc0_q*adc1_q,  adc0_i*adc1_q-adc0_q*adc1_i )); 
+            Console.WriteLine(string.Format(" {0} = {1} + {2}j ", "Vx / Vr       ",                   cmp_ratio_i,  cmp_ratio_q )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "abs(Vx / Vr)  ",    cmp_ratio_abs    )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "phase(Vx / Vr)",    cmp_ratio_phase  )); 
+            Console.WriteLine(string.Format(" {0} = {1}        ", "angle(Vx / Vr)",    cmp_ratio_angle  )); 
+
+            return new double [5] {cmp_ratio_i, cmp_ratio_q, cmp_ratio_abs, cmp_ratio_phase, cmp_ratio_angle};
         }
 
-        private Tuple<double[], double[]> dft_compute(
+        private Tuple<double[], double[], double[], double[]> dft_compute(
             double test_freq_kHz             = 500      , // kHz
             uint   adc_base_freq_MHz         = 189      , // MHz
             uint   adc_sampling_period_count = 379      ,
             int    mode_undersampling        = 1        , // 0 for normal sampling, 1 for undersampling
-            int    len_dft_coef              = 378*2    , //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
-            int    len_adc_data              = 0        , // adc data inputs
+            int    len_dft_coef              = 378      , //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+            int    num_repeat_block_coef     = 2        , // adc data inputs
+            int    idx_offset_adc_data       = 0        ,
+            int    len_adc_data              = 0        , 
             s32[]  adc0_s32_buf              = null     , //
             s32[]  adc1_s32_buf              = null       //
         ) {
 
             //// compute DFT coefficients: In-phase, Quadrature-phase
             
-            var ret_dft_coef = dft_gen_coef(
+            var ret__dft_coef = dft_gen_coef(
                 test_freq_kHz             ,
                 adc_base_freq_MHz         ,
                 adc_sampling_period_count ,
@@ -5378,32 +5437,49 @@ namespace TopInstrument
             double[] dft_coef_i_buf;
             double[] dft_coef_q_buf;
 
-            dft_coef_i_buf = ret_dft_coef.Item1;
-            dft_coef_q_buf = ret_dft_coef.Item2;
+            dft_coef_i_buf = ret__dft_coef.Item1;
+            dft_coef_q_buf = ret__dft_coef.Item2;
 
             //string dft_coef_i_buf_str = String.Join(", ", dft_coef_i_buf); // test ptint
             //string dft_coef_q_buf_str = String.Join(", ", dft_coef_q_buf); // test ptint
             //Console.WriteLine("> dft_coef_i_buf =" + dft_coef_i_buf_str); // test ptint
             //Console.WriteLine("> dft_coef_q_buf =" + dft_coef_q_buf_str); // test ptint
 
-            //// do sum_product
-            dft_sum_prod();
 
             //// calculate IQ values
-            dft_calc_iq();
+            //int    num_repeat_block_coef =   1;
+            //int    idx_offset_adc_data   = 100;
+            double adc_scale_s32_volt    =  4.096 / (Math.Pow(2,31)-1.0);
+
+            double[] iq_info = dft_calc_iq(
+                len_dft_coef, dft_coef_i_buf, dft_coef_q_buf,
+                num_repeat_block_coef,
+                idx_offset_adc_data,
+                len_adc_data, adc0_s32_buf  , adc1_s32_buf   ,
+                adc_scale_s32_volt
+            );
+
+            string iq_info_str = String.Join(", ", iq_info); // test ptint
+            Console.WriteLine("> iq_info =" + iq_info_str); // test ptint
+
 
             //// calculate complex ratio
-            dft_calc_cmp_ratio();
-
-            //// report final result : adc0 to adc1 gain and phase
+            double[] cmp_ratio_info = dft_calc_cmp_ratio(iq_info[0], iq_info[1], iq_info[2], iq_info[3]);
 
 
-            return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf);
+            return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf, iq_info, cmp_ratio_info);
         }
 
         private void dft_log(char[] log_filename, 
-            int len_dft_buf = 0, double[] dft_coef_buf0_double = null, double[] dft_coef_buf1_double = null,
-            int len_adc_buf = 0,    int[] adc_data_buf0_s32    = null,    int[] adc_data_buf1_s32    = null
+            double test_freq_kHz            , // dft parameters
+            uint    adc_base_freq_MHz        , //
+            uint    adc_sampling_period_count, //
+            int    mode_undersampling       , //
+            int    len_dft_buf = 0, double[] dft_coef_buf0_double = null, double[] dft_coef_buf1_double = null, // dft coef
+            int    num_repeat_block_coef = 1, // 
+            int    idx_offset_adc_data   = 0, //
+            int     len_adc_buf = 0,    int[] adc_data_buf0_s32    = null,    int[] adc_data_buf1_s32    = null, // adc data
+            double[] iq_info = null, double[] cmp_ratio_info = null // IQ result
             ) {
             // open or create a file
             string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_ADDA__vscode", "log"); //$$ TODO: logfile location in vs code
@@ -5452,6 +5528,18 @@ namespace TopInstrument
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                 ws.WriteLine(""); // newline
                 //
+                ws.WriteLine("test_freq_kHz             = " + string.Format("{0}", test_freq_kHz)  ); 
+                ws.WriteLine("adc_base_freq_MHz         = " + string.Format("{0}", adc_base_freq_MHz)  ); 
+                ws.WriteLine("adc_sampling_period_count = " + string.Format("{0}", adc_sampling_period_count)  ); 
+                ws.WriteLine("mode_undersampling        = " + string.Format("{0}", mode_undersampling)  ); 
+                ws.WriteLine("len_dft_buf               = " + string.Format("{0}", len_dft_buf)  ); 
+                ws.WriteLine("num_repeat_block_coef     = " + string.Format("{0}", num_repeat_block_coef)  ); 
+                ws.WriteLine("idx_offset_adc_data       = " + string.Format("{0}", idx_offset_adc_data)  ); 
+                ws.WriteLine("iq_info                   = [" + string.Join(", ", iq_info) + "]" ); 
+                ws.WriteLine("cmp_ratio_info            = [" + string.Join(", ", cmp_ratio_info) + "]" ); 
+                //
+                ws.WriteLine(""); // newline
+                //
                 ws.WriteLine("DFT_COEF_I_BUF = [" + dft_coef_buf0_double_str + "]"); 
                 ws.WriteLine("DFT_COEF_Q_BUF = [" + dft_coef_buf1_double_str + "]"); 
                 //
@@ -5459,6 +5547,9 @@ namespace TopInstrument
                 //
                 ws.WriteLine("ADC_DATA_0_BUF = [" + adc_data_buf0_s32_str + "]"); 
                 ws.WriteLine("ADC_DATA_1_BUF = [" + adc_data_buf1_s32_str + "]"); 
+                //
+                ws.WriteLine(""); // newline
+                //
                 //
                 ws.WriteLine(""); // newline
                 ws.WriteLine("## log done"); 
@@ -5950,33 +6041,49 @@ namespace TopInstrument
             //double test_freq_kHz             = 500      ; // kHz
             //int    adc_base_freq_MHz         = 189      ; // MHz
             //int    adc_sampling_period_count = 379      ;
-            //int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
-            int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
-            int    len_dft_coef              = 378*2    ; // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+            int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+            //int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
+            int    len_dft_coef              = 378    ; // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+            int    num_repeat_block_coef     =   2    ;
+            int    idx_offset_adc_data       = 100;
             //
-            double[] dft_coef_i_buf;
-            double[] dft_coef_q_buf;
-
-            var ret_dft_compute = dev_eps.dft_compute(
+            var ret__dft_compute = dev_eps.dft_compute(
                 test_freq_kHz            , // dft parameters
                 adc_base_freq_MHz        , //
                 adc_sampling_period_count, //
                 mode_undersampling       , //
                 len_dft_coef             , //
-                len_adc_data             , // adc data inputs
+                num_repeat_block_coef    , // adc data inputs
+                idx_offset_adc_data      , //
+                len_adc_data             , //
                 adc0_s32_buf             , //
                 adc1_s32_buf               //
             );
             
-            dft_coef_i_buf = ret_dft_compute.Item1;
-            dft_coef_q_buf = ret_dft_compute.Item2;
-            len_dft_coef   = ret_dft_compute.Item1.Length;
+            double[] dft_coef_i_buf = ret__dft_compute.Item1;
+            double[] dft_coef_q_buf = ret__dft_compute.Item2;
+            len_dft_coef   = ret__dft_compute.Item1.Length; // renew length just in case
+            double[] iq_info        = ret__dft_compute.Item3; // {adc0_i, adc0_q, adc1_i, adc1_q}
+            double[] cmp_ratio_info = ret__dft_compute.Item4; // {cmp_ratio_i, cmp_ratio_q, cmp_ratio_abs, cmp_ratio_phase, cmp_ratio_angle}
+
 
             Console.WriteLine(">>>>>> DFT log generate");
             // report: DFT coeff, ADC data, IQ, complex ratio
             dev_eps.dft_log("log__dft_compute.py".ToCharArray(), 
-                len_dft_coef, dft_coef_i_buf, dft_coef_q_buf, 
-                len_adc_data, adc0_s32_buf,   adc1_s32_buf);
+
+                test_freq_kHz            , // dft parameters
+                adc_base_freq_MHz        , //
+                adc_sampling_period_count, //
+                mode_undersampling       , //
+                
+                len_dft_coef, dft_coef_i_buf, dft_coef_q_buf, // dft coef 
+
+                num_repeat_block_coef    , // adc data inputs
+                idx_offset_adc_data      , //
+                len_adc_data, adc0_s32_buf,   adc1_s32_buf,
+
+                iq_info, cmp_ratio_info    // IQ result
+                );
 
 
             //// test finish
