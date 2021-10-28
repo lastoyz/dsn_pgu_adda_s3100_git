@@ -5514,13 +5514,17 @@ namespace TopInstrument
                 dft_coef_buf1_double_str = dft_coef_buf1_double_str + string.Format("{0,24:G}, ",dft_coef_buf1_double[i]);
             }
 
-            // print out -- dft coef
+            // print out -- adc data in use
+            int len_sum = len_dft_buf*num_repeat_block_coef;
+            if (len_sum>(len_adc_buf-idx_offset_adc_data))
+                len_sum = len_adc_buf-idx_offset_adc_data;
+
             string adc_data_buf0_s32_str = "";
             string adc_data_buf1_s32_str = "";
-            for (s32 i = 0; i < len_adc_buf; i++) {
+            for (s32 i = 0; i < len_sum; i++) {
                 //
-                adc_data_buf0_s32_str = adc_data_buf0_s32_str + string.Format("{0,11:D}, ",adc_data_buf0_s32[i]);
-                adc_data_buf1_s32_str = adc_data_buf1_s32_str + string.Format("{0,11:D}, ",adc_data_buf1_s32[i]);
+                adc_data_buf0_s32_str = adc_data_buf0_s32_str + string.Format("{0,11:D}, ",adc_data_buf0_s32[i+idx_offset_adc_data]);
+                adc_data_buf1_s32_str = adc_data_buf1_s32_str + string.Format("{0,11:D}, ",adc_data_buf1_s32[i+idx_offset_adc_data]);
             }
 
 
@@ -5528,15 +5532,16 @@ namespace TopInstrument
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                 ws.WriteLine(""); // newline
                 //
-                ws.WriteLine("test_freq_kHz             = " + string.Format("{0}", test_freq_kHz)  ); 
-                ws.WriteLine("adc_base_freq_MHz         = " + string.Format("{0}", adc_base_freq_MHz)  ); 
-                ws.WriteLine("adc_sampling_period_count = " + string.Format("{0}", adc_sampling_period_count)  ); 
-                ws.WriteLine("mode_undersampling        = " + string.Format("{0}", mode_undersampling)  ); 
-                ws.WriteLine("len_dft_buf               = " + string.Format("{0}", len_dft_buf)  ); 
-                ws.WriteLine("num_repeat_block_coef     = " + string.Format("{0}", num_repeat_block_coef)  ); 
-                ws.WriteLine("idx_offset_adc_data       = " + string.Format("{0}", idx_offset_adc_data)  ); 
-                ws.WriteLine("iq_info                   = [" + string.Join(", ", iq_info) + "]" ); 
-                ws.WriteLine("cmp_ratio_info            = [" + string.Join(", ", cmp_ratio_info) + "]" ); 
+                ws.WriteLine("TEST_FREQ_KHZ             = " + string.Format("{0}", test_freq_kHz)  ); 
+                ws.WriteLine("ADC_BASE_FREQ_MHZ         = " + string.Format("{0}", adc_base_freq_MHz)  ); 
+                ws.WriteLine("ADC_SAMPLING_PERIOD_COUNT = " + string.Format("{0}", adc_sampling_period_count)  ); 
+                ws.WriteLine("MODE_UNDERSAMPLING        = " + string.Format("{0}", mode_undersampling)  ); 
+                ws.WriteLine("LEN_DFT_BUF               = " + string.Format("{0}", len_dft_buf)  ); 
+                ws.WriteLine("NUM_REPEAT_BLOCK_COEF     = " + string.Format("{0}", num_repeat_block_coef)  ); 
+                ws.WriteLine("IDX_OFFSET_ADC_DATA       = " + string.Format("{0}", idx_offset_adc_data)  ); 
+                ws.WriteLine("LEN_SUM                   = " + string.Format("{0}", len_sum)  ); 
+                ws.WriteLine("IQ_INFO                   = [" + string.Join(", ", iq_info) + "]" ); 
+                ws.WriteLine("CMP_RATIO_INFO            = [" + string.Join(", ", cmp_ratio_info) + "]" ); 
                 //
                 ws.WriteLine(""); // newline
                 //
