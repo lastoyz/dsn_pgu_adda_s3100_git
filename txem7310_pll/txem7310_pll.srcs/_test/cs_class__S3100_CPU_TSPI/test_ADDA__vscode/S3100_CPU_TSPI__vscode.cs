@@ -5271,13 +5271,13 @@ namespace TopInstrument
         // DFT functions:
 
         private Tuple<double[], double[]> dft_gen_coef(
-            double test_freq_kHz          = 500      , // kHz
-            int adc_base_freq_MHz         = 189      , // MHz
-            int adc_sampling_period_count = 379      ,
-            int mode_undersampling        = 1        , // 0 for normal sampling, 1 for undersampling
-            int    len_dft_coef           = 378      , //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
-            double amplitude              = 1.0      ,
-            double phase_diff             = Math.PI/2
+            double test_freq_kHz             = 500      , // kHz
+            uint   adc_base_freq_MHz         = 189      , // MHz
+            uint   adc_sampling_period_count = 379      ,
+            int    mode_undersampling        = 1        , // 0 for normal sampling, 1 for undersampling
+            int    len_dft_coef              = 378      , //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+            double amplitude                 = 1.0      ,
+            double phase_diff                = Math.PI/2
         ) {
             // compute DFT coefficients: In-phase, Quadrature-phase
 
@@ -5356,10 +5356,13 @@ namespace TopInstrument
 
         private Tuple<double[], double[]> dft_compute(
             double test_freq_kHz             = 500      , // kHz
-            int    adc_base_freq_MHz         = 189      , // MHz
-            int    adc_sampling_period_count = 379      ,
+            uint   adc_base_freq_MHz         = 189      , // MHz
+            uint   adc_sampling_period_count = 379      ,
             int    mode_undersampling        = 1        , // 0 for normal sampling, 1 for undersampling
-            int    len_dft_coef              = 378        //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+            int    len_dft_coef              = 378*2    , //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+            int    len_adc_data              = 0        , // adc data inputs
+            s32[]  adc0_s32_buf              = null     , //
+            s32[]  adc1_s32_buf              = null       //
         ) {
 
             //// compute DFT coefficients: In-phase, Quadrature-phase
@@ -5378,10 +5381,10 @@ namespace TopInstrument
             dft_coef_i_buf = ret_dft_coef.Item1;
             dft_coef_q_buf = ret_dft_coef.Item2;
 
-            string dft_coef_i_buf_str = String.Join(", ", dft_coef_i_buf);
-            string dft_coef_q_buf_str = String.Join(", ", dft_coef_q_buf);
-            Console.WriteLine("> dft_coef_i_buf =" + dft_coef_i_buf_str);
-            Console.WriteLine("> dft_coef_q_buf =" + dft_coef_q_buf_str);
+            //string dft_coef_i_buf_str = String.Join(", ", dft_coef_i_buf); // test ptint
+            //string dft_coef_q_buf_str = String.Join(", ", dft_coef_q_buf); // test ptint
+            //Console.WriteLine("> dft_coef_i_buf =" + dft_coef_i_buf_str); // test ptint
+            //Console.WriteLine("> dft_coef_q_buf =" + dft_coef_q_buf_str); // test ptint
 
             //// do sum_product
             dft_sum_prod();
@@ -5398,8 +5401,10 @@ namespace TopInstrument
             return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf);
         }
 
-        private void dft_log(char[] log_filename, int len_data, double[] buf0_double, double[] buf1_double) {
-
+        private void dft_log(char[] log_filename, 
+            int len_dft_buf = 0, double[] dft_coef_buf0_double = null, double[] dft_coef_buf1_double = null,
+            int len_adc_buf = 0,    int[] adc_data_buf0_s32    = null,    int[] adc_data_buf1_s32    = null
+            ) {
             // open or create a file
             string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_ADDA__vscode", "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
@@ -5424,26 +5429,42 @@ namespace TopInstrument
                 ws.WriteLine("## log start"); //$$ add python comment header
             }
 
-            // print out data
-            string buf0_double_str = "";
-            string buf1_double_str = "";
-
-            for (s32 i = 0; i < len_data; i++) {
+            // print out -- dft coef
+            string dft_coef_buf0_double_str = "";
+            string dft_coef_buf1_double_str = "";
+            for (s32 i = 0; i < len_dft_buf; i++) {
                 //
-                buf0_double_str = buf0_double_str + string.Format("{0,24:G}, ",buf0_double[i]);
-                buf1_double_str = buf1_double_str + string.Format("{0,24:G}, ",buf1_double[i]);
+                dft_coef_buf0_double_str = dft_coef_buf0_double_str + string.Format("{0,24:G}, ",dft_coef_buf0_double[i]);
+                dft_coef_buf1_double_str = dft_coef_buf1_double_str + string.Format("{0,24:G}, ",dft_coef_buf1_double[i]);
             }
+
+            // print out -- dft coef
+            string adc_data_buf0_s32_str = "";
+            string adc_data_buf1_s32_str = "";
+            for (s32 i = 0; i < len_adc_buf; i++) {
+                //
+                adc_data_buf0_s32_str = adc_data_buf0_s32_str + string.Format("{0,11:D}, ",adc_data_buf0_s32[i]);
+                adc_data_buf1_s32_str = adc_data_buf1_s32_str + string.Format("{0,11:D}, ",adc_data_buf1_s32[i]);
+            }
+
 
             // write data string on the file
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
                 ws.WriteLine(""); // newline
                 //
-                ws.WriteLine("DFT_COEF_I_BUF = [" + buf0_double_str + "]"); 
-                ws.WriteLine("DFT_COEF_Q_BUF = [" + buf1_double_str + "]"); 
+                ws.WriteLine("DFT_COEF_I_BUF = [" + dft_coef_buf0_double_str + "]"); 
+                ws.WriteLine("DFT_COEF_Q_BUF = [" + dft_coef_buf1_double_str + "]"); 
+                //
+                ws.WriteLine(""); // newline
+                //
+                ws.WriteLine("ADC_DATA_0_BUF = [" + adc_data_buf0_s32_str + "]"); 
+                ws.WriteLine("ADC_DATA_1_BUF = [" + adc_data_buf1_s32_str + "]"); 
                 //
                 ws.WriteLine(""); // newline
                 ws.WriteLine("## log done"); 
             }
+
+
 
         }
 
@@ -5499,8 +5520,10 @@ namespace TopInstrument
             dev_eps.adc_pwr(1);
             
             // adc enable : 210MHz vs 189MHz
+            uint    adc_base_freq_MHz         = 189      ; // MHz
             //val = dev_eps.adc_enable(); // adc_enable(u32 sel_freq_mode_MHz = 210) // 210MHz
-            val = dev_eps.adc_enable(189); // 189MHz
+            //val = dev_eps.adc_enable(189); // 189MHz
+            val = dev_eps.adc_enable(adc_base_freq_MHz); // 189MHz
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
             
             // adc reset
@@ -5532,8 +5555,8 @@ namespace TopInstrument
             // adc normal setup and data collection
             //s32 len_adc_data = 10000; // 100s during SPI emulation
             s32 len_adc_data = 100; // 1s during SPI emulation
-            u32 cnt_sampling_period = 21; // 210MHz/21   =  10 Msps
-            dev_eps.adc_init(len_adc_data, cnt_sampling_period, 0); // init with setup parameters
+            u32 adc_sampling_period_count = 21; // 210MHz/21   =  10 Msps
+            dev_eps.adc_init(len_adc_data, adc_sampling_period_count, 0); // init with setup parameters
             dev_eps.adc_reset_fifo(); // clear fifo for new data
             dev_eps.adc_update();
 
@@ -5602,9 +5625,9 @@ namespace TopInstrument
 
             //// case for sine wave
 
-            double test_freq_kHz       =  1; 
-            int len_dac_command_points = 500; //80;
-            double amplitude  = 8.0; // no distortion
+            // double test_freq_kHz       =  1; 
+            // int len_dac_command_points = 500; //80;
+            // double amplitude  = 8.0; // no distortion
 
             // double test_freq_kHz       = 10; 
             // int len_dac_command_points = 500; //80;
@@ -5626,11 +5649,11 @@ namespace TopInstrument
             // int len_dac_command_points = 500; //40;
             // double amplitude  = 8.0; // no distortion
 
-            // double test_freq_kHz       = 500; 
-            // int len_dac_command_points = 200; //40;
-            // //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
-            // //double amplitude  = 4.0; // no distortion
-            // double amplitude  = 1.0; // test
+            double test_freq_kHz       = 500; 
+            int len_dac_command_points = 200; //40;
+            //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
+            //double amplitude  = 4.0; // no distortion
+            double amplitude  = 1.0; // test 1V amp
 
 
             // double test_freq_kHz       = 1000; 
@@ -5858,9 +5881,9 @@ namespace TopInstrument
             //cnt_sampling_period =  38  ; // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
             //cnt_sampling_period =  95  ; // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
             //cnt_sampling_period = 190  ; // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
-            cnt_sampling_period = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+            adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
             
-            dev_eps.adc_init(len_adc_data, cnt_sampling_period); // init with setup parameters
+            dev_eps.adc_init(len_adc_data, adc_sampling_period_count); // init with setup parameters
             dev_eps.adc_reset_fifo(); // clear fifo for new data
             
 
@@ -5925,21 +5948,24 @@ namespace TopInstrument
             Console.WriteLine(">>>>>> DFT compute");
             // DFT compute
             //double test_freq_kHz             = 500      ; // kHz
-            int    adc_base_freq_MHz         = 189      ; // MHz
-            int    adc_sampling_period_count = 379      ;
+            //int    adc_base_freq_MHz         = 189      ; // MHz
+            //int    adc_sampling_period_count = 379      ;
             //int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
             int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
-            int    len_dft_coef              = 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+            int    len_dft_coef              = 378*2    ; // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
             //
             double[] dft_coef_i_buf;
             double[] dft_coef_q_buf;
 
             var ret_dft_compute = dev_eps.dft_compute(
-                test_freq_kHz            ,
-                adc_base_freq_MHz        ,
-                adc_sampling_period_count,
-                mode_undersampling       ,
-                len_dft_coef             
+                test_freq_kHz            , // dft parameters
+                adc_base_freq_MHz        , //
+                adc_sampling_period_count, //
+                mode_undersampling       , //
+                len_dft_coef             , //
+                len_adc_data             , // adc data inputs
+                adc0_s32_buf             , //
+                adc1_s32_buf               //
             );
             
             dft_coef_i_buf = ret_dft_compute.Item1;
@@ -5948,7 +5974,9 @@ namespace TopInstrument
 
             Console.WriteLine(">>>>>> DFT log generate");
             // report: DFT coeff, ADC data, IQ, complex ratio
-            dev_eps.dft_log("log__dft_compute.py".ToCharArray(), len_dft_coef, dft_coef_i_buf, dft_coef_q_buf);
+            dev_eps.dft_log("log__dft_compute.py".ToCharArray(), 
+                len_dft_coef, dft_coef_i_buf, dft_coef_q_buf, 
+                len_adc_data, adc0_s32_buf,   adc1_s32_buf);
 
 
             //// test finish
