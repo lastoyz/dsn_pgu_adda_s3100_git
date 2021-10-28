@@ -5327,6 +5327,31 @@ namespace TopInstrument
         }
         private void dft_calc_cmp_ratio() {
             // calculate complex ratio
+
+            //## referece:
+            //  def test_dft_calc(acc_flt32__list):
+            //  	#SS = [-1755152000.0,  1363413504.0,  265692464.0,  350571840.0] # test 
+            //  	SS = acc_flt32__list
+            //  	
+            //  	print('// ----------------------------------------- //')
+            //  	print('// Vx : {} + {}j '.format(SS[0],SS[1]) )
+            //  	print('// Vr : {} + {}j '.format(SS[2],SS[3]) )
+            //  	print('// conj(Vr) : {} - {}j '.format(SS[2],SS[3]) )
+            //  	print('// (abs(Vr))^2 : {} '.format( (SS[2]*SS[2]+SS[3]*SS[3]) ) )
+            //  	print('// Vx * conj(-Vr) : {} + {}j '.format( -SS[0]*SS[2]-SS[1]*SS[3] , SS[0]*SS[3]-SS[1]*SS[2] ) )
+            //  	#
+            //  	try : 
+            //  		RR = (-SS[0]*SS[2]-SS[1]*SS[3])/(SS[2]*SS[2]+SS[3]*SS[3]) + 1j*( SS[0]*SS[3]-SS[1]*SS[2])/(SS[2]*SS[2]+SS[3]*SS[3])
+            //  		print('// R : {} + {}j '.format( (-SS[0]*SS[2]-SS[1]*SS[3])/(SS[2]*SS[2]+SS[3]*SS[3]) ,
+            //  										( SS[0]*SS[3]-SS[1]*SS[2])/(SS[2]*SS[2]+SS[3]*SS[3]) ) )
+            //  	except:
+            //  		RR = 0
+            //  	print('// abs(R)   : {} '.format( np.abs(RR) ) )
+            //  	print('// angle(R) : {} '.format( np.angle(RR, deg=True) ) )
+            //  	print('// ----------------------------------------- //')
+            //  
+            //  	return RR
+
         }
 
         private Tuple<double[], double[]> dft_compute(
@@ -5445,7 +5470,13 @@ namespace TopInstrument
             // test LAN
             dev_eps.my_open(__test__.Program.test_host_ip);
             Console.WriteLine(dev_eps.get_IDN());
-            Console.WriteLine(dev_eps.eps_enable());
+            Console.WriteLine(dev_eps.eps_enable()); 
+            
+            // MSPI setup for SPI emulation : fixed slot location info
+            dev_eps.SPI_EMUL__set__use_loc_slot(true);       // use fixed slot location
+            dev_eps.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot);      // for slot location bits
+            dev_eps.SPI_EMUL__set__loc_group(__test__.Program.test_loc_spi_group); // for spi channel location bits
+
 
             // ... test eps addresses
             Console.WriteLine(string.Format("FID = 0x{0,8:X8} ",dev_eps.GetWireOutValue(dev_eps.EP_ADRS__FPGA_IMAGE_ID_WO)));
@@ -7857,8 +7888,8 @@ namespace __test__
         //$$ note: IP ... setup for own LAN port test //{
         
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
-        public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
-        public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
+        //public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
+        //public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
 
         //}
 
@@ -7867,10 +7898,11 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
         //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
+        public static string test_host_ip = "192.168.100.143"; // test dummy ip
 
         //// S3100 frame slot selection:
         // loc_slot bit 0  = slot location 0`
@@ -7883,7 +7915,7 @@ namespace __test__
         //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0200; // slot location 9
-        //public static uint test_loc_slot = 0x0400; // slot location 10
+        public static uint test_loc_slot = 0x0400; // slot location 10
         //public static uint test_loc_slot = 0x1000; // slot location 12
         
         //// frame spi channel selection:
@@ -7892,7 +7924,7 @@ namespace __test__
         // loc_spi_group bit 2 = mother board spi M2
         //public static uint test_loc_spi_group = 0x0001; // spi M0 // for GNDU
         //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
-        //public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
+        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
         
         public static void Main(string[] args)
         {
