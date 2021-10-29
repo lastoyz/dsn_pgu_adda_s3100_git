@@ -3446,16 +3446,16 @@ namespace TopInstrument
         //private u32   EP_ADRS__TRIG_DAT_TI        = 0x49;
 
         private u32   EP_ADRS__ADCH_WI            = 0x18;
-        private u32   EP_ADRS__ADCH_FREQ_WI       = 0x1C;
+        //private u32   EP_ADRS__ADCH_FREQ_WI       = 0x1C;
         private u32   EP_ADRS__ADCH_UPD_SM_WI     = 0x1D;
         private u32   EP_ADRS__ADCH_SMP_PR_WI     = 0x1E;
         private u32   EP_ADRS__ADCH_DLY_TP_WI     = 0x1F;
         private u32   EP_ADRS__ADCH_WO            = 0x38;
         private u32   EP_ADRS__ADCH_B_FRQ_WO      = 0x39;
-        private u32   EP_ADRS__ADCH_DOUT0_WO      = 0x3C;
-        private u32   EP_ADRS__ADCH_DOUT1_WO      = 0x3D;
-        private u32   EP_ADRS__ADCH_DOUT2_WO      = 0x3E;
-        private u32   EP_ADRS__ADCH_DOUT3_WO      = 0x3F;
+        //private u32   EP_ADRS__ADCH_DOUT0_WO      = 0x3C;
+        //private u32   EP_ADRS__ADCH_DOUT1_WO      = 0x3D;
+        //private u32   EP_ADRS__ADCH_DOUT2_WO      = 0x3E;
+        //private u32   EP_ADRS__ADCH_DOUT3_WO      = 0x3F;
         private u32   EP_ADRS__ADCH_TI            = 0x58;
         private u32   EP_ADRS__ADCH_TO            = 0x78;
         private u32   EP_ADRS__ADCH_DOUT0_PO      = 0xBC;
@@ -5277,7 +5277,7 @@ namespace TopInstrument
             int    mode_undersampling        = 1        , // 0 for normal sampling, 1 for undersampling
             int    len_dft_coef              = 378      , //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
             double amplitude                 = 1.0      ,
-            double phase_diff                = Math.PI/2
+            double phase_diff                = Math.PI/2  //$$ IQ pairs : sin(x) and sin(x+phase_diff) // phase_diff must be pi/2.
         ) {
             // compute DFT coefficients: In-phase, Quadrature-phase
 
@@ -5464,10 +5464,10 @@ namespace TopInstrument
 
 
             //// calculate complex ratio
-            double[] cmp_ratio_info = dft_calc_impedance_ratio(iq_info[0], iq_info[1], iq_info[2], iq_info[3]);
+            double[] imp_ratio_info = dft_calc_impedance_ratio(iq_info[0], iq_info[1], iq_info[2], iq_info[3]);
 
 
-            return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf, iq_info, cmp_ratio_info);
+            return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf, iq_info, imp_ratio_info);
         }
 
         private void dft_log(char[] log_filename, 
@@ -5479,7 +5479,7 @@ namespace TopInstrument
             int    num_repeat_block_coef = 1, // 
             int    idx_offset_adc_data   = 0, //
             int     len_adc_buf = 0,    int[] adc_data_buf0_s32    = null,    int[] adc_data_buf1_s32    = null, // adc data
-            double[] iq_info = null, double[] cmp_ratio_info = null // IQ result
+            double[] iq_info = null, double[] imp_ratio_info = null // IQ result
             ) {
             // open or create a file
             string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_ADDA__vscode", "log"); //$$ TODO: logfile location in vs code
@@ -5540,8 +5540,8 @@ namespace TopInstrument
                 ws.WriteLine("NUM_REPEAT_BLOCK_COEF     = " + string.Format("{0}", num_repeat_block_coef)  ); 
                 ws.WriteLine("IDX_OFFSET_ADC_DATA       = " + string.Format("{0}", idx_offset_adc_data)  ); 
                 ws.WriteLine("LEN_SUM                   = " + string.Format("{0}", len_sum)  ); 
-                ws.WriteLine("IQ_INFO                   = [" + string.Join(", ", iq_info) + "]" ); 
-                ws.WriteLine("CMP_RATIO_INFO            = [" + string.Join(", ", cmp_ratio_info) + "]" ); 
+                ws.WriteLine("IQ_INFO                   = [" + string.Join(", ", iq_info) + "] ## ADC0_I,ADC0_Q,ADC1_I,ADC1_Q" ); 
+                ws.WriteLine("IMP_RATIO_INFO            = [" + string.Join(", ", imp_ratio_info) + "] ## Z_I,Z_Q,mag,phase,angle" ); 
                 //
                 ws.WriteLine(""); // newline
                 //
