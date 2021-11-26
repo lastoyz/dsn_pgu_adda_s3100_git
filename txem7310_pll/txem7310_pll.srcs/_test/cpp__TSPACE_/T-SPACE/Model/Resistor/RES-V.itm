@@ -1,0 +1,16 @@
+[Device_info]
+TestModelName=Resistor
+NPLC=Medium
+Mode=V-Mode
+[SMU_Channel]
+Resistor=SMU1
+Resistor_g=SMU2
+[SMU_Setup]
+Start=0
+Stop=10
+Step=0.1
+Output_V=0
+Input_Icom=100m
+Output_Icom=100m
+HoldTime=2
+DelayTime=0
