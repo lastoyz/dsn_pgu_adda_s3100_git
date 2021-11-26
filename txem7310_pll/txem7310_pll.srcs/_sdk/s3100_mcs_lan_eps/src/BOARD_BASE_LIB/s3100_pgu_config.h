@@ -633,6 +633,22 @@ extern "C" {
 #define EP_ADRS__TRIG_DAT_WI        0x09 // new
 #define EP_ADRS__TRIG_DAT_WO        0x29 // new
 #define EP_ADRS__TRIG_DAT_TI        0x49 // new
+//$$ new for S3100-ADDA
+#define EP_ADRS__ADCH_WI            0x18
+#define EP_ADRS__ADCH_FREQ_WI       0x1C // used
+#define EP_ADRS__ADCH_UPD_SM_WI     0x1D
+#define EP_ADRS__ADCH_SMP_PR_WI     0x1E
+#define EP_ADRS__ADCH_DLY_TP_WI     0x1F
+#define EP_ADRS__ADCH_WO            0x38
+#define EP_ADRS__ADCH_B_FRQ_WO      0x39
+#define EP_ADRS__ADCH_DOUT0_WO      0x3C // used
+#define EP_ADRS__ADCH_DOUT1_WO      0x3D // used
+#define EP_ADRS__ADCH_DOUT2_WO      0x3E // used
+#define EP_ADRS__ADCH_DOUT3_WO      0x3F // used
+#define EP_ADRS__ADCH_TI            0x58
+#define EP_ADRS__ADCH_TO            0x78
+#define EP_ADRS__ADCH_DOUT0_PO      0xBC
+#define EP_ADRS__ADCH_DOUT1_PO      0xBD
 
 //
 #define ADRS__FPGA_IMAGE_ID_WO      ( MCS_EP_BASE + (EP_ADRS__FPGA_IMAGE_ID_WO  <<4) )
@@ -676,6 +692,23 @@ extern "C" {
 #define ADRS__TRIG_DAT_WI           ( MCS_EP_BASE + (EP_ADRS__TRIG_DAT_WI       <<4) )
 #define ADRS__TRIG_DAT_WO           ( MCS_EP_BASE + (EP_ADRS__TRIG_DAT_WO       <<4) )
 #define ADRS__TRIG_DAT_TI           ( MCS_EP_BASE + (EP_ADRS__TRIG_DAT_TI       <<4) )
+//$$ new for S3100-ADDA
+//#define EP_ADRS__ADCH_WI            0x18
+//#define EP_ADRS__ADCH_FREQ_WI       0x1C // used
+//#define EP_ADRS__ADCH_UPD_SM_WI     0x1D
+//#define EP_ADRS__ADCH_SMP_PR_WI     0x1E
+//#define EP_ADRS__ADCH_DLY_TP_WI     0x1F
+//#define EP_ADRS__ADCH_WO            0x38
+//#define EP_ADRS__ADCH_B_FRQ_WO      0x39
+//#define EP_ADRS__ADCH_DOUT0_WO      0x3C // used
+//#define EP_ADRS__ADCH_DOUT1_WO      0x3D // used
+//#define EP_ADRS__ADCH_DOUT2_WO      0x3E // used
+//#define EP_ADRS__ADCH_DOUT3_WO      0x3F // used
+//#define EP_ADRS__ADCH_TI            0x58
+//#define EP_ADRS__ADCH_TO            0x78
+//#define EP_ADRS__ADCH_DOUT0_PO      0xBC
+//#define EP_ADRS__ADCH_DOUT1_PO      0xBD
+
 
 //
 #endif

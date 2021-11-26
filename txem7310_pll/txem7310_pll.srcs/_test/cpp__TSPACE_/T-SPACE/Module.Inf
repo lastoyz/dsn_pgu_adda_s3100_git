@@ -1,0 +1,23 @@
+[N/A]
+Module=
+Model=
+Type=
+Description=
+
+[S3010]
+Module=SMU
+Type=MPSMU
+Description=Medium Power SMU : 2W, 100V/100mA
+
+[S3050]
+Module=CMU
+Type=MFCMU
+Description=Multi-Frequency Capacitance Measurement Unit : 10Khz~5Mhz
+
+[S3060]
+Module=PGU
+Type=HVPGU
+Description=High Voltage Pulse Generator Unit : -40V ~ +40V
+
+
+

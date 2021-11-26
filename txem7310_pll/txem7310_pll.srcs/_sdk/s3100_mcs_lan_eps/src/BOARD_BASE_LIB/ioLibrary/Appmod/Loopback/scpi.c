@@ -1567,17 +1567,39 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//  	end
 					//  endtask
 					
+					//// remap parameter for S3000/S3100-PGU
 					// val == 0x00000001 --> val = 0x00000010
 					// val == 0x00010000 --> val = 0x00000020
 					// val == 0x00010001 --> val = 0x00000030
+					//if      (val == 0x00000001) val = 0x00000010;
+					//else if (val == 0x00010000) val = 0x00000020;
+					//else if (val == 0x00010001) val = 0x00000030;
+					//else                        val = 0x00000000;
 
-					if      (val == 0x00000001) val = 0x00000010;
-					else if (val == 0x00010000) val = 0x00000020;
-					else if (val == 0x00010001) val = 0x00000030;
+					//// remap parameter for S3100-ADDA adc-linked trigger
+					//wire w_enable_dac0_bias           = r_cid_reg_ctrl[0];
+					//wire w_enable_dac1_bias           = r_cid_reg_ctrl[1];
+					//wire w_enable_dac0_pulse_out_seq  = r_cid_reg_ctrl[2];
+					//wire w_enable_dac1_pulse_out_seq  = r_cid_reg_ctrl[3];
+					//
+					//wire w_enable_dac0_pulse_out_fifo = r_cid_reg_ctrl[4];
+					//wire w_enable_dac1_pulse_out_fifo = r_cid_reg_ctrl[5];
+					//wire w_rst_dac0_fifo              = r_cid_reg_ctrl[6]; //$$ false path try
+					//wire w_rst_dac1_fifo              = r_cid_reg_ctrl[7]; //$$ false path try
+					//
+					//wire w_force_trig_out             = r_cid_reg_ctrl[8];// new control for trig out
+
+					if      (val == 0x00000001) val = 0x00000110;
+					else if (val == 0x00010000) val = 0x00000120;
+					else if (val == 0x00010001) val = 0x00000130;
 					else                        val = 0x00000000;
-					
+
 					//xil_printf("val = 0x%08X\r\n", val); // test
 					
+					//$$ reset adc fifo for S3100-ADDA // try without done check
+					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__ADCH_TI, 4); //(u32 adrs_base, u32 offset, u32 bit_loc);
+
+					// send trigger info
 					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);
 					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__DACZ_DAT_TI, 12); //(u32 adrs_base, u32 offset, u32 bit_loc);
 					

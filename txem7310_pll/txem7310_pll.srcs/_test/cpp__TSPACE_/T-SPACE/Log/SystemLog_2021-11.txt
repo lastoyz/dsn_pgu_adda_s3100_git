@@ -1,0 +1,57 @@
+[2021-11-25] [오후 8:50:35] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 11:13:17] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 11:13:26] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 11:14:07] [ Log ] : [System] Run
+[2021-11-26] [오전 11:14:07] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오전 11:14:14] [ Log ] : [System] Run
+[2021-11-26] [오전 11:14:14] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오전 11:18:06] [ Log ] : [System] Run
+[2021-11-26] [오전 11:18:06] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오전 11:19:06] [ Log ] : [System] Run
+[2021-11-26] [오전 11:19:06] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오전 11:19:12] [ Log ] : [System] Run
+[2021-11-26] [오전 11:19:12] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 3:44:45] [ Log ] : [System] Run
+[2021-11-26] [오후 3:44:45] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 3:45:12] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오후 3:45:20] [ Log ] : [System] Setup Load
+[2021-11-26] [오후 3:45:24] [ Log ] : [System] Run
+[2021-11-26] [오후 3:45:25] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 3:45:29] [ Log ] : [Exception Error] System.Exception: Error in sendall소켓이 연결되어 있지 않거나 Sendto 호출을 사용하여 데이터그램 소켓에 보내는 경우에 주소가 제공되지 않아서 데이터를 보내거나 받도록 요청할 수 없습니다
+   위치: TopInstrument.TOP_PGU.scpi_comm_resp_ss(Socket ss, Byte[] cmd_str, Int32 BUF_SIZE_NORMAL, Int32 INTVAL) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 331
+   위치: TopInstrument.TOP_PGU.load_pgu_waveform_Cid(Int32 Ch, Int64[] len_fifo_data, String[] pulse_info_num_block_str) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1756
+   위치: TopInstrument.TOP_PGU.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int64[] StepTime, Double[] StepLevel) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1927
+   위치: Sta2CLI.TPI.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int32 stepCount, Int64[] stepTime, Double[] stepLevel) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\TPI.vb:줄 4845
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 991
+   위치: Sta2CLI.Form1.Run() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 1638
+   위치: Sta2CLI.Form1.Button_Button_Run_Click(Object sender, EventArgs e) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 4372
+[2021-11-26] [오후 3:47:14] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오후 3:47:22] [ Log ] : [System] Setup Load
+[2021-11-26] [오후 3:47:34] [ Log ] : [System] Run
+[2021-11-26] [오후 3:47:34] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 3:47:43] [ Log ] : [System] Run
+[2021-11-26] [오후 3:47:43] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 3:49:23] [ Log ] : [System] Run
+[2021-11-26] [오후 3:49:23] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 3:50:24] [ Log ] : [System] Run
+[2021-11-26] [오후 3:50:25] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 3:50:32] [ Log ] : [System] Run
+[2021-11-26] [오후 3:50:32] [ Log ] : [System] Setup_File : PGU_Control
+[2021-11-26] [오후 4:12:23] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오후 4:12:31] [ Log ] : [System] Setup Load
+[2021-11-26] [오후 4:13:33] [ Log ] : [System] Setup Save As
+[2021-11-26] [오후 4:14:09] [ Log ] : [System] Setup Save
+[2021-11-26] [오후 4:15:11] [ Log ] : [System] Run
+[2021-11-26] [오후 4:15:12] [ Log ] : [System] Setup_File : PGU_Con__5000ns
+[2021-11-26] [오후 4:19:30] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오후 4:19:38] [ Log ] : [System] Setup Load
+[2021-11-26] [오후 4:19:42] [ Log ] : [System] Run
+[2021-11-26] [오후 4:19:42] [ Log ] : [System] Setup_File : PGU_Con__5000ns
+[2021-11-26] [오후 4:19:53] [ Log ] : [System] Run
+[2021-11-26] [오후 4:19:53] [ Log ] : [System] Setup_File : PGU_Con__5000ns
+[2021-11-26] [오후 4:20:30] [ Log ] : [System] Run
+[2021-11-26] [오후 4:20:30] [ Log ] : [System] Setup_File : PGU_Con__5000ns
+[2021-11-26] [오후 5:58:59] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오후 5:59:07] [ Log ] : [System] Setup Load
+[2021-11-26] [오후 5:59:12] [ Log ] : [System] Run
+[2021-11-26] [오후 5:59:12] [ Log ] : [System] Setup_File : PGU_Con__5000ns
