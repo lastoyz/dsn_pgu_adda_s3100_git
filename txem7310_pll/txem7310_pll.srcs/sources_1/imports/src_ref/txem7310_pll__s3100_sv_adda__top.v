@@ -70,6 +70,7 @@
 // |       |               |            |            |                            | bit[24]=loopback_en            |
 // |       |               |            |            |                            | bit[20:16]=miso_timing_control | 
 // |       |               |            |            |                            | bit[ 3]=HW_reset               |
+// |       |               |            |            |                            | bit[ 1]=LAN_EPS_disable        |
 // |       |               |            |            |                            | bit[ 0]=reserved               |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | SSPI  | SSPI_FLAG_WO  | 0x0C8      | wire_in_32 | Control slave SPI bus.     | bit[31:24]=board_status[7:0]   | 
@@ -954,7 +955,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_1019   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_1126   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -976,7 +977,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1001; // S3100-ADDA // rev adc data line swap fixed
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1006; // S3100-ADDA // add pattern gen linked adc-upate
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1008; // S3100-ADDA // adc base freq test 210MHz --> 189MHz
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1019; // S3100-ADDA // adc base freq support 210MHz, 189MHz; fifo for 63MHz.
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_1019; // S3100-ADDA // adc base freq support 210MHz, 189MHz; fifo for 63MHz.
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1126; // S3100-ADDA // rev SSPI control for disabling LAN EP
 
 //}
 
@@ -2430,12 +2432,15 @@ wire [31:0] w_BRD_CON = w_port_wi_03_1; //$$ board control from LAN
 //wire w_rst_spo      = w_BRD_CON[4]; 
 
 // endpoint mux enable : LAN(MCS) vs SSPI
-wire w_mcs_ep_po_en = w_BRD_CON[ 8]; 
-wire w_mcs_ep_pi_en = w_BRD_CON[ 9]; 
-wire w_mcs_ep_to_en = w_BRD_CON[10]; 
-wire w_mcs_ep_ti_en = w_BRD_CON[11];  
-wire w_mcs_ep_wo_en = w_BRD_CON[12]; 
-wire w_mcs_ep_wi_en = w_BRD_CON[13]; 
+//
+wire w_mcs_ep_disable; // SSPI EPS has control over LAN EPS
+//
+wire w_mcs_ep_po_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[ 8]; 
+wire w_mcs_ep_pi_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[ 9]; 
+wire w_mcs_ep_to_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[10]; 
+wire w_mcs_ep_ti_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[11];  
+wire w_mcs_ep_wo_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[12]; 
+wire w_mcs_ep_wi_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[13]; 
 
 //}
 
@@ -2545,6 +2550,8 @@ assign ep32wire = w_SSPI_FLAG_WO; //$$ ep22wire --> ep23wire --> ep32wire
 //wire w_HW_reset__ext; // from SSPI
 //wire w_HW_reset = w_SSPI_CON_WI[3] | w_HW_reset__ext | w_BRD_CON[0] ; //$$
 wire w_HW_reset = w_SSPI_CON_WI[3] | w_BRD_CON[0] ; //$$
+
+assign w_mcs_ep_disable = w_SSPI_CON_WI[1]; // disable LAN EPS control
 
 wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_MTH_SPI_emulation__en ??
 
