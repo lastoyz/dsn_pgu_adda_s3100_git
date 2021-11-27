@@ -86,13 +86,12 @@ set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
   set_param xicom.use_bs_reader 1
-  set_param tcl.collectionResultDisplayLimit 0
   open_checkpoint txem7310_pll__s3100_sv_adda__top_routed.dcp
-  set_property webtalk.parent_dir /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.cache/wt [current_project]
+  set_property webtalk.parent_dir /media/sf_temp/dsn_s3100_sv_adda_git/txem7310_pll/txem7310_pll.cache/wt [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
-  add_files /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf
-  set_property SCOPED_TO_REF microblaze_mcs_1 [get_files -all /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
-  set_property SCOPED_TO_CELLS inst/microblaze_I [get_files -all /media/sf_temp/dsn_adda_s3100_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
+  add_files /media/sf_temp/dsn_s3100_sv_adda_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf
+  set_property SCOPED_TO_REF microblaze_mcs_1 [get_files -all /media/sf_temp/dsn_s3100_sv_adda_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
+  set_property SCOPED_TO_CELLS inst/microblaze_I [get_files -all /media/sf_temp/dsn_s3100_sv_adda_git/txem7310_pll/txem7310_pll.srcs/sources_1/ip/microblaze_mcs_1/bd_0/ip/ip_0/data/mb_bootloop_le.elf]
   catch { write_mem_info -force txem7310_pll__s3100_sv_adda__top.mmi }
   catch { write_bmm -force txem7310_pll__s3100_sv_adda__top_bd.bmm }
   write_bitstream -force txem7310_pll__s3100_sv_adda__top.bit -bin_file
