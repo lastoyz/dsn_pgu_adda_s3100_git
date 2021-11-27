@@ -978,7 +978,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1006; // S3100-ADDA // add pattern gen linked adc-upate
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1008; // S3100-ADDA // adc base freq test 210MHz --> 189MHz
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1019; // S3100-ADDA // adc base freq support 210MHz, 189MHz; fifo for 63MHz.
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1126; // S3100-ADDA // rev SSPI control for disabling LAN EP
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_1126; // S3100-ADDA // rev SSPI control for disabling LAN EP
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1127; // S3100-ADDA // rev hsadc reset and enable to hole parameter setting.
 
 //}
 
@@ -2433,14 +2434,14 @@ wire [31:0] w_BRD_CON = w_port_wi_03_1; //$$ board control from LAN
 
 // endpoint mux enable : LAN(MCS) vs SSPI
 //
-wire w_mcs_ep_disable; // SSPI EPS has control over LAN EPS
+(* keep = "true" *) wire w_mcs_ep_disable; // SSPI EPS has control over LAN EPS
 //
-wire w_mcs_ep_po_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[ 8]; 
-wire w_mcs_ep_pi_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[ 9]; 
-wire w_mcs_ep_to_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[10]; 
-wire w_mcs_ep_ti_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[11];  
-wire w_mcs_ep_wo_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[12]; 
-wire w_mcs_ep_wi_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[13]; 
+(* keep = "true" *) wire w_mcs_ep_po_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[ 8]; 
+(* keep = "true" *) wire w_mcs_ep_pi_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[ 9]; 
+(* keep = "true" *) wire w_mcs_ep_to_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[10]; 
+(* keep = "true" *) wire w_mcs_ep_ti_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[11];  
+(* keep = "true" *) wire w_mcs_ep_wo_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[12]; 
+(* keep = "true" *) wire w_mcs_ep_wi_en = (w_mcs_ep_disable)? 1'b0 : w_BRD_CON[13]; 
 
 //}
 
@@ -2553,7 +2554,7 @@ wire w_HW_reset = w_SSPI_CON_WI[3] | w_BRD_CON[0] ; //$$
 
 assign w_mcs_ep_disable = w_SSPI_CON_WI[1]; // disable LAN EPS control
 
-wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_MTH_SPI_emulation__en ??
+(* keep = "true" *) wire w_SSPI_TEST_mode_en; //$$ hw emulation for mother board master spi //$$ w_MTH_SPI_emulation__en ??
 
 
 wire [31:0] w_MSPI_CON_WI   = w_port_wi_17_1; //$$ MSPI frame data
@@ -3346,7 +3347,8 @@ dac_pattern_gen_wrapper__dsp  dac_pattern_gen_wrapper__inst (
 
 // control wires //{
 wire        w_hsadc_reset             = w_ADCH_TI[0];  assign w_ADCH_TO[0] = w_hsadc_reset;
-wire        w_hsadc_en                = w_ADCH_WI[0];  assign w_ADCH_WO[0] = w_hsadc_en;
+//$$wire        w_hsadc_en                = w_ADCH_WI[0];  assign w_ADCH_WO[0] = w_hsadc_en;
+wire        w_hsadc_en = 1'b1; //$$ not to cause reset at the moment of EPS transition....
 
 wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
 wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2] | w_dac_pttn_trig_out; // linked with PGU pattern
