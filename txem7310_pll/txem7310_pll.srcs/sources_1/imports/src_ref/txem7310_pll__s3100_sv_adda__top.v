@@ -955,7 +955,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_1126   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_1129   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -979,7 +979,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1008; // S3100-ADDA // adc base freq test 210MHz --> 189MHz
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1019; // S3100-ADDA // adc base freq support 210MHz, 189MHz; fifo for 63MHz.
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1126; // S3100-ADDA // rev SSPI control for disabling LAN EP
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1127; // S3100-ADDA // rev hsadc reset and enable to hole parameter setting.
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_1127; // S3100-ADDA // rev hsadc reset and enable to hole parameter setting.
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1129; // S3100-ADDA // rev ADC ready control 
 
 //}
 
@@ -2759,8 +2760,8 @@ wire        c_TEST_FIFO  = (w_mcs_ep_po_en & ~w_SSPI_TEST_mode_en)?        mcs_c
 (* keep = "true" *) wire [31:0] w_ADCH_TI     = w_port_ti_58_1 | ep58trig ;
 
 (* keep = "true" *) wire [31:0] w_ADCH_TO;
-assign w_port_to_78_1     = ( w_mcs_ep_to_en & ~w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
-assign         ep78trig   = (~w_mcs_ep_to_en |  w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
+assign w_port_to_78_1     = w_ADCH_TO; //$$ support both LAN and SSPI // ( w_mcs_ep_to_en & ~w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
+assign         ep78trig   = w_ADCH_TO; //$$ support both LAN and SSPI // (~w_mcs_ep_to_en |  w_SSPI_TEST_mode_en)? w_ADCH_TO : 32'b0; 
 
 (* keep = "true" *) wire [31:0] w_ADCH_DOUT0_PO;  assign w_port_po_BC_1 = w_ADCH_DOUT0_PO;  assign epBCpipe = w_ADCH_DOUT0_PO;
 (* keep = "true" *) wire [31:0] w_ADCH_DOUT1_PO;  assign w_port_po_BD_1 = w_ADCH_DOUT1_PO;  assign epBDpipe = w_ADCH_DOUT1_PO;
@@ -3350,14 +3351,16 @@ wire        w_hsadc_reset             = w_ADCH_TI[0];  assign w_ADCH_TO[0] = w_h
 //$$wire        w_hsadc_en                = w_ADCH_WI[0];  assign w_ADCH_WO[0] = w_hsadc_en;
 wire        w_hsadc_en = 1'b1; //$$ not to cause reset at the moment of EPS transition....
 
+wire        w_update_ready; //$$ to prevent multiple trigger from GUI
+
 wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
-wire        w_hsadc_update            = w_ADCH_WI[2] | w_ADCH_TI[2] | w_dac_pttn_trig_out; // linked with PGU pattern
+wire        w_hsadc_update            = w_update_ready & (w_ADCH_WI[2] | w_ADCH_TI[2] | w_dac_pttn_trig_out); // linked with PGU pattern
 wire        w_hsadc_test              = w_ADCH_WI[3] | w_ADCH_TI[3];
 
-wire        w_hsadc_fifo_rst          = w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;
+wire        w_hsadc_fifo_rst          = w_update_ready & w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;
 
 wire        w_hsadc_init_done         ;  assign w_ADCH_WO[1] = w_hsadc_init_done  ;
-wire        w_hsadc_update_done       ;  assign w_ADCH_WO[2] = w_hsadc_update_done;
+wire        w_hsadc_update_done       ;  assign w_ADCH_WO[2] = w_hsadc_update_done; assign w_update_ready = w_hsadc_update_done;
 wire        w_hsadc_test_done         ;  assign w_ADCH_WO[3] = w_hsadc_test_done  ;
 
 wire        w_hsadc_init_done_to      ;  assign w_ADCH_TO[1] = w_hsadc_init_done_to  ;
