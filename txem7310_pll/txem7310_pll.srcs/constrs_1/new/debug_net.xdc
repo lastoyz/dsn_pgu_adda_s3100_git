@@ -195,12 +195,12 @@ set_property MARK_DEBUG true [get_nets  w_SSPI_TEST_mode_en ]
 
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc0_din[*] ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc0_wr_ack ]
-#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc0_dout[*]]
-#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_adc0_rd_en  ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc0_dout[*]]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_adc0_rd_en  ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc1_din[*] ]
 set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc1_wr_ack ]
-#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc1_dout[*]]
-#set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_adc1_rd_en  ]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/o_hsadc_fifo_adc1_dout[*]]
+set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_adc1_rd_en  ]
 
 
 #set_property MARK_DEBUG true [get_nets  w_ADCH_WI[*] ]

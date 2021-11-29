@@ -1201,8 +1201,8 @@ always @(posedge clk, negedge reset_n)
 		state       		<= SEQ_READY;
 		//
 		r_init_done     	<= 1'b0;
-		r_update_done     	<= 1'b0;
-		r_test_done     	<= 1'b0;
+		r_update_done     	<= 1'b1; //$$ 
+		r_test_done     	<= 1'b1; //$$ 
 		//
 		r_init_busy     	<= 1'b0;
 		r_update_busy     	<= 1'b0;

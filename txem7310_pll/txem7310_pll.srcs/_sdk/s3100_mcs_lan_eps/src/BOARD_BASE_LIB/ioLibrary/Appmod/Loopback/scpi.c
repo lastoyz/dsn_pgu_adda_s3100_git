@@ -960,17 +960,20 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 				}
 				else if (0==strncmp("ON", (char*)&buf[loc], 2)) {
 					// local var
-					u32 val_s0;
-					u32 val_s1;
+					//$$u32 val_s0;
+					//$$u32 val_s1;
 
 					// read power status 
-					val = pgu_spio_ext_pwr_led_readback();
-					val_s0 = (val>>0) & 0x0001;
-					val_s1 = (val>>1) & 0x0001;
+					//$$val = pgu_spio_ext_pwr_led_readback();
+					//$$val_s0 = (val>>0) & 0x0001;
+					//$$val_s1 = (val>>1) & 0x0001;
 					// DAC power on
-					pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0, 1, 1); // (led, pwr_dac, pwr_adc, pwr_amp,  pwr_p5v_dac, pwr_n5v_dac)
+					//$$pgu_spio_ext_pwr_led(1, 1, val_s1, val_s0, 1, 1); // (led, pwr_dac, pwr_adc, pwr_amp,  pwr_p5v_dac, pwr_n5v_dac)
+					// powers on in S3100-ADDA
+					pgu_spio_ext_pwr_led(1, 1, 1, 1, 1, 1); // (led, pwr_dac, pwr_adc, pwr_amp,  pwr_p5v_dac, pwr_n5v_dac)
 					// DAC power on
 					//pgu_spio_ext_pwr_led(1, 1, 0, 0); // test for no amp power
+					//
 					//
 					usleep(500); // 500us
 					//
@@ -1257,7 +1260,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					loc = loc + 2; // locate the numeric parameter head
 					val = hexstr2data_u32((u8*)(buf+loc),4); //
 					// set repeat data
-					pgu_spio_ext__send_aux_IO_CON(val);
+					//$$pgu_spio_ext__send_aux_IO_CON(val); //$$ pending in S3100-ADDA
 				 	//
 				 	p_rsp_str = rsp_str__OK;
 				 }
@@ -1301,7 +1304,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					loc = loc + 2; // locate the numeric parameter head
 					val = hexstr2data_u32((u8*)(buf+loc),4); //
 					// set repeat data
-					pgu_spio_ext__send_aux_IO_OLAT(val);
+					//$$pgu_spio_ext__send_aux_IO_OLAT(val); //$$ pending in S3100-ADDA
 				 	//
 				 	p_rsp_str = rsp_str__OK;
 				 }
@@ -1345,7 +1348,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					loc = loc + 2; // locate the numeric parameter head
 					val = hexstr2data_u32((u8*)(buf+loc),4); //
 					// set repeat data
-					pgu_spio_ext__send_aux_IO_DIR(val);
+					//$$pgu_spio_ext__send_aux_IO_DIR(val); //$$ pending in S3100-ADDA
 				 	//
 				 	p_rsp_str = rsp_str__OK;
 				 }
@@ -1389,7 +1392,7 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					loc = loc + 2; // locate the numeric parameter head
 					val = hexstr2data_u32((u8*)(buf+loc),4); //
 					// set repeat data
-					pgu_spio_ext__send_aux_IO_GPIO(val);
+					//$$pgu_spio_ext__send_aux_IO_GPIO(val); //$$ pending in S3100-ADDA
 				 	//
 				 	p_rsp_str = rsp_str__OK;
 				 }
@@ -1598,6 +1601,9 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					
 					//$$ reset adc fifo for S3100-ADDA // try without done check
 					activate_mcs_ep_ti(MCS_EP_BASE, EP_ADRS__ADCH_TI, 4); //(u32 adrs_base, u32 offset, u32 bit_loc);
+
+					// delay
+					usleep(1000); // 1000us
 
 					// send trigger info
 					write_mcs_ep_wi(MCS_EP_BASE, EP_ADRS__DACZ_DAT_WI, val, 0xFFFFFFFF);//(u32 adrs_base, u32 offset, u32 data, u32 mask);

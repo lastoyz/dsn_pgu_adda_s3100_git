@@ -2014,6 +2014,25 @@ u32  pgu_sp_1_reg_write_b16(u32 reg_adrs_b8, u32 val_b16) {
 //   pwr_p5v_dac used in PGU-S3100
 //   pwr_n5v_dac used in PGU-S3100
 void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 pwr_p5v_dac, u32 pwr_n5v_dac) {
+    // SP1 pin map: in S3100
+    //  SP1_GPB7 = AUX_CS_B           // o
+    //  SP1_GPB6 = AUX_SCLK           // o
+    //  SP1_GPB5 = AUX_MOSI           // o
+    //  SP1_GPB4 = AUX_MISO           // i
+    //  SP1_GPB3 = USER_LED           // o
+    //  SP1_GPB2 = PWR_ANAL_DAC_ON    // o
+    //  SP1_GPB1 = PWR_ANAL_ON (ADC)  // o
+    //  SP1_GPB0 = PWR_AMP_ON         // o  // reserved // with pwr_amp
+    //
+    //  SP1_GPA7 = SLOT_ID3_BUF       // i
+    //  SP1_GPA6 = SLOT_ID2_BUF       // i
+    //  SP1_GPA5 = SLOT_ID1_BUF       // i
+    //  SP1_GPA4 = SLOT_ID0_BUF       // i
+    //  SP1_GPA3 = NA                 // o
+    //  SP1_GPA2 = PWR_AMP_DAC_ON     // o  // 5/-5V dac amp power enable // shared with pwr_amp
+    //  SP1_GPA1 = SW_RL_K2           // o
+    //  SP1_GPA0 = SW_RL_K1           // o
+
 	//
 	u32 dir_read;
 	u32 lat_read;
@@ -2027,7 +2046,8 @@ void pgu_spio_ext_pwr_led(u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 pw
 	//# set IO direction for SP1 PB[3:0] - all output
 	//# set IO direction for SP1 PA[3:2] - all output // new in S3100-PGU
 	//pgu_sp_1_reg_write_b16(0x00, dir_read & 0xFFF0);
-	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xF3F0);
+	//$$pgu_sp_1_reg_write_b16(0x00, dir_read & 0xF3F0);
+	pgu_sp_1_reg_write_b16(0x00, dir_read & 0xF010); //$$ S3100-ADDA
 	//# set IO for SP1 PB[3:0]
 	u32 val = (lat_read & 0xF3F0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0) ) | ( (pwr_n5v_dac<<11) + (pwr_p5v_dac<<10));
 	pgu_sp_1_reg_write_b16(0x12,val);
