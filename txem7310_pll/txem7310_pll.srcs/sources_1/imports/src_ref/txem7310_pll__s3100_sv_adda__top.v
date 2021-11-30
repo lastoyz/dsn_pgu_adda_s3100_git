@@ -564,6 +564,8 @@ module txem7310_pll__s3100_sv_adda__top (
 
 	//// BANK B14 //{
 	
+	//$$ no user pin used in S3100-CMU-ADDA
+	
 	// # IO_0_14                         # P20  # NA                        
 	// # IO_B14_L1P_D00_MOSI             # P22  # FPGA_CFG_D0     (*)       
 	// # IO_B14_L1N_D01_DIN              # R22  # FPGA_CFG_D1     (*)       
@@ -735,45 +737,46 @@ module txem7310_pll__s3100_sv_adda__top (
 	//}
 
 
-	//// BANK 13 34 35 signals in connectors
+	//// BANK 13 34 35 signals in previous connectors
 	
 	//// BANK B13 //{
 	
-	// # IO_B13_0_                       , // # Y17            # NA
-	output wire			 o_B13_L1P       , // # Y16  # MC1-75  ## SPIO1_CS    
-	inout  wire			io_B13_L1N       , // # AA16 # MC1-76  ## S_IO_2    
-	output wire			 o_B13_L2P       , // # AB16 # MC1-67  ## M2_SPI_RX_EN_SLAVE
-	output wire			 o_B13_L2N       , // # AB17 # MC1-69  ## SPIOx_SCLK  
-	output wire			 o_B13_L3P       , // # AA13 # MC1-68  ## DACx_SDIO   
-	input  wire			 i_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO    
-	output wire			 o_B13_L4P       , // # AA15 # MC1-71  ## SPIOx_MOSI  
-	input  wire			 i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO  
-	output wire			 o_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS     
-	output wire			 o_B13_L5N       , // # AA14 # MC1-66  ## DACx_SCLK   
-	input  wire			 i_B13_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF
-	input  wire			 i_B13_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK
-	output wire			 o_B13_L7P       , // # AB11 # MC1-8   ## DACx_RST_B  
-	output wire			 o_B13_L7N       , // # AB12 # MC2-11  ## CLKD_SYNC   
-	// # IO_B13_L8P                      , // # AA9            # NA
-	//input  wire  i_B13_L8N             , // # AB10           # NA
-	//output wire  o_B13_L9P             , // # AA10           # NA
-	//output wire  o_B13_L9N             , // # AA11           # NA
-	//input  wire  i_B13_L10P            , // # V10            # NA
-	//input  wire  i_B13_L10N            , // # W10            # NA
-	output wire			o_B13_L11P_SRCC  , // # Y11  # MC2-75  ## M2_SPI_TX_EN_SLAVE
-	input  wire			i_B13_L11N_SRCC  , // # Y12  # MC2-76  ## M2_SPI_MOSI     
-	// # IO_B13_L12P_MRCC                , // # W11            ## clocks sys_clkp (*)
-	// # IO_B13_L12N_MRCC                , // # W12            ## clocks sys_clkn (*)
-	input  wire			 c_B13D_L13P_MRCC, // # V13  # MC2-71  ## CLKD_COUT_P                     
-	input  wire			 c_B13D_L13N_MRCC, // # V14  # MC2-73  ## CLKD_COUT_N                     
-	input  wire			 i_B13D_L14P_SRCC, // # U15  # MC2-64  ## TRIG_IN_P    //                 
-	input  wire			 i_B13D_L14N_SRCC, // # V15  # MC2-66  ## TRIG_IN_N    //                 
-	output wire			 o_B13_L15P      , // # T14  # MC2-68  ## TRIG_OUT_P   //$$ B13 LVCMOS25  
-	output wire			 o_B13_L15N      , // # T15  # MC2-70  ## TRIG_OUT_N   //$$ B13 LVCMOS25  
-	output wire			 o_B13_L16P      , // # W15  # MC1-72  ## DAC0_CS                         
-	inout  wire			io_B13_L16N      , // # W16  # MC1-74  ## S_IO_1                          
-	output wire			 o_B13_L17P      , // # T16  # MC2-67  ## M2_SPI_MISO_B
-	output wire			 o_B13_L17N      , // # U16  # MC2-69  ## M2_SPI_RX_CLK_B
+	//                                                         ##[S3100-PGU-ADDA]                 ##[S3100-CMU-ADDA]
+	// # IO_B13_0_                       , // # Y17            # NA                               ## S_IO_2
+	output wire			 o_B13_L1P       , // # Y16  # MC1-75  ## SPIO1_CS                        ## NA
+	inout  wire			io_B13_L1N       , // # AA16 # MC1-76  ## S_IO_2                          ##
+	output wire			 o_B13_L2P       , // # AB16 # MC1-67  ## M2_SPI_RX_EN_SLAVE              ##
+	output wire			 o_B13_L2N       , // # AB17 # MC1-69  ## SPIOx_SCLK                      ##
+	output wire			 o_B13_L3P       , // # AA13 # MC1-68  ## DACx_SDIO                       ##
+	input  wire			 i_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO                        ##
+	output wire			 o_B13_L4P       , // # AA15 # MC1-71  ## SPIOx_MOSI                      ##
+	input  wire			 i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO                      ##
+	output wire			 o_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS                         ##
+	output wire			 o_B13_L5N       , // # AA14 # MC1-66  ## DACx_SCLK                       ##
+	input  wire			 i_B13_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF                   ##
+	input  wire			 i_B13_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK                   ##
+	output wire			 o_B13_L7P       , // # AB11 # MC1-8   ## DACx_RST_B                      ##
+	output wire			 o_B13_L7N       , // # AB12 # MC2-11  ## CLKD_SYNC                       ##
+	// # IO_B13_L8P                      , // # AA9            # NA                               ##
+	//input  wire  i_B13_L8N             , // # AB10           # NA                               ##
+	//output wire  o_B13_L9P             , // # AA10           # NA                               ##
+	//output wire  o_B13_L9N             , // # AA11           # NA                               ##
+	//input  wire  i_B13_L10P            , // # V10            # NA                               ##
+	//input  wire  i_B13_L10N            , // # W10            # NA                               ##
+	output wire			o_B13_L11P_SRCC  , // # Y11  # MC2-75  ## M2_SPI_TX_EN_SLAVE              ##
+	input  wire			i_B13_L11N_SRCC  , // # Y12  # MC2-76  ## M2_SPI_MOSI                     ##
+	// # IO_B13_L12P_MRCC                , // # W11            ## clocks sys_clkp (*)             ##
+	// # IO_B13_L12N_MRCC                , // # W12            ## clocks sys_clkn (*)             ##
+	input  wire			 c_B13D_L13P_MRCC, // # V13  # MC2-71  ## CLKD_COUT_P                     ##
+	input  wire			 c_B13D_L13N_MRCC, // # V14  # MC2-73  ## CLKD_COUT_N                     ##
+	input  wire			 i_B13D_L14P_SRCC, // # U15  # MC2-64  ## TRIG_IN_P    //                 ##
+	input  wire			 i_B13D_L14N_SRCC, // # V15  # MC2-66  ## TRIG_IN_N    //                 ##
+	output wire			 o_B13_L15P      , // # T14  # MC2-68  ## TRIG_OUT_P   //$$ B13 LVCMOS25  ##
+	output wire			 o_B13_L15N      , // # T15  # MC2-70  ## TRIG_OUT_N   //$$ B13 LVCMOS25  ##
+	output wire			 o_B13_L16P      , // # W15  # MC1-72  ## DAC0_CS                         ##
+	inout  wire			io_B13_L16N      , // # W16  # MC1-74  ## S_IO_1                          ##
+	output wire			 o_B13_L17P      , // # T16  # MC2-67  ## M2_SPI_MISO_B                   ##
+	output wire			 o_B13_L17N      , // # U16  # MC2-69  ## M2_SPI_RX_CLK_B                 ##
 	
 	//}
 		
