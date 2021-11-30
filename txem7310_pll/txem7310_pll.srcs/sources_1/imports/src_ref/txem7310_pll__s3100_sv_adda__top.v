@@ -955,7 +955,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_1129   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_1130   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -980,7 +980,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1019; // S3100-ADDA // adc base freq support 210MHz, 189MHz; fifo for 63MHz.
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1126; // S3100-ADDA // rev SSPI control for disabling LAN EP
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1127; // S3100-ADDA // rev hsadc reset and enable to hole parameter setting.
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1129; // S3100-ADDA // rev ADC ready control 
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_1129; // S3100-ADDA // rev ADC ready control 
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1130; // S3100-CMU-ADDA // new pinmap
 
 //}
 
