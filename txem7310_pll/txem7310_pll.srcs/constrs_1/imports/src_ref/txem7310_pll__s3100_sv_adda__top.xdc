@@ -69,25 +69,25 @@ set_property PACKAGE_PIN M9  [get_ports i_XADC_VN] ; ## M9    VN_0              
 ## U10   M1_0                          NA                 0     CONFIG    
 
 
-## set_property PACKAGE_PIN  Y17   [get_ports xx] ; # IO_0_13                       NA                 13    HR        
+set_property PACKAGE_PIN  Y17   [get_ports io_B13_0_] ; # IO_0_13                       NA                 13    HR        
 ## set_property PACKAGE_PIN  Y16   [get_ports  o_B13_L1P ] ; # IO_L1P_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  AA16  [get_ports io_B13_L1N ] ; # IO_L1N_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  AB16  [get_ports  o_B13_L2P ] ; # IO_L2P_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  AB17  [get_ports  o_B13_L2N ] ; # IO_L2N_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  AA13  [get_ports  o_B13_L3P ] ; # IO_L3P_T0_DQS_13              0                  13    HR        
-set_property PACKAGE_PIN  AB13  [get_ports  i_B13_L3N ] ; # IO_L3N_T0_DQS_13              0                  13    HR        
-set_property PACKAGE_PIN  AA15  [get_ports  o_B13_L4P ] ; # IO_L4P_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  AB15  [get_ports  i_B13_L4N ] ; # IO_L4N_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  Y13   [get_ports  o_B13_L5P ] ; # IO_L5P_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  AA14  [get_ports  o_B13_L5N ] ; # IO_L5N_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  W14   [get_ports  i_B13_L6P ] ; # IO_L6P_T0_13                  0                  13    HR        
-set_property PACKAGE_PIN  Y14   [get_ports  i_B13_L6N ] ; # IO_L6N_T0_VREF_13             0                  13    HR        
-set_property PACKAGE_PIN  AB11  [get_ports  o_B13_L7P ] ; # IO_L7P_T1_13                  1                  13    HR        
-set_property PACKAGE_PIN  AB12  [get_ports  o_B13_L7N ] ; # IO_L7N_T1_13                  1                  13    HR        
-set_property PACKAGE_PIN  AA9   [get_ports xx] ; # IO_L8P_T1_13                  1                  13    HR        
-set_property PACKAGE_PIN  AB10  [get_ports xx] ; # IO_L8N_T1_13                  1                  13    HR        
-set_property PACKAGE_PIN  AA10  [get_ports xx] ; # IO_L9P_T1_DQS_13              1                  13    HR        
-set_property PACKAGE_PIN  AA11  [get_ports xx] ; # IO_L9N_T1_DQS_13              1                  13    HR        
+set_property PACKAGE_PIN  AA16  [get_ports i_B13_L1N ] ; # IO_L1N_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  AB16  [get_ports i_B13_L2P ] ; # IO_L2P_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  AB17  [get_ports o_B13_L2N ] ; # IO_L2N_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  AA13  [get_ports o_B13_L3P ] ; # IO_L3P_T0_DQS_13              0                  13    HR        
+set_property PACKAGE_PIN  AB13  [get_ports i_B13_L3N ] ; # IO_L3N_T0_DQS_13              0                  13    HR        
+set_property PACKAGE_PIN  AA15  [get_ports o_B13_L4P ] ; # IO_L4P_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  AB15  [get_ports i_B13_L4N ] ; # IO_L4N_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  Y13   [get_ports i_B13_L5P ] ; # IO_L5P_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  AA14  [get_ports o_B13_L5N ] ; # IO_L5N_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  W14   [get_ports o_B13_L6P ] ; # IO_L6P_T0_13                  0                  13    HR        
+set_property PACKAGE_PIN  Y14   [get_ports o_B13_L6N ] ; # IO_L6N_T0_VREF_13             0                  13    HR        
+set_property PACKAGE_PIN  AB11  [get_ports o_B13_L7P ] ; # IO_L7P_T1_13                  1                  13    HR        
+set_property PACKAGE_PIN  AB12  [get_ports o_B13_L7N ] ; # IO_L7N_T1_13                  1                  13    HR        
+set_property PACKAGE_PIN  AA9   [get_ports o_B13_L8P ] ; # IO_L8P_T1_13                  1                  13    HR        
+set_property PACKAGE_PIN  AB10  [get_ports i_B13_L8N ] ; # IO_L8N_T1_13                  1                  13    HR        
+set_property PACKAGE_PIN  AA10  [get_ports o_B13_L9P ] ; # IO_L9P_T1_DQS_13              1                  13    HR        
+set_property PACKAGE_PIN  AA11  [get_ports o_B13_L9N ] ; # IO_L9N_T1_DQS_13              1                  13    HR        
 ## set_property PACKAGE_PIN  V10   [get_ports xx] ; # IO_L10P_T1_13                 1                  13    HR        
 ## set_property PACKAGE_PIN  W10   [get_ports xx] ; # IO_L10N_T1_13                 1                  13    HR        
 ## set_property PACKAGE_PIN  Y11   [get_ports o_B13_L11P_SRCC ] ; # IO_L11P_T1_SRCC_13            1                  13    HR        
@@ -271,8 +271,8 @@ set_property PACKAGE_PIN  R3   [get_ports   o_B34D_L3P       ] ; # IO_L3P_T0_DQS
 set_property PACKAGE_PIN  R2   [get_ports   o_B34D_L3N       ] ; # IO_L3N_T0_DQS_34              0                  34    HR        
 set_property PACKAGE_PIN  W2   [get_ports   o_B34D_L4P       ] ; # IO_L4P_T0_34                  0                  34    HR        
 set_property PACKAGE_PIN  Y2   [get_ports   o_B34D_L4N       ] ; # IO_L4N_T0_34                  0                  34    HR        
-set_property PACKAGE_PIN  W1   [get_ports   o_B34_L5P        ] ; # IO_L5P_T0_34                  0                  34    HR        
-set_property PACKAGE_PIN  Y1   [get_ports  io_B34_L5N        ] ; # IO_L5N_T0_34                  0                  34    HR        
+set_property PACKAGE_PIN  W1   [get_ports   o_B34D_L5P        ] ; # IO_L5P_T0_34                  0                  34    HR        
+set_property PACKAGE_PIN  Y1   [get_ports   o_B34D_L5N        ] ; # IO_L5N_T0_34                  0                  34    HR        
 set_property PACKAGE_PIN  U3   [get_ports   o_B34D_L6P       ] ; # IO_L6P_T0_34                  0                  34    HR        
 set_property PACKAGE_PIN  V3   [get_ports   o_B34D_L6N       ] ; # IO_L6N_T0_VREF_34             0                  34    HR        
 set_property PACKAGE_PIN  AA1  [get_ports   o_B34D_L7P       ] ; # IO_L7P_T1_34                  1                  34    HR        
@@ -283,30 +283,30 @@ set_property PACKAGE_PIN  Y3   [get_ports   o_B34D_L9P       ] ; # IO_L9P_T1_DQS
 set_property PACKAGE_PIN  AA3  [get_ports   o_B34D_L9N       ] ; # IO_L9N_T1_DQS_34              1                  34    HR        
 set_property PACKAGE_PIN  AA5  [get_ports   o_B34D_L10P      ] ; # IO_L10P_T1_34                 1                  34    HR        
 set_property PACKAGE_PIN  AB5  [get_ports   o_B34D_L10N      ] ; # IO_L10N_T1_34                 1                  34    HR        
-set_property PACKAGE_PIN  Y4   [get_ports   c_B34D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_34            1                  34    HR        
-set_property PACKAGE_PIN  AA4  [get_ports   c_B34D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_34            1                  34    HR        
-set_property PACKAGE_PIN  V4   [get_ports   o_B34D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_34            1                  34    HR        
-set_property PACKAGE_PIN  W4   [get_ports   o_B34D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_34            1                  34    HR        
+## set_property PACKAGE_PIN  Y4   [get_ports   c_B34D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_34            1                  34    HR        
+## set_property PACKAGE_PIN  AA4  [get_ports   c_B34D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_34            1                  34    HR        
+set_property PACKAGE_PIN  V4   [get_ports   i_B34D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_34            1                  34    HR        
+set_property PACKAGE_PIN  W4   [get_ports   i_B34D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_34            1                  34    HR        
 set_property PACKAGE_PIN  R4   [get_ports   o_B34D_L13P_MRCC ] ; # IO_L13P_T2_MRCC_34            2                  34    HR        
 set_property PACKAGE_PIN  T4   [get_ports   o_B34D_L13N_MRCC ] ; # IO_L13N_T2_MRCC_34            2                  34    HR        
-set_property PACKAGE_PIN  T5   [get_ports   c_B34D_L14P_SRCC ] ; # IO_L14P_T2_SRCC_34            2                  34    HR        
-set_property PACKAGE_PIN  U5   [get_ports   c_B34D_L14N_SRCC ] ; # IO_L14N_T2_SRCC_34            2                  34    HR        
+## set_property PACKAGE_PIN  T5   [get_ports   c_B34D_L14P_SRCC ] ; # IO_L14P_T2_SRCC_34            2                  34    HR        
+## set_property PACKAGE_PIN  U5   [get_ports   c_B34D_L14N_SRCC ] ; # IO_L14N_T2_SRCC_34            2                  34    HR        
 set_property PACKAGE_PIN  W6   [get_ports   o_B34D_L15P      ] ; # IO_L15P_T2_DQS_34             2                  34    HR        
 set_property PACKAGE_PIN  W5   [get_ports   o_B34D_L15N      ] ; # IO_L15N_T2_DQS_34             2                  34    HR        
-set_property PACKAGE_PIN  U6   [get_ports   o_B34D_L16P      ] ; # IO_L16P_T2_34                 2                  34    HR        
-set_property PACKAGE_PIN  V5   [get_ports   o_B34D_L16N      ] ; # IO_L16N_T2_34                 2                  34    HR        
-set_property PACKAGE_PIN  R6   [get_ports   o_B34D_L17P      ] ; # IO_L17P_T2_34                 2                  34    HR        
-set_property PACKAGE_PIN  T6   [get_ports   o_B34D_L17N      ] ; # IO_L17N_T2_34                 2                  34    HR        
-set_property PACKAGE_PIN  Y6   [get_ports   i_B34D_L18P      ] ; # IO_L18P_T2_34                 2                  34    HR        
-set_property PACKAGE_PIN  AA6  [get_ports   i_B34D_L18N      ] ; # IO_L18N_T2_34                 2                  34    HR        
-set_property PACKAGE_PIN  V7   [get_ports   o_B34D_L19P      ] ; # IO_L19P_T3_34                 3                  34    HR        
-set_property PACKAGE_PIN  W7   [get_ports   o_B34D_L19N      ] ; # IO_L19N_T3_VREF_34            3                  34    HR        
+## set_property PACKAGE_PIN  U6   [get_ports   o_B34D_L16P      ] ; # IO_L16P_T2_34                 2                  34    HR        
+## set_property PACKAGE_PIN  V5   [get_ports   o_B34D_L16N      ] ; # IO_L16N_T2_34                 2                  34    HR        
+## set_property PACKAGE_PIN  R6   [get_ports   o_B34D_L17P      ] ; # IO_L17P_T2_34                 2                  34    HR        
+## set_property PACKAGE_PIN  T6   [get_ports   o_B34D_L17N      ] ; # IO_L17N_T2_34                 2                  34    HR        
+set_property PACKAGE_PIN  Y6   [get_ports   o_B34D_L18P      ] ; # IO_L18P_T2_34                 2                  34    HR        
+set_property PACKAGE_PIN  AA6  [get_ports   o_B34D_L18N      ] ; # IO_L18N_T2_34                 2                  34    HR        
+## set_property PACKAGE_PIN  V7   [get_ports   o_B34D_L19P      ] ; # IO_L19P_T3_34                 3                  34    HR        
+## set_property PACKAGE_PIN  W7   [get_ports   o_B34D_L19N      ] ; # IO_L19N_T3_VREF_34            3                  34    HR        
 set_property PACKAGE_PIN  AB7  [get_ports   o_B34D_L20P      ] ; # IO_L20P_T3_34                 3                  34    HR        
 set_property PACKAGE_PIN  AB6  [get_ports   o_B34D_L20N      ] ; # IO_L20N_T3_34                 3                  34    HR        
-set_property PACKAGE_PIN  V9   [get_ports   o_B34D_L21P      ] ; # IO_L21P_T3_DQS_34             3                  34    HR        
-set_property PACKAGE_PIN  V8   [get_ports   o_B34D_L21N      ] ; # IO_L21N_T3_DQS_34             3                  34    HR        
-set_property PACKAGE_PIN  AA8  [get_ports   i_B34D_L22P      ] ; # IO_L22P_T3_34                 3                  34    HR        
-set_property PACKAGE_PIN  AB8  [get_ports   i_B34D_L22N      ] ; # IO_L22N_T3_34                 3                  34    HR        
+## set_property PACKAGE_PIN  V9   [get_ports   o_B34D_L21P      ] ; # IO_L21P_T3_DQS_34             3                  34    HR        
+## set_property PACKAGE_PIN  V8   [get_ports   o_B34D_L21N      ] ; # IO_L21N_T3_DQS_34             3                  34    HR        
+set_property PACKAGE_PIN  AA8  [get_ports   o_B34D_L22P      ] ; # IO_L22P_T3_34                 3                  34    HR        
+set_property PACKAGE_PIN  AB8  [get_ports   o_B34D_L22N      ] ; # IO_L22N_T3_34                 3                  34    HR        
 set_property PACKAGE_PIN  Y8   [get_ports   o_B34D_L23P      ] ; # IO_L23P_T3_34                 3                  34    HR        
 set_property PACKAGE_PIN  Y7   [get_ports   o_B34D_L23N      ] ; # IO_L23N_T3_34                 3                  34    HR        
 set_property PACKAGE_PIN  W9   [get_ports   o_B34D_L24P      ] ; # IO_L24P_T3_34                 3                  34    HR        
@@ -314,56 +314,56 @@ set_property PACKAGE_PIN  Y9   [get_ports   o_B34D_L24N      ] ; # IO_L24N_T3_34
 ## set_property PACKAGE_PIN  U7   [get_ports _B34_25         ] ; # IO_25_34                      NA                 34    HR        
 
 
-set_property PACKAGE_PIN  F4   [get_ports  o_B35_0_         ] ; # IO_0_35                       NA                 35    HR        
+## set_property PACKAGE_PIN  F4   [get_ports  o_B35_0_         ] ; # IO_0_35                       NA                 35    HR        
 set_property PACKAGE_PIN  B1   [get_ports  o_B35D_L1P       ] ; # IO_L1P_T0_AD4P_35             0                  35    HR        
 set_property PACKAGE_PIN  A1   [get_ports  o_B35D_L1N       ] ; # IO_L1N_T0_AD4N_35             0                  35    HR        
 set_property PACKAGE_PIN  C2   [get_ports  o_B35D_L2P       ] ; # IO_L2P_T0_AD12P_35            0                  35    HR        
 set_property PACKAGE_PIN  B2   [get_ports  o_B35D_L2N       ] ; # IO_L2N_T0_AD12N_35            0                  35    HR        
 set_property PACKAGE_PIN  E1   [get_ports  o_B35D_L3P       ] ; # IO_L3P_T0_DQS_AD5P_35         0                  35    HR        
 set_property PACKAGE_PIN  D1   [get_ports  o_B35D_L3N       ] ; # IO_L3N_T0_DQS_AD5N_35         0                  35    HR        
-set_property PACKAGE_PIN  E2   [get_ports  o_B35_L4P        ] ; # IO_L4P_T0_35                  0                  35    HR        
-set_property PACKAGE_PIN  D2   [get_ports  o_B35_L4N        ] ; # IO_L4N_T0_35                  0                  35    HR        
+set_property PACKAGE_PIN  E2   [get_ports  o_B35D_L4P       ] ; # IO_L4P_T0_35                  0                  35    HR        
+set_property PACKAGE_PIN  D2   [get_ports  o_B35D_L4N       ] ; # IO_L4N_T0_35                  0                  35    HR        
 set_property PACKAGE_PIN  G1   [get_ports  o_B35D_L5P       ] ; # IO_L5P_T0_AD13P_35            0                  35    HR        
 set_property PACKAGE_PIN  F1   [get_ports  o_B35D_L5N       ] ; # IO_L5N_T0_AD13N_35            0                  35    HR        
-set_property PACKAGE_PIN  F3   [get_ports  i_B35_L6P        ] ; # IO_L6P_T0_35                  0                  35    HR        
-set_property PACKAGE_PIN  E3   [get_ports io_B35_L6N        ] ; # IO_L6N_T0_VREF_35             0                  35    HR        
-set_property PACKAGE_PIN  K1   [get_ports  i_B35D_L7P       ] ; # IO_L7P_T1_AD6P_35             1                  35    HR        
-set_property PACKAGE_PIN  J1   [get_ports  i_B35D_L7N       ] ; # IO_L7N_T1_AD6N_35             1                  35    HR        
+## set_property PACKAGE_PIN  F3   [get_ports  i_B35_L6P        ] ; # IO_L6P_T0_35                  0                  35    HR        
+## set_property PACKAGE_PIN  E3   [get_ports io_B35_L6N        ] ; # IO_L6N_T0_VREF_35             0                  35    HR        
+set_property PACKAGE_PIN  K1   [get_ports  o_B35D_L7P       ] ; # IO_L7P_T1_AD6P_35             1                  35    HR        
+set_property PACKAGE_PIN  J1   [get_ports  o_B35D_L7N       ] ; # IO_L7N_T1_AD6N_35             1                  35    HR        
 set_property PACKAGE_PIN  H2   [get_ports  o_B35D_L8P       ] ; # IO_L8P_T1_AD14P_35            1                  35    HR        
 set_property PACKAGE_PIN  G2   [get_ports  o_B35D_L8N       ] ; # IO_L8N_T1_AD14N_35            1                  35    HR        
-set_property PACKAGE_PIN  K2   [get_ports  i_B35D_L9P       ] ; # IO_L9P_T1_DQS_AD7P_35         1                  35    HR        
-set_property PACKAGE_PIN  J2   [get_ports  i_B35D_L9N       ] ; # IO_L9N_T1_DQS_AD7N_35         1                  35    HR        
-set_property PACKAGE_PIN  J5   [get_ports  o_B35D_L10P      ] ; # IO_L10P_T1_AD15P_35           1                  35    HR        
-set_property PACKAGE_PIN  H5   [get_ports  o_B35D_L10N      ] ; # IO_L10N_T1_AD15N_35           1                  35    HR        
-set_property PACKAGE_PIN  H3   [get_ports  c_B35D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_35            1                  35    HR        
-set_property PACKAGE_PIN  G3   [get_ports  c_B35D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_35            1                  35    HR        
-set_property PACKAGE_PIN  H4   [get_ports  o_B35D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_35            1                  35    HR        
-set_property PACKAGE_PIN  G4   [get_ports  o_B35D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  K2   [get_ports  o_B35D_L9P       ] ; # IO_L9P_T1_DQS_AD7P_35         1                  35    HR        
+set_property PACKAGE_PIN  J2   [get_ports  o_B35D_L9N       ] ; # IO_L9N_T1_DQS_AD7N_35         1                  35    HR        
+## set_property PACKAGE_PIN  J5   [get_ports  o_B35D_L10P      ] ; # IO_L10P_T1_AD15P_35           1                  35    HR        
+## set_property PACKAGE_PIN  H5   [get_ports  o_B35D_L10N      ] ; # IO_L10N_T1_AD15N_35           1                  35    HR        
+set_property PACKAGE_PIN  H3   [get_ports  o_B35D_L11P_SRCC ] ; # IO_L11P_T1_SRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  G3   [get_ports  o_B35D_L11N_SRCC ] ; # IO_L11N_T1_SRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  H4   [get_ports  i_B35D_L12P_MRCC ] ; # IO_L12P_T1_MRCC_35            1                  35    HR        
+set_property PACKAGE_PIN  G4   [get_ports  i_B35D_L12N_MRCC ] ; # IO_L12N_T1_MRCC_35            1                  35    HR        
 set_property PACKAGE_PIN  K4   [get_ports  o_B35D_L13P_MRCC ] ; # IO_L13P_T2_MRCC_35            2                  35    HR        
 set_property PACKAGE_PIN  J4   [get_ports  o_B35D_L13N_MRCC ] ; # IO_L13N_T2_MRCC_35            2                  35    HR        
-set_property PACKAGE_PIN  L3   [get_ports  c_B35D_L14P_SRCC ] ; # IO_L14P_T2_SRCC_35            2                  35    HR        
-set_property PACKAGE_PIN  K3   [get_ports  c_B35D_L14N_SRCC ] ; # IO_L14N_T2_SRCC_35            2                  35    HR        
-set_property PACKAGE_PIN  M1   [get_ports  i_B35_L15P       ] ; # IO_L15P_T2_DQS_35             2                  35    HR        
-set_property PACKAGE_PIN  L1   [get_ports  i_B35_L15N       ] ; # IO_L15N_T2_DQS_35             2                  35    HR        
+set_property PACKAGE_PIN  L3   [get_ports  o_B35D_L14P_SRCC ] ; # IO_L14P_T2_SRCC_35            2                  35    HR        
+set_property PACKAGE_PIN  K3   [get_ports  o_B35D_L14N_SRCC ] ; # IO_L14N_T2_SRCC_35            2                  35    HR        
+set_property PACKAGE_PIN  M1   [get_ports  o_B35D_L15P      ] ; # IO_L15P_T2_DQS_35             2                  35    HR        
+set_property PACKAGE_PIN  L1   [get_ports  o_B35D_L15N      ] ; # IO_L15N_T2_DQS_35             2                  35    HR        
 set_property PACKAGE_PIN  M3   [get_ports  o_B35D_L16P      ] ; # IO_L16P_T2_35                 2                  35    HR        
 set_property PACKAGE_PIN  M2   [get_ports  o_B35D_L16N      ] ; # IO_L16N_T2_35                 2                  35    HR        
-set_property PACKAGE_PIN  K6   [get_ports  o_B35D_L17P      ] ; # IO_L17P_T2_35                 2                  35    HR        
-set_property PACKAGE_PIN  J6   [get_ports  o_B35D_L17N      ] ; # IO_L17N_T2_35                 2                  35    HR        
+## set_property PACKAGE_PIN  K6   [get_ports  o_B35D_L17P      ] ; # IO_L17P_T2_35                 2                  35    HR        
+## set_property PACKAGE_PIN  J6   [get_ports  o_B35D_L17N      ] ; # IO_L17N_T2_35                 2                  35    HR        
 set_property PACKAGE_PIN  L5   [get_ports  o_B35D_L18P      ] ; # IO_L18P_T2_35                 2                  35    HR        
 set_property PACKAGE_PIN  L4   [get_ports  o_B35D_L18N      ] ; # IO_L18N_T2_35                 2                  35    HR        
 set_property PACKAGE_PIN  N4   [get_ports  o_B35D_L19P      ] ; # IO_L19P_T3_35                 3                  35    HR        
 set_property PACKAGE_PIN  N3   [get_ports  o_B35D_L19N      ] ; # IO_L19N_T3_VREF_35            3                  35    HR        
 set_property PACKAGE_PIN  R1   [get_ports  o_B35D_L20P      ] ; # IO_L20P_T3_35                 3                  35    HR        
 set_property PACKAGE_PIN  P1   [get_ports  o_B35D_L20N      ] ; # IO_L20N_T3_35                 3                  35    HR        
-set_property PACKAGE_PIN  P5   [get_ports  o_B35D_L21P      ] ; # IO_L21P_T3_DQS_35             3                  35    HR        
-set_property PACKAGE_PIN  P4   [get_ports  o_B35D_L21N      ] ; # IO_L21N_T3_DQS_35             3                  35    HR        
+## set_property PACKAGE_PIN  P5   [get_ports  o_B35D_L21P      ] ; # IO_L21P_T3_DQS_35             3                  35    HR        
+## set_property PACKAGE_PIN  P4   [get_ports  o_B35D_L21N      ] ; # IO_L21N_T3_DQS_35             3                  35    HR        
 set_property PACKAGE_PIN  P2   [get_ports  o_B35D_L22P      ] ; # IO_L22P_T3_35                 3                  35    HR        
 set_property PACKAGE_PIN  N2   [get_ports  o_B35D_L22N      ] ; # IO_L22N_T3_35                 3                  35    HR        
-set_property PACKAGE_PIN  M6   [get_ports  o_B35D_L23P      ] ; # IO_L23P_T3_35                 3                  35    HR        
-set_property PACKAGE_PIN  M5   [get_ports  o_B35D_L23N      ] ; # IO_L23N_T3_35                 3                  35    HR        
-set_property PACKAGE_PIN  P6   [get_ports  o_B35D_L24P      ] ; # IO_L24P_T3_35                 3                  35    HR        
-set_property PACKAGE_PIN  N5   [get_ports  o_B35D_L24N      ] ; # IO_L24N_T3_35                 3                  35    HR        
-set_property PACKAGE_PIN  L6   [get_ports  i_B35_25         ] ; # IO_25_35                      NA                 35    HR        
+## set_property PACKAGE_PIN  M6   [get_ports  o_B35D_L23P      ] ; # IO_L23P_T3_35                 3                  35    HR        
+## set_property PACKAGE_PIN  M5   [get_ports  o_B35D_L23N      ] ; # IO_L23N_T3_35                 3                  35    HR        
+## set_property PACKAGE_PIN  P6   [get_ports  o_B35D_L24P      ] ; # IO_L24P_T3_35                 3                  35    HR        
+## set_property PACKAGE_PIN  N5   [get_ports  o_B35D_L24N      ] ; # IO_L24N_T3_35                 3                  35    HR        
+## set_property PACKAGE_PIN  L6   [get_ports  i_B35_25         ] ; # IO_25_35                      NA                 35    HR        
 
 
 ## Pin   Pin Name                      Memory Byte Group  Bank  I/O Type  

@@ -742,42 +742,42 @@ module txem7310_pll__s3100_sv_adda__top (
 	
 	//// BANK B13 //{
 	
-	//                                                         ##[S3100-PGU-ADDA]                 ##[S3100-CMU-ADDA]
-	// # IO_B13_0_                       , // # Y17            # NA                               ## io_S_IO_2
-	//output wire			 o_B13_L1P       , // # Y16  # MC1-75  ## SPIO1_CS                        ## NA
-	inout  wire			io_B13_L1N       , // # AA16 # MC1-76  ## S_IO_2                          ## i_CLKD_LD
-	output wire			 o_B13_L2P       , // # AB16 # MC1-67  ## M2_SPI_RX_EN_SLAVE              ## i_CLKD_STAT
-	output wire			 o_B13_L2N       , // # AB17 # MC1-69  ## SPIOx_SCLK                      ## o_CLKD_SYNC
-	output wire			 o_B13_L3P       , // # AA13 # MC1-68  ## DACx_SDIO                       ## o_CLKD_RST_B
-	input  wire			 i_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO                        ## io_CLKD_SDIO
-	output wire			 o_B13_L4P       , // # AA15 # MC1-71  ## SPIOx_MOSI                      ## o_CLKD_SCLK
-	input  wire			 i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO                      ## i_CLKD_REFM
-	output wire			 o_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS                         ## i_CLKD_SDO
-	output wire			 o_B13_L5N       , // # AA14 # MC1-66  ## DACx_SCLK                       ## o_CLKD_CS_B
-	input  wire			 i_B13_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF                   ## o_TRIG_OUT_P
-	input  wire			 i_B13_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK                   ## o_TRIG_OUT_N
-	output wire			 o_B13_L7P       , // # AB11 # MC1-8   ## DACx_RST_B                      ## o_DAC1_CS
-	output wire			 o_B13_L7N       , // # AB12 # MC2-11  ## CLKD_SYNC                       ## o_DACx_RST_B
-	output wire  o_B13_L8P             , // # AA9            # NA                               ## o_DAC0_CS
-	input  wire  i_B13_L8N             , // # AB10           # NA                               ## i_DACx_SDO
-	output wire  o_B13_L9P             , // # AA10           # NA                               ## o_DACx_SDIO
-	output wire  o_B13_L9N             , // # AA11           # NA                               ## o_DACx_SCLK
-	//input  wire  i_B13_L10P            , // # V10            # NA                               ## NA
-	//input  wire  i_B13_L10N            , // # W10            # NA                               ## NA
-	//output wire			o_B13_L11P_SRCC  , // # Y11  # MC2-75  ## M2_SPI_TX_EN_SLAVE              ## NA
-	//input  wire			i_B13_L11N_SRCC  , // # Y12  # MC2-76  ## M2_SPI_MOSI                     ## NA
-	// # IO_B13_L12P_MRCC                , // # W11            ## clocks sys_clkp (*)             ## ...
-	// # IO_B13_L12N_MRCC                , // # W12            ## clocks sys_clkn (*)             ## ...
-	input  wire			 c_B13D_L13P_MRCC, // # V13  # MC2-71  ## CLKD_COUT_P                     ## i_CLKD_COUT_P
-	input  wire			 c_B13D_L13N_MRCC, // # V14  # MC2-73  ## CLKD_COUT_N                     ## i_CLKD_COUT_N
-	input  wire			 i_B13D_L14P_SRCC, // # U15  # MC2-64  ## TRIG_IN_P    //                 ## i_TRIG_IN_P  
-	input  wire			 i_B13D_L14N_SRCC, // # V15  # MC2-66  ## TRIG_IN_N    //                 ## i_TRIG_IN_N  
-	//output wire			 o_B13_L15P      , // # T14  # MC2-68  ## TRIG_OUT_P   //$$ B13 LVCMOS25  ## NA
-	//output wire			 o_B13_L15N      , // # T15  # MC2-70  ## TRIG_OUT_N   //$$ B13 LVCMOS25  ## NA
-	//output wire			 o_B13_L16P      , // # W15  # MC1-72  ## DAC0_CS                         ## NA
-	//inout  wire			io_B13_L16N      , // # W16  # MC1-74  ## S_IO_1                          ## NA
-	//output wire			 o_B13_L17P      , // # T16  # MC2-67  ## M2_SPI_MISO_B                   ## NA
-	//output wire			 o_B13_L17N      , // # U16  # MC2-69  ## M2_SPI_RX_CLK_B                 ## NA
+	//                                                  ##[S3100-PGU-ADDA]                 ##[S3100-CMU-ADDA]
+	inout  wire  io_B13_0_        , // # Y17            # NA                               ## io_S_IO_2
+	//output wire o_B13_L1P       , // # Y16  # MC1-75  ## SPIO1_CS                        ## NA
+	input  wire   i_B13_L1N       , // # AA16 # MC1-76  ## S_IO_2                          ## i_CLKD_LD
+	input  wire   i_B13_L2P       , // # AB16 # MC1-67  ## M2_SPI_RX_EN_SLAVE              ## i_CLKD_STAT
+	output wire   o_B13_L2N       , // # AB17 # MC1-69  ## SPIOx_SCLK                      ## o_CLKD_SYNC
+	output wire   o_B13_L3P       , // # AA13 # MC1-68  ## DACx_SDIO                       ## o_CLKD_RST_B
+	input  wire   i_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO                        ## io_CLKD_SDIO
+	output wire   o_B13_L4P       , // # AA15 # MC1-71  ## SPIOx_MOSI                      ## o_CLKD_SCLK
+	input  wire   i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO                      ## i_CLKD_REFM
+	input  wire   i_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS                         ## i_CLKD_SDO
+	output wire   o_B13_L5N       , // # AA14 # MC1-66  ## DACx_SCLK                       ## o_CLKD_CS_B
+	output wire   o_B13_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF                   ## o_TRIG_OUT_P
+	output wire   o_B13_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK                   ## o_TRIG_OUT_N
+	output wire   o_B13_L7P       , // # AB11 # MC1-8   ## DACx_RST_B                      ## o_DAC1_CS
+	output wire   o_B13_L7N       , // # AB12 # MC2-11  ## CLKD_SYNC                       ## o_DACx_RST_B
+	output wire   o_B13_L8P       , // # AA9            # NA                               ## o_DAC0_CS
+	input  wire   i_B13_L8N       , // # AB10           # NA                               ## i_DACx_SDO
+	output wire   o_B13_L9P       , // # AA10           # NA                               ## o_DACx_SDIO
+	output wire   o_B13_L9N       , // # AA11           # NA                               ## o_DACx_SCLK
+	//input  wire  i_B13_L10P     , // # V10            # NA                               ## NA
+	//input  wire  i_B13_L10N     , // # W10            # NA                               ## NA
+	//output wire  o_B13_L11P_SRCC, // # Y11  # MC2-75  ## M2_SPI_TX_EN_SLAVE              ## NA
+	//input  wire  i_B13_L11N_SRCC, // # Y12  # MC2-76  ## M2_SPI_MOSI                     ## NA
+	// # IO_B13_L12P_MRCC         , // # W11            ## clocks sys_clkp (*)             ## ...
+	// # IO_B13_L12N_MRCC         , // # W12            ## clocks sys_clkn (*)             ## ...
+	input  wire   c_B13D_L13P_MRCC, // # V13  # MC2-71  ## CLKD_COUT_P                     ## i_CLKD_COUT_P
+	input  wire   c_B13D_L13N_MRCC, // # V14  # MC2-73  ## CLKD_COUT_N                     ## i_CLKD_COUT_N
+	input  wire   i_B13D_L14P_SRCC, // # U15  # MC2-64  ## TRIG_IN_P    //                 ## i_TRIG_IN_P  
+	input  wire   i_B13D_L14N_SRCC, // # V15  # MC2-66  ## TRIG_IN_N    //                 ## i_TRIG_IN_N  
+	//output wire  o_B13_L15P     , // # T14  # MC2-68  ## TRIG_OUT_P   //$$ B13 LVCMOS25  ## NA
+	//output wire  o_B13_L15N     , // # T15  # MC2-70  ## TRIG_OUT_N   //$$ B13 LVCMOS25  ## NA
+	//output wire  o_B13_L16P     , // # W15  # MC1-72  ## DAC0_CS                         ## NA
+	//inout  wire io_B13_L16N     , // # W16  # MC1-74  ## S_IO_1                          ## NA
+	//output wire  o_B13_L17P     , // # T16  # MC2-67  ## M2_SPI_MISO_B                   ## NA
+	//output wire  o_B13_L17N     , // # U16  # MC2-69  ## M2_SPI_RX_CLK_B                 ## NA
 	
 	//}
 		
@@ -793,8 +793,8 @@ module txem7310_pll__s3100_sv_adda__top (
 	output wire  o_B34D_L3N       , // # R2    # MC1-43  ## DAC0_DAT_N6	          ## o_DAC1_DAT_N0
 	output wire  o_B34D_L4P       , // # W2    # MC1-53  ## DAC0_DAT_P3           ## o_DAC1_DAT_N5 // swap
 	output wire  o_B34D_L4N       , // # Y2    # MC1-57  ## DAC0_DAT_N3           ## o_DAC1_DAT_P5 // swap
-	output wire  o_B34_L5P        , // # W1    # MC1-54  ## ADCx_TPT_B            ## o_DAC1_DAT_N4 // swap
-	inout  wire io_B34_L5N        , // # Y1    # MC1-58  ## S_IO_0 --> MEM_SIO    ## o_DAC1_DAT_P4 // swap
+	output wire  o_B34D_L5P       , // # W1    # MC1-54  ## ADCx_TPT_B            ## o_DAC1_DAT_N4 // swap
+	output wire  o_B34D_L5N       , // # Y1    # MC1-58  ## S_IO_0 --> MEM_SIO    ## o_DAC1_DAT_P4 // swap
 	output wire  o_B34D_L6P       , // # U3    # MC1-50  ## ADCx_CNV_P            ## o_DAC1_DAT_N3 // swap
 	output wire  o_B34D_L6N       , // # V3    # MC1-52  ## ADCx_CNV_N            ## o_DAC1_DAT_P3 // swap
 	output wire  o_B34D_L7P       , // # AA1   # MC1-63  ## DAC0_DAT_P1           ## o_DAC1_DAT_N6 // swap
@@ -805,30 +805,30 @@ module txem7310_pll__s3100_sv_adda__top (
 	output wire  o_B34D_L9N       , // # AA3   # MC1-47  ## DAC0_DAT_N5           ## o_DAC1_DAT_P7 // swap
 	output wire  o_B34D_L10P      , // # AA5   # MC1-31  ## DAC0_DCI_P            ## o_DAC1_DAT_P9
 	output wire  o_B34D_L10N      , // # AB5   # MC1-33  ## DAC0_DCI_N            ## o_DAC1_DAT_N9
-	input  wire  c_B34D_L11P_SRCC , // # Y4    # MC1-38  ## ADC0_DCO_P            ## NA
-	input  wire  c_B34D_L11N_SRCC , // # AA4   # MC1-40  ## ADC0_DCO_N            ## NA
-	output wire  o_B34D_L12P_MRCC , // # V4    # MC1-77  ## DAC0_DAT_P0           ## i_DAC1_DCO_N  // swap
-	output wire  o_B34D_L12N_MRCC , // # W4    # MC1-79  ## DAC0_DAT_N0           ## i_DAC1_DCO_P  // swap
+	//input  wire c_B34D_L11P_SRCC, // # Y4    # MC1-38  ## ADC0_DCO_P            ## NA
+	//input  wire c_B34D_L11N_SRCC, // # AA4   # MC1-40  ## ADC0_DCO_N            ## NA
+	input  wire  i_B34D_L12P_MRCC , // # V4    # MC1-77  ## DAC0_DAT_P0           ## i_DAC1_DCO_N  // swap
+	input  wire  i_B34D_L12N_MRCC , // # W4    # MC1-79  ## DAC0_DAT_N0           ## i_DAC1_DCO_P  // swap
 	output wire  o_B34D_L13P_MRCC , // # R4    # MC1-32  ## DAC0_DAT_P11          ## o_DAC1_DCI_N  // swap
 	output wire  o_B34D_L13N_MRCC , // # T4    # MC1-34  ## DAC0_DAT_N11          ## o_DAC1_DCI_P  // swap
-	input  wire  c_B34D_L14P_SRCC , // # T5    # MC1-27  ## DAC0_DCO_P            ## NA
-	input  wire  c_B34D_L14N_SRCC , // # U5    # MC1-29  ## DAC0_DCO_N            ## NA
+	//input  wire c_B34D_L14P_SRCC, // # T5    # MC1-27  ## DAC0_DCO_P            ## NA
+	//input  wire c_B34D_L14N_SRCC, // # U5    # MC1-29  ## DAC0_DCO_N            ## NA
 	output wire  o_B34D_L15P      , // # W6    # MC1-28  ## DAC0_DAT_N15 // swap  ## o_DAC1_DAT_P12
 	output wire  o_B34D_L15N      , // # W5    # MC1-30  ## DAC0_DAT_P15 // swap  ## o_DAC1_DAT_N12
-	output wire  o_B34D_L16P      , // # U6    # MC1-23  ## DAC0_DAT_N10 // swap  ## NA
-	output wire  o_B34D_L16N      , // # V5    # MC1-25  ## DAC0_DAT_P10 // swap  ## NA
-	output wire  o_B34D_L17P      , // # R6    # MC1-19  ## DAC0_DAT_N9  // swap  ## NA
-	output wire  o_B34D_L17N      , // # T6    # MC1-21  ## DAC0_DAT_P9  // swap  ## NA
-	input  wire  i_B34D_L18P      , // # Y6    # MC1-42  ## ADC0_DA_P             ## o_DAC1_DAT_P13
-	input  wire  i_B34D_L18N      , // # AA6   # MC1-44  ## ADC0_DA_N             ## o_DAC1_DAT_N13
-	output wire  o_B34D_L19P      , // # V7    # MC1-20  ## DAC0_DAT_N13 // swap  ## NA
-	output wire  o_B34D_L19N      , // # W7    # MC1-22  ## DAC0_DAT_P13 // swap  ## NA
+	//output wire  o_B34D_L16P    , // # U6    # MC1-23  ## DAC0_DAT_N10 // swap  ## NA
+	//output wire  o_B34D_L16N    , // # V5    # MC1-25  ## DAC0_DAT_P10 // swap  ## NA
+	//output wire  o_B34D_L17P    , // # R6    # MC1-19  ## DAC0_DAT_N9  // swap  ## NA
+	//output wire  o_B34D_L17N    , // # T6    # MC1-21  ## DAC0_DAT_P9  // swap  ## NA
+	output wire  o_B34D_L18P      , // # Y6    # MC1-42  ## ADC0_DA_P             ## o_DAC1_DAT_P13
+	output wire  o_B34D_L18N      , // # AA6   # MC1-44  ## ADC0_DA_N             ## o_DAC1_DAT_N13
+	//output wire  o_B34D_L19P    , // # V7    # MC1-20  ## DAC0_DAT_N13 // swap  ## NA
+	//output wire  o_B34D_L19N    , // # W7    # MC1-22  ## DAC0_DAT_P13 // swap  ## NA
 	output wire  o_B34D_L20P      , // # AB7   # MC1-37  ## DAC0_DAT_P7           ## o_DAC1_DAT_P10
 	output wire  o_B34D_L20N      , // # AB6   # MC1-39  ## DAC0_DAT_N7           ## o_DAC1_DAT_N10
-	output wire  o_B34D_L21P      , // # V9    # MC1-16  ## DAC0_DAT_N12 // swap  ## NA
-	output wire  o_B34D_L21N      , // # V8    # MC1-18  ## DAC0_DAT_P12 // swap  ## NA
-	input  wire  i_B34D_L22P      , // # AA8   # MC1-46  ## ADC0_DB_P             ## o_DAC1_DAT_P11
-	input  wire  i_B34D_L22N      , // # AB8   # MC1-48  ## ADC0_DB_N             ## o_DAC1_DAT_N11
+	//output wire  o_B34D_L21P    , // # V9    # MC1-16  ## DAC0_DAT_N12 // swap  ## NA
+	//output wire  o_B34D_L21N    , // # V8    # MC1-18  ## DAC0_DAT_P12 // swap  ## NA
+	output wire  o_B34D_L22P      , // # AA8   # MC1-46  ## ADC0_DB_P             ## o_DAC1_DAT_P11
+	output wire  o_B34D_L22N      , // # AB8   # MC1-48  ## ADC0_DB_N             ## o_DAC1_DAT_N11
 	output wire  o_B34D_L23P      , // # Y8    # MC1-24  ## DAC0_DAT_N14 // swap  ## o_DAC1_DAT_P14
 	output wire  o_B34D_L23N      , // # Y7    # MC1-26  ## DAC0_DAT_P14 // swap  ## o_DAC1_DAT_N14
 	output wire  o_B34D_L24P      , // # W9    # MC1-15  ## DAC0_DAT_N8  // swap  ## o_DAC1_DAT_P15
@@ -841,7 +841,7 @@ module txem7310_pll__s3100_sv_adda__top (
 	//// BANK B35 //{
 	
 	//                                                   ##[S3100-PGU-ADDA]       ##[S3100-CMU-ADDA]
-	output wire  o_B35_0_         , // # F4    # MC2-10  ## CLKD_RST_B            ## NA
+	//output wire  o_B35_0_       , // # F4    # MC2-10  ## CLKD_RST_B            ## NA
 	//
 	output wire  o_B35D_L1P       , // # B1    # MC2-59  ## DAC1_DAT_N13 // swap  ## o_DAC0_DAT_P0
 	output wire  o_B35D_L1N       , // # A1    # MC2-61  ## DAC1_DAT_P13 // swap  ## o_DAC0_DAT_N0
@@ -849,50 +849,50 @@ module txem7310_pll__s3100_sv_adda__top (
 	output wire  o_B35D_L2N       , // # B2    # MC2-62  ## DAC1_DAT_P12 // swap  ## o_DAC0_DAT_N1
 	output wire  o_B35D_L3P       , // # E1    # MC2-54  ## DAC1_DAT_N11 // swap  ## o_DAC0_DAT_P2
 	output wire  o_B35D_L3N       , // # D1    # MC2-58  ## DAC1_DAT_P11 // swap  ## o_DAC0_DAT_N2
-	output wire  o_B35_L4P        , // # E2    # MC2-49  ## CLKD_SCLK             ## o_DAC0_DAT_P3
-	output wire  o_B35_L4N        , // # D2    # MC2-51  ## CLKD_CS_B             ## o_DAC0_DAT_N3
+	output wire  o_B35D_L4P       , // # E2    # MC2-49  ## CLKD_SCLK             ## o_DAC0_DAT_P3
+	output wire  o_B35D_L4N       , // # D2    # MC2-51  ## CLKD_CS_B             ## o_DAC0_DAT_N3
 	output wire  o_B35D_L5P       , // # G1    # MC2-50  ## DAC1_DAT_N10 // swap  ## o_DAC0_DAT_P4
 	output wire  o_B35D_L5N       , // # F1    # MC2-52  ## DAC1_DAT_P10 // swap  ## o_DAC0_DAT_N4
-	input  wire  i_B35_L6P        , // # F3    # MC2-53  ## CLKD_SDO              ## NA
-	inout  wire io_B35_L6N        , // # E3    # MC2-57  ## CLKD_SDIO             ## NA
-	input  wire  i_B35D_L7P       , // # K1    # MC2-41  ## ADC1_DA_P             ## o_DAC0_DAT_P6
-	input  wire  i_B35D_L7N       , // # J1    # MC2-43  ## ADC1_DA_N             ## o_DAC0_DAT_N6
+	//input  wire  i_B35_L6P      , // # F3    # MC2-53  ## CLKD_SDO              ## NA
+	//inout  wire io_B35_L6N      , // # E3    # MC2-57  ## CLKD_SDIO             ## NA
+	input  wire  o_B35D_L7P       , // # K1    # MC2-41  ## ADC1_DA_P             ## o_DAC0_DAT_P6
+	input  wire  o_B35D_L7N       , // # J1    # MC2-43  ## ADC1_DA_N             ## o_DAC0_DAT_N6
 	output wire  o_B35D_L8P       , // # H2    # MC2-46  ## DAC1_DAT_N9  // swap  ## o_DAC0_DAT_P5
 	output wire  o_B35D_L8N       , // # G2    # MC2-48  ## DAC1_DAT_P9  // swap  ## o_DAC0_DAT_N5
-	input  wire  i_B35D_L9P       , // # K2    # MC2-37  ## ADC1_DB_P             ## o_DAC0_DAT_P7
-	input  wire  i_B35D_L9N       , // # J2    # MC2-39  ## ADC1_DB_N             ## o_DAC0_DAT_N7
-	output wire  o_B35D_L10P      , // # J5    # MC2-42  ## DAC1_DAT_N8  // swap  ## NA
-	output wire  o_B35D_L10N      , // # H5    # MC2-44  ## DAC1_DAT_P8  // swap  ## NA
-	input  wire  c_B35D_L11P_SRCC , // # H3    # MC2-45  ## ADC1_DCO_P            ## o_DAC0_DCI_P
-	input  wire  c_B35D_L11N_SRCC , // # G3    # MC2-47  ## ADC1_DCO_N            ## o_DAC0_DCI_N
-	output wire  o_B35D_L12P_MRCC , // # H4    # MC2-67  ## DAC1_DAT_N15 // swap  ## i_DAC0_DCO_P
-	output wire  o_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // swap  ## i_DAC0_DCO_N2
+	input  wire  o_B35D_L9P       , // # K2    # MC2-37  ## ADC1_DB_P             ## o_DAC0_DAT_P7
+	input  wire  o_B35D_L9N       , // # J2    # MC2-39  ## ADC1_DB_N             ## o_DAC0_DAT_N7
+	//output wire  o_B35D_L10P    , // # J5    # MC2-42  ## DAC1_DAT_N8  // swap  ## NA
+	//output wire  o_B35D_L10N    , // # H5    # MC2-44  ## DAC1_DAT_P8  // swap  ## NA
+	input  wire  o_B35D_L11P_SRCC , // # H3    # MC2-45  ## ADC1_DCO_P            ## o_DAC0_DCI_P
+	input  wire  o_B35D_L11N_SRCC , // # G3    # MC2-47  ## ADC1_DCO_N            ## o_DAC0_DCI_N
+	output wire  i_B35D_L12P_MRCC , // # H4    # MC2-67  ## DAC1_DAT_N15 // swap  ## i_DAC0_DCO_P
+	output wire  i_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // swap  ## i_DAC0_DCO_N2
 	output wire  o_B35D_L13P_MRCC , // # K4    # MC2-63  ## DAC1_DAT_N14 // swap  ## o_DAC0_DAT_P12
 	output wire  o_B35D_L13N_MRCC , // # J4    # MC2-65  ## DAC1_DAT_P14 // swap  ## o_DAC0_DAT_N13
-	input  wire  c_B35D_L14P_SRCC , // # L3    # MC2-38  ## DAC1_DCO_N   // swap  ## o_DAC0_DAT_P13
-	input  wire  c_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // swap  ## o_DAC0_DAT_N1
-	input  wire  i_B35_L15P       , // # M1    # MC2-31  ## CLKD_STAT             ## o_DAC0_DAT_P8
-	input  wire  i_B35_L15N       , // # L1    # MC2-33  ## CLKD_REFM             ## o_DAC0_DAT_N8
+	input  wire  o_B35D_L14P_SRCC , // # L3    # MC2-38  ## DAC1_DCO_N   // swap  ## o_DAC0_DAT_P13
+	input  wire  o_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // swap  ## o_DAC0_DAT_N1
+	input  wire  o_B35D_L15P      , // # M1    # MC2-31  ## CLKD_STAT             ## o_DAC0_DAT_P8
+	input  wire  o_B35D_L15N      , // # L1    # MC2-33  ## CLKD_REFM             ## o_DAC0_DAT_N8
 	output wire  o_B35D_L16P      , // # M3    # MC2-28  ## DAC1_DAT_P4           ## o_DAC0_DAT_P9
 	output wire  o_B35D_L16N      , // # M2    # MC2-30  ## DAC1_DAT_N4           ## o_DAC0_DAT_N9
-	output wire  o_B35D_L17P      , // # K6    # MC2-32  ## DAC1_DCI_N   // swap  ## NA
-	output wire  o_B35D_L17N      , // # J6    # MC2-34  ## DAC1_DCI_P   // swap  ## NA
+	//output wire  o_B35D_L17P    , // # K6    # MC2-32  ## DAC1_DCI_N   // swap  ## NA
+	//output wire  o_B35D_L17N    , // # J6    # MC2-34  ## DAC1_DCI_P   // swap  ## NA
 	output wire  o_B35D_L18P      , // # L5    # MC2-23  ## DAC1_DAT_P1           ## o_DAC0_DAT_P14
 	output wire  o_B35D_L18N      , // # L4    # MC2-25  ## DAC1_DAT_N1           ## o_DAC0_DAT_N14
 	output wire  o_B35D_L19P      , // # N4    # MC2-19  ## DAC1_DAT_P2           ## o_DAC0_DAT_P15
 	output wire  o_B35D_L19N      , // # N3    # MC2-21  ## DAC1_DAT_N2           ## o_DAC0_DAT_N15
 	output wire  o_B35D_L20P      , // # R1    # MC2-24  ## DAC1_DAT_P5           ## o_DAC0_DAT_P11
 	output wire  o_B35D_L20N      , // # P1    # MC2-26  ## DAC1_DAT_N5           ## o_DAC0_DAT_N11
-	output wire  o_B35D_L21P      , // # P5    # MC2-15  ## DAC1_DAT_P3           ## NA
-	output wire  o_B35D_L21N      , // # P4    # MC2-17  ## DAC1_DAT_N3           ## NA
+	//output wire  o_B35D_L21P    , // # P5    # MC2-15  ## DAC1_DAT_P3           ## NA
+	//output wire  o_B35D_L21N    , // # P4    # MC2-17  ## DAC1_DAT_N3           ## NA
 	output wire  o_B35D_L22P      , // # P2    # MC2-20  ## DAC1_DAT_P6           ## o_DAC0_DAT_P10
 	output wire  o_B35D_L22N      , // # N2    # MC2-22  ## DAC1_DAT_N6           ## o_DAC0_DAT_N10
-	output wire  o_B35D_L23P      , // # M6    # MC2-27  ## DAC1_DAT_P0           ## NA
-	output wire  o_B35D_L23N      , // # M5    # MC2-29  ## DAC1_DAT_N0           ## NA
-	output wire  o_B35D_L24P      , // # P6    # MC2-16  ## DAC1_DAT_P7           ## NA
-	output wire  o_B35D_L24N      , // # N5    # MC2-18  ## DAC1_DAT_N7           ## NA
+	//output wire  o_B35D_L23P    , // # M6    # MC2-27  ## DAC1_DAT_P0           ## NA
+	//output wire  o_B35D_L23N    , // # M5    # MC2-29  ## DAC1_DAT_N0           ## NA
+	//output wire  o_B35D_L24P    , // # P6    # MC2-16  ## DAC1_DAT_P7           ## NA
+	//output wire  o_B35D_L24N    , // # N5    # MC2-18  ## DAC1_DAT_N7           ## NA
 	//
-	input  wire  i_B35_25         , // # L6    # MC2-12  ## CLKD_LD               ## NA
+	//input  wire  i_B35_25       , // # L6    # MC2-12  ## CLKD_LD               ## NA
 	
 	//}
 	
