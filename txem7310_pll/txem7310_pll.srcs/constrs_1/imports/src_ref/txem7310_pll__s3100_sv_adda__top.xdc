@@ -658,10 +658,10 @@ set_property IOSTANDARD DIFF_HSTL_I_18  [get_ports *_B15D*]  ; # for adc interfa
 # B16
 set_property IOSTANDARD LVCMOS33        [get_ports *_B16_*]
 # B34
-set_property IOSTANDARD LVCMOS18        [get_ports *_B34_*]  ; # due to diff signal DIFF_HSTL_I_18
+#set_property IOSTANDARD LVCMOS18        [get_ports *_B34_*]  ; # due to diff signal DIFF_HSTL_I_18
 set_property IOSTANDARD DIFF_HSTL_I_18  [get_ports *_B34D*]
 # B35
-set_property IOSTANDARD LVCMOS18        [get_ports *_B35_*]  ; # due to diff signal DIFF_HSTL_I_18
+#set_property IOSTANDARD LVCMOS18        [get_ports *_B35_*]  ; # due to diff signal DIFF_HSTL_I_18
 set_property IOSTANDARD DIFF_HSTL_I_18  [get_ports *_B35D*]
 
 
@@ -670,8 +670,8 @@ set_property PULLUP true [get_ports io_B13_*]
 ## set_property PULLUP true [get_ports io_B14_*]
 set_property PULLUP true [get_ports io_B15_*]
 set_property PULLUP true [get_ports io_B16_*]
-set_property PULLUP true [get_ports io_B34_*]
-set_property PULLUP true [get_ports io_B35_*]
+#set_property PULLUP true [get_ports io_B34_*]
+#set_property PULLUP true [get_ports io_B35_*]
 
 
 ## INTERNAL_VREF for diff port ##
@@ -713,28 +713,28 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o
 set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B15*]
 
 ## B16 common
-#set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B16*]
-#set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B16*]
+set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B16*]
+set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B16*]
 set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B16*]
 set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B16*]
 #
-#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B16*]
+set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B16*]
 set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B16*]
 
 ## B34 common
-set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B34*]
-set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B34*]
-set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B34*]
-set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B34*]
+#set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B34*]
+#set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B34*]
+#set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B34*]
+#set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B34*]
 #
 set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B34*]
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B34*]
+#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B34*]
 
 ## B35 common
-set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B35*]
-set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B35*]
-set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B35*]
-set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B35*]
+#set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports  i_B35*]
+#set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i_B35*]
+#set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B35*]
+#set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B35*]
 #
 set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B35*]
 
@@ -965,8 +965,8 @@ set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L7N ]  ; # D
 ############################################################################
 
 # LAN_MISO : i_B15_L22P
-set_input_delay -clock [get_clocks lan_clk] -max -add_delay 3.500 [get_ports i_B15_L9N] 
-set_input_delay -clock [get_clocks lan_clk] -min -add_delay 1.000 [get_ports i_B15_L9N] 
+set_input_delay -clock [get_clocks lan_clk] -max -add_delay 3.500 [get_ports i_B15_L22P] 
+set_input_delay -clock [get_clocks lan_clk] -min -add_delay 1.000 [get_ports i_B15_L22P] 
 
 # LAN_INT_B : i_B15_L21N
 set_max_delay  18.000  -from [get_ports i_B15_L21N] 

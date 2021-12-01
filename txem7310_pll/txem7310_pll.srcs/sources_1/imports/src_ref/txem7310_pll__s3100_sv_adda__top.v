@@ -749,7 +749,7 @@ module txem7310_pll__s3100_sv_adda__top (
 	input  wire   i_B13_L2P       , // # AB16 # MC1-67  ## M2_SPI_RX_EN_SLAVE              ## i_CLKD_STAT
 	output wire   o_B13_L2N       , // # AB17 # MC1-69  ## SPIOx_SCLK                      ## o_CLKD_SYNC
 	output wire   o_B13_L3P       , // # AA13 # MC1-68  ## DACx_SDIO                       ## o_CLKD_RST_B
-	input  wire  io_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO                        ## io_CLKD_SDIO
+	inout  wire  io_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO                        ## io_CLKD_SDIO
 	output wire   o_B13_L4P       , // # AA15 # MC1-71  ## SPIOx_MOSI                      ## o_CLKD_SCLK
 	input  wire   i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO                      ## i_CLKD_REFM
 	input  wire   i_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS                         ## i_CLKD_SDO
@@ -855,24 +855,24 @@ module txem7310_pll__s3100_sv_adda__top (
 	output wire  o_B35D_L5N       , // # F1    # MC2-52  ## DAC1_DAT_P10 // swap  ## o_DAC0_DAT_N4
 	//input  wire  i_B35_L6P      , // # F3    # MC2-53  ## CLKD_SDO              ## NA
 	//inout  wire io_B35_L6N      , // # E3    # MC2-57  ## CLKD_SDIO             ## NA
-	input  wire  o_B35D_L7P       , // # K1    # MC2-41  ## ADC1_DA_P             ## o_DAC0_DAT_P6
-	input  wire  o_B35D_L7N       , // # J1    # MC2-43  ## ADC1_DA_N             ## o_DAC0_DAT_N6
+	output wire  o_B35D_L7P       , // # K1    # MC2-41  ## ADC1_DA_P             ## o_DAC0_DAT_P6
+	output wire  o_B35D_L7N       , // # J1    # MC2-43  ## ADC1_DA_N             ## o_DAC0_DAT_N6
 	output wire  o_B35D_L8P       , // # H2    # MC2-46  ## DAC1_DAT_N9  // swap  ## o_DAC0_DAT_P5
 	output wire  o_B35D_L8N       , // # G2    # MC2-48  ## DAC1_DAT_P9  // swap  ## o_DAC0_DAT_N5
-	input  wire  o_B35D_L9P       , // # K2    # MC2-37  ## ADC1_DB_P             ## o_DAC0_DAT_P7
-	input  wire  o_B35D_L9N       , // # J2    # MC2-39  ## ADC1_DB_N             ## o_DAC0_DAT_N7
+	output wire  o_B35D_L9P       , // # K2    # MC2-37  ## ADC1_DB_P             ## o_DAC0_DAT_P7
+	output wire  o_B35D_L9N       , // # J2    # MC2-39  ## ADC1_DB_N             ## o_DAC0_DAT_N7
 	//output wire  o_B35D_L10P    , // # J5    # MC2-42  ## DAC1_DAT_N8  // swap  ## NA
 	//output wire  o_B35D_L10N    , // # H5    # MC2-44  ## DAC1_DAT_P8  // swap  ## NA
-	input  wire  o_B35D_L11P_SRCC , // # H3    # MC2-45  ## ADC1_DCO_P            ## o_DAC0_DCI_P
-	input  wire  o_B35D_L11N_SRCC , // # G3    # MC2-47  ## ADC1_DCO_N            ## o_DAC0_DCI_N
-	output wire  c_B35D_L12P_MRCC , // # H4    # MC2-67  ## DAC1_DAT_N15 // swap  ## c_DAC0_DCO_P
-	output wire  c_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // swap  ## c_DAC0_DCO_N
+	output wire  o_B35D_L11P_SRCC , // # H3    # MC2-45  ## ADC1_DCO_P            ## o_DAC0_DCI_P
+	output wire  o_B35D_L11N_SRCC , // # G3    # MC2-47  ## ADC1_DCO_N            ## o_DAC0_DCI_N
+	input  wire  c_B35D_L12P_MRCC , // # H4    # MC2-67  ## DAC1_DAT_N15 // swap  ## c_DAC0_DCO_P
+	input  wire  c_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // swap  ## c_DAC0_DCO_N
 	output wire  o_B35D_L13P_MRCC , // # K4    # MC2-63  ## DAC1_DAT_N14 // swap  ## o_DAC0_DAT_P12
 	output wire  o_B35D_L13N_MRCC , // # J4    # MC2-65  ## DAC1_DAT_P14 // swap  ## o_DAC0_DAT_N12
-	input  wire  o_B35D_L14P_SRCC , // # L3    # MC2-38  ## DAC1_DCO_N   // swap  ## o_DAC0_DAT_P13
-	input  wire  o_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // swap  ## o_DAC0_DAT_N13
-	input  wire  o_B35D_L15P      , // # M1    # MC2-31  ## CLKD_STAT             ## o_DAC0_DAT_P8
-	input  wire  o_B35D_L15N      , // # L1    # MC2-33  ## CLKD_REFM             ## o_DAC0_DAT_N8
+	output wire  o_B35D_L14P_SRCC , // # L3    # MC2-38  ## DAC1_DCO_N   // swap  ## o_DAC0_DAT_P13
+	output wire  o_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // swap  ## o_DAC0_DAT_N13
+	output wire  o_B35D_L15P      , // # M1    # MC2-31  ## CLKD_STAT             ## o_DAC0_DAT_P8
+	output wire  o_B35D_L15N      , // # L1    # MC2-33  ## CLKD_REFM             ## o_DAC0_DAT_N8
 	output wire  o_B35D_L16P      , // # M3    # MC2-28  ## DAC1_DAT_P4           ## o_DAC0_DAT_P9
 	output wire  o_B35D_L16N      , // # M2    # MC2-30  ## DAC1_DAT_N4           ## o_DAC0_DAT_N9
 	//output wire  o_B35D_L17P    , // # K6    # MC2-32  ## DAC1_DCI_N   // swap  ## NA

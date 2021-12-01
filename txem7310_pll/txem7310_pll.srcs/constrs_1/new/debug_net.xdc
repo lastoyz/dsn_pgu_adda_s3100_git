@@ -257,14 +257,17 @@ set_property MARK_DEBUG true [get_nets  adc_wrapper__inst/i_hsadc_fifo_adc1_rd_e
 
 ## set_property LOC MMCME2_ADV_X0Y1 [get_cells -quiet [list clk_wiz_0_inst/inst/mmcm_adv_inst]]
 
-set_property LOC PLLE2_ADV_X0Y1 [get_cells clk_wiz_1_2_inst/inst/plle2_adv_inst]
-set_property LOC PLLE2_ADV_X0Y0 [get_cells clk_wiz_0_3_1_inst/inst/plle2_adv_inst]
-set_property LOC PLLE2_ADV_X1Y3 [get_cells clk_wiz_1_2_1_inst/inst/plle2_adv_inst]
-set_property LOC PLLE2_ADV_X1Y2 [get_cells clk_wiz_1_2_0_inst/inst/plle2_adv_inst]
+set_property LOC PLLE2_ADV_X0Y0 [get_cells clk_wiz_0_3_1_inst/inst/plle2_adv_inst] ;# MCS LAN clocks
+
+# note: DAC1 located in B34 (X1Y2); DAC0 located in B35 (X1Y3)
+set_property LOC PLLE2_ADV_X0Y1 [get_cells clk_wiz_1_2_inst/inst/plle2_adv_inst]   ;# DAC clocks // i_CLKD_COUT in B13
+set_property LOC PLLE2_ADV_X1Y3 [get_cells clk_wiz_1_2_0_inst/inst/plle2_adv_inst] ;# dac0_dci
+set_property LOC PLLE2_ADV_X1Y2 [get_cells clk_wiz_1_2_1_inst/inst/plle2_adv_inst] ;# dac1_dci
 
 
 #### pblock ####
 
+# note: LAN located in B15
 create_pblock pblock_lan_endpnt_wrpr_inst
 add_cells_to_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] [get_cells -quiet [list lan_endpoint_wrapper_inst]]
 ##resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y0:CLOCKREGION_X1Y1}
@@ -272,16 +275,19 @@ add_cells_to_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] [get_cells -quiet 
 resize_pblock [get_pblocks pblock_lan_endpnt_wrpr_inst] -add {CLOCKREGION_X0Y2:CLOCKREGION_X0Y4}
 
 
+# note: MTH located in B16
 create_pblock pblock_mth
 add_cells_to_pblock [get_pblocks pblock_mth] [get_cells -quiet [list  master_spi_mth_brd__inst slave_spi_mth_brd__M2_inst]]
-resize_pblock [get_pblocks pblock_mth] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y1}
+#resize_pblock [get_pblocks pblock_mth] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y1}
+resize_pblock [get_pblocks pblock_mth] -add {CLOCKREGION_X0Y3:CLOCKREGION_X0Y4}
 
-
+# note: ADC located in B15
 create_pblock pblock_adc_wrapper__inst
 add_cells_to_pblock [get_pblocks pblock_adc_wrapper__inst] [get_cells -quiet [list  adc_wrapper__inst]]
-resize_pblock [get_pblocks pblock_adc_wrapper__inst] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y4}
+#resize_pblock [get_pblocks pblock_adc_wrapper__inst] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y4}
+resize_pblock [get_pblocks pblock_adc_wrapper__inst] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y4}
 
-
+# note: DAC located in B34 and B35
 create_pblock pblock_dac
 add_cells_to_pblock [get_pblocks pblock_dac] [get_cells -quiet [list dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/dsp48__AP_C__r_*]]
 resize_pblock [get_pblocks pblock_dac] -add {CLOCKREGION_X1Y2:CLOCKREGION_X1Y3}
