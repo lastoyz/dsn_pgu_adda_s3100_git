@@ -754,8 +754,8 @@ module txem7310_pll__s3100_sv_adda__top (
 	input  wire   i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO                      ## i_CLKD_REFM
 	input  wire   i_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS                         ## i_CLKD_SDO
 	output wire   o_B13_L5N       , // # AA14 # MC1-66  ## DACx_SCLK                       ## o_CLKD_CS_B
-	output wire   o_B13D_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF                   ## o_TRIG_OUT_P
-	output wire   o_B13D_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK                   ## o_TRIG_OUT_N
+	output wire   o_B13_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF                   ## o_TRIG_OUT_P
+	output wire   o_B13_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK                   ## o_TRIG_OUT_N
 	output wire   o_B13_L7P       , // # AB11 # MC1-8   ## DACx_RST_B                      ## o_DAC1_CS
 	output wire   o_B13_L7N       , // # AB12 # MC2-11  ## CLKD_SYNC                       ## o_DACx_RST_B
 	output wire   o_B13_L8P       , // # AA9            # NA                               ## o_DAC0_CS
@@ -1242,17 +1242,17 @@ IOBUF iobuf_CLKD_SDIO_inst (.IO(io_B13_L3N  ), .T(CLKD_SDIO_wr), .I(CLKD_SDIO_wr
 
 
 //// TRIG
-//  o_B13D_L6P       ## o_TRIG_OUT_P
-//  o_B13D_L6N       ## o_TRIG_OUT_N
+//  o_B13_L6P       ## o_TRIG_OUT_P
+//  o_B13_L6N       ## o_TRIG_OUT_N
 //  i_B13D_L14P_SRCC ## i_TRIG_IN_P  
 //  i_B13D_L14N_SRCC ## i_TRIG_IN_N  
 
 //wire   TRIG_OUT;
-//OBUFDS obufds_TRIG_OUT_inst (.O(o_B13D_L6P), .OB(o_B13D_L6N), .I(TRIG_OUT)	); // LVDS_25 //$$ NG
+//OBUFDS obufds_TRIG_OUT_inst (.O(o_B13_L6P), .OB(o_B13_L6N), .I(TRIG_OUT)	); // LVDS_25 //$$ NG
 wire o_TRIG_OUT_P; // o
 wire o_TRIG_OUT_N; // o
-OBUF obuf_TRIG_OUT_P_inst (.O(o_B13D_L6P       ), .I( o_TRIG_OUT_P ) );  // LVCMOS25
-OBUF obuf_TRIG_OUT_N_inst (.O(o_B13D_L6N       ), .I( o_TRIG_OUT_N ) );  // LVCMOS25
+OBUF obuf_TRIG_OUT_P_inst (.O(o_B13_L6P       ), .I( o_TRIG_OUT_P ) );  // LVCMOS25
+OBUF obuf_TRIG_OUT_N_inst (.O(o_B13_L6N       ), .I( o_TRIG_OUT_N ) );  // LVCMOS25
 
 wire   i_TRIG_IN; // reserved
 IBUFDS ibufds_TRIG_IN_inst  (.I(i_B13D_L14P_SRCC), .IB(i_B13D_L14N_SRCC), .O(i_TRIG_IN) );

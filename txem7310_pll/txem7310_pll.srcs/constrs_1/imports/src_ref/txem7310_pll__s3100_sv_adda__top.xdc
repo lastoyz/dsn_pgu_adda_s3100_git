@@ -508,8 +508,8 @@ set_clock_groups -asynchronous          \
 # --> 200MHz 5ns --> 175.01MHz 5.714ns --> 174.06MHz 5.745ns --> 169.49MHz 5.9ns  --> 166.67MHz 6.0ns 
 # --> 161.29MHz 6.2ns --> 158.73MHz 6.3ns --> 156.25MHz 6.4ns --> 152.91MHz 6.54ns
 create_clock -period 5.000 -name dac_clk      [get_ports c_B13D_L13P_MRCC]
-create_clock -period 5.000 -name dac0_dco_clk [get_ports c_B34D_L14P_SRCC]
-create_clock -period 5.000 -name dac1_dco_clk [get_ports c_B35D_L14N_SRCC]
+create_clock -period 5.000 -name dac0_dco_clk [get_ports c_B35D_L12P_MRCC]
+create_clock -period 5.000 -name dac1_dco_clk [get_ports c_B34D_L12P_MRCC]
 
 
 ## setup diff termination for clock in ## LVDS_25 with LVCMOS25
@@ -563,9 +563,9 @@ set_clock_groups -asynchronous          \
 ############################################################################
 
 ## for serdes ##
-#// 9.5ns for serdesCLK_0 @ 210MHz/2
-create_clock -period 9.5 -name serdesCLK_0 [get_ports c_B34D_L11P_SRCC]
-create_clock -period 9.5 -name serdesCLK_1 [get_ports c_B35D_L11P_SRCC]
+#// 9.5ns for serdesCLK_0 @ 210MHz/2 # ADCx_DCO
+create_clock -period 9.5 -name serdesCLK_0 [get_ports c_B15D_L13P_MRCC]
+create_clock -period 9.5 -name serdesCLK_1 [get_ports c_B15D_L12P_MRCC]
 #
 create_generated_clock -name serdesCLK_0_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[0].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
 create_generated_clock -name serdesCLK_1_div [get_pins {adc_wrapper__inst/control_hsadc_dual__inst/serdes[1].serdes_ddr_2lane_in_20bit_out_inst/clkout_buf_inst/O}]
@@ -596,45 +596,45 @@ set_clock_groups -asynchronous          \
 ## ADC input :  2.4ns or 4.8ns delay for serdesCLK_0 @ 210MHz/2 ...9.5ns
 
 ## io delay 
-#input  wire  i_B34D_L18P     ## ADC0_DA_P
-#input  wire  i_B34D_L22P     ## ADC0_DB_P
-#input  wire  i_B35D_L7P      ## ADC1_DA_P
-#input  wire  i_B35D_L9P      ## ADC1_DB_P
+#input  wire  i_B34D_L18P  --> i_B15D_L17P   ## ADC0_DA_P
+#input  wire  i_B34D_L22P  --> i_B15D_L18P   ## ADC0_DB_P
+#input  wire  i_B35D_L7P   --> i_B15D_L7P    ## ADC1_DA_P
+#input  wire  i_B35D_L9P   --> i_B15D_L8P    ## ADC1_DB_P
 #
-set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L18P]
-set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L18P]
-set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L18P] -clock_fall
-set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L18P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B15D_L17P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B15D_L17P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B15D_L17P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B15D_L17P] -clock_fall
 #
-set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L22P]
-set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L22P]
-set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B34D_L22P] -clock_fall
-set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B34D_L22P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B15D_L18P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B15D_L18P]
+set_input_delay  -clock [get_clocks serdesCLK_0] -max -add_delay  0.500 [get_ports i_B15D_L18P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_0] -min -add_delay  0.000 [get_ports i_B15D_L18P] -clock_fall
 #
-set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L7P]
-set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L7P]
-set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L7P] -clock_fall
-set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L7P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B15D_L7P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B15D_L7P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B15D_L7P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B15D_L7P] -clock_fall
 #
-set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L9P]
-set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L9P]
-set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B35D_L9P] -clock_fall
-set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B35D_L9P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B15D_L8P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B15D_L8P]
+set_input_delay  -clock [get_clocks serdesCLK_1] -max -add_delay  0.500 [get_ports i_B15D_L8P] -clock_fall
+set_input_delay  -clock [get_clocks serdesCLK_1] -min -add_delay  0.000 [get_ports i_B15D_L8P] -clock_fall
 #
 
 
-#output wire  o_B34_L5P       ## ADCx_TPT_B
-set_max_delay -to [get_ports o_B34_L5P] 12.0
-set_output_delay -clock [get_clocks base_adc_clk] 0.000 [get_ports o_B34_L5P]
+#output wire  o_B34_L5P --> o_B15_25      ## ADCx_TPT_B
+set_max_delay -to [get_ports o_B15_25] 12.0
+set_output_delay -clock [get_clocks base_adc_clk] 0.000 [get_ports o_B15_25]
 
-#output wire  o_B34D_L6P      ## ADCx_CNV_P
-#output wire  o_B34D_L6N      ## ADCx_CNV_N
-#output wire  o_B34D_L8P      ## ADCx_CLK_P
-#output wire  o_B34D_L8N      ## ADCx_CLK_N
-set_max_delay   -to [get_ports o_B34D_L6P] 12.0 ;# <-- 11.1 <-- 10.6 <--9.9
-set_max_delay   -to [get_ports o_B34D_L6N] 12.0 ;# <-- 11.1 <-- 10.6 <--9.9
-set_max_delay   -to [get_ports o_B34D_L8P] 12.0 ;# <-- 10.1 <--  9.6 <- 9.7  
-set_max_delay   -to [get_ports o_B34D_L8N] 12.0 ;# <-- 10.1 <--  9.6 <- 9.7  
+#output wire  o_B34D_L6P --> o_B15D_L15P    ## ADCx_CNV_P
+#output wire  o_B34D_L6N --> o_B15D_L15N    ## ADCx_CNV_N
+#output wire  o_B34D_L8P --> o_B15D_L9P    ## ADCx_CLK_P
+#output wire  o_B34D_L8N --> o_B15D_L9N    ## ADCx_CLK_N
+set_max_delay   -to [get_ports o_B15D_L15P ] 12.0 ;# <-- 11.1 <-- 10.6 <--9.9
+set_max_delay   -to [get_ports o_B15D_L15N ] 12.0 ;# <-- 11.1 <-- 10.6 <--9.9
+set_max_delay   -to [get_ports o_B15D_L9P  ] 12.0 ;# <-- 10.1 <--  9.6 <- 9.7  
+set_max_delay   -to [get_ports o_B15D_L9N  ] 12.0 ;# <-- 10.1 <--  9.6 <- 9.7  
 
 
 ###########################################################################
@@ -653,7 +653,8 @@ set_property IOSTANDARD LVDS_25         [get_ports *_B13D*]
 # B14                             
 ## set_property IOSTANDARD LVCMOS18     [get_ports *_B14_*]
 # B15
-set_property IOSTANDARD LVCMOS33        [get_ports *_B15_*]
+set_property IOSTANDARD LVCMOS18        [get_ports *_B15_*]
+set_property IOSTANDARD DIFF_HSTL_I_18  [get_ports *_B15D*]  ; # for adc interface
 # B16
 set_property IOSTANDARD LVCMOS33        [get_ports *_B16_*]
 # B34
@@ -675,8 +676,8 @@ set_property PULLUP true [get_ports io_B35_*]
 
 ## INTERNAL_VREF for diff port ##
 #set_property INTERNAL_VREF 0.9 [get_iobanks 13]
-#set_property INTERNAL_VREF 0.75 [get_iobanks 15]
-set_property INTERNAL_VREF 0.75 [get_iobanks 16]
+set_property INTERNAL_VREF 0.9 [get_iobanks 15]
+#set_property INTERNAL_VREF 0.75 [get_iobanks 16]
 set_property INTERNAL_VREF 0.9 [get_iobanks 34]
 set_property INTERNAL_VREF 0.9 [get_iobanks 35]
 
@@ -748,22 +749,22 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o
 
 ## DAC0 data out : 400MHz case
 # 
-set ports_dac0 [list o_B34D_L15P      \
-                     o_B34D_L23P      \
-                     o_B34D_L19P      \
-                     o_B34D_L21P      \
-                     o_B34D_L13P_MRCC \
-                     o_B34D_L17P      \
-                     o_B34D_L24P      \
-                     o_B34D_L16P      \
-                     o_B34D_L20P      \
-                     o_B34D_L3P       \
-                     o_B34D_L9P       \
-                     o_B34D_L2P       \
-                     o_B34D_L4P       \
-                     o_B34D_L1P       \
-                     o_B34D_L7P       \
-                     o_B34D_L12P_MRCC ]
+set ports_dac0 [list o_B35D_L19P      \
+                     o_B35D_L18P      \
+                     o_B35D_L14P_SRCC \
+                     o_B35D_L13P_MRCC \
+                     o_B35D_L20P      \
+                     o_B35D_L22P      \
+                     o_B35D_L16P      \
+                     o_B35D_L15P      \
+                     o_B35D_L9P       \
+                     o_B35D_L7P       \
+                     o_B35D_L8P       \
+                     o_B35D_L5P       \
+                     o_B35D_L4P       \
+                     o_B35D_L3P       \
+                     o_B35D_L2P       \
+                     o_B35D_L1P       ]
 #
 set_property IOB TRUE [get_ports $ports_dac0 ]
 
@@ -798,22 +799,22 @@ set_max_delay    -to [get_ports $ports_dac0 ] 17.000
 
 ## DAC1 data out : 400MHz case
 #
-set ports_dac1 [list o_B35D_L12P_MRCC \
-                     o_B35D_L13P_MRCC \
-                     o_B35D_L1P       \
-                     o_B35D_L2P       \
-                     o_B35D_L3P       \
-                     o_B35D_L5P       \
-                     o_B35D_L8P       \
-                     o_B35D_L10P      \
-                     o_B35D_L24P      \
-                     o_B35D_L22P      \
-                     o_B35D_L20P      \
-                     o_B35D_L16P      \
-                     o_B35D_L21P      \
-                     o_B35D_L19P      \
-                     o_B35D_L18P      \
-                     o_B35D_L23P  ]   
+set ports_dac1 [list o_B34D_L23P \
+                     o_B34D_L24P \
+                     o_B34D_L18P \
+                     o_B34D_L15P \
+                     o_B34D_L22P \
+                     o_B34D_L20P \
+                     o_B34D_L10P \
+                     o_B34D_L8P  \
+                     o_B34D_L9P  \
+                     o_B34D_L7P  \
+                     o_B34D_L4P  \
+                     o_B34D_L5P  \
+                     o_B34D_L6P  \
+                     o_B34D_L2P  \
+                     o_B34D_L1P  \
+                     o_B34D_L3P  ]
 #
 set_property IOB TRUE [get_ports  $ports_dac1 ]
 
@@ -855,34 +856,26 @@ set_max_delay   -to [get_ports $ports_dac1 ] 17.010
 
 set t_dci_delay_max [expr 1.250 + 0.800 ] ; # 1.250 + 0.800 ns
 
-## dac0 dci
+## dac0 dci : o_B35D_L11P_SRCC
 #
-#set_output_delay -clock [get_clocks dac0_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_r ] [get_ports {o_B34D_L10P}]
-#set_output_delay -clock [get_clocks dac0_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_r ] [get_ports {o_B34D_L10P}]
-#set_output_delay -clock [get_clocks dac0_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_f ] [get_ports {o_B34D_L10P}] -clock_fall
-#set_output_delay -clock [get_clocks dac0_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_f ] [get_ports {o_B34D_L10P}] -clock_fall
+#set_output_delay -clock [get_clocks dac0_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_r ] [get_ports {o_B35D_L11P_SRCC}]
+#set_output_delay -clock [get_clocks dac0_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_r ] [get_ports {o_B35D_L11P_SRCC}]
+#set_output_delay -clock [get_clocks dac0_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_f ] [get_ports {o_B35D_L11P_SRCC}] -clock_fall
+#set_output_delay -clock [get_clocks dac0_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_f ] [get_ports {o_B35D_L11P_SRCC}] -clock_fall
 #
-set_max_delay -datapath_only -from [get_pins ODDR_dac0_dci_inst/C] -to [get_ports o_B34D_L10P] $t_dci_delay_max
+set_max_delay -datapath_only -from [get_pins ODDR_dac0_dci_inst/C] -to [get_ports o_B35D_L11P_SRCC] $t_dci_delay_max
 
 
-## dac1 dci
+## dac1 dci : o_B34D_L13P_MRCC
 #
 # add fall -2.5ns
-#set_output_delay -clock [get_clocks dac1_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_r] [get_ports {o_B35D_L17P}]
-#set_output_delay -clock [get_clocks dac1_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_r] [get_ports {o_B35D_L17P}]
-#set_output_delay -clock [get_clocks dac1_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_f] [get_ports {o_B35D_L17P}] -clock_fall
-#set_output_delay -clock [get_clocks dac1_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_f] [get_ports {o_B35D_L17P}] -clock_fall
+#set_output_delay -clock [get_clocks dac1_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_r] [get_ports {o_B34D_L13P_MRCC}]
+#set_output_delay -clock [get_clocks dac1_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_r] [get_ports {o_B34D_L13P_MRCC}]
+#set_output_delay -clock [get_clocks dac1_dci_clk] -max -add_delay [expr $t_trc_dly_max + $t_su_f] [get_ports {o_B34D_L13P_MRCC}] -clock_fall
+#set_output_delay -clock [get_clocks dac1_dci_clk] -min -add_delay [expr $t_trc_dly_min - $t_hd_f] [get_ports {o_B34D_L13P_MRCC}] -clock_fall
 #
-set_max_delay -datapath_only -from [get_pins ODDR_dac1_dci_inst/C] -to [get_ports o_B35D_L17P ] $t_dci_delay_max
+set_max_delay -datapath_only -from [get_pins ODDR_dac1_dci_inst/C] -to [get_ports o_B34D_L13P_MRCC ] $t_dci_delay_max
 
-# dac0 dci
-## 8.000 --> 14.960
-#set_max_delay   -to [get_ports o_B34D_L10P ] 14.960
-#
-# dac1 dci
-## 8.000 --> 14.910
-#set_max_delay   -to [get_ports o_B35D_L17P ] 14.910
-#
 
 
 ## false path for fifo reset
@@ -905,10 +898,10 @@ set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_in
 
 # TRIG_OUT
 # 400MHz clock out case
-##set_max_delay   -to [get_ports o_B13_L15P ] 9.200
-##set_max_delay   -to [get_ports o_B13_L15N ] 9.200
-set_max_delay   -to [get_ports o_B13_L15P ] 14.200
-set_max_delay   -to [get_ports o_B13_L15N ] 14.200
+##set_max_delay   -to [get_ports o_B13_L6P ] 9.200
+##set_max_delay   -to [get_ports o_B13_L6N ] 9.200
+set_max_delay     -to [get_ports o_B13_L6P ] 14.200
+set_max_delay     -to [get_ports o_B13_L6N ] 14.200
 #
 
 
@@ -916,9 +909,12 @@ set_max_delay   -to [get_ports o_B13_L15N ] 14.200
 ## TODO: SPIO control 
 ############################################################################
 
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L2N ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L4P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L1P ]
+# SPIOx_SCLK : o_B16_L20P
+# SPIOx_MOSI : o_B16_L22N
+# SPIO1_CS   : o_B16_L20N
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B16_L20P ]
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B16_L22N ]
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B16_L20N ]
 #
 # ignore wire in from ep07wire
 #set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi07/ep_dataout_reg[*]/C}] 
@@ -928,28 +924,26 @@ set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L1P ]
 ## TODO: CLKD control 
 ############################################################################
 
-# CLKD_SCLK     
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B35_L4P ]
-# CLKD_CS_B
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B35_L4N ]
-# CLKD_SDIO
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports io_B35_L6N ]
-set_input_delay  -clock [get_clocks sys_clk] 0.000 [get_ports io_B35_L6N ]
+# CLKD_SCLK : o_B13_L4P    
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L4P ]
+# CLKD_CS_B : o_B13_L5N
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L5N ]
+# CLKD_SDIO : io_B13_L3N
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports io_B13_L3N ]
+set_input_delay  -clock [get_clocks sys_clk] 0.000 [get_ports io_B13_L3N ]
 
-# CLKD_RST_B
-#set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B35_0_ ]
+# CLKD_RST_B : o_B13_L3P
+#set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L3P ]
 set_false_path   -from [get_pins master_spi_ad9516_inst/r_LNG_RSTn_reg/C]
-set_max_delay    -to [get_ports o_B35_0_] 20.0
+set_max_delay    -to [get_ports o_B13_L3P] 20.0
 #
 
-# ignore wire in from ep06wire
-#set_false_path -from [get_pins {ok_endpoint_wrapper_inst/wi06/ep_dataout_reg[*]/C}] 
 
 ## pull up for SDIO SDO in bidir mode
-# CLKD_SDIO
-set_property PULLUP true [get_ports io_B35_L6N]
-# CLKD_SDO
-set_property PULLUP true [get_ports  i_B35_L6P]
+# CLKD_SDIO : io_B13_L3N
+set_property PULLUP true [get_ports io_B13_L3N]
+# CLKD_SDO  : i_B13_L5P
+set_property PULLUP true [get_ports  i_B13_L5P]
 
 
 
@@ -957,11 +951,11 @@ set_property PULLUP true [get_ports  i_B35_L6P]
 ## TODO: DACX control 
 ############################################################################
 
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L16P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L3P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L5N ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L5P ]
-set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L7P ]
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L8P ]  ; # DAC0_CS
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L9P ]  ; # DACx_SDIO
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L9N ]  ; # DACx_SCLK
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L7P ]  ; # DAC1_CS
+set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L7N ]  ; # DACx_RST_B
 #
 
 
@@ -970,20 +964,20 @@ set_output_delay -clock [get_clocks sys_clk] 0.000 [get_ports o_B13_L7P ]
 ## TODO: LAN control 
 ############################################################################
 
-# LAN_MISO
+# LAN_MISO : i_B15_L22P
 set_input_delay -clock [get_clocks lan_clk] -max -add_delay 3.500 [get_ports i_B15_L9N] 
 set_input_delay -clock [get_clocks lan_clk] -min -add_delay 1.000 [get_ports i_B15_L9N] 
 
-# LAN_INT_B
-set_max_delay  18.000  -from [get_ports i_B15_L8N] 
-set_min_delay   0.000  -from [get_ports i_B15_L8N] 
+# LAN_INT_B : i_B15_L21N
+set_max_delay  18.000  -from [get_ports i_B15_L21N] 
+set_min_delay   0.000  -from [get_ports i_B15_L21N] 
 
-# LAN_RST_B  LAN_PWDN
-set_max_delay  18.000    -to [get_ports {{o_B15_L9P} {o_B15_L6P}}]  
+# LAN_RST_B  LAN_PWDN : o_B15_L22N  o_B15_L21P
+set_max_delay  18.000    -to [get_ports {{o_B15_L22N} {o_B15_L21P}}]  
 
-# LAN_SCLK   LAN_SSN_B LAN_SSAUX_B
-##set_max_delay   6.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
-set_max_delay   12.900    -to [get_ports {{o_B15_L7P} {o_B15_L7N} {o_B15_L8P} {o_B15_L6N}}]  
+# LAN_MOSI LAN_SCLK   LAN_SSN_B LAN_SSAUX_B : o_B15_L24P o_B15_L24N  o_B15_L23N  o_B15_L23P
+##set_max_delay   6.900    -to [get_ports {{o_B15_L24P} {o_B15_L24N} {o_B15_L23N} {o_B15_L23P}}]  
+set_max_delay    12.900    -to [get_ports {{o_B15_L24P} {o_B15_L24N} {o_B15_L23N} {o_B15_L23P}}]  
 
 ## relax wires
 set_false_path -from [get_pins {lan_endpoint_wrapper_inst/mcs_io_bridge_inst2/o_wi_core__inst__lan_wi_00/r_port_wi_00_reg[*]/C}] 
