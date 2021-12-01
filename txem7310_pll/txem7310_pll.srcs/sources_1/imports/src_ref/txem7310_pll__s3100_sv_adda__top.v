@@ -637,32 +637,32 @@ module txem7310_pll__s3100_sv_adda__top (
 	// ## LAN for END-POINTS       
 	//output wire  o_B15_L6P        , // # H17  # LAN_PWDN    ## EP_LAN_PWDN                       ## NA
 	//output wire  o_B15_L6N        , // # H18  # LAN_SSAUX_B //$$ ssn aux # NA                    ## NA
-	input  wire   i_B15_L7P         , // # J22  # LAN_MOSI    ## EP_LAN_MOSI                       ## i_ADC1_DA_P
-	input  wire   i_B15_L7N         , // # H22  # LAN_SCLK    ## EP_LAN_SCLK                       ## i_ADC1_DA_B
-	input  wire   i_B15_L8P         , // # H20  # LAN_SSN_B   ## EP_LAN_CS_B                       ## i_ADC1_DB_P
-	input  wire   i_B15_L8N         , // # G20  # LAN_INT_B   ## EP_LAN_INT_B                      ## i_ADC1_DB_N
-	output wire   o_B15_L9P         , // # K21  # LAN_RST_B   ## EP_LAN_RST_B                      ## o_ADCx_CLK_P
-	output wire   o_B15_L9N         , // # K22  # LAN_MISO    ## EP_LAN_MISO                       ## o_ADCx_CLK_N
+	input  wire   i_B15D_L7P        , // # J22  # LAN_MOSI    ## EP_LAN_MOSI                       ## i_ADC1_DA_P
+	input  wire   i_B15D_L7N        , // # H22  # LAN_SCLK    ## EP_LAN_SCLK                       ## i_ADC1_DA_N
+	input  wire   i_B15D_L8P        , // # H20  # LAN_SSN_B   ## EP_LAN_CS_B                       ## i_ADC1_DB_P
+	input  wire   i_B15D_L8N        , // # G20  # LAN_INT_B   ## EP_LAN_INT_B                      ## i_ADC1_DB_N
+	output wire   o_B15D_L9P        , // # K21  # LAN_RST_B   ## EP_LAN_RST_B                      ## o_ADCx_CLK_P
+	output wire   o_B15D_L9N        , // # K22  # LAN_MISO    ## EP_LAN_MISO                       ## o_ADCx_CLK_N
 	// ## ADC
 	//input  wire  i_B15_L10P_AD11P , // # M21  # AUX_AD11P                                        ## AUX_AD11P // unused
 	//input  wire  i_B15_L10N_AD11N , // # L21  # AUX_AD11N                                        ## AUX_AD11N // unused
 	//
 	//inout  wire io_B15_L11P_SRCC  , // # J20  # SCIO_0 //$$ 11AA160T # NA                        ## NA
 	//inout  wire io_B15_L11N_SRCC  , // # J21  # SCIO_1 //$$ 11AA160T # NA                        ## NA
-	input  wire   i_B15_L12P_MRCC   , // # J19  # NA                                               ## i_ADC1_DCO_P
-	input  wire   i_B15_L12N_MRCC   , // # H19  # NA                                               ## i_ADC1_DCO_N
-	input  wire   i_B15_L13P_MRCC   , // # K18  # NA                                               ## i_ADC0_DCO_P
-	input  wire   i_B15_L13N_MRCC   , // # K19  # NA                                               ## i_ADC0_DCO_N
+	input  wire   c_B15D_L12P_MRCC  , // # J19  # NA                                               ## i_ADC1_DCO_P
+	input  wire   c_B15D_L12N_MRCC  , // # H19  # NA                                               ## i_ADC1_DCO_N
+	input  wire   c_B15D_L13P_MRCC  , // # K18  # NA                                               ## i_ADC0_DCO_P
+	input  wire   c_B15D_L13N_MRCC  , // # K19  # NA                                               ## i_ADC0_DCO_N
 	//input  wire  i_B15_L14P_SRCC  , // # L19  # NA                                               ## NA
 	//input  wire  i_B15_L14N_SRCC  , // # L20  # NA                                               ## NA
-	output wire   o_B15_L15P        , // # N22  # NA                                               ## o_ADCx_CNV_P
-	output wire   o_B15_L15N        , // # M22  # NA                                               ## o_ADCx_CNV_N
+	output wire   o_B15D_L15P       , // # N22  # NA                                               ## o_ADCx_CNV_P
+	output wire   o_B15D_L15N       , // # M22  # NA                                               ## o_ADCx_CNV_N
 	//input  wire  i_B15_L16P       , // # M18  # NA                                               ## NA
 	//output wire  o_B15_L16N       , // # L18  # NA                                               ## NA
-	input  wire   i_B15_L17P        , // # N18  # NA                                               ## i_ADC0_DA_P
-	input  wire   i_B15_L17N        , // # N19  # NA                                               ## i_ADC0_DA_B
-	input  wire   i_B15_L18P        , // # N20  # NA                                               ## i_ADC0_DB_P
-	input  wire   i_B15_L18N        , // # M20  # NA                                               ## i_ADC0_DB_N
+	input  wire   i_B15D_L17P       , // # N18  # NA                                               ## i_ADC0_DA_P
+	input  wire   i_B15D_L17N       , // # N19  # NA                                               ## i_ADC0_DA_N
+	input  wire   i_B15D_L18P       , // # N20  # NA                                               ## i_ADC0_DB_P
+	input  wire   i_B15D_L18N       , // # M20  # NA                                               ## i_ADC0_DB_N
 	//input  wire  i_B15_L19P       , // # K13  # NA                                               ## NA
 	//input  wire  i_B15_L19N       , // # K14  # NA                                               ## NA
 	inout  wire  io_B15_L20P        , // # M13  # NA                                               ## io_SCIO_0  // for LAN EEPROM
@@ -749,13 +749,13 @@ module txem7310_pll__s3100_sv_adda__top (
 	input  wire   i_B13_L2P       , // # AB16 # MC1-67  ## M2_SPI_RX_EN_SLAVE              ## i_CLKD_STAT
 	output wire   o_B13_L2N       , // # AB17 # MC1-69  ## SPIOx_SCLK                      ## o_CLKD_SYNC
 	output wire   o_B13_L3P       , // # AA13 # MC1-68  ## DACx_SDIO                       ## o_CLKD_RST_B
-	input  wire   i_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO                        ## io_CLKD_SDIO
+	input  wire  io_B13_L3N       , // # AB13 # MC1-70  ## DACx_SDO                        ## io_CLKD_SDIO
 	output wire   o_B13_L4P       , // # AA15 # MC1-71  ## SPIOx_MOSI                      ## o_CLKD_SCLK
 	input  wire   i_B13_L4N       , // # AB15 # MC1-73  ## SPIOx_MISO                      ## i_CLKD_REFM
 	input  wire   i_B13_L5P       , // # Y13  # MC1-64  ## DAC1_CS                         ## i_CLKD_SDO
 	output wire   o_B13_L5N       , // # AA14 # MC1-66  ## DACx_SCLK                       ## o_CLKD_CS_B
-	output wire   o_B13_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF                   ## o_TRIG_OUT_P
-	output wire   o_B13_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK                   ## o_TRIG_OUT_N
+	output wire   o_B13D_L6P       , // # W14  # MC2-72  ## M2_SPI_CS_BUF                   ## o_TRIG_OUT_P
+	output wire   o_B13D_L6N       , // # Y14  # MC2-74  ## M2_SPI_TX_CLK                   ## o_TRIG_OUT_N
 	output wire   o_B13_L7P       , // # AB11 # MC1-8   ## DACx_RST_B                      ## o_DAC1_CS
 	output wire   o_B13_L7N       , // # AB12 # MC2-11  ## CLKD_SYNC                       ## o_DACx_RST_B
 	output wire   o_B13_L8P       , // # AA9            # NA                               ## o_DAC0_CS
@@ -807,8 +807,8 @@ module txem7310_pll__s3100_sv_adda__top (
 	output wire  o_B34D_L10N      , // # AB5   # MC1-33  ## DAC0_DCI_N            ## o_DAC1_DAT_N9
 	//input  wire c_B34D_L11P_SRCC, // # Y4    # MC1-38  ## ADC0_DCO_P            ## NA
 	//input  wire c_B34D_L11N_SRCC, // # AA4   # MC1-40  ## ADC0_DCO_N            ## NA
-	input  wire  i_B34D_L12P_MRCC , // # V4    # MC1-77  ## DAC0_DAT_P0           ## i_DAC1_DCO_N  // swap
-	input  wire  i_B34D_L12N_MRCC , // # W4    # MC1-79  ## DAC0_DAT_N0           ## i_DAC1_DCO_P  // swap
+	input  wire  c_B34D_L12P_MRCC , // # V4    # MC1-77  ## DAC0_DAT_P0           ## c_DAC1_DCO_N  // swap
+	input  wire  c_B34D_L12N_MRCC , // # W4    # MC1-79  ## DAC0_DAT_N0           ## c_DAC1_DCO_P  // swap
 	output wire  o_B34D_L13P_MRCC , // # R4    # MC1-32  ## DAC0_DAT_P11          ## o_DAC1_DCI_N  // swap
 	output wire  o_B34D_L13N_MRCC , // # T4    # MC1-34  ## DAC0_DAT_N11          ## o_DAC1_DCI_P  // swap
 	//input  wire c_B34D_L14P_SRCC, // # T5    # MC1-27  ## DAC0_DCO_P            ## NA
@@ -865,12 +865,12 @@ module txem7310_pll__s3100_sv_adda__top (
 	//output wire  o_B35D_L10N    , // # H5    # MC2-44  ## DAC1_DAT_P8  // swap  ## NA
 	input  wire  o_B35D_L11P_SRCC , // # H3    # MC2-45  ## ADC1_DCO_P            ## o_DAC0_DCI_P
 	input  wire  o_B35D_L11N_SRCC , // # G3    # MC2-47  ## ADC1_DCO_N            ## o_DAC0_DCI_N
-	output wire  i_B35D_L12P_MRCC , // # H4    # MC2-67  ## DAC1_DAT_N15 // swap  ## i_DAC0_DCO_P
-	output wire  i_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // swap  ## i_DAC0_DCO_N2
+	output wire  c_B35D_L12P_MRCC , // # H4    # MC2-67  ## DAC1_DAT_N15 // swap  ## c_DAC0_DCO_P
+	output wire  c_B35D_L12N_MRCC , // # G4    # MC2-69  ## DAC1_DAT_P15 // swap  ## c_DAC0_DCO_N
 	output wire  o_B35D_L13P_MRCC , // # K4    # MC2-63  ## DAC1_DAT_N14 // swap  ## o_DAC0_DAT_P12
-	output wire  o_B35D_L13N_MRCC , // # J4    # MC2-65  ## DAC1_DAT_P14 // swap  ## o_DAC0_DAT_N13
+	output wire  o_B35D_L13N_MRCC , // # J4    # MC2-65  ## DAC1_DAT_P14 // swap  ## o_DAC0_DAT_N12
 	input  wire  o_B35D_L14P_SRCC , // # L3    # MC2-38  ## DAC1_DCO_N   // swap  ## o_DAC0_DAT_P13
-	input  wire  o_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // swap  ## o_DAC0_DAT_N1
+	input  wire  o_B35D_L14N_SRCC , // # K3    # MC2-40  ## DAC1_DCO_P   // swap  ## o_DAC0_DAT_N13
 	input  wire  o_B35D_L15P      , // # M1    # MC2-31  ## CLKD_STAT             ## o_DAC0_DAT_P8
 	input  wire  o_B35D_L15N      , // # L1    # MC2-33  ## CLKD_REFM             ## o_DAC0_DAT_N8
 	output wire  o_B35D_L16P      , // # M3    # MC2-28  ## DAC1_DAT_P4           ## o_DAC0_DAT_P9
@@ -911,7 +911,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_1130   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_1201   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -937,7 +937,7 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1126; // S3100-ADDA // rev SSPI control for disabling LAN EP
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1127; // S3100-ADDA // rev hsadc reset and enable to hole parameter setting.
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1129; // S3100-ADDA // rev ADC ready control 
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1130; // S3100-CMU-ADDA // new pinmap
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1201; // S3100-CMU-ADDA // new pinmap
 
 //}
 
@@ -971,27 +971,90 @@ IOBUF iobuf__TP5__inst(.IO( io_B15_L3N_AD1N  ), .T(o_TP_tri[5]), .I(o_TP[5] ), .
 IOBUF iobuf__TP6__inst(.IO( io_B15_L5P_AD9P  ), .T(o_TP_tri[6]), .I(o_TP[6] ), .O(i_TP[6] ) ); //
 IOBUF iobuf__TP7__inst(.IO( io_B15_L5N_AD9N  ), .T(o_TP_tri[7]), .I(o_TP[7] ), .O(i_TP[7] ) ); //
 
+//// ADC
+//  i_B15D_L7P       ## i_ADC1_DA_P  
+//  i_B15D_L7N       ## i_ADC1_DA_N  
+//  i_B15D_L8P       ## i_ADC1_DB_P  
+//  i_B15D_L8N       ## i_ADC1_DB_N  
+//  c_B15D_L12P_MRCC ## i_ADC1_DCO_P 
+//  c_B15D_L12N_MRCC ## i_ADC1_DCO_N 
+//  c_B15D_L13P_MRCC ## i_ADC0_DCO_P 
+//  c_B15D_L13N_MRCC ## i_ADC0_DCO_N 
+//  i_B15D_L17P      ## i_ADC0_DA_P  
+//  i_B15D_L17N      ## i_ADC0_DA_N  
+//  i_B15D_L18P      ## i_ADC0_DB_P  
+//  i_B15D_L18N      ## i_ADC0_DB_N  
+//  o_B15D_L15P      ## o_ADCx_CNV_P 
+//  o_B15D_L15N      ## o_ADCx_CNV_N 
+//  o_B15D_L9P       ## o_ADCx_CLK_P 
+//  o_B15D_L9N       ## o_ADCx_CLK_N 
+//  o_B15_25         ## o_ADCx_TPT_B
 
-//// LAN pin on FPGA module
-wire  LAN_PWDN     = 1'b0; // unused // fixed
-wire  LAN_SSAUX_B  = 1'b1; // unused // fixed
-wire  PT_FMOD_EP_LAN_MOSI ; 
-wire  PT_FMOD_EP_LAN_SCLK ; 
-wire  PT_FMOD_EP_LAN_CS_B ; 
-wire  PT_FMOD_EP_LAN_INT_B;
-wire  PT_FMOD_EP_LAN_RST_B; 
-wire  PT_FMOD_EP_LAN_MISO ;
-OBUF obuf__LAN_PWDN_____inst (.O( o_B15_L6P ), .I( LAN_PWDN             ) ); // 
-OBUF obuf__LAN_SSAUX_B__inst (.O( o_B15_L6N ), .I( LAN_SSAUX_B          ) ); // 
-OBUF obuf__EP_LAN_MOSI__inst (.O( o_B15_L7P ), .I( PT_FMOD_EP_LAN_MOSI  ) ); // 
-OBUF obuf__EP_LAN_SCLK__inst (.O( o_B15_L7N ), .I( PT_FMOD_EP_LAN_SCLK  ) ); // 
-OBUF obuf__EP_LAN_CS_B__inst (.O( o_B15_L8P ), .I( PT_FMOD_EP_LAN_CS_B  ) ); // 
-IBUF ibuf__EP_LAN_INT_B_inst (.I( i_B15_L8N ), .O( PT_FMOD_EP_LAN_INT_B ) ); //
-OBUF obuf__EP_LAN_RST_B_inst (.O( o_B15_L9P ), .I( PT_FMOD_EP_LAN_RST_B ) ); // 
-IBUF ibuf__EP_LAN_MISO__inst (.I( i_B15_L9N ), .O( PT_FMOD_EP_LAN_MISO  ) ); //
+wire   ADC0_DCO;
+wire c_ADC0_DCO;
+IBUFDS ibufds_ADC0_DCO_inst (.I(c_B15D_L13P_MRCC), .IB(c_B15D_L13N_MRCC), .O(c_ADC0_DCO) );
+BUFG     bufg_ADC0_DCO_inst (.I(c_ADC0_DCO), .O(ADC0_DCO) ); 
+
+wire   ADC1_DCO;
+wire c_ADC1_DCO;
+IBUFDS ibufds_ADC1_DCO_inst (.I(c_B15D_L12P_MRCC), .IB(c_B15D_L12N_MRCC), .O(c_ADC1_DCO) );
+BUFG     bufg_ADC1_DCO_inst (.I(c_ADC1_DCO), .O(ADC1_DCO) ); 
+
+wire ADC0_DA;
+wire ADC0_DB;
+IBUFDS ibufds_ADC0_DA_inst  (.I(i_B15D_L17P), .IB(i_B15D_L17N), .O(ADC0_DA) );
+IBUFDS ibufds_ADC0_DB_inst  (.I(i_B15D_L18P), .IB(i_B15D_L18N), .O(ADC0_DB) );
+
+wire ADC1_DA;
+wire ADC1_DB;
+IBUFDS ibufds_ADC1_DA_inst (.I(i_B15D_L7P ), .IB(i_B15D_L7N ), .O(ADC1_DA) );
+IBUFDS ibufds_ADC1_DB_inst (.I(i_B15D_L8P ), .IB(i_B15D_L8N ), .O(ADC1_DB) );
+
+wire ADCx_CNV ;
+wire ADCx_CLK ;
+OBUFDS obufds_ADCx_CNV_inst (.O(o_B15D_L15P ), .OB(o_B15D_L15N), .I(ADCx_CNV)	); //
+OBUFDS obufds_ADCx_CLK_inst (.O(o_B15D_L9P  ), .OB(o_B15D_L9N ), .I(ADCx_CLK)	); //
+
+wire ADCx_TPT_B;
+OBUF obuf_ADCx_TPT_B_inst   (.O(o_B15_25    ), .I(ADCx_TPT_B   ) ); // 
 
 
-//// ADC on module
+
+//// MEM_SIO or EEPROM LAN
+// io_B15_L20P      ## io_SCIO_0  // for LAN EEPROM // MEM_SIO
+// io_B15_L20N      ## io_SCIO_1  // for LAN EEPROM // reserved
+wire  MEM_SIO_out; wire  MEM_SIO_tri; wire  MEM_SIO_in; // high-Z control style ports 
+IOBUF iobuf_MEM_SIO_inst  (.IO(io_B15_L20P  ), .T(MEM_SIO_tri), .I(MEM_SIO_out ), .O(MEM_SIO_in ) ); //
+
+
+//// LAN IF
+//  o_B15_L21P      ## o_LAN_PWDN
+//  i_B15_L21N      ## i_LAN_INT_B
+//  i_B15_L22P      ## i_LAN_MISO
+//  o_B15_L22N      ## o_LAN_RST_B
+//  o_B15_L23P      ## o_LAN_SSAUX_B
+//  o_B15_L23N      ## o_LAN_SSN_B
+//  o_B15_L24P      ## o_LAN_MOSI
+//  o_B15_L24N      ## o_LAN_SCLK
+wire  o_LAN_PWDN     = 1'b0; // unused // fixed
+wire  o_LAN_SSAUX_B  = 1'b1; // unused // fixed
+wire  o_LAN_MOSI  ; // PT_FMOD_EP_LAN_MOSI ; 
+wire  o_LAN_SCLK  ; // PT_FMOD_EP_LAN_SCLK ; 
+wire  o_LAN_SSN_B ; // PT_FMOD_EP_LAN_CS_B ; 
+wire  i_LAN_INT_B ; // PT_FMOD_EP_LAN_INT_B;
+wire  o_LAN_RST_B ; // PT_FMOD_EP_LAN_RST_B; 
+wire  i_LAN_MISO  ; // PT_FMOD_EP_LAN_MISO ;
+OBUF obuf__LAN_PWDN_____inst (.O( o_B15_L21P ), .I( o_LAN_PWDN     ) ); // 
+OBUF obuf__LAN_SSAUX_B__inst (.O( o_B15_L23P ), .I( o_LAN_SSAUX_B  ) ); // 
+OBUF obuf__EP_LAN_MOSI__inst (.O( o_B15_L24P ), .I( o_LAN_MOSI     ) ); // PT_FMOD_EP_LAN_MOSI 
+OBUF obuf__EP_LAN_SCLK__inst (.O( o_B15_L24N ), .I( o_LAN_SCLK     ) ); // PT_FMOD_EP_LAN_SCLK 
+OBUF obuf__EP_LAN_CS_B__inst (.O( o_B15_L23N ), .I( o_LAN_SSN_B    ) ); // PT_FMOD_EP_LAN_CS_B 
+IBUF ibuf__EP_LAN_INT_B_inst (.I( i_B15_L21N ), .O( i_LAN_INT_B    ) ); // PT_FMOD_EP_LAN_INT_B
+OBUF obuf__EP_LAN_RST_B_inst (.O( o_B15_L22N ), .I( o_LAN_RST_B    ) ); // PT_FMOD_EP_LAN_RST_B
+IBUF ibuf__EP_LAN_MISO__inst (.I( i_B15_L22P ), .O( i_LAN_MISO     ) ); // PT_FMOD_EP_LAN_MISO 
+
+
+//// ADC on FPGA
 //	input  wire  i_B15_L10P, // # H20    AUX_AD11P
 //	input  wire  i_B15_L10N, // # G20    AUX_AD11N
 
@@ -1000,7 +1063,7 @@ IBUF ibuf__EP_LAN_MISO__inst (.I( i_B15_L9N ), .O( PT_FMOD_EP_LAN_MISO  ) ); //
 
 //// BANK B16 IOBUF //{
 
-//// LED on FPGA module
+//// LED 
 wire [7:0] led;
 wire [7:0] o_F_LED_tri = led;  wire [7:0] o_F_LED = 8'b0;  wire [7:0] i_F_LED; // 
 IOBUF iobuf__F_LED4__inst(.IO( io_B16_L7P   ), .T(o_F_LED_tri[4]), .I(o_F_LED[4] ), .O(i_F_LED[4] ) ); //
@@ -1012,111 +1075,238 @@ IOBUF iobuf__F_LED0__inst(.IO( io_B16_L10P  ), .T(o_F_LED_tri[0]), .I(o_F_LED[0]
 IOBUF iobuf__F_LED2__inst(.IO( io_B16_L10N  ), .T(o_F_LED_tri[2]), .I(o_F_LED[2] ), .O(i_F_LED[2] ) ); //
 IOBUF iobuf__F_LED7__inst(.IO( io_B16_L11P  ), .T(o_F_LED_tri[7]), .I(o_F_LED[7] ), .O(i_F_LED[7] ) ); //
 
+//// GPIO
+wire [7:0] i_GPIO; // reserved
+//  i_B16_L1P  ## i_GPIO_0
+//  i_B16_L1N  ## i_GPIO_1
+//  i_B16_L2P  ## i_GPIO_2
+//  i_B16_L2N  ## i_GPIO_3
+//  i_B16_L3P  ## i_GPIO_4
+//  i_B16_L3N  ## i_GPIO_5
+//  i_B16_L4P  ## i_GPIO_6
+//  i_B16_L4N  ## i_GPIO_7
+IBUF ibuf__GPIO0__inst(.I( i_B16_L1P  ), .O(i_GPIO[0] ) ); //
+IBUF ibuf__GPIO1__inst(.I( i_B16_L1N  ), .O(i_GPIO[1] ) ); //
+IBUF ibuf__GPIO2__inst(.I( i_B16_L2P  ), .O(i_GPIO[2] ) ); //
+IBUF ibuf__GPIO3__inst(.I( i_B16_L2N  ), .O(i_GPIO[3] ) ); //
+IBUF ibuf__GPIO4__inst(.I( i_B16_L3P  ), .O(i_GPIO[4] ) ); //
+IBUF ibuf__GPIO5__inst(.I( i_B16_L3N  ), .O(i_GPIO[5] ) ); //
+IBUF ibuf__GPIO6__inst(.I( i_B16_L4P  ), .O(i_GPIO[6] ) ); //
+IBUF ibuf__GPIO7__inst(.I( i_B16_L4N  ), .O(i_GPIO[7] ) ); //
+
+
+//// SLOT_ID
+//  i_B16_L5P  ## i_SLOT_ID_0
+//  i_B16_L5N  ## i_SLOT_ID_1
+//  i_B16_L6P  ## i_SLOT_ID_2
+//  i_B16_L6N  ## i_SLOT_ID_3
+wire  i_SLOT_ID_0 ;
+wire  i_SLOT_ID_1 ;
+wire  i_SLOT_ID_2 ;
+wire  i_SLOT_ID_3 ; //{
+IBUF ibuf__SLOT_ID_0__inst( .I( i_B16_L5P ), .O( i_SLOT_ID_0 ) );
+IBUF ibuf__SLOT_ID_1__inst( .I( i_B16_L5N ), .O( i_SLOT_ID_1 ) );
+IBUF ibuf__SLOT_ID_2__inst( .I( i_B16_L6P ), .O( i_SLOT_ID_2 ) );
+IBUF ibuf__SLOT_ID_3__inst( .I( i_B16_L6N ), .O( i_SLOT_ID_3 ) );
+//}
+(* keep = "true" *) wire [3:0] w_MTH_SLOT_ID;
+assign w_MTH_SLOT_ID    = {i_SLOT_ID_3, i_SLOT_ID_2, i_SLOT_ID_1, i_SLOT_ID_0};
+
+
+//// board class ID
+//  i_B16_L23P ## i_ID_3
+//  i_B16_L23N ## i_ID_2
+//  i_B16_L24P ## i_ID_1
+//  i_B16_L24N ## i_ID_0
+(* keep = "true" *) wire  i_ID_3           ;
+(* keep = "true" *) wire  i_ID_2           ;
+(* keep = "true" *) wire  i_ID_1           ;
+(* keep = "true" *) wire  i_ID_0           ; //{
+IBUF ibuf__ID_3__inst(.I( i_B16_L23P ), .O( i_ID_3 ) );
+IBUF ibuf__ID_2__inst(.I( i_B16_L23N ), .O( i_ID_2 ) );
+IBUF ibuf__ID_1__inst(.I( i_B16_L24P ), .O( i_ID_1 ) );
+IBUF ibuf__ID_0__inst(.I( i_B16_L24N ), .O( i_ID_0 ) );
+//}
+(* keep = "true" *) wire [3:0] w_board_class_ID;
+assign w_board_class_ID    = {     i_ID_3,      i_ID_2,      i_ID_1,      i_ID_0};
+
+
+//// MTH SPI 
+//  i_B16_L16P  ## i_M2_SPI_CS_BUF
+//  i_B16_L16N  ## i_M2_SPI_MOSI
+//  i_B16_L21P  ## i_M2_SPI_TX_CLK
+//  o_B16_L19N  ## o_M2_SPI_MISO_B
+//  o_B16_L17N  ## o_M2_SPI_RX_CLK_B
+//  o_B16_L21N  ## o_M2_SPI_RX_EN_SLAVE
+//  o_B16_L17P  ## o_M2_SPI_TX_EN_SLAVE
+wire  i_M2_SPI_CS_BUF      ; // i
+wire  i_M2_SPI_MOSI        ; // i
+wire  i_M2_SPI_TX_CLK      ; // i
+wire  o_M2_SPI_MISO_B      ; // o
+wire  o_M2_SPI_RX_CLK_B    ; // o
+wire  o_M2_SPI_RX_EN_SLAVE ; // o
+wire  o_M2_SPI_TX_EN_SLAVE ; // o
+IBUF ibuf__M2_SPI_CS_BUF_______inst (.I( i_B16_L16P ), .O( i_M2_SPI_CS_BUF      ) ); //
+IBUF ibuf__M2_SPI_MOSI_________inst (.I( i_B16_L16N ), .O( i_M2_SPI_MOSI        ) ); //
+IBUF ibuf__M2_SPI_TX_CLK_______inst (.I( i_B16_L21P ), .O( i_M2_SPI_TX_CLK      ) ); //
+OBUF ibuf__M2_SPI_MISO_B_______inst (.O( o_B16_L19N ), .I( o_M2_SPI_MISO_B      ) ); //
+OBUF ibuf__M2_SPI_RX_CLK_B_____inst (.O( o_B16_L17N ), .I( o_M2_SPI_RX_CLK_B    ) ); //
+OBUF obuf__M2_SPI_RX_EN_SLAVE__inst (.O( o_B16_L21N ), .I( o_M2_SPI_RX_EN_SLAVE ) ); // 
+OBUF obuf__M2_SPI_TX_EN_SLAVE__inst (.O( o_B16_L17P ), .I( o_M2_SPI_TX_EN_SLAVE ) ); // 
+//
+wire  o_M2_SPI_MISO        ; assign  o_M2_SPI_MISO_B   = ~o_M2_SPI_MISO   ;
+wire  o_M2_SPI_RX_CLK      ; assign  o_M2_SPI_RX_CLK_B = ~o_M2_SPI_RX_CLK ;
+
+//// SPIO
+//  o_B16_L20P  ## o_SPIOx_SCLK
+//  o_B16_L20N  ## o_SPIO1_CS
+//  i_B16_L22P  ## i_SPIOx_MISO
+//  o_B16_L22N  ## o_SPIOx_MOSI
+wire o_SPIOx_SCLK ; 
+wire o_SPIO0_CS   ; // removed in S3100
+wire o_SPIO1_CS   ; 
+wire i_SPIOx_MISO ; 
+wire o_SPIOx_MOSI ; 
+OBUF obuf_SPIOx_SCLK_inst (.O( o_B16_L20P ), .I(o_SPIOx_SCLK          ) ); 
+OBUF obuf_SPIO1_CS_inst   (.O( o_B16_L20N ), .I(o_SPIO1_CS | o_SPIO0_CS ) ); // share
+IBUF ibuf_SPIOx_MISO_inst (.I( i_B16_L22P ), .O(i_SPIOx_MISO          ) );
+OBUF obuf_SPIOx_MOSI_inst (.O( o_B16_L22N ), .I(o_SPIOx_MOSI          ) ); 
+
+
+//// S_IO  // reserved
+// io_B16_L12P  ## io_S_IO_0 // U59,  11AA160T-I/TT/SOT-23-3
+// io_B16_L18P  ## io_S_IO_1 // U62,  MAX6576ZUT+T/SOT23-6
+// io_B13_0_    ## io_S_IO_2 // U98,  MAX6576ZUT+T/SOT23-6
+// io_B16_L13P  ## io_S_IO_3 // U167, 11AA160T-I/TT/SOT-23-3
+// io_B16_L14P  ## io_S_IO_4 // U168, 11AA160T-I/TT/SOT-23-3
+// io_B16_L15P  ## io_S_IO_5 // U169, 11AA160T-I/TT/SOT-23-3
+wire S_IO_0_tri = 1'b1;  wire S_IO_0_wr = 1'b0;  wire S_IO_0_rd; //$$ not activated
+wire S_IO_1_tri = 1'b1;  wire S_IO_1_wr = 1'b0;  wire S_IO_1_rd; //$$ not activated
+wire S_IO_2_tri = 1'b1;  wire S_IO_2_wr = 1'b0;  wire S_IO_2_rd; //$$ not activated
+wire S_IO_3_tri = 1'b1;  wire S_IO_3_wr = 1'b0;  wire S_IO_3_rd; //$$ not activated
+wire S_IO_4_tri = 1'b1;  wire S_IO_4_wr = 1'b0;  wire S_IO_4_rd; //$$ not activated
+wire S_IO_5_tri = 1'b1;  wire S_IO_5_wr = 1'b0;  wire S_IO_5_rd; //$$ not activated
+IOBUF iobuf_S_IO_0_inst (.IO( io_B16_L12P ), .T(S_IO_0_tri), .I(S_IO_0_wr), .O(S_IO_0_rd) ); //
+IOBUF iobuf_S_IO_1_inst (.IO( io_B16_L18P ), .T(S_IO_1_tri), .I(S_IO_1_wr), .O(S_IO_1_rd) ); //
+IOBUF iobuf_S_IO_2_inst (.IO( io_B13_0_   ), .T(S_IO_2_tri), .I(S_IO_2_wr), .O(S_IO_2_rd) ); //
+IOBUF iobuf_S_IO_3_inst (.IO( io_B16_L13P ), .T(S_IO_3_tri), .I(S_IO_3_wr), .O(S_IO_3_rd) ); //
+IOBUF iobuf_S_IO_4_inst (.IO( io_B16_L14P ), .T(S_IO_4_tri), .I(S_IO_4_wr), .O(S_IO_4_rd) ); //
+IOBUF iobuf_S_IO_5_inst (.IO( io_B16_L15P ), .T(S_IO_5_tri), .I(S_IO_5_wr), .O(S_IO_5_rd) ); //
+
+
 //}
 
 
 //// BANK B13 IOBUF //{
 
-//// LAN pin on BASE board (PGU) // removed in S3100
-//wire  PT_BASE_EP_LAN_MOSI ; 
-//wire  PT_BASE_EP_LAN_SCLK ; 
-//wire  PT_BASE_EP_LAN_CS_B ; 
-//wire  PT_BASE_EP_LAN_INT_B;
-//wire  PT_BASE_EP_LAN_RST_B; 
-//wire  PT_BASE_EP_LAN_MISO ;
-//OBUF obuf__LAN_MOSI__inst (.O( o_B13_L11N_SRCC  ), .I(PT_BASE_EP_LAN_MOSI ) ); // 
-//OBUF obuf__LAN_SCLK__inst (.O( o_B13_L6N        ), .I(PT_BASE_EP_LAN_SCLK ) ); // 
-//OBUF obuf__LAN_CS_B__inst (.O( o_B13_L6P        ), .I(PT_BASE_EP_LAN_CS_B ) ); // 
-//IBUF ibuf__LAN_INT_B_inst (.I( i_B13_L11P_SRCC  ), .O(PT_BASE_EP_LAN_INT_B) ); //
-//OBUF obuf__LAN_RST_B_inst (.O( o_B13_L17N       ), .I(PT_BASE_EP_LAN_RST_B) ); // 
-//IBUF ibuf__LAN_MISO__inst (.I( i_B13_L17P       ), .O(PT_BASE_EP_LAN_MISO ) ); //
-
-//// M2_SPI buffers
-wire  M2_SPI_CS_BUF      ; // i
-wire  M2_SPI_MOSI        ; // i
-wire  M2_SPI_TX_CLK      ; // i
-wire  M2_SPI_MISO        ;  wire  M2_SPI_MISO_B   = ~M2_SPI_MISO   ; // o
-wire  M2_SPI_RX_CLK      ;  wire  M2_SPI_RX_CLK_B = ~M2_SPI_RX_CLK ; // o
-wire  M2_SPI_RX_EN_SLAVE ; // o
-wire  M2_SPI_TX_EN_SLAVE ; // o
-IBUF ibuf__M2_SPI_CS_BUF_______inst (.I( i_B13_L6P       ), .O( M2_SPI_CS_BUF      ) ); //
-IBUF ibuf__M2_SPI_MOSI_________inst (.I( i_B13_L11N_SRCC ), .O( M2_SPI_MOSI        ) ); //
-IBUF ibuf__M2_SPI_TX_CLK_______inst (.I( i_B13_L6N       ), .O( M2_SPI_TX_CLK      ) ); //
-OBUF ibuf__M2_SPI_MISO_B_______inst (.O( o_B13_L17P      ), .I( M2_SPI_MISO_B      ) ); //
-OBUF ibuf__M2_SPI_RX_CLK_B_____inst (.O( o_B13_L17N      ), .I( M2_SPI_RX_CLK_B    ) ); //
-OBUF obuf__M2_SPI_RX_EN_SLAVE__inst (.O( o_B13_L2P       ), .I( M2_SPI_RX_EN_SLAVE ) ); // 
-OBUF obuf__M2_SPI_TX_EN_SLAVE__inst (.O( o_B13_L11P_SRCC ), .I( M2_SPI_TX_EN_SLAVE ) ); // 
 
 //// CLKD
-wire   CLKD_COUT; // i
-wire c_CLKD_COUT;
+//  i_B13_L1N        ## i_CLKD_LD
+//  i_B13_L2P        ## i_CLKD_STAT
+//  o_B13_L2N        ## o_CLKD_SYNC
+//  o_B13_L3P        ## o_CLKD_RST_B
+// io_B13_L3N        ## io_CLKD_SDIO
+//  o_B13_L4P        ## o_CLKD_SCLK
+//  i_B13_L4N        ## i_CLKD_REFM
+//  i_B13_L5P        ## i_CLKD_SDO
+//  o_B13_L5N        ## o_CLKD_CS_B
+//  c_B13D_L13P_MRCC ## i_CLKD_COUT_P
+//  c_B13D_L13N_MRCC ## i_CLKD_COUT_N
+
+wire   CLKD_COUT; wire c_CLKD_COUT;
 IBUFDS ibufds_CLKD_COUT_inst (.I(c_B13D_L13P_MRCC), .IB(c_B13D_L13N_MRCC), .O(c_CLKD_COUT) );
 BUFG     bufg_CLKD_COUT_inst (.I(c_CLKD_COUT), .O(CLKD_COUT) ); //$$ use BUFG
 
-wire CLKD_SYNC = 1'b0; // o_B13_L7N // reserved
-OBUF obuf_CLKD_SYNC_inst  (.O(o_B13_L7N         ), .I(CLKD_SYNC   ) ); // 
+wire o_CLKD_SYNC = 1'b0; // reserved
+wire o_CLKD_RST_B;
+wire i_CLKD_LD   ;
+wire i_CLKD_STAT ;
+wire i_CLKD_REFM ;
+OBUF obuf_CLKD_SYNC_inst  (.O(o_B13_L2N   ), .I(o_CLKD_SYNC  ) ); // 
+OBUF obuf_CLKD_RST_B_inst (.O(o_B13_L3P   ), .I(o_CLKD_RST_B ) ); // 
+IBUF ibuf_CLKD_LD_inst    (.I(i_B13_L1N   ), .O(i_CLKD_LD    ) ); //
+IBUF ibuf_CLKD_STAT_inst  (.I(i_B13_L2P   ), .O(i_CLKD_STAT  ) ); //
+IBUF ibuf_CLKD_REFM_inst  (.I(i_B13_L4N   ), .O(i_CLKD_REFM  ) ); //
+//
+wire o_CLKD_SCLK    ;
+wire o_CLKD_CS_B    ;
+wire i_CLKD_SDO     ; // read for 4-wire SPI
+//
+wire CLKD_SDIO_wr ; // open-drain write for AD9516-1
+wire CLKD_SDIO_rd ; // test read // reserved
+//
+OBUF   obuf_CLKD_SCLK_inst ( .O( o_B13_L4P  ), .I(o_CLKD_SCLK ) ); // 
+OBUF   obuf_CLKD_CS_B_inst ( .O( o_B13_L5N  ), .I(o_CLKD_CS_B ) ); // 
+IBUF   ibuf_CLKD_SDO__inst ( .I( i_B13_L5P  ), .O(i_CLKD_SDO  ) ); //
+IOBUF iobuf_CLKD_SDIO_inst (.IO(io_B13_L3N  ), .T(CLKD_SDIO_wr), .I(CLKD_SDIO_wr ), .O(CLKD_SDIO_rd ) ); //
 
 
 //// TRIG
-
-wire   TRIG_IN;
-IBUFDS ibufds_TRIG_IN_inst  (.I(i_B13D_L14P_SRCC), .IB(i_B13D_L14N_SRCC), .O(TRIG_IN) );
+//  o_B13D_L6P       ## o_TRIG_OUT_P
+//  o_B13D_L6N       ## o_TRIG_OUT_N
+//  i_B13D_L14P_SRCC ## i_TRIG_IN_P  
+//  i_B13D_L14N_SRCC ## i_TRIG_IN_N  
 
 //wire   TRIG_OUT;
-//OBUFDS obufds_TRIG_OUT_inst (.O(o_B13D_L15P), .OB(o_B13D_L15N), .I(TRIG_OUT)	); // LVDS_25 //$$ NG
-wire TRIG_OUT_P; // o
-wire TRIG_OUT_N; // o
-OBUF obuf_TRIG_OUT_P_inst (.O(o_B13_L15P       ), .I( TRIG_OUT_P ) );  // LVCMOS25
-OBUF obuf_TRIG_OUT_N_inst (.O(o_B13_L15N       ), .I( TRIG_OUT_N ) );  // LVCMOS25
+//OBUFDS obufds_TRIG_OUT_inst (.O(o_B13D_L6P), .OB(o_B13D_L6N), .I(TRIG_OUT)	); // LVDS_25 //$$ NG
+wire o_TRIG_OUT_P; // o
+wire o_TRIG_OUT_N; // o
+OBUF obuf_TRIG_OUT_P_inst (.O(o_B13D_L6P       ), .I( o_TRIG_OUT_P ) );  // LVCMOS25
+OBUF obuf_TRIG_OUT_N_inst (.O(o_B13D_L6N       ), .I( o_TRIG_OUT_N ) );  // LVCMOS25
 
-//// SPIO
-wire SPIO0_CS   ; // removed in S3100
-wire SPIO1_CS   ; // o_B13_L1P
-wire SPIOx_SCLK ; // o_B13_L2N
-wire SPIOx_MOSI ; // o_B13_L4P
-wire SPIOx_MISO ; // i_B13_L4N
-OBUF obuf_SPIOx_SCLK_inst (.O(o_B13_L2N         ), .I(SPIOx_SCLK          ) ); 
-OBUF obuf_SPIOx_MOSI_inst (.O(o_B13_L4P         ), .I(SPIOx_MOSI          ) ); 
-IBUF ibuf_SPIOx_MISO_inst (.I(i_B13_L4N         ), .O(SPIOx_MISO          ) );
-OBUF obuf_SPIO1_CS_inst   (.O(o_B13_L1P         ), .I(SPIO1_CS | SPIO0_CS ) ); // share
+wire   i_TRIG_IN; // reserved
+IBUFDS ibufds_TRIG_IN_inst  (.I(i_B13D_L14P_SRCC), .IB(i_B13D_L14N_SRCC), .O(i_TRIG_IN) );
 
-//// S_IO
-wire S_IO_1_tri;  wire S_IO_1_out;  wire S_IO_1_in; // 
-wire S_IO_2_tri;  wire S_IO_2_out;  wire S_IO_2_in; // 
-IOBUF iobuf_S_IO_1_inst (.IO(io_B13_L16N ), .T(S_IO_1_tri), .I(S_IO_1_out), .O(S_IO_1_in) ); //
-IOBUF iobuf_S_IO_2_inst (.IO(io_B13_L1N  ), .T(S_IO_2_tri), .I(S_IO_2_out), .O(S_IO_2_in) ); //
-wire   S_IO_1     = S_IO_1_in;
-wire w_S_IO_1_wr  = 1'b1; //$$ not activated
-assign S_IO_1_tri = w_S_IO_1_wr;
-assign S_IO_1_out = w_S_IO_1_wr;
-wire   S_IO_2     = S_IO_2_in;
-wire w_S_IO_2_wr  = 1'b1; //$$ not activated
-assign S_IO_2_tri = w_S_IO_2_wr;
-assign S_IO_2_out = w_S_IO_2_wr;
 
 //// DACx
-wire DACx_RST_B ; // o_B13_L7P 
-wire DAC0_CS    ; // o_B13_L16P
-wire DAC1_CS    ; // o_B13_L5P 
-wire DACx_SCLK  ; // o_B13_L5N 
-wire DACx_SDIO  ; // o_B13_L3P 
-wire DACx_SDO   ; // i_B13_L3N 
-OBUF obuf_DACx_RST_B_inst (.O(o_B13_L7P  ), .I(DACx_RST_B ) ); // 
-OBUF obuf_DAC0_CS_inst    (.O(o_B13_L16P ), .I(DAC0_CS    ) ); // 
-OBUF obuf_DAC1_CS_inst    (.O(o_B13_L5P  ), .I(DAC1_CS    ) ); // 
-OBUF obuf_DACx_SCLK_inst  (.O(o_B13_L5N  ), .I(DACx_SCLK  ) ); // 
-OBUF obuf_DACx_SDIO_inst  (.O(o_B13_L3P  ), .I(DACx_SDIO  ) ); // 
-IBUF ibuf_DACx_SDO_inst   (.I(i_B13_L3N  ), .O(DACx_SDO   ) ); //
-
+//  o_B13_L7N  ## o_DACx_RST_B
+//  o_B13_L8P  ## o_DAC0_CS
+//  o_B13_L7P  ## o_DAC1_CS
+//  o_B13_L9N  ## o_DACx_SCLK
+//  o_B13_L9P  ## o_DACx_SDIO
+//  i_B13_L8N  ## i_DACx_SDO
+	
+wire o_DACx_RST_B ; 
+wire o_DAC0_CS    ; 
+wire o_DAC1_CS    ; 
+wire o_DACx_SCLK  ; 
+wire o_DACx_SDIO  ; 
+wire i_DACx_SDO   ; 
+OBUF obuf_DACx_RST_B_inst (.O( o_B13_L7N ), .I( o_DACx_RST_B ) ); // 
+OBUF obuf_DAC0_CS_inst    (.O( o_B13_L8P ), .I( o_DAC0_CS    ) ); // 
+OBUF obuf_DAC1_CS_inst    (.O( o_B13_L7P ), .I( o_DAC1_CS    ) ); // 
+OBUF obuf_DACx_SCLK_inst  (.O( o_B13_L9N ), .I( o_DACx_SCLK  ) ); // 
+OBUF obuf_DACx_SDIO_inst  (.O( o_B13_L9P ), .I( o_DACx_SDIO  ) ); // 
+IBUF ibuf_DACx_SDO_inst   (.I( i_B13_L8N ), .O( i_DACx_SDO   ) ); //
 
 //}
 
-//// BANK B34 IOBUF //{
+//// BANK B35 IOBUF //{
 
 //// DAC0
+
+//  o_B35D_L19P        ## o_DAC0_DAT_P15      ///  o_B35D_L19N        ## o_DAC0_DAT_N15
+//  o_B35D_L18P        ## o_DAC0_DAT_P14      ///  o_B35D_L18N        ## o_DAC0_DAT_N14
+//  o_B35D_L14P_SRCC   ## o_DAC0_DAT_P13      ///  o_B35D_L14N_SRCC   ## o_DAC0_DAT_N13
+//  o_B35D_L13P_MRCC   ## o_DAC0_DAT_P12      ///  o_B35D_L13N_MRCC   ## o_DAC0_DAT_N12
+//  o_B35D_L20P        ## o_DAC0_DAT_P11      ///  o_B35D_L20N        ## o_DAC0_DAT_N11
+//  o_B35D_L22P        ## o_DAC0_DAT_P10      ///  o_B35D_L22N        ## o_DAC0_DAT_N10
+//  o_B35D_L16P        ## o_DAC0_DAT_P9       ///  o_B35D_L16N        ## o_DAC0_DAT_N9
+//  o_B35D_L15P        ## o_DAC0_DAT_P8       ///  o_B35D_L15N        ## o_DAC0_DAT_N8
+//  o_B35D_L9P         ## o_DAC0_DAT_P7       ///  o_B35D_L9N         ## o_DAC0_DAT_N7
+//  o_B35D_L7P         ## o_DAC0_DAT_P6       ///  o_B35D_L7N         ## o_DAC0_DAT_N6
+//  o_B35D_L8P         ## o_DAC0_DAT_P5       ///  o_B35D_L8N         ## o_DAC0_DAT_N5
+//  o_B35D_L5P         ## o_DAC0_DAT_P4       ///  o_B35D_L5N         ## o_DAC0_DAT_N4
+//  o_B35D_L4P         ## o_DAC0_DAT_P3       ///  o_B35D_L4N         ## o_DAC0_DAT_N3
+//  o_B35D_L3P         ## o_DAC0_DAT_P2       ///  o_B35D_L3N         ## o_DAC0_DAT_N2
+//  o_B35D_L2P         ## o_DAC0_DAT_P1       ///  o_B35D_L2N         ## o_DAC0_DAT_N1
+//  o_B35D_L1P         ## o_DAC0_DAT_P0       ///  o_B35D_L1N         ## o_DAC0_DAT_N0
+//  o_B35D_L11P_SRCC   ## o_DAC0_DCI_P        ///  o_B35D_L11N_SRCC   ## o_DAC0_DCI_N
+//  c_B35D_L12P_MRCC   ## c_DAC0_DCO_P        ///  c_B35D_L12N_MRCC   ## c_DAC0_DCO_N
+
 (* keep = "true" *) wire [15:0] DAC0_DAT; 
 
-// IOB consideration
+// IOB consideration - PN swap //{
 wire        w_DAC0_DAT__IOB_clk;
 wire        w_DAC0_DAT__IOB_rst_n;
 wire [15:0] w_DAC0_DAT__IOB_in ;
@@ -1130,14 +1320,14 @@ sub_buf_16b  sub_buf_16b__DAC0__inst (
 	.o_buf    (w_DAC0_DAT__IOB_out)  // [15:0]
 	);
 
-assign w_DAC0_DAT__IOB_in[15] = ~DAC0_DAT[15]; // PN swap
-assign w_DAC0_DAT__IOB_in[14] = ~DAC0_DAT[14]; // PN swap
-assign w_DAC0_DAT__IOB_in[13] = ~DAC0_DAT[13]; // PN swap
-assign w_DAC0_DAT__IOB_in[12] = ~DAC0_DAT[12]; // PN swap
+assign w_DAC0_DAT__IOB_in[15] =  DAC0_DAT[15]; 
+assign w_DAC0_DAT__IOB_in[14] =  DAC0_DAT[14]; 
+assign w_DAC0_DAT__IOB_in[13] =  DAC0_DAT[13]; 
+assign w_DAC0_DAT__IOB_in[12] =  DAC0_DAT[12]; 
 assign w_DAC0_DAT__IOB_in[11] =  DAC0_DAT[11]; 
-assign w_DAC0_DAT__IOB_in[10] = ~DAC0_DAT[10]; // PN swap
-assign w_DAC0_DAT__IOB_in[9 ] = ~DAC0_DAT[9 ]; // PN swap 
-assign w_DAC0_DAT__IOB_in[8 ] = ~DAC0_DAT[8 ]; // PN swap 
+assign w_DAC0_DAT__IOB_in[10] =  DAC0_DAT[10]; 
+assign w_DAC0_DAT__IOB_in[9 ] =  DAC0_DAT[9 ]; 
+assign w_DAC0_DAT__IOB_in[8 ] =  DAC0_DAT[8 ]; 
 assign w_DAC0_DAT__IOB_in[7 ] =  DAC0_DAT[7 ];
 assign w_DAC0_DAT__IOB_in[6 ] =  DAC0_DAT[6 ];
 assign w_DAC0_DAT__IOB_in[5 ] =  DAC0_DAT[5 ];
@@ -1147,63 +1337,61 @@ assign w_DAC0_DAT__IOB_in[2 ] =  DAC0_DAT[2 ];
 assign w_DAC0_DAT__IOB_in[1 ] =  DAC0_DAT[1 ];
 assign w_DAC0_DAT__IOB_in[0 ] =  DAC0_DAT[0 ];
 
-OBUFDS obufds_DAC0_DAT15_inst 	(.O(o_B34D_L15P     ), .OB(o_B34D_L15N     ), .I(w_DAC0_DAT__IOB_out[15])	); // PN swap
-OBUFDS obufds_DAC0_DAT14_inst 	(.O(o_B34D_L23P     ), .OB(o_B34D_L23N     ), .I(w_DAC0_DAT__IOB_out[14])	); // PN swap
-OBUFDS obufds_DAC0_DAT13_inst 	(.O(o_B34D_L19P     ), .OB(o_B34D_L19N     ), .I(w_DAC0_DAT__IOB_out[13])	); // PN swap
-OBUFDS obufds_DAC0_DAT12_inst 	(.O(o_B34D_L21P     ), .OB(o_B34D_L21N     ), .I(w_DAC0_DAT__IOB_out[12])	); // PN swap
-OBUFDS obufds_DAC0_DAT11_inst 	(.O(o_B34D_L13P_MRCC), .OB(o_B34D_L13N_MRCC), .I(w_DAC0_DAT__IOB_out[11])	);
-OBUFDS obufds_DAC0_DAT10_inst 	(.O(o_B34D_L16P     ), .OB(o_B34D_L16N     ), .I(w_DAC0_DAT__IOB_out[10])	); // PN swap
-OBUFDS obufds_DAC0_DAT9__inst 	(.O(o_B34D_L17P     ), .OB(o_B34D_L17N     ), .I(w_DAC0_DAT__IOB_out[9 ])	); // PN swap 
-OBUFDS obufds_DAC0_DAT8__inst 	(.O(o_B34D_L24P     ), .OB(o_B34D_L24N     ), .I(w_DAC0_DAT__IOB_out[8 ])	); // PN swap 
-OBUFDS obufds_DAC0_DAT7__inst 	(.O(o_B34D_L20P     ), .OB(o_B34D_L20N     ), .I(w_DAC0_DAT__IOB_out[7 ])	);
-OBUFDS obufds_DAC0_DAT6__inst 	(.O(o_B34D_L3P      ), .OB(o_B34D_L3N      ), .I(w_DAC0_DAT__IOB_out[6 ])	);
-OBUFDS obufds_DAC0_DAT5__inst 	(.O(o_B34D_L9P      ), .OB(o_B34D_L9N      ), .I(w_DAC0_DAT__IOB_out[5 ])	);
-OBUFDS obufds_DAC0_DAT4__inst 	(.O(o_B34D_L2P      ), .OB(o_B34D_L2N      ), .I(w_DAC0_DAT__IOB_out[4 ])	);
-OBUFDS obufds_DAC0_DAT3__inst 	(.O(o_B34D_L4P      ), .OB(o_B34D_L4N      ), .I(w_DAC0_DAT__IOB_out[3 ])	);
-OBUFDS obufds_DAC0_DAT2__inst 	(.O(o_B34D_L1P      ), .OB(o_B34D_L1N      ), .I(w_DAC0_DAT__IOB_out[2 ])	);
-OBUFDS obufds_DAC0_DAT1__inst 	(.O(o_B34D_L7P      ), .OB(o_B34D_L7N      ), .I(w_DAC0_DAT__IOB_out[1 ])	);
-OBUFDS obufds_DAC0_DAT0__inst 	(.O(o_B34D_L12P_MRCC), .OB(o_B34D_L12N_MRCC), .I(w_DAC0_DAT__IOB_out[0 ])	);
+//}
+
+OBUFDS obufds_DAC0_DAT15_inst 	(.O( o_B35D_L19P      ), .OB( o_B35D_L19N      ), .I(w_DAC0_DAT__IOB_out[15])	);
+OBUFDS obufds_DAC0_DAT14_inst 	(.O( o_B35D_L18P      ), .OB( o_B35D_L18N      ), .I(w_DAC0_DAT__IOB_out[14])	);
+OBUFDS obufds_DAC0_DAT13_inst 	(.O( o_B35D_L14P_SRCC ), .OB( o_B35D_L14N_SRCC ), .I(w_DAC0_DAT__IOB_out[13])	);
+OBUFDS obufds_DAC0_DAT12_inst 	(.O( o_B35D_L13P_MRCC ), .OB( o_B35D_L13N_MRCC ), .I(w_DAC0_DAT__IOB_out[12])	);
+OBUFDS obufds_DAC0_DAT11_inst 	(.O( o_B35D_L20P      ), .OB( o_B35D_L20N      ), .I(w_DAC0_DAT__IOB_out[11])	);
+OBUFDS obufds_DAC0_DAT10_inst 	(.O( o_B35D_L22P      ), .OB( o_B35D_L22N      ), .I(w_DAC0_DAT__IOB_out[10])	);
+OBUFDS obufds_DAC0_DAT9__inst 	(.O( o_B35D_L16P      ), .OB( o_B35D_L16N      ), .I(w_DAC0_DAT__IOB_out[9 ])	);
+OBUFDS obufds_DAC0_DAT8__inst 	(.O( o_B35D_L15P      ), .OB( o_B35D_L15N      ), .I(w_DAC0_DAT__IOB_out[8 ])	);
+OBUFDS obufds_DAC0_DAT7__inst 	(.O( o_B35D_L9P       ), .OB( o_B35D_L9N       ), .I(w_DAC0_DAT__IOB_out[7 ])	);
+OBUFDS obufds_DAC0_DAT6__inst 	(.O( o_B35D_L7P       ), .OB( o_B35D_L7N       ), .I(w_DAC0_DAT__IOB_out[6 ])	);
+OBUFDS obufds_DAC0_DAT5__inst 	(.O( o_B35D_L8P       ), .OB( o_B35D_L8N       ), .I(w_DAC0_DAT__IOB_out[5 ])	);
+OBUFDS obufds_DAC0_DAT4__inst 	(.O( o_B35D_L5P       ), .OB( o_B35D_L5N       ), .I(w_DAC0_DAT__IOB_out[4 ])	);
+OBUFDS obufds_DAC0_DAT3__inst 	(.O( o_B35D_L4P       ), .OB( o_B35D_L4N       ), .I(w_DAC0_DAT__IOB_out[3 ])	);
+OBUFDS obufds_DAC0_DAT2__inst 	(.O( o_B35D_L3P       ), .OB( o_B35D_L3N       ), .I(w_DAC0_DAT__IOB_out[2 ])	);
+OBUFDS obufds_DAC0_DAT1__inst 	(.O( o_B35D_L2P       ), .OB( o_B35D_L2N       ), .I(w_DAC0_DAT__IOB_out[1 ])	);
+OBUFDS obufds_DAC0_DAT0__inst 	(.O( o_B35D_L1P       ), .OB( o_B35D_L1N       ), .I(w_DAC0_DAT__IOB_out[0 ])	);
+//                                                           
+wire          DAC0_DCI;                                      
+OBUFDS obufds_DAC0_DCI_inst 	(.O(o_B35D_L11P_SRCC), .OB(o_B35D_L11N_SRCC), .I( DAC0_DCI)	); //
 //
-wire          DAC0_DCI;
-OBUFDS obufds_DAC0_DCI_inst 	(.O(o_B34D_L10P),      .OB(o_B34D_L10N),      .I(DAC0_DCI)	); //
-//
-wire          DAC0_DCO; // not used
-wire        c_DAC0_DCO;
-IBUFDS ibufds_DAC0_DCO_inst 	(.I(c_B34D_L14P_SRCC), .IB(c_B34D_L14N_SRCC), .O(c_DAC0_DCO) );
+wire          DAC0_DCO;  wire        c_DAC0_DCO; // not used
+IBUFDS ibufds_DAC0_DCO_inst 	(.I(c_B35D_L12P_MRCC), .IB(c_B35D_L12N_MRCC), .O(c_DAC0_DCO) );
 BUFG     bufg_DAC0_DCO_inst 	(.I(c_DAC0_DCO), .O(DAC0_DCO) ); 
 
-//// ADC
-wire   ADC0_DCO;
-wire c_ADC0_DCO;
-IBUFDS ibufds_ADC0_DCO_inst (.I(c_B34D_L11P_SRCC), .IB(c_B34D_L11N_SRCC), .O(c_ADC0_DCO) );
-BUFG     bufg_ADC0_DCO_inst (.I(c_ADC0_DCO), .O(ADC0_DCO) ); 
-//
-wire ADC0_DA;
-wire ADC0_DB;
-IBUFDS ibufds_ADC0_DA_inst  (.I(i_B34D_L18P), .IB(i_B34D_L18N), .O(ADC0_DA) );
-IBUFDS ibufds_ADC0_DB_inst  (.I(i_B34D_L22P), .IB(i_B34D_L22N), .O(ADC0_DB) );
-//
-wire ADCx_CNV ;
-wire ADCx_CLK ;
-OBUFDS obufds_ADCx_CNV_inst (.O(o_B34D_L6P ), .OB(o_B34D_L6N), .I(ADCx_CNV)	); //
-OBUFDS obufds_ADCx_CLK_inst (.O(o_B34D_L8P ), .OB(o_B34D_L8N), .I(ADCx_CLK)	); //
-//
-wire ADCx_TPT_B;
-OBUF obuf_ADCx_TPT_B_inst   (.O(o_B34_L5P    ), .I(ADCx_TPT_B   ) ); // 
 
-//// MEM_SIO
-wire  MEM_SIO_out; wire  MEM_SIO_tri; wire  MEM_SIO_in; // io_B34_L5N // high-Z control style ports 
-IOBUF iobuf_MEM_SIO_inst  (.IO(io_B34_L5N  ), .T(MEM_SIO_tri), .I(MEM_SIO_out ), .O(MEM_SIO_in ) ); //
 
 
 //}
 
-//// BANK B35 IOBUF //{
+//// BANK B34 IOBUF //{
 
 //// DAC1 
+//  o_B34D_L23P       ## o_DAC1_DAT_P14          ///  o_B34D_L23N       ## o_DAC1_DAT_N14
+//  o_B34D_L24P       ## o_DAC1_DAT_P15          ///  o_B34D_L24N       ## o_DAC1_DAT_N15
+//  o_B34D_L18P       ## o_DAC1_DAT_P13          ///  o_B34D_L18N       ## o_DAC1_DAT_N13
+//  o_B34D_L15P       ## o_DAC1_DAT_P12          ///  o_B34D_L15N       ## o_DAC1_DAT_N12
+//  o_B34D_L22P       ## o_DAC1_DAT_P11          ///  o_B34D_L22N       ## o_DAC1_DAT_N11
+//  o_B34D_L20P       ## o_DAC1_DAT_P10          ///  o_B34D_L20N       ## o_DAC1_DAT_N10
+//  o_B34D_L10P       ## o_DAC1_DAT_P9           ///  o_B34D_L10N       ## o_DAC1_DAT_N9
+//  o_B34D_L8P        ## o_DAC1_DAT_P8           ///  o_B34D_L8N        ## o_DAC1_DAT_N8
+//  o_B34D_L9P        ## o_DAC1_DAT_N7 // swap   ///  o_B34D_L9N        ## o_DAC1_DAT_P7 // swap
+//  o_B34D_L7P        ## o_DAC1_DAT_N6 // swap   ///  o_B34D_L7N        ## o_DAC1_DAT_P6 // swap
+//  o_B34D_L4P        ## o_DAC1_DAT_N5 // swap   ///  o_B34D_L4N        ## o_DAC1_DAT_P5 // swap
+//  o_B34D_L5P        ## o_DAC1_DAT_N4 // swap   ///  o_B34D_L5N        ## o_DAC1_DAT_P4 // swap
+//  o_B34D_L6P        ## o_DAC1_DAT_N3 // swap   ///  o_B34D_L6N        ## o_DAC1_DAT_P3 // swap
+//  o_B34D_L2P        ## o_DAC1_DAT_N2 // swap   ///  o_B34D_L2N        ## o_DAC1_DAT_P2 // swap
+//  o_B34D_L1P        ## o_DAC1_DAT_N1 // swap   ///  o_B34D_L1N        ## o_DAC1_DAT_P1 // swap
+//  o_B34D_L3P        ## o_DAC1_DAT_P0           ///  o_B34D_L3N        ## o_DAC1_DAT_N0
+//  c_B34D_L12P_MRCC  ## c_DAC1_DCO_N  // swap   ///  c_B34D_L12N_MRCC  ## c_DAC1_DCO_P  // swap
+//  o_B34D_L13P_MRCC  ## o_DAC1_DCI_N  // swap   ///  o_B34D_L13N_MRCC  ## o_DAC1_DCI_P  // swap
 (* keep = "true" *) wire [15:0] DAC1_DAT;
 
-// IOB consideration
+// IOB consideration - PN swap //{
 wire        w_DAC1_DAT__IOB_clk;
 wire        w_DAC1_DAT__IOB_rst_n;
 wire [15:0] w_DAC1_DAT__IOB_in ;
@@ -1217,82 +1405,48 @@ sub_buf_16b  sub_buf_16b__DAC1__inst (
 	.o_buf    (w_DAC1_DAT__IOB_out)  // [15:0]
 	);
 
-assign w_DAC1_DAT__IOB_in[15] = ~DAC1_DAT[15]; // PN swap
-assign w_DAC1_DAT__IOB_in[14] = ~DAC1_DAT[14]; // PN swap
-assign w_DAC1_DAT__IOB_in[13] = ~DAC1_DAT[13]; // PN swap
-assign w_DAC1_DAT__IOB_in[12] = ~DAC1_DAT[12]; // PN swap
-assign w_DAC1_DAT__IOB_in[11] = ~DAC1_DAT[11]; // PN swap
-assign w_DAC1_DAT__IOB_in[10] = ~DAC1_DAT[10]; // PN swap
-assign w_DAC1_DAT__IOB_in[9 ] = ~DAC1_DAT[9 ]; // PN swap
-assign w_DAC1_DAT__IOB_in[8 ] = ~DAC1_DAT[8 ]; // PN swap
-assign w_DAC1_DAT__IOB_in[7 ] =  DAC1_DAT[7 ];
-assign w_DAC1_DAT__IOB_in[6 ] =  DAC1_DAT[6 ];
-assign w_DAC1_DAT__IOB_in[5 ] =  DAC1_DAT[5 ];
-assign w_DAC1_DAT__IOB_in[4 ] =  DAC1_DAT[4 ];
-assign w_DAC1_DAT__IOB_in[3 ] =  DAC1_DAT[3 ];
-assign w_DAC1_DAT__IOB_in[2 ] =  DAC1_DAT[2 ];
-assign w_DAC1_DAT__IOB_in[1 ] =  DAC1_DAT[1 ];
+assign w_DAC1_DAT__IOB_in[15] =  DAC1_DAT[15];
+assign w_DAC1_DAT__IOB_in[14] =  DAC1_DAT[14];
+assign w_DAC1_DAT__IOB_in[13] =  DAC1_DAT[13];
+assign w_DAC1_DAT__IOB_in[12] =  DAC1_DAT[12];
+assign w_DAC1_DAT__IOB_in[11] =  DAC1_DAT[11];
+assign w_DAC1_DAT__IOB_in[10] =  DAC1_DAT[10];
+assign w_DAC1_DAT__IOB_in[9 ] =  DAC1_DAT[9 ];
+assign w_DAC1_DAT__IOB_in[8 ] =  DAC1_DAT[8 ]; 
+assign w_DAC1_DAT__IOB_in[7 ] = ~DAC1_DAT[7 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[6 ] = ~DAC1_DAT[6 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[5 ] = ~DAC1_DAT[5 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[4 ] = ~DAC1_DAT[4 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[3 ] = ~DAC1_DAT[3 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[2 ] = ~DAC1_DAT[2 ]; // PN swap
+assign w_DAC1_DAT__IOB_in[1 ] = ~DAC1_DAT[1 ]; // PN swap
 assign w_DAC1_DAT__IOB_in[0 ] =  DAC1_DAT[0 ];
 
-//
-OBUFDS obufds_DAC1_DAT15_inst 	(.O(o_B35D_L12P_MRCC), .OB(o_B35D_L12N_MRCC), .I(w_DAC1_DAT__IOB_out[15])	); // PN swap
-OBUFDS obufds_DAC1_DAT14_inst 	(.O(o_B35D_L13P_MRCC), .OB(o_B35D_L13N_MRCC), .I(w_DAC1_DAT__IOB_out[14])	); // PN swap
-OBUFDS obufds_DAC1_DAT13_inst 	(.O(o_B35D_L1P      ), .OB(o_B35D_L1N      ), .I(w_DAC1_DAT__IOB_out[13])	); // PN swap
-OBUFDS obufds_DAC1_DAT12_inst 	(.O(o_B35D_L2P      ), .OB(o_B35D_L2N      ), .I(w_DAC1_DAT__IOB_out[12])	); // PN swap
-OBUFDS obufds_DAC1_DAT11_inst 	(.O(o_B35D_L3P      ), .OB(o_B35D_L3N      ), .I(w_DAC1_DAT__IOB_out[11])	); // PN swap
-OBUFDS obufds_DAC1_DAT10_inst 	(.O(o_B35D_L5P      ), .OB(o_B35D_L5N      ), .I(w_DAC1_DAT__IOB_out[10])	); // PN swap
-OBUFDS obufds_DAC1_DAT9__inst 	(.O(o_B35D_L8P      ), .OB(o_B35D_L8N      ), .I(w_DAC1_DAT__IOB_out[9 ])	); // PN swap
-OBUFDS obufds_DAC1_DAT8__inst 	(.O(o_B35D_L10P     ), .OB(o_B35D_L10N     ), .I(w_DAC1_DAT__IOB_out[8 ])	); // PN swap
-OBUFDS obufds_DAC1_DAT7__inst 	(.O(o_B35D_L24P     ), .OB(o_B35D_L24N     ), .I(w_DAC1_DAT__IOB_out[7 ])	); 
-OBUFDS obufds_DAC1_DAT6__inst 	(.O(o_B35D_L22P     ), .OB(o_B35D_L22N     ), .I(w_DAC1_DAT__IOB_out[6 ])	); 
-OBUFDS obufds_DAC1_DAT5__inst 	(.O(o_B35D_L20P     ), .OB(o_B35D_L20N     ), .I(w_DAC1_DAT__IOB_out[5 ])	); 
-OBUFDS obufds_DAC1_DAT4__inst 	(.O(o_B35D_L16P     ), .OB(o_B35D_L16N     ), .I(w_DAC1_DAT__IOB_out[4 ])	); 
-OBUFDS obufds_DAC1_DAT3__inst 	(.O(o_B35D_L21P     ), .OB(o_B35D_L21N     ), .I(w_DAC1_DAT__IOB_out[3 ])	); 
-OBUFDS obufds_DAC1_DAT2__inst 	(.O(o_B35D_L19P     ), .OB(o_B35D_L19N     ), .I(w_DAC1_DAT__IOB_out[2 ])	); 
-OBUFDS obufds_DAC1_DAT1__inst 	(.O(o_B35D_L18P     ), .OB(o_B35D_L18N     ), .I(w_DAC1_DAT__IOB_out[1 ])	); 
-OBUFDS obufds_DAC1_DAT0__inst 	(.O(o_B35D_L23P     ), .OB(o_B35D_L23N     ), .I(w_DAC1_DAT__IOB_out[0 ])	); 
+//}
+
+OBUFDS obufds_DAC1_DAT15_inst 	(.O( o_B34D_L23P ), .OB( o_B34D_L23N ), .I(w_DAC1_DAT__IOB_out[15])	);
+OBUFDS obufds_DAC1_DAT14_inst 	(.O( o_B34D_L24P ), .OB( o_B34D_L24N ), .I(w_DAC1_DAT__IOB_out[14])	);
+OBUFDS obufds_DAC1_DAT13_inst 	(.O( o_B34D_L18P ), .OB( o_B34D_L18N ), .I(w_DAC1_DAT__IOB_out[13])	);
+OBUFDS obufds_DAC1_DAT12_inst 	(.O( o_B34D_L15P ), .OB( o_B34D_L15N ), .I(w_DAC1_DAT__IOB_out[12])	);
+OBUFDS obufds_DAC1_DAT11_inst 	(.O( o_B34D_L22P ), .OB( o_B34D_L22N ), .I(w_DAC1_DAT__IOB_out[11])	);
+OBUFDS obufds_DAC1_DAT10_inst 	(.O( o_B34D_L20P ), .OB( o_B34D_L20N ), .I(w_DAC1_DAT__IOB_out[10])	);
+OBUFDS obufds_DAC1_DAT9__inst 	(.O( o_B34D_L10P ), .OB( o_B34D_L10N ), .I(w_DAC1_DAT__IOB_out[9 ])	);
+OBUFDS obufds_DAC1_DAT8__inst 	(.O( o_B34D_L8P  ), .OB( o_B34D_L8N  ), .I(w_DAC1_DAT__IOB_out[8 ])	);
+OBUFDS obufds_DAC1_DAT7__inst 	(.O( o_B34D_L9P  ), .OB( o_B34D_L9N  ), .I(w_DAC1_DAT__IOB_out[7 ])	); 
+OBUFDS obufds_DAC1_DAT6__inst 	(.O( o_B34D_L7P  ), .OB( o_B34D_L7N  ), .I(w_DAC1_DAT__IOB_out[6 ])	); 
+OBUFDS obufds_DAC1_DAT5__inst 	(.O( o_B34D_L4P  ), .OB( o_B34D_L4N  ), .I(w_DAC1_DAT__IOB_out[5 ])	); 
+OBUFDS obufds_DAC1_DAT4__inst 	(.O( o_B34D_L5P  ), .OB( o_B34D_L5N  ), .I(w_DAC1_DAT__IOB_out[4 ])	); 
+OBUFDS obufds_DAC1_DAT3__inst 	(.O( o_B34D_L6P  ), .OB( o_B34D_L6N  ), .I(w_DAC1_DAT__IOB_out[3 ])	); 
+OBUFDS obufds_DAC1_DAT2__inst 	(.O( o_B34D_L2P  ), .OB( o_B34D_L2N  ), .I(w_DAC1_DAT__IOB_out[2 ])	); 
+OBUFDS obufds_DAC1_DAT1__inst 	(.O( o_B34D_L1P  ), .OB( o_B34D_L1N  ), .I(w_DAC1_DAT__IOB_out[1 ])	); 
+OBUFDS obufds_DAC1_DAT0__inst 	(.O( o_B34D_L3P  ), .OB( o_B34D_L3N  ), .I(w_DAC1_DAT__IOB_out[0 ])	); 
 //
 wire          DAC1_DCI ;
-OBUFDS obufds_DAC1_DCI_inst 	(.O(o_B35D_L17P     ), .OB(o_B35D_L17N     ), .I( DAC1_DCI  )	); // PN swap by PLL
+OBUFDS obufds_DAC1_DCI_inst 	(.O(o_B34D_L13P_MRCC     ), .OB(o_B34D_L13N_MRCC     ), .I( DAC1_DCI  )	); // PN swap by PLL
 //
-wire          DAC1_DCO; // not used
-wire        c_DAC1_DCO;
-IBUFDS ibufds_DAC1_DCO_inst 	(.I(c_B35D_L14P_SRCC), .IB(c_B35D_L14N_SRCC), .O(c_DAC1_DCO) );
-//BUFG   bufg_DAC1_DCO_inst 	(.I(~c_DAC1_DCO), .O(DAC1_DCO) ); // PN swap
+wire          DAC1_DCO;  wire        c_DAC1_DCO; // not used
+IBUFDS ibufds_DAC1_DCO_inst 	(.I(c_B34D_L12P_MRCC), .IB(c_B34D_L12N_MRCC), .O(c_DAC1_DCO) );
 BUFG     bufg_DAC1_DCO_inst 	(.I(c_DAC1_DCO), .O(DAC1_DCO) ); // PN swap by PLL 180 degree
-
-//// ADC
-wire   ADC1_DCO;
-wire c_ADC1_DCO;
-IBUFDS ibufds_ADC1_DCO_inst (.I(c_B35D_L11P_SRCC), .IB(c_B35D_L11N_SRCC), .O(c_ADC1_DCO) );
-BUFG     bufg_ADC1_DCO_inst (.I(c_ADC1_DCO), .O(ADC1_DCO) ); 
-//
-wire ADC1_DA;
-wire ADC1_DB;
-IBUFDS ibufds_ADC1_DA_inst (.I(i_B35D_L7P ), .IB(i_B35D_L7N ), .O(ADC1_DA) );
-IBUFDS ibufds_ADC1_DB_inst (.I(i_B35D_L9P ), .IB(i_B35D_L9N ), .O(ADC1_DB) );
-
-//// CLKD
-wire CLKD_RST_B;
-wire CLKD_LD   ;
-wire CLKD_STAT ;
-wire CLKD_REFM ;
-OBUF obuf_CLKD_RST_B_inst (.O(o_B35_0_     ), .I(CLKD_RST_B ) ); // 
-IBUF ibuf_CLKD_LD_inst    (.I(i_B35_25     ), .O(CLKD_LD    ) ); //
-IBUF ibuf_CLKD_STAT_inst  (.I(i_B35_L15P   ), .O(CLKD_STAT  ) ); //
-IBUF ibuf_CLKD_REFM_inst  (.I(i_B35_L15N   ), .O(CLKD_REFM  ) ); //
-//
-wire CLKD_SCLK    ;
-wire CLKD_CS_B    ;
-wire CLKD_SDO     ; // read for 4-wire SPI
-wire CLKD_SDIO    ; // 
-wire CLKD_SDIO_wr = CLKD_SDIO; // open-drain write for AD9516-1
-wire CLKD_SDIO_rd ; // test read
-//
-OBUF   obuf_CLKD_SCLK_inst ( .O( o_B35_L4P  ), .I(CLKD_SCLK ) ); // 
-OBUF   obuf_CLKD_CS_B_inst ( .O( o_B35_L4N  ), .I(CLKD_CS_B ) ); // 
-IBUF   ibuf_CLKD_SDO__inst ( .I( i_B35_L6P  ), .O(CLKD_SDO  ) ); //
-IOBUF iobuf_CLKD_SDIO_inst (.IO(io_B35_L6N ), .T(CLKD_SDIO_wr ), .I(CLKD_SDIO_wr ), .O(CLKD_SDIO_rd ) ); //
 
 
 //}
@@ -2102,6 +2256,13 @@ wire  EP_LAN_INT_B; // rev 20210105
 wire  EP_LAN_RST_B; // rev 20210105
 wire  EP_LAN_MISO ; // rev 20210105
 
+assign o_LAN_MOSI  = EP_LAN_MOSI ;
+assign o_LAN_SCLK  = EP_LAN_SCLK ;
+assign o_LAN_SSN_B = EP_LAN_CS_B ;
+assign o_LAN_RST_B = EP_LAN_RST_B;
+assign EP_LAN_INT_B = i_LAN_INT_B;
+assign EP_LAN_MISO  = i_LAN_MISO ;
+
 lan_endpoint_wrapper #(
 	//.MCS_IO_INST_OFFSET			(32'h_0004_0000), //$$ for CMU2020
 	//.MCS_IO_INST_OFFSET			(32'h_0005_0000), //$$ for PGU2020 or S3000-PGU
@@ -2416,7 +2577,8 @@ wire [31:0] w_MCS_SETUP_WI = w_port_wi_19_1; //$$ dedicated to MCS. updated by M
 // ...
 // bit[31:16]=board_id, range of 0000~9999, set from EEPROM via MCS
 
-wire [3:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-PGU
+//$$wire [3:0]  w_slot_id             = w_MCS_SETUP_WI[3:0];   //$$ 4 bits in S3100-PGU
+wire [3:0]  w_slot_id             = w_MTH_SLOT_ID;
 wire [7:0]  w_slot_id_8b          = w_MCS_SETUP_WI[7:0];   //$$ 8 bits in S3100-PGU
 //
 //$$ note ... need to protect MCS_SETUP_WI[15:8] by SDK
@@ -2946,11 +3108,11 @@ master_spi_mcp23s17  master_spi_mcp23s17_inst (
 	.i_trig_SPI_frame	(w_trig_SPIO_SPI_frame), 
 	.o_done_SPI_frame	(w_done_SPIO_SPI_frame), 
 	//
-	.o_SPIO0_CS   		(SPIO0_CS  ),
-	.o_SPIO1_CS   		(SPIO1_CS  ),
-	.o_SPIOx_SCLK 		(SPIOx_SCLK),
-	.o_SPIOx_MOSI 		(SPIOx_MOSI),
-	.i_SPIOx_MISO 		(SPIOx_MISO),
+	.o_SPIO0_CS   		(o_SPIO0_CS  ),
+	.o_SPIO1_CS   		(o_SPIO1_CS  ),
+	.o_SPIOx_SCLK 		(o_SPIOx_SCLK),
+	.o_SPIOx_MOSI 		(o_SPIOx_MOSI),
+	.i_SPIOx_MISO 		(i_SPIOx_MISO),
 	//
 	.i_CS_id            (w_SPIO_CS_id     ), //       
 	.i_pin_adrs_A       (w_SPIO_pin_adrs_A), // [2:0] 
@@ -2996,10 +3158,10 @@ wire  [7:0] w_CLKD_wr_D        = w_CLKD_WI[7:0];
 //
 wire  [7:0] w_CLKD_rd_D       ;
 //
-assign w_CLKD_WO[31]    = CLKD_LD   ;
-assign w_CLKD_WO[30]    = CLKD_STAT ;
-assign w_CLKD_WO[29]    = CLKD_REFM ;
-//assign w_CLKD_WO[28]    = CLKD_SDO  ;
+assign w_CLKD_WO[31]    = i_CLKD_LD   ;
+assign w_CLKD_WO[30]    = i_CLKD_STAT ;
+assign w_CLKD_WO[29]    = i_CLKD_REFM ;
+//assign w_CLKD_WO[28]    = i_CLKD_SDO  ;
 assign w_CLKD_WO[28]    = CLKD_SDIO_rd  ;
 assign w_CLKD_WO[27:26] = 2'b0;
 assign w_CLKD_WO[25]    = w_done_CLKD_SPI_frame;
@@ -3017,15 +3179,15 @@ master_spi_ad9516#(
 	//
 	.i_trig_LNG_reset	(w_trig_CLKD_LNG_reset),
 	.o_done_LNG_reset	(w_done_CLKD_LNG_reset), 
-	.o_LNG_RSTn			(CLKD_RST_B),
+	.o_LNG_RSTn			(o_CLKD_RST_B),
 	.i_trig_SPI_frame	(w_trig_CLKD_SPI_frame), 
 	.o_done_SPI_frame	(w_done_CLKD_SPI_frame), 
 	//
-	.o_CLK_CS_B   		(CLKD_CS_B),
-	.o_CLK_SCLK 		(CLKD_SCLK),
-	.o_CLK_SDIO 		(CLKD_SDIO),
+	.o_CLK_CS_B   		(o_CLKD_CS_B),
+	.o_CLK_SCLK 		(o_CLKD_SCLK),
+	.o_CLK_SDIO 		(CLKD_SDIO_wr),
 	//.i_CLK_SDO 			(CLKD_SDIO_rd),
-	.i_CLK_SDO 			(CLKD_SDO),
+	.i_CLK_SDO 			(i_CLKD_SDO),
 	//
 	.i_R_W_bar          (w_CLKD_R_W_bar    ), //     
 	.i_byte_mode_W      (w_CLKD_byte_mode_W), // [1:0]
@@ -3044,8 +3206,8 @@ master_spi_ad9516#(
 // control external trig in and out 
 
 // assign port //{
-assign TRIG_OUT_P = w_trig_p_oddr_out;
-assign TRIG_OUT_N = w_trig_n_oddr_out;
+assign o_TRIG_OUT_P = w_trig_p_oddr_out;
+assign o_TRIG_OUT_N = w_trig_n_oddr_out;
 //}
 
 // assign endpoint //{
@@ -3119,15 +3281,15 @@ master_spi_ad9783  master_spi_ad9783_inst (
 	//
 	.i_trig_LNG_reset	(w_trig_DACx_LNG_reset),
 	.o_done_LNG_reset	(w_done_DACx_LNG_reset), 
-	.o_LNG_RSTn			(DACx_RST_B),
+	.o_LNG_RSTn			(o_DACx_RST_B),
 	.i_trig_SPI_frame	(w_trig_DACx_SPI_frame), 
 	.o_done_SPI_frame	(w_done_DACx_SPI_frame), 
 	//
-	.o_DAC0_CS   		(DAC0_CS  ),
-	.o_DAC1_CS   		(DAC1_CS  ),
-	.o_DACx_SCLK 		(DACx_SCLK),
-	.o_DACx_SDIO 		(DACx_SDIO),
-	.i_DACx_SDO  		(DACx_SDO),
+	.o_DAC0_CS   		(o_DAC0_CS  ),
+	.o_DAC1_CS   		(o_DAC1_CS  ),
+	.o_DACx_SCLK 		(o_DACx_SCLK),
+	.o_DACx_SDIO 		(o_DACx_SDIO),
+	.i_DACx_SDO  		(i_DACx_SDO),
 	//
 	.i_CS_id            (w_DACx_CS_id      ), //       
 	.i_R_W_bar          (w_DACx_R_W_bar    ), //       
@@ -3835,26 +3997,26 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 wire [15:0] w_SSPI_cnt_sspi_cs; // o
 
 //$$ pad assignment for S3100-PGU
-//wire  M2_SPI_CS_BUF      ; // i // 0 for SPI frame active 
-//wire  M2_SPI_MOSI        ; // i // data in from master
-//wire  M2_SPI_TX_CLK      ; // i // clock in for MOSI
-//wire  M2_SPI_MISO        ;  wire  M2_SPI_MISO_B   = ~M2_SPI_MISO   ; // o // data out  to master // inverted due to artwork
-//wire  M2_SPI_RX_CLK      ;  wire  M2_SPI_RX_CLK_B = ~M2_SPI_RX_CLK ; // o // clock out for MISO  // inverted due to artwork
-//wire  M2_SPI_RX_EN_SLAVE ; // o // 0 for TX_CLK/MOSI active
-//wire  M2_SPI_TX_EN_SLAVE ; // o // 1 for RX_CLK/MISO active
+//wire  i_M2_SPI_CS_BUF      ; // i // 0 for SPI frame active 
+//wire  i_M2_SPI_MOSI        ; // i // data in from master
+//wire  i_M2_SPI_TX_CLK      ; // i // clock in for MOSI
+//wire  o_M2_SPI_MISO        ;  wire  o_M2_SPI_MISO_B   = ~o_M2_SPI_MISO   ; // o // data out  to master // inverted due to artwork
+//wire  o_M2_SPI_RX_CLK      ;  wire  o_M2_SPI_RX_CLK_B = ~o_M2_SPI_RX_CLK ; // o // clock out for MISO  // inverted due to artwork
+//wire  o_M2_SPI_RX_EN_SLAVE ; // o // 0 for TX_CLK/MOSI active
+//wire  o_M2_SPI_TX_EN_SLAVE ; // o // 1 for RX_CLK/MISO active
 
 //$$ mux for S3100-PGU test
-assign  w_SSPI_CS_B        = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_SS_B : M2_SPI_CS_BUF ;
-assign  w_SSPI_CLK         = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_MCLK : M2_SPI_TX_CLK ;
-assign  w_SSPI_MOSI        = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_MOSI : M2_SPI_MOSI   ;
+assign  w_SSPI_CS_B        = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_SS_B : i_M2_SPI_CS_BUF ;
+assign  w_SSPI_CLK         = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_MCLK : i_M2_SPI_TX_CLK ;
+assign  w_SSPI_MOSI        = (w_SSPI_TEST_mode_en)? w_SSPI_TEST_MOSI : i_M2_SPI_MOSI   ;
 //
 assign  w_SSPI_TEST_SCLK   = (w_SSPI_TEST_mode_en)? w_SSPI_CLK    : 1'b0 ; //$$ must come from SSPI in test.
 assign  w_SSPI_TEST_MISO   = (w_SSPI_TEST_mode_en)? w_SSPI_MISO   : 1'b0 ; //$$ must come from SSPI in test.
 //
-assign  M2_SPI_RX_CLK      = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_CLK  ; //$$ to revise RCLK
-assign  M2_SPI_MISO        = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_MISO    ;
-assign  M2_SPI_TX_EN_SLAVE = (w_SSPI_TEST_mode_en)? 1'b0 : (~M2_SPI_CS_BUF) ; // MISO active // note: 1 for tx enable 
-assign  M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // must be 0 all the time.
+assign  o_M2_SPI_RX_CLK      = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_CLK  ; //$$ to revise RCLK
+assign  o_M2_SPI_MISO        = (w_SSPI_TEST_mode_en)? 1'b0 : w_SSPI_MISO    ;
+assign  o_M2_SPI_TX_EN_SLAVE = (w_SSPI_TEST_mode_en)? 1'b0 : (~i_M2_SPI_CS_BUF) ; // MISO active // note: 1 for tx enable 
+assign  o_M2_SPI_RX_EN_SLAVE = 1'b0; // MOSI active // note: 0 for rx enable // must be 0 all the time.
 
 
 
@@ -4074,23 +4236,6 @@ assign w_SSPI_FLAG_WO[15: 0] = w_SSPI_cnt_sspi_cs; // w_SSPI_cnt_sspi_cs
 ///TODO: //-------------------------------------------------------//
 
 
-///TODO: //-------------------------------------------------------//
 
-
-/* TODO: other signals */ //{
-
-//// LAN fixed in S3100-PGU //{
-assign PT_FMOD_EP_LAN_MOSI  = EP_LAN_MOSI ;
-assign PT_FMOD_EP_LAN_SCLK  = EP_LAN_SCLK ;
-assign PT_FMOD_EP_LAN_CS_B  = EP_LAN_CS_B ;
-assign PT_FMOD_EP_LAN_RST_B = EP_LAN_RST_B;
-//
-assign EP_LAN_INT_B = PT_FMOD_EP_LAN_INT_B;
-assign EP_LAN_MISO  = PT_FMOD_EP_LAN_MISO ;
-//}
-
-
-
-//}
 
 endmodule
