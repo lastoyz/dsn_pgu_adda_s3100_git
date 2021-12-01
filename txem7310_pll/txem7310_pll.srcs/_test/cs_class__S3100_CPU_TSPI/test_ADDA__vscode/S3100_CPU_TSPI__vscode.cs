@@ -8043,8 +8043,8 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
-        //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        public static string test_host_ip = "192.168.100.143"; // test dummy ip
+        public static string test_host_ip = "192.168.168.143"; // test dummy ip
+        //public static string test_host_ip = "192.168.100.143"; // test dummy ip
 
         //// S3100 frame slot selection:
         // loc_slot bit 0  = slot location 0`
