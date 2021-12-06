@@ -93,7 +93,8 @@ int main(void)
 	//// test setup for print on jtag-terminal // stdio with mdm //{
 	//xil_printf("> Go S3100-CPU-BASE with LAN support!! \r\n"); // on jtag-terminal
 	//xil_printf("> Go S3100-PGU with LAN support!! \r\n"); // on jtag-terminal
-	xil_printf("> Go S3100-ADDA with LAN support!! \r\n"); // on jtag-terminal
+	//xil_printf("> Go S3100-ADDA with LAN support!! \r\n"); // on jtag-terminal
+	xil_printf("> Go S3100-PGU-ADDA with LAN support!! \r\n"); // on jtag-terminal
 
 	xil_printf(">>> build_info: ["__TIME__"],[" __DATE__ "]\r\n");
 #ifdef  _SCPI_DEBUG_

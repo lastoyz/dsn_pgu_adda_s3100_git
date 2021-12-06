@@ -35,6 +35,9 @@ uint8_t* cmd_str__EPS_TWO  = (uint8_t*)":EPS:TWO";  // return 32-bit word
 uint8_t* cmd_str__EPS_PI   = (uint8_t*)":EPS:PI";
 uint8_t* cmd_str__EPS_PO   = (uint8_t*)":EPS:PO";
 
+uint8_t* cmd_str__MEM_MEMR           = (uint8_t*)":MEM:MEMR"; // ':MEM:MEMR #H00000058 \n'
+uint8_t* cmd_str__MEM_MEMW           = (uint8_t*)":MEM:MEMW"; // ':MEM:MEMW #H0000005C #H1234ABCD \n'
+//
 
 #ifdef _SCPI_CMD_S3100_PGU_// _SCPI_CMD_PGU_ --> _SCPI_CMD_S3100_PGU_
 
@@ -100,6 +103,9 @@ uint8_t* cmd_str__PGU_GAIN_DAC1      = (uint8_t*)":PGU:GAIN:DAC1";
 #define LEN_CMD_STR__EPS_PI             (strlen((const char *)cmd_str__EPS_PI  ))
 #define LEN_CMD_STR__EPS_PO             (strlen((const char *)cmd_str__EPS_PO  ))
 
+#define LEN_CMD_STR__MEM_MEMR            (strlen((const char *) cmd_str__MEM_MEMR         ))
+#define LEN_CMD_STR__MEM_MEMW            (strlen((const char *) cmd_str__MEM_MEMW         ))
+//
 
 
 #ifdef _SCPI_CMD_S3100_PGU_// _SCPI_CMD_PGU_ --> _SCPI_CMD_S3100_PGU_
@@ -916,6 +922,113 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 			}
 			//}
 			
+
+			// TODO: case of  cmd_str__MEM_MEMR //{
+			else if (0==strncmp((char*)cmd_str__MEM_MEMR,(char*)buf,LEN_CMD_STR__MEM_MEMR)) { // 0 means eq
+				// subfunctions:
+				//    eeprom_read_data   (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_dataout);
+				//    eeprom_write_data  (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain);
+				//
+				// # ':MEM:MEMR' # new ':MEM:MEMR #H00000058 \n'
+				// # ':MEM:MEMW' # new ':MEM:MEMW #H0000005C #H1234ABCD \n'
+
+				u32 loc = LEN_CMD_STR__MEM_MEMR; //$$
+				u32 val;
+				u32 adrs;
+
+				// skip spaces ' ' and tap
+				while (1) {
+					if      (buf[loc]==' ') loc++;
+					else if (buf[loc]=='\t') loc++;
+					else break;
+				}
+
+				// find adrs
+				if (0==strncmp("#H", (char*)&buf[loc], 2)) {
+					// read adrs 8 bytes
+					loc = loc + 2; // locate the numeric parameter head
+					adrs = hexstr2data_u32((u8*)(buf+loc),8);
+					loc = loc + 8; //
+#ifdef _SCPI_DEBUG_
+					xil_printf("adrs: 0x%08X\r\n",(unsigned int)adrs);
+#endif
+					eeprom_read_data((u16)adrs, 4, (u8*)&val); //$$ read eeprom
+					xil_sprintf((char*)rsp_str,"#H%08X\n",(unsigned int)val); // '\0' added. ex "#H00000002\n"
+					p_rsp_str = rsp_str;
+				}
+				else {
+					// return NG
+					p_rsp_str = rsp_str__NG;
+				}
+			}
+			//}
+			
+
+
+			// TODO: case of  cmd_str__MEM_MEMW //$$ //{
+			else if (0==strncmp((char*)cmd_str__MEM_MEMW,(char*)buf,LEN_CMD_STR__MEM_MEMW)) { // 0 means eq
+				// subfunctions:
+				//    eeprom_read_data   (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_dataout);
+				//    eeprom_write_data  (u16 ADRS_b16, u16 num_bytes_DAT_b16, u8 *buf_datain);
+				//
+				// # ':MEM:MEMR' # new ':MEM:MEMR #H00000058 \n'
+				// # ':MEM:MEMW' # new ':MEM:MEMW #H0000005C #H1234ABCD \n'
+			
+				u32 loc = LEN_CMD_STR__MEM_MEMW; //$$
+				u32 val;
+				u32 adrs;
+
+				// skip spaces ' ' and tap
+				while (1) {
+					if      (buf[loc]==' ') loc++;
+					else if (buf[loc]=='\t') loc++;
+					else break;
+				}
+
+				// find adrs
+				if (0==strncmp("#H", (char*)&buf[loc], 2)) {
+					// read adrs 8 bytes
+					loc = loc + 2; // locate the numeric parameter head
+					adrs = hexstr2data_u32((u8*)(buf+loc),8);
+					loc = loc + 8; //
+#ifdef _SCPI_DEBUG_
+					xil_printf("adrs: 0x%08X\r\n",(unsigned int)adrs);
+#endif
+
+					// skip spaces ' ' and tap
+					while (1) {
+						if      (buf[loc]==' ') loc++;
+						else if (buf[loc]=='\t') loc++;
+						else break;
+					}
+
+					// find value
+					if (0==strncmp("#H", (char*)&buf[loc], 2)) {
+						// read adrs 8 bytes
+						loc = loc + 2; // locate the numeric parameter head
+						val = hexstr2data_u32((u8*)(buf+loc),8);
+						loc = loc + 8; //
+#ifdef _SCPI_DEBUG_
+						xil_printf("val: 0x%08X\r\n",(unsigned int)val);
+#endif
+
+						// process
+						eeprom_write_data((u16)adrs, 4, (u8*)&val); //$$ read eeprom
+						p_rsp_str = rsp_str__OK;
+
+					}
+					else {
+						// return NG
+						p_rsp_str = rsp_str__NG;
+					}
+				}
+				else {
+					// return NG
+					p_rsp_str = rsp_str__NG;
+				}
+			}
+			//}
+
 
 			//// TODO: S3100-PGU command --------////
 #ifdef _SCPI_CMD_S3100_PGU_// _SCPI_CMD_PGU_ --> _SCPI_CMD_S3100_PGU_
