@@ -887,8 +887,8 @@ set_max_delay -datapath_only -from [get_pins ODDR_dac1_dci_inst/C] -to [get_port
 
 
 ## false path for fifo reset
-set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[6]/C}] 
-set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[7]/C}] 
+##$$set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[6]/C}] 
+##$$set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[7]/C}] 
 
 ## false path from flag_fcid_pulse_active_dac*
 #set_false_path -from [get_pins dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac0_reg/C] 
