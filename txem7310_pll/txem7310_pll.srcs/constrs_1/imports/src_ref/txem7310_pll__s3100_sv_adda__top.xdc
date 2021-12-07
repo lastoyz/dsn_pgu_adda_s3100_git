@@ -791,9 +791,9 @@ set_property IOB TRUE [get_ports $ports_dac0 ]
 #
 #set_max_delay -datapath_only -from [get_pins {r_DAC0_DAT_reg[*]/C}] -to [get_ports $ports_dac0 ] $t_dac0_delay_max
 
-## 14.960 --> 15.460 --> 16.060 --> 17.000
+## 14.960 --> 15.460 --> 16.060 --> 17.000 --> 15.000
 #
-set_max_delay    -to [get_ports $ports_dac0 ] 17.000
+set_max_delay    -to [get_ports $ports_dac0 ] 15.000
 
 
 
@@ -836,9 +836,9 @@ set_property IOB TRUE [get_ports  $ports_dac1 ]
 #
 #set_max_delay -datapath_only -from [get_pins {r_DAC1_DAT_reg[*]/C}] -to [get_ports $ports_dac1 ] $t_dac1_delay_max
 
-## 14.380 --> 14.910 --> 15.910 --> 16.650 --> 17.010
+## 14.380 --> 14.910 --> 15.910 --> 16.650 --> 17.010 --> 15.000
 #
-set_max_delay   -to [get_ports $ports_dac1 ] 17.010
+set_max_delay   -to [get_ports $ports_dac1 ] 15.000
 
 
 ## DCI out: 400MHz case
