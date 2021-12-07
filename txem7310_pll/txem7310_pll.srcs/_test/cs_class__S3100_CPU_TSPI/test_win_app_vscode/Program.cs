@@ -10,7 +10,8 @@ namespace __test__
     static class Program
     {
 
-        public static string test_host_ip = "192.168.100.143"; // test dummy ip
+        //$$public static string test_host_ip = "192.168.100.143"; // test dummy ip
+        public static string test_host_ip = "192.168.100.62"; // test adda
 
         //// S3100 frame slot selection:
         // loc_slot bit 0  = slot location 0

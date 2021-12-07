@@ -7717,9 +7717,24 @@ namespace TopInstrument
             long[]   StepTime;
             double[] StepLevel;
 
+            //// case for pr 1000ns tr 100ns
+            // Tdata_usr = [     0,     50,    150,    450,    550,   1000, ]
+            // Vdata_usr = [ 0.000,  0.000, 20.000, 20.000,  0.000,  0.000, ] 
+            // 
+            // Tdata_cmd = [     0,     50,    150,    450,    550,   1000, ]
+            // Vdata_cmd = [ 0.058,  0.058,  7.334,  7.334,  0.058,  0.058, ] 
+            StepTime  = new long[]   {      0,     50,    150,    450,    550,   1000 }; // ns
+            StepLevel = new double[] {  0.000,  0.000,  8.000,  8.000,  0.000,  0.000 }; // V
+
+            //// case for pr 10000ns tr 1000ns 
+            //StepTime  = new long[]   {      0,     500,    1500,    4500,    5500,   10000 }; // ns
+            //StepLevel = new double[] {  0.000,   0.000,   8.000,   8.000,   0.000,   0.000 }; // V
+
+
             //// case base for 10V mode with neg
-            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            ////$$StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            //StepLevel = new double[] { 0.0,  0.0,  2.0,  2.0,  4.0,  4.0, -4.0, -4.0,   0.0 }; // V
 
             //// case base for 10V mode
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -7777,7 +7792,9 @@ namespace TopInstrument
             ////
             Console.WriteLine(">>> DAC waveform command generation");
             
-            int test_case__wave = 1; // 0 for pulse, 1 for sine
+            //$$int test_case__wave = 1; // 0 for pulse, 1 for sine
+            int test_case__wave = 0; // 0 for pulse, 1 for sine
+
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
 
             if (test_case__wave==1) {
@@ -7814,7 +7831,8 @@ namespace TopInstrument
 
             //int num_repeat_pulses = 100; // 100/(500kHz)=0.2ms
             //int num_repeat_pulses = 500; // 500/(500kHz)=1.0ms
-            int num_repeat_pulses = 1000;
+            //$$int num_repeat_pulses = 1000;
+            int num_repeat_pulses = 10;
             //int num_repeat_pulses = 2000; // 2000/(500kHz)=4ms
 
             ////
@@ -7875,21 +7893,21 @@ namespace TopInstrument
             //len_adc_data = 600;
             //len_adc_data = 500; // 0.0476190476 ms @ 10.5MHz
 
-            //cnt_sampling_period = 14   ; // 210MHz/14   =  15 Msps
-            //cnt_sampling_period = 15   ; // 210MHz/15   =  14 Msps
-            //cnt_sampling_period = 21   ; // 210MHz/21   =  10 Msps
-            //cnt_sampling_period = 43   ; // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
-            //cnt_sampling_period = 106  ; // 210MHz/106  =  1.98113208 Msps //$$ 18.8679245kHz image with 2MHz wave
-            //cnt_sampling_period = 210  ; // 210MHz/210  =  1 Msps
-            //cnt_sampling_period = 211  ; // 210MHz/211  =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
-            //cnt_sampling_period = 2100 ; // 210MHz/210  =  0.1 Msps
+            //adc_sampling_period_count = 14   ; // 210MHz/14   =  15 Msps
+            //adc_sampling_period_count = 15   ; // 210MHz/15   =  14 Msps
+            //adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps
+            //adc_sampling_period_count = 43   ; // 210MHz/43   =  4.883721 Msps //$$ 116.27907kHz image with 5MHz wave
+            //adc_sampling_period_count = 106  ; // 210MHz/106  =  1.98113208 Msps //$$ 18.8679245kHz image with 2MHz wave
+            //adc_sampling_period_count = 210  ; // 210MHz/210  =  1 Msps
+            //adc_sampling_period_count = 211  ; // 210MHz/211  =  0.995261 Msps //$$ 4.739336kHz image with 1MHz wave
+            //adc_sampling_period_count = 2100 ; // 210MHz/210  =  0.1 Msps
 
-            //cnt_sampling_period =  15  ; // 189MHz/14   =  13.5 Msps
-            //cnt_sampling_period =  18  ; // 189MHz/18   =  10.5 Msps
-            //cnt_sampling_period =  38  ; // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
-            //cnt_sampling_period =  95  ; // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
-            //cnt_sampling_period = 190  ; // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
-            adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+            //adc_sampling_period_count =  15  ; // 189MHz/14   =  13.5 Msps
+            adc_sampling_period_count =  18  ; // 189MHz/18   =  10.5 Msps
+            //adc_sampling_period_count =  38  ; // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
+            //adc_sampling_period_count =  95  ; // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
+            //adc_sampling_period_count = 190  ; // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
+            //$$adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
             
             dev_eps.adc_init(len_adc_data, adc_sampling_period_count); // init with setup parameters
             dev_eps.adc_reset_fifo(); // clear fifo for new data
@@ -8040,11 +8058,15 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
         //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
+        //public static string test_host_ip = "192.168.100.51"; // S3100-ADDA_BD1
+        //public static string test_host_ip = "192.168.100.52"; // S3100-ADDA_BD2
+        //public static string test_host_ip = "192.168.100.53"; // S3100-ADDA_BD3
+
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        public static string test_host_ip = "192.168.100.143"; // test dummy ip
+        //public static string test_host_ip = "192.168.100.143"; // test dummy ip
 
         //// S3100 frame slot selection:
         // loc_slot bit 0  = slot location 0`
