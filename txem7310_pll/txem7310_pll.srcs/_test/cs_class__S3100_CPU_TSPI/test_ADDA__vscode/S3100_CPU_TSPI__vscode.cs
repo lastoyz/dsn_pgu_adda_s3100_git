@@ -7717,10 +7717,24 @@ namespace TopInstrument
             long[]   StepTime;
             double[] StepLevel;
 
+            //// case for pr 1000ns tr 100ns
+            // Tdata_usr = [     0,     50,    150,    450,    550,   1000, ]
+            // Vdata_usr = [ 0.000,  0.000, 20.000, 20.000,  0.000,  0.000, ] 
+            // 
+            // Tdata_cmd = [     0,     50,    150,    450,    550,   1000, ]
+            // Vdata_cmd = [ 0.058,  0.058,  7.334,  7.334,  0.058,  0.058, ] 
+            StepTime  = new long[]   {      0,     50,    150,    450,    550,   1000 }; // ns
+            StepLevel = new double[] {  0.000,  0.000,  8.000,  8.000,  0.000,  0.000 }; // V
+
+            //// case for pr 10000ns tr 1000ns 
+            //StepTime  = new long[]   {      0,     500,    1500,    4500,    5500,   10000 }; // ns
+            //StepLevel = new double[] {  0.000,   0.000,   8.000,   8.000,   0.000,   0.000 }; // V
+
+
             //// case base for 10V mode with neg
-            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            //$$StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
-            StepLevel = new double[] { 0.0,  0.0,  2.0,  2.0,  4.0,  4.0, -4.0, -4.0,   0.0 }; // V
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            ////$$StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            //StepLevel = new double[] { 0.0,  0.0,  2.0,  2.0,  4.0,  4.0, -4.0, -4.0,   0.0 }; // V
 
             //// case base for 10V mode
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -7817,7 +7831,8 @@ namespace TopInstrument
 
             //int num_repeat_pulses = 100; // 100/(500kHz)=0.2ms
             //int num_repeat_pulses = 500; // 500/(500kHz)=1.0ms
-            int num_repeat_pulses = 1000;
+            //$$int num_repeat_pulses = 1000;
+            int num_repeat_pulses = 10;
             //int num_repeat_pulses = 2000; // 2000/(500kHz)=4ms
 
             ////
@@ -8043,10 +8058,10 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
         //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
+        public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
-        public static string test_host_ip = "192.168.100.51"; // S3100-ADDA_BD1
+        //public static string test_host_ip = "192.168.100.51"; // S3100-ADDA_BD1
         //public static string test_host_ip = "192.168.100.52"; // S3100-ADDA_BD2
         //public static string test_host_ip = "192.168.100.53"; // S3100-ADDA_BD3
 
