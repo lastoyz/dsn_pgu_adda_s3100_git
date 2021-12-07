@@ -1097,7 +1097,8 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					pgu_clkd_init();
 					//
 					// CLKD setup
-					pgu_clkd_setup(2000); // preset 200MHz
+					//pgu_clkd_setup(2000); // preset 200MHz
+					pgu_clkd_setup(1000); // preset 100MHz
 					//
 					// DACX init 
 					pgu_dacx_init();
@@ -1108,7 +1109,11 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					//
 					
 					//$$ inside update input delay tap
-					pgu_dacx_cal_input_dtap();
+					//pgu_dacx_cal_input_dtap();
+					// set 0 taps
+					pgu_dac0_reg_write_b8(0x05, 0);
+					pgu_dac1_reg_write_b8(0x05, 0);
+					
 					
 					// DACX setup 
 					pgu_dacx_setup(); //$$ DAC IC scale,offset preset ... not necessary 
@@ -2285,7 +2290,15 @@ int32_t scpi_tcps_ep(uint8_t sn, uint8_t* buf, uint16_t port) //$$
 					usleep(500); // 500us
 				 	
 					//$$ DAC input delay tap calibration
-					pgu_dacx_cal_input_dtap();
+					//pgu_dacx_cal_input_dtap();
+					if (val>=02000) {
+						pgu_dacx_cal_input_dtap();
+					}
+					else {
+						// set 0 taps
+						pgu_dac0_reg_write_b8(0x05, 0);
+						pgu_dac1_reg_write_b8(0x05, 0);
+					}
 					
 					//
 					if (val_ret == val)
