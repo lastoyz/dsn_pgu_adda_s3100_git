@@ -727,7 +727,8 @@ set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i
 set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B34*]
 set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B34*]
 #
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B34*]
+#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B34*]
+set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B34_*]
 set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B34*]
 
 ## B35 common
@@ -736,8 +737,8 @@ set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports  i
 set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B35*]
 set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B35*]
 #
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B35*]
-
+#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B35*]
+set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B35_*]
 
 
 
@@ -791,9 +792,9 @@ set_property IOB TRUE [get_ports $ports_dac0 ]
 #
 #set_max_delay -datapath_only -from [get_pins {r_DAC0_DAT_reg[*]/C}] -to [get_ports $ports_dac0 ] $t_dac0_delay_max
 
-## 14.960 --> 15.460 --> 16.060 --> 17.000 --> 15.000
+## 14.960 --> 15.460 --> 16.060 --> 17.000 --> 15.000 (OK) --> 12.000 (OK) --> 10.000 (OK) --> 0.100
 #
-set_max_delay    -to [get_ports $ports_dac0 ] 15.000
+set_max_delay    -to [get_ports $ports_dac0 ] 0.100
 
 
 
@@ -836,9 +837,9 @@ set_property IOB TRUE [get_ports  $ports_dac1 ]
 #
 #set_max_delay -datapath_only -from [get_pins {r_DAC1_DAT_reg[*]/C}] -to [get_ports $ports_dac1 ] $t_dac1_delay_max
 
-## 14.380 --> 14.910 --> 15.910 --> 16.650 --> 17.010 --> 15.000
+## 14.380 --> 14.910 --> 15.910 --> 16.650 --> 17.010 --> 15.000 (OK) --> 12.000 (OK) --> 10.000 (OK) --> 0.100
 #
-set_max_delay   -to [get_ports $ports_dac1 ] 15.000
+set_max_delay   -to [get_ports $ports_dac1 ] 0.100
 
 
 ## DCI out: 400MHz case
