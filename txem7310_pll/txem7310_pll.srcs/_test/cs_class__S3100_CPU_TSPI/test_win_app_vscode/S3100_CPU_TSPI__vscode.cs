@@ -5643,11 +5643,14 @@ namespace TopInstrument
             // seq 1 : initialize ADDA
             dev.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__ADDA);      // for slot location bits
             dev.adda_pwr_on();
+            
             // adc setup
             s32 len_adc_data              = 600  ; // adc samples
             //s32 len_adc_data              = 250  ; // adc samples ... fit for max spi fifo
             //s32 len_adc_data              = 50   ; // adc samples
-            u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps
+            //$$ u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps
+            u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps
+
             // dac setup
             //double time_ns__dac_update = 5; // 200MHz dac update
             double time_ns__dac_update = 10; // 100MHz dac update
@@ -5738,6 +5741,12 @@ namespace TopInstrument
             //// case BB : pr 1000ns, tr 100ns
             long[]   StepTime_ns  = new long[]   {      0,     50,    150,    450,    550,   1000 }; // ns
             double[] StepLevel_V  = new double[] {  0.000,  0.000,  8.000,  8.000,  0.000,  0.000 }; // V
+
+            //// case CC : 10s long
+            // Tdata_usr = [     0, 1000000000, 1100000000, 6000000000, 6100000000, 10000000000, ]
+            // Vdata_usr = [ 0.000,  0.000, 20.000, 20.000,  0.000,  0.000, ] 
+            //StepTime  = new long[]   {      0, 1000000000, 1100000000, 6000000000, 6100000000, 10000000000 }; // ns
+            //StepLevel = new double[] {  0.000,      0.000,     20.000,     20.000,      0.000,       0.000 }; // V
 
             //
             // setup dac output

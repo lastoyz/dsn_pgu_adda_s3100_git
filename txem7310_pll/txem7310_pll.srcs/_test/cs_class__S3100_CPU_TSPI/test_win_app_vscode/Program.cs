@@ -31,8 +31,8 @@ namespace __test__
         //public static uint test_loc_slot__SIG   = (0x1<< 2); // slot location 2
         //public static uint test_loc_slot__ANL   = (0x1<< 6); // slot location 6
         
-        public static uint test_loc_slot__ADDA  = (0x1<< 2); // slot location 2
-        //public static uint test_loc_slot__ADDA  = (0x1<<10); // slot location 10
+        //public static uint test_loc_slot__ADDA  = (0x1<< 2); // slot location 2
+        public static uint test_loc_slot__ADDA  = (0x1<<10); // slot location 10
 
         //public static uint test_loc_slot__HVPGU = (0x1<< 4); // slot location 4
         public static uint test_loc_slot__HVPGU = (0x1<< 6); // slot location 6
