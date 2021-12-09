@@ -1,15 +1,17 @@
 [Device_info]
 TestModelName=CV_Sweep
+NPLC=Short
 Bias_Enable=False
 [CV_Sweep]
-CMU_MeasModel=Cs-Rs
+CMU_MeasModel=Cp-Gp
 CMU_Frequency=10kHz
-CMU_AC_Level=500mV
+CMU_AC_Level=300mV
 CVSweepStart=-10
 CVSweepStop=10
 CVSweepStep=0.2
 CVSweepHoldTime=0.01
 CVSweepDelayTime=0.001
+Direction=Single
 [Bias1]
 Bias_CH=SMU1
 Bias_Voltage=0
@@ -26,4 +28,3 @@ Bias_Compliance=100m
 Bias_CH=Disable
 Bias_Voltage=0
 Bias_Compliance=100m
-

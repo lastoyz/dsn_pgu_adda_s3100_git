@@ -1,0 +1,93 @@
+[Device_info]
+TestModelName=Resistor
+NPLC=Medium
+Mode=V-Mode
+[Graph]
+Y_Log=0
+Y2_Log=0
+[SMU_Channel]
+Resistor=SMU1
+Resistor_g=SMU2
+[SMU_Setup]
+Start=0
+Stop=10
+Step=0.1
+Output_V=0
+Input_Icom=100m
+Output_Icom=100m
+HoldTime=2
+DelayTime=0
+[GraphInfo]
+GraphTitle=RES-V
+X_Title=Voltage (V)
+X_Min=0
+X_Max=10
+X_Log=0
+X_Abs=0
+Y_Title=Current (A)
+Y_Min=-1.5E-12
+Y_Max=1E-12
+Y_Log=0
+Y_Abs=0
+TestCount=1
+[Legends]
+Visible=0
+Position=Right
+1=1 : Current
+[TestInfo]
+Test Name,RES-V
+Test Date,2021-09-14 14:33:02
+Test Time,6.141s
+Mode,Sweep Measure
+Speed,Medium
+Hold Time,2s
+Delay Time,0s
+Instrument Channel,SMU1,SMU2
+Force Channel Name,Voltage,Voltage
+Force Mode,Voltage Sweep,Voltage Bias
+Sweep Mode,VAR1,Constant
+Sweep Direction,N/A,N/A
+Start/Level,0,0
+Stop/Offset,10,N/A
+Step/Ratio,0.1,N/A
+Number of Points,101,N/A
+Compliance,0.1,0.1
+Measure Channel Name,Current,N/A
+Measure Mode,Current Measured,N/A
+Measure Range,Limited Auto = 1nA,N/A
+Frequency,N/A,N/A
+AC Level,N/A,N/A
+[TestData]
+No,Index,GraphX:Voltage(V),GraphY:Current(A)
+  1,  1,     0.000,  5.268E-013
+  1,  2,     0.100,  1.094E-012
+  1,  3,     0.200,  1.074E-012
+  1,  4,     0.300,  1.080E-012
+  1,  5,     0.400,  5.602E-013
+  1,  6,     0.500,  5.334E-013
+  1,  7,     0.600,  5.535E-013
+  1,  8,     0.700,  5.268E-013
+  1,  9,     0.800,  5.334E-013
+  1, 10,     0.900,  5.334E-013
+  1, 11,     1.000,  5.468E-013
+  1, 12,     1.100,  5.468E-013
+  1, 13,     1.200,  1.087E-012
+  1, 14,     1.300,  1.080E-012
+  1, 15,     1.400,  1.087E-012
+  1, 16,     1.500,  5.334E-013
+  1, 17,     1.600,  5.268E-013
+  1, 18,     1.700,  5.401E-013
+  1, 19,     1.800,  1.107E-012
+  1, 20,     1.900,  1.087E-012
+  1, 21,     2.000,  1.107E-012
+  1, 22,     2.100,  1.080E-012
+  1, 23,     2.200,  1.100E-012
+  1, 24,     2.300,  5.334E-013
+  1, 25,     2.400,  1.107E-012
+  1, 26,     2.500,  1.107E-012
+  1, 27,     2.600,  1.120E-012
+  1, 28,     2.700,  1.120E-012
+  1, 29,     2.800,  1.074E-012
+  1, 30,     2.900,  1.080E-012
+  1, 31,     3.000,  1.114E-012
+  1, 32,     3.100,  1.127E-012

@@ -1,0 +1,186 @@
+[Device_info]
+TestModelName=IV_Sweep
+NPLC=Short
+[TestItem_info]
+SetupName=MNOS Id-Vg
+ImageFile=D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\Sta2CLI\Resources\NMOS.png
+Description=MNOS Id-Vg Measure<#NewLine>Gate Sweep : 0~10V, Step 0.5V<#NewLine>Drain Voltage : 10V<#NewLine>
+[Force_Channel1]
+Enabled=True
+Unit=SMU1
+Name=Vdrain
+Mode=Voltage
+Value=10
+Compliance=10m
+[Force_Channel2]
+Enabled=True
+Unit=SMU3
+Name=Vbody
+Mode=Voltage
+Value=0
+Compliance=10m
+[Force_Channel3]
+Enabled=True
+Unit=SMU4
+Name=Vsource
+Mode=Voltage
+Value=0
+Compliance=10m
+[Force_Channel4]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Measure_Channel1]
+Enabled=True
+Unit=SMU1
+Name=Idrain
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+[Measure_Channel2]
+Enabled=False
+Unit=SMU2
+Name=IGate
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+[Measure_Channel3]
+Enabled=False
+Unit=SMU3
+Name=Ibody
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+[Measure_Channel4]
+Enabled=False
+Unit=SMU4
+Name=Isource
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+[Sweep_Channel]
+Enabled=False
+Unit=SMU2
+Name=Vgate
+Mode=Voltage
+Start=0
+Stop=10
+Step=0.5
+Compliance=10m
+HoldTime=1
+DelayTime=0
+MeasureCount=10
+[GraphInfo]
+GraphTitle=IV_Sweep
+X_Title=Index
+X_Min=1
+X_Max=10
+Y_Title=Idrain (A)
+Y_Min=0
+Y_Max=0.012
+TestCount=6
+[TestInfo]
+Test Name,IV_Sweep
+Test Date,2021-02-26
+Test Time,16:14:03
+Tact time,1.879(sec)
+[TestData]
+No,GraphX:Index,GraphY:Idrain(A)
+  1,  1,  1.098E-002
+  1,  2,  1.098E-002
+  1,  3,  1.098E-002
+  1,  4,  1.098E-002
+  1,  5,  1.098E-002
+  1,  6,  1.098E-002
+  1,  7,  1.098E-002
+  1,  8,  1.098E-002
+  1,  9,  1.098E-002
+  1, 10,  1.098E-002
+[TestInfo]
+Test Name,IV_Sweep
+Test Date,2021-02-26
+Test Time,16:14:05
+Tact time,1.943(sec)
+[TestData]
+No,GraphX:Index,GraphY:Idrain(A)
+  2,  1,  1.098E-002
+  2,  2,  1.098E-002
+  2,  3,  1.098E-002
+  2,  4,  1.098E-002
+  2,  5,  1.098E-002
+  2,  6,  1.098E-002
+  2,  7,  1.098E-002
+  2,  8,  1.098E-002
+  2,  9,  1.098E-002
+  2, 10,  1.098E-002
+[TestInfo]
+Test Name,IV_Sweep
+Test Date,2021-02-26
+Test Time,16:14:07
+Tact time,1.989(sec)
+[TestData]
+No,GraphX:Index,GraphY:Idrain(A)
+  3,  1,  1.098E-002
+  3,  2,  1.098E-002
+  3,  3,  1.098E-002
+  3,  4,  1.098E-002
+  3,  5,  1.098E-002
+  3,  6,  1.098E-002
+  3,  7,  1.098E-002
+  3,  8,  1.098E-002
+  3,  9,  1.098E-002
+  3, 10,  1.098E-002
+[TestInfo]
+Test Name,IV_Sweep
+Test Date,2021-02-26
+Test Time,16:14:09
+Tact time,1.876(sec)
+[TestData]
+No,GraphX:Index,GraphY:Idrain(A)
+  4,  1,  1.098E-002
+  4,  2,  1.098E-002
+  4,  3,  1.098E-002
+  4,  4,  1.098E-002
+  4,  5,  1.098E-002
+  4,  6,  1.098E-002
+  4,  7,  1.098E-002
+  4,  8,  1.098E-002
+  4,  9,  1.098E-002
+  4, 10,  1.098E-002
+[TestInfo]
+Test Name,IV_Sweep
+Test Date,2021-02-26
+Test Time,16:14:11
+Tact time,1.907(sec)
+[TestData]
+No,GraphX:Index,GraphY:Idrain(A)
+  5,  1,  1.098E-002
+  5,  2,  1.098E-002
+  5,  3,  1.098E-002
+  5,  4,  1.098E-002
+  5,  5,  1.098E-002
+  5,  6,  1.098E-002
+  5,  7,  1.098E-002
+  5,  8,  1.098E-002
+  5,  9,  1.098E-002
+  5, 10,  1.098E-002
+[TestInfo]
+Test Name,IV_Sweep
+Test Date,2021-02-26
+Test Time,16:14:13
+Tact time,1.889(sec)
+[TestData]
+No,GraphX:Index,GraphY:Idrain(A)
+  6,  1,  1.098E-002
+  6,  2,  1.098E-002
+  6,  3,  1.098E-002
+  6,  4,  1.098E-002
+  6,  5,  1.098E-002
+  6,  6,  1.098E-002
+  6,  7,  1.098E-002
+  6,  8,  1.098E-002
+  6,  9,  1.098E-002
+  6, 10,  1.098E-002

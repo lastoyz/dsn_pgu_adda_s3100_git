@@ -1,3 +1,6 @@
+F,IV_Sweep
+F,NMOS_Id-Vg
+F,Diode
 F,PGU_Control
 F,PGU_Con__10s
 F,PGU_Con__20000ns

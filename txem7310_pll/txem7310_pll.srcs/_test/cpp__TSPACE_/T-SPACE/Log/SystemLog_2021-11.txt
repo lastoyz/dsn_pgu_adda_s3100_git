@@ -1,213 +1,1935 @@
-[2021-11-25] [오후 8:50:35] [ Log ] : [System] System Configuration Check...
-[2021-11-26] [오전 11:13:17] [ Log ] : [System] System Configuration Check...
-[2021-11-26] [오전 11:13:26] [ Log ] : [System] Setup Load
-[2021-11-26] [오전 11:14:07] [ Log ] : [System] Run
-[2021-11-26] [오전 11:14:07] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오전 11:14:14] [ Log ] : [System] Run
-[2021-11-26] [오전 11:14:14] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오전 11:18:06] [ Log ] : [System] Run
-[2021-11-26] [오전 11:18:06] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오전 11:19:06] [ Log ] : [System] Run
-[2021-11-26] [오전 11:19:06] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오전 11:19:12] [ Log ] : [System] Run
-[2021-11-26] [오전 11:19:12] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 3:44:45] [ Log ] : [System] Run
-[2021-11-26] [오후 3:44:45] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 3:45:12] [ Log ] : [System] System Configuration Check...
-[2021-11-26] [오후 3:45:20] [ Log ] : [System] Setup Load
-[2021-11-26] [오후 3:45:24] [ Log ] : [System] Run
-[2021-11-26] [오후 3:45:25] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 3:45:29] [ Log ] : [Exception Error] System.Exception: Error in sendall소켓이 연결되어 있지 않거나 Sendto 호출을 사용하여 데이터그램 소켓에 보내는 경우에 주소가 제공되지 않아서 데이터를 보내거나 받도록 요청할 수 없습니다
-   위치: TopInstrument.TOP_PGU.scpi_comm_resp_ss(Socket ss, Byte[] cmd_str, Int32 BUF_SIZE_NORMAL, Int32 INTVAL) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 331
-   위치: TopInstrument.TOP_PGU.load_pgu_waveform_Cid(Int32 Ch, Int64[] len_fifo_data, String[] pulse_info_num_block_str) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1756
-   위치: TopInstrument.TOP_PGU.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int64[] StepTime, Double[] StepLevel) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1927
-   위치: Sta2CLI.TPI.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int32 stepCount, Int64[] stepTime, Double[] stepLevel) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\TPI.vb:줄 4845
-   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 991
-   위치: Sta2CLI.Form1.Run() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 1638
-   위치: Sta2CLI.Form1.Button_Button_Run_Click(Object sender, EventArgs e) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 4372
-[2021-11-26] [오후 3:47:14] [ Log ] : [System] System Configuration Check...
-[2021-11-26] [오후 3:47:22] [ Log ] : [System] Setup Load
-[2021-11-26] [오후 3:47:34] [ Log ] : [System] Run
-[2021-11-26] [오후 3:47:34] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 3:47:43] [ Log ] : [System] Run
-[2021-11-26] [오후 3:47:43] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 3:49:23] [ Log ] : [System] Run
-[2021-11-26] [오후 3:49:23] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 3:50:24] [ Log ] : [System] Run
-[2021-11-26] [오후 3:50:25] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 3:50:32] [ Log ] : [System] Run
-[2021-11-26] [오후 3:50:32] [ Log ] : [System] Setup_File : PGU_Control
-[2021-11-26] [오후 4:12:23] [ Log ] : [System] System Configuration Check...
-[2021-11-26] [오후 4:12:31] [ Log ] : [System] Setup Load
-[2021-11-26] [오후 4:13:33] [ Log ] : [System] Setup Save As
-[2021-11-26] [오후 4:14:09] [ Log ] : [System] Setup Save
-[2021-11-26] [오후 4:15:11] [ Log ] : [System] Run
-[2021-11-26] [오후 4:15:12] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-26] [오후 4:19:30] [ Log ] : [System] System Configuration Check...
-[2021-11-26] [오후 4:19:38] [ Log ] : [System] Setup Load
-[2021-11-26] [오후 4:19:42] [ Log ] : [System] Run
-[2021-11-26] [오후 4:19:42] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-26] [오후 4:19:53] [ Log ] : [System] Run
-[2021-11-26] [오후 4:19:53] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-26] [오후 4:20:30] [ Log ] : [System] Run
-[2021-11-26] [오후 4:20:30] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-26] [오후 5:58:59] [ Log ] : [System] System Configuration Check...
-[2021-11-26] [오후 5:59:07] [ Log ] : [System] Setup Load
-[2021-11-26] [오후 5:59:12] [ Log ] : [System] Run
-[2021-11-26] [오후 5:59:12] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 9:53:47] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오전 10:10:54] [ Log ] : [System] Setup Load
-[2021-11-29] [오전 10:11:07] [ Log ] : [System] Run
-[2021-11-29] [오전 10:11:07] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 10:58:12] [ Log ] : [System] Run
-[2021-11-29] [오전 10:58:12] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 10:58:35] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오전 10:58:42] [ Log ] : [System] Setup Load
-[2021-11-29] [오전 10:58:45] [ Log ] : [System] Run
-[2021-11-29] [오전 10:58:45] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 10:58:50] [ Log ] : [Exception Error] System.Exception: Error in sendall소켓이 연결되어 있지 않거나 Sendto 호출을 사용하여 데이터그램 소켓에 보내는 경우에 주소가 제공되지 않아서 데이터를 보내거나 받도록 요청할 수 없습니다
-   위치: TopInstrument.TOP_PGU.scpi_comm_resp_ss(Socket ss, Byte[] cmd_str, Int32 BUF_SIZE_NORMAL, Int32 INTVAL) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 331
-   위치: TopInstrument.TOP_PGU.load_pgu_waveform_Cid(Int32 Ch, Int64[] len_fifo_data, String[] pulse_info_num_block_str) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1756
-   위치: TopInstrument.TOP_PGU.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int64[] StepTime, Double[] StepLevel) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1927
-   위치: Sta2CLI.TPI.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int32 stepCount, Int64[] stepTime, Double[] stepLevel) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\TPI.vb:줄 4845
-   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 991
-   위치: Sta2CLI.Form1.Run() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 1638
-   위치: Sta2CLI.Form1.Button_Button_Run_Click(Object sender, EventArgs e) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 4372
-[2021-11-29] [오전 10:59:23] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오전 10:59:30] [ Log ] : [System] Setup Load
-[2021-11-29] [오전 10:59:34] [ Log ] : [System] Run
-[2021-11-29] [오전 10:59:34] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 11:00:19] [ Log ] : [System] Run
-[2021-11-29] [오전 11:00:19] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 11:06:06] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오전 11:06:14] [ Log ] : [System] Setup Load
-[2021-11-29] [오전 11:06:20] [ Log ] : [System] Run
-[2021-11-29] [오전 11:06:20] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 11:07:43] [ Log ] : [System] Run
-[2021-11-29] [오전 11:07:43] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 11:12:35] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오전 11:12:42] [ Log ] : [System] Setup Load
-[2021-11-29] [오전 11:12:46] [ Log ] : [System] Run
-[2021-11-29] [오전 11:12:46] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오전 11:20:07] [ Log ] : [System] Run
-[2021-11-29] [오전 11:20:07] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:18:59] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 12:19:08] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 12:19:12] [ Log ] : [System] Run
-[2021-11-29] [오후 12:19:12] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:32:49] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 12:33:08] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 12:33:17] [ Log ] : [System] Run
-[2021-11-29] [오후 12:33:17] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:33:42] [ Log ] : [System] Run
-[2021-11-29] [오후 12:33:42] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:34:03] [ Log ] : [System] Run
-[2021-11-29] [오후 12:34:03] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:35:13] [ Log ] : [System] Run
-[2021-11-29] [오후 12:35:14] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:35:20] [ Log ] : [System] Run
-[2021-11-29] [오후 12:35:20] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:38:41] [ Log ] : [System] Run
-[2021-11-29] [오후 12:38:42] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:43:27] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 12:43:36] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 12:43:40] [ Log ] : [System] Run
-[2021-11-29] [오후 12:43:40] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:47:10] [ Log ] : [System] Run
-[2021-11-29] [오후 12:47:10] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:51:32] [ Log ] : [System] Run
-[2021-11-29] [오후 12:51:32] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 12:52:13] [ Log ] : [System] Run
-[2021-11-29] [오후 12:52:13] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 1:01:16] [ Log ] : [System] Run
-[2021-11-29] [오후 1:01:16] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 3:31:03] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 3:31:12] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 3:31:17] [ Log ] : [System] Run
-[2021-11-29] [오후 3:31:17] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 3:33:26] [ Log ] : [System] Run
-[2021-11-29] [오후 3:33:27] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 3:33:52] [ Log ] : [System] Run
-[2021-11-29] [오후 3:33:52] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 3:50:27] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 3:51:07] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 3:51:18] [ Log ] : [System] Run
-[2021-11-29] [오후 3:51:18] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 3:51:22] [ Log ] : [Exception Error] System.Exception: Error in sendall소켓이 연결되어 있지 않거나 Sendto 호출을 사용하여 데이터그램 소켓에 보내는 경우에 주소가 제공되지 않아서 데이터를 보내거나 받도록 요청할 수 없습니다
-   위치: TopInstrument.TOP_PGU.scpi_comm_resp_ss(Socket ss, Byte[] cmd_str, Int32 BUF_SIZE_NORMAL, Int32 INTVAL) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 331
-   위치: TopInstrument.TOP_PGU.load_pgu_waveform_Cid(Int32 Ch, Int64[] len_fifo_data, String[] pulse_info_num_block_str) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1756
-   위치: TopInstrument.TOP_PGU.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int64[] StepTime, Double[] StepLevel) 파일 D:\PROJECT\SPT\Sta2CLI_ORG\Sta2CLI_SRC\TopInstrument\TopHVPGU_rev__20210415.cs:줄 1927
-   위치: Sta2CLI.TPI.SetSetupPGU(Int32 PG_Ch, Int32 OutputRange, Double Impedance, Int32 stepCount, Int64[] stepTime, Double[] stepLevel) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\TPI.vb:줄 4845
-   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 991
-   위치: Sta2CLI.Form1.Run() 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 1638
-   위치: Sta2CLI.Form1.Button_Button_Run_Click(Object sender, EventArgs e) 파일 D:\Sta2CLI_SRC_20210419_엑셀저장기능배포\Sta2CLI\Form1.vb:줄 4372
-[2021-11-29] [오후 3:51:42] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 3:51:50] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 3:51:55] [ Log ] : [System] Run
-[2021-11-29] [오후 3:51:55] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 5:09:46] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 5:10:02] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 5:10:06] [ Log ] : [System] Run
-[2021-11-29] [오후 5:10:06] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 5:13:12] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 5:13:23] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 5:14:18] [ Log ] : [System] Run
-[2021-11-29] [오후 5:14:18] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 5:15:14] [ Log ] : [System] Run
-[2021-11-29] [오후 5:15:14] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 5:16:59] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 5:17:15] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 5:17:20] [ Log ] : [System] Run
-[2021-11-29] [오후 5:17:20] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 5:26:31] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 5:26:49] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 5:26:53] [ Log ] : [System] Run
-[2021-11-29] [오후 5:26:53] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 6:27:00] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 6:27:09] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 6:27:15] [ Log ] : [System] Run
-[2021-11-29] [오후 6:27:15] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 6:35:24] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 6:35:32] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 6:35:36] [ Log ] : [System] Run
-[2021-11-29] [오후 6:35:36] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 6:43:56] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 6:44:05] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 6:44:09] [ Log ] : [System] Run
-[2021-11-29] [오후 6:44:09] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 6:51:56] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 6:52:04] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 6:52:07] [ Log ] : [System] Run
-[2021-11-29] [오후 6:52:07] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 6:53:44] [ Log ] : [System] Run
-[2021-11-29] [오후 6:53:45] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 6:55:21] [ Log ] : [System] Run
-[2021-11-29] [오후 6:55:21] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 6:56:30] [ Log ] : [System] Run
-[2021-11-29] [오후 6:56:30] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 7:08:58] [ Log ] : [System] Run
-[2021-11-29] [오후 7:08:58] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 7:15:11] [ Log ] : [System] Run
-[2021-11-29] [오후 7:15:11] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 7:18:55] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 7:19:04] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 7:19:11] [ Log ] : [System] Run
-[2021-11-29] [오후 7:19:11] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 7:25:54] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 7:26:02] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 7:26:06] [ Log ] : [System] Run
-[2021-11-29] [오후 7:26:06] [ Log ] : [System] Setup_File : PGU_Con__5000ns
-[2021-11-29] [오후 7:49:47] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 7:50:03] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 7:50:56] [ Log ] : [System] Setup Save As
-[2021-11-29] [오후 7:51:53] [ Log ] : [System] Setup Save
-[2021-11-29] [오후 7:52:02] [ Log ] : [System] Run
-[2021-11-29] [오후 7:52:02] [ Log ] : [System] Setup_File : PGU_Con__20000ns
-[2021-11-29] [오후 8:36:12] [ Log ] : [System] System Configuration Check...
-[2021-11-29] [오후 8:36:51] [ Log ] : [System] Setup Load
-[2021-11-29] [오후 8:36:54] [ Log ] : [System] Run
-[2021-11-29] [오후 8:36:54] [ Log ] : [System] Setup_File : PGU_Con__20000ns
-[2021-11-29] [오후 8:37:46] [ Log ] : [System] Run
-[2021-11-29] [오후 8:37:46] [ Log ] : [System] Setup_File : PGU_Con__20000ns
-[2021-11-29] [오후 8:40:58] [ Log ] : [System] Run
-[2021-11-29] [오후 8:40:58] [ Log ] : [System] Setup_File : PGU_Con__20000ns
+[2021-11-02] [오전 9:51:10] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 9:55:25] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 10:15:21] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 10:31:04] [ Log ] : [System] Run
+[2021-11-02] [오전 10:31:04] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 10:31:04] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오전 10:31:08] [ Log ] : [System] Stop
+[2021-11-02] [오전 10:32:06] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 10:32:14] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 10:32:16] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 10:32:18] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오전 10:32:26] [ Log ] : [System] Run
+[2021-11-02] [오전 10:32:26] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 10:32:26] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오전 10:32:59] [ Log ] : [System] Run
+[2021-11-02] [오전 10:32:59] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 10:32:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오전 10:36:33] [ Log ] : [System] Run
+[2021-11-02] [오전 10:36:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 10:36:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오전 10:44:51] [ Log ] : [System] Setup Load
+[2021-11-02] [오전 11:16:29] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 11:16:32] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오전 11:16:52] [ Log ] : [System] Run
+[2021-11-02] [오전 11:16:52] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 11:16:53] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오전 11:17:11] [ Log ] : [System] Run
+[2021-11-02] [오전 11:17:11] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 11:17:12] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오전 11:27:14] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 11:27:17] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오전 11:32:09] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오전 11:32:11] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오전 11:38:10] [ Log ] : [System] Run
+[2021-11-02] [오전 11:38:10] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 11:38:10] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오전 11:38:22] [ Log ] : [System] Run
+[2021-11-02] [오전 11:38:22] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오전 11:38:22] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 2:08:17] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 2:16:39] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 2:16:41] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 2:18:52] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 2:18:54] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 4:08:15] [ Log ] : [System] Repeat
+[2021-11-02] [오후 4:08:16] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 4:08:18] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 4:13:04] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 4:13:05] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 4:13:15] [ Log ] : [System] Run
+[2021-11-02] [오후 4:13:16] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 4:13:16] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 4:13:58] [ Log ] : [System] Stop
+[2021-11-02] [오후 4:14:38] [ Log ] : [System] Run
+[2021-11-02] [오후 4:14:38] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 4:14:38] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 4:26:26] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 4:26:28] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 4:26:52] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 4:26:54] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 4:27:11] [ Log ] : [System] Run
+[2021-11-02] [오후 4:27:12] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 4:27:12] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 5:11:22] [ Log ] : [System] Repeat
+[2021-11-02] [오후 5:11:23] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 5:11:25] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 5:33:31] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 5:33:33] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 5:33:46] [ Log ] : [System] Run
+[2021-11-02] [오후 5:33:46] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 5:33:46] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 5:34:23] [ Log ] : [System] Run
+[2021-11-02] [오후 5:34:23] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 5:34:23] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 5:34:37] [ Log ] : [System] Run
+[2021-11-02] [오후 5:34:37] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 5:34:38] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 5:35:05] [ Log ] : [System] Run
+[2021-11-02] [오후 5:35:05] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 5:35:05] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 5:35:06] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5594
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 5:35:14] [ Log ] : [System] Run
+[2021-11-02] [오후 5:35:14] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 5:35:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 6:29:33] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 6:29:35] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 6:29:49] [ Log ] : [System] Run
+[2021-11-02] [오후 6:29:49] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 6:29:49] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 6:30:08] [ Log ] : [System] Stop
+[2021-11-02] [오후 6:30:10] [ Log ] : [System] Run
+[2021-11-02] [오후 6:30:11] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 6:30:11] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 6:36:38] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 6:36:39] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 6:55:18] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 6:55:20] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 6:55:32] [ Log ] : [System] Run
+[2021-11-02] [오후 6:55:32] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 6:55:32] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 6:56:05] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5949
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:06:43] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:06:45] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:07:02] [ Log ] : [System] Run
+[2021-11-02] [오후 7:07:02] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:07:03] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:07:03] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6203
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:07:30] [ Log ] : [System] Run
+[2021-11-02] [오후 7:07:31] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:07:31] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:09:13] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:09:15] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:09:30] [ Log ] : [System] Run
+[2021-11-02] [오후 7:09:30] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:09:57] [ Log ] : [System] Run
+[2021-11-02] [오후 7:09:57] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:11:09] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:11:11] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:11:22] [ Log ] : [System] Run
+[2021-11-02] [오후 7:11:22] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:11:28] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:11:29] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5949
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:11:43] [ Log ] : [System] Run
+[2021-11-02] [오후 7:11:44] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:11:49] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:11:50] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5949
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:12:18] [ Log ] : [System] Run
+[2021-11-02] [오후 7:12:19] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:12:19] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:13:05] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5949
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:14:23] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:14:25] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:14:40] [ Log ] : [System] Run
+[2021-11-02] [오후 7:14:41] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:14:41] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:17:15] [ Log ] : [System] Repeat
+[2021-11-02] [오후 7:17:16] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:17:17] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:17:32] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:17:34] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:17:46] [ Log ] : [System] Run
+[2021-11-02] [오후 7:17:47] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:17:47] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:18:08] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5953
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:18:13] [ Log ] : [System] Run
+[2021-11-02] [오후 7:18:13] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:18:13] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:18:16] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5953
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:18:20] [ Log ] : [System] Run
+[2021-11-02] [오후 7:18:20] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:18:20] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:18:29] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5953
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:19:54] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:19:55] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:20:14] [ Log ] : [System] Run
+[2021-11-02] [오후 7:20:14] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:20:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:21:11] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6203
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:23:55] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:23:58] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:24:13] [ Log ] : [System] Run
+[2021-11-02] [오후 7:24:13] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:24:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:27:36] [ Log ] : [System] Run
+[2021-11-02] [오후 7:27:36] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:27:36] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:27:57] [ Log ] : [System] Run
+[2021-11-02] [오후 7:27:57] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:27:57] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:28:19] [ Log ] : [System] Run
+[2021-11-02] [오후 7:28:19] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:28:19] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:28:23] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:28:41] [ Log ] : [System] Run
+[2021-11-02] [오후 7:28:41] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:28:41] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:29:33] [ Log ] : [System] Run
+[2021-11-02] [오후 7:29:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:29:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:29:42] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:29:48] [ Log ] : [System] Run
+[2021-11-02] [오후 7:29:49] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:29:49] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:30:03] [ Log ] : [System] Run
+[2021-11-02] [오후 7:30:03] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:30:03] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:32:19] [ Log ] : [System] Run
+[2021-11-02] [오후 7:32:19] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:32:19] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:32:24] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:32:57] [ Log ] : [System] Run
+[2021-11-02] [오후 7:32:58] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:32:58] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:37:10] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:37:12] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:37:33] [ Log ] : [System] Run
+[2021-11-02] [오후 7:37:33] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:37:33] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:37:34] [ Log ] : [Exception Error] System.NullReferenceException: 개체 참조가 개체의 인스턴스로 설정되지 않았습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6202
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:37:42] [ Log ] : [System] Run
+[2021-11-02] [오후 7:37:43] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:37:43] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:37:59] [ Log ] : [System] Run
+[2021-11-02] [오후 7:37:59] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:38:05] [ Log ] : [System] Run
+[2021-11-02] [오후 7:38:05] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:38:05] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:38:23] [ Log ] : [System] Run
+[2021-11-02] [오후 7:38:23] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:38:23] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:38:26] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:38:33] [ Log ] : [System] Run
+[2021-11-02] [오후 7:38:33] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:38:33] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:38:33] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5603
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-02] [오후 7:40:29] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:40:30] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:40:42] [ Log ] : [System] Run
+[2021-11-02] [오후 7:40:42] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:40:42] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:41:05] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:41:21] [ Log ] : [System] Run
+[2021-11-02] [오후 7:41:22] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:41:22] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:42:20] [ Log ] : [System] Run
+[2021-11-02] [오후 7:42:20] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:42:36] [ Log ] : [System] Run
+[2021-11-02] [오후 7:42:36] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:42:36] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:44:24] [ Log ] : [System] Utility Tool
+[2021-11-02] [오후 7:51:46] [ Log ] : [System] Run
+[2021-11-02] [오후 7:51:46] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:51:46] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:53:41] [ Log ] : [System] System Configuration Check...
+[2021-11-02] [오후 7:53:43] [ Log ] : [System] Auto_Calibration
+[2021-11-02] [오후 7:53:52] [ Log ] : [System] Run
+[2021-11-02] [오후 7:53:52] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:53:52] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:54:19] [ Log ] : [System] Run
+[2021-11-02] [오후 7:54:19] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:54:26] [ Log ] : [System] Run
+[2021-11-02] [오후 7:54:26] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:54:26] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:56:11] [ Log ] : [System] Run
+[2021-11-02] [오후 7:56:11] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:56:11] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:56:15] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:56:21] [ Log ] : [System] Run
+[2021-11-02] [오후 7:56:21] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:56:21] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:56:25] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:56:33] [ Log ] : [System] Run
+[2021-11-02] [오후 7:56:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:56:46] [ Log ] : [System] Run
+[2021-11-02] [오후 7:56:46] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:56:46] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:56:50] [ Log ] : [System] Stop
+[2021-11-02] [오후 7:56:59] [ Log ] : [System] Run
+[2021-11-02] [오후 7:56:59] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:56:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-02] [오후 7:57:09] [ Log ] : [System] Run
+[2021-11-02] [오후 7:57:09] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-02] [오후 7:57:09] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 10:43:01] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오전 10:43:04] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오전 10:43:33] [ Log ] : [System] Run
+[2021-11-03] [오전 10:43:33] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd2
+[2021-11-03] [오전 10:43:33] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 10:45:07] [ Log ] : [System] Run
+[2021-11-03] [오전 10:45:07] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd2
+[2021-11-03] [오전 10:45:14] [ Log ] : [System] Run
+[2021-11-03] [오전 10:45:14] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd2
+[2021-11-03] [오전 10:45:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:24:54] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오전 11:37:26] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오전 11:37:29] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오전 11:37:29] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오전 11:37:30] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오전 11:39:25] [ Log ] : [System] Run
+[2021-11-03] [오전 11:39:25] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-03] [오전 11:39:25] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:39:33] [ Log ] : [System] Stop
+[2021-11-03] [오전 11:42:16] [ Log ] : [System] Append
+[2021-11-03] [오전 11:42:16] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-03] [오전 11:42:16] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:46:11] [ Log ] : [System] Run
+[2021-11-03] [오전 11:46:11] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-03] [오전 11:46:11] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:46:45] [ Log ] : [System] Run
+[2021-11-03] [오전 11:46:45] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-03] [오전 11:46:45] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:47:04] [ Log ] : [System] Run
+[2021-11-03] [오전 11:47:04] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-03] [오전 11:47:04] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:48:59] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:49:18] [ Log ] : [System] Run
+[2021-11-03] [오전 11:49:18] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-03] [오전 11:49:18] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:49:19] [ Log ] : [Exception Error] System.NullReferenceException: 개체 참조가 개체의 인스턴스로 설정되지 않았습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6209
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-03] [오전 11:49:33] [ Log ] : [System] Run
+[2021-11-03] [오전 11:49:33] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-03] [오전 11:49:33] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:49:35] [ Log ] : [Exception Error] System.NullReferenceException: 개체 참조가 개체의 인스턴스로 설정되지 않았습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6209
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4978
+[2021-11-03] [오전 11:49:53] [ Log ] : [System] Run
+[2021-11-03] [오전 11:49:53] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-03] [오전 11:49:53] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:50:06] [ Log ] : [System] Stop
+[2021-11-03] [오전 11:50:58] [ Log ] : [System] Run
+[2021-11-03] [오전 11:50:58] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-03] [오전 11:50:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:51:08] [ Log ] : [System] Stop
+[2021-11-03] [오전 11:51:20] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:51:23] [ Log ] : [System] Run
+[2021-11-03] [오전 11:51:23] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-03] [오전 11:51:23] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:51:26] [ Log ] : [System] Stop
+[2021-11-03] [오전 11:51:41] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:52:42] [ Log ] : [System] Run
+[2021-11-03] [오전 11:52:42] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:52:42] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:52:47] [ Log ] : [System] Stop
+[2021-11-03] [오전 11:53:12] [ Log ] : [System] Run
+[2021-11-03] [오전 11:53:13] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:53:13] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:53:39] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:53:45] [ Log ] : [System] Run
+[2021-11-03] [오전 11:53:45] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-03] [오전 11:53:45] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:54:46] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:54:49] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:54:59] [ Log ] : [System] Run
+[2021-11-03] [오전 11:54:59] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-03] [오전 11:54:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:55:12] [ Log ] : [System] Stop
+[2021-11-03] [오전 11:55:14] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:55:19] [ Log ] : [System] Setup Load
+[2021-11-03] [오전 11:55:21] [ Log ] : [System] Run
+[2021-11-03] [오전 11:55:21] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:55:21] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:55:40] [ Log ] : [System] Run
+[2021-11-03] [오전 11:55:40] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:55:47] [ Log ] : [System] Run
+[2021-11-03] [오전 11:55:47] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:55:47] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:56:02] [ Log ] : [System] Run
+[2021-11-03] [오전 11:56:02] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:56:02] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:57:38] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오전 11:57:41] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오전 11:57:41] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오전 11:57:42] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오전 11:57:55] [ Log ] : [System] Run
+[2021-11-03] [오전 11:57:56] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:57:56] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:57:59] [ Log ] : [System] Stop
+[2021-11-03] [오전 11:58:14] [ Log ] : [System] Run
+[2021-11-03] [오전 11:58:14] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:58:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:58:59] [ Log ] : [System] Run
+[2021-11-03] [오전 11:59:00] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:59:00] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오전 11:59:58] [ Log ] : [System] Run
+[2021-11-03] [오전 11:59:58] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오전 11:59:58] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 12:00:24] [ Log ] : [System] Run
+[2021-11-03] [오후 12:00:25] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 12:00:25] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 3:15:40] [ Log ] : [System] System Open Error! Check System
+[2021-11-03] [오후 3:26:21] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 3:26:28] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 3:26:30] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 3:26:30] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 3:26:31] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 3:26:50] [ Log ] : [System] Run
+[2021-11-03] [오후 3:26:50] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 3:26:50] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 3:27:08] [ Log ] : [System] Data Save
+[2021-11-03] [오후 3:28:24] [ Log ] : [System] Run
+[2021-11-03] [오후 3:28:24] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 3:28:24] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 3:31:42] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 3:31:46] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 3:31:46] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 3:31:47] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 3:35:00] [ Log ] : [System] Graph Initialization
+[2021-11-03] [오후 4:06:42] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:07:22] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:12:30] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:17:50] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:17:52] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:17:52] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:17:53] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:18:41] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:18:42] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:18:42] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:18:43] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:18:52] [ Log ] : [System] Run
+[2021-11-03] [오후 4:18:52] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:18:53] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:18:58] [ Log ] : [System] Stop
+[2021-11-03] [오후 4:19:00] [ Log ] : [System] Run
+[2021-11-03] [오후 4:19:00] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:19:00] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:19:11] [ Log ] : [System] Graph Initialization
+[2021-11-03] [오후 4:19:12] [ Log ] : [System] Graph Initialization
+[2021-11-03] [오후 4:19:39] [ Log ] : [System] Run
+[2021-11-03] [오후 4:19:39] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:19:39] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:20:00] [ Log ] : [System] Run
+[2021-11-03] [오후 4:20:01] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:20:01] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:21:06] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:21:08] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:21:08] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:21:09] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:27:05] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:27:07] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:27:07] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:27:08] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:30:00] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:30:02] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:30:02] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:30:03] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:33:49] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:33:51] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:33:51] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:33:52] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:35:05] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:35:07] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:35:07] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:35:08] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:36:23] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:36:27] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:36:27] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:36:28] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:36:37] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 4:41:57] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:43:33] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:43:51] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:44:40] [ Log ] : [System] System Open Error! Check System
+[2021-11-03] [오후 4:44:41] [ Log ] : [System] Run
+[2021-11-03] [오후 4:44:42] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:44:42] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:44:42] [ Log ] : [Exception Error] System.InvalidOperationException: 축 개체 - 자동 간격에 적절한 값이 없습니다.
+   위치: System.Windows.Forms.DataVisualization.Charting.Axis.EstimateAxis(Double& minimumValue, Double& maximumValue, Boolean autoMaximum, Boolean autoMinimum)
+   위치: System.Windows.Forms.DataVisualization.Charting.Axis.EstimateAxis()
+   위치: System.Windows.Forms.DataVisualization.Charting.ChartArea.SetDefaultAxesValues()
+   위치: System.Windows.Forms.DataVisualization.Charting.ChartArea.SetData(Boolean initializeAxes, Boolean checkIndexedAligned)
+   위치: System.Windows.Forms.DataVisualization.Charting.ChartArea.ReCalcInternal()
+   위치: System.Windows.Forms.DataVisualization.Charting.ChartPicture.Paint(Graphics graph, Boolean paintTopLevelElementOnly)
+   위치: System.Windows.Forms.DataVisualization.Charting.ChartPicture.PaintOffScreen()
+   위치: System.Windows.Forms.DataVisualization.Charting.Selection.HitTest(Int32 x, Int32 y, Boolean ignoreTransparent, ChartElementType[] requestedElementTypes)
+   위치: System.Windows.Forms.DataVisualization.Charting.Selection.EvaluateToolTip(MouseEventArgs e)
+   위치: System.Windows.Forms.DataVisualization.Charting.Selection.Selection_MouseMove(Object sender, MouseEventArgs e)
+   위치: System.Windows.Forms.DataVisualization.Charting.Chart.OnChartMouseMove(MouseEventArgs e)
+   위치: System.Windows.Forms.DataVisualization.Charting.Chart.OnMouseMove(MouseEventArgs e)
+   위치: System.Windows.Forms.Control.WmMouseMove(Message& m)
+   위치: System.Windows.Forms.Control.WndProc(Message& m)
+   위치: System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   위치: System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   위치: System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   위치: System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   위치: System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   위치: System.Windows.Forms.Application.DoEvents()
+   위치: Sta2CLI.TPI.ChartSaftyMode() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6330
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5639
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1062
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4982
+[2021-11-03] [오후 4:44:57] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:44:59] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:44:59] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:45:00] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:45:04] [ Log ] : [System] Run
+[2021-11-03] [오후 4:45:04] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:45:04] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:45:07] [ Log ] : [System] Stop
+[2021-11-03] [오후 4:45:22] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:45:24] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:45:25] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:45:25] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:45:31] [ Log ] : [System] Run
+[2021-11-03] [오후 4:45:31] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:45:31] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:45:33] [ Log ] : [System] Stop
+[2021-11-03] [오후 4:45:51] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:45:53] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:45:53] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:45:54] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:46:03] [ Log ] : [System] Run
+[2021-11-03] [오후 4:46:03] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:46:03] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:46:41] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:46:43] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 4:46:43] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 4:46:44] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 4:46:55] [ Log ] : [System] Run
+[2021-11-03] [오후 4:46:55] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 4:46:55] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 4:50:32] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:53:36] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:54:03] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 4:54:46] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 5:25:11] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 5:25:27] [ Log ] : [System] Setup Save
+[2021-11-03] [오후 5:25:51] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:25:55] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:26:07] [ Log ] : [System] Setup Save
+[2021-11-03] [오후 5:26:12] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:26:18] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:26:21] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:27:01] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:27:11] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:27:18] [ Log ] : [System] Repeat
+[2021-11-03] [오후 5:27:24] [ Log ] : [System] System Open Error! Check System
+[2021-11-03] [오후 5:27:29] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:29:32] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 5:31:55] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:32:59] [ Log ] : [System] Run
+[2021-11-03] [오후 5:32:59] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-03] [오후 5:32:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-03] [오후 5:33:04] [ Log ] : [System] Stop
+[2021-11-03] [오후 5:33:59] [ Log ] : [System] System Configuration Check...
+[2021-11-03] [오후 5:34:01] [ Log ] : [System] Auto_Calibration
+[2021-11-03] [오후 5:34:01] [ Log ] : [Cal Offset] SMU1
+[2021-11-03] [오후 5:34:02] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-03] [오후 5:35:44] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:36:13] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:36:20] [ Log ] : [System] Setup Load
+[2021-11-03] [오후 5:36:24] [ Log ] : [System] Run
+[2021-11-03] [오후 5:36:24] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-03] [오후 5:36:24] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오전 10:13:00] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오전 10:36:49] [ Log ] : [System] Run
+[2021-11-04] [오전 10:36:49] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오전 10:36:49] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오전 10:36:52] [ Log ] : [System] Stop
+[2021-11-04] [오전 10:37:35] [ Log ] : [System] Setup Load
+[2021-11-04] [오전 10:37:37] [ Log ] : [System] Setup Load
+[2021-11-04] [오전 10:37:50] [ Log ] : [System] Run
+[2021-11-04] [오전 10:37:50] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오전 10:37:50] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오전 10:38:17] [ Log ] : [System] Run
+[2021-11-04] [오전 10:38:17] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오전 10:38:17] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오전 10:38:18] [ Log ] : [Exception Error] System.NullReferenceException: 개체 참조가 개체의 인스턴스로 설정되지 않았습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6207
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1068
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4982
+[2021-11-04] [오전 10:39:41] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오전 10:39:44] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오전 10:39:58] [ Log ] : [System] Run
+[2021-11-04] [오전 10:39:58] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오전 10:39:58] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오전 10:40:04] [ Log ] : [System] Stop
+[2021-11-04] [오전 11:22:12] [ Log ] : [System] Run
+[2021-11-04] [오전 11:22:12] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오전 11:22:13] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오전 11:22:33] [ Log ] : [System] Stop
+[2021-11-04] [오전 11:22:41] [ Log ] : [System] Run
+[2021-11-04] [오전 11:22:41] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오전 11:22:42] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 2:42:30] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 2:42:32] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 2:42:46] [ Log ] : [System] Run
+[2021-11-04] [오후 2:42:47] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:42:52] [ Log ] : [System] Run
+[2021-11-04] [오후 2:42:52] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:43:02] [ Log ] : [System] Run
+[2021-11-04] [오후 2:43:02] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:43:11] [ Log ] : [System] Run
+[2021-11-04] [오후 2:43:11] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:43:16] [ Log ] : [System] Run
+[2021-11-04] [오후 2:43:16] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:43:16] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 2:43:22] [ Log ] : [System] Stop
+[2021-11-04] [오후 2:43:29] [ Log ] : [System] Run
+[2021-11-04] [오후 2:43:29] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:43:33] [ Log ] : [System] Run
+[2021-11-04] [오후 2:43:33] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:43:50] [ Log ] : [System] Run
+[2021-11-04] [오후 2:43:51] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 2:43:51] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 2:44:04] [ Log ] : [System] Stop
+[2021-11-04] [오후 2:44:30] [ Log ] : [System] Setup Load
+[2021-11-04] [오후 2:44:34] [ Log ] : [System] Setup Load
+[2021-11-04] [오후 2:44:42] [ Log ] : [System] Run
+[2021-11-04] [오후 2:44:43] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:44:47] [ Log ] : [System] Run
+[2021-11-04] [오후 2:44:47] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:44:56] [ Log ] : [System] Run
+[2021-11-04] [오후 2:44:56] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:45:02] [ Log ] : [System] Run
+[2021-11-04] [오후 2:45:03] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:45:17] [ Log ] : [System] Run
+[2021-11-04] [오후 2:45:17] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:45:53] [ Log ] : [System] Setup Load
+[2021-11-04] [오후 2:52:37] [ Log ] : [System] Run
+[2021-11-04] [오후 2:52:37] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:53:11] [ Log ] : [System] Run
+[2021-11-04] [오후 2:53:11] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:53:21] [ Log ] : [System] Run
+[2021-11-04] [오후 2:53:21] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:54:57] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 2:54:59] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 2:55:01] [ Log ] : [System] Setup Load
+[2021-11-04] [오후 2:55:06] [ Log ] : [System] Run
+[2021-11-04] [오후 2:55:07] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:55:07] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 2:55:08] [ Log ] : [System] Stop
+[2021-11-04] [오후 2:55:14] [ Log ] : [System] Run
+[2021-11-04] [오후 2:55:14] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:55:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 2:55:22] [ Log ] : [System] Run
+[2021-11-04] [오후 2:55:22] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:55:22] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 2:55:35] [ Log ] : [System] Run
+[2021-11-04] [오후 2:55:35] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:55:59] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 2:56:01] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 2:56:11] [ Log ] : [System] Run
+[2021-11-04] [오후 2:56:11] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 2:56:11] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 2:56:55] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 2:56:57] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:02:41] [ Log ] : [System] Run
+[2021-11-04] [오후 3:02:41] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 3:02:41] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 3:07:03] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:07:05] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:07:17] [ Log ] : [System] Run
+[2021-11-04] [오후 3:07:18] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 3:07:18] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 3:07:39] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:07:41] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:08:19] [ Log ] : [System] Run
+[2021-11-04] [오후 3:08:19] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 3:08:19] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 3:11:14] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:11:16] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:11:23] [ Log ] : [System] Run
+[2021-11-04] [오후 3:11:23] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 3:11:23] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 3:11:54] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:11:56] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:12:27] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:12:29] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:13:57] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:13:59] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:17:11] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:17:14] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:37:54] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:37:56] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:38:46] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:38:48] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:39:13] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:39:15] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:40:18] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:40:20] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:41:25] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:41:27] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:42:03] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:42:05] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:42:57] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:43:00] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:44:04] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:44:06] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 3:46:55] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 3:47:05] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:00:05] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:00:09] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:01:56] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:01:58] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:11:36] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:11:37] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:20:44] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:20:50] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:21:59] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:22:01] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:22:45] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:22:47] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:23:24] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:23:26] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:24:50] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:24:51] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:25:32] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:25:34] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:27:00] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:27:02] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:27:50] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:27:52] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:28:14] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:28:16] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:28:43] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:28:45] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:29:27] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:29:29] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:30:02] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:30:04] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:36:42] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:36:44] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:37:22] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:37:24] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:38:14] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:38:16] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:39:05] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:39:07] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:45:55] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:45:57] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:46:13] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:46:15] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:46:44] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:46:47] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:49:52] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:50:04] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:50:06] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:53:55] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 4:53:57] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 4:55:25] [ Log ] : [System] Run
+[2021-11-04] [오후 4:55:26] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 5:01:27] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:01:29] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:02:05] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:02:07] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:09:47] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:09:50] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:10:16] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:10:18] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:11:45] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:11:48] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:38:54] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:38:56] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:39:16] [ Log ] : [System] Run
+[2021-11-04] [오후 5:39:16] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:39:16] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:40:05] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:40:08] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:40:19] [ Log ] : [System] Run
+[2021-11-04] [오후 5:40:19] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:40:19] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:40:50] [ Log ] : [System] Stop
+[2021-11-04] [오후 5:41:01] [ Log ] : [System] Run
+[2021-11-04] [오후 5:41:01] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:41:01] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:41:09] [ Log ] : [System] Stop
+[2021-11-04] [오후 5:41:18] [ Log ] : [System] Run
+[2021-11-04] [오후 5:41:18] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:41:18] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:41:27] [ Log ] : [System] Stop
+[2021-11-04] [오후 5:42:17] [ Log ] : [System] Run
+[2021-11-04] [오후 5:42:17] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:42:17] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:42:28] [ Log ] : [System] Run
+[2021-11-04] [오후 5:42:28] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:42:28] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:42:52] [ Log ] : [System] Run
+[2021-11-04] [오후 5:42:52] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:42:52] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:44:39] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:44:43] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:46:53] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:46:56] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:47:04] [ Log ] : [System] Run
+[2021-11-04] [오후 5:47:04] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:47:04] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:47:05] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.AddTestData(Int32 Index, String Data) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 268
+   위치: Sta2CLI.TPI.IV_LoopRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 6732
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5351
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1082
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4980
+[2021-11-04] [오후 5:47:40] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:47:43] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:47:48] [ Log ] : [System] Run
+[2021-11-04] [오후 5:47:48] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:47:48] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:48:12] [ Log ] : [System] Run
+[2021-11-04] [오후 5:48:12] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:48:12] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:49:17] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:49:19] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:49:23] [ Log ] : [System] Run
+[2021-11-04] [오후 5:49:23] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:49:23] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:49:39] [ Log ] : [System] Run
+[2021-11-04] [오후 5:49:39] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:49:39] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:50:28] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:50:29] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:50:39] [ Log ] : [System] Run
+[2021-11-04] [오후 5:50:39] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:50:39] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:50:48] [ Log ] : [System] Stop
+[2021-11-04] [오후 5:51:14] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:51:16] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:51:25] [ Log ] : [System] Run
+[2021-11-04] [오후 5:51:25] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:51:25] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:51:50] [ Log ] : [System] Run
+[2021-11-04] [오후 5:51:50] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:51:50] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:52:04] [ Log ] : [System] Run
+[2021-11-04] [오후 5:52:05] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:52:05] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:52:34] [ Log ] : [System] Run
+[2021-11-04] [오후 5:52:34] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:52:35] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:54:04] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:54:06] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:54:37] [ Log ] : [System] Run
+[2021-11-04] [오후 5:54:37] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:54:37] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:55:03] [ Log ] : [System] Run
+[2021-11-04] [오후 5:55:04] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:55:04] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:55:25] [ Log ] : [System] Run
+[2021-11-04] [오후 5:55:25] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:55:25] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:55:50] [ Log ] : [System] Run
+[2021-11-04] [오후 5:55:51] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:55:51] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:56:08] [ Log ] : [System] Run
+[2021-11-04] [오후 5:56:08] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:56:08] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:56:31] [ Log ] : [System] Run
+[2021-11-04] [오후 5:56:32] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:56:32] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:56:57] [ Log ] : [System] Run
+[2021-11-04] [오후 5:56:57] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:56:57] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:57:27] [ Log ] : [System] Run
+[2021-11-04] [오후 5:57:28] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:57:28] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:57:53] [ Log ] : [System] Stop
+[2021-11-04] [오후 5:58:42] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 5:58:44] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 5:59:41] [ Log ] : [System] Run
+[2021-11-04] [오후 5:59:41] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:59:41] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 5:59:50] [ Log ] : [System] Stop
+[2021-11-04] [오후 5:59:54] [ Log ] : [System] Run
+[2021-11-04] [오후 5:59:54] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 5:59:54] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:01:30] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:01:32] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:03:15] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:03:17] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:03:34] [ Log ] : [System] Run
+[2021-11-04] [오후 6:03:35] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:03:35] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:03:38] [ Log ] : [System] Stop
+[2021-11-04] [오후 6:08:22] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:08:23] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:08:28] [ Log ] : [System] Run
+[2021-11-04] [오후 6:08:28] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:08:28] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:08:32] [ Log ] : [System] Stop
+[2021-11-04] [오후 6:09:17] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:09:24] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:09:27] [ Log ] : [System] Run
+[2021-11-04] [오후 6:09:28] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:09:28] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:10:24] [ Log ] : [System] Run
+[2021-11-04] [오후 6:10:24] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:10:24] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:10:55] [ Log ] : [System] Run
+[2021-11-04] [오후 6:10:55] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:10:56] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:11:10] [ Log ] : [System] Run
+[2021-11-04] [오후 6:11:11] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:11:11] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:11:42] [ Log ] : [System] Run
+[2021-11-04] [오후 6:11:42] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:11:42] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:11:54] [ Log ] : [System] Run
+[2021-11-04] [오후 6:11:54] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:11:55] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:12:07] [ Log ] : [System] Run
+[2021-11-04] [오후 6:12:07] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:12:08] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:12:24] [ Log ] : [System] Run
+[2021-11-04] [오후 6:12:24] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:12:24] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:12:37] [ Log ] : [System] Run
+[2021-11-04] [오후 6:12:37] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:12:37] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:12:47] [ Log ] : [System] Run
+[2021-11-04] [오후 6:12:47] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:12:47] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:13:00] [ Log ] : [System] Run
+[2021-11-04] [오후 6:13:01] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:13:01] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:18:12] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:18:14] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:18:17] [ Log ] : [System] Run
+[2021-11-04] [오후 6:18:17] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:18:17] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:19:03] [ Log ] : [System] Run
+[2021-11-04] [오후 6:19:03] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:19:03] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:19:15] [ Log ] : [System] Run
+[2021-11-04] [오후 6:19:15] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:19:15] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:19:34] [ Log ] : [System] Run
+[2021-11-04] [오후 6:19:34] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:19:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:19:57] [ Log ] : [System] Run
+[2021-11-04] [오후 6:19:58] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:19:58] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:20:44] [ Log ] : [System] Run
+[2021-11-04] [오후 6:20:44] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:20:44] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:20:51] [ Log ] : [System] Run
+[2021-11-04] [오후 6:20:52] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:20:52] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:24:33] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:24:35] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:25:21] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:25:25] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:27:29] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:27:31] [ Log ] : [System] Auto_Calibration
+[2021-11-04] [오후 6:48:51] [ Log ] : [System] System Configuration Check...
+[2021-11-04] [오후 6:57:55] [ Log ] : [System] System Open Error! Check System
+[2021-11-04] [오후 6:57:56] [ Log ] : [System] Run
+[2021-11-04] [오후 6:57:56] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 6:57:56] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:58:14] [ Log ] : [System] Run
+[2021-11-04] [오후 6:58:14] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vd
+[2021-11-04] [오후 6:58:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:58:52] [ Log ] : [System] Run
+[2021-11-04] [오후 6:58:52] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:58:52] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:59:06] [ Log ] : [System] Run
+[2021-11-04] [오후 6:59:06] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:59:06] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 6:59:43] [ Log ] : [System] Run
+[2021-11-04] [오후 6:59:44] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 6:59:44] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:00:31] [ Log ] : [System] Run
+[2021-11-04] [오후 7:00:31] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:00:31] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:00:40] [ Log ] : [System] Run
+[2021-11-04] [오후 7:00:40] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:00:40] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:00:56] [ Log ] : [System] Run
+[2021-11-04] [오후 7:00:56] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:00:57] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:01:18] [ Log ] : [System] Run
+[2021-11-04] [오후 7:01:18] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:01:19] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:01:54] [ Log ] : [System] Run
+[2021-11-04] [오후 7:01:55] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:01:55] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:03:10] [ Log ] : [System] Run
+[2021-11-04] [오후 7:03:10] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:03:10] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:03:20] [ Log ] : [System] Stop
+[2021-11-04] [오후 7:03:45] [ Log ] : [System] Run
+[2021-11-04] [오후 7:03:45] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:03:45] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:03:50] [ Log ] : [System] Stop
+[2021-11-04] [오후 7:04:04] [ Log ] : [System] Run
+[2021-11-04] [오후 7:04:04] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:04:04] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:04:11] [ Log ] : [System] Stop
+[2021-11-04] [오후 7:04:31] [ Log ] : [System] Run
+[2021-11-04] [오후 7:04:31] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:04:31] [ Log ] : [Measure] I/V Sweep
+[2021-11-04] [오후 7:05:05] [ Log ] : [System] Stop
+[2021-11-04] [오후 7:05:11] [ Log ] : [System] Run
+[2021-11-04] [오후 7:05:11] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-04] [오후 7:05:12] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:14:06] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오전 9:18:11] [ Log ] : [System] Setup Load
+[2021-11-05] [오전 9:18:13] [ Log ] : [System] Setup Load
+[2021-11-05] [오전 9:20:40] [ Log ] : [System] Run
+[2021-11-05] [오전 9:20:40] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:20:40] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:22:31] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오전 9:22:33] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오전 9:22:33] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오전 9:22:34] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오전 9:23:12] [ Log ] : [System] Run
+[2021-11-05] [오전 9:23:12] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:23:12] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:25:18] [ Log ] : [System] Run
+[2021-11-05] [오전 9:25:18] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:25:18] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:27:34] [ Log ] : [System] Run
+[2021-11-05] [오전 9:27:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:27:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:27:50] [ Log ] : [System] Run
+[2021-11-05] [오전 9:27:50] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:27:50] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:27:59] [ Log ] : [System] Stop
+[2021-11-05] [오전 9:28:27] [ Log ] : [System] Run
+[2021-11-05] [오전 9:28:27] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:28:27] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:29:51] [ Log ] : [System] Append
+[2021-11-05] [오전 9:29:52] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:29:52] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:29:53] [ Log ] : [System] Stop
+[2021-11-05] [오전 9:30:07] [ Log ] : [System] Append
+[2021-11-05] [오전 9:30:08] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:30:08] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:31:33] [ Log ] : [System] Append
+[2021-11-05] [오전 9:31:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:31:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:31:45] [ Log ] : [System] Stop
+[2021-11-05] [오전 9:33:53] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오전 9:33:56] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오전 9:33:56] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오전 9:33:57] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오전 9:34:06] [ Log ] : [System] Run
+[2021-11-05] [오전 9:34:06] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:34:06] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:34:21] [ Log ] : [System] Append
+[2021-11-05] [오전 9:34:21] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:34:21] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:34:34] [ Log ] : [System] Append
+[2021-11-05] [오전 9:34:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:34:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:38:46] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오전 9:38:48] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오전 9:38:49] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오전 9:38:49] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오전 9:39:05] [ Log ] : [System] Append
+[2021-11-05] [오전 9:39:05] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:39:05] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:39:26] [ Log ] : [System] Append
+[2021-11-05] [오전 9:39:27] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:39:27] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:40:08] [ Log ] : [System] Stop
+[2021-11-05] [오전 9:41:11] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오전 9:41:14] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오전 9:41:14] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오전 9:41:15] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오전 9:41:56] [ Log ] : [System] Run
+[2021-11-05] [오전 9:41:56] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:41:56] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:42:18] [ Log ] : [System] Run
+[2021-11-05] [오전 9:42:18] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:42:18] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:42:40] [ Log ] : [System] Append
+[2021-11-05] [오전 9:42:41] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:42:41] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:42:58] [ Log ] : [System] Append
+[2021-11-05] [오전 9:42:59] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:42:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:46:47] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오전 9:46:49] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오전 9:46:49] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오전 9:46:50] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오전 9:46:58] [ Log ] : [System] Run
+[2021-11-05] [오전 9:46:59] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:46:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:47:27] [ Log ] : [System] Append
+[2021-11-05] [오전 9:47:27] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:47:27] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:47:40] [ Log ] : [System] Append
+[2021-11-05] [오전 9:47:40] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오전 9:47:40] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오전 9:48:17] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오전 9:48:21] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오전 9:48:28] [ Log ] : [System] System Open Error! Check System
+[2021-11-05] [오전 11:29:13] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:21:00] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:21:39] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:21:39] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:21:40] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:21:55] [ Log ] : [System] Run
+[2021-11-05] [오후 3:21:56] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:21:56] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:22:44] [ Log ] : [System] Run
+[2021-11-05] [오후 3:22:45] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:22:45] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:23:02] [ Log ] : [System] Append
+[2021-11-05] [오후 3:23:03] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:23:03] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:23:15] [ Log ] : [System] Append
+[2021-11-05] [오후 3:23:15] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:23:15] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:24:41] [ Log ] : [System] Append
+[2021-11-05] [오후 3:24:41] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:24:41] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:26:43] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:26:45] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:26:46] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:26:46] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:26:54] [ Log ] : [System] Run
+[2021-11-05] [오후 3:26:54] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:26:54] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:27:00] [ Log ] : [System] Stop
+[2021-11-05] [오후 3:27:02] [ Log ] : [System] Append
+[2021-11-05] [오후 3:27:02] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:27:02] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:27:06] [ Log ] : [System] Stop
+[2021-11-05] [오후 3:27:21] [ Log ] : [System] Append
+[2021-11-05] [오후 3:27:22] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:27:22] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:27:27] [ Log ] : [System] Stop
+[2021-11-05] [오후 3:32:17] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:32:19] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:32:19] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:32:20] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:34:03] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:34:05] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:34:05] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:34:06] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:34:24] [ Log ] : [System] Append
+[2021-11-05] [오후 3:34:25] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:34:25] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:34:53] [ Log ] : [System] Stop
+[2021-11-05] [오후 3:34:54] [ Log ] : [System] Append
+[2021-11-05] [오후 3:34:55] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:34:55] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:35:29] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:35:31] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:35:31] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:35:32] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:35:37] [ Log ] : [System] Append
+[2021-11-05] [오후 3:35:37] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:35:37] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:35:50] [ Log ] : [System] Stop
+[2021-11-05] [오후 3:36:00] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:36:02] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:36:02] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:36:03] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:36:10] [ Log ] : [System] Run
+[2021-11-05] [오후 3:36:10] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:36:10] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:36:34] [ Log ] : [System] Append
+[2021-11-05] [오후 3:36:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:36:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:40:39] [ Log ] : [System] Setup Save As
+[2021-11-05] [오후 3:40:46] [ Log ] : [System] Run
+[2021-11-05] [오후 3:40:46] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_TDDB
+[2021-11-05] [오후 3:40:46] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:41:39] [ Log ] : [System] Run
+[2021-11-05] [오후 3:41:39] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:41:39] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:44:31] [ Log ] : [System] Run
+[2021-11-05] [오후 3:44:31] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:44:31] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:44:31] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5602
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1092
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4980
+[2021-11-05] [오후 3:44:42] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:44:44] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:44:44] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:44:45] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:44:55] [ Log ] : [System] Run
+[2021-11-05] [오후 3:44:55] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:44:55] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:44:57] [ Log ] : [System] Stop
+[2021-11-05] [오후 3:45:07] [ Log ] : [System] Run
+[2021-11-05] [오후 3:45:07] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:45:07] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:45:09] [ Log ] : [System] Stop
+[2021-11-05] [오후 3:45:15] [ Log ] : [System] Run
+[2021-11-05] [오후 3:45:15] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:45:15] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:45:15] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5602
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1092
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4980
+[2021-11-05] [오후 3:45:47] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:45:48] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:45:49] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:45:49] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:46:13] [ Log ] : [System] Run
+[2021-11-05] [오후 3:46:13] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:46:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:47:18] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5602
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1092
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4980
+[2021-11-05] [오후 3:47:31] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:47:33] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:47:33] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:47:34] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:47:40] [ Log ] : [System] Run
+[2021-11-05] [오후 3:47:40] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:47:40] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:47:49] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:47:52] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:47:52] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:47:53] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:48:03] [ Log ] : [System] Run
+[2021-11-05] [오후 3:48:03] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:48:03] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:48:35] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.IV_SweepRun(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5602
+   위치: Sta2CLI.TPI.Measure_IVSweep_TPI(IVSweep IVSweepInfo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5348
+   위치: Sta2CLI.IVSweep_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\IVSweep_SetupForm.vb:줄 1092
+   위치: Sta2CLI.Form1.IVSweepMeasure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1149
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 2018
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4980
+[2021-11-05] [오후 3:48:47] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:48:48] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:48:49] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:48:50] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:48:58] [ Log ] : [System] Run
+[2021-11-05] [오후 3:48:58] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:48:59] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:49:48] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:49:49] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:49:50] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:49:51] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:49:57] [ Log ] : [System] Run
+[2021-11-05] [오후 3:49:58] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:49:58] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:50:27] [ Log ] : [System] Graph Initialization
+[2021-11-05] [오후 3:50:28] [ Log ] : [System] Graph Initialization
+[2021-11-05] [오후 3:50:29] [ Log ] : [System] Graph Initialization
+[2021-11-05] [오후 3:50:29] [ Log ] : [System] Graph Initialization
+[2021-11-05] [오후 3:50:33] [ Log ] : [System] Graph Initialization
+[2021-11-05] [오후 3:51:45] [ Log ] : [System] Run
+[2021-11-05] [오후 3:51:45] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:51:45] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:57:17] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 3:57:20] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 3:57:20] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 3:57:21] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 3:57:42] [ Log ] : [System] Run
+[2021-11-05] [오후 3:57:42] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:57:42] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 3:58:44] [ Log ] : [System] Run
+[2021-11-05] [오후 3:58:44] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 3:58:44] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 4:02:58] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 4:03:00] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 4:03:00] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 4:03:01] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 4:04:14] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 4:04:16] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 4:04:16] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 4:04:17] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-05] [오후 4:04:25] [ Log ] : [System] Append
+[2021-11-05] [오후 4:04:25] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 4:04:25] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 4:04:37] [ Log ] : [System] Stop
+[2021-11-05] [오후 4:05:11] [ Log ] : [System] Append
+[2021-11-05] [오후 4:05:11] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-05] [오후 4:05:11] [ Log ] : [Measure] I/V Sweep
+[2021-11-05] [오후 4:05:13] [ Log ] : [System] Stop
+[2021-11-05] [오후 4:23:39] [ Log ] : [System] System Configuration Check...
+[2021-11-05] [오후 4:40:09] [ Log ] : [System] Auto_Calibration
+[2021-11-05] [오후 4:40:09] [ Log ] : [Cal Offset] SMU1
+[2021-11-05] [오후 4:40:10] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-08] [오전 10:00:00] [ Log ] : [System] System Configuration Check...
+[2021-11-08] [오전 10:00:16] [ Log ] : [System] System Configuration Check...
+[2021-11-08] [오전 10:00:23] [ Log ] : [System] System Configuration Check...
+[2021-11-08] [오전 10:00:25] [ Log ] : [System] Auto_Calibration
+[2021-11-08] [오전 10:00:25] [ Log ] : [Cal Offset] SMU1
+[2021-11-08] [오전 10:00:26] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-08] [오전 10:00:33] [ Log ] : [System] Run
+[2021-11-08] [오전 10:00:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-08] [오전 10:00:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-08] [오전 10:02:31] [ Log ] : [System] Run
+[2021-11-08] [오전 10:02:31] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-11-08] [오전 10:02:31] [ Log ] : [Measure] I/V Sweep
+[2021-11-08] [오전 10:03:18] [ Log ] : [System] System Configuration Check...
+[2021-11-08] [오전 10:03:56] [ Log ] : [System] Auto_Calibration
+[2021-11-08] [오전 10:03:57] [ Log ] : [Cal Offset] SMU1
+[2021-11-08] [오전 10:03:58] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-08] [오전 10:27:31] [ Log ] : [System] System Configuration Check...
+[2021-11-08] [오전 10:27:33] [ Log ] : [System] Auto_Calibration
+[2021-11-08] [오전 10:27:33] [ Log ] : [Cal Offset] SMU1
+[2021-11-08] [오전 10:27:34] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-11-08] [오전 10:28:08] [ Log ] : [System] Setup Load
+[2021-11-08] [오전 10:28:12] [ Log ] : [System] Setup Load
+[2021-11-08] [오전 10:28:15] [ Log ] : [System] Setup Load
+[2021-11-08] [오전 10:28:20] [ Log ] : [System] Setup Load
+[2021-11-08] [오전 10:28:27] [ Log ] : [System] Setup Load
+[2021-11-08] [오전 10:28:31] [ Log ] : [System] Setup Load
+[2021-11-08] [오전 10:49:14] [ Log ] : [System] System Configuration Check...
+[2021-11-08] [오전 10:49:53] [ Log ] : [System] System Configuration Check...
+[2021-11-18] [오전 11:08:13] [ Log ] : [System] System Configuration Check...
+[2021-11-18] [오전 11:21:03] [ Log ] : [System] System Configuration Check...
+[2021-11-18] [오후 3:23:29] [ Log ] : [System] System Configuration Check...
+[2021-11-19] [오전 10:27:43] [ Log ] : [System] System Configuration Check...
+[2021-11-19] [오후 1:46:19] [ Log ] : [System] System Configuration Check...
+[2021-11-19] [오후 1:46:48] [ Log ] : [System] Utility Tool
+[2021-11-22] [오전 11:12:52] [ Log ] : [System] System Configuration Check...
+[2021-11-22] [오후 6:41:50] [ Log ] : [System] System Configuration Check...
+[2021-11-22] [오후 7:41:45] [ Log ] : [System] System Configuration Check...
+[2021-11-24] [오전 11:36:19] [ Log ] : [System] System Configuration Check...
+[2021-11-24] [오전 11:36:50] [ Log ] : [System] Setup Load
+[2021-11-24] [오전 11:37:32] [ Log ] : [System] Setup Load
+[2021-11-24] [오후 8:56:42] [ Log ] : [System] System Configuration Check...
+[2021-11-24] [오후 8:57:38] [ Log ] : [System] System Configuration Check...
+[2021-11-24] [오후 9:00:01] [ Log ] : [System] System Configuration Check...
+[2021-11-24] [오후 9:00:11] [ Log ] : [System] System Open Error! Check System
+[2021-11-24] [오후 9:00:15] [ Log ] : [System] System Open Error! Check System
+[2021-11-24] [오후 9:00:18] [ Log ] : [System] System Open Error! Check System
+[2021-11-24] [오후 9:00:46] [ Log ] : [System] System Open Error! Check System
+[2021-11-25] [오후 3:47:12] [ Log ] : [System] Id-Vd N-Channel
+[2021-11-25] [오후 3:47:12] [ Log ] : [System] Resistor : I-Mode
+[2021-11-25] [오후 3:47:14] [ Log ] : [System] Ic-Vc NPN
+[2021-11-25] [오후 3:47:31] [ Log ] : [System] Setup Load
+[2021-11-25] [오후 3:47:38] [ Log ] : [System] Setup Load
+[2021-11-25] [오후 3:47:55] [ Log ] : [System] Id-Vg N-Channel
+[2021-11-25] [오후 4:12:05] [ Log ] : [System] Id-Vd N-Channel
+[2021-11-25] [오후 4:12:05] [ Log ] : [System] Id-Vd N-Channel
+[2021-11-25] [오후 4:12:06] [ Log ] : [System] Resistor : I-Mode
+[2021-11-25] [오후 4:12:08] [ Log ] : [System] Ic-Vc NPN
+[2021-11-25] [오후 4:12:27] [ Log ] : [System] System Configuration Check...
+[2021-11-25] [오후 4:13:14] [ Log ] : [System] System Configuration Check...
+[2021-11-25] [오후 4:24:12] [ Log ] : [System] System Configuration Check...
+[2021-11-25] [오후 4:24:25] [ Log ] : [System] Setup Load
+[2021-11-25] [오후 4:24:29] [ Log ] : [System] Setup Load
+[2021-11-25] [오후 4:24:39] [ Log ] : [System] Setup Load
+[2021-11-25] [오후 7:12:52] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:03:21] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:04:51] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:08:34] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:10:15] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:12:45] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:15:16] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:16:12] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:16:31] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:24:40] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:25:12] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:25:45] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:27:12] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:28:11] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:29:53] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:29:56] [ Log ] : [System] Auto_Calibration
+[2021-11-26] [오전 10:29:56] [ Log ] : [Cal Offset] SMU1
+[2021-11-26] [오전 10:30:00] [ Log ] : [Cal Offset] SMU2
+[2021-11-26] [오전 10:30:04] [ Log ] : [Cal Offset] SMU3
+[2021-11-26] [오전 10:30:08] [ Log ] : [Cal Offset] SMU4
+[2021-11-26] [오전 10:30:16] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:30:47] [ Log ] : [System] Run
+[2021-11-26] [오전 10:30:47] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:30:47] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:31:28] [ Log ] : [System] Run
+[2021-11-26] [오전 10:31:28] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:31:29] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:31:31] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:32:05] [ Log ] : [System] Run
+[2021-11-26] [오전 10:32:05] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:32:05] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:32:12] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:32:34] [ Log ] : [System] Run
+[2021-11-26] [오전 10:32:35] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:32:35] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:32:41] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:37:13] [ Log ] : [System] Run
+[2021-11-26] [오전 10:37:13] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:37:13] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:37:21] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:40:33] [ Log ] : [System] Run
+[2021-11-26] [오전 10:40:33] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:40:33] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:40:42] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:41:31] [ Log ] : [System] Run
+[2021-11-26] [오전 10:41:31] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:41:31] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:41:45] [ Log ] : [System] Run
+[2021-11-26] [오전 10:41:45] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:41:45] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:42:08] [ Log ] : [System] Run
+[2021-11-26] [오전 10:42:08] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:42:08] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:42:16] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:44:26] [ Log ] : [System] Run
+[2021-11-26] [오전 10:44:26] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:44:27] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:44:37] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:47:10] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:47:14] [ Log ] : [System] Auto_Calibration
+[2021-11-26] [오전 10:47:14] [ Log ] : [Cal Offset] SMU1
+[2021-11-26] [오전 10:47:19] [ Log ] : [Cal Offset] SMU2
+[2021-11-26] [오전 10:47:23] [ Log ] : [Cal Offset] SMU3
+[2021-11-26] [오전 10:47:27] [ Log ] : [Cal Offset] SMU4
+[2021-11-26] [오전 10:47:34] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:47:39] [ Log ] : [System] Run
+[2021-11-26] [오전 10:47:39] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:47:39] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:47:45] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:48:41] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 10:48:44] [ Log ] : [System] Auto_Calibration
+[2021-11-26] [오전 10:48:44] [ Log ] : [Cal Offset] SMU1
+[2021-11-26] [오전 10:48:48] [ Log ] : [Cal Offset] SMU2
+[2021-11-26] [오전 10:48:52] [ Log ] : [Cal Offset] SMU3
+[2021-11-26] [오전 10:48:56] [ Log ] : [Cal Offset] SMU4
+[2021-11-26] [오전 10:49:02] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:49:06] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:49:12] [ Log ] : [System] Run
+[2021-11-26] [오전 10:49:12] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:49:12] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:49:20] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:49:24] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:50:17] [ Log ] : [System] Run
+[2021-11-26] [오전 10:50:17] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-26] [오전 10:50:17] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:50:41] [ Log ] : [System] Run
+[2021-11-26] [오전 10:50:41] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-26] [오전 10:50:42] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:51:44] [ Log ] : [System] Run
+[2021-11-26] [오전 10:51:44] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-26] [오전 10:51:44] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:52:14] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:53:14] [ Log ] : [System] Run
+[2021-11-26] [오전 10:53:14] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:53:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:55:08] [ Log ] : [System] Run
+[2021-11-26] [오전 10:55:08] [ Log ] : [System] Setup_File : IV_Sweep_PMOS_Id-Vg
+[2021-11-26] [오전 10:55:08] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:55:11] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:55:13] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:55:46] [ Log ] : [System] Run
+[2021-11-26] [오전 10:55:46] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-26] [오전 10:55:46] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:56:09] [ Log ] : [System] Run
+[2021-11-26] [오전 10:56:09] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-26] [오전 10:56:10] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:56:19] [ Log ] : [System] Run
+[2021-11-26] [오전 10:56:19] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-26] [오전 10:56:20] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:56:52] [ Log ] : [System] Run
+[2021-11-26] [오전 10:56:52] [ Log ] : [System] Setup_File : IV_Sweep_RES-V
+[2021-11-26] [오전 10:56:52] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:56:55] [ Log ] : [System] Stop
+[2021-11-26] [오전 10:56:59] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 10:57:05] [ Log ] : [System] Run
+[2021-11-26] [오전 10:57:05] [ Log ] : [System] Setup_File : IV_Sweep_RES-I
+[2021-11-26] [오전 10:57:05] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 10:57:16] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 11:17:47] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 11:17:51] [ Log ] : [System] Auto_Calibration
+[2021-11-26] [오전 11:17:51] [ Log ] : [Cal Offset] SMU1
+[2021-11-26] [오전 11:17:56] [ Log ] : [Cal Offset] SMU2
+[2021-11-26] [오전 11:18:00] [ Log ] : [Cal Offset] SMU3
+[2021-11-26] [오전 11:18:04] [ Log ] : [Cal Offset] SMU4
+[2021-11-26] [오전 11:18:15] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 11:18:19] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 11:18:22] [ Log ] : [System] Run
+[2021-11-26] [오전 11:18:22] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-11-26] [오전 11:18:23] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 11:19:02] [ Log ] : [System] Run
+[2021-11-26] [오전 11:19:02] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg2
+[2021-11-26] [오전 11:19:02] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 11:19:14] [ Log ] : [System] Run
+[2021-11-26] [오전 11:19:14] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd2
+[2021-11-26] [오전 11:19:14] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 11:19:22] [ Log ] : [System] Stop
+[2021-11-26] [오전 11:20:06] [ Log ] : [System] System Configuration Check...
+[2021-11-26] [오전 11:20:10] [ Log ] : [System] Auto_Calibration
+[2021-11-26] [오전 11:20:10] [ Log ] : [Cal Offset] SMU1
+[2021-11-26] [오전 11:20:14] [ Log ] : [Cal Offset] SMU2
+[2021-11-26] [오전 11:20:18] [ Log ] : [Cal Offset] SMU3
+[2021-11-26] [오전 11:20:22] [ Log ] : [Cal Offset] SMU4
+[2021-11-26] [오전 11:20:31] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 11:20:34] [ Log ] : [System] Run
+[2021-11-26] [오전 11:20:34] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg2
+[2021-11-26] [오전 11:20:34] [ Log ] : [Measure] I/V Sweep
+[2021-11-26] [오전 11:20:38] [ Log ] : [System] Setup Load
+[2021-11-26] [오전 11:20:41] [ Log ] : [System] Run
+[2021-11-26] [오전 11:20:41] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd2
+[2021-11-26] [오전 11:20:41] [ Log ] : [Measure] I/V Sweep

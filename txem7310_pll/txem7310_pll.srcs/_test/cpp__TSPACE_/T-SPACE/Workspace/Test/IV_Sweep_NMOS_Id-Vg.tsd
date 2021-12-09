@@ -1,0 +1,177 @@
+[Device_info]
+TestModelName=IV_Sweep
+NPLC=Medium
+[TestItem_info]
+SetupName=NMOS Id-Vg
+ImageFile=D:\T-SPACE\Workspace\Test\NMOS.png
+Description=NMOS Id-Vg Measure<#NewLine>Gate Sweep : 0~10V, Step 0.5V<#NewLine>Drain Voltage : 10V<#NewLine>
+[Force_Channel1]
+Enabled=True
+Unit=SMU2
+Name=Vdrain
+Mode=Voltage
+Value=10
+Compliance=100m
+[Force_Channel2]
+Enabled=True
+Unit=SMU3
+Name=Vsource
+Mode=Voltage
+Value=0
+Compliance=100m
+[Force_Channel3]
+Enabled=True
+Unit=SMU4
+Name=Vbody
+Mode=Voltage
+Value=0
+Compliance=100m
+[Force_Channel4]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Measure_Channel1]
+Enabled=True
+Unit=SMU2
+Name=Idrain
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y1
+[Measure_Channel2]
+Enabled=False
+Unit=SMU1
+Name=IGate
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y2
+[Measure_Channel3]
+Enabled=False
+Unit=SMU3
+Name=Isource
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y1
+[Measure_Channel4]
+Enabled=False
+Unit=SMU4
+Name=Ibody
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y2
+[Sweep_Channel]
+Enabled=True
+Unit=SMU1
+Name=Vgate
+Mode=Voltage
+Start=0
+Stop=10
+Step=0.2
+Compliance=100m
+Direction=Single
+[Sweep_Channel2]
+Enabled=False
+Unit=
+Name=
+Mode=
+Start=
+Stop=
+Step=
+Compliance=
+[Sweep_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Offset=
+Ratio=
+Compliance=
+[Timming]
+HoldTime=100m
+DelayTime=10m
+MeasureCount=0
+[GraphSetup]
+Xaxis=0
+Xaxis_Min=0
+Xaxis_Max=11
+Y1axis=0
+Y1axis_Min=0.0
+Y1axis_Max=0.028
+Y2axis=0
+Y2axis_Min=0
+Y2axis_Max=0.12
+[GraphInfo]
+GraphTitle=NMOS Id-Vg
+X_Title=Vgate (V)
+X_Min=0
+X_Max=10
+X_Log=0
+Y_Title=Idrain (A)
+Y_Min=0
+Y_Max=0.03
+Y_Log=0
+TestCount=1
+[TestInfo]
+Test Name,IV_Sweep_NMOS_Id-Vg
+Test Date,2021-03-26
+Test Time,17:11:20
+Tact time,3.260(sec)
+[TestData]
+No,Index,GraphX:Vgate(V),GraphY:Idrain(A)
+  1,  1,0.00000E+000,1.49781E-011
+  1,  2,2.00000E-001,1.20936E-011
+  1,  3,4.00000E-001,1.11016E-011
+  1,  4,6.00000E-001,9.77604E-012
+  1,  5,8.00000E-001,1.09765E-011
+  1,  6,1.00000E+000,4.80326E-011
+  1,  7,1.20000E+000,8.86689E-010
+  1,  8,1.40000E+000,2.23630E-008
+  1,  9,1.60000E+000,6.02835E-007
+  1, 10,1.80000E+000,9.20224E-006
+  1, 11,2.00000E+000,4.74695E-005
+  1, 12,2.20000E+000,1.29890E-004
+  1, 13,2.40000E+000,2.59161E-004
+  1, 14,2.60000E+000,4.35178E-004
+  1, 15,2.80000E+000,6.56481E-004
+  1, 16,3.00000E+000,9.21350E-004
+  1, 17,3.20000E+000,1.22712E-003
+  1, 18,3.40000E+000,1.57263E-003
+  1, 19,3.60000E+000,1.95619E-003
+  1, 20,3.80000E+000,2.37407E-003
+  1, 21,4.00000E+000,2.82780E-003
+  1, 22,4.20000E+000,3.31407E-003
+  1, 23,4.40000E+000,3.83127E-003
+  1, 24,4.60000E+000,4.37822E-003
+  1, 25,4.80000E+000,4.95288E-003
+  1, 26,5.00000E+000,5.55483E-003
+  1, 27,5.20000E+000,6.18263E-003
+  1, 28,5.40000E+000,6.83517E-003
+  1, 29,5.60000E+000,7.51102E-003
+  1, 30,5.80000E+000,8.20881E-003
+  1, 31,6.00000E+000,8.92500E-003
+  1, 32,6.20000E+000,9.66424E-003
+  1, 33,6.40000E+000,1.05162E-002
+  1, 34,6.60000E+000,1.12980E-002
+  1, 35,6.80000E+000,1.21009E-002
+  1, 36,7.00000E+000,1.29197E-002
+  1, 37,7.20000E+000,1.37544E-002
+  1, 38,7.40000E+000,1.46035E-002
+  1, 39,7.60000E+000,1.54693E-002
+  1, 40,7.80000E+000,1.63469E-002
+  1, 41,8.00000E+000,1.72388E-002
+  1, 42,8.20000E+000,1.81415E-002
+  1, 43,8.40000E+000,1.90519E-002
+  1, 44,8.60000E+000,1.99782E-002
+  1, 45,8.80000E+000,2.09137E-002
+  1, 46,9.00000E+000,2.18585E-002
+  1, 47,9.20000E+000,2.28142E-002
+  1, 48,9.40000E+000,2.37766E-002
+  1, 49,9.60000E+000,2.47507E-002
+  1, 50,9.80000E+000,2.57291E-002
+  1, 51,1.00000E+001,2.67158E-002

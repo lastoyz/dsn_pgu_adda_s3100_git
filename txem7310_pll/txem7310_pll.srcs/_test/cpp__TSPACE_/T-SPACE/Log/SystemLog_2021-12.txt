@@ -1,0 +1,1799 @@
+[2021-12-01] [오후 3:32:53] [ Log ] : [System] System Configuration Check...
+[2021-12-01] [오후 3:32:57] [ Log ] : [System] Auto_Calibration
+[2021-12-01] [오후 3:32:57] [ Log ] : [Cal Offset] SMU1
+[2021-12-01] [오후 3:33:01] [ Log ] : [Cal Offset] SMU2
+[2021-12-01] [오후 3:33:05] [ Log ] : [Cal Offset] SMU3
+[2021-12-01] [오후 3:33:09] [ Log ] : [Cal Offset] SMU4
+[2021-12-01] [오후 3:33:14] [ Log ] : [System] Utility Tool
+[2021-12-01] [오후 3:33:31] [ Log ] : [System] System Configuration Check...
+[2021-12-01] [오후 3:33:33] [ Log ] :  >> CMU Check - OK!
+[2021-12-01] [오후 3:33:33] [ Log ] :  >> PGU Check - OK!
+[2021-12-01] [오후 3:33:36] [ Log ] : [System] Auto_Calibration
+[2021-12-01] [오후 3:33:36] [ Log ] : [Cal Offset] SMU1
+[2021-12-01] [오후 3:33:41] [ Log ] : [Cal Offset] SMU2
+[2021-12-01] [오후 3:33:45] [ Log ] : [Cal Offset] SMU3
+[2021-12-01] [오후 3:33:49] [ Log ] : [Cal Offset] SMU4
+[2021-12-01] [오후 3:34:07] [ Log ] : [System] Setup Load
+[2021-12-01] [오후 3:34:20] [ Log ] : [System] Run
+[2021-12-01] [오후 3:34:20] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-01] [오후 3:34:21] [ Log ] : [Measure] C-V Sweep
+[2021-12-01] [오후 4:25:07] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오전 9:28:11] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오전 9:28:13] [ Log ] :  >> CMU Check - OK!
+[2021-12-02] [오전 9:28:13] [ Log ] :  >> PGU Check - OK!
+[2021-12-02] [오전 9:28:16] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오전 9:28:16] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오전 9:28:20] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오전 9:28:25] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오전 9:28:29] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오전 9:28:48] [ Log ] : [System] Setup Load
+[2021-12-02] [오전 9:28:55] [ Log ] : [System] Run
+[2021-12-02] [오전 9:28:55] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-02] [오전 9:28:56] [ Log ] : [Measure] C-V Sweep
+[2021-12-02] [오전 9:36:04] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오전 9:36:06] [ Log ] :  >> CMU Check - OK!
+[2021-12-02] [오전 9:36:07] [ Log ] :  >> PGU Check - OK!
+[2021-12-02] [오전 9:36:22] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오전 9:36:23] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오전 9:36:27] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오전 9:36:31] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오전 9:36:35] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오전 9:36:49] [ Log ] : [System] Setup Load
+[2021-12-02] [오전 9:37:45] [ Log ] : [System] Utility Tool
+[2021-12-02] [오전 9:38:06] [ Log ] : [System] Run
+[2021-12-02] [오전 9:38:06] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오전 9:39:12] [ Log ] : [System] Run
+[2021-12-02] [오전 9:39:12] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오전 9:39:18] [ Log ] : [System] Run
+[2021-12-02] [오전 9:39:18] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오전 9:39:21] [ Log ] : [System] Run
+[2021-12-02] [오전 9:39:22] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오전 9:39:24] [ Log ] : [System] Run
+[2021-12-02] [오전 9:39:25] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 6:36:04] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 6:37:37] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 6:37:58] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 6:38:24] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:07:12] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:07:12] [ Log ] : SMU1001 = 4.99924421310425
+[2021-12-02] [오후 7:07:13] [ Log ] : SMU1002 = 4.99978446960449
+[2021-12-02] [오후 7:07:13] [ Log ] : SMU1003 = 4.99867391586304
+[2021-12-02] [오후 7:07:13] [ Log ] : SMU1004 = 4.99952030181885
+[2021-12-02] [오후 7:07:14] [ Log ] :  >> CMU Check - OK!
+[2021-12-02] [오후 7:07:14] [ Log ] :  >> PGU Check - OK!
+[2021-12-02] [오후 7:07:36] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:07:56] [ Log ] : SMU1001 = 4.99924421310425
+[2021-12-02] [오후 7:08:00] [ Log ] : SMU1002 = 4.99997043609619
+[2021-12-02] [오후 7:08:00] [ Log ] : SMU1003 = 4.99867391586304
+[2021-12-02] [오후 7:08:01] [ Log ] : SMU1004 = 4.99933624267578
+[2021-12-02] [오후 7:08:01] [ Log ] :  >> CMU Check - OK!
+[2021-12-02] [오후 7:08:01] [ Log ] :  >> PGU Check - OK!
+[2021-12-02] [오후 7:08:04] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:08:04] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:08:08] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:08:12] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:08:16] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 7:10:27] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:10:27] [ Log ] : Check SMU1 - OK! [4.99887609481812]
+[2021-12-02] [오후 7:10:28] [ Log ] : Check SMU2 - OK! [4.99978446960449]
+[2021-12-02] [오후 7:10:28] [ Log ] : Check SMU3 - OK! [4.99848985671997]
+[2021-12-02] [오후 7:10:28] [ Log ] : Check SMU4 - OK! [4.99933624267578]
+[2021-12-02] [오후 7:10:29] [ Log ] :  >> CMU Check - OK!
+[2021-12-02] [오후 7:10:29] [ Log ] :  >> PGU Check - OK!
+[2021-12-02] [오후 7:10:32] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:10:32] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:10:36] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:10:40] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:10:44] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 7:12:07] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:12:08] [ Log ] :  >> SMU1 Check - OK! [4.99887609481812]
+[2021-12-02] [오후 7:12:08] [ Log ] :  >> SMU2 Check - OK! [4.99978446960449]
+[2021-12-02] [오후 7:12:09] [ Log ] :  >> SMU3 Check - OK! [4.99848985671997]
+[2021-12-02] [오후 7:12:09] [ Log ] :  >> SMU4 Check - OK! [4.99933624267578]
+[2021-12-02] [오후 7:12:10] [ Log ] :  >> CMU Check - OK!
+[2021-12-02] [오후 7:12:10] [ Log ] :  >> PGU Check - OK!
+[2021-12-02] [오후 7:12:15] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:12:16] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:12:20] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:12:24] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:12:28] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 7:13:45] [ Log ] : [System] Utility Tool
+[2021-12-02] [오후 7:15:11] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:15:11] [ Log ] :  >> SMU1 Check - OK! [4.99887609481812]
+[2021-12-02] [오후 7:15:12] [ Log ] :  >> SMU2 Check - OK! [4.99959897994995]
+[2021-12-02] [오후 7:15:12] [ Log ] :  >> SMU3 Check - OK! [4.99848985671997]
+[2021-12-02] [오후 7:15:12] [ Log ] :  >> SMU4 Check - OK! [4.99915218353271]
+[2021-12-02] [오후 7:15:13] [ Log ] :  >> CMU1 Check - OK!
+[2021-12-02] [오후 7:15:13] [ Log ] :  >> PGU1 Check - OK!
+[2021-12-02] [오후 7:15:15] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:15:15] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:15:20] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:15:24] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:15:28] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 7:16:24] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:16:25] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-02] [오후 7:16:25] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-02] [오후 7:16:26] [ Log ] :  > SMU3 Check - OK! [4.99830627441406]
+[2021-12-02] [오후 7:16:26] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-02] [오후 7:16:26] [ Log ] :  > CMU1 Check - OK!
+[2021-12-02] [오후 7:16:27] [ Log ] :  > PGU1 Check - OK!
+[2021-12-02] [오후 7:16:30] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:16:30] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:16:35] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:16:39] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:16:43] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 7:28:25] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:28:26] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-02] [오후 7:28:26] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-02] [오후 7:28:26] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-02] [오후 7:28:27] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-02] [오후 7:28:27] [ Log ] :  > CMU1 Check - OK!
+[2021-12-02] [오후 7:28:27] [ Log ] :  > PGU1 Check - OK!
+[2021-12-02] [오후 7:28:29] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:28:29] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:28:33] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:28:37] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:28:41] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 7:28:48] [ Log ] : [System] Setup Load
+[2021-12-02] [오후 7:28:52] [ Log ] : [System] Run
+[2021-12-02] [오후 7:28:52] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:28:58] [ Log ] : [System] Run
+[2021-12-02] [오후 7:28:58] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:29:14] [ Log ] : [System] Run
+[2021-12-02] [오후 7:29:14] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:29:23] [ Log ] : [System] Run
+[2021-12-02] [오후 7:29:23] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:29:36] [ Log ] : [System] Run
+[2021-12-02] [오후 7:29:36] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:30:10] [ Log ] : [System] Run
+[2021-12-02] [오후 7:30:10] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:30:31] [ Log ] : [System] Utility Tool
+[2021-12-02] [오후 7:30:45] [ Log ] : [System] Run
+[2021-12-02] [오후 7:30:45] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:30:52] [ Log ] : [System] Run
+[2021-12-02] [오후 7:30:52] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:31:03] [ Log ] : [System] Run
+[2021-12-02] [오후 7:31:03] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:31:16] [ Log ] : [System] Run
+[2021-12-02] [오후 7:31:16] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-02] [오후 7:46:59] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:54:47] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:54:47] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-02] [오후 7:54:48] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-02] [오후 7:54:48] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-02] [오후 7:54:48] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-02] [오후 7:54:51] [ Log ] :  > CMU1 Check - OK!
+[2021-12-02] [오후 7:54:51] [ Log ] :  > PGU1 Check - OK!
+[2021-12-02] [오후 7:54:57] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:54:57] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:55:02] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:55:06] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:55:10] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 7:55:28] [ Log ] : [System] Setup Load
+[2021-12-02] [오후 7:55:40] [ Log ] : [System] Run
+[2021-12-02] [오후 7:55:40] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-02] [오후 7:55:41] [ Log ] : [Measure] C-V Sweep
+[2021-12-02] [오후 7:59:34] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 7:59:35] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-02] [오후 7:59:35] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-02] [오후 7:59:35] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-02] [오후 7:59:36] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-02] [오후 7:59:36] [ Log ] :  > CMU1 Check - OK!
+[2021-12-02] [오후 7:59:36] [ Log ] :  > PGU1 Check - OK!
+[2021-12-02] [오후 7:59:39] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 7:59:39] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 7:59:44] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 7:59:48] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 7:59:52] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 8:00:07] [ Log ] : [System] Setup Load
+[2021-12-02] [오후 8:00:11] [ Log ] : [System] Run
+[2021-12-02] [오후 8:00:12] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-02] [오후 8:00:12] [ Log ] : [Measure] C-V Sweep
+[2021-12-02] [오후 8:01:38] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 8:01:39] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-02] [오후 8:01:39] [ Log ] :  > SMU2 Check - OK! [4.99959897994995]
+[2021-12-02] [오후 8:01:40] [ Log ] :  > SMU3 Check - OK! [4.99830627441406]
+[2021-12-02] [오후 8:01:40] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-02] [오후 8:01:41] [ Log ] :  > CMU1 Check - OK!
+[2021-12-02] [오후 8:01:41] [ Log ] :  > PGU1 Check - OK!
+[2021-12-02] [오후 8:01:43] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 8:01:43] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 8:01:47] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 8:01:52] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 8:01:56] [ Log ] : [Cal Offset] SMU4
+[2021-12-02] [오후 8:03:38] [ Log ] : [System] System Configuration Check...
+[2021-12-02] [오후 8:03:39] [ Log ] :  > SMU1 Check - OK! [4.99850845336914]
+[2021-12-02] [오후 8:03:39] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-02] [오후 8:03:39] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-02] [오후 8:03:40] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-02] [오후 8:03:57] [ Log ] :  > CMU1 Check - OK!
+[2021-12-02] [오후 8:03:57] [ Log ] :  > PGU1 Check - OK!
+[2021-12-02] [오후 8:04:00] [ Log ] : [System] Auto_Calibration
+[2021-12-02] [오후 8:04:00] [ Log ] : [Cal Offset] SMU1
+[2021-12-02] [오후 8:04:07] [ Log ] : [Cal Offset] SMU2
+[2021-12-02] [오후 8:04:12] [ Log ] : [Cal Offset] SMU3
+[2021-12-02] [오후 8:04:16] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:29:16] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:29:17] [ Log ] :  > SMU1 Check - OK! [4.99924421310425]
+[2021-12-03] [오전 9:29:17] [ Log ] :  > SMU2 Check - OK! [5.00052785873413]
+[2021-12-03] [오전 9:29:18] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-03] [오전 9:29:18] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 9:29:19] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:29:19] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:29:21] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:29:22] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:29:26] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:29:30] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:29:34] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:29:56] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:30:00] [ Log ] : [System] Run
+[2021-12-03] [오전 9:30:00] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:30:00] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:30:44] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:30:44] [ Log ] :  > SMU1 Check - OK! [4.99906015396118]
+[2021-12-03] [오전 9:30:44] [ Log ] :  > SMU2 Check - OK! [4.99997043609619]
+[2021-12-03] [오전 9:30:45] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-03] [오전 9:30:45] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 9:30:46] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:30:46] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:30:47] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:30:47] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:30:51] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:30:55] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:30:59] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:31:21] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:31:25] [ Log ] : [System] Run
+[2021-12-03] [오전 9:31:25] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:31:25] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:32:28] [ Log ] : [System] Run
+[2021-12-03] [오전 9:32:28] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:32:28] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:33:11] [ Log ] : [Exception Error] System.Runtime.Remoting.RemotingException: IPC 포트에서 읽지 못했습니다. 파이프가 끝났습니다.
+
+
+Server stack trace: 
+   위치: System.Runtime.Remoting.Channels.Ipc.IpcPort.Read(Byte[] data, Int32 offset, Int32 length)
+   위치: System.Runtime.Remoting.Channels.Ipc.PipeStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.BufferMoreData(Byte[] dataBuffer)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   위치: System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   위치: System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16& operation)
+   위치: System.Runtime.Remoting.Channels.Ipc.IpcClientHandler.ReadHeaders()
+   위치: System.Runtime.Remoting.Channels.Ipc.IpcClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders& responseHeaders, Stream& responseStream)
+   위치: System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   위치: System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   위치: System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   위치: IPC_RemoteObject.RemoteObject.SendMessage(String msg)
+   위치: IPC_RemoteObject.IPC_ClientChannel.SendMessage(String Msg) 파일 D:\PROJECT\IPC\IPC_RemoteObject\IPC_RemoteObject\IPC_ClientChannel.vb:줄 26
+   위치: Sta2CLI.TopCMU.SetCmuDcBias(Double dc_bias) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TopCMU.vb:줄 69
+   위치: Sta2CLI.S3000.SetDCbiasCMU(Int32 DCbias) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 410
+   위치: Sta2CLI.TPI.Measure_CV_Sweep_TPI(Boolean BaisEnable, Int32[] BaisCh, Double[] BiasVoltage, Double[] BiasCompliance, Double HoldTime, Double DelayTime, Boolean SweepDirection, Double Vstart, Double Vstop, Double Vstep, Int32 IntegTime, String MeasModel, String FrequencyText, String AC_LevelText, Int32 Frequency, Int32 FrequencyIndex, Double AC_Level) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 3067
+   위치: Sta2CLI.CVSweepSetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\CVSweepSetupForm.vb:줄 94
+   위치: Sta2CLI.Form1.Measure_CV_Sweep() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1120
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1992
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4994
+[2021-12-03] [오전 9:33:24] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:33:25] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 9:33:25] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-03] [오전 9:33:26] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 9:33:26] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 9:33:26] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:33:26] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:33:29] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:33:29] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:33:33] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:33:37] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:33:41] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:33:57] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:34:01] [ Log ] : [System] Run
+[2021-12-03] [오전 9:34:01] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:34:01] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:34:41] [ Log ] : [Exception Error] System.Runtime.Remoting.RemotingException: IPC 포트에서 읽지 못했습니다. 파이프가 끝났습니다.
+
+
+Server stack trace: 
+   위치: System.Runtime.Remoting.Channels.Ipc.IpcPort.Read(Byte[] data, Int32 offset, Int32 length)
+   위치: System.Runtime.Remoting.Channels.Ipc.PipeStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.BufferMoreData(Byte[] dataBuffer)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   위치: System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   위치: System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   위치: System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16& operation)
+   위치: System.Runtime.Remoting.Channels.Ipc.IpcClientHandler.ReadHeaders()
+   위치: System.Runtime.Remoting.Channels.Ipc.IpcClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders& responseHeaders, Stream& responseStream)
+   위치: System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   위치: System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   위치: System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   위치: IPC_RemoteObject.RemoteObject.SendMessage(String msg)
+   위치: IPC_RemoteObject.IPC_ClientChannel.SendMessage(String Msg) 파일 D:\PROJECT\IPC\IPC_RemoteObject\IPC_RemoteObject\IPC_ClientChannel.vb:줄 26
+   위치: Sta2CLI.TopCMU.SetCmuSigLevel(Double signal_level) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TopCMU.vb:줄 55
+   위치: Sta2CLI.S3000.SetSignalLevelCMU(Double SignalLevel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 402
+   위치: Sta2CLI.TPI.Measure_CV_Sweep_TPI(Boolean BaisEnable, Int32[] BaisCh, Double[] BiasVoltage, Double[] BiasCompliance, Double HoldTime, Double DelayTime, Boolean SweepDirection, Double Vstart, Double Vstop, Double Vstep, Int32 IntegTime, String MeasModel, String FrequencyText, String AC_LevelText, Int32 Frequency, Int32 FrequencyIndex, Double AC_Level) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 3069
+   위치: Sta2CLI.CVSweepSetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\CVSweepSetupForm.vb:줄 94
+   위치: Sta2CLI.Form1.Measure_CV_Sweep() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1120
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1992
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4994
+[2021-12-03] [오전 9:35:53] [ Log ] : [System] Run
+[2021-12-03] [오전 9:35:53] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:35:53] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:36:59] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:36:59] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 9:37:00] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-03] [오전 9:37:00] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-03] [오전 9:37:00] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 9:37:01] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:37:01] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:37:04] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:37:04] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:37:08] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:37:12] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:37:16] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:38:13] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:38:17] [ Log ] : [System] Run
+[2021-12-03] [오전 9:38:17] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:38:17] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:40:27] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:40:28] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-03] [오전 9:40:28] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-03] [오전 9:40:29] [ Log ] :  > SMU3 Check - OK! [4.9988579750061]
+[2021-12-03] [오전 9:40:29] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 9:40:40] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:40:41] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:40:44] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:40:44] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:40:49] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:40:53] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:40:57] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:41:04] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:41:08] [ Log ] : [System] Run
+[2021-12-03] [오전 9:41:08] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:41:08] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:41:28] [ Log ] : [System] Run
+[2021-12-03] [오전 9:41:28] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:41:28] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:41:48] [ Log ] : [System] Run
+[2021-12-03] [오전 9:41:48] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:41:48] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:42:25] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:42:25] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 9:42:26] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-03] [오전 9:42:26] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-03] [오전 9:42:26] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 9:42:29] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:42:30] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:42:33] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:42:33] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:42:37] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:42:41] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:42:46] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:46:21] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:46:22] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-03] [오전 9:46:22] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-03] [오전 9:46:22] [ Log ] :  > SMU3 Check - OK! [4.9975700378418]
+[2021-12-03] [오전 9:46:23] [ Log ] :  > SMU4 Check - OK! [4.99878358840942]
+[2021-12-03] [오전 9:46:23] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:46:23] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:46:26] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:46:26] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:46:33] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:46:37] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:46:41] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:47:02] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:47:03] [ Log ] :  > SMU1 Check - OK! [4.99850845336914]
+[2021-12-03] [오전 9:47:03] [ Log ] :  > SMU2 Check - OK! [5.00034189224243]
+[2021-12-03] [오전 9:47:04] [ Log ] :  > SMU3 Check - OK! [4.99904203414917]
+[2021-12-03] [오전 9:47:04] [ Log ] :  > SMU4 Check - OK! [4.99952030181885]
+[2021-12-03] [오전 9:47:25] [ Log ] : 
+[2021-12-03] [오전 9:47:25] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:47:29] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:47:29] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:47:34] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:47:38] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:47:42] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:47:57] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:48:00] [ Log ] : [System] Run
+[2021-12-03] [오전 9:48:01] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:48:01] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:48:11] [ Log ] : [System] Stop
+[2021-12-03] [오전 9:49:01] [ Log ] : [System] Run
+[2021-12-03] [오전 9:49:01] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:49:01] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:49:27] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:49:28] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 9:49:28] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-03] [오전 9:49:28] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 9:49:29] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 9:49:50] [ Log ] : 
+[2021-12-03] [오전 9:49:50] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:50:19] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 9:50:19] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 9:50:20] [ Log ] :  > SMU2 Check - OK! [4.99959897994995]
+[2021-12-03] [오전 9:50:20] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 9:50:20] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 9:50:23] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 9:50:23] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 9:50:26] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 9:50:26] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 9:50:30] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 9:50:34] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 9:50:39] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 9:50:44] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:50:48] [ Log ] : [System] Run
+[2021-12-03] [오전 9:50:48] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 9:50:48] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 9:50:56] [ Log ] : [System] Stop
+[2021-12-03] [오전 9:54:42] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 9:55:19] [ Log ] : [System] Setup Save
+[2021-12-03] [오전 9:55:28] [ Log ] : [System] Run
+[2021-12-03] [오전 9:55:28] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-03] [오전 9:56:48] [ Log ] : [System] Run
+[2021-12-03] [오전 9:56:48] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-03] [오전 9:57:00] [ Log ] : [System] Run
+[2021-12-03] [오전 9:57:00] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-03] [오전 9:59:01] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 10:01:11] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 10:01:15] [ Log ] : [System] Run
+[2021-12-03] [오전 10:01:15] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 10:01:15] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 10:10:16] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 10:11:28] [ Log ] : [System] Utility Tool
+[2021-12-03] [오전 10:12:58] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:12:59] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 10:12:59] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-03] [오전 10:12:59] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 10:13:00] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 10:13:03] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 10:13:04] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:13:04] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:13:08] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:13:13] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:13:20] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 10:13:45] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:13:45] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-03] [오전 10:13:46] [ Log ] :  > SMU2 Check - OK! [4.99959897994995]
+[2021-12-03] [오전 10:13:46] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 10:13:46] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 10:13:50] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 10:13:52] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:13:53] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:13:57] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:14:01] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:14:05] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 10:14:10] [ Log ] : [System] Utility Tool
+[2021-12-03] [오전 10:18:11] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:18:12] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-03] [오전 10:18:12] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-03] [오전 10:18:13] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-03] [오전 10:18:13] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 10:18:16] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 10:18:17] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:18:18] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:18:22] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:18:26] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:18:30] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 10:18:35] [ Log ] : [System] Utility Tool
+[2021-12-03] [오전 10:18:52] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:18:53] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 10:18:53] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-03] [오전 10:18:53] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 10:18:54] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 10:18:55] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:18:55] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:18:59] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:19:03] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:19:07] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 10:19:12] [ Log ] : [System] Utility Tool
+[2021-12-03] [오전 10:46:19] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:46:19] [ Log ] :  > SMU1 Check - OK! [4.99850845336914]
+[2021-12-03] [오전 10:46:20] [ Log ] :  > SMU2 Check - OK! [4.99959897994995]
+[2021-12-03] [오전 10:46:20] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 10:46:21] [ Log ] :  > SMU4 Check - OK! [4.99896812438965]
+[2021-12-03] [오전 10:46:23] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:46:23] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:46:27] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:46:31] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:46:35] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 10:46:40] [ Log ] : [System] Utility Tool
+[2021-12-03] [오전 10:47:04] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:47:05] [ Log ] :  > SMU1 Check - OK! [4.99887609481812]
+[2021-12-03] [오전 10:47:05] [ Log ] :  > SMU2 Check - OK! [4.99978446960449]
+[2021-12-03] [오전 10:47:06] [ Log ] :  > SMU3 Check - OK! [4.99775409698486]
+[2021-12-03] [오전 10:47:06] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 10:47:06] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 10:47:09] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-03] [오전 10:47:14] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:47:14] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:47:18] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:47:22] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:47:27] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 10:47:43] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 10:47:46] [ Log ] : [System] Run
+[2021-12-03] [오전 10:47:46] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 10:47:46] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 10:50:55] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:51:02] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:51:03] [ Log ] :  > SMU1 Check - OK! [4.99869251251221]
+[2021-12-03] [오전 10:51:03] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-03] [오전 10:51:04] [ Log ] :  > SMU3 Check - OK! [4.99867391586304]
+[2021-12-03] [오전 10:51:04] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 10:51:04] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 10:51:07] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-03] [오전 10:51:09] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:51:09] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:51:13] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:51:18] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:51:22] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 10:51:27] [ Log ] : [System] Setup Load
+[2021-12-03] [오전 10:51:30] [ Log ] : [System] Run
+[2021-12-03] [오전 10:51:30] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 10:51:30] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오전 10:54:46] [ Log ] : [System] Repeat
+[2021-12-03] [오전 10:54:47] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 10:54:48] [ Log ] :  > SMU1 Check - OK! [4.99850845336914]
+[2021-12-03] [오전 10:54:48] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-03] [오전 10:54:48] [ Log ] :  > SMU3 Check - OK! [4.998122215271]
+[2021-12-03] [오전 10:54:49] [ Log ] :  > SMU4 Check - OK! [4.99933624267578]
+[2021-12-03] [오전 10:54:49] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 10:54:51] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-03] [오전 10:54:52] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 10:54:53] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 10:55:00] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 10:55:04] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 10:55:08] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 11:41:07] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 11:41:08] [ Log ] :  > SMU1 Check - OK! [4.99850845336914]
+[2021-12-03] [오전 11:41:08] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-03] [오전 11:41:08] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 11:41:09] [ Log ] :  > SMU4 Check - OK! [4.99915218353271]
+[2021-12-03] [오전 11:41:12] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 11:41:12] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 11:41:13] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 11:41:13] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 11:41:17] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 11:41:22] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 11:41:26] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 11:43:55] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오전 11:43:55] [ Log ] :  > SMU1 Check - OK! [4.99832439422607]
+[2021-12-03] [오전 11:43:56] [ Log ] :  > SMU2 Check - OK! [4.99941301345825]
+[2021-12-03] [오전 11:43:56] [ Log ] :  > SMU3 Check - OK! [4.99848985671997]
+[2021-12-03] [오전 11:43:57] [ Log ] :  > SMU4 Check - OK! [4.99896812438965]
+[2021-12-03] [오전 11:44:00] [ Log ] :  > CMU1 Check - OK!
+[2021-12-03] [오전 11:44:00] [ Log ] :  > PGU1 Check - OK!
+[2021-12-03] [오전 11:44:01] [ Log ] : [System] Auto_Calibration
+[2021-12-03] [오전 11:44:02] [ Log ] : [Cal Offset] SMU1
+[2021-12-03] [오전 11:44:06] [ Log ] : [Cal Offset] SMU2
+[2021-12-03] [오전 11:44:10] [ Log ] : [Cal Offset] SMU3
+[2021-12-03] [오전 11:44:14] [ Log ] : [Cal Offset] SMU4
+[2021-12-03] [오전 11:44:37] [ Log ] : [System] Utility Tool
+[2021-12-03] [오전 11:45:05] [ Log ] : [System] Run
+[2021-12-03] [오전 11:45:05] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-12-03] [오전 11:45:06] [ Log ] : [Measure] C-V Sweep
+[2021-12-03] [오후 2:08:35] [ Log ] : [System] Utility Tool
+[2021-12-03] [오후 3:20:15] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오후 3:31:21] [ Log ] : [System] Utility Tool
+[2021-12-03] [오후 4:14:39] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오후 4:14:51] [ Log ] : [System] Utility Tool
+[2021-12-03] [오후 4:22:34] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오후 4:22:49] [ Log ] : [System] Utility Tool
+[2021-12-03] [오후 4:23:44] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오후 4:23:51] [ Log ] : [System] Utility Tool
+[2021-12-03] [오후 4:30:49] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오후 4:30:56] [ Log ] : [System] Utility Tool
+[2021-12-03] [오후 4:32:50] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오후 4:33:13] [ Log ] : [System] Utility Tool
+[2021-12-03] [오후 4:35:04] [ Log ] : [System] System Configuration Check...
+[2021-12-03] [오후 5:06:51] [ Log ] : [System] Utility Tool
+[2021-12-06] [오전 9:57:16] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오전 10:24:32] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오전 10:32:30] [ Log ] : [System] Utility Tool
+[2021-12-06] [오전 10:56:58] [ Log ] : [System] Setup Load
+[2021-12-06] [오전 10:58:15] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오전 10:58:24] [ Log ] : [System] Setup Load
+[2021-12-06] [오전 11:03:21] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 2:01:42] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:03:53] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 2:04:02] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:17:13] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 2:17:29] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:17:42] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:18:36] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:18:45] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:19:27] [ Log ] : [System] System Open Error! Check System
+[2021-12-06] [오후 2:28:29] [ Log ] : [System] Run
+[2021-12-06] [오후 2:28:29] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-12-06] [오후 2:29:22] [ Log ] : [Measure] I/V Sweep
+[2021-12-06] [오후 2:29:24] [ Log ] : [System] Stop
+[2021-12-06] [오후 2:29:40] [ Log ] : [System] Run
+[2021-12-06] [오후 2:29:41] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-12-06] [오후 2:30:28] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 2:30:29] [ Log ] :  > SMU1 Check - OK! [5.06775951385498]
+[2021-12-06] [오후 2:30:29] [ Log ] :  > SMU2 Check - NG! [39.4027442932129]
+[2021-12-06] [오후 2:30:30] [ Log ] :  > SMU3 Check - NG! [20.3536262512207]
+[2021-12-06] [오후 2:30:30] [ Log ] :  > SMU4 Check - NG! [20.3536262512207]
+[2021-12-06] [오후 2:43:57] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 2:44:25] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:44:32] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:44:34] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:44:35] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:46:03] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 2:46:04] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:46:04] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:46:05] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:46:05] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 2:46:18] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 2:46:21] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:46:32] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 2:46:44] [ Log ] : [System] Run
+[2021-12-06] [오후 2:46:44] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-12-06] [오후 2:47:16] [ Log ] : [Measure] I/V Sweep
+[2021-12-06] [오후 2:47:18] [ Log ] : [System] Stop
+[2021-12-06] [오후 2:47:40] [ Log ] : [System] Run
+[2021-12-06] [오후 2:47:40] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg
+[2021-12-06] [오후 5:37:10] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 5:37:11] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:37:11] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:37:12] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:37:12] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:37:13] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 5:37:15] [ Log ] : [System] Utility Tool
+[2021-12-06] [오후 5:37:39] [ Log ] : [System] Utility Tool
+[2021-12-06] [오후 5:38:41] [ Log ] : [System] Utility Tool
+[2021-12-06] [오후 5:40:57] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 5:40:58] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:40:59] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:40:59] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:40:59] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:41:00] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 5:41:01] [ Log ] : [System] Utility Tool
+[2021-12-06] [오후 5:41:13] [ Log ] : [System] Utility Tool
+[2021-12-06] [오후 5:51:18] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 5:51:19] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:51:19] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:51:20] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:51:20] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:51:24] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 5:51:25] [ Log ] : [System] Utility Tool
+[2021-12-06] [오후 5:56:59] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 5:57:00] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:57:00] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:57:00] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:57:01] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 5:57:11] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 7:08:43] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 7:09:52] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 7:23:43] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 7:23:49] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:23:49] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:23:50] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:23:50] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:23:52] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 7:23:58] [ Log ] : [System] Setup Load
+[2021-12-06] [오후 7:24:16] [ Log ] : [System] Run
+[2021-12-06] [오후 7:24:16] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-06] [오후 7:24:44] [ Log ] : [System] Run
+[2021-12-06] [오후 7:24:45] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-06] [오후 7:25:22] [ Log ] : [System] Run
+[2021-12-06] [오후 7:25:22] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-06] [오후 7:26:21] [ Log ] : [System] Run
+[2021-12-06] [오후 7:26:22] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-06] [오후 7:26:36] [ Log ] : [System] Run
+[2021-12-06] [오후 7:26:36] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-06] [오후 7:28:21] [ Log ] : [System] Run
+[2021-12-06] [오후 7:28:21] [ Log ] : [System] Setup_File : NMOS_Id-Vg3
+[2021-12-06] [오후 7:28:55] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 7:29:05] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:29:06] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:29:09] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:29:14] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:29:18] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 7:29:28] [ Log ] : [System] Run
+[2021-12-06] [오후 7:29:28] [ Log ] : [System] Setup_File : NMOS_Id-Vg3
+[2021-12-06] [오후 7:29:39] [ Log ] : [System] Run
+[2021-12-06] [오후 7:29:39] [ Log ] : [System] Setup_File : NMOS_Id-Vg3
+[2021-12-06] [오후 7:29:52] [ Log ] : [System] Run
+[2021-12-06] [오후 7:29:53] [ Log ] : [System] Setup_File : NMOS_Id-Vg3
+[2021-12-06] [오후 7:31:21] [ Log ] : [System] System Configuration Check...
+[2021-12-06] [오후 7:31:24] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:31:25] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:31:26] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:31:26] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-06] [오후 7:31:29] [ Log ] : [System] Auto_Calibration
+[2021-12-06] [오후 7:31:33] [ Log ] : [System] Run
+[2021-12-06] [오후 7:31:33] [ Log ] : [System] Setup_File : NMOS_Id-Vg3
+[2021-12-06] [오후 7:31:43] [ Log ] : [Measure] Id-Vg
+[2021-12-06] [오후 7:31:52] [ Log ] : [System] Run
+[2021-12-06] [오후 7:31:52] [ Log ] : [System] Setup_File : NMOS_Id-Vg3
+[2021-12-06] [오후 7:32:00] [ Log ] : [Measure] Id-Vg
+[2021-12-06] [오후 7:32:03] [ Log ] : [System] Stop
+[2021-12-06] [오후 7:32:28] [ Log ] : [System] Run
+[2021-12-06] [오후 7:32:28] [ Log ] : [System] Setup_File : NMOS_Id-Vg3
+[2021-12-06] [오후 7:33:02] [ Log ] : [Measure] Id-Vg
+[2021-12-06] [오후 7:33:05] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:17:28] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 9:17:29] [ Log ] :  > SMU1 Check - NG! [8.23053932189941]
+[2021-12-07] [오전 9:17:30] [ Log ] :  > SMU2 Check - NG! [-7.33153009414673]
+[2021-12-07] [오전 9:17:30] [ Log ] :  > SMU3 Check - NG! [25.7608833312988]
+[2021-12-07] [오전 9:17:30] [ Log ] :  > SMU4 Check - NG! [20.3536262512207]
+[2021-12-07] [오전 9:17:53] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 9:18:14] [ Log ] : [System] Run
+[2021-12-07] [오전 9:18:14] [ Log ] : [System] Setup_File : NMOS_Id-Vd3
+[2021-12-07] [오전 9:18:30] [ Log ] : [Measure] Id-Vd
+[2021-12-07] [오전 9:18:37] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:21:56] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 9:21:57] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오전 9:21:57] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오전 9:21:57] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오전 9:21:58] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오전 9:21:59] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 9:22:14] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 9:22:16] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 9:22:22] [ Log ] : [System] Run
+[2021-12-07] [오전 9:22:22] [ Log ] : [System] Setup_File : NMOS_Id-Vd3
+[2021-12-07] [오전 9:22:30] [ Log ] : [System] Setup Load
+[2021-12-07] [오전 9:22:33] [ Log ] : [System] Run
+[2021-12-07] [오전 9:22:33] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-07] [오전 9:22:33] [ Log ] : [Measure] Id-Vg
+[2021-12-07] [오전 9:22:36] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:23:09] [ Log ] : [System] Run
+[2021-12-07] [오전 9:23:09] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-07] [오전 9:23:28] [ Log ] : [Measure] Id-Vg
+[2021-12-07] [오전 9:23:30] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:23:42] [ Log ] : [System] Run
+[2021-12-07] [오전 9:23:42] [ Log ] : [System] Setup_File : NMOS_Id-Vg6
+[2021-12-07] [오전 9:23:42] [ Log ] : [Measure] Id-Vg
+[2021-12-07] [오전 9:23:45] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:23:58] [ Log ] : [System] Run
+[2021-12-07] [오전 9:23:58] [ Log ] : [System] Setup_File : NMOS_Id-Vg6
+[2021-12-07] [오전 9:24:06] [ Log ] : [Measure] Id-Vg
+[2021-12-07] [오전 9:24:08] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:24:18] [ Log ] : [System] Run
+[2021-12-07] [오전 9:24:18] [ Log ] : [System] Setup_File : NMOS_Id-Vd6
+[2021-12-07] [오전 9:24:18] [ Log ] : [Measure] Id-Vd
+[2021-12-07] [오전 9:24:21] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:24:44] [ Log ] : [System] Run
+[2021-12-07] [오전 9:24:44] [ Log ] : [System] Setup_File : NMOS_Id-Vd6
+[2021-12-07] [오전 9:24:55] [ Log ] : [Measure] Id-Vd
+[2021-12-07] [오전 9:24:57] [ Log ] : [System] Stop
+[2021-12-07] [오전 9:59:42] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 9:59:43] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오전 9:59:43] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오전 9:59:43] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오전 9:59:44] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:10:40] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 10:10:58] [ Log ] : [System] Setup Load
+[2021-12-07] [오전 10:11:08] [ Log ] : [System] Utility Tool
+[2021-12-07] [오전 10:11:27] [ Log ] : [System] Setup Load
+[2021-12-07] [오전 10:11:32] [ Log ] : [System] Setup Load
+[2021-12-07] [오전 10:11:41] [ Log ] : [System] Utility Tool
+[2021-12-07] [오전 10:11:58] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 10:11:58] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:11:59] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:11:59] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:11:59] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:12:01] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-07] [오전 10:12:03] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 10:12:07] [ Log ] : [System] Setup Load
+[2021-12-07] [오전 10:12:38] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 10:12:39] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:12:40] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:12:40] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:12:40] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:12:43] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-07] [오전 10:12:43] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 10:12:47] [ Log ] : [System] Setup Load
+[2021-12-07] [오전 10:14:16] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 10:14:17] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:14:17] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:14:17] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:14:18] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오전 10:14:20] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-07] [오전 10:15:21] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 11:50:05] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오전 11:50:05] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오전 11:50:06] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오전 11:50:06] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오전 11:50:06] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오전 11:50:09] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-07] [오전 11:50:10] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오전 11:50:22] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:20:43] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 2:20:44] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:20:44] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:20:45] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:20:45] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:20:47] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-07] [오후 2:20:49] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 2:20:50] [ Log ] : [System] Utility Tool
+[2021-12-07] [오후 2:21:02] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:21:21] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:21:27] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:21:47] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:22:21] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:22:34] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:22:48] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:22:56] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:23:18] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:56:57] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 2:56:58] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:56:58] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:56:58] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:56:59] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 2:57:00] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 2:57:05] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:57:32] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:59:21] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 2:59:58] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 3:00:04] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 3:00:55] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 3:11:06] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 3:32:25] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 3:32:25] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:32:26] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:32:26] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:32:26] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:32:28] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 3:32:33] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 3:32:41] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 3:34:14] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 3:34:14] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:34:15] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:34:15] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:34:15] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:34:16] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 3:34:18] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 3:37:23] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 3:37:23] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:37:24] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:37:24] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:37:24] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:37:25] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 3:37:58] [ Log ] : [System] Utility Tool
+[2021-12-07] [오후 3:38:23] [ Log ] : [System] Utility Tool
+[2021-12-07] [오후 3:44:26] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 3:44:26] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:44:27] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:44:27] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:44:28] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 3:44:28] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 3:56:08] [ Log ] : [System] Run
+[2021-12-07] [오후 3:56:08] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg2
+[2021-12-07] [오후 3:56:09] [ Log ] : [Measure] I/V Sweep
+[2021-12-07] [오후 3:56:48] [ Log ] : [System] Run
+[2021-12-07] [오후 3:56:48] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg2
+[2021-12-07] [오후 3:57:40] [ Log ] : [Measure] I/V Sweep
+[2021-12-07] [오후 3:58:20] [ Log ] : [System] Run
+[2021-12-07] [오후 3:58:20] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vg2
+[2021-12-07] [오후 3:58:49] [ Log ] : [Measure] I/V Sweep
+[2021-12-07] [오후 4:03:56] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 4:03:57] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:03:57] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:03:57] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:03:58] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:03:58] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 4:04:04] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 4:04:08] [ Log ] : [System] Run
+[2021-12-07] [오후 4:04:08] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 4:04:08] [ Log ] : [Measure] I/V Sweep
+[2021-12-07] [오후 4:04:11] [ Log ] : [System] Stop
+[2021-12-07] [오후 4:04:36] [ Log ] : [System] Run
+[2021-12-07] [오후 4:04:36] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 4:04:47] [ Log ] : [System] Run
+[2021-12-07] [오후 4:04:47] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 4:05:31] [ Log ] : [System] Run
+[2021-12-07] [오후 4:05:31] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 4:05:35] [ Log ] : [System] Run
+[2021-12-07] [오후 4:05:36] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 4:06:51] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 4:06:52] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:06:52] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:06:52] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:06:53] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:06:54] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 4:07:03] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 4:07:21] [ Log ] : [System] Run
+[2021-12-07] [오후 4:07:21] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:08:07] [ Log ] : [System] Run
+[2021-12-07] [오후 4:08:07] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:08:41] [ Log ] : [System] Run
+[2021-12-07] [오후 4:08:41] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:08:56] [ Log ] : [System] Run
+[2021-12-07] [오후 4:08:57] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:21:52] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 4:21:53] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:21:54] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:21:54] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:21:54] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:21:55] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 4:21:58] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 4:22:09] [ Log ] : [System] Run
+[2021-12-07] [오후 4:22:09] [ Log ] : [System] Setup_File : BJT_NPN_Ib-Vb
+[2021-12-07] [오후 4:22:26] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 4:22:33] [ Log ] : [System] Run
+[2021-12-07] [오후 4:22:34] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:22:40] [ Log ] : [Measure] Ic-Vc
+[2021-12-07] [오후 4:22:41] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.Measure_BJT_Ic_Vc_TPI(Boolean channel_Ntype, Double holdTime, Double delayTime, Double Vcollector_start, Double Vcollector_stop, Double Vcollector_step, Double Ibase_start, Double Ibase_stop, Double Ibase_step, Double Vemitter_Bias, Double Body_Bias, Double C_Icom, Double B_Vcom, Double E_Icom, Double B1_Icom, Int32 Ucollector, Int32 Ubase, Int32 Uemitter, Int32 Ubody) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 1904
+   위치: Sta2CLI.BJT_IcVc_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\BJT_IcVc_SetupForm.vb:줄 333
+   위치: Sta2CLI.Form1.Measure_BJT_Ic_Vc() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1126
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1998
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 5083
+[2021-12-07] [오후 4:23:07] [ Log ] : [System] Run
+[2021-12-07] [오후 4:23:07] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:23:33] [ Log ] : [Measure] Ic-Vc
+[2021-12-07] [오후 4:23:34] [ Log ] : [Exception Error] System.IndexOutOfRangeException: 인덱스가 배열 범위를 벗어났습니다.
+   위치: Sta2CLI.TPI.Measure_BJT_Ic_Vc_TPI(Boolean channel_Ntype, Double holdTime, Double delayTime, Double Vcollector_start, Double Vcollector_stop, Double Vcollector_step, Double Ibase_start, Double Ibase_stop, Double Ibase_step, Double Vemitter_Bias, Double Body_Bias, Double C_Icom, Double B_Vcom, Double E_Icom, Double B1_Icom, Int32 Ucollector, Int32 Ubase, Int32 Uemitter, Int32 Ubody) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 1904
+   위치: Sta2CLI.BJT_IcVc_SetupForm.Measure() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\BJT_IcVc_SetupForm.vb:줄 333
+   위치: Sta2CLI.Form1.Measure_BJT_Ic_Vc() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1126
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1998
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 5083
+[2021-12-07] [오후 4:23:45] [ Log ] : [System] Run
+[2021-12-07] [오후 4:23:45] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:24:00] [ Log ] : [System] Run
+[2021-12-07] [오후 4:24:00] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:24:31] [ Log ] : [System] Run
+[2021-12-07] [오후 4:24:31] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:24:41] [ Log ] : [System] Run
+[2021-12-07] [오후 4:24:41] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:25:27] [ Log ] : [System] Run
+[2021-12-07] [오후 4:25:27] [ Log ] : [System] Setup_File : BJT_NPN_Ic-Vc
+[2021-12-07] [오후 4:38:46] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 4:38:47] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:38:47] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:38:48] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:38:48] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 4:40:20] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 4:40:34] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 4:40:45] [ Log ] : [System] Run
+[2021-12-07] [오후 4:40:46] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 4:40:46] [ Log ] : [Measure] I/V Sweep
+[2021-12-07] [오후 4:40:49] [ Log ] : [System] Stop
+[2021-12-07] [오후 5:20:36] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 5:20:37] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:20:37] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:20:38] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:20:38] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:20:39] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 5:28:35] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 5:29:22] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:29:25] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:29:27] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:29:28] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:29:31] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 5:29:43] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 5:31:06] [ Log ] : [System] Run
+[2021-12-07] [오후 5:31:06] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 5:31:06] [ Log ] : [Measure] I/V Sweep
+[2021-12-07] [오후 5:51:10] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 5:51:11] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:51:11] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:51:11] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:51:12] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:51:13] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 5:51:18] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 5:51:24] [ Log ] : [System] Run
+[2021-12-07] [오후 5:51:24] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-07] [오후 5:51:27] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.S3000.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 293
+   위치: Sta2CLI.S3000.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 304
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5243
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1022
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1986
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 5083
+[2021-12-07] [오후 5:51:58] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 5:56:14] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 5:56:15] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:56:15] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:56:15] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 5:56:16] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 6:01:32] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 7:25:58] [ Log ] : [System] System Configuration Check...
+[2021-12-07] [오후 7:25:59] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-07] [오후 7:25:59] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-07] [오후 7:26:00] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-07] [오후 7:26:00] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-07] [오후 7:26:01] [ Log ] : [System] Auto_Calibration
+[2021-12-07] [오후 7:26:03] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 7:26:15] [ Log ] : [System] Run
+[2021-12-07] [오후 7:26:15] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-07] [오후 7:28:11] [ Log ] : [Measure] I/V Sweep
+[2021-12-07] [오후 7:28:54] [ Log ] : [System] Setup Load
+[2021-12-07] [오후 7:29:20] [ Log ] : [System] Setup Load
+[2021-12-08] [오전 10:01:36] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:01:37] [ Log ] :  > SMU1 Check - NG! [8.23053932189941]
+[2021-12-08] [오전 10:01:37] [ Log ] :  > SMU2 Check - NG! [-7.33153009414673]
+[2021-12-08] [오전 10:01:38] [ Log ] :  > SMU3 Check - NG! [25.7608833312988]
+[2021-12-08] [오전 10:01:38] [ Log ] :  > SMU4 Check - NG! [20.3536262512207]
+[2021-12-08] [오전 10:01:39] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:01:41] [ Log ] : [System] Utility Tool
+[2021-12-08] [오전 10:02:00] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:02:01] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:02:01] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:02:03] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:02:07] [ Log ] : [System] Utility Tool
+[2021-12-08] [오전 10:03:57] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:03:58] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:03:58] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:03:59] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:04:22] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:04:22] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:04:23] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:04:25] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:04:42] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:04:43] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:04:43] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:04:44] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:04:45] [ Log ] : [System] Utility Tool
+[2021-12-08] [오전 10:05:06] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:05:07] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:07] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:07] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:08] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:08] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:05:23] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:05:24] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:25] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:25] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:25] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:26] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:05:28] [ Log ] : [System] Utility Tool
+[2021-12-08] [오전 10:05:45] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:05:46] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:46] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:05:47] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:09:52] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:09:53] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:09:53] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:09:57] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:10:36] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:10:36] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:10:37] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:12:25] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:12:25] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:12:26] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:12:27] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:12:39] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:12:40] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:12:40] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:12:42] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:14:08] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:14:09] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:14:09] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:14:10] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:14:25] [ Log ] : [System] Run
+[2021-12-08] [오전 10:14:25] [ Log ] : [System] Setup_File : IV_Sweep2
+[2021-12-08] [오전 10:14:33] [ Log ] : [System] Run
+[2021-12-08] [오전 10:14:33] [ Log ] : [System] Setup_File : IV_Sweep2
+[2021-12-08] [오전 10:31:35] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 10:31:35] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:31:36] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 10:31:37] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 10:31:37] [ Log ] : [System] Setup Load
+[2021-12-08] [오전 10:31:50] [ Log ] : [System] Run
+[2021-12-08] [오전 10:31:51] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오전 10:32:13] [ Log ] : [System] Run
+[2021-12-08] [오전 10:32:14] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오전 10:32:25] [ Log ] : [System] Run
+[2021-12-08] [오전 10:32:25] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오전 10:32:30] [ Log ] : [System] Run
+[2021-12-08] [오전 10:32:30] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오전 10:32:52] [ Log ] : [System] Run
+[2021-12-08] [오전 10:32:52] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오전 10:33:05] [ Log ] : [System] Run
+[2021-12-08] [오전 10:33:05] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오전 10:33:15] [ Log ] : [System] Run
+[2021-12-08] [오전 10:33:15] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오전 10:33:26] [ Log ] : [System] Setup Load
+[2021-12-08] [오전 10:33:31] [ Log ] : [System] Run
+[2021-12-08] [오전 10:33:31] [ Log ] : [System] Setup_File : BJT_PNP_Ic-Vc
+[2021-12-08] [오전 10:33:42] [ Log ] : [System] Run
+[2021-12-08] [오전 10:33:42] [ Log ] : [System] Setup_File : BJT_PNP_Ic-Vc
+[2021-12-08] [오전 11:23:23] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 11:23:23] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:23:24] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:23:25] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 11:23:26] [ Log ] : [System] Setup Load
+[2021-12-08] [오전 11:27:45] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 11:27:46] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:27:46] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:27:47] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 11:27:48] [ Log ] : [System] Setup Load
+[2021-12-08] [오전 11:28:17] [ Log ] : [System] Setup Load
+[2021-12-08] [오전 11:29:49] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 11:29:50] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:29:50] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:29:51] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 11:29:59] [ Log ] : [System] Run
+[2021-12-08] [오전 11:30:00] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:31:01] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 11:31:02] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:31:02] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:31:03] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 11:31:15] [ Log ] : [System] Run
+[2021-12-08] [오전 11:31:16] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:31:19] [ Log ] : [System] Utility Tool
+[2021-12-08] [오전 11:31:58] [ Log ] : [System] Run
+[2021-12-08] [오전 11:31:58] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:32:07] [ Log ] : [System] Run
+[2021-12-08] [오전 11:32:07] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:32:20] [ Log ] : [System] Run
+[2021-12-08] [오전 11:32:21] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:32:31] [ Log ] : [System] Run
+[2021-12-08] [오전 11:32:31] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:32:56] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 11:32:57] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:32:57] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:32:57] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:32:58] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:33:00] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 11:33:29] [ Log ] : [System] Run
+[2021-12-08] [오전 11:33:29] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:33:36] [ Log ] : [System] Run
+[2021-12-08] [오전 11:33:36] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:34:01] [ Log ] : [System] Run
+[2021-12-08] [오전 11:34:01] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:37:52] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 11:37:53] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:37:53] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:37:54] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:37:54] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:37:55] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 11:38:08] [ Log ] : [System] Setup Load
+[2021-12-08] [오전 11:38:19] [ Log ] : [System] Run
+[2021-12-08] [오전 11:38:19] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:38:19] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오전 11:38:20] [ Log ] : [System] Stop
+[2021-12-08] [오전 11:38:44] [ Log ] : [System] Run
+[2021-12-08] [오전 11:38:44] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:38:51] [ Log ] : [System] Run
+[2021-12-08] [오전 11:38:51] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:38:51] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오전 11:38:53] [ Log ] : [System] Stop
+[2021-12-08] [오전 11:39:04] [ Log ] : [System] Run
+[2021-12-08] [오전 11:39:04] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:39:04] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오전 11:39:06] [ Log ] : [System] Stop
+[2021-12-08] [오전 11:39:13] [ Log ] : [System] Run
+[2021-12-08] [오전 11:39:14] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오전 11:44:55] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오전 11:44:56] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:44:57] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:44:57] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:44:57] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오전 11:44:58] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오전 11:45:19] [ Log ] : [System] Run
+[2021-12-08] [오전 11:45:20] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:35:28] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 2:35:29] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:35:29] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:35:29] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:35:30] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:35:31] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 2:35:50] [ Log ] : [System] Run
+[2021-12-08] [오후 2:35:50] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:36:08] [ Log ] : [System] Run
+[2021-12-08] [오후 2:36:08] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:36:15] [ Log ] : [System] Run
+[2021-12-08] [오후 2:36:15] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:36:24] [ Log ] : [System] Run
+[2021-12-08] [오후 2:36:25] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:44:26] [ Log ] : [System] Run
+[2021-12-08] [오후 2:44:26] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:45:27] [ Log ] : [System] Run
+[2021-12-08] [오후 2:45:27] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:47:20] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 2:47:21] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:47:21] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:47:21] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:47:22] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:47:27] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 2:47:48] [ Log ] : [System] Run
+[2021-12-08] [오후 2:47:48] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:48:06] [ Log ] : [System] Run
+[2021-12-08] [오후 2:48:06] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:48:15] [ Log ] : [System] Run
+[2021-12-08] [오후 2:48:15] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:48:24] [ Log ] : [System] Run
+[2021-12-08] [오후 2:48:24] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:48:24] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:48:26] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:48:34] [ Log ] : [System] Run
+[2021-12-08] [오후 2:48:34] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:48:42] [ Log ] : [System] Run
+[2021-12-08] [오후 2:48:42] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:48:43] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:48:44] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:48:45] [ Log ] : [System] Run
+[2021-12-08] [오후 2:48:46] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:48:46] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:48:46] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:48:55] [ Log ] : [System] Run
+[2021-12-08] [오후 2:48:55] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:49:11] [ Log ] : [System] Run
+[2021-12-08] [오후 2:49:11] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:49:22] [ Log ] : [System] Run
+[2021-12-08] [오후 2:49:22] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:49:42] [ Log ] : [System] Run
+[2021-12-08] [오후 2:49:42] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:49:50] [ Log ] : [System] Run
+[2021-12-08] [오후 2:49:50] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:49:50] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:49:51] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:50:00] [ Log ] : [System] Run
+[2021-12-08] [오후 2:50:00] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:50:00] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:50:03] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:50:24] [ Log ] : [System] Run
+[2021-12-08] [오후 2:50:24] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:50:24] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:50:26] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:50:35] [ Log ] : [System] Run
+[2021-12-08] [오후 2:50:35] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:50:48] [ Log ] : [System] Run
+[2021-12-08] [오후 2:50:48] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:51:08] [ Log ] : [System] Run
+[2021-12-08] [오후 2:51:08] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:51:20] [ Log ] : [System] Run
+[2021-12-08] [오후 2:51:20] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:51:20] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:51:21] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:51:27] [ Log ] : [System] Run
+[2021-12-08] [오후 2:51:27] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:51:27] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:51:30] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:51:36] [ Log ] : [System] Run
+[2021-12-08] [오후 2:51:37] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:53:56] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 2:53:57] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:53:57] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:53:58] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:53:58] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:54:00] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 2:54:07] [ Log ] : [System] Run
+[2021-12-08] [오후 2:54:07] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:54:08] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 2:54:09] [ Log ] : [System] Stop
+[2021-12-08] [오후 2:54:15] [ Log ] : [System] Run
+[2021-12-08] [오후 2:54:15] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:54:51] [ Log ] : [System] Run
+[2021-12-08] [오후 2:54:51] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:55:33] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 2:58:05] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 2:58:06] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:58:06] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:58:06] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:58:07] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 2:58:08] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 2:58:29] [ Log ] : [System] Run
+[2021-12-08] [오후 2:58:30] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:58:43] [ Log ] : [System] Run
+[2021-12-08] [오후 2:58:43] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 2:58:59] [ Log ] : [System] Run
+[2021-12-08] [오후 2:58:59] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 3:00:05] [ Log ] : [System] Run
+[2021-12-08] [오후 3:00:05] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 3:00:06] [ Log ] : [Measure] Id-Vg
+[2021-12-08] [오후 3:00:06] [ Log ] : [System] Stop
+[2021-12-08] [오후 3:00:18] [ Log ] : [System] Run
+[2021-12-08] [오후 3:00:18] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 3:00:25] [ Log ] : [System] Run
+[2021-12-08] [오후 3:00:26] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 3:00:41] [ Log ] : [System] Run
+[2021-12-08] [오후 3:00:41] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 3:03:41] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 3:03:41] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:03:42] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:03:42] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:03:42] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:07:58] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 3:08:40] [ Log ] : [System] Run
+[2021-12-08] [오후 3:08:40] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-12-08] [오후 3:31:57] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 3:31:57] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:31:58] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:31:58] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:31:58] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 3:32:00] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 3:32:08] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 3:32:51] [ Log ] : [System] Run
+[2021-12-08] [오후 3:32:51] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 3:32:52] [ Log ] : [Measure] I/V Sweep
+[2021-12-08] [오후 3:32:54] [ Log ] : [System] Stop
+[2021-12-08] [오후 3:33:01] [ Log ] : [System] Run
+[2021-12-08] [오후 3:33:01] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 3:33:13] [ Log ] : [System] Run
+[2021-12-08] [오후 3:33:13] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 3:39:13] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 3:39:35] [ Log ] : [System] Run
+[2021-12-08] [오후 3:39:35] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-08] [오후 3:39:37] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.S3000.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 293
+   위치: Sta2CLI.S3000.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 304
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5243
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1022
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1986
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 5083
+[2021-12-08] [오후 3:39:44] [ Log ] : [System] Run
+[2021-12-08] [오후 3:39:44] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-08] [오후 3:39:47] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.S3000.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 293
+   위치: Sta2CLI.S3000.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 304
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5243
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1022
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1986
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 5083
+[2021-12-08] [오후 4:02:30] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 4:02:31] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 4:02:31] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 4:02:32] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 4:02:32] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 4:02:33] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 4:02:37] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 4:07:45] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:15:28] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:15:28] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:15:29] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:15:29] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:15:29] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:15:30] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:15:31] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:18:45] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:18:46] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:18:46] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:18:47] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:18:47] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:19:29] [ Log ] : 
+[2021-12-08] [오후 5:19:31] [ Log ] :  > PGU1 Check - Failed!
+System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: TopInstrument.TOP_PGU.scpi_connect(Socket ss, String HOST, Int32 PORT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 248
+   위치: TopInstrument.TOP_PGU.my_open(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 185
+   위치: TopInstrument.TOP_PGU.SysOpen(String HOST, Int32 TIMEOUT) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\TopInstrument\TopHVPGU_rev__20210423.cs:줄 131
+   위치: Sta2CLI.S3000.CheckPGU(String Channnel, String& RetLogMsg) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\S3000.vb:줄 120
+[2021-12-08] [오후 5:19:55] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:19:56] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:29:30] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:37:32] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:37:33] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:37:34] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:37:34] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:37:34] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:37:37] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:37:38] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:38:13] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:38:14] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:38:14] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:38:15] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:38:15] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:38:16] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:38:17] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:38:31] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:38:58] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:38:59] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:38:59] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:39:00] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:39:00] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:39:01] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:39:02] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:39:53] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:39:54] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:39:54] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:39:55] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:39:55] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:39:56] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:39:57] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:40:41] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:40:41] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:40:42] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:40:42] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:40:42] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:40:43] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:40:55] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:41:20] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:41:21] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:41:21] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:41:21] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:41:22] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:41:23] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:41:42] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 5:56:20] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 5:56:21] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:56:21] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:56:22] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:56:22] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 5:56:23] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 5:56:27] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 6:21:35] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 7:01:54] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:01:55] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:01:55] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:01:55] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:01:56] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:01:57] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:02:10] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:02:37] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:02:57] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:09:14] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:09:15] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:09:15] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:09:15] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:09:16] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:09:17] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:14:14] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:14:15] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:14:15] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:14:16] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:14:16] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:14:17] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:14:18] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:18:14] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:18:15] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:18:15] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:18:16] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:18:16] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:18:17] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:18:18] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:19:15] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:19:16] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:19:16] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:19:16] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:19:17] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:19:18] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:19:19] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:22:05] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:22:06] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:22:06] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:22:07] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:22:07] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:22:08] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:22:09] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:23:46] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:24:32] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:24:33] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:24:33] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:24:33] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:24:34] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:24:35] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:24:36] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:25:12] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:25:13] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:25:13] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:25:14] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:25:14] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:25:15] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:25:15] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:27:40] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:27:41] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:27:41] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:27:42] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:27:42] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:27:43] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:27:44] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:28:32] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:28:33] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:28:33] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:28:34] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:28:34] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:28:35] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:28:43] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:29:16] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:29:39] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:29:39] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:29:40] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:29:40] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:29:40] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:29:42] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:29:50] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 7:30:07] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:30:39] [ Log ] : [System] Run
+[2021-12-08] [오후 7:30:39] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 7:30:39] [ Log ] : [Measure] I/V Sweep
+[2021-12-08] [오후 7:30:43] [ Log ] : [System] Stop
+[2021-12-08] [오후 7:30:58] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:31:44] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:31:44] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:31:45] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:31:45] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:31:45] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:31:46] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:31:49] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:32:18] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:32:19] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:32:19] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:32:19] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:32:20] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:32:21] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:32:29] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:35:03] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:35:03] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:35:04] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:35:04] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:35:04] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:35:05] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:35:07] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:36:04] [ Log ] : [System] Run
+[2021-12-08] [오후 7:36:04] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 7:36:04] [ Log ] : [Measure] I/V Sweep
+[2021-12-08] [오후 7:36:07] [ Log ] : [System] Stop
+[2021-12-08] [오후 7:36:22] [ Log ] : [System] Run
+[2021-12-08] [오후 7:36:22] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 7:36:52] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 7:37:01] [ Log ] : [System] Run
+[2021-12-08] [오후 7:37:01] [ Log ] : [System] Setup_File : IV_Sweep2
+[2021-12-08] [오후 7:37:01] [ Log ] : [Measure] I/V Sweep
+[2021-12-08] [오후 7:37:03] [ Log ] : [System] Stop
+[2021-12-08] [오후 7:37:07] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 7:41:34] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:56:00] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 7:56:10] [ Log ] : [System] Utility Tool
+[2021-12-08] [오후 7:56:45] [ Log ] : [System] System Configuration Check...
+[2021-12-08] [오후 7:56:46] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:56:46] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:56:47] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:56:47] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-08] [오후 7:56:48] [ Log ] : [System] Auto_Calibration
+[2021-12-08] [오후 7:56:52] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 7:57:12] [ Log ] : [System] Setup Load
+[2021-12-08] [오후 7:57:17] [ Log ] : [System] Run
+[2021-12-08] [오후 7:57:17] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 7:57:17] [ Log ] : [Measure] I/V Sweep
+[2021-12-08] [오후 7:57:28] [ Log ] : [System] Run
+[2021-12-08] [오후 7:57:28] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-08] [오후 7:57:29] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오전 9:22:37] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오전 9:22:37] [ Log ] :  > SMU1 Check - NG! [8.23053932189941]
+[2021-12-09] [오전 9:22:38] [ Log ] :  > SMU2 Check - NG! [-7.33153009414673]
+[2021-12-09] [오전 9:22:38] [ Log ] :  > SMU3 Check - NG! [25.7608833312988]
+[2021-12-09] [오전 9:22:39] [ Log ] :  > SMU4 Check - NG! [20.3536262512207]
+[2021-12-09] [오전 9:22:41] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오전 9:23:02] [ Log ] : [System] Run
+[2021-12-09] [오전 9:23:03] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 9:23:03] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오전 9:23:06] [ Log ] : [System] Stop
+[2021-12-09] [오전 9:23:16] [ Log ] : [System] Run
+[2021-12-09] [오전 9:23:16] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 9:23:23] [ Log ] : [System] Utility Tool
+[2021-12-09] [오전 9:23:30] [ Log ] : [System] Run
+[2021-12-09] [오전 9:23:31] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:54:55] [ Log ] : [System] Run
+[2021-12-09] [오전 10:54:55] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:54:55] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오전 10:54:58] [ Log ] : [System] Stop
+[2021-12-09] [오전 10:55:24] [ Log ] : [System] Run
+[2021-12-09] [오전 10:55:25] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:55:31] [ Log ] : [System] Run
+[2021-12-09] [오전 10:55:32] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:55:49] [ Log ] : [System] Run
+[2021-12-09] [오전 10:55:49] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:55:56] [ Log ] : [System] Run
+[2021-12-09] [오전 10:55:56] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:56:04] [ Log ] : [System] Run
+[2021-12-09] [오전 10:56:05] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:56:05] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오전 10:56:07] [ Log ] : [System] Stop
+[2021-12-09] [오전 10:56:07] [ Log ] : [System] Stop
+[2021-12-09] [오전 10:56:12] [ Log ] : [System] Run
+[2021-12-09] [오전 10:56:12] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 10:56:43] [ Log ] : [System] Run
+[2021-12-09] [오전 10:56:43] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 11:35:14] [ Log ] : [System] Run
+[2021-12-09] [오전 11:35:14] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 11:39:32] [ Log ] : [System] Run
+[2021-12-09] [오전 11:39:32] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오전 11:55:45] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 1:09:24] [ Log ] : [System] Utility Tool
+[2021-12-09] [오후 1:09:32] [ Log ] : [System] Utility Tool
+[2021-12-09] [오후 1:10:03] [ Log ] : [System] Run
+[2021-12-09] [오후 1:10:03] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:10:14] [ Log ] : [System] Run
+[2021-12-09] [오후 1:10:14] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:10:14] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 1:10:17] [ Log ] : [System] Stop
+[2021-12-09] [오후 1:10:26] [ Log ] : [System] Run
+[2021-12-09] [오후 1:10:26] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:10:26] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 1:10:29] [ Log ] : [System] Stop
+[2021-12-09] [오후 1:10:46] [ Log ] : [System] Run
+[2021-12-09] [오후 1:10:46] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:10:46] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 1:10:49] [ Log ] : [System] Stop
+[2021-12-09] [오후 1:10:56] [ Log ] : [System] Run
+[2021-12-09] [오후 1:10:56] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:17:03] [ Log ] : [System] Run
+[2021-12-09] [오후 1:17:03] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:24:04] [ Log ] : [System] Run
+[2021-12-09] [오후 1:24:04] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:27:49] [ Log ] : [System] Run
+[2021-12-09] [오후 1:27:49] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:27:50] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 1:27:52] [ Log ] : [System] Stop
+[2021-12-09] [오후 1:28:04] [ Log ] : [System] Run
+[2021-12-09] [오후 1:28:04] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:28:16] [ Log ] : [System] Run
+[2021-12-09] [오후 1:28:16] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:36:12] [ Log ] : [System] Utility Tool
+[2021-12-09] [오후 1:36:34] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오후 1:36:34] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-09] [오후 1:36:35] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-09] [오후 1:36:35] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-09] [오후 1:36:35] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-09] [오후 1:36:36] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오후 1:37:04] [ Log ] : [System] Run
+[2021-12-09] [오후 1:37:05] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:37:14] [ Log ] : [System] Run
+[2021-12-09] [오후 1:37:14] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:37:23] [ Log ] : [System] Run
+[2021-12-09] [오후 1:37:23] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 1:37:23] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 1:37:25] [ Log ] : [System] Stop
+[2021-12-09] [오후 1:37:35] [ Log ] : [System] Run
+[2021-12-09] [오후 1:37:36] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:17:28] [ Log ] : [System] Run
+[2021-12-09] [오후 2:17:28] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:17:50] [ Log ] : [System] Run
+[2021-12-09] [오후 2:17:50] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:17:50] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 2:17:52] [ Log ] : [System] Stop
+[2021-12-09] [오후 2:18:25] [ Log ] : [System] Run
+[2021-12-09] [오후 2:18:25] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:18:26] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 2:18:28] [ Log ] : [System] Stop
+[2021-12-09] [오후 2:18:34] [ Log ] : [System] Run
+[2021-12-09] [오후 2:18:35] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:18:40] [ Log ] : [System] Run
+[2021-12-09] [오후 2:18:40] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:22:07] [ Log ] : [System] Run
+[2021-12-09] [오후 2:22:07] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:30:21] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 2:31:15] [ Log ] : [System] Run
+[2021-12-09] [오후 2:31:15] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:32:20] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오후 2:32:23] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오후 2:32:26] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 2:33:34] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 2:40:17] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오후 2:40:33] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오후 2:41:31] [ Log ] : [System] Run
+[2021-12-09] [오후 2:41:31] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:41:41] [ Log ] : [System] Run
+[2021-12-09] [오후 2:41:41] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:41:45] [ Log ] : [System] Run
+[2021-12-09] [오후 2:41:45] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:41:48] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\TPI.vb:줄 5172
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\TPI.vb:줄 5155
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\Form1.vb:줄 1982
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\Form1.vb:줄 4980
+[2021-12-09] [오후 2:41:52] [ Log ] : [System] Run
+[2021-12-09] [오후 2:41:53] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:42:01] [ Log ] : [System] Run
+[2021-12-09] [오후 2:42:01] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:42:08] [ Log ] : [System] Run
+[2021-12-09] [오후 2:42:08] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:42:12] [ Log ] : [System] Run
+[2021-12-09] [오후 2:42:12] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 2:42:15] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\TPI.vb:줄 5172
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\TPI.vb:줄 5155
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\Form1.vb:줄 1982
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_PG_5nA\Sta2CLI\Form1.vb:줄 4980
+[2021-12-09] [오후 2:48:38] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오후 2:48:39] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:48:39] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:48:39] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:48:40] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:51:24] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오후 2:51:28] [ Log ] : [System] Utility Tool
+[2021-12-09] [오후 2:51:53] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오후 2:51:54] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:51:54] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:51:54] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:51:55] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-09] [오후 2:51:56] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오후 2:52:08] [ Log ] : [System] Run
+[2021-12-09] [오후 2:52:08] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:52:08] [ Log ] : [Measure] I/V Sweep
+[2021-12-09] [오후 2:52:11] [ Log ] : [System] Stop
+[2021-12-09] [오후 2:52:17] [ Log ] : [System] Run
+[2021-12-09] [오후 2:52:17] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 2:53:58] [ Log ] : [System] Run
+[2021-12-09] [오후 2:53:58] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-12-09] [오후 3:10:15] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오후 3:10:18] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오후 3:11:07] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:11:10] [ Log ] : [System] Run
+[2021-12-09] [오후 3:11:10] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 3:11:12] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\TPI.vb:줄 5172
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\TPI.vb:줄 5155
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\Form1.vb:줄 1982
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\Form1.vb:줄 4980
+[2021-12-09] [오후 3:24:10] [ Log ] : [System] System Configuration Check...
+[2021-12-09] [오후 3:24:11] [ Log ] :  > SMU1 Check - NG! [27.710542678833]
+[2021-12-09] [오후 3:24:11] [ Log ] :  > SMU2 Check - NG! [27.710542678833]
+[2021-12-09] [오후 3:24:12] [ Log ] :  > SMU3 Check - NG! [27.710542678833]
+[2021-12-09] [오후 3:24:12] [ Log ] :  > SMU4 Check - NG! [27.710542678833]
+[2021-12-09] [오후 3:24:13] [ Log ] : [System] Auto_Calibration
+[2021-12-09] [오후 3:32:22] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:32:27] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:32:39] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:32:55] [ Log ] : [System] Run
+[2021-12-09] [오후 3:32:55] [ Log ] : [System] Setup_File : PGU_Control
+[2021-12-09] [오후 3:33:06] [ Log ] : [System] Setup Save As
+[2021-12-09] [오후 3:33:34] [ Log ] : [System] Setup Save As
+[2021-12-09] [오후 3:33:42] [ Log ] : [System] Setup Delete
+[2021-12-09] [오후 3:33:47] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:33:51] [ Log ] : [System] Setup Save As
+[2021-12-09] [오후 3:34:02] [ Log ] : [System] Setup Delete
+[2021-12-09] [오후 3:35:25] [ Log ] : [System] Run
+[2021-12-09] [오후 3:35:25] [ Log ] : [System] Setup_File : PGU_Control1
+[2021-12-09] [오후 3:37:25] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:37:40] [ Log ] : [System] Run
+[2021-12-09] [오후 3:37:40] [ Log ] : [System] Setup_File : PGU_Con__10ms
+[2021-12-09] [오후 3:38:24] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:38:41] [ Log ] : [System] Setup Save As
+[2021-12-09] [오후 3:41:01] [ Log ] : [System] Setup Save As
+[2021-12-09] [오후 3:41:14] [ Log ] : [System] Setup Save As
+[2021-12-09] [오후 3:41:22] [ Log ] : [System] Setup Delete
+[2021-12-09] [오후 3:41:49] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:41:53] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:41:56] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:42:16] [ Log ] : [System] Setup Save As
+[2021-12-09] [오후 3:42:34] [ Log ] : [System] Setup Load
+[2021-12-09] [오후 3:44:50] [ Log ] : [System] Setup Save
+[2021-12-09] [오후 3:48:31] [ Log ] : [System] Run
+[2021-12-09] [오후 3:48:31] [ Log ] : [System] Setup_File : PGU_Con__100us

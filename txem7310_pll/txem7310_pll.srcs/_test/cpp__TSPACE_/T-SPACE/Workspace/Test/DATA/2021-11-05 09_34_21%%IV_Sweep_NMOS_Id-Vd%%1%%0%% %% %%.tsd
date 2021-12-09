@@ -1,0 +1,389 @@
+[Device_info]
+TestModelName=IV_Sweep
+NPLC=Medium
+[Graph]
+Y_Log=0
+Y2_Log=0
+[TestItem_info]
+SetupName=NMOS Id-Vd
+ImageFile=C:\T-SPACE\Images\NMOS.png
+Description=NMOS Id-Vd Measure<#NewLine>Drain Sweep : 0~5V, Step 0.2V<#NewLine>Gate Sweep : 2~4V, Step 0.25V<#NewLine><#NewLine>
+[Force_Channel1]
+Enabled=False
+Unit=SMU3
+Name=Vsource
+Mode=Voltage
+Value=0
+Compliance=100m
+[Force_Channel2]
+Enabled=False
+Unit=SMU4
+Name=Vbody
+Mode=Voltage
+Value=0
+Compliance=100m
+[Force_Channel3]
+Enabled=True
+Unit=SMU2
+Name=Vgate
+Mode=Voltage
+Value=3
+Compliance=100m
+[Force_Channel4]
+Enabled=True
+Unit=SMU1
+Name=Vdrain
+Mode=Voltage
+Value=0.1
+Compliance=100m
+[Measure_Channel1]
+Enabled=True
+Unit=SMU1
+Name=Idrain
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y1
+[Measure_Channel2]
+Enabled=False
+Unit=SMU2
+Name=IGate
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel3]
+Enabled=False
+Unit=SMU3
+Name=Isource
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel4]
+Enabled=False
+Unit=SMU4
+Name=Ibody
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Sweep_Channel]
+Enabled=False
+Unit=SMU1
+Name=Vdrain
+Mode=Voltage
+Start=0
+Stop=5
+Step=0.1
+Compliance=100m
+Direction=Single
+Yaxis=X
+[Sweep_Channel2]
+Enabled=False
+Unit=SMU2
+Name=Vgate
+Mode=Voltage
+Start=2
+Stop=4
+Step=0.25
+Compliance=100m
+Yaxis=-
+[Sweep_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Offset=
+Ratio=
+Compliance=
+Yaxis=-
+[Timming]
+HoldTime=0
+DelayTime=0.1
+MeasureCount=100
+[GraphSetup]
+Xaxis=0
+Xaxis_Min=
+Xaxis_Max=
+Y1axis=0
+Y1axis_Min=
+Y1axis_Max=
+Y2axis=0
+Y2axis_Min=
+Y2axis_Max=
+[GraphInfo]
+GraphTitle=NMOS Id-Vd
+X_Title=Time(sec)
+X_Min=0.0990000000000006
+X_Max=10.001
+X_Log=0
+X_Abs=0
+Y_Title=Idrain (A)
+Y_Min=0.0003002
+Y_Max=0.0003012
+Y_Log=0
+Y_Abs=0
+TestCount=2
+[Legends]
+Visible=-1
+Position=Left
+1=1 : Idrain
+[TestInfo]
+Test Name,IV_Sweep_NMOS_Id-Vd
+Test Date,2021-11-05
+Test Time,09:34:07
+[TestInfo]
+Test Name,IV_Sweep_NMOS_Id-Vd
+Test Date,2021-11-05 09:34:07
+Test Time,10.616s
+Mode,Constant Measure
+Speed,Medium
+Hold Time,0s
+Delay Time,0.1s
+Instrument Channel,SMU2,SMU1
+Force Channel Name,Vgate,Vdrain
+Force Mode,Voltage Bias,Voltage Bias
+Sweep Mode,Constant,Constant
+Sweep Direction,N/A,N/A
+Start/Level,3,0.1
+Stop/Offset,N/A,N/A
+Step/Ratio,N/A,N/A
+Number of Points,N/A,N/A
+Compliance,0.1,0.1
+Measure Channel Name,N/A,Idrain
+Measure Mode,N/A,Current Measured
+Measure Range,N/A,Limited Auto=1nA
+Frequency,N/A,N/A
+AC Level,N/A,N/A
+[TestData]
+No,Index,GraphX:Time(sec),GraphY:Idrain(A)
+  1,  1,       0.100,3.01000E-004
+  1,  2,       0.200,3.00957E-004
+  1,  3,       0.301,3.00923E-004
+  1,  4,       0.400,3.00897E-004
+  1,  5,       0.500,3.00949E-004
+  1,  6,       0.601,3.00923E-004
+  1,  7,       0.701,3.01008E-004
+  1,  8,       0.800,3.00855E-004
+  1,  9,       0.900,3.00795E-004
+  1, 10,       1.000,3.00829E-004
+  1, 11,       1.100,3.00863E-004
+  1, 12,       1.201,3.00795E-004
+  1, 13,       1.300,3.00778E-004
+  1, 14,       1.401,3.00744E-004
+  1, 15,       1.500,3.00795E-004
+  1, 16,       1.600,3.00821E-004
+  1, 17,       1.701,3.00761E-004
+  1, 18,       1.800,3.00718E-004
+  1, 19,       1.901,3.00667E-004
+  1, 20,       2.000,3.00769E-004
+  1, 21,       2.100,3.00735E-004
+  1, 22,       2.200,3.00735E-004
+  1, 23,       2.301,3.00718E-004
+  1, 24,       2.401,3.00727E-004
+  1, 25,       2.500,3.00701E-004
+  1, 26,       2.600,3.00676E-004
+  1, 27,       2.700,3.00650E-004
+  1, 28,       2.801,3.00641E-004
+  1, 29,       2.901,3.00752E-004
+  1, 30,       3.000,3.00769E-004
+  1, 31,       3.100,3.00804E-004
+  1, 32,       3.200,3.00659E-004
+  1, 33,       3.301,3.00684E-004
+  1, 34,       3.401,3.00693E-004
+  1, 35,       3.500,3.00701E-004
+  1, 36,       3.600,3.00735E-004
+  1, 37,       3.700,3.00727E-004
+  1, 38,       3.801,3.00659E-004
+  1, 39,       3.901,3.00641E-004
+  1, 40,       4.000,3.00599E-004
+  1, 41,       4.101,3.00718E-004
+  1, 42,       4.200,3.00710E-004
+  1, 43,       4.300,3.00565E-004
+  1, 44,       4.400,3.00539E-004
+  1, 45,       4.500,3.00684E-004
+  1, 46,       4.601,3.00650E-004
+  1, 47,       4.700,3.00599E-004
+  1, 48,       4.801,3.00513E-004
+  1, 49,       4.900,3.00531E-004
+  1, 50,       5.000,3.00556E-004
+  1, 51,       5.101,3.00565E-004
+  1, 52,       5.200,3.00565E-004
+  1, 53,       5.301,3.00565E-004
+  1, 54,       5.400,3.00539E-004
+  1, 55,       5.500,3.00582E-004
+  1, 56,       5.601,3.00548E-004
+  1, 57,       5.700,3.00565E-004
+  1, 58,       5.801,3.00513E-004
+  1, 59,       5.900,3.00505E-004
+  1, 60,       6.000,3.00582E-004
+  1, 61,       6.101,3.00556E-004
+  1, 62,       6.200,3.00667E-004
+  1, 63,       6.301,3.00496E-004
+  1, 64,       6.400,3.00513E-004
+  1, 65,       6.500,3.00531E-004
+  1, 66,       6.601,3.00539E-004
+  1, 67,       6.700,3.00573E-004
+  1, 68,       6.801,3.00488E-004
+  1, 69,       6.900,3.00437E-004
+  1, 70,       7.000,3.00513E-004
+  1, 71,       7.101,3.00479E-004
+  1, 72,       7.200,3.00488E-004
+  1, 73,       7.301,3.00437E-004
+  1, 74,       7.400,3.00471E-004
+  1, 75,       7.500,3.00479E-004
+  1, 76,       7.601,3.00496E-004
+  1, 77,       7.700,3.00488E-004
+  1, 78,       7.801,3.00462E-004
+  1, 79,       7.900,3.00445E-004
+  1, 80,       8.000,3.00496E-004
+  1, 81,       8.100,3.00548E-004
+  1, 82,       8.201,3.00462E-004
+  1, 83,       8.300,3.00462E-004
+  1, 84,       8.400,3.00479E-004
+  1, 85,       8.500,3.00556E-004
+  1, 86,       8.600,3.00522E-004
+  1, 87,       8.701,3.00496E-004
+  1, 88,       8.800,3.00488E-004
+  1, 89,       8.900,3.00513E-004
+  1, 90,       9.156,3.00496E-004
+  1, 91,       9.177,3.00505E-004
+  1, 92,       9.201,3.00505E-004
+  1, 93,       9.300,3.00462E-004
+  1, 94,       9.400,3.00437E-004
+  1, 95,       9.500,3.00496E-004
+  1, 96,       9.601,3.00573E-004
+  1, 97,       9.701,3.00573E-004
+  1, 98,       9.800,3.00445E-004
+  1, 99,       9.900,3.00513E-004
+  1,100,      10.000,3.00531E-004
+[TestInfo]
+Test Name,IV_Sweep_NMOS_Id-Vd
+Test Date,2021-11-05
+Test Time,09:34:22
+[TestInfo]
+Test Name,IV_Sweep_NMOS_Id-Vd
+Test Date,2021-11-05 09:34:22
+Test Time,10.607s
+Mode,Constant Measure
+Speed,Medium
+Hold Time,0s
+Delay Time,0.1s
+Instrument Channel,SMU2,SMU1
+Force Channel Name,Vgate,Vdrain
+Force Mode,Voltage Bias,Voltage Bias
+Sweep Mode,Constant,Constant
+Sweep Direction,N/A,N/A
+Start/Level,3,0.1
+Stop/Offset,N/A,N/A
+Step/Ratio,N/A,N/A
+Number of Points,N/A,N/A
+Compliance,0.1,0.1
+Measure Channel Name,N/A,Idrain
+Measure Mode,N/A,Current Measured
+Measure Range,N/A,Limited Auto=1nA
+Frequency,N/A,N/A
+AC Level,N/A,N/A
+[TestData]
+No,Index,GraphX:Time(sec),GraphY:Idrain(A)
+  2,  1,       0.100,3.00949E-004
+  2,  2,       0.200,3.00906E-004
+  2,  3,       0.301,3.00889E-004
+  2,  4,       0.400,3.00838E-004
+  2,  5,       0.500,3.00821E-004
+  2,  6,       0.601,3.00838E-004
+  2,  7,       0.701,3.00795E-004
+  2,  8,       0.800,3.00769E-004
+  2,  9,       0.900,3.00744E-004
+  2, 10,       1.000,3.00693E-004
+  2, 11,       1.100,3.00744E-004
+  2, 12,       1.201,3.00718E-004
+  2, 13,       1.300,3.00855E-004
+  2, 14,       1.401,3.00676E-004
+  2, 15,       1.500,3.00727E-004
+  2, 16,       1.600,3.00641E-004
+  2, 17,       1.701,3.00701E-004
+  2, 18,       1.800,3.00659E-004
+  2, 19,       1.901,3.00641E-004
+  2, 20,       2.000,3.00616E-004
+  2, 21,       2.100,3.00599E-004
+  2, 22,       2.200,3.00667E-004
+  2, 23,       2.301,3.00616E-004
+  2, 24,       2.401,3.00650E-004
+  2, 25,       2.500,3.00599E-004
+  2, 26,       2.600,3.00573E-004
+  2, 27,       2.700,3.00573E-004
+  2, 28,       2.801,3.00590E-004
+  2, 29,       2.901,3.00531E-004
+  2, 30,       3.000,3.00565E-004
+  2, 31,       3.100,3.00548E-004
+  2, 32,       3.200,3.00633E-004
+  2, 33,       3.301,3.00531E-004
+  2, 34,       3.401,3.00633E-004
+  2, 35,       3.500,3.00616E-004
+  2, 36,       3.600,3.00616E-004
+  2, 37,       3.700,3.00676E-004
+  2, 38,       3.801,3.00659E-004
+  2, 39,       3.901,3.00624E-004
+  2, 40,       4.000,3.00590E-004
+  2, 41,       4.101,3.00565E-004
+  2, 42,       4.200,3.00590E-004
+  2, 43,       4.300,3.00667E-004
+  2, 44,       4.400,3.00582E-004
+  2, 45,       4.500,3.00573E-004
+  2, 46,       4.601,3.00573E-004
+  2, 47,       4.701,3.00599E-004
+  2, 48,       4.801,3.00641E-004
+  2, 49,       4.900,3.00565E-004
+  2, 50,       5.000,3.00565E-004
+  2, 51,       5.101,3.00573E-004
+  2, 52,       5.200,3.00599E-004
+  2, 53,       5.301,3.00616E-004
+  2, 54,       5.400,3.00565E-004
+  2, 55,       5.500,3.00531E-004
+  2, 56,       5.601,3.00445E-004
+  2, 57,       5.700,3.00513E-004
+  2, 58,       5.801,3.00531E-004
+  2, 59,       5.900,3.00556E-004
+  2, 60,       6.000,3.00522E-004
+  2, 61,       6.101,3.00548E-004
+  2, 62,       6.200,3.00565E-004
+  2, 63,       6.301,3.00573E-004
+  2, 64,       6.400,3.00531E-004
+  2, 65,       6.500,3.00479E-004
+  2, 66,       6.601,3.00522E-004
+  2, 67,       6.700,3.00539E-004
+  2, 68,       6.801,3.00556E-004
+  2, 69,       6.900,3.00513E-004
+  2, 70,       7.000,3.00428E-004
+  2, 71,       7.101,3.00428E-004
+  2, 72,       7.200,3.00471E-004
+  2, 73,       7.301,3.00437E-004
+  2, 74,       7.400,3.00437E-004
+  2, 75,       7.500,3.00428E-004
+  2, 76,       7.601,3.00420E-004
+  2, 77,       7.700,3.00445E-004
+  2, 78,       7.801,3.00479E-004
+  2, 79,       7.900,3.00394E-004
+  2, 80,       8.000,3.00445E-004
+  2, 81,       8.100,3.00368E-004
+  2, 82,       8.201,3.00437E-004
+  2, 83,       8.300,3.00428E-004
+  2, 84,       8.400,3.00403E-004
+  2, 85,       8.500,3.00403E-004
+  2, 86,       8.600,3.00445E-004
+  2, 87,       8.701,3.00437E-004
+  2, 88,       8.800,3.00479E-004
+  2, 89,       8.900,3.00437E-004
+  2, 90,       9.000,3.00394E-004
+  2, 91,       9.100,3.00411E-004
+  2, 92,       9.201,3.00479E-004
+  2, 93,       9.300,3.00513E-004
+  2, 94,       9.400,3.00420E-004
+  2, 95,       9.500,3.00403E-004
+  2, 96,       9.601,3.00377E-004
+  2, 97,       9.701,3.00454E-004
+  2, 98,       9.800,3.00479E-004
+  2, 99,       9.901,3.00437E-004
+  2,100,      10.000,3.00411E-004

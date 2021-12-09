@@ -1,0 +1,1869 @@
+[2021-09-01] [오전 9:48:09] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 9:48:20] [ Log ] : [System] Setup Load
+[2021-09-01] [오전 9:48:23] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 9:48:42] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:27:55] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:27:58] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:28:17] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:28:50] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:28:52] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:29:01] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:30:58] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:31:02] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:31:12] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:31:42] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:31:44] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:31:47] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:33:42] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:33:45] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:33:51] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:35:42] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:35:45] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:38:09] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:41:58] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:42:00] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:42:04] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:44:44] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:44:46] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:44:57] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:49:37] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오전 11:49:43] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오전 11:49:49] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:50:05] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:50:10] [ Log ] : [System] Setup Load
+[2021-09-01] [오전 11:50:21] [ Log ] : [System] Run
+[2021-09-01] [오전 11:50:21] [ Log ] : [System] Setup_File : BJT_PNP_Ib-Vb
+[2021-09-01] [오전 11:50:21] [ Log ] : [Measure] Ib-Vb
+[2021-09-01] [오전 11:50:30] [ Log ] : [System] Stop
+[2021-09-01] [오전 11:50:33] [ Log ] : [System] Chart Clear
+[2021-09-01] [오전 11:50:58] [ Log ] : [System] Run
+[2021-09-01] [오전 11:50:58] [ Log ] : [System] Setup_File : BJT_PNP_Ib-Vb
+[2021-09-01] [오전 11:50:58] [ Log ] : [Measure] Ib-Vb
+[2021-09-01] [오전 11:51:03] [ Log ] : [System] Stop
+[2021-09-01] [오전 11:51:14] [ Log ] : [System] Run
+[2021-09-01] [오전 11:51:14] [ Log ] : [System] Setup_File : BJT_PNP_Ib-Vb
+[2021-09-01] [오전 11:51:14] [ Log ] : [Measure] Ib-Vb
+[2021-09-01] [오전 11:51:21] [ Log ] : [System] Stop
+[2021-09-01] [오전 11:51:41] [ Log ] : [System] Run
+[2021-09-01] [오전 11:51:42] [ Log ] : [System] Setup_File : BJT_PNP_Ib-Vb
+[2021-09-01] [오전 11:51:42] [ Log ] : [Measure] Ib-Vb
+[2021-09-01] [오전 11:51:47] [ Log ] : [System] Stop
+[2021-09-01] [오후 12:08:49] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 12:08:52] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 12:08:54] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 1:26:44] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 1:26:46] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 1:27:36] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 1:27:47] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 1:27:54] [ Log ] : [System] Setup Save
+[2021-09-01] [오후 1:27:58] [ Log ] : [System] Run
+[2021-09-01] [오후 1:27:58] [ Log ] : [System] Setup_File : IV_Sweep
+[2021-09-01] [오후 1:27:58] [ Log ] : [Measure] I/V Sweep
+[2021-09-01] [오후 1:28:02] [ Log ] : [System] Stop
+[2021-09-01] [오후 1:28:07] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 1:28:14] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 1:31:09] [ Log ] : [System] Chart Clear
+[2021-09-01] [오후 1:31:09] [ Log ] : [System] Chart Clear
+[2021-09-01] [오후 1:31:10] [ Log ] : [System] Chart Clear
+[2021-09-01] [오후 1:31:10] [ Log ] : [System] Chart Clear
+[2021-09-01] [오후 1:31:10] [ Log ] : [System] Chart Clear
+[2021-09-01] [오후 1:59:21] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 1:59:24] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:17:52] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:17:55] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:17:57] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 2:18:40] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:18:43] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:28:17] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:28:20] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:38:33] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:38:36] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:39:17] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:39:20] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:41:47] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:41:50] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:42:44] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:42:47] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 2:43:53] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 2:44:00] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 3:45:50] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 3:45:53] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 3:48:48] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 3:48:51] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 3:53:11] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 3:53:14] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 3:54:46] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 3:54:49] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 4:00:47] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 4:00:49] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 4:03:54] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 4:03:57] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 4:04:35] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:05:09] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:05:11] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:05:15] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:05:31] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:05:39] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:07:33] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:07:38] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:07:45] [ Log ] : [System] Setup Delete
+[2021-09-01] [오후 4:07:48] [ Log ] : [System] Setup Delete
+[2021-09-01] [오후 4:13:37] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 4:13:41] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 4:15:12] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 4:15:15] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 4:23:31] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 4:23:35] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 4:30:46] [ Log ] : [System] Setup Load
+[2021-09-01] [오후 4:43:18] [ Log ] : [System] Chart Clear
+[2021-09-01] [오후 4:43:27] [ Log ] : [System] Run
+[2021-09-01] [오후 4:43:28] [ Log ] : [System] Setup_File : IV_Sweep_NMOS_Id-Vd
+[2021-09-01] [오후 4:43:28] [ Log ] : [Measure] I/V Sweep
+[2021-09-01] [오후 4:43:30] [ Log ] : [System] Stop
+[2021-09-01] [오후 4:50:48] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 4:50:52] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 4:51:00] [ Log ] : [System] Chart Clear
+[2021-09-01] [오후 5:01:09] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 5:01:12] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 5:02:06] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 5:02:09] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 5:03:30] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 5:03:33] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 5:03:58] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 5:04:00] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 5:05:29] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 5:05:32] [ Log ] : [System] Auto_Calibration
+[2021-09-01] [오후 5:18:54] [ Log ] : [System] System Configuration Check...
+[2021-09-01] [오후 5:18:57] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:13:03] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:13:06] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:15:46] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:15:48] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:16:22] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:16:24] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:19:19] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:19:21] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:19:52] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:19:55] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:22:47] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:22:50] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:23:32] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:23:34] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:23:38] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 1:24:08] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:24:11] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:24:19] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 1:24:25] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 1:24:36] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 1:51:23] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 1:51:26] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 1:51:42] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 2:13:48] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 2:13:51] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 2:15:39] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 2:15:42] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 2:20:12] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 2:20:15] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 2:26:19] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 2:26:22] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 2:28:10] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 2:28:13] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 2:28:15] [ Log ] : [System] Setup Load
+[2021-09-02] [오후 2:28:49] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 2:29:48] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 2:29:50] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 2:30:47] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 2:30:50] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 3:26:45] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:26:47] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:26:47] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:26:48] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:26:48] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:27:09] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 3:27:12] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 3:31:44] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 3:31:47] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 3:37:30] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 3:37:33] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 3:38:41] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 3:38:43] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 3:40:16] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:19] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:19] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:20] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:20] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:20] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:20] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:21] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:22] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:40:22] [ Log ] : [System] Graph Initialization
+[2021-09-02] [오후 3:43:55] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 3:43:58] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 3:49:07] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 3:49:10] [ Log ] : [System] Auto_Calibration
+[2021-09-02] [오후 4:05:28] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:07:04] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:15:33] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:17:19] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:17:49] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:18:43] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:20:01] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:25:23] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:28:12] [ Log ] : [System] System Configuration Check...
+[2021-09-02] [오후 4:29:05] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:48:01] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:48:15] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:48:35] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:48:42] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 1:50:16] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:50:18] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 1:50:29] [ Log ] : [System] Setup Load
+[2021-09-03] [오후 1:50:37] [ Log ] : [System] Run
+[2021-09-03] [오후 1:50:37] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-09-03] [오후 1:50:37] [ Log ] : [Measure] Id-Vg
+[2021-09-03] [오후 1:50:40] [ Log ] : [System] Stop
+[2021-09-03] [오후 1:50:45] [ Log ] : [System] Run
+[2021-09-03] [오후 1:50:45] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-09-03] [오후 1:50:45] [ Log ] : [Measure] Id-Vg
+[2021-09-03] [오후 1:51:11] [ Log ] : [System] Run
+[2021-09-03] [오후 1:51:11] [ Log ] : [System] Setup_File : NMOS_Id-Vg
+[2021-09-03] [오후 1:51:11] [ Log ] : [Measure] Id-Vg
+[2021-09-03] [오후 1:51:33] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:51:37] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 1:51:46] [ Log ] : [System] Setup Load
+[2021-09-03] [오후 1:51:54] [ Log ] : [System] Run
+[2021-09-03] [오후 1:51:55] [ Log ] : [System] Setup_File : Gm_test
+[2021-09-03] [오후 1:51:55] [ Log ] : [Measure] Id-Vg
+[2021-09-03] [오후 1:52:08] [ Log ] : [System] Stop
+[2021-09-03] [오후 1:53:56] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:53:59] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 1:54:08] [ Log ] : [System] Setup Load
+[2021-09-03] [오후 1:54:28] [ Log ] : [System] Run
+[2021-09-03] [오후 1:54:29] [ Log ] : [System] Setup_File : Gm_test
+[2021-09-03] [오후 1:54:30] [ Log ] : [Measure] Id-Vg
+[2021-09-03] [오후 1:55:14] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:55:19] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 1:55:24] [ Log ] : [System] Setup Load
+[2021-09-03] [오후 1:55:59] [ Log ] : [System] Run
+[2021-09-03] [오후 1:56:23] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 1:56:26] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:01:10] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:01:14] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:07:02] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:07:06] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:07:58] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:08:02] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:08:21] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:08:24] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:21:01] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:21:04] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:24:01] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:24:04] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:24:33] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:24:41] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:25:39] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:25:42] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:26:08] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:26:35] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:28:45] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:29:44] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:29:47] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:33:43] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:34:20] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:35:05] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:35:31] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:35:34] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:36:46] [ Log ] : [System] Setup Load
+[2021-09-03] [오후 2:40:53] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:40:56] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:41:04] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:41:07] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:41:18] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:41:55] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:46:18] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:46:22] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:53:29] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:53:33] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:53:40] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:53:42] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:53:49] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:53:51] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:53:57] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:54:00] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:54:09] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:54:11] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:54:24] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:54:27] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:54:46] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:54:49] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:55:09] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:55:28] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:55:35] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:55:37] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:55:43] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:55:46] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:55:52] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:56:00] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:56:07] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:56:17] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:56:27] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:56:43] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:56:46] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:56:52] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:56:56] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 2:57:04] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 2:57:07] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:03:15] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:03:18] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:03:28] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:03:32] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:03:44] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:03:59] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:04:10] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:04:13] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:10:44] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:12:10] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:12:13] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:12:31] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:12:44] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:12:50] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:13:00] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:13:24] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:14:39] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:15:29] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:15:48] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:18:18] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 3:23:53] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 3:24:54] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 4:52:14] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 4:52:17] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 4:53:42] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 4:53:45] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 5:00:53] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 5:00:56] [ Log ] : [System] Auto_Calibration
+[2021-09-03] [오후 5:02:14] [ Log ] : [System] Graph Initialization
+[2021-09-03] [오후 5:30:19] [ Log ] : [System] System Configuration Check...
+[2021-09-03] [오후 5:30:22] [ Log ] : [System] Auto_Calibration
+[2021-09-06] [오후 1:46:12] [ Log ] : [System] System Configuration Check...
+[2021-09-06] [오후 1:46:24] [ Log ] : [System] Setup Load
+[2021-09-06] [오후 4:41:53] [ Log ] : [System] Utility Tool
+[2021-09-07] [오후 2:34:26] [ Log ] : [System] System Configuration Check...
+[2021-09-07] [오후 2:34:28] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오전 9:25:00] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오전 9:35:37] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오전 9:35:40] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오전 9:54:59] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오전 9:55:02] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오전 10:38:32] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오전 10:43:06] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오전 10:47:05] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오전 10:47:09] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오전 10:49:46] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오전 10:50:14] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오전 11:09:34] [ Log ] : [System] Setup Delete
+[2021-09-08] [오전 11:09:38] [ Log ] : [System] Setup Load
+[2021-09-08] [오전 11:10:41] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오전 11:10:44] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오전 11:10:53] [ Log ] : [System] Setup Load
+[2021-09-08] [오전 11:11:04] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:17:23] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:28:25] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:36:24] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 2:36:32] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 2:36:39] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:36:55] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:37:00] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:37:05] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:37:08] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:37:11] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:37:15] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:37:20] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:37:29] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:38:15] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:38:49] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 2:41:04] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 2:41:12] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 2:53:33] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 2:53:36] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 2:54:10] [ Log ] : [System] Utility Tool
+[2021-09-08] [오후 2:54:17] [ Log ] : [System] Utility Tool
+[2021-09-08] [오후 3:43:09] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 3:43:12] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 3:43:14] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 3:51:05] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 3:51:08] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 3:51:10] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 4:02:45] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 4:02:48] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 4:02:50] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 4:17:45] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 4:17:48] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 4:18:28] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 5:23:23] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 5:23:25] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 5:23:28] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 6:15:29] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 6:34:44] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 6:34:46] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 6:35:51] [ Log ] : [System] System Configuration Check...
+[2021-09-08] [오후 6:35:55] [ Log ] : [System] Auto_Calibration
+[2021-09-08] [오후 6:43:42] [ Log ] : [System] Setup Load
+[2021-09-08] [오후 6:43:45] [ Log ] : [System] Setup Load
+[2021-09-09] [오전 9:30:00] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 9:30:03] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 9:30:08] [ Log ] : [System] Setup Load
+[2021-09-09] [오전 9:57:33] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 9:57:35] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 9:58:33] [ Log ] : [System] Setup Load
+[2021-09-09] [오전 9:58:44] [ Log ] : [System] Setup Save
+[2021-09-09] [오전 9:59:40] [ Log ] : [System] Setup Save
+[2021-09-09] [오전 10:28:02] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 10:28:09] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 10:30:49] [ Log ] : [System] Setup Save
+[2021-09-09] [오전 10:36:13] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 10:36:15] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 10:38:24] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 10:38:27] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 10:39:15] [ Log ] : [System] Setup Save
+[2021-09-09] [오전 10:39:34] [ Log ] : [System] Setup Save
+[2021-09-09] [오전 10:39:57] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 10:39:59] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 10:43:44] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 10:43:47] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 10:43:49] [ Log ] : [System] Setup Load
+[2021-09-09] [오전 10:45:08] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 10:45:38] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 10:51:08] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 10:51:11] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오전 11:49:54] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오전 11:50:10] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 12:09:02] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 12:09:09] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:05:03] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:05:11] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:05:25] [ Log ] : [System] Run
+[2021-09-09] [오후 5:05:25] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:05:25] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 23
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1955
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4892
+[2021-09-09] [오후 5:05:37] [ Log ] : [System] Run
+[2021-09-09] [오후 5:05:38] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:05:38] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 23
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1955
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4892
+[2021-09-09] [오후 5:05:54] [ Log ] : [System] Run
+[2021-09-09] [오후 5:05:54] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:05:54] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 23
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1955
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4892
+[2021-09-09] [오후 5:06:13] [ Log ] : [System] Run
+[2021-09-09] [오후 5:06:14] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:06:30] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 23
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1955
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4892
+[2021-09-09] [오후 5:06:34] [ Log ] : [System] Run
+[2021-09-09] [오후 5:06:35] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:14:03] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:14:05] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:14:12] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 5:14:16] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 5:14:19] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 5:28:39] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:28:41] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:28:45] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 5:28:51] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 5:28:55] [ Log ] : [System] Run
+[2021-09-09] [오후 5:28:55] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:29:03] [ Log ] : [System] Run
+[2021-09-09] [오후 5:29:03] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:29:06] [ Log ] : [System] Run
+[2021-09-09] [오후 5:29:06] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:29:08] [ Log ] : [System] Run
+[2021-09-09] [오후 5:29:08] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:29:10] [ Log ] : [System] Run
+[2021-09-09] [오후 5:29:10] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:29:12] [ Log ] : [System] Run
+[2021-09-09] [오후 5:29:12] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:29:19] [ Log ] : [System] Run
+[2021-09-09] [오후 5:29:19] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:29:32] [ Log ] : [System] Run
+[2021-09-09] [오후 5:29:32] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:30:22] [ Log ] : [System] Run
+[2021-09-09] [오후 5:30:23] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:31:03] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:31:06] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:31:14] [ Log ] : [System] Run
+[2021-09-09] [오후 5:31:14] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:31:26] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 23
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1961
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4900
+[2021-09-09] [오후 5:31:49] [ Log ] : [System] Run
+[2021-09-09] [오후 5:31:49] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:31:49] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 23
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1961
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4900
+[2021-09-09] [오후 5:33:01] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:33:04] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:33:08] [ Log ] : [System] Run
+[2021-09-09] [오후 5:33:08] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:33:09] [ Log ] : [System] Run
+[2021-09-09] [오후 5:33:10] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:33:11] [ Log ] : [System] Run
+[2021-09-09] [오후 5:33:11] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:33:25] [ Log ] : [System] Run
+[2021-09-09] [오후 5:33:25] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:34:35] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:34:37] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:35:41] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 5:36:00] [ Log ] : [System] Run
+[2021-09-09] [오후 5:36:00] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:36:02] [ Log ] : [System] Run
+[2021-09-09] [오후 5:36:02] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:36:03] [ Log ] : [System] Run
+[2021-09-09] [오후 5:36:03] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:37:46] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:37:49] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:37:54] [ Log ] : [System] Run
+[2021-09-09] [오후 5:37:54] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:37:56] [ Log ] : [System] Run
+[2021-09-09] [오후 5:37:56] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:37:58] [ Log ] : [System] Run
+[2021-09-09] [오후 5:37:58] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:38:10] [ Log ] : [System] Run
+[2021-09-09] [오후 5:38:10] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:38:10] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 23
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1965
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4904
+[2021-09-09] [오후 5:42:43] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 5:42:45] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 5:42:51] [ Log ] : [System] Run
+[2021-09-09] [오후 5:42:51] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 5:44:36] [ Log ] : [System] Run
+[2021-09-09] [오후 5:44:37] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 6:38:17] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 6:38:19] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 6:38:23] [ Log ] : [System] Run
+[2021-09-09] [오후 6:38:24] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 6:38:24] [ Log ] : [Exception Error] System.Exception: Switch channel 0 cannot be disconnected. error code : -3104
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 292
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 27
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1965
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4904
+[2021-09-09] [오후 6:38:40] [ Log ] : [System] Run
+[2021-09-09] [오후 6:38:40] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 6:38:40] [ Log ] : [Exception Error] System.Exception: Switch channel 0 cannot be disconnected. error code : -3104
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 292
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 27
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1965
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4904
+[2021-09-09] [오후 6:39:37] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 6:39:39] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 6:39:43] [ Log ] : [System] Run
+[2021-09-09] [오후 6:39:43] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 6:39:43] [ Log ] : [Exception Error] System.Exception: Switch channel 0 cannot be disconnected. error code : -3104
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 292
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 27
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1965
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4904
+[2021-09-09] [오후 6:47:26] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 6:47:29] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 6:47:56] [ Log ] : [System] Run
+[2021-09-09] [오후 6:47:57] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 6:47:57] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -3104
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 27
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1965
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4904
+[2021-09-09] [오후 6:58:42] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 6:58:45] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 6:58:50] [ Log ] : [System] Run
+[2021-09-09] [오후 6:58:50] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 6:59:00] [ Log ] : [System] Run
+[2021-09-09] [오후 6:59:00] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 6:59:29] [ Log ] : [System] Run
+[2021-09-09] [오후 6:59:30] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:00:15] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:00:17] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:00:22] [ Log ] : [System] Run
+[2021-09-09] [오후 7:00:22] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:00:26] [ Log ] : [System] Run
+[2021-09-09] [오후 7:00:26] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:00:28] [ Log ] : [System] Run
+[2021-09-09] [오후 7:00:28] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:01:03] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:01:05] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:01:11] [ Log ] : [System] Run
+[2021-09-09] [오후 7:01:12] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:01:14] [ Log ] : [System] Run
+[2021-09-09] [오후 7:01:14] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:01:24] [ Log ] : [System] Run
+[2021-09-09] [오후 7:01:24] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:01:26] [ Log ] : [System] Run
+[2021-09-09] [오후 7:01:26] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:02:53] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 7:04:00] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:04:03] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:04:08] [ Log ] : [System] Run
+[2021-09-09] [오후 7:04:08] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:04:14] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 7:04:17] [ Log ] : [System] Run
+[2021-09-09] [오후 7:04:17] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:04:19] [ Log ] : [System] Run
+[2021-09-09] [오후 7:04:19] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:04:20] [ Log ] : [System] Run
+[2021-09-09] [오후 7:04:20] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:11:54] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:12:35] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:12:40] [ Log ] : [System] Run
+[2021-09-09] [오후 7:12:40] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:12:50] [ Log ] : [System] Run
+[2021-09-09] [오후 7:12:50] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:12:55] [ Log ] : [System] Run
+[2021-09-09] [오후 7:12:55] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-09] [오후 7:15:57] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:15:59] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:16:02] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 7:16:06] [ Log ] : [System] Run
+[2021-09-09] [오후 7:16:06] [ Log ] : [System] Setup_File : PGU_Control
+[2021-09-09] [오후 7:16:08] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5147
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5130
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1923
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4904
+[2021-09-09] [오후 7:27:34] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:27:37] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:27:41] [ Log ] : [System] Run
+[2021-09-09] [오후 7:27:41] [ Log ] : [System] Setup_File : PGU_Control
+[2021-09-09] [오후 7:27:43] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5147
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5130
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1923
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4910
+[2021-09-09] [오후 7:28:36] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:28:39] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:28:43] [ Log ] : [System] Run
+[2021-09-09] [오후 7:28:44] [ Log ] : [System] Setup_File : PGU_Control
+[2021-09-09] [오후 7:28:46] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5147
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5130
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1923
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4911
+[2021-09-09] [오후 7:29:01] [ Log ] : [System] Run
+[2021-09-09] [오후 7:29:01] [ Log ] : [System] Setup_File : PGU_Control
+[2021-09-09] [오후 7:29:04] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5147
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5130
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1923
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4911
+[2021-09-09] [오후 7:29:38] [ Log ] : [System] Run
+[2021-09-09] [오후 7:29:38] [ Log ] : [System] Setup_File : PGU_Control
+[2021-09-09] [오후 7:29:40] [ Log ] : [Exception Error] System.Exception: HVPGU Open Error! 
+연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+   위치: Sta2CLI.TPI.OpenPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5147
+   위치: Sta2CLI.TPI.SetInitPGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 5130
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1018
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1923
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4911
+[2021-09-09] [오후 7:31:03] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:31:08] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:31:15] [ Log ] : [System] Setup Load
+[2021-09-09] [오후 7:35:29] [ Log ] : [System] System Configuration Check...
+[2021-09-09] [오후 7:35:31] [ Log ] : [System] Auto_Calibration
+[2021-09-09] [오후 7:35:37] [ Log ] : [System] Run
+[2021-09-09] [오후 7:35:37] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 9:12:58] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 9:13:19] [ Log ] : [System] Setup Load
+[2021-09-10] [오전 9:14:47] [ Log ] : [System] Run
+[2021-09-10] [오전 9:14:47] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 10:47:09] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 10:50:42] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 10:50:45] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오전 10:50:47] [ Log ] : [System] Setup Load
+[2021-09-10] [오전 10:50:54] [ Log ] : [System] Utility Tool
+[2021-09-10] [오전 10:52:14] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 10:52:17] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오전 10:52:23] [ Log ] : [System] Utility Tool
+[2021-09-10] [오전 10:52:35] [ Log ] : [System] Run
+[2021-09-10] [오전 10:52:35] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 10:52:59] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -3104
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 63
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1965
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4911
+[2021-09-10] [오전 10:53:24] [ Log ] : [System] Run
+[2021-09-10] [오전 10:53:24] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 10:53:54] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -3104
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 63
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1154
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1965
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4911
+[2021-09-10] [오전 10:55:21] [ Log ] : [System] Run
+[2021-09-10] [오전 10:55:22] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 10:57:50] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 10:57:54] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오전 10:58:02] [ Log ] : [System] Run
+[2021-09-10] [오전 10:58:02] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 10:59:01] [ Log ] : [Exception Error] System.Exception: Can't connect switch channel 1. error code : -11
+   위치: Sta2CLI.F5500.SwitchClose(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 267
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7033
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 66
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-10] [오전 10:59:32] [ Log ] : [System] Run
+[2021-09-10] [오전 10:59:33] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 10:59:34] [ Log ] : [Exception Error] System.Exception: Can't connect switch channel 1. error code : -11
+   위치: Sta2CLI.F5500.SwitchClose(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 267
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7033
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 66
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-10] [오전 10:59:56] [ Log ] : [System] Run
+[2021-09-10] [오전 10:59:56] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:03:12] [ Log ] : [Exception Error] System.Exception: Can't connect switch channel 1. error code : -11
+   위치: Sta2CLI.F5500.SwitchClose(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 267
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7033
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 66
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-10] [오전 11:04:50] [ Log ] : [System] Run
+[2021-09-10] [오전 11:04:50] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:05:05] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 11:05:08] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오전 11:05:10] [ Log ] : [System] Setup Load
+[2021-09-10] [오전 11:05:13] [ Log ] : [System] Run
+[2021-09-10] [오전 11:05:13] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:05:28] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -11
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 63
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-10] [오전 11:11:34] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 11:11:37] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오전 11:11:43] [ Log ] : [System] Run
+[2021-09-10] [오전 11:11:43] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:11:54] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -11
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 63
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-10] [오전 11:16:34] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 11:16:36] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오전 11:16:40] [ Log ] : [System] Setup Load
+[2021-09-10] [오전 11:16:48] [ Log ] : [System] Run
+[2021-09-10] [오전 11:16:48] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:17:46] [ Log ] : [System] Run
+[2021-09-10] [오전 11:17:46] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:32:02] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오전 11:32:07] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오전 11:32:08] [ Log ] : [System] Setup Load
+[2021-09-10] [오전 11:32:27] [ Log ] : [System] Run
+[2021-09-10] [오전 11:32:27] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:39:14] [ Log ] : [System] Run
+[2021-09-10] [오전 11:39:14] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:54:29] [ Log ] : [System] Run
+[2021-09-10] [오전 11:54:29] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오전 11:57:54] [ Log ] : [System] Run
+[2021-09-10] [오전 11:57:54] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 12:07:15] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 12:07:17] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오후 12:07:25] [ Log ] : [System] Run
+[2021-09-10] [오후 12:07:25] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 12:08:30] [ Log ] : [System] Run
+[2021-09-10] [오후 12:08:31] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 12:09:06] [ Log ] : [System] Run
+[2021-09-10] [오후 12:09:06] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 12:09:24] [ Log ] : [System] Run
+[2021-09-10] [오후 12:09:24] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 12:09:38] [ Log ] : [System] Run
+[2021-09-10] [오후 12:09:38] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:09:44] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 2:10:19] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 2:10:33] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 2:10:49] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 2:10:52] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오후 2:11:17] [ Log ] : [System] Run
+[2021-09-10] [오후 2:11:17] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:13:32] [ Log ] : [System] Run
+[2021-09-10] [오후 2:13:32] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:18:07] [ Log ] : [System] Run
+[2021-09-10] [오후 2:18:08] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:18:48] [ Log ] : [System] Run
+[2021-09-10] [오후 2:18:48] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:21:56] [ Log ] : [System] Run
+[2021-09-10] [오후 2:21:57] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:28:38] [ Log ] : [System] Run
+[2021-09-10] [오후 2:28:38] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:29:49] [ Log ] : [System] Run
+[2021-09-10] [오후 2:29:49] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:35:50] [ Log ] : [System] Run
+[2021-09-10] [오후 2:35:50] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:36:35] [ Log ] : [System] Run
+[2021-09-10] [오후 2:36:36] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:36:49] [ Log ] : [System] Run
+[2021-09-10] [오후 2:36:49] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:37:32] [ Log ] : [System] Run
+[2021-09-10] [오후 2:37:32] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:44:14] [ Log ] : [System] Run
+[2021-09-10] [오후 2:44:15] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:44:47] [ Log ] : [System] Run
+[2021-09-10] [오후 2:44:47] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:45:20] [ Log ] : [System] Run
+[2021-09-10] [오후 2:45:20] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:50:53] [ Log ] : [System] Run
+[2021-09-10] [오후 2:50:53] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:50:59] [ Log ] : [System] Run
+[2021-09-10] [오후 2:50:59] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 2:58:34] [ Log ] : [System] Run
+[2021-09-10] [오후 2:58:34] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:00:52] [ Log ] : [System] Run
+[2021-09-10] [오후 3:00:52] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:02:31] [ Log ] : [System] Run
+[2021-09-10] [오후 3:02:31] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:02:41] [ Log ] : [System] Run
+[2021-09-10] [오후 3:02:41] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:04:07] [ Log ] : [System] Run
+[2021-09-10] [오후 3:04:07] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:07:20] [ Log ] : [System] Run
+[2021-09-10] [오후 3:07:20] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:08:44] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 3:09:06] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오후 3:09:55] [ Log ] : [System] Run
+[2021-09-10] [오후 3:09:55] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:10:01] [ Log ] : [System] Run
+[2021-09-10] [오후 3:10:01] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:10:15] [ Log ] : [System] Run
+[2021-09-10] [오후 3:10:16] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:10:21] [ Log ] : [System] Run
+[2021-09-10] [오후 3:10:22] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:10:50] [ Log ] : [System] Run
+[2021-09-10] [오후 3:10:50] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:10:56] [ Log ] : [System] Run
+[2021-09-10] [오후 3:10:57] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:28:41] [ Log ] : [System] Run
+[2021-09-10] [오후 3:28:41] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:28:54] [ Log ] : [System] Run
+[2021-09-10] [오후 3:28:54] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:28:58] [ Log ] : [System] Run
+[2021-09-10] [오후 3:28:58] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:29:06] [ Log ] : [System] Run
+[2021-09-10] [오후 3:29:06] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:29:21] [ Log ] : [System] Run
+[2021-09-10] [오후 3:29:21] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:29:40] [ Log ] : [System] Run
+[2021-09-10] [오후 3:29:40] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:30:04] [ Log ] : [System] Run
+[2021-09-10] [오후 3:30:04] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:30:29] [ Log ] : [System] Run
+[2021-09-10] [오후 3:30:29] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:30:46] [ Log ] : [System] Run
+[2021-09-10] [오후 3:30:46] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:31:04] [ Log ] : [System] Run
+[2021-09-10] [오후 3:31:04] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 3:31:18] [ Log ] : [System] Run
+[2021-09-10] [오후 3:31:19] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 4:44:18] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 4:44:42] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 4:45:05] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 4:45:07] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오후 4:45:22] [ Log ] : [System] Run
+[2021-09-10] [오후 4:45:22] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 4:46:15] [ Log ] : [System] Run
+[2021-09-10] [오후 4:46:15] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 4:46:25] [ Log ] : [System] Run
+[2021-09-10] [오후 4:46:25] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 4:46:29] [ Log ] : [System] Run
+[2021-09-10] [오후 4:46:29] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 5:00:36] [ Log ] : [System] System Configuration Check...
+[2021-09-10] [오후 5:00:38] [ Log ] : [System] Auto_Calibration
+[2021-09-10] [오후 5:00:43] [ Log ] : [System] Run
+[2021-09-10] [오후 5:00:43] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 5:00:43] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -99
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 63
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-10] [오후 5:00:59] [ Log ] : [System] Run
+[2021-09-10] [오후 5:00:59] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-10] [오후 5:00:59] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -99
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 63
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-10] [오후 5:01:11] [ Log ] : [System] Utility Tool
+[2021-09-13] [오전 9:30:16] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오전 9:32:02] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오전 9:36:09] [ Log ] : [System] Setup Save
+[2021-09-13] [오전 9:47:14] [ Log ] : [System] Setup Save
+[2021-09-13] [오전 9:50:32] [ Log ] : [System] System Open Error! Check System
+[2021-09-13] [오전 11:54:20] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오전 11:54:23] [ Log ] : [System] Auto_Calibration
+[2021-09-13] [오전 11:54:28] [ Log ] : [System] Run
+[2021-09-13] [오전 11:54:29] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오전 11:55:07] [ Log ] : [System] Run
+[2021-09-13] [오전 11:55:07] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오전 11:56:45] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -3101
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7019
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 63
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-13] [오전 11:57:02] [ Log ] : [System] Utility Tool
+[2021-09-13] [오전 11:57:24] [ Log ] : [System] Utility Tool
+[2021-09-13] [오전 11:57:34] [ Log ] : [System] Utility Tool
+[2021-09-13] [오전 11:58:50] [ Log ] : [System] Utility Tool
+[2021-09-13] [오전 11:59:42] [ Log ] : [System] Utility Tool
+[2021-09-13] [오전 11:59:53] [ Log ] : [System] Run
+[2021-09-13] [오전 11:59:53] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 12:00:18] [ Log ] : [System] Run
+[2021-09-13] [오후 12:00:18] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 12:00:36] [ Log ] : [System] Run
+[2021-09-13] [오후 12:00:36] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 12:00:36] [ Log ] : [Exception Error] System.Exception: AUX3 and CMU Guard ports cannot be set together.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 60
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1156
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1971
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4917
+[2021-09-13] [오후 12:00:43] [ Log ] : [System] Run
+[2021-09-13] [오후 12:00:43] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 12:00:49] [ Log ] : [System] Run
+[2021-09-13] [오후 12:00:49] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 12:00:54] [ Log ] : [System] Run
+[2021-09-13] [오후 12:00:54] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 12:01:52] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오후 12:01:56] [ Log ] : [System] Auto_Calibration
+[2021-09-13] [오후 12:02:01] [ Log ] : [System] Run
+[2021-09-13] [오후 12:02:01] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 12:02:16] [ Log ] : [System] Run
+[2021-09-13] [오후 12:02:16] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:15:12] [ Log ] : [System] Utility Tool
+[2021-09-13] [오후 1:15:18] [ Log ] : [System] Run
+[2021-09-13] [오후 1:15:19] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:15:22] [ Log ] : [System] Run
+[2021-09-13] [오후 1:15:23] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:15:32] [ Log ] : [System] Setup Delete
+[2021-09-13] [오후 1:15:34] [ Log ] : [System] Setup Save
+[2021-09-13] [오후 1:15:38] [ Log ] : [System] Run
+[2021-09-13] [오후 1:15:38] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:15:40] [ Log ] : [System] Run
+[2021-09-13] [오후 1:15:40] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:15:42] [ Log ] : [System] Run
+[2021-09-13] [오후 1:15:42] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:15:57] [ Log ] : [System] Run
+[2021-09-13] [오후 1:15:58] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:16:00] [ Log ] : [System] Run
+[2021-09-13] [오후 1:16:00] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:16:02] [ Log ] : [System] Run
+[2021-09-13] [오후 1:16:02] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:17:43] [ Log ] : [System] Run
+[2021-09-13] [오후 1:17:44] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:17:46] [ Log ] : [System] Setup Save
+[2021-09-13] [오후 1:17:53] [ Log ] : [System] Setup Save
+[2021-09-13] [오후 1:18:07] [ Log ] : [System] Setup Save As
+[2021-09-13] [오후 1:18:13] [ Log ] : [System] Setup Save As
+[2021-09-13] [오후 1:18:21] [ Log ] : [System] Setup Save As
+[2021-09-13] [오후 1:18:33] [ Log ] : [System] Setup Save As
+[2021-09-13] [오후 1:18:49] [ Log ] : [System] Setup Save As
+[2021-09-13] [오후 1:22:31] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오후 1:22:33] [ Log ] : [System] Auto_Calibration
+[2021-09-13] [오후 1:22:57] [ Log ] : [System] Setup Save As
+[2021-09-13] [오후 1:23:15] [ Log ] : [System] Run
+[2021-09-13] [오후 1:23:15] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-13] [오후 1:23:30] [ Log ] : [System] Setup Load
+[2021-09-13] [오후 1:23:33] [ Log ] : [System] Run
+[2021-09-13] [오후 1:23:33] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:23:35] [ Log ] : [System] Setup Load
+[2021-09-13] [오후 1:23:39] [ Log ] : [System] Run
+[2021-09-13] [오후 1:23:40] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-13] [오후 1:23:43] [ Log ] : [System] Setup Load
+[2021-09-13] [오후 1:23:46] [ Log ] : [System] Run
+[2021-09-13] [오후 1:23:46] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-13] [오후 1:43:14] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오후 3:27:09] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오후 3:28:11] [ Log ] : [System] Auto_Calibration
+[2021-09-13] [오후 7:31:31] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오후 7:31:35] [ Log ] : [System] Auto_Calibration
+[2021-09-13] [오후 7:31:39] [ Log ] : [System] Setup Load
+[2021-09-13] [오후 7:39:13] [ Log ] : [System] System Configuration Check...
+[2021-09-13] [오후 7:39:16] [ Log ] : [System] Auto_Calibration
+[2021-09-13] [오후 7:39:18] [ Log ] : [System] Setup Load
+[2021-09-13] [오후 7:41:13] [ Log ] : [System] Setup Load
+[2021-09-13] [오후 7:41:24] [ Log ] : [System] Setup Load
+[2021-09-13] [오후 7:41:54] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 1:44:50] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 1:44:54] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 1:44:56] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 1:45:43] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 1:45:54] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 1:46:04] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 1:46:04] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 1:46:20] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 1:48:54] [ Log ] : [System] Run
+[2021-09-14] [오후 1:48:55] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 1:49:07] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 1:56:21] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 1:56:37] [ Log ] : [System] Run
+[2021-09-14] [오후 1:56:38] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 1:56:38] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 2:00:44] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:00:48] [ Log ] : [System] Run
+[2021-09-14] [오후 2:00:48] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 2:00:55] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:01:00] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:01:14] [ Log ] : [System] Run
+[2021-09-14] [오후 2:01:14] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:01:14] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:01:16] [ Log ] : [System] Stop
+[2021-09-14] [오후 2:02:41] [ Log ] : [System] Run
+[2021-09-14] [오후 2:02:41] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:02:41] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:05:23] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:05:40] [ Log ] : [System] Run
+[2021-09-14] [오후 2:05:40] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 2:05:50] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:05:57] [ Log ] : [System] Run
+[2021-09-14] [오후 2:05:57] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:05:57] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:08:08] [ Log ] : [System] Run
+[2021-09-14] [오후 2:08:08] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:08:08] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:08:27] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:08:33] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:08:45] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:08:46] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:08:54] [ Log ] : [System] Run
+[2021-09-14] [오후 2:08:54] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:08:54] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:10:11] [ Log ] : [System] Run
+[2021-09-14] [오후 2:10:11] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:10:11] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:10:31] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:10:34] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:10:52] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:10:53] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:11:10] [ Log ] : [System] Run
+[2021-09-14] [오후 2:11:11] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:11:11] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:11:35] [ Log ] : [System] Run
+[2021-09-14] [오후 2:11:35] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:11:35] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:14:34] [ Log ] : [System] Run
+[2021-09-14] [오후 2:14:34] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:14:34] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:27:15] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 2:27:19] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:27:19] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:27:29] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:27:47] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 2:28:04] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:28:04] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:28:09] [ Log ] : [Cal Offset] SMU2
+[2021-09-14] [오후 2:28:09] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 209
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 2:28:12] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:28:18] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:28:44] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:28:50] [ Log ] : [System] Run
+[2021-09-14] [오후 2:28:50] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 2:28:54] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:28:59] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:29:21] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:29:21] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:29:25] [ Log ] : [Cal Offset] SMU2
+[2021-09-14] [오후 2:29:36] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:30:32] [ Log ] : [System] Run
+[2021-09-14] [오후 2:30:32] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:30:33] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:31:16] [ Log ] : [System] Run
+[2021-09-14] [오후 2:31:16] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:31:16] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:31:35] [ Log ] : [System] Run
+[2021-09-14] [오후 2:31:35] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:31:35] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:32:04] [ Log ] : [System] Run
+[2021-09-14] [오후 2:32:04] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:32:04] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:32:11] [ Log ] : [System] Stop
+[2021-09-14] [오후 2:32:32] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:32:39] [ Log ] : [System] Run
+[2021-09-14] [오후 2:32:39] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 2:32:48] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:33:02] [ Log ] : [System] Run
+[2021-09-14] [오후 2:33:02] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:33:02] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:33:08] [ Log ] : [System] Stop
+[2021-09-14] [오후 2:33:58] [ Log ] : [System] Run
+[2021-09-14] [오후 2:33:58] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:33:58] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:34:51] [ Log ] : [System] Run
+[2021-09-14] [오후 2:34:51] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:34:51] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:35:09] [ Log ] : [System] Setup Save
+[2021-09-14] [오후 2:35:33] [ Log ] : [System] Run
+[2021-09-14] [오후 2:35:33] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:35:33] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:36:13] [ Log ] : [System] Run
+[2021-09-14] [오후 2:36:14] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:36:14] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:36:32] [ Log ] : [System] Run
+[2021-09-14] [오후 2:36:33] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:36:33] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:36:44] [ Log ] : [System] Stop
+[2021-09-14] [오후 2:36:46] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:36:55] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:37:25] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:37:25] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:37:29] [ Log ] : [Cal Offset] SMU2
+[2021-09-14] [오후 2:37:45] [ Log ] : [System] Run
+[2021-09-14] [오후 2:37:45] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:37:45] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:38:03] [ Log ] : [System] Run
+[2021-09-14] [오후 2:38:04] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:38:04] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:38:26] [ Log ] : [System] Run
+[2021-09-14] [오후 2:38:26] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:38:27] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:38:58] [ Log ] : [System] Run
+[2021-09-14] [오후 2:38:59] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:38:59] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:39:14] [ Log ] : [System] Run
+[2021-09-14] [오후 2:39:14] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:39:14] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:39:38] [ Log ] : [System] Run
+[2021-09-14] [오후 2:39:38] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:39:38] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:40:50] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:40:56] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:41:10] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:41:11] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:41:11] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 2:41:27] [ Log ] : [System] Run
+[2021-09-14] [오후 2:41:27] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:41:27] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:41:52] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:41:57] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:42:14] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:42:15] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:42:16] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 2:43:10] [ Log ] : [System] Run
+[2021-09-14] [오후 2:43:10] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:43:10] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:43:38] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:43:45] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 2:43:57] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:43:58] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:43:58] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 2:44:27] [ Log ] : [System] Run
+[2021-09-14] [오후 2:44:27] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:44:27] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:46:59] [ Log ] : [System] Run
+[2021-09-14] [오후 2:47:00] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 2:47:00] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 2:48:22] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:48:30] [ Log ] : [System] Run
+[2021-09-14] [오후 2:48:30] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-14] [오후 2:48:35] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:48:37] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:48:39] [ Log ] : [System] Run
+[2021-09-14] [오후 2:48:40] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 2:48:40] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 2:50:22] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 2:50:28] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:50:28] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:50:29] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 2:50:42] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:50:45] [ Log ] : [System] Run
+[2021-09-14] [오후 2:50:46] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 2:50:46] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 2:53:38] [ Log ] : [System] Run
+[2021-09-14] [오후 2:53:38] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 2:53:38] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 2:54:10] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 2:55:03] [ Log ] : [System] Run
+[2021-09-14] [오후 2:55:03] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 2:55:03] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 2:55:47] [ Log ] : [System] Run
+[2021-09-14] [오후 2:55:47] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 2:55:47] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 2:56:43] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 2:56:49] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 2:56:49] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 2:56:50] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 2:56:57] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 2:57:01] [ Log ] : [System] Run
+[2021-09-14] [오후 2:57:01] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 2:57:02] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 2:58:23] [ Log ] : [System] Run
+[2021-09-14] [오후 2:58:23] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 2:58:23] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 3:02:36] [ Log ] : [System] Run
+[2021-09-14] [오후 3:02:36] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 3:02:36] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 3:03:42] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 3:03:49] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 3:03:49] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 3:03:50] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 3:03:54] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:03:56] [ Log ] : [System] Run
+[2021-09-14] [오후 3:03:57] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 3:03:57] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 3:04:18] [ Log ] : [System] Run
+[2021-09-14] [오후 3:04:19] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 3:04:19] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 3:05:19] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 3:05:24] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 3:05:25] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 3:05:25] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 3:05:31] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:05:42] [ Log ] : [System] Run
+[2021-09-14] [오후 3:05:42] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 3:05:42] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 3:06:39] [ Log ] : [System] Run
+[2021-09-14] [오후 3:06:39] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-14] [오후 3:06:39] [ Log ] : [Measure] C-V Sweep
+[2021-09-14] [오후 3:10:30] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 3:10:36] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 3:10:36] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 3:10:37] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 3:10:41] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:10:45] [ Log ] : [System] Run
+[2021-09-14] [오후 3:10:45] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 3:10:57] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:11:03] [ Log ] : [System] Run
+[2021-09-14] [오후 3:11:03] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:11:03] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:11:24] [ Log ] : [System] Setup Save
+[2021-09-14] [오후 3:11:27] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:11:35] [ Log ] : [System] Run
+[2021-09-14] [오후 3:11:35] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 3:11:41] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:11:46] [ Log ] : [System] Run
+[2021-09-14] [오후 3:11:46] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:11:47] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:12:35] [ Log ] : [System] Run
+[2021-09-14] [오후 3:12:36] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:12:36] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:12:41] [ Log ] : [System] Stop
+[2021-09-14] [오후 3:13:09] [ Log ] : [System] Run
+[2021-09-14] [오후 3:13:09] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:13:09] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:13:31] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:13:45] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:13:50] [ Log ] : [System] Run
+[2021-09-14] [오후 3:13:50] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-14] [오후 3:13:55] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:13:59] [ Log ] : [System] Run
+[2021-09-14] [오후 3:13:59] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:13:59] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:14:33] [ Log ] : [System] Run
+[2021-09-14] [오후 3:14:33] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:14:33] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:14:59] [ Log ] : [System] Run
+[2021-09-14] [오후 3:14:59] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:14:59] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:15:04] [ Log ] : [System] Stop
+[2021-09-14] [오후 3:15:05] [ Log ] : [System] Run
+[2021-09-14] [오후 3:15:06] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:15:06] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:16:22] [ Log ] : [System] Setup Save
+[2021-09-14] [오후 3:16:27] [ Log ] : [System] Run
+[2021-09-14] [오후 3:16:27] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:16:27] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:16:58] [ Log ] : [System] Stop
+[2021-09-14] [오후 3:17:09] [ Log ] : [System] Run
+[2021-09-14] [오후 3:17:09] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:17:09] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:18:01] [ Log ] : [System] Stop
+[2021-09-14] [오후 3:18:03] [ Log ] : [System] Run
+[2021-09-14] [오후 3:18:03] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:18:03] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:19:44] [ Log ] : [System] Stop
+[2021-09-14] [오후 3:20:44] [ Log ] : [System] Run
+[2021-09-14] [오후 3:20:45] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:20:45] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:22:45] [ Log ] : [System] Run
+[2021-09-14] [오후 3:22:45] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:22:45] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:23:17] [ Log ] : [System] Stop
+[2021-09-14] [오후 3:23:29] [ Log ] : [System] Append
+[2021-09-14] [오후 3:23:30] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:23:30] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:24:33] [ Log ] : [System] Stop
+[2021-09-14] [오후 3:24:46] [ Log ] : [System] Utility Tool
+[2021-09-14] [오후 3:24:53] [ Log ] : [System] Zero Calibration
+[2021-09-14] [오후 3:25:06] [ Log ] : [System] Auto_Calibration
+[2021-09-14] [오후 3:25:07] [ Log ] : [Cal Offset] SMU1
+[2021-09-14] [오후 3:25:08] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2733
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2627
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-14] [오후 3:25:15] [ Log ] : [System] Append
+[2021-09-14] [오후 3:25:16] [ Log ] : [System] Setup_File : RES-V
+[2021-09-14] [오후 3:25:16] [ Log ] : [Measure] R-V
+[2021-09-14] [오후 3:33:51] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 3:53:24] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 3:53:33] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 4:17:06] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 4:19:28] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 4:19:37] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 4:39:47] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 4:39:58] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 4:43:52] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 4:43:56] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 4:54:32] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 4:54:40] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 4:56:40] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 4:56:48] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 4:58:52] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 4:59:02] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 5:04:16] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 5:04:39] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 5:05:17] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 5:05:27] [ Log ] : [System] Setup Load
+[2021-09-14] [오후 5:12:15] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 5:23:55] [ Log ] : [System] System Configuration Check...
+[2021-09-14] [오후 5:28:29] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 3:16:30] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 3:26:31] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 3:27:15] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 3:27:17] [ Log ] : [System] Utility Tool
+[2021-09-15] [오후 3:28:48] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 3:28:50] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 3:31:03] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 3:33:27] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 3:33:29] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 4:07:27] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 4:07:30] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 4:08:09] [ Log ] : [System] Setup Save
+[2021-09-15] [오후 4:08:37] [ Log ] : [System] Setup Save
+[2021-09-15] [오후 4:08:47] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 4:08:50] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 4:09:44] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:09:59] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:11:04] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:11:10] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:15:24] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 4:15:28] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 4:15:31] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:15:58] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:16:33] [ Log ] : [System] Setup Save
+[2021-09-15] [오후 4:16:40] [ Log ] : [System] Setup Save
+[2021-09-15] [오후 4:16:47] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:16:52] [ Log ] : [System] Setup Save
+[2021-09-15] [오후 4:16:58] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:24:00] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 4:24:01] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 4:24:21] [ Log ] : [System] Setup Delete
+[2021-09-15] [오후 4:24:29] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:24:44] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:24:50] [ Log ] : [System] Run
+[2021-09-15] [오후 4:24:50] [ Log ] : [System] Setup_File : Gm_test
+[2021-09-15] [오후 4:24:50] [ Log ] : [Measure] Id-Vg
+[2021-09-15] [오후 4:24:52] [ Log ] : [System] Stop
+[2021-09-15] [오후 4:25:26] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:29:09] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 4:29:12] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 4:29:15] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 4:29:29] [ Log ] : [System] Utility Tool
+[2021-09-15] [오후 4:30:27] [ Log ] : [System] Utility Tool
+[2021-09-15] [오후 4:31:09] [ Log ] : [System] Utility Tool
+[2021-09-15] [오후 5:01:40] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 5:01:43] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 5:24:04] [ Log ] : [System] System Configuration Check...
+[2021-09-15] [오후 5:27:00] [ Log ] : [System] Auto_Calibration
+[2021-09-15] [오후 5:27:01] [ Log ] : [System] Setup Load
+[2021-09-15] [오후 5:30:40] [ Log ] : [System] Data Save
+[2021-09-15] [오후 5:30:46] [ Log ] : [System] Setup Save
+[2021-09-16] [오전 10:59:33] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 10:59:36] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 10:59:37] [ Log ] : [System] Utility Tool
+[2021-09-16] [오전 11:02:28] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:02:33] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:02:33] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:02:34] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:02:36] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:02:42] [ Log ] : [System] Run
+[2021-09-16] [오전 11:02:42] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오전 11:03:03] [ Log ] : [System] Run
+[2021-09-16] [오전 11:03:03] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오전 11:04:05] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:04:10] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:04:10] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:04:11] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:04:12] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:04:22] [ Log ] : [System] Run
+[2021-09-16] [오전 11:04:59] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오전 11:07:43] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:07:54] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:07:54] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:07:55] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:08:11] [ Log ] : [System] Run
+[2021-09-16] [오전 11:08:11] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오전 11:09:13] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:09:17] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:09:18] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:09:19] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:09:21] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:10:09] [ Log ] : [System] Run
+[2021-09-16] [오전 11:10:09] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오전 11:10:46] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:10:49] [ Log ] : [System] Run
+[2021-09-16] [오전 11:10:49] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:10:49] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:13:07] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:13:13] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:13:13] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:13:14] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:13:18] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:13:21] [ Log ] : [System] Run
+[2021-09-16] [오전 11:13:21] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:13:21] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:13:38] [ Log ] : [System] Run
+[2021-09-16] [오전 11:13:38] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:13:38] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:14:13] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:14:16] [ Log ] : [System] Run
+[2021-09-16] [오전 11:14:17] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오전 11:14:55] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:14:58] [ Log ] : [System] Run
+[2021-09-16] [오전 11:14:58] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:14:59] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:16:09] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:16:29] [ Log ] : [System] Run
+[2021-09-16] [오전 11:16:29] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-16] [오전 11:16:33] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:16:37] [ Log ] : [System] Run
+[2021-09-16] [오전 11:16:37] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:16:37] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:17:02] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:17:04] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:19:05] [ Log ] : [System] Run
+[2021-09-16] [오전 11:19:05] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-16] [오전 11:19:20] [ Log ] : [System] Run
+[2021-09-16] [오전 11:19:20] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-16] [오전 11:19:28] [ Log ] : [System] Run
+[2021-09-16] [오전 11:19:28] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-16] [오전 11:19:33] [ Log ] : [System] Run
+[2021-09-16] [오전 11:19:34] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-16] [오전 11:20:31] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:28:48] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:28:53] [ Log ] : [System] Setup Save
+[2021-09-16] [오전 11:29:04] [ Log ] : [System] System Open Error! Check System
+[2021-09-16] [오전 11:29:22] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:29:28] [ Log ] : [System] Run
+[2021-09-16] [오전 11:29:28] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:29:28] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:31:17] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:31:24] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:31:24] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:31:25] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:31:31] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:31:33] [ Log ] : [System] Run
+[2021-09-16] [오전 11:31:33] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:31:34] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:31:56] [ Log ] : [System] Utility Tool
+[2021-09-16] [오전 11:32:30] [ Log ] : [System] Run
+[2021-09-16] [오전 11:32:30] [ Log ] : [System] Setup_File : CV_Sweep
+[2021-09-16] [오전 11:32:30] [ Log ] : [Measure] C-V Sweep
+[2021-09-16] [오전 11:32:54] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:32:56] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:33:00] [ Log ] : [System] Run
+[2021-09-16] [오전 11:33:00] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-16] [오전 11:33:01] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -11
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7044
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 64
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1157
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1983
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4933
+[2021-09-16] [오전 11:33:26] [ Log ] : [System] Run
+[2021-09-16] [오전 11:33:26] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-16] [오전 11:33:27] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -11
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7044
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 64
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1157
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1983
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4933
+[2021-09-16] [오전 11:33:31] [ Log ] : [System] Run
+[2021-09-16] [오전 11:33:31] [ Log ] : [System] Setup_File : SwitchingControl
+[2021-09-16] [오전 11:33:33] [ Log ] : [Exception Error] System.Exception: All channels cannot be disconnected. error code : -11
+   위치: Sta2CLI.F5500.SwitchOpen(Int32 InputPortIndex, Int32 OutputChannelNo) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\F5500.vb:줄 293
+   위치: Sta2CLI.TPI.SwitchControl(Int32 ChannelNo, Int32 PortIndex) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 7044
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 64
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1157
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1983
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4933
+[2021-09-16] [오전 11:34:07] [ Log ] : [System] System Open Error! Check System
+[2021-09-16] [오전 11:34:25] [ Log ] : [System] System Open Error! Check System
+[2021-09-16] [오전 11:34:58] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:36:11] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:36:27] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:36:28] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:36:29] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:36:40] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:37:08] [ Log ] : [System] Utility Tool
+[2021-09-16] [오전 11:38:44] [ Log ] : [System] Utility Tool
+[2021-09-16] [오전 11:42:25] [ Log ] : [System] Utility Tool
+[2021-09-16] [오전 11:43:14] [ Log ] : [System] Run
+[2021-09-16] [오전 11:43:14] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오전 11:50:09] [ Log ] : [System] Utility Tool
+[2021-09-16] [오전 11:52:02] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:52:07] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:54:26] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오전 11:54:33] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오전 11:54:33] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오전 11:54:34] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오전 11:54:42] [ Log ] : [System] Setup Load
+[2021-09-16] [오전 11:54:48] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 1:12:36] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 1:12:45] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오후 1:12:45] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오후 1:12:46] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오후 1:13:25] [ Log ] : [System] Run
+[2021-09-16] [오후 1:13:25] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 1:32:34] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 3:15:48] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 3:15:58] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:21:35] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 3:21:42] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오후 3:21:42] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오후 3:21:43] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오후 3:21:45] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:21:57] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:22:02] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:22:07] [ Log ] : [System] Run
+[2021-09-16] [오후 3:22:07] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:24:07] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:24:22] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:24:24] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:24:51] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:24:56] [ Log ] : [System] Run
+[2021-09-16] [오후 3:24:56] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:32:25] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 3:32:30] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오후 3:32:30] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오후 3:32:31] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오후 3:32:32] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:32:36] [ Log ] : [System] Run
+[2021-09-16] [오후 3:32:36] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:33:07] [ Log ] : [System] Run
+[2021-09-16] [오후 3:33:07] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:33:19] [ Log ] : [System] Stop
+[2021-09-16] [오후 3:33:36] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:36:25] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 3:36:36] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오후 3:36:37] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오후 3:36:38] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오후 3:36:43] [ Log ] : [System] Run
+[2021-09-16] [오후 3:36:43] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:37:47] [ Log ] : [System] Run
+[2021-09-16] [오후 3:37:48] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:38:29] [ Log ] : [System] Run
+[2021-09-16] [오후 3:38:29] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:41:20] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 3:41:25] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오후 3:41:25] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오후 3:41:26] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오후 3:41:35] [ Log ] : [System] Run
+[2021-09-16] [오후 3:41:35] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 3:41:50] [ Log ] : [System] Stop
+[2021-09-16] [오후 3:43:26] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 3:43:31] [ Log ] : [System] Auto_Calibration
+[2021-09-16] [오후 3:43:32] [ Log ] : [Cal Offset] SMU1
+[2021-09-16] [오후 3:43:32] [ Log ] : [Auto Calibration Exception Error] System.InvalidCastException: "" 문자열에서 'Double' 형식으로 변환할 수 없습니다. ---> System.FormatException: 입력 문자열의 형식이 잘못되었습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   위치: Sta2CLI.UtilityDialog.Offset_Load(Int32 Channel) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 207
+   위치: Sta2CLI.TPI.CalOffset_RlyOn(Int32 SubFrame, Int32 SmuCount, Int32 nRange) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2760
+   위치: Sta2CLI.TPI.CalOffset_TPI(Int32 Channel, Int32 RelayControl) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\TPI.vb:줄 2654
+   위치: Sta2CLI.UtilityDialog.Auto_Calibration() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\UtilityDialog.vb:줄 255
+[2021-09-16] [오후 3:43:34] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 3:43:42] [ Log ] : [System] Run
+[2021-09-16] [오후 3:43:43] [ Log ] : [System] Setup_File : CMU_Compensation
+[2021-09-16] [오후 4:08:47] [ Log ] : [System] System Configuration Check...
+[2021-09-16] [오후 4:08:58] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 4:09:05] [ Log ] : [System] Setup Load
+[2021-09-16] [오후 4:10:00] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 1:06:24] [ Log ] : [System] System Configuration Check...
+[2021-09-17] [오후 1:16:38] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:21:30] [ Log ] : [System] System Configuration Check...
+[2021-09-17] [오후 4:24:34] [ Log ] : [System] Auto_Calibration
+[2021-09-17] [오후 4:30:41] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:31:21] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:37:41] [ Log ] : [System] Utility Tool
+[2021-09-17] [오후 4:44:30] [ Log ] : [System] System Configuration Check...
+[2021-09-17] [오후 4:44:32] [ Log ] : [System] Auto_Calibration
+[2021-09-17] [오후 4:44:34] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:44:44] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:44:47] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:45:32] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:48:31] [ Log ] : [System] System Configuration Check...
+[2021-09-17] [오후 4:48:33] [ Log ] : [System] Auto_Calibration
+[2021-09-17] [오후 4:48:35] [ Log ] : [System] Setup Load
+[2021-09-17] [오후 4:48:38] [ Log ] : [System] Run
+[2021-09-17] [오후 4:48:38] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-17] [오후 4:48:38] [ Log ] : [Exception Error] System.Exception: Invalid input port index setting.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 49
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1157
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1983
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4933
+[2021-09-17] [오후 4:48:53] [ Log ] : [System] Run
+[2021-09-17] [오후 4:48:53] [ Log ] : [System] Setup_File : SwitchingControl_CMU
+[2021-09-17] [오후 4:48:53] [ Log ] : [Exception Error] System.Exception: Invalid input port index setting.
+   위치: Sta2CLI.SwitchingControl_SetupForm.Execute() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\SwitchingControl_SetupForm.vb:줄 49
+   위치: Sta2CLI.Form1.RunSwitchingControl() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1157
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 1983
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SPACE_SRC\Sta2CLI\Form1.vb:줄 4933
+[2021-09-17] [오후 4:53:42] [ Log ] : [System] Setup Load

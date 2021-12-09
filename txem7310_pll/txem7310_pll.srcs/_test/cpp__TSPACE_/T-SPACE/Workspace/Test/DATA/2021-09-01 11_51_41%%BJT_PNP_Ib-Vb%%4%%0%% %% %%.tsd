@@ -1,0 +1,96 @@
+[Device_info]
+TestModelName=BJT_Ib_Vb
+NPLC=Medium
+Channel_Type=PNP
+[Graph]
+Y_Log=0
+Y2_Log=0
+[SMU_Channel]
+Collector=SMU1
+Base=SMU2
+Emitter=SMU3
+Body1=Disable
+[SMU_Setup]
+CStart=-10
+CStop=-6
+CStep=2
+BStart=-1
+BStop=0
+BStep=30m
+Emitter_V=0
+Body1_V=0
+CIcom=100m
+BIcom=10m
+EIcom=100m
+B1Icom=100m
+HoldTime=100m
+DelayTime=10m
+[GraphInfo]
+GraphTitle=BJT_PNP_Ib-Vb
+X_Title=Vbase (V)
+X_Min=-1
+X_Max=0
+X_Log=0
+X_Abs=0
+Y_Title=Ibase (A)  :  abs(Ib) 
+Y_Min=0
+Y_Max=0.1
+Y_Log=0
+Y_Abs=-1
+TestCount=1
+[Legends]
+Visible=0
+Position=Right
+1=1 : Ibase@Vcollector=-10V
+[TestInfo]
+Test Name,BJT_PNP_Ib-Vb
+Test Date,2021-09-01 11:51:42
+Test Time,5.465s
+Mode,Sweep Measure
+Speed,Medium
+Hold Time,0.1s
+Delay Time,0.01s
+Instrument Channel,SMU2,SMU1,SMU3
+Force Channel Name,Vbase,Vcollector,Vemitter
+Force Mode,Voltage Sweep,Voltage Sweep,Voltage Bias
+Sweep Mode,VAR1,VAR2,Constant
+Sweep Direction,N/A,N/A,N/A
+Start/Level,-1,-10,0
+Stop/Offset,0,-6,N/A
+Step/Ratio,0.03,2,N/A
+Number of Points,34,3,N/A
+Compliance,0.01,0.1,0.1
+Measure Channel Name,Ibase,N/A,N/A
+Measure Mode,Current Measured,N/A,N/A
+Measure Range,Limited Auto = 1nA,N/A,N/A
+Frequency,N/A,N/A,N/A
+AC Level,N/A,N/A,N/A
+[TestData]
+No,Index,Vcollector(V),GraphX:Vbase(V),GraphY:Ibase(A)
+  1,  1,-10,    -1.000,  8.235E-002
+  1,  2,-10,    -0.970,  1.098E-002
+  1,  3,-10,    -0.940,  1.098E-002
+  1,  4,-10,    -0.910,  1.098E-002
+  1,  5,-10,    -0.880,  1.098E-002
+  1,  6,-10,    -0.850,  1.098E-002
+  1,  7,-10,    -0.820,  1.098E-002
+  1,  8,-10,    -0.790,  1.098E-002
+  1,  9,-10,    -0.760,  1.098E-002
+  1, 10,-10,    -0.730,  1.098E-002
+  1, 11,-10,    -0.700,  1.098E-002
+  1, 12,-10,    -0.670,  1.098E-002
+  1, 13,-10,    -0.640,  1.098E-002
+  1, 14,-10,    -0.610,  1.098E-002
+  1, 15,-10,    -0.580,  1.098E-002
+  1, 16,-10,    -0.550,  1.098E-002
+  1, 17,-10,    -0.520,  1.098E-002
+  1, 18,-10,    -0.490,  1.098E-002
+  1, 19,-10,    -0.460,  1.098E-002
+  1, 20,-10,    -0.430,  1.098E-002
+  1, 21,-10,    -0.400,  1.098E-002
+  1, 22,-10,    -0.370,  1.098E-002
+  1, 23,-10,    -0.340,  1.098E-002
+  1, 24,-10,    -0.310,  1.098E-002
+  1, 25,-10,    -0.280,  1.098E-002
+  1, 26,-10,    -0.250,  1.098E-002
+  1, 27,-10,    -0.220,  1.098E-002

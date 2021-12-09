@@ -1,0 +1,23 @@
+[Device_info]
+TestModelName=
+[GraphInfo]
+GraphTitle=GRAPH
+X_Title=Vgate (V)
+X_Min=NaN
+X_Max=NaN
+X_Log=0
+X_Abs=0
+Y_Title=Idrain (A)
+Y_Min=NaN
+Y_Max=NaN
+Y_Log=0
+Y_Abs=0
+Y2_Title=Vdrain (V)
+Y2_Min=NaN
+Y2_Max=NaN
+Y2_Log=0
+Y2_Abs=0
+TestCount=0
+[Legends]
+Visible=0
+Position=Right

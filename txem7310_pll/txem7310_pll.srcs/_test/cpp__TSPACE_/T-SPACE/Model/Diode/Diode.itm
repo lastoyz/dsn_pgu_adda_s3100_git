@@ -1,0 +1,15 @@
+[Device_info]
+TestModelName=Diode
+NPLC=Medium
+[SMU_Channel]
+Anode=SMU1
+Cathode=SMU2
+[SMU_Setup]
+AnodeStart=-10
+AnodeStop=1
+AnodeStep=100m
+Cathode_V=0
+AnodeIcom=10m
+CathodeIcom=10m
+HoldTime=100m
+DelayTime=10m

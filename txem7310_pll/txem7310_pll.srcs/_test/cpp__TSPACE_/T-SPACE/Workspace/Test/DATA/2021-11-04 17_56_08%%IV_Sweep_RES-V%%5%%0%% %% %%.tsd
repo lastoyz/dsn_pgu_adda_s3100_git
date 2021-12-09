@@ -1,0 +1,259 @@
+[Device_info]
+TestModelName=IV_Sweep
+NPLC=Medium
+[Graph]
+Y_Log=0
+Y2_Log=0
+[TestItem_info]
+SetupName=RES - V Sweep
+ImageFile=C:\T-SPACE\Images\resistor.png
+Description=RES - V Measure<#NewLine>Sweep Current : 0V ~ 10V, Step 0.1V<#NewLine><#NewLine>
+[Force_Channel1]
+Enabled=True
+Unit=SMU2
+Name=V2
+Mode=Voltage
+Value=0
+Compliance=10m
+[Force_Channel2]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Force_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Force_Channel4]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Measure_Channel1]
+Enabled=True
+Unit=SMU1
+Name=Current
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y1
+[Measure_Channel2]
+Enabled=False
+Unit=SMU2
+Name=IGate
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel3]
+Enabled=False
+Unit=SMU3
+Name=Isource
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel4]
+Enabled=False
+Unit=SMU4
+Name=Ibody
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Sweep_Channel]
+Enabled=False
+Unit=SMU1
+Name=Voltage
+Mode=Voltage
+Start=0
+Stop=10
+Step=0.1
+Compliance=10m
+Direction=Single
+Yaxis=X
+[Sweep_Channel2]
+Enabled=False
+Unit=
+Name=
+Mode=
+Start=
+Stop=
+Step=
+Compliance=
+Yaxis=-
+[Sweep_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Offset=
+Ratio=
+Compliance=
+Yaxis=-
+[Timming]
+HoldTime=0
+DelayTime=0.1
+MeasureCount=100
+[GraphSetup]
+Xaxis=-1
+Xaxis_Min=0
+Xaxis_Max=10.3
+Y1axis=0
+Y1axis_Min=
+Y1axis_Max=
+Y2axis=0
+Y2axis_Min=
+Y2axis_Max=
+[GraphInfo]
+GraphTitle=RES - V Sweep
+X_Title=Index
+X_Min=0
+X_Max=10.3
+X_Log=0
+X_Abs=0
+Y_Title=Current (A)
+Y_Min=0
+Y_Max=0.2
+Y_Log=0
+Y_Abs=0
+TestCount=1
+[Legends]
+Visible=0
+Position=Right
+1=1 : Current
+[TestInfo]
+Test Name,IV_Sweep_RES-V
+Test Date,2021-11-04
+Test Time,17:56:09
+[TestInfo]
+Test Name,IV_Sweep_RES-V
+Test Date,2021-11-04 17:56:09
+Test Time,16.938s
+Mode,Constant Measure
+Speed,Medium
+Hold Time,0s
+Delay Time,0.1s
+Instrument Channel,SMU2
+Force Channel Name,V2
+Force Mode,Voltage Bias
+Sweep Mode,Constant
+Sweep Direction,N/A
+Start/Level,0
+Stop/Offset,N/A
+Step/Ratio,N/A
+Number of Points,N/A
+Compliance,0.01
+Measure Channel Name,N/A
+Measure Mode,N/A
+Measure Range,N/A
+Frequency,N/A
+AC Level,N/A
+[TestData]
+No,GraphX:Index,GraphY:Current(A),  1,  1,8.23506E-002
+  1,  2,8.23506E-002
+  1,  3,8.23506E-002
+  1,  4,8.23506E-002
+  1,  5,8.23506E-002
+  1,  6,8.23506E-002
+  1,  7,8.23506E-002
+  1,  8,8.23506E-002
+  1,  9,8.23506E-002
+  1, 10,8.23506E-002
+  1, 11,8.23506E-002
+  1, 12,8.23506E-002
+  1, 13,8.23506E-002
+  1, 14,8.23506E-002
+  1, 15,8.23506E-002
+  1, 16,8.23506E-002
+  1, 17,8.23506E-002
+  1, 18,8.23506E-002
+  1, 19,8.23506E-002
+  1, 20,8.23506E-002
+  1, 21,8.23506E-002
+  1, 22,8.23506E-002
+  1, 23,8.23506E-002
+  1, 24,8.23506E-002
+  1, 25,8.23506E-002
+  1, 26,8.23506E-002
+  1, 27,8.23506E-002
+  1, 28,8.23506E-002
+  1, 29,8.23506E-002
+  1, 30,8.23506E-002
+  1, 31,8.23506E-002
+  1, 32,8.23506E-002
+  1, 33,8.23506E-002
+  1, 34,8.23506E-002
+  1, 35,8.23506E-002
+  1, 36,8.23506E-002
+  1, 37,8.23506E-002
+  1, 38,8.23506E-002
+  1, 39,8.23506E-002
+  1, 40,8.23506E-002
+  1, 41,8.23506E-002
+  1, 42,8.23506E-002
+  1, 43,8.23506E-002
+  1, 44,8.23506E-002
+  1, 45,8.23506E-002
+  1, 46,8.23506E-002
+  1, 47,8.23506E-002
+  1, 48,8.23506E-002
+  1, 49,8.23506E-002
+  1, 50,8.23506E-002
+  1, 51,8.23506E-002
+  1, 52,8.23506E-002
+  1, 53,8.23506E-002
+  1, 54,8.23506E-002
+  1, 55,8.23506E-002
+  1, 56,8.23506E-002
+  1, 57,8.23506E-002
+  1, 58,8.23506E-002
+  1, 59,8.23506E-002
+  1, 60,8.23506E-002
+  1, 61,8.23506E-002
+  1, 62,8.23506E-002
+  1, 63,8.23506E-002
+  1, 64,8.23506E-002
+  1, 65,8.23506E-002
+  1, 66,8.23506E-002
+  1, 67,8.23506E-002
+  1, 68,8.23506E-002
+  1, 69,8.23506E-002
+  1, 70,8.23506E-002
+  1, 71,8.23506E-002
+  1, 72,8.23506E-002
+  1, 73,8.23506E-002
+  1, 74,8.23506E-002
+  1, 75,8.23506E-002
+  1, 76,8.23506E-002
+  1, 77,8.23506E-002
+  1, 78,8.23506E-002
+  1, 79,8.23506E-002
+  1, 80,8.23506E-002
+  1, 81,8.23506E-002
+  1, 82,8.23506E-002
+  1, 83,8.23506E-002
+  1, 84,8.23506E-002
+  1, 85,8.23506E-002
+  1, 86,8.23506E-002
+  1, 87,8.23506E-002
+  1, 88,8.23506E-002
+  1, 89,8.23506E-002
+  1, 90,8.23506E-002
+  1, 91,8.23506E-002
+  1, 92,8.23506E-002
+  1, 93,8.23506E-002
+  1, 94,8.23506E-002
+  1, 95,8.23506E-002
+  1, 96,8.23506E-002
+  1, 97,8.23506E-002
+  1, 98,8.23506E-002
+  1, 99,8.23506E-002
+  1,100,8.23506E-002

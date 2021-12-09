@@ -5650,8 +5650,9 @@ namespace TopInstrument
             //s32 len_adc_data              = 250  ; // adc samples ... fit for max spi fifo
             //s32 len_adc_data              = 50   ; // adc samples
             //$$ u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps
-            //u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps
-            u32 adc_sampling_period_count = 1050000   ; // 210MHz/1050000   =  200 sps // 5ms 
+            u32 adc_sampling_period_count = 2100   ; // 210MHz/2100   =  100 ksps // 10us
+            //u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
+            //u32 adc_sampling_period_count = 1050000   ; // 210MHz/1050000   =  200 sps // 5ms 
             //u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps
 
             // dac setup
@@ -5748,14 +5749,14 @@ namespace TopInstrument
             //// case CC : : 10s long pulse, tr 100m, repeat 2, ADC 5ms 6000 samples.
             // Tdata_usr = [     0, 1 000 000 000, 1 100 000 000, 6 000 000 000, 6 100 000 000, 10 000 000 000, ]
             // Vdata_usr = [ 0.000,  0.000, 20.000, 20.000,  0.000,  0.000, ] 
-            long[]   StepTime_ns = new long[]   {      0, 1000000000, 1100000000, 6000000000, 6100000000, 10000000000 }; // ns
-            double[] StepLevel_V = new double[] {  0.000,      0.000,     20.000,     20.000,      0.000,       0.000 }; // V
+            //long[]   StepTime_ns = new long[]   {      0, 1000000000, 1100000000, 6000000000, 6100000000, 10000000000 }; // ns
+            //double[] StepLevel_V = new double[] {  0.000,      0.000,     20.000,     20.000,      0.000,       0.000 }; // V
 
-            //// case DD : 10ms long, tr 100us
+            //// case DD : 10ms long, tr 100us, repeat 5, ADC 10us 6000 samples. <<<
             // Tdata_usr = [     0, 1000000, 1100000, 6000000, 6100000, 10000000, ]
             // Vdata_usr = [ 0.000,  0.000,   20.000,  20.000,   0.000,    0.000, ] 
-            //long[]   StepTime_ns = new long[]   {      0, 1000000, 1100000, 6000000, 6100000, 10000000 }; // ns
-            //double[] StepLevel_V = new double[] {  0.000,  0.000,   20.000,  20.000,   0.000,    0.000 }; // V
+            long[]   StepTime_ns = new long[]   {      0, 1000000, 1100000, 6000000, 6100000, 10000000 }; // ns
+            double[] StepLevel_V = new double[] {  0.000,  0.000,   20.000,  20.000,   0.000,    0.000 }; // V
 
             //// case DD : 100ms long, tr 5000us
             // Tdata_usr = [     0, 10000000, 15000000, 60000000, 65000000, 100000000, ]

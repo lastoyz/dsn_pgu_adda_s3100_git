@@ -1,0 +1,210 @@
+[Device_info]
+TestModelName=IV_Sweep
+NPLC=Medium
+[Graph]
+Y_Log=0
+Y2_Log=0
+[TestItem_info]
+SetupName=RES - V Sweep
+ImageFile=C:\T-SPACE\Images\resistor.png
+Description=RES - V Measure<#NewLine>Sweep Current : 0V ~ 10V, Step 0.1V<#NewLine><#NewLine>
+[Force_Channel1]
+Enabled=True
+Unit=SMU2
+Name=V2
+Mode=Voltage
+Value=0
+Compliance=10m
+[Force_Channel2]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Force_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Force_Channel4]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Measure_Channel1]
+Enabled=True
+Unit=SMU1
+Name=Current
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y1
+[Measure_Channel2]
+Enabled=False
+Unit=SMU2
+Name=IGate
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel3]
+Enabled=False
+Unit=SMU3
+Name=Isource
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel4]
+Enabled=False
+Unit=SMU4
+Name=Ibody
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Sweep_Channel]
+Enabled=True
+Unit=SMU1
+Name=Voltage
+Mode=Voltage
+Start=0
+Stop=10
+Step=0.1
+Compliance=10m
+Direction=Single
+Yaxis=X
+[Sweep_Channel2]
+Enabled=False
+Unit=
+Name=
+Mode=
+Start=
+Stop=
+Step=
+Compliance=
+Yaxis=-
+[Sweep_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Offset=
+Ratio=
+Compliance=
+Yaxis=-
+[Timming]
+HoldTime=0
+DelayTime=0.01
+MeasureCount=0
+[GraphSetup]
+Xaxis=0
+Xaxis_Min=
+Xaxis_Max=
+Y1axis=0
+Y1axis_Min=
+Y1axis_Max=
+Y2axis=0
+Y2axis_Min=
+Y2axis_Max=
+[GraphInfo]
+GraphTitle=RES - V Sweep
+X_Title=Voltage (V)
+X_Min=0
+X_Max=10
+X_Log=0
+X_Abs=0
+Y_Title=Current (A)
+Y_Min=0
+Y_Max=0.2
+Y_Log=0
+Y_Abs=0
+TestCount=1
+[Legends]
+Visible=0
+Position=Right
+1=1 : Current
+[TestInfo]
+Test Name,IV_Sweep_RES-V
+Test Date,2021-11-04 17:41:19
+Test Time,8.544s
+Mode,Sweep Measure
+Speed,Medium
+Hold Time,0s
+Delay Time,0.01s
+Instrument Channel,SMU1,SMU2
+Force Channel Name,Voltage,V2
+Force Mode,Voltage Sweep,Voltage Bias
+Sweep Mode,VAR1,Constant
+Sweep Direction,Single,N/A
+Start/Level,0,0
+Stop/Offset,10,N/A
+Step/Ratio,0.1,N/A
+Number of Points,101,N/A
+Compliance,0.01,0.01
+Measure Channel Name,Current,N/A
+Measure Mode,Current Measured,N/A
+Measure Range,Limited Auto=1nA,N/A
+Frequency,N/A,N/A
+AC Level,N/A,N/A
+[TestData]
+No,Index,GraphX:Voltage(V),GraphY:Current(A)
+  1,  1,0.00000E+000,1.09801E-002
+  1,  2,1.00000E-001,1.09801E-002
+  1,  3,2.00000E-001,1.09801E-002
+  1,  4,3.00000E-001,1.09801E-002
+  1,  5,4.00000E-001,1.09801E-002
+  1,  6,5.00000E-001,1.09801E-002
+  1,  7,6.00000E-001,1.09801E-002
+  1,  8,7.00000E-001,1.09801E-002
+  1,  9,8.00000E-001,1.09801E-002
+  1, 10,9.00000E-001,1.09801E-002
+  1, 11,1.00000E+000,1.09801E-002
+  1, 12,1.10000E+000,1.09801E-002
+  1, 13,1.20000E+000,1.09801E-002
+  1, 14,1.30000E+000,1.09801E-002
+  1, 15,1.40000E+000,1.09801E-002
+  1, 16,1.50000E+000,1.09801E-002
+  1, 17,1.60000E+000,1.09801E-002
+  1, 18,1.70000E+000,1.09801E-002
+  1, 19,1.80000E+000,1.09801E-002
+  1, 20,1.90000E+000,1.09801E-002
+  1, 21,2.00000E+000,1.09801E-002
+  1, 22,2.10000E+000,1.09801E-002
+  1, 23,2.20000E+000,1.09801E-002
+  1, 24,2.30000E+000,1.09801E-002
+  1, 25,2.40000E+000,1.09801E-002
+  1, 26,2.50000E+000,1.09801E-002
+  1, 27,2.60000E+000,1.09801E-002
+  1, 28,2.70000E+000,1.09801E-002
+  1, 29,2.80000E+000,1.09801E-002
+  1, 30,2.90000E+000,1.09801E-002
+  1, 31,3.00000E+000,1.09801E-002
+  1, 32,3.10000E+000,1.09801E-002
+  1, 33,3.20000E+000,1.09801E-002
+  1, 34,3.30000E+000,1.09801E-002
+  1, 35,3.40000E+000,1.09801E-002
+  1, 36,3.50000E+000,1.09801E-002
+  1, 37,3.60000E+000,1.09801E-002
+  1, 38,3.70000E+000,1.09801E-002
+  1, 39,3.80000E+000,1.09801E-002
+  1, 40,3.90000E+000,1.09801E-002
+  1, 41,4.00000E+000,1.09801E-002
+  1, 42,4.10000E+000,1.09801E-002
+  1, 43,4.20000E+000,1.09801E-002
+  1, 44,4.30000E+000,1.09801E-002
+  1, 45,4.40000E+000,1.09801E-002
+  1, 46,4.50000E+000,1.09801E-002
+  1, 47,4.60000E+000,1.09801E-002
+  1, 48,4.70000E+000,1.09801E-002
+  1, 49,4.80000E+000,1.09801E-002
+  1, 50,4.90000E+000,1.09801E-002
+  1, 51,5.00000E+000,1.09801E-002
+  1, 52,5.10000E+000,1.09801E-002
+  1, 53,5.20000E+000,1.09801E-002
+  1, 54,5.30000E+000,1.09801E-002

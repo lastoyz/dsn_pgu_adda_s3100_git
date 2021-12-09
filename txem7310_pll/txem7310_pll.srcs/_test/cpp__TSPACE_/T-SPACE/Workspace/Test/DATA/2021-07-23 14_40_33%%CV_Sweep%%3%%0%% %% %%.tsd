@@ -1,0 +1,73 @@
+[Device_info]
+TestModelName=CV_Sweep
+NPLC=Short
+Bias_Enable=False
+[CV_Sweep]
+CMU_MeasModel=Cp-Gp
+CMU_Frequency=5MHz
+CMU_AC_Level=300mV
+CVSweepStart=-10
+CVSweepStop=10
+CVSweepStep=0.2
+CVSweepHoldTime=1
+CVSweepDelayTime=0.001
+Direction=Single
+[Bias1]
+Bias_CH=SMU1
+Bias_Voltage=0
+Bias_Compliance=100m
+[Bias2]
+Bias_CH=Disable
+Bias_Voltage=0
+Bias_Compliance=100m
+[Bias3]
+Bias_CH=Disable
+Bias_Voltage=0
+Bias_Compliance=100m
+[Bias4]
+Bias_CH=Disable
+Bias_Voltage=0
+Bias_Compliance=100m
+[GraphInfo]
+GraphTitle=CV_Sweep
+X_Title=Voltage (V)
+X_Min=-10
+X_Max=10
+X_Log=0
+X_Abs=0
+Y_Title=Cp(F)
+Y_Min=0
+Y_Max=0.2
+Y_Log=0
+Y_Abs=0
+TestCount=1
+[Legends]
+Visible=0
+Position=Right
+1=1 : Cp
+[TestInfo]
+Test Name,CV_Sweep
+Test Date,2021-07-23 14:40:34
+Test Time,3.891s
+Mode,Sweep Measure
+Speed,Short
+Hold Time,1s
+Delay Time,0.001s
+Instrument Channel,CMU1
+Force Channel Name,Cp-Gp
+Force Mode,Voltage Sweep
+Sweep Mode,CV Sweep
+Sweep Direction,Single
+Start/Level,-10
+Stop/Offset,10
+Step/Ratio,0.2
+Number of Points,101
+Compliance,N/A
+Measure Channel Name,Cp-Gp
+Measure Mode,N/A
+Measure Range,N/A
+Frequency,5MHz
+AC Level,300mV
+[TestData]
+No,Index,GraphX:Voltage(V),GraphY:Cp(F),Cp,Gp
+  1,  1,   -10.000,2.84178E-011,5.32827E-012,3.48458E-004
