@@ -27,6 +27,10 @@ T-SPACE
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
+</member><member name="P:Sta2CLI.My.Resources.Resources.backg3">
+	<summary>
+  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+</summary>
 </member><member name="P:Sta2CLI.My.Resources.Resources.backg6">
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
@@ -36,6 +40,10 @@ T-SPACE
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
 </member><member name="P:Sta2CLI.My.Resources.Resources.background">
+	<summary>
+  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+</summary>
+</member><member name="P:Sta2CLI.My.Resources.Resources.background_small">
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
@@ -63,7 +71,19 @@ T-SPACE
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
+</member><member name="P:Sta2CLI.My.Resources.Resources.Down">
+	<summary>
+  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+</summary>
 </member><member name="P:Sta2CLI.My.Resources.Resources.Gray2">
+	<summary>
+  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+</summary>
+</member><member name="P:Sta2CLI.My.Resources.Resources.KeyDown">
+	<summary>
+  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+</summary>
+</member><member name="P:Sta2CLI.My.Resources.Resources.Loading0">
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
@@ -123,6 +143,10 @@ T-SPACE
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
+</member><member name="P:Sta2CLI.My.Resources.Resources.Save">
+	<summary>
+  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+</summary>
 </member><member name="P:Sta2CLI.My.Resources.Resources.T_SPACE_1">
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
@@ -140,6 +164,10 @@ T-SPACE
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
 </member><member name="P:Sta2CLI.My.Resources.Resources.Top">
+	<summary>
+  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+</summary>
+</member><member name="P:Sta2CLI.My.Resources.Resources.Up">
 	<summary>
   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
 </summary>
