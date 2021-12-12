@@ -1,0 +1,14 @@
+F,01_PGU_cal
+F,03_PGU_DC_resolution
+F,05_PGU_overshoot
+F,06_PGU_min_period
+F,07_PGU_max_period
+F,08_PGU_period_accuracy
+F,09_PGU_period_resolution
+F,10_PGU_min_transition
+F,11_PGU_max_transition
+F,PGU_Control
+F,PGU_con_short
+F,PGU_Con__20000ns
+F,PGU_Con__5000ns
+F,PGU_test__pr1000ns__tr100ns

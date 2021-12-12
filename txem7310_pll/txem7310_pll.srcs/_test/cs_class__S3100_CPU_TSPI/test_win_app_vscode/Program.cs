@@ -18,6 +18,7 @@ namespace __test__
     {
 
         public static string test_host_ip = "192.168.100.143"; // test dummy ip
+        //public static string test_host_ip = "192.168.100.61"; // test adda via test lan
         //public static string test_host_ip = "192.168.100.62"; // test adda via test lan
 
         //// S3100 frame slot selection:
@@ -55,11 +56,12 @@ namespace __test__
         ////// test conditions
 
         //public static u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps // 100ns
+        public static u32 adc_sampling_period_count = 210   ; // 210MHz/210   =  1000 ksps // 1us
         //public static u32 adc_sampling_period_count = 2100   ; // 210MHz/2100   =  100 ksps // 10us
         //public static u32 adc_sampling_period_count = 21000  ; // 210MHz/21000   =   10 ksps // 100us
         //public static u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
         //public static u32 adc_sampling_period_count = 1050000   ; // 210MHz/1050000   =  200 sps // 5ms 
-        public static u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps // 10ms
+        //public static u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps // 10ms
         public static s32 len_adc_data        = 6000  ; // adc samples
 
         public static int num_repeat_pulses = 5;
@@ -78,6 +80,10 @@ namespace __test__
         //public static long[]   StepTime_ns = new long[]   {   0, 10000, 20000, 30000, 40000, 50000, 70000, 80000, 100000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
 
+        //// case 1000us : pr 1000000 ns, tr 100000ns, repeat 5, ADC 1us 6000 samples.
+        public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+
         //// case 100ms : pr 100000000 ns, tr 10000000 ns, repeat 5, ADC 100us 6000 samples.
         //public static long[]   StepTime_ns = new long[]   {   0, 10000000, 20000000, 30000000, 40000000, 50000000, 70000000, 80000000, 100000000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
@@ -95,8 +101,8 @@ namespace __test__
         // case 10s : 10s long pulse, tr 500m, repeat 5, ADC 10ms 6000 samples.
         // Tdata_usr = [     0, 1 000 000 000, 1 500 000 000, 6 000 000 000, 6 500 000 000, 10 000 000 000, ]
         // Vdata_usr = [ 0.000,     0.000,    20.000,    20.000,     0.000,      0.000, ] 
-        public static long[]   StepTime_ns = new long[]   {     0, 1000000000, 1500000000,6000000000, 6500000000, 10000000000 }; // ns
-        public static double[] StepLevel_V = new double[] { 0.000,      0.000,     20.000,     20.000,      0.000,       0.000 }; // V
+        //public static long[]   StepTime_ns = new long[]   {     0, 1000000000, 1500000000,6000000000, 6500000000, 10000000000 }; // ns
+        //public static double[] StepLevel_V = new double[] { 0.000,      0.000,     20.000,     20.000,      0.000,       0.000 }; // V
 
 
 
