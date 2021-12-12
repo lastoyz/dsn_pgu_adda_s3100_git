@@ -27,9 +27,9 @@ GraphTitle=BJT_PNP_Ic-Vc
 X_Title=Vcollector (V)
 X_Min=-10
 X_Max=0
-Y_Title=Icollector (A)  :  abs(Ic) 
-Y_Min=0
-Y_Max=0.012
+Y_Title=Icollector (A)
+Y_Min=-0.012
+Y_Max=0
 TestCount=1
 [TestInfo]
 Test Name,BJT_PNP_Ic-Vc

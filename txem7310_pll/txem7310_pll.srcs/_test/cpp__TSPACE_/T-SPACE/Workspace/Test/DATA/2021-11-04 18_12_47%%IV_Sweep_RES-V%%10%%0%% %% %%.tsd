@@ -1,0 +1,169 @@
+[Device_info]
+TestModelName=IV_Sweep
+NPLC=Short
+[Graph]
+Y_Log=0
+Y2_Log=0
+[TestItem_info]
+SetupName=RES - V Sweep
+ImageFile=C:\T-SPACE\Images\resistor.png
+Description=RES - V Measure<#NewLine>Sweep Current : 0V ~ 10V, Step 0.1V<#NewLine><#NewLine>
+[Force_Channel1]
+Enabled=True
+Unit=SMU2
+Name=V2
+Mode=Voltage
+Value=0
+Compliance=10m
+[Force_Channel2]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Force_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Force_Channel4]
+Enabled=False
+Unit=
+Name=
+Mode=
+Value=
+Compliance=
+[Measure_Channel1]
+Enabled=True
+Unit=SMU1
+Name=Current
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=Y1
+[Measure_Channel2]
+Enabled=False
+Unit=SMU2
+Name=IGate
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel3]
+Enabled=False
+Unit=SMU3
+Name=Isource
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Measure_Channel4]
+Enabled=False
+Unit=SMU4
+Name=Ibody
+Mode=Current
+Range=1nA
+RangeMode=LIMITED
+Yaxis=-
+[Sweep_Channel]
+Enabled=False
+Unit=SMU1
+Name=Voltage
+Mode=Voltage
+Start=0
+Stop=10
+Step=0.1
+Compliance=10m
+Direction=Single
+Yaxis=X
+[Sweep_Channel2]
+Enabled=False
+Unit=
+Name=
+Mode=
+Start=
+Stop=
+Step=
+Compliance=
+Yaxis=-
+[Sweep_Channel3]
+Enabled=False
+Unit=
+Name=
+Mode=
+Offset=
+Ratio=
+Compliance=
+Yaxis=-
+[Timming]
+HoldTime=1
+DelayTime=100m
+MeasureCount=10
+[GraphSetup]
+Xaxis=-1
+Xaxis_Min=0
+Xaxis_Max=1.2
+Y1axis=0
+Y1axis_Min=
+Y1axis_Max=
+Y2axis=0
+Y2axis_Min=
+Y2axis_Max=
+[GraphInfo]
+GraphTitle=RES - V Sweep
+X_Title=Time(sec)
+X_Min=0
+X_Max=1.2
+X_Log=0
+X_Abs=0
+Y_Title=Current (A)
+Y_Min=0
+Y_Max=0.2
+Y_Log=0
+Y_Abs=0
+TestCount=1
+[Legends]
+Visible=0
+Position=Right
+1=1 : Current
+[TestInfo]
+Test Name,IV_Sweep_RES-V
+Test Date,2021-11-04
+Test Time,18:12:47
+[TestInfo]
+Test Name,IV_Sweep_RES-V
+Test Date,2021-11-04 18:12:47
+Test Time,2.642s
+Mode,Constant Measure
+Speed,Short
+Hold Time,1s
+Delay Time,0.1s
+Instrument Channel,SMU2
+Force Channel Name,V2
+Force Mode,Voltage Bias
+Sweep Mode,Constant
+Sweep Direction,N/A
+Start/Level,0
+Stop/Offset,N/A
+Step/Ratio,N/A
+Number of Points,N/A
+Compliance,0.01
+Measure Channel Name,N/A
+Measure Mode,N/A
+Measure Range,N/A
+Frequency,N/A
+AC Level,N/A
+[TestData]
+No,Index,GraphX:Time(sec),GraphY:Current(A),  1,  1,       0.100,8.23506E-002
+  1,  2,       0.200,8.23506E-002
+  1,  3,       0.301,8.23506E-002
+  1,  4,       0.400,8.23506E-002
+  1,  5,       0.500,8.23506E-002
+  1,  6,       0.601,8.23506E-002
+  1,  7,       0.701,8.23506E-002
+  1,  8,       0.800,8.23506E-002
+  1,  9,       0.900,8.23506E-002
+  1, 10,       1.000,8.23506E-002

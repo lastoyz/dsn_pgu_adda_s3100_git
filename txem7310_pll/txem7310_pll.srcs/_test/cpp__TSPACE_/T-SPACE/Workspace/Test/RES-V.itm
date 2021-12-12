@@ -2,9 +2,12 @@
 TestModelName=Resistor
 NPLC=Medium
 Mode=V-Mode
+[Graph]
+Y_Log=0
+Y2_Log=0
 [SMU_Channel]
-Resistor=SMU1
-Resistor_g=SMU2
+Resistor=SMU2
+Resistor_g=GNDU
 [SMU_Setup]
 Start=0
 Stop=10
@@ -12,5 +15,5 @@ Step=0.1
 Output_V=0
 Input_Icom=100m
 Output_Icom=100m
-HoldTime=2
-DelayTime=0
+HoldTime=3
+DelayTime=1

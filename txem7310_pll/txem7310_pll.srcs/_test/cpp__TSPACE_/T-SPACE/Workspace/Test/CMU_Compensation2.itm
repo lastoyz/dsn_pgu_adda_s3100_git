@@ -1,0 +1,19 @@
+[Device_info]
+TestModelName=CMU_Compensation
+[Graph]
+Y_Log=0
+Y2_Log=0
+[CMU_Compensation]
+CableConnection=4 wire
+[Switch_Channel1]
+SelectPort=OPEN
+TerminalName=
+[Switch_Channel2]
+SelectPort=OPEN
+TerminalName=
+[Switch_Channel3]
+SelectPort=OPEN
+TerminalName=
+[Switch_Channel4]
+SelectPort=OPEN
+TerminalName=

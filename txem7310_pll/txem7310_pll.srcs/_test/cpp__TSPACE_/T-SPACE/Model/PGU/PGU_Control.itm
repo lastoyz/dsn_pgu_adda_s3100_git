@@ -1,7 +1,7 @@
 [Device_info]
 TestModelName=PGU_Control
 2LevelPeriod=1000
-CycleCount=0
+CycleCount=1
 Bias_Enable=False
 2LevelTimeUnit=us
 [PGU1_Channel]
@@ -9,13 +9,13 @@ CH_Enable=True
 OutputRange=10V
 Impedance=50
 PulseMode=2LevelPulse
-StepPulseTimeUnit=ms
+StepPulseTimeUnit=ns
 [PGU2_Channel]
 CH_Enable=False
 OutputRange=10V
 Impedance=50
 PulseMode=StepLevelPulse
-StepPulseTimeUnit=ms
+StepPulseTimeUnit=ns
 [PGU1_2LevelPulseInfo]
 Base=0
 Peak=0.5

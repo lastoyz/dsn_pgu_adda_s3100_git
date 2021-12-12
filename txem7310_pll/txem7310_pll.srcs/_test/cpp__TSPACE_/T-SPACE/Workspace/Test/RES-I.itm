@@ -1,6 +1,6 @@
 [Device_info]
 TestModelName=Resistor
-NPLC=Short
+NPLC=Medium
 Mode=I-Mode
 [SMU_Channel]
 Resistor=SMU1

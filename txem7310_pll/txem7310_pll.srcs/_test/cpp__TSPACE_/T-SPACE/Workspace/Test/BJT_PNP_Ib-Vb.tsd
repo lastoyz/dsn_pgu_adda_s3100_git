@@ -28,8 +28,8 @@ X_Title=Vbase (V)
 X_Min=-1
 X_Max=0
 Y_Title=Ibase (A)  :  abs(Ib) 
-Y_Min=0
-Y_Max=0.0006
+Y_Min=-0.0006
+Y_Max=0
 TestCount=1
 [TestInfo]
 Test Name,BJT_PNP_Ib-Vb

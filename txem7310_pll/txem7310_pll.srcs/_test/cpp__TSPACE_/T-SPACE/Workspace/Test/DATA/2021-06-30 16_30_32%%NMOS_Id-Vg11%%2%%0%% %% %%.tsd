@@ -1,0 +1,97 @@
+[Device_info]
+TestModelName=MOS_Id_Vg
+NPLC=Medium
+Channel_Type=N_Type
+Hysteresis=False
+[SMU_Channel]
+Drain=SMU1
+Gate=SMU2
+Source=SMU3
+Body1=Disable
+Body2=Disable
+[SMU_Setup]
+GStart=0
+GStop=10
+GStep=0.5
+DStart=10
+DStop=10
+DStep=0
+Source_V=0
+Body1_V=0
+Body2_V=5
+DIcom=100m
+GIcom=100m
+SIcom=100m
+B1Icom=1m
+B2Icom=1m
+HoldTime=10m
+DelayTime=10m
+[GraphInfo]
+GraphTitle=NMOS_Id-Vg11
+X_Title=Vgate (V)
+X_Min=0
+X_Max=10
+X_Log=0
+X_Abs=0
+Y_Title=Idrain (A)
+Y_Min=0
+Y_Max=0.12
+Y_Log=0
+Y_Abs=0
+Y2_Title=gm
+Y2_Min=0
+Y2_Max=0
+Y2_Log=0
+Y2_Abs=0
+TestCount=1
+[Legends]
+Visible=0
+Position=Right
+1=1 : Idrain@Vdrain=10V - (3)
+2=2 : gm@Vdrain=10V - (3)
+[TestInfo]
+Test Name,NMOS_Id-Vg11
+Test Date,2021-06-30 16:30:32
+Test Time,3.480s
+Mode,Sweep Measure
+Speed,Medium
+Hold Time,0.01s
+Delay Time,0.01s
+Instrument Channel,SMU2,SMU1,SMU3
+Force Channel Name,Vgate,Vdrain,Vsource
+Force Mode,Voltage Sweep,Voltage Sweep,Voltage Bias
+Sweep Mode,VAR1,VAR2,Constant
+Sweep Direction,N/A,N/A,N/A
+Start/Level,0,10,0
+Stop/Offset,10,10,N/A
+Step/Ratio,0.5,0,N/A
+Number of Points,21,1,N/A
+Compliance,0.1,0.1,0.1
+Measure Channel Name,N/A,Idrain,N/A
+Measure Mode,N/A,Current Measured,N/A
+Measure Range,N/A,Limited Auto = 1nA,N/A
+Frequency,N/A,N/A,N/A
+AC Level,N/A,N/A,N/A
+[TestData]
+No,Index,Vdrain(V),GraphX:Vgate(V),GraphY:Idrain(A),GraphY2:gm
+  1,  1,10,     0.000,  1.098E-001,  0.000E+000
+  1,  2,10,     0.500,  1.098E-001,  0.000E+000
+  1,  3,10,     1.000,  1.098E-001,  0.000E+000
+  1,  4,10,     1.500,  1.098E-001,  0.000E+000
+  1,  5,10,     2.000,  1.098E-001,  0.000E+000
+  1,  6,10,     2.500,  1.098E-001,  0.000E+000
+  1,  7,10,     3.000,  1.098E-001,  0.000E+000
+  1,  8,10,     3.500,  1.098E-001,  0.000E+000
+  1,  9,10,     4.000,  1.098E-001,  0.000E+000
+  1, 10,10,     4.500,  1.098E-001,  0.000E+000
+  1, 11,10,     5.000,  1.098E-001,  0.000E+000
+  1, 12,10,     5.500,  1.098E-001,  0.000E+000
+  1, 13,10,     6.000,  1.098E-001,  0.000E+000
+  1, 14,10,     6.500,  1.098E-001,  0.000E+000
+  1, 15,10,     7.000,  1.098E-001,  0.000E+000
+  1, 16,10,     7.500,  1.098E-001,  0.000E+000
+  1, 17,10,     8.000,  1.098E-001,  0.000E+000
+  1, 18,10,     8.500,  1.098E-001,  0.000E+000
+  1, 19,10,     9.000,  1.098E-001,  0.000E+000
+  1, 20,10,     9.500,  1.098E-001,  0.000E+000
+  1, 21,10,    10.000,  1.098E-001,  0.000E+000

@@ -9,6 +9,21 @@ Module=SMU
 Type=MPSMU
 Description=Medium Power SMU : 2W, 100V/100mA
 
+[S3020]
+Module=SMU
+Type=MPSMU
+Description=Medium Power SMU : 2W, 200V/100mA, 1fA/0.1uV
+
+[S3030]
+Module=SMU
+Type=HPSMU
+Description=High Power SMU : 20W, 200V/1A
+
+[S3040]
+Module=SMU
+Type=HRSMU
+Description=High Resolution SMU : 2W, 100V/100mA, 0.1fA/0.1uV
+
 [S3050]
 Module=CMU
 Type=MFCMU
