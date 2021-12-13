@@ -4372,18 +4372,18 @@ namespace TopInstrument
             //dev_eps.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot);      // for slot location bits
 
             // check SIG
-            Console.WriteLine(">>> check SIG");
-            dev_eps.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__SIG);      // for slot location bits
-            Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",dev_eps.cmu__dev_get_fid()    ));
-            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",dev_eps.cmu__dev_get_stat()   ));
-            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",dev_eps.cmu__dev_get_temp_C() ));
+            //Console.WriteLine(">>> check SIG");
+            //dev_eps.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__SIG);      // for slot location bits
+            //Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",dev_eps.cmu__dev_get_fid()    ));
+            //Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",dev_eps.cmu__dev_get_stat()   ));
+            //Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",dev_eps.cmu__dev_get_temp_C() ));
 
             // check ANL
-            Console.WriteLine(">>> check ANL");
-            dev_eps.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__ANL);      // for slot location bits
-            Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",dev_eps.cmu__dev_get_fid()    ));
-            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",dev_eps.cmu__dev_get_stat()   ));
-            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",dev_eps.cmu__dev_get_temp_C() ));
+            //Console.WriteLine(">>> check ANL");
+            //dev_eps.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__ANL);      // for slot location bits
+            //Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",dev_eps.cmu__dev_get_fid()    ));
+            //Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",dev_eps.cmu__dev_get_stat()   ));
+            //Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",dev_eps.cmu__dev_get_temp_C() ));
 
             // check HVPGU
             Console.WriteLine(">>> check HVPGU");
@@ -5643,11 +5643,20 @@ namespace TopInstrument
             // seq 1 : initialize ADDA
             dev.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__ADDA);      // for slot location bits
             dev.adda_pwr_on();
+            
             // adc setup
-            s32 len_adc_data              = 600  ; // adc samples
+            s32 len_adc_data              = __test__.Program.len_adc_data;
+            //s32 len_adc_data              = 6000  ; // adc samples
+            //s32 len_adc_data              = 600  ; // adc samples
             //s32 len_adc_data              = 250  ; // adc samples ... fit for max spi fifo
             //s32 len_adc_data              = 50   ; // adc samples
-            u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps
+            u32 adc_sampling_period_count = __test__.Program.adc_sampling_period_count;
+            //u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps // 100ns
+            //u32 adc_sampling_period_count = 2100   ; // 210MHz/2100   =  100 ksps // 10us
+            //u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
+            //u32 adc_sampling_period_count = 1050000   ; // 210MHz/1050000   =  200 sps // 5ms 
+            //u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps
+
             // dac setup
             //double time_ns__dac_update = 5; // 200MHz dac update
             double time_ns__dac_update = 10; // 100MHz dac update
@@ -5730,11 +5739,15 @@ namespace TopInstrument
             // seq 2 : setup PGU waveform
             dev.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__ADDA);      // for slot location bits
             //
-            long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            double[] StepLevel_V = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+
+            //long[]   StepTime_ns = new long[]   {     0, 1000000, 1100000, 6000000, 6100000, 10000000 }; // ns
+            //double[] StepLevel_V = new double[] { 0.000,  0.000,   20.000,  20.000,   0.000,    0.000 }; // V
+            long[]   StepTime_ns = __test__.Program.StepTime_ns;
+            double[] StepLevel_V = __test__.Program.StepLevel_V;
+
             //
             // setup dac output
-            int    output_range                    = 10;   
+            int    output_range                    = __test__.Program.output_range; // 10 or 40  
             int    time_ns__code_duration          = 10; // 10ns = 100MHz
             //int    time_ns__code_duration          = 5; // 5ns = 200MHz
             double load_impedance_ohm              = 1e6;                       
@@ -5744,7 +5757,8 @@ namespace TopInstrument
             double out_scale                       = 1.0;
             double out_offset                      = 0.0;
             // setup repeat
-            int num_repeat_pulses = 3; //4
+            //int num_repeat_pulses = 5; // 3, 4, 10, 50
+            int num_repeat_pulses = __test__.Program.num_repeat_pulses;
             //
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
             //
@@ -5829,7 +5843,9 @@ namespace TopInstrument
             // seq 6 : ...
             // seq 7 : collect ADC data and finish
             dev.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__ADDA);      // for slot location bits
-            s32 len_adc_data              = 600  ; // adc samples
+            //s32 len_adc_data              = 600  ; // adc samples
+            //s32 len_adc_data              = 6000  ; // adc samples
+            s32 len_adc_data = __test__.Program.len_adc_data;
             dev.adda_read_adc_buf(len_adc_data); //(len_adc_data, buf_dac_time_str, buf_dac0_str, buf_dac1_str);
             //dev.adda_pwr_off(); // not needed
 
@@ -5910,107 +5926,3 @@ namespace TopInstrument
 
     
 
-////---- cut off later ----////
-
-
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text.RegularExpressions;
-
-/*
-namespace __test__
-{
-    public class Program
-    {
-        //$$ note: IP ... setup for own LAN port test //{
-        
-        //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
-        //public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
-        //public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
-
-        //}
-
-        //public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
-        //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
-        //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
-
-        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
-        //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
-
-        //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        public static string test_host_ip = "192.168.100.143"; // test dummy ip
-
-        //// S3100 frame slot selection:
-        // loc_slot bit 0  = slot location 0
-        // loc_slot bit 1  = slot location 1
-        // ...
-        // loc_slot bit 12 = slot location 12
-
-        //public static uint test_loc_slot = 0x0004; // slot location 2
-        //public static uint test_loc_slot = 0x0008; // slot location 3
-        //public static uint test_loc_slot = 0x0010; // slot location 4
-        //public static uint test_loc_slot = 0x0040; // slot location 6
-        //public static uint test_loc_slot = 0x0100; // slot location 8
-        //public static uint test_loc_slot = 0x0200; // slot location 9
-        public static uint test_loc_slot = 0x0400; // slot location 10
-        //public static uint test_loc_slot = 0x1000; // slot location 12
-
-        public static uint test_loc_slot__SIG   = (0x1<< 2); // slot location 2
-        public static uint test_loc_slot__ANL   = (0x1<< 6); // slot location 6
-        public static uint test_loc_slot__ADDA  = (0x1<<10); // slot location 10
-        //public static uint test_loc_slot__HVPGU = (0x1<< 4); // slot location 4
-        public static uint test_loc_slot__HVPGU = (0x1<< 6); // slot location 6
-        
-        //// frame spi channel selection:
-        // loc_spi_group bit 0 = mother board spi M0
-        // loc_spi_group bit 1 = mother board spi M1
-        // loc_spi_group bit 2 = mother board spi M2
-        //public static uint test_loc_spi_group = 0x0001; // spi M0 // for GNDU
-        //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
-        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU, ADDA
-        
-        public static void Main(string[] args)
-        {
-            //Your code goes hereafter
-            Console.WriteLine("Hello, world!");
-
-            //call something in TopInstrument
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "SCPI_base           ", TopInstrument.SCPI_base._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "EPS_Dev             ", TopInstrument.EPS_Dev._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "SPI_EMUL            ", TopInstrument.SPI_EMUL._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "HVPGU_control_by_eps", TopInstrument.HVPGU_control_by_eps._test()));
-            //
-            //Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU (alias)    ", TOP_PGU._test())); // using alias
-            //Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_GNDU (alias)   ", TOP_GNDU._test())); // using alias
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_HVPGU (alias)   ", TOP_HVPGU._test())); // using alias
-
-            int ret = 0;
-            ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
-            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test fifo on spi emulation
-
-            // hvpgu IO test 
-            //ret = TopInstrument.HVPGU_control_by_eps.__test_HVPGU_control_by_eps(); 
-            
-            //// dac-adc cowork test for hvpgu IO test
-            //ret = TOP_HVPGU.__test_TOP_HVPGU__EPS_SPI(); 
-
-            //// new test seq 
-            // seq 0. HVPGU_ADDA__ready() 
-            // seq 1. HVPGU_ADDA__trigger() 
-            // seq 2. HVPGU_ADDA__read_adc_buf() 
-            // seq 3. HVPGU_ADDA__standby() 
-
-            ret = TOP_HVPGU.__test_TOP_HVPGU_ADDA__ready();
-            ret = TOP_HVPGU.__test_TOP_HVPGU_ADDA__trigger();
-            ret = TOP_HVPGU.__test_TOP_HVPGU_ADDA__read_adc_buf();
-            ret = TOP_HVPGU.__test_TOP_HVPGU_ADDA__standby();
-
-            Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
-
-        }
-    }
-}
-
-*/
