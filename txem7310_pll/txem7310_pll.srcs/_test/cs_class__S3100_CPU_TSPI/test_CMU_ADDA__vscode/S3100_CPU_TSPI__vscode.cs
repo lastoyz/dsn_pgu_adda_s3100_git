@@ -84,7 +84,7 @@ namespace TopInstrument
 
         //// TCPIP socket parameters
         //private int TIMEOUT = 20000;                      // socket timeout
-        private int SO_SNDBUF = 2048;
+        private int SO_SNDBUF = 32768; // 2048 --> 16384 --> 32768
         private int SO_RCVBUF = 32768;
         //private int INTVAL = 100;                       // Milli Second
         //private int BUF_SIZE_NORMAL = 2048;
@@ -5580,7 +5580,7 @@ namespace TopInstrument
             // ADC parameter setup
             adc_set_update_sample_num(len_adc_data); // set the number of ADC samples
             adc_set_sampling_period(cnt_sampling_period); // 210MHz/21   =  10 Msps
-            adc_set_tap_control(val_tap0a_b5,val_tap0b_b5,val_tap1a_b5,val_tap1b_b5,val_tst_fix_pat_en_b1,val_tst_inc_pat_en_b1); // (u32 val_tap0a_b5, u32 val_tap0b_b5, u32 val_tap1a_b5, u32 val_tap1b_b5, u32 val_tst_fix_pat_en_b1, u32 val_tst_inc_pat_en_b1) 
+            adc_set_tap_control(val_tap0a_b5, val_tap0b_b5, val_tap1a_b5, val_tap1b_b5, val_tst_fix_pat_en_b1, val_tst_inc_pat_en_b1);
 
             // print out base freq and sampling rate
             u32 val = adc_get_base_freq(); // adc base freq check 
@@ -7525,9 +7525,13 @@ namespace TopInstrument
             dev_eps.adc_pwr(1);
             
             // adc enable : 210MHz vs 189MHz
-            uint    adc_base_freq_MHz         = 189      ; // MHz
+            //uint    adc_base_freq_MHz         = 189      ; // MHz
+            u32    adc_base_freq_MHz         = __test__.Program.adc_base_freq_MHz;
+
             //val = dev_eps.adc_enable(); // adc_enable(u32 sel_freq_mode_MHz = 210) // 210MHz
             //val = dev_eps.adc_enable(189); // 189MHz
+
+
             val = dev_eps.adc_enable(adc_base_freq_MHz); // 189MHz
             Console.WriteLine(string.Format("{0} = 0x{1,8:X8} ", "adc_enable", val));
             
@@ -7590,18 +7594,19 @@ namespace TopInstrument
             Console.WriteLine(">>>>>> DAC init");
             
             //// DAC update period
-            double time_ns__dac_update = 5; // 200MHz dac update
+            //double time_ns__dac_update = 5; // 200MHz dac update
             //double time_ns__dac_update = 10; // 100MHz dac update
+            double time_ns__dac_update = __test__.Program.time_ns__dac_update;
 
             //// DAC IC gain and offset // not must
-            double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
-            double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
-            float DAC_offset_current__mA_1      = (float)0.44; // for BD2
-            float DAC_offset_current__mA_2      = (float)0.79; // for BD2
-            int N_pol_sel_1                     = 0;           // for BD2
-            int N_pol_sel_2                     = 0;           // for BD2
-            int Sink_sel_1                      = 0;           // for BD2
-            int Sink_sel_2                      = 0;           // for BD2
+            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
+            //double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
+            //float DAC_offset_current__mA_1      = (float)0.44; // for BD2
+            //float DAC_offset_current__mA_2      = (float)0.79; // for BD2
+            //int N_pol_sel_1                     = 0;           // for BD2
+            //int N_pol_sel_2                     = 0;           // for BD2
+            //int Sink_sel_1                      = 0;           // for BD2
+            //int Sink_sel_2                      = 0;           // for BD2
             //
             //double DAC_full_scale_current__mA_1 = 25.50;       // for BD3 //$$ 8.66 ~ 31.66mA
             //double DAC_full_scale_current__mA_2 = 25.62;       // for BD3 //$$ 8.66 ~ 31.66mA
@@ -7612,7 +7617,16 @@ namespace TopInstrument
             //int Sink_sel_1                      = 0;           // for BD3
             //int Sink_sel_2                      = 0;           // for BD3
             //
+            double DAC_full_scale_current__mA_1 = __test__.Program.DAC_full_scale_current__mA_1;
+            double DAC_full_scale_current__mA_2 = __test__.Program.DAC_full_scale_current__mA_2;
+            float  DAC_offset_current__mA_1     = __test__.Program.DAC_offset_current__mA_1    ;
+            float  DAC_offset_current__mA_2     = __test__.Program.DAC_offset_current__mA_2    ;
+            s32    N_pol_sel_1                  = __test__.Program.N_pol_sel_1                 ;
+            s32    N_pol_sel_2                  = __test__.Program.N_pol_sel_2                 ;
+            s32    Sink_sel_1                   = __test__.Program.Sink_sel_1                  ;
+            s32    Sink_sel_2                   = __test__.Program.Sink_sel_2                  ;
             
+
             dev_eps.dac_init(time_ns__dac_update,
                 DAC_full_scale_current__mA_1,
                 DAC_full_scale_current__mA_2,
@@ -7629,6 +7643,10 @@ namespace TopInstrument
             Console.WriteLine(">>> DAC pulse setup");
 
             //// case for sine wave
+
+            double test_freq_kHz          = __test__.Program.test_freq_kHz         ;
+            int    len_dac_command_points = __test__.Program.len_dac_command_points;
+            double amplitude              = __test__.Program.amplitude             ;
 
             // double test_freq_kHz       =  1; 
             // int len_dac_command_points = 500; //80;
@@ -7654,11 +7672,11 @@ namespace TopInstrument
             // int len_dac_command_points = 500; //40;
             // double amplitude  = 8.0; // no distortion
 
-            double test_freq_kHz       = 500; 
-            int len_dac_command_points = 200; //40;
-            //double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
-            //double amplitude  = 4.0; // no distortion
-            double amplitude  = 1.0; // test 1V amp
+            //double test_freq_kHz       = 500; 
+            //int len_dac_command_points = 200; //40;
+            ////double amplitude  = 8.0; // no distortion in diract sample // little distortion in undersample
+            ////double amplitude  = 4.0; // no distortion
+            //double amplitude  = 1.0; // test 1V amp
 
 
             // double test_freq_kHz       = 1000; 
@@ -7714,12 +7732,16 @@ namespace TopInstrument
 
             
             ////
-            long[]   StepTime;
-            double[] StepLevel;
+            long[]   StepTime_ns;
+            double[] StepLevel_V;
+
+            StepTime_ns = __test__.Program.StepTime_ns;
+            StepLevel_V = __test__.Program.StepLevel_V;
+
 
             //// case base for 10V mode with neg
-            StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-            StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
+            //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+            //StepLevel = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0, -8.0, -8.0,   0.0 }; // V
 
             //// case base for 10V mode
             //StepTime  = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }; // ns
@@ -7777,7 +7799,9 @@ namespace TopInstrument
             ////
             Console.WriteLine(">>> DAC waveform command generation");
             
-            int test_case__wave = 1; // 0 for pulse, 1 for sine
+            //int test_case__wave = 1; // 0 for pulse, 1 for sine
+            int test_case__wave = __test__.Program.test_case__wave; 
+
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
 
             if (test_case__wave==1) {
@@ -7789,7 +7813,7 @@ namespace TopInstrument
                     test_freq_kHz, len_dac_command_points, 
                     amplitude, phase_diff);
             } else {
-                time_volt_dual_list = dev_eps.dac_gen_pulse_cmd(StepTime, StepLevel);
+                time_volt_dual_list = dev_eps.dac_gen_pulse_cmd(StepTime_ns, StepLevel_V);
             }
 
             // print out and log data
@@ -7802,20 +7826,35 @@ namespace TopInstrument
 
 
             // dac output ... setup 
-            int    output_range                     = 10;   
-            //int    time_ns__code_duration          = 10; // 10ns = 100MHz
-            int    time_ns__code_duration          = 5; // 5ns = 200MHz
+            //int    output_range                     = 10;   
+            ////int    time_ns__code_duration          = 10; // 10ns = 100MHz
+            //int    time_ns__code_duration          = 5; // 5ns = 200MHz
+            //double load_impedance_ohm              = 1e6;                       
+            //double output_impedance_ohm            = 50;                        
+            //double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
+            //double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
+            //double out_scale                       = 1.0;
+            //double out_offset                      = 0.0;
+
+            s32    time_ns__code_duration          = __test__.Program.time_ns__code_duration;
+            s32    output_range                    = __test__.Program.output_range          ;
+
             double load_impedance_ohm              = 1e6;                       
             double output_impedance_ohm            = 50;                        
+
             double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
             double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
+
             double out_scale                       = 1.0;
             double out_offset                      = 0.0;
 
+
             //int num_repeat_pulses = 100; // 100/(500kHz)=0.2ms
             //int num_repeat_pulses = 500; // 500/(500kHz)=1.0ms
-            int num_repeat_pulses = 1000;
+            //int num_repeat_pulses = 1000;
             //int num_repeat_pulses = 2000; // 2000/(500kHz)=4ms
+
+            s32 num_repeat_pulses = __test__.Program.num_repeat_pulses;
 
             ////
             Console.WriteLine(">>> DAC FIFO data generation");
@@ -7869,11 +7908,12 @@ namespace TopInstrument
 
             // adc normal setup 
             //len_adc_data = 2000; // 0.19047619 @ 10.5MHz
-            len_adc_data = 1200;
+            //len_adc_data = 1200;
             //len_adc_data = 1000; // 0.0952380952 ms @ 10.5MHz
             //len_adc_data = 800; // 0.0761904762 ms @ 10.5MHz
             //len_adc_data = 600;
             //len_adc_data = 500; // 0.0476190476 ms @ 10.5MHz
+            len_adc_data = __test__.Program.len_adc_data;
 
             //cnt_sampling_period = 14   ; // 210MHz/14   =  15 Msps
             //cnt_sampling_period = 15   ; // 210MHz/15   =  14 Msps
@@ -7889,7 +7929,9 @@ namespace TopInstrument
             //cnt_sampling_period =  38  ; // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
             //cnt_sampling_period =  95  ; // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
             //cnt_sampling_period = 190  ; // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
-            adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+            //adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+            adc_sampling_period_count = __test__.Program.adc_sampling_period_count;
+
             
             dev_eps.adc_init(len_adc_data, adc_sampling_period_count); // init with setup parameters
             dev_eps.adc_reset_fifo(); // clear fifo for new data
@@ -7953,55 +7995,67 @@ namespace TopInstrument
             ////
             Console.WriteLine(">>> DFT calculation");
 
-            Console.WriteLine(">>>>>> DFT compute");
-            // DFT compute
-            //double test_freq_kHz             = 500      ; // kHz
-            //int    adc_base_freq_MHz         = 189      ; // MHz
-            //int    adc_sampling_period_count = 379      ;
-            int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
-            //int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
-            int    len_dft_coef              = 378    ; // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
-            int    num_repeat_block_coef     =   2    ;
-            int    idx_offset_adc_data       = 100;
-            //
-            var ret__dft_compute = dev_eps.dft_compute(
-                test_freq_kHz            , // dft parameters
-                adc_base_freq_MHz        , //
-                adc_sampling_period_count, //
-                mode_undersampling       , //
-                len_dft_coef             , //
-                num_repeat_block_coef    , // adc data inputs
-                idx_offset_adc_data      , //
-                len_adc_data             , //
-                adc0_s32_buf             , //
-                adc1_s32_buf               //
-            );
-            
-            double[] dft_coef_i_buf = ret__dft_compute.Item1;
-            double[] dft_coef_q_buf = ret__dft_compute.Item2;
-            len_dft_coef   = ret__dft_compute.Item1.Length; // renew length just in case
-            double[] iq_info        = ret__dft_compute.Item3; // {adc0_i, adc0_q, adc1_i, adc1_q}
-            double[] cmp_ratio_info = ret__dft_compute.Item4; // {cmp_ratio_i, cmp_ratio_q, cmp_ratio_abs, cmp_ratio_phase, cmp_ratio_angle}
+            int  test_dft_enable = __test__.Program.test_dft_enable;
 
+            if (test_dft_enable == 1) {
 
-            Console.WriteLine(">>>>>> DFT log generate");
-            // report: DFT coeff, ADC data, IQ, complex ratio
-            dev_eps.dft_log("log__dft_compute.py".ToCharArray(), 
-
-                test_freq_kHz            , // dft parameters
-                adc_base_freq_MHz        , //
-                adc_sampling_period_count, //
-                mode_undersampling       , //
+                Console.WriteLine(">>>>>> DFT compute");
+                // DFT compute
+                //double test_freq_kHz             = 500      ; // kHz
+                //int    adc_base_freq_MHz         = 189      ; // MHz
+                //int    adc_sampling_period_count = 379      ;
+                //int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+                ////int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
+                //int    len_dft_coef              = 378    ; // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+                //int    num_repeat_block_coef     =   2    ;
+                //int    idx_offset_adc_data       = 100;
+                int    mode_undersampling        = __test__.Program.mode_undersampling   ;
+                int    len_dft_coef              = __test__.Program.len_dft_coef         ;
+                int    num_repeat_block_coef     = __test__.Program.num_repeat_block_coef;
+                int    idx_offset_adc_data       = __test__.Program.idx_offset_adc_data  ;
                 
-                len_dft_coef, dft_coef_i_buf, dft_coef_q_buf, // dft coef 
-
-                num_repeat_block_coef    , // adc data inputs
-                idx_offset_adc_data      , //
-                len_adc_data, adc0_s32_buf,   adc1_s32_buf,
-
-                iq_info, cmp_ratio_info    // IQ result
+                //
+                var ret__dft_compute = dev_eps.dft_compute(
+                    test_freq_kHz            , // dft parameters
+                    adc_base_freq_MHz        , //
+                    adc_sampling_period_count, //
+                    mode_undersampling       , //
+                    len_dft_coef             , //
+                    num_repeat_block_coef    , // adc data inputs
+                    idx_offset_adc_data      , //
+                    len_adc_data             , //
+                    adc0_s32_buf             , //
+                    adc1_s32_buf               //
                 );
 
+                double[] dft_coef_i_buf = ret__dft_compute.Item1;
+                double[] dft_coef_q_buf = ret__dft_compute.Item2;
+                len_dft_coef   = ret__dft_compute.Item1.Length; // renew length just in case
+                double[] iq_info        = ret__dft_compute.Item3; // {adc0_i, adc0_q, adc1_i, adc1_q}
+                double[] cmp_ratio_info = ret__dft_compute.Item4; // {cmp_ratio_i, cmp_ratio_q, cmp_ratio_abs, cmp_ratio_phase, cmp_ratio_angle}
+
+
+                Console.WriteLine(">>>>>> DFT log generate");
+                // report: DFT coeff, ADC data, IQ, complex ratio
+                dev_eps.dft_log("log__dft_compute.py".ToCharArray(), 
+
+                    test_freq_kHz            , // dft parameters
+                    adc_base_freq_MHz        , //
+                    adc_sampling_period_count, //
+                    mode_undersampling       , //
+
+                    len_dft_coef, dft_coef_i_buf, dft_coef_q_buf, // dft coef 
+
+                    num_repeat_block_coef    , // adc data inputs
+                    idx_offset_adc_data      , //
+                    len_adc_data, adc0_s32_buf,   adc1_s32_buf,
+
+                    iq_info, cmp_ratio_info    // IQ result
+                    );
+
+            } else {
+                Console.WriteLine(">>>>>> DFT bypassed.");
+            }
 
             //// test finish
             Console.WriteLine(dev_eps.eps_disable());
@@ -8016,7 +8070,7 @@ namespace TopInstrument
 
 
 ////---- cut off later ----////
-
+/*
 
 //using System;
 //using System.Collections.Generic;
@@ -8102,3 +8156,5 @@ namespace __test__
         }
     }
 }
+
+*/
