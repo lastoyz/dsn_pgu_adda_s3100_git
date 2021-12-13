@@ -63,12 +63,12 @@ namespace __test__
         ////// test conditions:
 
         // adc
-        public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
-        //public static u32    adc_base_freq_MHz         = 210      ; // MHz // 210MHz vs 189MHz
+        //public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
+        public static u32    adc_base_freq_MHz         = 210      ; // MHz // 210MHz vs 189MHz
 
         //public static u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps // 100ns
         //public static u32 adc_sampling_period_count = 210   ; // 210MHz/210   =  1000 ksps // 1us
-        //public static u32 adc_sampling_period_count = 2100   ; // 210MHz/2100   =  100 ksps // 10us
+        public static u32 adc_sampling_period_count = 2100   ; // 210MHz/2100   =  100 ksps // 10us
         //public static u32 adc_sampling_period_count = 21000  ; // 210MHz/21000   =   10 ksps // 100us
         //public static u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
         //public static u32 adc_sampling_period_count = 1050000   ; // 210MHz/1050000   =  200 sps // 5ms 
@@ -86,19 +86,62 @@ namespace __test__
         //cnt_sampling_period =  38  ; // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
         //cnt_sampling_period =  95  ; // 189MHz/95  =  1.98947368 Msps //$$  10.5263158kHz image with 2MHz wave
         //cnt_sampling_period = 190  ; // 189MHz/190  =  0.994737 Msps //$$  5.263158kHz image with 1MHz wave
-        public static u32 adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+        //public static u32 adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
 
-        //public static s32 len_adc_data        = 6000  ; // adc samples
-        public static s32 len_adc_data         = 1200;
-
+        //public static s32 len_adc_data         = 1200;
+        public static s32 len_adc_data        = 6000  ; // adc samples
+        
 
         // dac pattern gen
-        public static double time_ns__dac_update    = 5; // 200MHz dac update
-        public static s32    time_ns__code_duration = 5; // 5ns = 200MHz
-        public static s32    output_range      = 10; // 10 or 40  
+        
+        //public static double time_ns__dac_update    = 5; // 200MHz dac update
+        //public static s32    time_ns__code_duration = 5; // 5ns = 200MHz
+        //public static s32    output_range      = 10; // 10 or 40  
 
-        //public static s32    num_repeat_pulses = 5;
-        public static s32    num_repeat_pulses = 1000;
+        //public static s32    num_repeat_pulses = 1000;
+
+        public static double time_ns__dac_update    = 10; // 200MHz dac update
+
+        public static s32    time_ns__code_duration = 10; // 5ns = 200MHz
+
+        public static s32    output_range      = 40; // 10 or 40  
+        //public static s32    output_range      = 10; // 10 or 40  
+
+        public static double load_impedance_ohm              = 1e6; // 1e6 vs 50
+        //public static double load_impedance_ohm              = 50; // 1e6 vs 50
+        
+        public static double output_impedance_ohm            = 50;                        
+
+        //// amp gain 1
+        // note 40V mode gain = scale_voltage_10V_mode * gain_voltage_10V_to_40V_mode = 8.5/10 * 3.64 = 3.094
+        // note 10V mode gain = scale_voltage_10V_mode = 8.5/10 = 0.85
+        // note ... ideally scale_voltage_10V_mode = (40V mode gain) / 4 = 3.094 / 4 = 0.7735
+        //
+        //public static double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
+        //public static double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
+
+        //// amp gain 2
+        // note 10V mode gain = scale_voltage_10V_mode =  0.7735
+        // ideally, gain_voltage_10V_to_40V_mode = 4
+        // note 40V mode gain = scale_voltage_10V_mode * gain_voltage_10V_to_40V_mode = 0.7735 * 4 = 3.094
+        //
+        //public static double scale_voltage_10V_mode          = 0.7735;
+        //public static double gain_voltage_10V_to_40V_mode    = 4;
+
+        //// amp gain 3
+        // note 0x7791 / 0x6303 = 1.20759853237 
+        // note 10V mode gain = scale_voltage_10V_mode =  0.7735 * 1.20759853237  = 0.9341
+        // note 40V mode gain = scale_voltage_10V_mode * gain_voltage_10V_to_40V_mode = 0.9341 * 3.64 = 3.400124
+        // ideally, gain_voltage_10V_to_40V_mode = 4
+        public static double scale_voltage_10V_mode          = 0.9341;
+        public static double gain_voltage_10V_to_40V_mode    = 4;
+
+        // cal factor
+        public static double out_scale                       = 1.0;
+        public static double out_offset                      = 0.0;
+
+
+        public static s32    num_repeat_pulses = 5;
 
 
         // dac ic
@@ -113,7 +156,8 @@ namespace __test__
 
 
         // test pattern selection
-        public static int test_case__wave = 1; // 0 for pulse, 1 for sine
+        //public static int test_case__wave = 1; // 0 for pulse, 1 for sine
+        public static int test_case__wave = 0; // 0 for pulse, 1 for sine
 
         // test pattern sine
 
@@ -140,16 +184,29 @@ namespace __test__
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
 
         //// case 1000us : pr 1000000 ns, tr 100000ns, repeat 5, ADC 1us 6000 samples.
-        public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
-        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
+
+        //// case 10000us : pr 10000000 ns, tr 1000000ns, repeat 5, ADC 10us 6000 samples.
+        public static long[]   StepTime_ns = new long[]   {   0, 1000000, 2000000, 3000000, 4000000, 5000000, 7000000, 8000000, 10000000 }; // ns
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0,  20.0,  20.0,  40.0,  40.0,  -40.0,  -40.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0,  10.0,  10.0,  20.0,  20.0,  -20.0,  -20.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0,  5.0,  5.0,  10.0,  10.0,  -10.0,  -10.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0,  2.5,  2.5,   5.0,   5.0,   -5.0,   -5.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0,  4.0,  4.0,  8.0,  8.0,  -8.0,  -8.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0,  2.0,  2.0,  4.0,  4.0,  -4.0,  -4.0,   0.0 }; // V
 
         //// case 100ms : pr 100000000 ns, tr 10000000 ns, repeat 5, ADC 100us 6000 samples.
         //public static long[]   StepTime_ns = new long[]   {   0, 10000000, 20000000, 30000000, 40000000, 50000000, 70000000, 80000000, 100000000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
         // Tdata_usr = [     0, 10000000, 15000000, 60000000, 65000000, 100000000, ]
         // Vdata_usr = [ 0.000,    0.000,   20.000,   20.000,    0.000,     0.000, ] 
         //public static long[]   StepTime_ns = new long[]   {     0, 10000000, 15000000, 60000000, 65000000, 100000000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.000,    0.000,   20.000,   20.000,    0.000,     0.000 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.000,    0.000,   4.000,   4.000,    0.000,     0.000 }; // V
 
         //// case 1000ms : 1000ms long pulse, tr 50m, repeat 5, ADC 1ms 6000 samples.
         // Tdata_usr = [     0, 100000000, 150 000 000, 600000000, 650000000, 1000000000, ]
@@ -162,10 +219,13 @@ namespace __test__
         // Vdata_usr = [ 0.000,     0.000,    20.000,    20.000,     0.000,      0.000, ] 
         //public static long[]   StepTime_ns = new long[]   {     0, 1000000000, 1500000000,6000000000, 6500000000, 10000000000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.000,      0.000,     20.000,     20.000,      0.000,       0.000 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.000,    0.000,   4.000,   4.000,    0.000,     0.000 }; // V
 
 
         // dft calculation setup
-        public static int  test_dft_enable = 1;
+        //public static int  test_dft_enable = 1;
+        public static int  test_dft_enable = 0;
+        
         public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
         //public statuc int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
         public static int    len_dft_coef              = 378    ; // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio

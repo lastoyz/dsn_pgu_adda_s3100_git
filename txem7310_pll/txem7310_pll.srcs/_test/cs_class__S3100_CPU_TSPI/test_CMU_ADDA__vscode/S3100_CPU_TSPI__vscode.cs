@@ -3395,8 +3395,9 @@ namespace TopInstrument
         //// default setting for PGU
         public double time_ns__dac_update = 10; // 2.5, 5, 10
         public int time_ns__code_duration = 10;    //$$ consider int --> double
-        public double scale_voltage_10V_mode = 7.650 / 10;
-        public double scale_voltage_40V_mode = 6.950 / 10;
+        //public double scale_voltage_10V_mode = 7.650 / 10; //$$  7.650 / 10  vs 6.950 / 10
+        public double scale_voltage_10V_mode = 6.950 / 10; //$$  7.650 / 10  vs 6.950 / 10
+        //$$public double scale_voltage_40V_mode = 6.950 / 10; //$$ moved
         public double output_impedance_ohm = 50;
 
         public int __gui_ch_info;
@@ -4404,10 +4405,13 @@ namespace TopInstrument
             if (OutputRange == 40)
             {
                 Devide_V = 4;
-                scale_voltage_10V_mode = (6.95 / 10);
+                //$$scale_voltage_10V_mode = (6.95 / 10);
             }
 
-            scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + __gui_load_impedance_ohm) / __gui_load_impedance_ohm);
+            //$$ note scale_voltage_10V_mode is field... 
+            //$$scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + __gui_load_impedance_ohm) / __gui_load_impedance_ohm);
+            double scale_voltage_10V = scale_voltage_10V_mode * ((output_impedance_ohm + __gui_load_impedance_ohm) / __gui_load_impedance_ohm);
+
             // Console.WriteLine("output_impedance_ohm     = " + Convert.ToString(output_impedance_ohm    ));
             // Console.WriteLine("__gui_load_impedance_ohm = " + Convert.ToString(__gui_load_impedance_ohm));
             // Console.WriteLine("scale_voltage_10V_mode   = " + Convert.ToString(scale_voltage_10V_mode  ));
@@ -4418,7 +4422,8 @@ namespace TopInstrument
 				// # HVPGU B/D 사용 시 Gain 4배 증폭, Base전압을 1/4로 감소해야 함.
                 //$$level_volt_list[i] = level_volt_list[i] * scale_voltage_10V_mode / Devide_V;  
                 //$$level_volt_list[i]     = level_volt_list[i] * scale_voltage_10V_mode / Devide_V * gui_out_scale + gui_out_offset; //$$ NG due to 10V scaling
-                level_volt_list[i]     = (level_volt_list[i]* gui_out_scale + gui_out_offset) * scale_voltage_10V_mode / Devide_V; 
+                //level_volt_list[i]     = (level_volt_list[i]* gui_out_scale + gui_out_offset) * scale_voltage_10V_mode / Devide_V; 
+                level_volt_list[i]     = (level_volt_list[i]* gui_out_scale + gui_out_offset) * scale_voltage_10V / Devide_V; 
 
 				
 				// update string 
@@ -7072,13 +7077,15 @@ namespace TopInstrument
                 Devide_V = gain_voltage_10V_to_40V_mode;
             }
 
-            // apply load_impedance_ohm
-            scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
+            // apply load_impedance_ohm //$$ to revise ... not to multyply scale_voltage_10V_mode
+            //scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
+            double scale_voltage_10V = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
 
             // apply calibration to voltages
             for (int i = 0; i < level_volt_list.Length; i++) 
             {
-                level_volt_list[i]     = (level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V_mode / Devide_V; 
+                //level_volt_list[i]     = ((level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V_mode) / Devide_V; //$$
+                level_volt_list[i]     = ((level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V) / Devide_V; //$$
             }
 
             long[] num_steps_list = new long[time_ns_list.Length - 1]; //$$ <<<
@@ -7820,9 +7827,9 @@ namespace TopInstrument
             string buf_time_str = String.Join(", ", time_volt_dual_list.Item1);
             string buf_dac0_str = String.Join(", ", time_volt_dual_list.Item2);
             string buf_dac1_str = String.Join(", ", time_volt_dual_list.Item3);
-            // Console.WriteLine("> buf_time_str =" + buf_time_str);
-            // Console.WriteLine("> buf_dac0_str =" + buf_dac0_str);
-            // Console.WriteLine("> buf_dac1_str =" + buf_dac1_str);
+            Console.WriteLine("> buf_time_str =" + buf_time_str);
+            Console.WriteLine("> buf_dac0_str =" + buf_dac0_str);
+            Console.WriteLine("> buf_dac1_str =" + buf_dac1_str);
 
 
             // dac output ... setup 
@@ -7839,14 +7846,12 @@ namespace TopInstrument
             s32    time_ns__code_duration          = __test__.Program.time_ns__code_duration;
             s32    output_range                    = __test__.Program.output_range          ;
 
-            double load_impedance_ohm              = 1e6;                       
-            double output_impedance_ohm            = 50;                        
-
-            double scale_voltage_10V_mode          = 8.5/10; // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 3.64; // 4/7.650*6.95~=3.64
-
-            double out_scale                       = 1.0;
-            double out_offset                      = 0.0;
+            double load_impedance_ohm              = __test__.Program.load_impedance_ohm          ;
+            double output_impedance_ohm            = __test__.Program.output_impedance_ohm        ;
+            double scale_voltage_10V_mode          = __test__.Program.scale_voltage_10V_mode      ;
+            double gain_voltage_10V_to_40V_mode    = __test__.Program.gain_voltage_10V_to_40V_mode;
+            double out_scale                       = __test__.Program.out_scale                   ;
+            double out_offset                      = __test__.Program.out_offset                  ;
 
 
             //int num_repeat_pulses = 100; // 100/(500kHz)=0.2ms
@@ -7887,6 +7892,59 @@ namespace TopInstrument
             u32[] dac0_code_duration__u32_buf  = ret__dac0_fifo_dat.Item2;
             s32[] dac1_code_inc_value__s32_buf = ret__dac1_fifo_dat.Item1;
             u32[] dac1_code_duration__u32_buf  = ret__dac1_fifo_dat.Item2;
+
+            // print out
+            string buf_dac0_code_str = String.Join(", ", dac0_code_inc_value__s32_buf); // s32[]
+            string buf_dac0_dur__str = String.Join(", ", dac0_code_duration__u32_buf); // u32[]
+            Console.WriteLine("> buf_dac0_code_str =" + buf_dac0_code_str );
+            Console.WriteLine("> buf_dac0_dur__str =" + buf_dac0_dur__str );
+            string buf_dac1_code_str = String.Join(", ", dac1_code_inc_value__s32_buf); // s32[]
+            string buf_dac1_dur__str = String.Join(", ", dac1_code_duration__u32_buf); // u32[]
+            Console.WriteLine("> buf_dac1_code_str =" + buf_dac1_code_str );
+            Console.WriteLine("> buf_dac1_dur__str =" + buf_dac1_dur__str );
+
+            // find min max 
+            double dac0_V__max = time_volt_dual_list.Item2.Max();
+            double dac0_V__min = time_volt_dual_list.Item2.Min();
+            double dac1_V__max = time_volt_dual_list.Item2.Max();
+            double dac1_V__min = time_volt_dual_list.Item2.Min();
+
+            s32 dac0_code_inc__max = dac0_code_inc_value__s32_buf.Max();
+            s32 dac0_code_inc__min = dac0_code_inc_value__s32_buf.Min();
+            s32 dac1_code_inc__max = dac1_code_inc_value__s32_buf.Max();
+            s32 dac1_code_inc__min = dac1_code_inc_value__s32_buf.Min();
+
+            s16 dac0_code__max = (s16)(dac0_code_inc__max>>16);
+            s16 dac0_code__min = (s16)(dac0_code_inc__min>>16);
+            s16 dac1_code__max = (s16)(dac1_code_inc__max>>16);
+            s16 dac1_code__min = (s16)(dac1_code_inc__min>>16);
+
+            Console.WriteLine("> dac0_V__max = " + dac0_V__max.ToString() );
+            Console.WriteLine("> dac0_V__min = " + dac0_V__min.ToString() );
+            Console.WriteLine("> dac1_V__max = " + dac1_V__max.ToString() );
+            Console.WriteLine("> dac1_V__min = " + dac1_V__min.ToString() );
+
+            Console.WriteLine("> dac0_code_inc__max = " + dac0_code_inc__max.ToString("X8") );
+            Console.WriteLine("> dac0_code_inc__min = " + dac0_code_inc__min.ToString("X8") );
+            Console.WriteLine("> dac1_code_inc__max = " + dac1_code_inc__max.ToString("X8") );
+            Console.WriteLine("> dac1_code_inc__min = " + dac1_code_inc__min.ToString("X8") );
+
+            Console.WriteLine("> dac0_code__max = " + dac0_code__max.ToString("X4") );
+            Console.WriteLine("> dac0_code__min = " + dac0_code__min.ToString("X4") );
+            Console.WriteLine("> dac1_code__max = " + dac1_code__max.ToString("X4") );
+            Console.WriteLine("> dac1_code__min = " + dac1_code__min.ToString("X4") );
+
+            Console.WriteLine("> load_impedance_ohm           = " + load_impedance_ohm          .ToString() );
+            Console.WriteLine("> output_impedance_ohm         = " + output_impedance_ohm        .ToString() );
+            Console.WriteLine("> scale_voltage_10V_mode       = " + scale_voltage_10V_mode      .ToString() );
+            Console.WriteLine("> output_range                 = " + output_range                .ToString() );
+            Console.WriteLine("> gain_voltage_10V_to_40V_mode = " + gain_voltage_10V_to_40V_mode.ToString() ); 
+            Console.WriteLine("> out_scale                    = " + out_scale                   .ToString() );
+            Console.WriteLine("> out_offset                   = " + out_offset                  .ToString() );
+
+            // dac resolution calculation
+            Console.WriteLine("> dac0_V__max / dac0_code__max = " + (dac0_V__max / dac0_code__max).ToString() );
+            Console.WriteLine("> dac1_V__max / dac1_code__max = " + (dac1_V__max / dac1_code__max).ToString() );
 
 
             ////

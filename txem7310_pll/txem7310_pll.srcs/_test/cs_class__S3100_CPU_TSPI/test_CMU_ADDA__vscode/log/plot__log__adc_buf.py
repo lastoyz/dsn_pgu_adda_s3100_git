@@ -78,8 +78,8 @@ def plot_test():
     title_str = 'dac0(red) and dac1(blue)'
     t_list = buf_time
 
-    plt.plot(t_list, buf_dac0, 'ro-', markersize=10, alpha=0.5)
-    plt.plot(t_list, buf_dac1, 'bs-', markersize=10, alpha=0.5)
+    plt.plot(t_list, buf_dac0, 'ro-', markersize=10, alpha=0.3)
+    plt.plot(t_list, buf_dac1, 'bs-', markersize=10, alpha=0.3)
 
     plt.title(title_str)
     plt.ylabel('dac_voltage [V]')
@@ -109,8 +109,8 @@ def plot_test():
     title_str = 'adc0(red) and adc1(blue)'
     t_list = range(len(adc_buf0_list_s32))
 
-    plt.plot(t_list, adc_buf0_list_flt, 'ro-', markersize=10, alpha=0.5)
-    plt.plot(t_list, adc_buf1_list_flt, 'bs-', markersize=10, alpha=0.5)
+    plt.plot(t_list, adc_buf0_list_flt, 'ro-', markersize=10, alpha=0.3)
+    plt.plot(t_list, adc_buf1_list_flt, 'bs-', markersize=10, alpha=0.3)
 
     plt.title(title_str)
     plt.ylabel('adc_voltage')
