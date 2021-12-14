@@ -135,8 +135,15 @@ namespace __test__
         //// amp gain 4 - used in T-SPACE for 0.4mV resoltuion with 10V range
         //public static double scale_voltage_10V_mode          = 0.695;
         //public static double gain_voltage_10V_to_40V_mode    = 4;        
-        public static double scale_voltage_10V_mode          = 0.695;
+
+        //// amp gain 5 - cs code for 0.4mV resoltuion with 10V range
+        // 0x61ED in T-SPACE
+        // 0x58F7 in cs code
+        // 0x61ED/0x58F7*0.695 = 0.76500351262
+        public static double scale_voltage_10V_mode          = 0.765;
         public static double gain_voltage_10V_to_40V_mode    = 4;
+
+
 
         // cal factor
         public static double out_scale                       = 1.0;
