@@ -727,7 +727,7 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io
 #set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B34*]
 #set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B34*]
 #
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B34*]
+#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B34*]
 #set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports io_B34*]
 
 ## B35 common
@@ -736,7 +736,7 @@ set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o
 #set_input_delay  -clock [get_clocks sys_clk] -max -add_delay 1.500 [get_ports io_B35*]
 #set_input_delay  -clock [get_clocks sys_clk] -min -add_delay 1.000 [get_ports io_B35*]
 #
-set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B35*]
+#set_output_delay -clock [get_clocks sys_clk]                 0.000 [get_ports  o_B35*]
 
 
 
@@ -790,10 +790,8 @@ set_property IOB TRUE [get_ports $ports_dac0 ]
 #set t_dac0_delay_max [expr 1.250 + 0.800 ] ; # 1.250 + 0.800 ns
 #
 #set_max_delay -datapath_only -from [get_pins {r_DAC0_DAT_reg[*]/C}] -to [get_ports $ports_dac0 ] $t_dac0_delay_max
-
-## 14.960 --> 15.460 --> 16.060 --> 17.000
 #
-set_max_delay    -to [get_ports $ports_dac0 ] 17.000
+set_max_delay    -to [get_ports $ports_dac0 ] 7.500
 
 
 
@@ -835,10 +833,8 @@ set_property IOB TRUE [get_ports  $ports_dac1 ]
 #set t_dac1_delay_max [expr 1.250 + 0.800 ] ; # 1.250 + 0.800 ns
 #
 #set_max_delay -datapath_only -from [get_pins {r_DAC1_DAT_reg[*]/C}] -to [get_ports $ports_dac1 ] $t_dac1_delay_max
-
-## 14.380 --> 14.910 --> 15.910 --> 16.650 --> 17.010
 #
-set_max_delay   -to [get_ports $ports_dac1 ] 17.010
+set_max_delay   -to [get_ports $ports_dac1 ] 7.500
 
 
 ## DCI out: 400MHz case
@@ -879,8 +875,8 @@ set_max_delay -datapath_only -from [get_pins ODDR_dac1_dci_inst/C] -to [get_port
 
 
 ## false path for fifo reset
-set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[6]/C}] 
-set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[7]/C}] 
+##set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[6]/C}] 
+##set_false_path -from [get_pins {dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/r_cid_reg_ctrl_reg[7]/C}] 
 
 ## false path from flag_fcid_pulse_active_dac*
 #set_false_path -from [get_pins dac_pattern_gen_wrapper__inst/dac_pattern_gen_inst/flag_fcid_pulse_active_dac0_reg/C] 

@@ -2493,3 +2493,32 @@ System.Net.Sockets.SocketException (0x80004005): 연결된 구성원으로부터
 [2021-12-12] [오후 2:59:49] [ Log ] : [System] Setup Load
 [2021-12-12] [오후 3:00:04] [ Log ] : [System] Run
 [2021-12-12] [오후 3:00:04] [ Log ] : [System] Setup_File : PGU_Con__10s
+[2021-12-13] [오후 2:16:26] [ Log ] : [System] Utility Tool
+[2021-12-13] [오후 3:59:29] [ Log ] : [System] Setup Load
+[2021-12-13] [오후 3:59:39] [ Log ] : [System] Utility Tool
+[2021-12-14] [오전 9:42:23] [ Log ] : [System] Setup Load
+[2021-12-14] [오전 9:42:53] [ Log ] : [System] Run
+[2021-12-14] [오전 9:42:53] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 9:52:36] [ Log ] : [System] Run
+[2021-12-14] [오전 9:52:37] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 9:54:37] [ Log ] : [System] Run
+[2021-12-14] [오전 9:54:37] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 9:56:26] [ Log ] : [System] Run
+[2021-12-14] [오전 9:56:26] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 9:58:03] [ Log ] : [System] Run
+[2021-12-14] [오전 9:58:03] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 9:58:03] [ Log ] : [Exception Error] System.Exception: PGU[1-1] Output Range Error! (10V <= Output Volatage >= -10V)
+   위치: Sta2CLI.Form1.CheckPGU_Valuse() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\Form1.vb:줄 1079
+   위치: Sta2CLI.Form1.OutputPulsePGU() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\Form1.vb:줄 1013
+   위치: Sta2CLI.Form1.Run(Boolean AppendMode) 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\Form1.vb:줄 1982
+   위치: Sta2CLI.Form1.ExecuteRunCommand() 파일 D:\PROJECT\SPT\T-SPACE\T-SAPCE_버전관리\T-SPACE_소스파일\T-SPACE_SRC_20211108_NoCpuBD_PG_5nA\Sta2CLI\Form1.vb:줄 4980
+[2021-12-14] [오전 9:58:41] [ Log ] : [System] Run
+[2021-12-14] [오전 9:58:41] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 10:00:27] [ Log ] : [System] Run
+[2021-12-14] [오전 10:00:27] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 10:01:58] [ Log ] : [System] Run
+[2021-12-14] [오전 10:01:58] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 10:02:24] [ Log ] : [System] Run
+[2021-12-14] [오전 10:02:25] [ Log ] : [System] Setup_File : 06_PGU_min_period
+[2021-12-14] [오전 10:02:57] [ Log ] : [System] Run
+[2021-12-14] [오전 10:02:57] [ Log ] : [System] Setup_File : 06_PGU_min_period

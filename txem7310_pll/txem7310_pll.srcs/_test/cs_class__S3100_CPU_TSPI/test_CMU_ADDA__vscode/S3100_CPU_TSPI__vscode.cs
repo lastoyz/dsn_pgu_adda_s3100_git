@@ -5305,6 +5305,8 @@ namespace TopInstrument
     public class ADDA_control_by_eps : SPI_EMUL
     {
 
+        private string DIR_NAME = "test_CMU_ADDA__vscode"; // for log 
+
         //// EPS address map info ......
         private string EP_ADRS__GROUP_STR         = "_S3100_ADDA_";
 
@@ -5663,7 +5665,7 @@ namespace TopInstrument
                                 string buf_time_str="", string buf_dac0_str="", string buf_dac1_str="") {
 
             // open or create a file
-            string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_CMU_ADDA__vscode", "log"); //$$ TODO: logfile location in vs code
+            string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), DIR_NAME, "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
             try {
                 using (StreamWriter ws = new StreamWriter(LogFileName, false)) {
@@ -7398,7 +7400,7 @@ namespace TopInstrument
             double[] iq_info = null, double[] imp_ratio_info = null // IQ result
             ) {
             // open or create a file
-            string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), "test_ADDA__vscode", "log"); //$$ TODO: logfile location in vs code
+            string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), DIR_NAME, "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
             try {
                 using (StreamWriter ws = new StreamWriter(LogFileName, false)) {
@@ -8126,93 +8128,3 @@ namespace TopInstrument
     
 }
 
-
-////---- cut off later ----////
-/*
-
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text.RegularExpressions;
-
-namespace __test__
-{
-    public class Program
-    {
-        //$$ note: IP ... setup for own LAN port test //{
-        
-        //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
-        //public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
-        //public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
-
-        //}
-
-        //public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
-        //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
-        //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
-
-        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
-        //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
-        //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
-
-        public static string test_host_ip = "192.168.100.51"; // S3100-CMU-ADDA_BD1
-        //public static string test_host_ip = "192.168.100.52"; // S3100-CMU-ADDA_BD2
-        //public static string test_host_ip = "192.168.100.53"; // S3100-CMU-ADDA_BD3
-
-        //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        //public static string test_host_ip = "192.168.100.143"; // test dummy ip
-
-        //// S3100 frame slot selection:
-        // loc_slot bit 0  = slot location 0`
-        // loc_slot bit 1  = slot location 1
-        // ...
-        // loc_slot bit 12 = slot location 12
-
-        //public static uint test_loc_slot = 0x0004; // slot location 2
-        //public static uint test_loc_slot = 0x0010; // slot location 4
-        //public static uint test_loc_slot = 0x0040; // slot location 6
-        //public static uint test_loc_slot = 0x0100; // slot location 8
-        //public static uint test_loc_slot = 0x0200; // slot location 9
-        public static uint test_loc_slot = 0x0400; // slot location 10
-        //public static uint test_loc_slot = 0x1000; // slot location 12
-        
-        //// frame spi channel selection:
-        // loc_spi_group bit 0 = mother board spi M0
-        // loc_spi_group bit 1 = mother board spi M1
-        // loc_spi_group bit 2 = mother board spi M2
-        //public static uint test_loc_spi_group = 0x0001; // spi M0 // for GNDU
-        //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
-        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
-        
-        public static void Main(string[] args)
-        {
-            //Your code goes hereafter
-            Console.WriteLine("Hello, world!");
-
-            //call something in TopInstrument
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "SCPI_base          ", TopInstrument.SCPI_base._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "EPS_Dev            ", TopInstrument.EPS_Dev._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "SPI_EMUL           ", TopInstrument.SPI_EMUL._test()));
-            //Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_lan ", TopInstrument.PGU_control_by_lan._test()));
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "PGU_control_by_eps ", TopInstrument.PGU_control_by_eps._test()));
-            //
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "TOP_PGU (alias)    ", TOP_PGU._test())); // using alias
-            //
-            Console.WriteLine(string.Format(">>> {0} - {1} ", "ADDA_control_by_eps", TopInstrument.ADDA_control_by_eps._test()));
-
-            int ret = 0;
-            ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
-            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400 
-            
-            // new adc test : adc power on // adc enable // adc init // adc fifo reset // adc update // fifo data read 
-            ret = TopInstrument.ADDA_control_by_eps.__test_ADDA_control_by_eps(); 
-
-            //ret = TOP_PGU.__test_top_pgu(); // test PGU control // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400  
-
-            Console.WriteLine(string.Format(">>> ret = 0x{0,8:X8}",ret));
-
-        }
-    }
-}
-
-*/

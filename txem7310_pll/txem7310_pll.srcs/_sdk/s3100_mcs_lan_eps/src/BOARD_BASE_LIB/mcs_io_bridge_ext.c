@@ -3067,9 +3067,11 @@ u32  pgu_dacx_cal_input_dtap() {
 		
 	//// new try 
 	if (val_0_cnt_seek_hi>0) val_0_center_new = val_0_seek_w_sum / val_0_cnt_seek_hi;
-	else                     val_0_center_new = val_0_seek_w_sum;
+	//$$else                     val_0_center_new = val_0_seek_w_sum;
+	else                     val_0_center_new = 0; //15; // no seek_hi
 	if (val_1_cnt_seek_hi>0) val_1_center_new = val_1_seek_w_sum / val_1_cnt_seek_hi;
-	else                     val_1_center_new = val_1_seek_w_sum;
+	//else                     val_1_center_new = val_1_seek_w_sum;
+	else                     val_1_center_new = 0; //15; // no seek_hi
 	
 	xil_printf(" >>>> weighted sum \r\n");
 	xil_printf(" > val_0_seek_w_sum  : %02d \r\n", val_0_seek_w_sum  );
