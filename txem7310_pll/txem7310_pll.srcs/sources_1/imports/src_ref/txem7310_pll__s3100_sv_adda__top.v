@@ -938,7 +938,7 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1127; // S3100-ADDA // rev hsadc reset and enable to hole parameter setting.
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1129; // S3100-ADDA // rev ADC ready control 
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1201; // S3100-CMU-ADDA // new pinmap
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1214; // S3100-CMU-ADDA // dac output retiming
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1214; // S3100-CMU-ADDA // dac output retiming // DAC1 pin map revision
 
 //}
 
@@ -1372,8 +1372,8 @@ BUFG     bufg_DAC0_DCO_inst 	(.I(c_DAC0_DCO), .O(DAC0_DCO) );
 //// BANK B34 IOBUF //{
 
 //// DAC1 
-//  o_B34D_L23P       ## o_DAC1_DAT_P14          ///  o_B34D_L23N       ## o_DAC1_DAT_N14
 //  o_B34D_L24P       ## o_DAC1_DAT_P15          ///  o_B34D_L24N       ## o_DAC1_DAT_N15
+//  o_B34D_L23P       ## o_DAC1_DAT_P14          ///  o_B34D_L23N       ## o_DAC1_DAT_N14
 //  o_B34D_L18P       ## o_DAC1_DAT_P13          ///  o_B34D_L18N       ## o_DAC1_DAT_N13
 //  o_B34D_L15P       ## o_DAC1_DAT_P12          ///  o_B34D_L15N       ## o_DAC1_DAT_N12
 //  o_B34D_L22P       ## o_DAC1_DAT_P11          ///  o_B34D_L22N       ## o_DAC1_DAT_N11
@@ -1425,8 +1425,8 @@ assign w_DAC1_DAT__IOB_in[0 ] =  DAC1_DAT[0 ];
 
 //}
 
-OBUFDS obufds_DAC1_DAT15_inst 	(.O( o_B34D_L23P ), .OB( o_B34D_L23N ), .I(w_DAC1_DAT__IOB_out[15])	);
-OBUFDS obufds_DAC1_DAT14_inst 	(.O( o_B34D_L24P ), .OB( o_B34D_L24N ), .I(w_DAC1_DAT__IOB_out[14])	);
+OBUFDS obufds_DAC1_DAT14_inst 	(.O( o_B34D_L24P ), .OB( o_B34D_L24N ), .I(w_DAC1_DAT__IOB_out[15])	);
+OBUFDS obufds_DAC1_DAT15_inst 	(.O( o_B34D_L23P ), .OB( o_B34D_L23N ), .I(w_DAC1_DAT__IOB_out[14])	);
 OBUFDS obufds_DAC1_DAT13_inst 	(.O( o_B34D_L18P ), .OB( o_B34D_L18N ), .I(w_DAC1_DAT__IOB_out[13])	);
 OBUFDS obufds_DAC1_DAT12_inst 	(.O( o_B34D_L15P ), .OB( o_B34D_L15N ), .I(w_DAC1_DAT__IOB_out[12])	);
 OBUFDS obufds_DAC1_DAT11_inst 	(.O( o_B34D_L22P ), .OB( o_B34D_L22N ), .I(w_DAC1_DAT__IOB_out[11])	);

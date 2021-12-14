@@ -227,16 +227,20 @@ namespace __test__
         //// case 1000us : pr 1000000 ns, tr 100000ns, repeat 5, ADC 1us 6000 samples.
         public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 3.0, 3.0, 6.0, 6.0, -6.0, -6.0,   0.0 }; // V
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 5.0, 5.0, 10.0, 10.0, -10.0, -10.0,   0.0 }; // V
         //
         public static u32    adc_base_freq_MHz         = 210  ; // MHz // 210MHz vs 189MHz
         public static u32    adc_sampling_period_count = 210 ; // 210MHz/210  =  1 Msps 
-        public static s32    len_adc_data              = 6000;
+        //public static s32    len_adc_data              = 6000;
+        public static s32    len_adc_data              = 1200;
         public static double time_ns__dac_update       = 10;
         public static s32    time_ns__code_duration    = 10;
         public static double load_impedance_ohm        = 1e6; // 1e6 vs 50
         public static s32    output_range              = 10; // 10 or 40  
-        public static s32    num_repeat_pulses         = 5;
+        //public static s32    num_repeat_pulses         = 5;
+        public static s32    num_repeat_pulses         = 1;
 
 
         //// case 10000us : pr 10000000 ns, tr 1000000ns, repeat 5, ADC 10us 6000 samples.
