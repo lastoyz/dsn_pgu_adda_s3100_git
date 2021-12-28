@@ -1955,6 +1955,10 @@ namespace TopInstrument
             u32 ret = GetWireOutValue(EP_ADRS__ADCH_WO);
             return ret;
         }
+        private u32 adc_trig__wo_check(s32 bit_loc) {
+            ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
+            return 1;
+        }
         private u32 adc_trig_check__wo_trig(s32 bit_loc) {
             //$$ActivateTriggerIn(EP_ADRS__ADCH_TI, bit_loc); // (u32 adrs, s32 loc_bit)
 
@@ -2004,7 +2008,8 @@ namespace TopInstrument
             return adc_trig_check(3);
         }
         public u32 adc_reset_fifo() {
-            return adc_trig_check(4);
+            //return adc_trig_check(4);
+            return adc_trig__wo_check(4);
         }
         private u32 adc_get_base_freq() {
             return GetWireOutValue(EP_ADRS__ADCH_B_FRQ_WO);
