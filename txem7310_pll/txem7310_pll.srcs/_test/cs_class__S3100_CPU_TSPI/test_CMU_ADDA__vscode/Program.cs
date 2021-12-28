@@ -48,8 +48,8 @@ namespace __test__
         //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0200; // slot location 9
-        public static uint test_loc_slot = 0x0400; // slot location 10
-        //public static uint test_loc_slot = 0x1000; // slot location 12
+        //public static uint test_loc_slot = 0x0400; // slot location 10
+        public static uint test_loc_slot = 0x1000; // slot location 12
         
         //// frame spi channel selection:
         // loc_spi_group bit 0 = mother board spi M0
@@ -234,9 +234,9 @@ namespace __test__
         //// case 1000us : pr 1000000 ns, tr 100000ns, repeat 5, ADC 1us 6000 samples.
         public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 3.0, 3.0, 6.0, 6.0, -6.0, -6.0,   0.0 }; // V
-        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 5.0, 5.0, 10.0, 10.0, -10.0, -10.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 5.0, 5.0, 10.0, 10.0, -10.0, -10.0,   0.0 }; // V
         //
         public static u32    adc_base_freq_MHz         = 210  ; // MHz // 210MHz vs 189MHz
         public static u32    adc_sampling_period_count = 210 ; // 210MHz/210  =  1 Msps 
@@ -334,7 +334,7 @@ namespace __test__
 
             int ret = 0;
             ret = TopInstrument.EPS_Dev.__test_eps_dev(); // test EPS // scan slot and report FIDs of boards
-            //ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // must locate PGU board on slot // sel_loc_groups=0x0004, sel_loc_slots=0x0400 
+            ret = TopInstrument.SPI_EMUL.__test_spi_emul(); // test SPI EMUL // test fifo on spi emulation
             
             // new adc test : adc power on // adc enable // adc init // adc fifo reset // adc update // fifo data read 
             ret = TopInstrument.ADDA_control_by_eps.__test_ADDA_control_by_eps(); 
