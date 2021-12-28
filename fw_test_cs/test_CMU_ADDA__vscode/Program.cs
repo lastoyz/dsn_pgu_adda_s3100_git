@@ -78,7 +78,8 @@ namespace __test__
         
         //// HVSMU
         //public static uint test_loc_slot__HVSMU = (0x1<< 2); // slot location 2
-        public static uint test_loc_slot__HVSMU = (0x1<< 4); // slot location 4
+        public static uint test_loc_slot__HVSMU = (0x1<< 3); // slot location 3
+        //public static uint test_loc_slot__HVSMU = (0x1<< 4); // slot location 4
         //public static uint test_loc_slot__HVSMU = (0x1<< 6); // slot location 6
         //public static uint test_loc_slot__HVSMU = (0x1<< 9); // slot location 9
         public static uint test_loc_spi_group__HVSMU = 0x0001; // spi M0 // for GNDU, SMU
@@ -162,7 +163,7 @@ namespace __test__
             
             // eeprom test on slot 3 = _SPI_SEL_SLOT(2), HVSMU
             // eeprom test on slot 0 = _SPI_SEL_SLOT(-1), HVSMU
-            u32 slot_code__SMU   = dev._SPI_SEL_SLOT(-1);
+            u32 slot_code__SMU   = dev._SPI_SEL_SLOT(2);
             u32 spi_ch_code__SMU = dev._SPI_SEL_CH_SMU();
             Console.WriteLine(">>>>>> test: eeprom ");
             // init eeprom
