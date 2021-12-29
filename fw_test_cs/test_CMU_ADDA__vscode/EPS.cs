@@ -521,5 +521,9 @@ namespace TopInstrument
     }
 
 
+    //// inheritance control
+    //public partial class EPS : __S3100_SPI_EMUL {} // : __S3100_CPU_BASE vs : __S3100_SPI_EMUL
+    //public partial class EPS : __S3100_CPU_BASE {} // : __S3100_CPU_BASE vs : __S3100_SPI_EMUL
+
 
 }

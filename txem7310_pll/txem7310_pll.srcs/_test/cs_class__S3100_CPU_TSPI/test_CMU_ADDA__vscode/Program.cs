@@ -168,8 +168,8 @@ namespace __test__
 
 
         // test pattern selection <<<<<<<
-        //public static int test_case__wave = 1; // 0 for pulse, 1 for sine
-        public static int test_case__wave = 0; // 0 for pulse, 1 for sine
+        public static int test_case__wave = 1; // 0 for pulse, 1 for sine
+        //public static int test_case__wave = 0; // 0 for pulse, 1 for sine
 
         // test pattern sine <<<<<<
 
@@ -192,14 +192,14 @@ namespace __test__
         //public static double amplitude  = 4.0; // no distortion
         public static double amplitude  = 1.0; // test 1V amp
         //
-        //public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
-        //public static u32 adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
-        //public static s32 len_adc_data         = 1200;
-        //public static double time_ns__dac_update    = 5; // 200MHz dac update
-        //public static s32    time_ns__code_duration = 5; // 5ns = 200MHz
-        //public static double load_impedance_ohm              = 1e6; // 1e6 vs 50
-        //public static s32    output_range      = 10; // 10 or 40  
-        //public static s32    num_repeat_pulses = 1000;
+        public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
+        public static u32 adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+        public static s32 len_adc_data         = 1200;
+        public static double time_ns__dac_update    = 5; // 200MHz dac update
+        public static s32    time_ns__code_duration = 5; // 5ns = 200MHz
+        public static double load_impedance_ohm              = 1e6; // 1e6 vs 50
+        public static s32    output_range      = 10; // 10 or 40  
+        public static s32    num_repeat_pulses = 1000;
 
         //// case 5MHz undersampling : 5ns dac update, 5ns code duration, range 10V, repeat 1000, adc 189MHz/38 1200 samples.
         // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
@@ -238,16 +238,16 @@ namespace __test__
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 3.0, 3.0, 6.0, 6.0, -6.0, -6.0,   0.0 }; // V
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 5.0, 5.0, 10.0, 10.0, -10.0, -10.0,   0.0 }; // V
         //
-        public static u32    adc_base_freq_MHz         = 210  ; // MHz // 210MHz vs 189MHz
-        public static u32    adc_sampling_period_count = 210 ; // 210MHz/210  =  1 Msps 
-        //public static s32    len_adc_data              = 6000;
-        public static s32    len_adc_data              = 1200;
-        public static double time_ns__dac_update       = 10;
-        public static s32    time_ns__code_duration    = 10;
-        public static double load_impedance_ohm        = 1e6; // 1e6 vs 50
-        public static s32    output_range              = 10; // 10 or 40  
-        //public static s32    num_repeat_pulses         = 5;
-        public static s32    num_repeat_pulses         = 1;
+        // public static u32    adc_base_freq_MHz         = 210  ; // MHz // 210MHz vs 189MHz
+        // public static u32    adc_sampling_period_count = 210 ; // 210MHz/210  =  1 Msps 
+        // //public static s32    len_adc_data              = 6000;
+        // public static s32    len_adc_data              = 1200;
+        // public static double time_ns__dac_update       = 10;
+        // public static s32    time_ns__code_duration    = 10;
+        // public static double load_impedance_ohm        = 1e6; // 1e6 vs 50
+        // public static s32    output_range              = 10; // 10 or 40  
+        // //public static s32    num_repeat_pulses         = 5;
+        // public static s32    num_repeat_pulses         = 1;
 
 
         //// case 10000us : pr 10000000 ns, tr 1000000ns, repeat 5, ADC 10us 6000 samples.
@@ -295,8 +295,8 @@ namespace __test__
 
 
         //// dft calculation setup <<<<<<
-        //public static int  test_dft_enable = 1;
-        public static int  test_dft_enable = 0;
+        public static int  test_dft_enable = 1;
+        //public static int  test_dft_enable = 0;
 
         // DFT compute
         //double test_freq_kHz             = 500      ; // kHz

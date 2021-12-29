@@ -581,10 +581,10 @@ namespace TopInstrument{
 
 
     //// inheritance control
-    public partial class __S3100_CPU_BASE : __HVSMU {} // note: __HVSMU has END-POINT ADDRESS for HVSMU // __enum_EPA
-    public partial class __S3100_SPI_EMUL : __HVSMU {} // note: __HVSMU has END-POINT ADDRESS for HVSMU // __enum_EPA
-    public partial class EPS : __S3100_SPI_EMUL {} // __S3100_SPI_EMUL vs __S3100_CPU_BASE
-    public partial class SMU : EPS {}
+    //public partial class __S3100_CPU_BASE : __HVSMU {} // note: __HVSMU has END-POINT ADDRESS for HVSMU // __enum_EPA
+    //public partial class __S3100_SPI_EMUL : __HVSMU {} // note: __HVSMU has END-POINT ADDRESS for HVSMU // __enum_EPA
+    //public partial class EPS : __S3100_SPI_EMUL {} // __S3100_SPI_EMUL vs __S3100_CPU_BASE
+    //public partial class SMU : EPS {}
 
 
     
