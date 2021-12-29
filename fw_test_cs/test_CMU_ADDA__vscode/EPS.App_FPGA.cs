@@ -75,8 +75,13 @@ namespace TopInstrument{
         u32  GetTriggerOutVector(u32 slot, u32 spi_sel, u32 adrs, u32 mask = 0xFFFF_FFFF);
 
         u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray); // u8* --> u8[]
+        //public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
+        u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
+
         u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse); // u8* --> u8[]
 
+        //long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray, uint dummy_leading_read_pulse = 0, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
+        u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse = 0, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
 
    }
 
@@ -99,6 +104,51 @@ namespace TopInstrument{
         u32 _test__send_spi_frame(u32 data_C, u32 data_A, u32 data_D, u32 enable_CS_bits_16b , u32 enable_CS_group_16b,
                    u32 adrs_MSPI_CON_WI, u32 adrs_MSPI_FLAG_WO, u32 adrs_MSPI_TI, u32 adrs_MSPI_TO, 
                    u32 adrs_MSPI_EN_CS_WI , s32 loc_bit_MSPI_frame_trig, u32 mask_MSPI_frame_done);
+
+        //$$ fifo frame trigger
+
+        u32 _test__send_spi_frame_fifo(                       //$$ public uint _test__send_spi_frame_fifo(               // 
+            s32[] mosi_in_buf_s32,                            //$$     ref s32[] mosi_in_buf_s32,                        // 
+            s32[] miso_out_buf_s32,                           //$$     ref s32[] miso_out_buf_s32,                       // 
+            s32  MAX_DEPTH_FIFO_32B = 256,                    //$$     s32  MAX_DEPTH_FIFO_32B = 256,                    // 
+            //
+            u32  enable_CS_bits_16b = 0x00001FFF,             //$$     uint enable_CS_bits_16b = 0x00001FFF,             // 
+            u32  enable_CS_group_16b = 0x0007,                //$$     uint enable_CS_group_16b = 0x0007,                // 
+            u32     adrs_MSPI_CON_WI = 0x17,                  //$$     uint adrs_MSPI_CON_WI = 0x17,                     // 
+            u32     adrs_MSPI_FLAG_WO = 0x24,                 //$$     uint adrs_MSPI_FLAG_WO = 0x24,                    // 
+            u32     adrs_MSPI_TI = 0x42,                      //$$     uint adrs_MSPI_TI = 0x42,                         // 
+            u32     adrs_MSPI_TO = 0x62,                      //$$     uint adrs_MSPI_TO = 0x62,                         // 
+            //
+            u32     adrs_MSPI_PI = 0x92,                      //$$     uint adrs_MSPI_PI = 0x92,                         // 
+            u32     adrs_MSPI_PO = 0xB2,                      //$$     uint adrs_MSPI_PO = 0xB2,                         // 
+            u32     adrs_MSPI_EN_CS_WI = 0x16,                //$$     uint adrs_MSPI_EN_CS_WI = 0x16,                   // 
+            s32  loc_bit_MSPI_reset_fifo_trig = 3,            //$$     int  loc_bit_MSPI_reset_fifo_trig = 3,            // 
+            u32     mask_MSPI_reset_fifo_done = (0x1<<3),     //$$     uint    mask_MSPI_reset_fifo_done = (0x1<<3),     // 
+            s32  loc_bit_MSPI_frame_fifo_trig = 4,            //$$     int  loc_bit_MSPI_frame_fifo_trig = 4,            // 
+            u32     mask_MSPI_frame_fifo_done = (0x1<<4)      //$$     uint    mask_MSPI_frame_fifo_done = (0x1<<4)      // 
+        );                                                    //$$ );                                                    // 
+
+        u32 _test__send_spi_frame_fifo(                       //$$ public uint _test__send_spi_frame_fifo(               //
+            byte[] mosi_in_buf_byte,                          //$$     ref byte[] mosi_in_buf_byte,                      //
+            byte[] miso_out_buf_byte,                         //$$     ref byte[] miso_out_buf_byte,                     //
+            s32  MAX_DEPTH_FIFO_32B = 256,                    //$$     s32  MAX_DEPTH_FIFO_32B = 256,                    //
+            //
+            u32  enable_CS_bits_16b = 0x00001FFF,             //$$     uint enable_CS_bits_16b = 0x00001FFF,             //
+            u32  enable_CS_group_16b = 0x0007,                //$$     uint enable_CS_group_16b = 0x0007,                //
+            u32     adrs_MSPI_CON_WI = 0x17,                  //$$     uint adrs_MSPI_CON_WI = 0x17,                     //
+            u32     adrs_MSPI_FLAG_WO = 0x24,                 //$$     uint adrs_MSPI_FLAG_WO = 0x24,                    //
+            u32     adrs_MSPI_TI = 0x42,                      //$$     uint adrs_MSPI_TI = 0x42,                         //
+            u32     adrs_MSPI_TO = 0x62,                      //$$     uint adrs_MSPI_TO = 0x62,                         //
+            //
+            u32     adrs_MSPI_PI = 0x92,                      //$$     uint adrs_MSPI_PI = 0x92,                         //
+            u32     adrs_MSPI_PO = 0xB2,                      //$$     uint adrs_MSPI_PO = 0xB2,                         //
+            u32     adrs_MSPI_EN_CS_WI = 0x16,                //$$     uint adrs_MSPI_EN_CS_WI = 0x16,                   //
+            s32  loc_bit_MSPI_reset_fifo_trig = 3,            //$$     int  loc_bit_MSPI_reset_fifo_trig = 3,            //
+            u32     mask_MSPI_reset_fifo_done = (0x1<<3),     //$$     uint    mask_MSPI_reset_fifo_done = (0x1<<3),     //
+            s32  loc_bit_MSPI_frame_fifo_trig = 4,            //$$     int  loc_bit_MSPI_frame_fifo_trig = 4,            //
+            u32     mask_MSPI_frame_fifo_done = (0x1<<4)      //$$     uint    mask_MSPI_frame_fifo_done = (0x1<<4)      //
+        );                                                    //$$ );                                                    //
+
     }
 
     interface I_SPI_frame_gen_EPS 
@@ -582,6 +632,57 @@ namespace TopInstrument{
             }
             return data_B;
         }
+
+        //$$ fifo frame trigger
+
+        public u32 _test__send_spi_frame_fifo(                       
+            s32[] mosi_in_buf_s32,                            
+            s32[] miso_out_buf_s32,                           
+            s32  MAX_DEPTH_FIFO_32B = 256,                    
+            //
+            u32  enable_CS_bits_16b = 0x00001FFF,             
+            u32  enable_CS_group_16b = 0x0007,                
+            u32     adrs_MSPI_CON_WI = 0x17,                  
+            u32     adrs_MSPI_FLAG_WO = 0x24,                 
+            u32     adrs_MSPI_TI = 0x42,                      
+            u32     adrs_MSPI_TO = 0x62,                      
+            //
+            u32     adrs_MSPI_PI = 0x92,                      
+            u32     adrs_MSPI_PO = 0xB2,                      
+            u32     adrs_MSPI_EN_CS_WI = 0x16,                
+            s32  loc_bit_MSPI_reset_fifo_trig = 3,            
+            u32     mask_MSPI_reset_fifo_done = (0x1<<3),     
+            s32  loc_bit_MSPI_frame_fifo_trig = 4,            
+            u32     mask_MSPI_frame_fifo_done = (0x1<<4)      
+        )
+        {
+            return 0;
+        }
+
+        public u32 _test__send_spi_frame_fifo(                       
+            byte[] mosi_in_buf_byte,                          
+            byte[] miso_out_buf_byte,                         
+            s32  MAX_DEPTH_FIFO_32B = 256,                    
+            //
+            u32  enable_CS_bits_16b = 0x00001FFF,             
+            u32  enable_CS_group_16b = 0x0007,                
+            u32     adrs_MSPI_CON_WI = 0x17,                  
+            u32     adrs_MSPI_FLAG_WO = 0x24,                 
+            u32     adrs_MSPI_TI = 0x42,                      
+            u32     adrs_MSPI_TO = 0x62,                      
+            //
+            u32     adrs_MSPI_PI = 0x92,                      
+            u32     adrs_MSPI_PO = 0xB2,                      
+            u32     adrs_MSPI_EN_CS_WI = 0x16,                
+            s32  loc_bit_MSPI_reset_fifo_trig = 3,            
+            u32     mask_MSPI_reset_fifo_done = (0x1<<3),     
+            s32  loc_bit_MSPI_frame_fifo_trig = 4,            
+            u32     mask_MSPI_frame_fifo_done = (0x1<<4)      
+        ) 
+        {
+            return 0;
+        }
+
 
     }
 
