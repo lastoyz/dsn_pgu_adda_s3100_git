@@ -12,6 +12,7 @@ namespace TopInstrument{
     using u16 = System.UInt16; // for converting firmware
     using s16 = System.Int16;  // for converting firmware
     using u8  = System.Byte;   // for converting firmware
+    using s8  = System.SByte;  // for converting firmware
     //
     using UINT32 = System.UInt32; // for converting firmware
     using INT32  = System.Int32;  // for converting firmware
@@ -21,18 +22,39 @@ namespace TopInstrument{
     //
     using BOOL   = System.Boolean; // for converting firmware
 
-    //// some common interface
-
-
-    //// some common class or enum or struct
+    // for SMU compatible
     using TSmuCtrlReg = __struct_TSmuCtrlReg;
     using TSmuCtrl    = __struct_TSmuCtrl;
 
-    public partial class __CMU_ADDA {
+
+    //// some common interface
+    interface I_CMU
+    {
+        // for slot functions
+        void scan_frame_slot(); // scan slot
+        bool search_board_init(s8 slot, u32 fid); //(s8 slot, u32 slot_cs_code, u32 slot_ch_code, u32 fid);
+        u32 _SPI_SEL_SLOT(s32 ch); // in S3100 slot 1~12 // ch = 0  => slot = 1
+        u32 _SPI_SEL_SLOT_GNDU(); // in S3100-GNDU slot 0 fixed
+        u32 _SPI_SEL_CH_SMU();
+        u32 _SPI_SEL_CH_GNDU();
+        u32 _SPI_SEL_CH_PGU();
+        u32 _SPI_SEL_CH_CMU();
+
+        // adda sub-devices
+        //...
+
+        // cmu sub-devices
+        //...
+
     }
-    public partial class __CMU_SUB {
-    }
-    public partial class __CMU {
+
+
+    //// some common class or enum or struct
+
+    public partial class __CMU_ADDA {}
+    public partial class __CMU_SUB {}
+    public partial class __CMU 
+    {
 
         public string EP_ADRS__GROUP_STR         = "_S3100_CMU_"; // reserved
 
@@ -178,8 +200,8 @@ namespace TopInstrument{
         
         }
 
-        /*
-        public enum __enum_SMU
+        //// for SMU compatible
+        public enum __enum_SMU 
         {
             //
             NO_OF_SMU               = 12,
@@ -282,19 +304,143 @@ namespace TopInstrument{
 
         public INT32[]  smu_vadc_values    = new INT32[(int)__enum_SMU.NO_OF_SMU];  
         public INT32[]  smu_iadc_values    = new INT32[(int)__enum_SMU.NO_OF_SMU];
-
         public TSmuCtrlReg[]  smu_ctrl_reg = new TSmuCtrlReg[(int)__enum_SMU.NO_OF_SMU]; // TSmuCtrlReg smu_ctrl_reg[NO_OF_SMU];
-        */
+        
 
     }
 
+    public partial class CMU : I_CMU
+    {
+        // slot functions
+        /*
+        public new void scan_frame_slot() // scan slot
+        {
+            TRACE("----------------------------------------------------------\r\n");            
 
-    //// inheritance control
-    //public partial class __S3100_CPU_BASE : __HVSMU {} // note: __HVSMU has END-POINT ADDRESS for HVSMU // __enum_EPA
-    //public partial class __S3100_SPI_EMUL : __HVSMU {} // note: __HVSMU has END-POINT ADDRESS for HVSMU // __enum_EPA
-    //public partial class EPS : __S3100_SPI_EMUL {} // __S3100_SPI_EMUL vs __S3100_CPU_BASE
-    //public partial class SMU : EPS {}
+            // scan slot 0 for GNDU
+            if (search_board_init(-1, GetWireOutValue(_SPI_SEL_SLOT_GNDU(), _SPI_SEL_CH_GNDU(), 
+                (u32)__enum_EPA.EP_ADRS__FPGA_IMAGE_ID_WO , 0xFFFFFFFF)) == FALSE)
+                // nop or more init
+                //Console.WriteLine("# <Slot {0,2:d}: Not Detected: GNDU expected>", 0);
+                TRACE("# <Not Detect Board on Slot 0>\r\n");
 
+            // scan slot 1 ~ 12
+            for(int i = 0; i < 12; i++)
+            {
+                // search spi ch M0
+                if(search_board_init((s8)i, GetWireOutValue(_SPI_SEL_SLOT(i), (u32)__enum_SPI_CBIT.SPI_SEL_M0, 
+                    (u32)__enum_EPA.EP_ADRS__FPGA_IMAGE_ID_WO , 0xFFFFFFFF))) continue;
+                // search spi ch M2
+                if(search_board_init((s8)i, GetWireOutValue(_SPI_SEL_SLOT(i), (u32)__enum_SPI_CBIT.SPI_SEL_M2, 
+                    (u32)__enum_EPA.EP_ADRS__FPGA_IMAGE_ID_WO , 0xFFFFFFFF))) continue;
+                // no board found in this slot
+                //Console.WriteLine("# <Slot {0,2:d}: Not Detected: no FID>", i + 1);
+                TRACE("# <Not Detect Board on Slot %d>\r\n", i + 1);
+            }
+        }
+        public new bool search_board_init(s8 slot, u32 fid) // (s8 slot, u32 slot_cs_code, u32 slot_ch_code, u32 fid)
+        {
+            bool rtn = true;
+            u8 boardID = (u8)(fid >> 24);
+
+            switch(boardID)
+            {
+                case (u8)__board_class_id__.S3100_GNDU      :
+                    //Console.WriteLine("# <Slot {0,2:d}: Detected: S3100_GNDU, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
+                    //    slot + 1, fid, slot_cs_code, slot_ch_code); // slot 0 fixed
+                    //
+                    TRACE("# <Detect Board on Slot %d: S3100-GNDU, Ver 0x%X>\r\n", slot + 1, fid);
+                    break;
+                case (u8)__board_class_id__.S3000_PGU:			// S3000 PGU
+                    TRACE("# <Detect Board on Slot %d: S3000-PGU, Ver 0x%X>\r\n", slot + 1, fid);
+                    break;
+                case (u8)__board_class_id__.S3000_CMU:			// S3000 CMU
+                    TRACE("# <Detect Board on Slot %d: S3000-CMU, Ver 0x%X>\r\n", slot + 1, fid);
+                    break;
+                case (u8)__board_class_id__.S3100_PGU_ADDA  :  // alias S3100_PGU_ADDA, S3100_PGU
+                    TRACE("# <Detect Board on Slot %d: S3100-PGU-ADDA, Ver 0x%X>\r\n", slot + 1, fid);
+                    //Console.WriteLine("# <Slot {0,2:d}: Detected: S3100-PGU-ADDA, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
+                    //    slot + 1, fid, slot_cs_code, slot_ch_code); 
+                    break;
+                case (u8)__board_class_id__.S3100_CMU_ADDA  :  // alias S3100_CMU_ADDA, S3100_ADDA
+                    TRACE("# <Detect Board on Slot %d: S3100-CMU-ADDA, Ver 0x%X>\r\n", slot + 1, fid);
+                    //Console.WriteLine("# <Slot {0,2:d}: Detected: S3100_CMU_ADDA, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
+                    //    slot + 1, fid, slot_cs_code, slot_ch_code); 
+                    break;
+                case (u8)__board_class_id__.S3100_HVSMU     :	// S3100 HVSMU
+                    TRACE("# <Detect Board on Slot %d: S3100-HVSMU, Ver 0x%X>\r\n", slot + 1, fid);
+                    //Console.WriteLine("# <Slot {0,2:d}: Detected: S3100-HVSMU, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
+                    //    slot + 1, fid, slot_cs_code, slot_ch_code); 
+                    hvsmu_V_DAC_init((u8)slot);
+                    hvsmu_I_DAC_init((u8)slot);
+                    //
+                    hvsmu_HRADC_enable((u8)slot);
+                    break;
+                case (u8)__board_class_id__.S3100_PGU_SUB   :  // alias S3100_HVPGU
+                    TRACE("# <Detect Board on Slot %d: S3100-PGU-SUB, Ver 0x%X>\r\n", slot + 1, fid);
+                    //Console.WriteLine("# <Slot {0,2:d}: Detected: S3100-PGU-SUB, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
+                    //    slot + 1, fid, slot_cs_code, slot_ch_code); 
+                    break;
+                case (u8)__board_class_id__.S3100_CMU_SUB   :	// S3100-CMU-SUB
+                    TRACE("# <Detect Board on Slot %d: S3100-CMU-SUB, Ver 0x%X>\r\n", slot + 1, fid);
+                    //Console.WriteLine("# <Slot {0,2:d}: Detected: S3100-CMU-SUB, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
+                    //    slot + 1, fid, slot_cs_code, slot_ch_code); 
+                    break;
+                case (u8)__board_class_id__.E8000_HLSMU   :   // E8000-HVSMU
+                    TRACE("# <Detect Board on Slot %d: E8000-HLSMU, Ver 0x%X>\r\n", slot + 1, fid);
+                    break;
+                default:
+                    rtn = false;
+                    //TRACE("# <Not Detect Board on Slot %d>\r\n", slot + 1);
+                    //
+                    //if ( (fid != 0xFFFFFFFF) && (fid != 0x00000000))
+                    //    Console.WriteLine("# <Slot {0,2:d}: Detected: Unknown, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
+                    //        slot + 1, fid, slot_cs_code, slot_ch_code); 
+                    break;
+            }
+
+            return rtn;
+        } 
+        public new u32 _SPI_SEL_SLOT(s32 a) // in S3100 slot 1~12
+        {
+            return (u32)(0x1<<(a+1));
+        }
+        public new u32 _SPI_SEL_SLOT_GNDU() // in S3100-GNDU slot 0
+        {
+            //
+            return (u32)__slot_cs_code__.SLOT_CS0;
+        }
+        public new u32 _SPI_SEL_SLOT_SMU(s32 a) // in S3100 slot 1~12
+        {
+            return (u32)(0x1<<(a+1));
+        }
+        public new u32 _SPI_SEL_SLOT_CMU(s32 a) // in S3100 slot 1~12
+        {
+            return (u32)(0x1<<(a+1));
+        }
+        public new u32 _SPI_SEL_SLOT_PGU(s32 a) // in S3100 slot 1~12
+        {
+            return (u32)(0x1<<(a+1));
+        }
+        public new u32 _SPI_SEL_CH_SMU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M0;
+        }
+        public new u32 _SPI_SEL_CH_GNDU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M0;
+        }
+        public new u32 _SPI_SEL_CH_PGU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M2;
+        }
+        public new u32 _SPI_SEL_CH_CMU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M2;
+        }
+        */
+
+    }
 
     
 }

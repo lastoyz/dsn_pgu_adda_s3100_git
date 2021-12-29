@@ -22,6 +22,12 @@ namespace __test__
     //
     using BOOL = System.Boolean;  
 
+    //// assign DUT
+    //using DUT = TopInstrument.SMU;
+    //using I_DUT = TopInstrument.I_SMU;
+    using DUT = TopInstrument.CMU;
+    using I_DUT = TopInstrument.I_CMU;
+
     public class Program
     {
         //$$ note: IP ... setup for own LAN port test //{
@@ -98,15 +104,14 @@ namespace __test__
             //// hvsmu fw style test 
 
             // call test function via class
-            Console.WriteLine(">>>>>> test: SMU class");
-            var dev = new TopInstrument.SMU();
+            Console.WriteLine(">>>>>> test: DUT class");
+            var dev = new DUT();
 
             // call test function via interface
-            Console.WriteLine(">>>>>> test: SMU interface ");
+            Console.WriteLine(">>>>>> test: DUT interface ");
             TopInstrument.I_EPS    dev_itfc_eps    = dev; // basic endpoint functions
-            TopInstrument.I_SMU    dev_itfc_smu    = dev; // slot management and smu functions
+            I_DUT                  dev_itfc_dut    = dev; // slot management and dut functions
             TopInstrument.I_eeprom dev_itfc_eeprom = dev; // eeprom access
-
 
             // open scpi port on S3100-CPU-BASE 
             dev.my_open(test_host_ip);
@@ -126,83 +131,85 @@ namespace __test__
 
             // emulation slot : slot = 0, spi_ch = 0
             Console.WriteLine(dev_itfc_eps.GetWireOutValue(
-                (u32)TopInstrument.SMU.__slot_cs_code__.SLOT_CS2,
-                (u32)TopInstrument.SMU.__enum_SPI_CBIT.SPI_SEL_M0,
+                (u32)DUT.__slot_cs_code__.SLOT_CS_EMUL,
+                (u32)DUT.__enum_SPI_CBIT.SPI_SEL_EMUL,
                 0xE0).ToString("X8")); // known pattern from 0xE0 or 0x380 : 0x33AA_CC55
 
             // test slot
             Console.WriteLine(dev_itfc_eps.GetWireOutValue(
-                (u32)TopInstrument.SMU.__slot_cs_code__.SLOT_CS2,
-                (u32)TopInstrument.SMU.__enum_SPI_CBIT.SPI_SEL_M0,
+                (u32)DUT. __slot_cs_code__.SLOT_CS2,
+                (u32)DUT.__enum_SPI_CBIT.SPI_SEL_M0,
                 0x20).ToString("X8")); // FID
 
             Console.WriteLine(dev_itfc_eps.GetWireOutValue(
-                (u32)TopInstrument.SMU.__slot_cs_code__.SLOT_CS4,
-                (u32)TopInstrument.SMU.__enum_SPI_CBIT.SPI_SEL_M0,
+                (u32)DUT.__slot_cs_code__.SLOT_CS4,
+                (u32)DUT.__enum_SPI_CBIT.SPI_SEL_M0,
                 0x20).ToString("X8")); // FID
 
             Console.WriteLine(dev_itfc_eps.GetWireOutValue(
-                (u32)TopInstrument.SMU.__slot_cs_code__.SLOT_CS8,
-                (u32)TopInstrument.SMU.__enum_SPI_CBIT.SPI_SEL_M2,
+                (u32)DUT.__slot_cs_code__.SLOT_CS8,
+                (u32)DUT.__enum_SPI_CBIT.SPI_SEL_M2,
                 0x20).ToString("X8")); // FID
 
             Console.WriteLine(dev_itfc_eps.GetWireOutValue(
-                (u32)TopInstrument.SMU.__slot_cs_code__.SLOT_CS10,
-                (u32)TopInstrument.SMU.__enum_SPI_CBIT.SPI_SEL_M2,
+                (u32)DUT.__slot_cs_code__.SLOT_CS10,
+                (u32)DUT.__enum_SPI_CBIT.SPI_SEL_M2,
                 0x20).ToString("X8")); // FID
 
             Console.WriteLine(dev_itfc_eps.GetWireOutValue(
-                (u32)TopInstrument.SMU.__slot_cs_code__.SLOT_CS12,
-                (u32)TopInstrument.SMU.__enum_SPI_CBIT.SPI_SEL_M2,
+                (u32)DUT.__slot_cs_code__.SLOT_CS12,
+                (u32)DUT.__enum_SPI_CBIT.SPI_SEL_M2,
                 0x20).ToString("X8")); // FID
 
             // test scan slot
             Console.WriteLine(">>>>>> test: scan slot ");
-            dev_itfc_smu.scan_frame_slot();
+            dev_itfc_dut.scan_frame_slot();
 
             
-            // eeprom test on slot 3 = _SPI_SEL_SLOT(2), HVSMU
-            // eeprom test on slot 0 = _SPI_SEL_SLOT(-1), HVSMU
-            u32 slot_code__SMU   = dev._SPI_SEL_SLOT(2);
-            u32 spi_ch_code__SMU = dev._SPI_SEL_CH_SMU();
             Console.WriteLine(">>>>>> test: eeprom ");
+            // eeprom test on slot 3  = _SPI_SEL_SLOT(2), HVSMU
+            // eeprom test on slot 0  = _SPI_SEL_SLOT(-1), HVSMU
+            // eeprom test on slot 12 = _SPI_SEL_SLOT(11), CMU-ADDA
+            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(11);
+            //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_SMU();
+            u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_CMU();
             // init eeprom
             Console.WriteLine("> Read Status : 0x{0,8:X8}", 
-                dev_itfc_eeprom.eeprom_read_status(slot_code__SMU, spi_ch_code__SMU)
+                dev_itfc_eeprom.eeprom_read_status(slot_code__dut_eeprom, spi_ch_code__dut_eeprom)
             );
             // read eeprom
             Console.WriteLine("> Read 0x{0,8:X8} at 0x{1,2:X2} ", 
-                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__SMU, spi_ch_code__SMU, 0x00), 
+                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x00), 
                 0x00
             );
             Console.WriteLine("> Read 0x{0,8:X8} at 0x{1,2:X2} ", 
-                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__SMU, spi_ch_code__SMU, 0x10), 
+                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x10), 
                 0x10
             );
             Console.WriteLine("> Read 0x{0,8:X8} at 0x{1,2:X2} ", 
-                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__SMU, spi_ch_code__SMU, 0x20), 
+                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x20), 
                 0x20
             );
             Console.WriteLine("> Read 0x{0,8:X8} at 0x{1,2:X2} ", 
-                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__SMU, spi_ch_code__SMU, 0x30), 
+                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x30), 
                 0x30
             );
             Console.WriteLine("> Read 0x{0,8:X8} at 0x{1,2:X2} ", 
-                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__SMU, spi_ch_code__SMU, 0x40), 
+                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x40), 
                 0x40
             );
             // test write on 0x40
             u32 test_dat_u32 = 0x1234ABCD; // 0x56784321; // 
             Console.WriteLine("> Send 0x{0,8:X8} at 0x{1,2:X2} ", test_dat_u32, 0x40);
-            dev_itfc_eeprom.eeprom_write_data_u32 (slot_code__SMU, spi_ch_code__SMU, 0x40, test_dat_u32);
+            dev_itfc_eeprom.eeprom_write_data_u32 (slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x40, test_dat_u32);
             Console.WriteLine("> Read 0x{0,8:X8} at 0x{1,2:X2} ", 
-                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__SMU, spi_ch_code__SMU, 0x40), 
+                dev_itfc_eeprom.eeprom__read__data_u32(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x40), 
                 0x40
             );
             // test write on 0x44
             float val;
             Console.WriteLine("> Read {0} at 0x{1,2:X2} ", 
-                val=dev_itfc_eeprom.eeprom__read__data_float(slot_code__SMU, spi_ch_code__SMU, 0x44), 
+                val=dev_itfc_eeprom.eeprom__read__data_float(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x44), 
                 0x44
             );
             if (float.IsNaN(val))
@@ -210,39 +217,41 @@ namespace __test__
             else 
                 val = (float)((val+1)*0.9);
             Console.WriteLine("> Send {0} at 0x{1,2:X2} ", val, 0x44);
-            dev_itfc_eeprom.eeprom_write_data_float (slot_code__SMU, spi_ch_code__SMU, 0x44, val);
+            dev_itfc_eeprom.eeprom_write_data_float (slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x44, val);
             Console.WriteLine("> Read {0} at 0x{1,2:X2} ", 
-                dev_itfc_eeprom.eeprom__read__data_float(slot_code__SMU, spi_ch_code__SMU, 0x44), 
+                dev_itfc_eeprom.eeprom__read__data_float(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x44), 
                 0x44
             );
            
-           // test smu functions
+           // test smu functions 
+           /*
             Console.WriteLine(">>>>>> test: more from interface I_SMU");
             //s32 smu_ch = 2; // ch = 2, slot = 3
             //s32 smu_ch = 2; // ch = -1, slot = 0 // NG
             s32 smu_ch = 0; // ch = 0, slot = 1
 
-            char smu_state = dev_itfc_smu.read_smu_state(smu_ch);
+            char smu_state = dev_itfc_dut.read_smu_state(smu_ch);
             Console.WriteLine("> {0} : {1} = {2} ", "read_smu_state()", "smu_state", smu_state);
 
-            dev_itfc_smu.smu_adc_mux_v_sel(smu_ch);
+            dev_itfc_dut.smu_adc_mux_v_sel(smu_ch);
             Console.WriteLine("> {0} : {1} ", "smu_adc_mux_v_sel()", "done");
 
-            dev_itfc_smu.smu_adc_mux_no_sel(smu_ch);
+            dev_itfc_dut.smu_adc_mux_no_sel(smu_ch);
             Console.WriteLine("> {0} : {1} ", "smu_adc_mux_no_sel()", "done");
 
-            dev_itfc_smu.smu_adc_mux_v_sel_all();
+            dev_itfc_dut.smu_adc_mux_v_sel_all();
             Console.WriteLine("> {0} : {1} ", "smu_adc_mux_v_sel_all()", "done");
 
-            dev_itfc_smu.smu_adc_mux_i_sel(smu_ch);
+            dev_itfc_dut.smu_adc_mux_i_sel(smu_ch);
             Console.WriteLine("> {0} : {1} ", "smu_adc_mux_i_sel()", "done");
 
-            dev_itfc_smu.smu_adc_mux_i_sel_all();
+            dev_itfc_dut.smu_adc_mux_i_sel_all();
             Console.WriteLine("> {0} : {1} ", "smu_adc_mux_i_sel_all()", "done");
 
-            dev_itfc_smu.write_smu_vctrl(smu_ch, 0x0001);
+            dev_itfc_dut.write_smu_vctrl(smu_ch, 0x0001);
             UINT16 val_uint16 = (UINT16)dev.smu_ctrl_reg[smu_ch].vctrl;
             Console.WriteLine("> {0} : {1} = {2} ", "write_smu_vctrl()", "vctrl", val_uint16);
+            */
 
             // test finish
             dev._test__reset_spi_emul();

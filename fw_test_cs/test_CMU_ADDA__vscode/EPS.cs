@@ -520,10 +520,55 @@ namespace TopInstrument
 
     }
 
+    // common
+    public partial class EPS 
+    {
+        // some common modules
+        public void TRACE(string fmt)
+        {
+            // remove "\r\n" 
+            if (fmt.Substring(fmt.Length-2)=="\r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-2);
+                fmt = tmp; //
+            }
+            Console.WriteLine(fmt);
+        }
 
-    //// inheritance control
-    //public partial class EPS : __S3100_SPI_EMUL {} // : __S3100_CPU_BASE vs : __S3100_SPI_EMUL
-    //public partial class EPS : __S3100_CPU_BASE {} // : __S3100_CPU_BASE vs : __S3100_SPI_EMUL
+        public void TRACE(string fmt, s32 val) { // for test print
+            // check "...%02d \r\n"
+            if (fmt.Substring(fmt.Length-7)=="%02d \r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-7);
+                fmt = tmp + string.Format("{0,2:d2} ", val); //
+            }
+            // check "...%d \r\n"
+            else if (fmt.Substring(fmt.Length-5)=="%d \r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-5);
+                fmt = tmp + string.Format("{0} ", val); //
+            }
+            // check "...%d>\r\n"
+            else if (fmt.Substring(fmt.Length-5)=="%d>\r\n") {
+                string tmp = fmt.Substring(0, fmt.Length-5);
+                fmt = tmp + string.Format("{0}>", val); //
+            }
+            Console.WriteLine(fmt);
+        }
+        public void TRACE(string fmt, s32 val_0, u32 val_1) { // for test print
+            int loc_dd = -1;
+            // check "...%d...%X>\r\n"
+            if (fmt.Substring(fmt.Length-5)=="%X>\r\n") {
+                // find %X
+                string tmp = fmt.Substring(0, fmt.Length-5);
+                fmt = tmp + string.Format("{0:X}>", val_1); //
+                // find %d
+                loc_dd = fmt.IndexOf("%d");
+                tmp = fmt.Substring(0, loc_dd) + string.Format("{0:d}", val_0);
+                fmt = tmp + fmt.Substring(loc_dd+2, fmt.Length-loc_dd-2);
+            }
+            Console.WriteLine(fmt);
+        }
 
+        public const bool FALSE = false;        
+        public const bool TRUE  = true;        
+    }
 
 }
