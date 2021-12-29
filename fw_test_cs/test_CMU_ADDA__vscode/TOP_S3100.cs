@@ -44,5 +44,11 @@ namespace TopInstrument{
     // public partial class CMU : EPS {}
 
 
+    //// inheritance control for PGU
+    // public partial class __S3100_SPI_EMUL : __PGU {} // for __enum_EPA
+    // public partial class EPS : __S3100_SPI_EMUL {} 
+    // public partial class PGU : EPS {}
+
+
     
 }

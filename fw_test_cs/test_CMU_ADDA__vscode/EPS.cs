@@ -249,7 +249,7 @@ namespace TopInstrument
     // SCPI base
     public partial class __S3100_SPI_EMUL
     {
-        private int SO_SNDBUF = 2048;
+        private int SO_SNDBUF = 32768; // 2048 --> 16384 --> 32768
         private int SO_RCVBUF = 32768;
         private int PORT = 5025;
         private Socket ss = null;

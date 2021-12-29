@@ -74,14 +74,14 @@ namespace TopInstrument{
         bool IsTriggered(u32 slot, u32 spi_sel, u32 adrs, u32 mask = 0xFFFF_FFFF);
         u32  GetTriggerOutVector(u32 slot, u32 spi_sel, u32 adrs, u32 mask = 0xFFFF_FFFF);
 
-        u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray); // u8* --> u8[]
+        u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray); // u8* --> u8[]
         //public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
-        u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
+        u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
 
-        u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse); // u8* --> u8[]
+        u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse); // u8* --> u8[]
 
         //long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray, uint dummy_leading_read_pulse = 0, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
-        u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse = 0, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
+        u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse = 0, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
 
    }
 
@@ -108,6 +108,7 @@ namespace TopInstrument{
         //$$ fifo frame trigger
 
         u32 _test__send_spi_frame_fifo(                       //$$ public uint _test__send_spi_frame_fifo(               // 
+            u16   num_bytes_b16,
             s32[] mosi_in_buf_s32,                            //$$     ref s32[] mosi_in_buf_s32,                        // 
             s32[] miso_out_buf_s32,                           //$$     ref s32[] miso_out_buf_s32,                       // 
             s32  MAX_DEPTH_FIFO_32B = 256,                    //$$     s32  MAX_DEPTH_FIFO_32B = 256,                    // 
@@ -129,6 +130,7 @@ namespace TopInstrument{
         );                                                    //$$ );                                                    // 
 
         u32 _test__send_spi_frame_fifo(                       //$$ public uint _test__send_spi_frame_fifo(               //
+            u16    num_bytes_b16,
             byte[] mosi_in_buf_byte,                          //$$     ref byte[] mosi_in_buf_byte,                      //
             byte[] miso_out_buf_byte,                         //$$     ref byte[] miso_out_buf_byte,                     //
             s32  MAX_DEPTH_FIFO_32B = 256,                    //$$     s32  MAX_DEPTH_FIFO_32B = 256,                    //
@@ -162,6 +164,16 @@ namespace TopInstrument{
         void __SetWireInValue__(u32 adrs, u32 data, u32 mask); 
         void __ActivateTriggerIn__(u32 adrs, s32 loc_bit);
         bool __IsTriggered__(u32 adrs, u32 mask);
+
+        // for pipe with fifo
+        void __act_trig_w_check(            //$$ private void __act_trig_w_check(
+            s32  loc_bit__trig = 2,         //$$     int  loc_bit__trig = 2,
+            u32     mask__done = (0x1<<2),  //$$     uint    mask__done = (0x1<<2),
+            u32     adrs__TI   = 0x42,      //$$     uint adrs__TI = 0x42,
+            u32     adrs__TO   = 0x62       //$$     uint adrs__TO = 0x62
+        );                                  //$$ );
+        u32 __WriteToPipeIn__(u32 adrs, byte[] data_bytearray);   //$$ public long __WriteToPipeIn__(uint adrs, ref byte[] data_bytearray);
+        u32 __ReadFromPipeOut__(u32 adrs, byte[] data_bytearray); //$$ public long __ReadFromPipeOut__(uint adrs, ref byte[] data_bytearray);
 
     }
 
@@ -236,11 +248,42 @@ namespace TopInstrument{
         public enum __enum_SPI_CADD 
         {
             // S3100 FPGA SPI CONTROL ADDRESS
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
+            // |       |               |            |            |                            | bit[16]   =M0 group enable     |
+            // |       |               |            |            |                            | bit[17]   =M1 group enable     |
+            // |       |               |            |            |                            | bit[18]   =M2 group enable     |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
+            // |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
+            // |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_24 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+            // |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
+            // |       |               |            |            |                            | bit[1]=trigger_init            |
+            // |       |               |            |            |                            | bit[2]=trigger_frame           |
+            // |       |               |            |            |                            | bit[3]=trigger_reset_fifo      |
+            // |       |               |            |            |                            | bit[4]=trigger_frame_fifo      |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_TO       | TBD        | trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
+            // |       |               |            |            |                            | bit[1]=done_init               |
+            // |       |               |            |            |                            | bit[2]=done_frame              |
+            // |       |               |            |            |                            | bit[3]=done_reset_fifo         |
+            // |       |               |            |            |                            | bit[4]=done_frame_fifo         |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_PI       | TBD__      | pipe_in_92 | Send mosi data into pipe.  | bit[31:0]=frame_mosi[31:0]     |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_PO       | TBD__      | pipeout_B2 | Read miso data from pipe.  | bit[31:0]=frame_miso[31:0]     |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
             FPGA_SPI_CS_ADRS						= 0x16, // adrs_MSPI_EN_CS_WI = 0x16
             FPGA_SPI_MOSI_ADRS						= 0x17, // adrs_MSPI_CON_WI = 0x17
             FPGA_SPI_MISO_ADRS						= 0x24, //adrs_MSPI_FLAG_WO = 0x24
             FPGA_SPI_TRIG_ADRS						= 0x42, // adrs_MSPI_TI = 0x42
-            FPGA_SPI_DONE_ADRS						= 0x62 // adrs_MSPI_TO = 0x62
+            FPGA_SPI_DONE_ADRS						= 0x62, // adrs_MSPI_TO = 0x62
+            FPGA_SPI_PI_ADRS						= 0x92, // adrs_MSPI_PI = 0x92
+            FPGA_SPI_PO_ADRS						= 0xB2  // adrs_MSPI_PO = 0xB2
         };
 
         public enum __enum_SPI_CBIT
@@ -257,10 +300,14 @@ namespace TopInstrument{
             SPI_TRIG_OPT_RESET_LOC					= 0,
             SPI_TRIG_OPT_INIT_LOC					= 1,
             SPI_TRIG_OPT_FRAME_LOC	 			    = 2,
+            SPI_TRIG_OPT_RST_FF_LOC					= 3,
+            SPI_TRIG_OPT_FRM_FF_LOC	 			    = 4,
 
             SPI_TRIG_OPT_RESET_MSK					= 0x1<<SPI_TRIG_OPT_RESET_LOC,
             SPI_TRIG_OPT_INIT_MSK					= 0x1<<SPI_TRIG_OPT_INIT_LOC,
             SPI_TRIG_OPT_FRAME_MSK	 			    = 0x1<<SPI_TRIG_OPT_FRAME_LOC,
+            SPI_TRIG_OPT_RST_FF_MSK					= 0x1<<SPI_TRIG_OPT_RST_FF_LOC,
+            SPI_TRIG_OPT_FRM_FF_MSK	 			    = 0x1<<SPI_TRIG_OPT_FRM_FF_LOC,
 
             SPI_TRIG_MAX_CNT                        = 99
 
@@ -323,7 +370,7 @@ namespace TopInstrument{
         {
             return _read_spi_frame_32b_mask_check_(slot, spi_sel, adrs, mask);
         }
-        public u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray) // u8* --> u8[]
+        public u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray) // u8* --> u8[]
         {
             // u32 data_B = 0;
             // u16 idx;
@@ -337,16 +384,110 @@ namespace TopInstrument{
             //$$ C# implement
             u32 data_B = 0;
             var buf_tmp = new u8[4];
-            for (u32 idx = 0; idx < num_bytes_DAT_b16; idx = idx + 4)
+            for (u32 idx = 0; idx < num_bytes_b16; idx = idx + 4)
             {		
                 Array.Copy(data_bytearray, idx, buf_tmp, 0, 4);
                 data_B = SYS_HexToWord(buf_tmp);		// MSB 16bit + LSB 16bit
                 _send_spi_frame_32b_mask_check_(slot, spi_sel, adrs, data_B, 0xFFFFFFFF);		// FIFO in
             }
-            return num_bytes_DAT_b16;
+            return num_bytes_b16;
 
         }
-        public u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_DAT_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse) // u8* --> u8[]
+        public u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256) // for fifo trigger
+        {
+            //$$ C# implement
+            u32 ret = 0;
+            if (use_fifo == 0) {
+                //$$ send frame without fifo
+                //u32 data_C_rd = 0x10; // read
+                u32 data_C_wr = 0x00; // write
+                u32 data_A_lo =  adrs<<2;
+                u32 data_A_hi = (adrs<<2) + 2;
+                u32 data_D_lo = 0x0000;
+                u32 data_D_hi = 0x0000;
+                u32 data_B_lo = 0;
+                u32 data_B_hi = 0;
+                //
+                s32 len_bytes = data_bytearray.Length;
+                //
+                for (s32 idx = 0; idx < len_bytes; idx = idx + 4) {
+                    data_D_hi = (u32)BitConverter.ToUInt16(data_bytearray, idx+2);
+                    data_D_lo = (u32)BitConverter.ToUInt16(data_bytearray, idx  );
+                    // hi first
+                    data_B_hi = _test__send_spi_frame(data_C_wr, data_A_hi, data_D_hi, slot, spi_sel, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS, 
+                                (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_LOC, 
+                                (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_MSK);
+                    data_B_lo = _test__send_spi_frame(data_C_wr, data_A_lo, data_D_lo, slot, spi_sel, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS, 
+                                (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_LOC, 
+                                (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_MSK);
+                }
+                ret = (u32)len_bytes;
+            }
+            else {
+                //$$ use fifo trigger
+                // setup buffer -- 16 bit data into 32 bit mosi
+                s32 len__mosi_data; // length of mosi data with (16 bit control) + (16 bit data)
+                len__mosi_data = data_bytearray.Length/2; // assume data_bytearray.Length is multiple of 4.
+                s32[] mosi_in_buf_s32  = new s32[len__mosi_data];
+                s32[] miso_out_buf_s32 = new s32[len__mosi_data];
+                // collect mosi data
+                u16[] mosi_data_buf_u16 = new u16[len__mosi_data];
+                Buffer.BlockCopy(data_bytearray, 0, mosi_data_buf_u16, 0, data_bytearray.Length); // length of bytes
+                // fill mosi with address -- alternatiing hi and low adrs
+                //u32 data_C_rd = 0x10; // read
+                u32 data_C_wr = 0x00; // write
+                u32 data_A_lo =  adrs<<2;
+                u32 data_A_hi = (adrs<<2) + 2;
+                u32 data_D_lo = 0x0000;
+                u32 data_D_hi = 0x0000;
+                for (int ii = 0; ii+1 < mosi_in_buf_s32.Length; ii=ii+2)
+                {
+                    // mosi data : data_bytearray[2*ii],data_bytearray[2*ii+1],data_bytearray[2*ii+2],data_bytearray[2*ii+3]
+                    //          or mosi_data_buf_s16[ii], mosi_data_buf_s16[ii+1]
+                    data_D_hi = (u32)mosi_data_buf_u16[ii+1];
+                    data_D_lo = (u32)mosi_data_buf_u16[ii  ];
+                    // note high 16 bit send first // due to fifo reading based on 32 bit low adrs
+                    mosi_in_buf_s32[ii]   = ((s32)data_C_wr<<26) | ((s32)data_A_hi<<16) | (s32)data_D_hi; // high adrs + dummy data
+                    mosi_in_buf_s32[ii+1] = ((s32)data_C_wr<<26) | ((s32)data_A_lo<<16) | (s32)data_D_lo; // low  adrs + dummy data
+                }
+                // send mosi and read miso 
+                //ret = (u32)_test__send_spi_frame_fifo(ref mosi_in_buf_s32, ref miso_out_buf_s32, MAX_DEPTH_FIFO_32B);
+                ret = _test__send_spi_frame_fifo(                       
+                            num_bytes_b16,      // u16   num_bytes_b16,
+                            mosi_in_buf_s32,    // s32[] mosi_in_buf_s32,                            
+                            miso_out_buf_s32,   // s32[] miso_out_buf_s32,                           
+                            MAX_DEPTH_FIFO_32B, // s32  MAX_DEPTH_FIFO_32B = 256,                    
+                                                // //
+                            slot,               // u32  enable_CS_bits_16b = 0x00001FFF,             
+                            spi_sel,            // u32  enable_CS_group_16b = 0x0007,                
+                            (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, // u32     adrs_MSPI_CON_WI = 0x17,                  
+                            (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, // u32     adrs_MSPI_FLAG_WO = 0x24,                 
+                            (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, // u32     adrs_MSPI_TI = 0x42,                      
+                            (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, // u32     adrs_MSPI_TO = 0x62,                      
+                                                                     // //
+                            (u32)__enum_SPI_CADD.FPGA_SPI_PI_ADRS,   // u32     adrs_MSPI_PI = 0x92,                      
+                            (u32)__enum_SPI_CADD.FPGA_SPI_PO_ADRS,   // u32     adrs_MSPI_PO = 0xB2,                      
+                            (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS,   // u32     adrs_MSPI_EN_CS_WI = 0x16,                
+                            (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_RST_FF_LOC, // s32  loc_bit_MSPI_reset_fifo_trig = 3,            
+                            (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_RST_FF_MSK, // u32     mask_MSPI_reset_fifo_done = (0x1<<3),     
+                            (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRM_FF_LOC, // s32  loc_bit_MSPI_frame_fifo_trig = 4,            
+                            (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRM_FF_MSK  // u32     mask_MSPI_frame_fifo_done = (0x1<<4)
+                            );
+                // ignore miso 
+            }
+            return ret;
+        }
+        public u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse) // u8* --> u8[]
         {
             // u32 data_B    = 0;
             // if (dummy_leading_read_pulse !=0 )
@@ -367,15 +508,147 @@ namespace TopInstrument{
             {
                 _send_spi_frame_32b_mask_check_(slot, spi_sel, adrs, data_B, 0xFFFFFFFF);
             }
-            for (s32 idx = 0; idx < num_bytes_DAT_b16; idx = idx + 4)
+            for (s32 idx = 0; idx < num_bytes_b16; idx = idx + 4)
             {		
                 data_B = _read_spi_frame_32b_mask_check_(slot, spi_sel, adrs, 0xFFFFFFFF);
                 SYS_WordToHex(data_B, buf_tmp);
                 Array.Copy(buf_tmp, 0, data_bytearray, idx, 4);
             }
-            return num_bytes_DAT_b16;
+            return num_bytes_b16;
 
         }
+
+        //$$ note SSPI EP pipe operation is based on 16-bit access.
+        //$$ trigger signals for next data are synchrinized with 4n+0 addresses.
+        //$$ write seq : 4n+2 adrs --> 4n+0 adrs.
+        //$$ read  seq : 4n+2 adrs --> 4n+0 adrs.
+        public u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse = 0, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256) // for fifo trigger
+        {
+            //$$ C# implement
+            u32 ret = 0;
+            if (use_fifo == 0) {
+                u32 data_C_rd = 0x10; // read
+                //u32 data_C_wr = 0x00; // write
+                u32 data_A_lo =  adrs<<2;
+                u32 data_A_hi = (adrs<<2) + 2;
+                u32 data_D_lo = 0x0000;
+                u32 data_D_hi = 0x0000;
+                u32 data_B_lo = 0;
+                u32 data_B_hi = 0;
+                u32 data_B    = 0;
+                byte[] data_B__bytearray;
+                //
+                s32 len_bytes = data_bytearray.Length;
+                //
+                if (dummy_leading_read_pulse !=0 ) {
+                    //SPI_EMUL__send_frame(data_C_rd, data_A_lo, data_D_lo); // dummy reading pulse
+                    data_B_lo = _test__send_spi_frame(data_C_rd, data_A_lo, data_D_lo, slot, spi_sel, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS, 
+                                (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_LOC, 
+                                (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_MSK);
+                }
+                //
+                for (s32 idx = 0; idx < len_bytes; idx = idx + 4) {
+                    //data_B_hi = SPI_EMUL__send_frame(data_C_rd, data_A_hi, data_D_hi); // hi first
+                    data_B_hi = _test__send_spi_frame(data_C_rd, data_A_hi, data_D_hi, slot, spi_sel, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS, 
+                                (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_LOC, 
+                                (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_MSK);
+                    //data_B_lo = SPI_EMUL__send_frame(data_C_rd, data_A_lo, data_D_lo); // low and reading pulse
+                    data_B_lo = _test__send_spi_frame(data_C_rd, data_A_lo, data_D_lo, slot, spi_sel, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS, 
+                                (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_LOC, 
+                                (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_MSK);
+                    //
+                    data_B = (data_B_hi<<16) | data_B_lo;
+                    //
+                    data_B__bytearray = BitConverter.GetBytes(data_B);
+                    //
+                    data_bytearray[idx+0] = data_B__bytearray[0];
+                    data_bytearray[idx+1] = data_B__bytearray[1];
+                    data_bytearray[idx+2] = data_B__bytearray[2];
+                    data_bytearray[idx+3] = data_B__bytearray[3];
+                }
+                ret = (u32)len_bytes;
+            } 
+            else {
+                // setup buffer -- 16 bit data into 32 bit mosi
+                s32 len__mosi_data; // length of mosi data with (16 bit control) + (16 bit data)
+                len__mosi_data = data_bytearray.Length/2; // assume data_bytearray.Length is multiple of 4.
+                s32[] mosi_in_buf_s32  = new s32[len__mosi_data];
+                s32[] miso_out_buf_s32 = new s32[len__mosi_data];
+                // fill mosi with address -- alternatiing hi and low adrs
+                u32 data_C_rd = 0x10; // read
+                //u32 data_C_wr = 0x00; // write
+                u32 data_A_lo =  adrs<<2;
+                u32 data_A_hi = (adrs<<2) + 2;
+                for (int ii = 0; ii+1 < mosi_in_buf_s32.Length; ii=ii+2)
+                {
+                    // note high 16 bit send first // due to fifo reading based on 32 bit low adrs
+                    mosi_in_buf_s32[ii]   = ((s32)data_C_rd<<26) | ((s32)data_A_hi<<16); // high adrs + dummy data
+                    mosi_in_buf_s32[ii+1] = ((s32)data_C_rd<<26) | ((s32)data_A_lo<<16); // low  adrs + dummy data
+                }
+                // do something for dummy_leading_read_pulse
+                if (dummy_leading_read_pulse !=0 ) {
+                    //SPI_EMUL__send_frame(data_C_rd, data_A_lo, 0); // dummy reading pulse
+                    _test__send_spi_frame(data_C_rd, data_A_lo, 0, slot, spi_sel, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, 
+                                (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS, 
+                                (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_LOC, 
+                                (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRAME_MSK);
+                }
+                // send mosi and read miso 
+                //ret = (long)SPI_EMUL__send_frame_fifo(ref mosi_in_buf_s32, ref miso_out_buf_s32, MAX_DEPTH_FIFO_32B);
+                ret = _test__send_spi_frame_fifo(                       
+                            num_bytes_b16,      // u16   num_bytes_b16,
+                            mosi_in_buf_s32,    // s32[] mosi_in_buf_s32,                            
+                            miso_out_buf_s32,   // s32[] miso_out_buf_s32,                           
+                            MAX_DEPTH_FIFO_32B, // s32  MAX_DEPTH_FIFO_32B = 256,                    
+                                                // //
+                            slot,               // u32  enable_CS_bits_16b = 0x00001FFF,             
+                            spi_sel,            // u32  enable_CS_group_16b = 0x0007,                
+                            (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, // u32     adrs_MSPI_CON_WI = 0x17,                  
+                            (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, // u32     adrs_MSPI_FLAG_WO = 0x24,                 
+                            (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, // u32     adrs_MSPI_TI = 0x42,                      
+                            (u32)__enum_SPI_CADD.FPGA_SPI_DONE_ADRS, // u32     adrs_MSPI_TO = 0x62,                      
+                                                                     // //
+                            (u32)__enum_SPI_CADD.FPGA_SPI_PI_ADRS,   // u32     adrs_MSPI_PI = 0x92,                      
+                            (u32)__enum_SPI_CADD.FPGA_SPI_PO_ADRS,   // u32     adrs_MSPI_PO = 0xB2,                      
+                            (u32)__enum_SPI_CADD.FPGA_SPI_CS_ADRS,   // u32     adrs_MSPI_EN_CS_WI = 0x16,                
+                            (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_RST_FF_LOC, // s32  loc_bit_MSPI_reset_fifo_trig = 3,            
+                            (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_RST_FF_MSK, // u32     mask_MSPI_reset_fifo_done = (0x1<<3),     
+                            (s32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRM_FF_LOC, // s32  loc_bit_MSPI_frame_fifo_trig = 4,            
+                            (u32)__enum_SPI_CBIT.SPI_TRIG_OPT_FRM_FF_MSK  // u32     mask_MSPI_frame_fifo_done = (0x1<<4)
+                            );
+                // convert s32 array into byte array -- must parse 16 bit data from 32 bit miso
+                s16[] miso_data_buf_s16 = new s16[miso_out_buf_s32.Length*2];
+                for (int ii = 0; ii+1 < miso_out_buf_s32.Length; ii=ii+2)
+                {
+                    // must swap high  and low address
+                    miso_data_buf_s16[ii+1] = (s16)(miso_out_buf_s32[ii  ] & 0xFFFF); // high adrs
+                    miso_data_buf_s16[ii  ] = (s16)(miso_out_buf_s32[ii+1] & 0xFFFF); // low  adrs
+                }
+                Buffer.BlockCopy(miso_data_buf_s16, 0, data_bytearray, 0, data_bytearray.Length); // length of bytes
+                //
+            }
+            return ret;
+        }
+    
     }
 
     public partial class EPS : I_EPS_SPI
@@ -636,6 +909,7 @@ namespace TopInstrument{
         //$$ fifo frame trigger
 
         public u32 _test__send_spi_frame_fifo(                       
+            u16   num_bytes_b16,
             s32[] mosi_in_buf_s32,                            
             s32[] miso_out_buf_s32,                           
             s32  MAX_DEPTH_FIFO_32B = 256,                    
@@ -656,10 +930,42 @@ namespace TopInstrument{
             u32     mask_MSPI_frame_fifo_done = (0x1<<4)      
         )
         {
-            return 0;
+            // convert s32[] to byte[]
+            byte[] mosi_in_buf_byte  = new byte[num_bytes_b16]; // new byte[mosi_in_buf_s32.Length*sizeof(s32)];
+            byte[] miso_out_buf_byte = new byte[num_bytes_b16]; // new byte[mosi_in_buf_s32.Length*sizeof(s32)];
+            Buffer.BlockCopy(mosi_in_buf_s32, 0, mosi_in_buf_byte, 0, num_bytes_b16); // length of bytes
+
+            // call sub
+            _test__send_spi_frame_fifo(
+                num_bytes_b16,
+                mosi_in_buf_byte,
+                miso_out_buf_byte,
+                MAX_DEPTH_FIFO_32B,
+                //
+                enable_CS_bits_16b,
+                enable_CS_group_16b,
+                adrs_MSPI_CON_WI,
+                adrs_MSPI_FLAG_WO,
+                adrs_MSPI_TI,
+                adrs_MSPI_TO,
+                //
+                adrs_MSPI_PI,
+                adrs_MSPI_PO,
+                adrs_MSPI_EN_CS_WI,
+                loc_bit_MSPI_reset_fifo_trig,
+                mask_MSPI_reset_fifo_done,
+                loc_bit_MSPI_frame_fifo_trig,
+                mask_MSPI_frame_fifo_done
+            );
+
+            // convert byte[] to s32[]
+            Buffer.BlockCopy(miso_out_buf_byte, 0, miso_out_buf_s32, 0, num_bytes_b16); // length of bytes
+
+            return (u32)num_bytes_b16;
         }
 
         public u32 _test__send_spi_frame_fifo(                       
+            u16    num_bytes_b16,
             byte[] mosi_in_buf_byte,                          
             byte[] miso_out_buf_byte,                         
             s32  MAX_DEPTH_FIFO_32B = 256,                    
@@ -680,7 +986,147 @@ namespace TopInstrument{
             u32     mask_MSPI_frame_fifo_done = (0x1<<4)      
         ) 
         {
-            return 0;
+            //// note endpoints for pipe and frame_fifo trigger
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
+            // |       |               |            |            |                            | bit[16]   =M0 group enable     |
+            // |       |               |            |            |                            | bit[17]   =M1 group enable     |
+            // |       |               |            |            |                            | bit[18]   =M2 group enable     |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
+            // |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
+            // |       |               |            |            |                            | bit[15: 0]=frame_data_D[15:0]  |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_FLAG_WO  | TBD        | wireout_24 | Return MSPI MISO frame.    | bit[31:16]=frame_data_E[15:0]  |
+            // |       |               |            |            |                            | bit[15: 0]=frame_data_B[15:0]  |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
+            // |       |               |            |            |                            | bit[1]=trigger_init            |
+            // |       |               |            |            |                            | bit[2]=trigger_frame           |
+            // |       |               |            |            |                            | bit[3]=trigger_reset_fifo      |
+            // |       |               |            |            |                            | bit[4]=trigger_frame_fifo      |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_TO       | TBD        | trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
+            // |       |               |            |            |                            | bit[1]=done_init               |
+            // |       |               |            |            |                            | bit[2]=done_frame              |
+            // |       |               |            |            |                            | bit[3]=done_reset_fifo         |
+            // |       |               |            |            |                            | bit[4]=done_frame_fifo         |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_PI       | TBD__      | pipe_in_92 | Send mosi data into pipe.  | bit[31:0]=frame_mosi[31:0]     |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | MSPI  | MSPI_PO       | TBD__      | pipeout_B2 | Read miso data from pipe.  | bit[31:0]=frame_miso[31:0]     |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+
+            //// test -- send frames with fifo -- case of (max fifo size >= mosi data size)
+            // 0. select slot and spi channel
+            // 1. trigger reset fifo
+            // 2. send MOSI data into fifo 
+            // 3. trigger frame fifo
+            // 4. read MISO data from fifo
+
+            //// test -- send frames with fifo -- case of (max fifo size < mosi data size)
+            // 0. select slot and spi channel
+            // 1. check data size --> goto 2. or 3.
+            // 2. single trigger case
+            // 2-1. trigger reset fifo
+            // 2-2. send MOSI data into fifo 
+            // 2-3. trigger frame fifo
+            // 2-4. read MISO data from fifo
+            // 2-5. done
+            // 3. multiple trigger case
+            // 3-1. trigger reset fifo
+            // 3-2. divide MOSI subblocks
+            // 3-3. send MOSI subblock into fifo
+            // 3-4. trigger frame fifo
+            // 3-5. read MISO subblock from fifo
+            // 3-6. merge MISO subblocks 
+            // 3-7. repeat with residual subblocks to 3-2.
+            // 3-8. done
+
+            // 0. select slot and spi channel
+            //## set spi enable signals : {enable_CS_group_16b, enable_CS_bits_16b}
+            uint data_MSPI_EN_CS_WI = ((enable_CS_group_16b & 0x0007) <<16 ) + (enable_CS_bits_16b & 0x1FFF);
+            __SetWireInValue__(adrs_MSPI_EN_CS_WI, data_MSPI_EN_CS_WI, 0xFFFFFFFF);
+
+            // 1. check data size --> goto 2. or 3.
+            //    check if the number of mosi data is larger than max fifo depth
+            //s32 MAX_DEPTH_FIFO_32B = 500; // actually 512 max
+            s32 len__mosi_data; // length of mosi data with (16 bit control) + (16 bit data)
+            len__mosi_data = mosi_in_buf_byte.Length/4; // assume mosi_in_buf_byte.Length is multiple of 4.
+            if (len__mosi_data <= MAX_DEPTH_FIFO_32B) {
+                //// single fifo trigger
+                // 2. single trigger case
+
+                // 2-1. trigger reset fifo
+                __act_trig_w_check(loc_bit_MSPI_reset_fifo_trig, mask_MSPI_reset_fifo_done, adrs_MSPI_TI, adrs_MSPI_TO);
+
+                // 2-2. send MOSI data into fifo -- must consider max fifo depth on pipe-in
+                __WriteToPipeIn__(adrs_MSPI_PI,  mosi_in_buf_byte); 
+
+                // 2-3. trigger frame fifo
+                __act_trig_w_check(loc_bit_MSPI_frame_fifo_trig, mask_MSPI_frame_fifo_done, adrs_MSPI_TI, adrs_MSPI_TO);
+
+                // 2-4. read MISO data from fifo -- must consider max fifo depth on pipe-out
+                __ReadFromPipeOut__(adrs_MSPI_PO,  miso_out_buf_byte); 
+
+                // 2-5. done
+
+            }
+            else {
+                //// divide and trigger subblocks
+                // 3. multiple trigger case
+
+                // 3-1. trigger reset fifo
+                __act_trig_w_check(loc_bit_MSPI_reset_fifo_trig, mask_MSPI_reset_fifo_done, adrs_MSPI_TI, adrs_MSPI_TO);
+
+                byte[] sub_mosi_in_buf_byte;
+                byte[] sub_miso_out_buf_byte;
+                s32 residual_len__mosi_data;
+                s32 len__buf_byte;
+                s32 idx__mosi_in_buf_byte;
+
+                idx__mosi_in_buf_byte = 0;
+                while(true) {
+
+                    // 3-2. divide MOSI subblocks
+                    // use MAX_DEPTH_FIFO_32B and len__mosi_data
+                    if (len__mosi_data==0) break; // all sent
+                    if (len__mosi_data <= MAX_DEPTH_FIFO_32B) { // last one
+                        residual_len__mosi_data = len__mosi_data;
+                    }
+                    else {
+                        residual_len__mosi_data = MAX_DEPTH_FIFO_32B;
+                    }
+                    len__mosi_data = len__mosi_data - residual_len__mosi_data; // update len
+                    len__buf_byte = residual_len__mosi_data*sizeof(s32);
+                    sub_mosi_in_buf_byte  = new byte[len__buf_byte];
+                    Buffer.BlockCopy(mosi_in_buf_byte, idx__mosi_in_buf_byte, sub_mosi_in_buf_byte, 0, len__buf_byte); // length of bytes
+
+                    // 3-3. send MOSI subblock into fifo
+                    __WriteToPipeIn__(adrs_MSPI_PI,  sub_mosi_in_buf_byte); 
+
+                    // 3-4. trigger frame fifo
+                    __act_trig_w_check(loc_bit_MSPI_frame_fifo_trig, mask_MSPI_frame_fifo_done, adrs_MSPI_TI, adrs_MSPI_TO);
+
+                    // 3-5. read MISO subblock from fifo
+                    sub_miso_out_buf_byte = new byte[len__buf_byte];
+                    __ReadFromPipeOut__(adrs_MSPI_PO,  sub_miso_out_buf_byte); 
+
+                    // 3-6. merge MISO subblocks 
+                    Buffer.BlockCopy(sub_miso_out_buf_byte, 0, miso_out_buf_byte, idx__mosi_in_buf_byte, len__buf_byte); // length of bytes
+                    idx__mosi_in_buf_byte += len__buf_byte; // update to next mosi and misolocation
+                    
+
+                    // 3-7. repeat with residual subblocks to 3-2.
+                }
+
+                // 3-8. done
+            }
+
+            // done
+
+
+            return (u32)num_bytes_b16;// (uint)miso_out_buf_byte.Length;
         }
 
 
@@ -771,6 +1217,71 @@ namespace TopInstrument{
             // if(ret & mask) return 1;
             // else return 0;
 
+        }
+
+        // for pipes
+        // __act_trig_w_check()
+        // __WriteToPipeIn__()
+        // __ReadFromPipeOut__()
+
+        // for pipe with fifo
+        public void __act_trig_w_check(    
+            s32  loc_bit__trig = 2,         
+            u32     mask__done = (0x1<<2),  
+            u32     adrs__TI   = 0x42,      
+            u32     adrs__TO   = 0x62       
+        )
+        {
+            __ActivateTriggerIn__(adrs__TI, loc_bit__trig);
+            uint cnt_loop = 0;
+            bool done_trig = false;
+            while (true) {
+                done_trig = __IsTriggered__(adrs__TO, mask__done);
+                cnt_loop++;
+                if (done_trig) {
+                    // print
+                    //$$Console.WriteLine(string.Format("> frame done !! @ cnt_loop={0}", cnt_loop)); // test
+                    break;
+                }
+            }
+        }
+        public u32 __WriteToPipeIn__(u32 adrs, byte[] data_bytearray)
+        {
+            //$$ C# implement for TLAN
+            //# cmd: ":EPS:PI#H8A #4_001024_rrrrrrrrrr...rrrrrrrrrr\n"
+            //# rsp: "OK\n"		
+            int byte_count = data_bytearray.Length;
+            byte[] cmd_bytearray =                      Encoding.UTF8.GetBytes(cmd_str__EPS_PI);
+            cmd_bytearray        = cmd_bytearray.Concat(Encoding.UTF8.GetBytes(string.Format("#H{0,2:X2} #4_{1,6:d6}_", adrs, byte_count))).ToArray();
+            cmd_bytearray        = cmd_bytearray.Concat(data_bytearray).ToArray(); // binary data
+            cmd_bytearray        = cmd_bytearray.Concat(Encoding.UTF8.GetBytes("\n")).ToArray();
+            //$$ note that #4 format uses binary format. thus, UTF8 encoding may lose bits. instead, use byte array directly.
+            string rsp_str = scpi_comm_resp_ss(cmd_bytearray);
+            return (u32)byte_count;
+
+            //$$ ARM FW implement
+            // CPU BASE Host Interface
+            // to come ...
+        }
+        public u32 __ReadFromPipeOut__(u32 adrs, byte[] data_bytearray)
+        {
+            //$$ C# implement for TLAN
+            //# cmd: ":EPS:PO#HAA 001024\n"
+            //# rsp: "#4_001024_rrrrrrrrrr...rrrrrrrrrr\n"		
+            int byte_count = data_bytearray.Length;
+            string cmd_str = cmd_str__EPS_PO + string.Format("#H{0,2:X2} {1,6:d6}\n", adrs, byte_count);
+            //// return binary array
+            byte[] rsp_bytearray = scpi_comm_resp_numb_ss__bytearray(Encoding.UTF8.GetBytes(cmd_str)); 
+            //# remove header such as "#4_001024_" and tail such as '\n'
+            rsp_bytearray = rsp_bytearray.Skip(10).SkipLast(1).ToArray();
+            //# copy data
+            rsp_bytearray.CopyTo(data_bytearray, 0);
+            //$$ scpi_comm_resp_numb_ss may return binary data ... 
+            return (u32)data_bytearray.Length;
+
+            //$$ ARM FW implement
+            // CPU BASE Host Interface
+            // to come ...
         }
 
 
