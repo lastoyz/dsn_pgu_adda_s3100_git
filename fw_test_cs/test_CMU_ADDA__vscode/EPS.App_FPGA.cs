@@ -462,14 +462,15 @@ namespace TopInstrument{
                 }
                 // send mosi and read miso 
                 //ret = (u32)_test__send_spi_frame_fifo(ref mosi_in_buf_s32, ref miso_out_buf_s32, MAX_DEPTH_FIFO_32B);
+                u16 num_bytes__mosi_in_buf_s32 = (u16)(mosi_in_buf_s32.Length*sizeof(s32));
                 ret = _test__send_spi_frame_fifo(                       
-                            num_bytes_b16,      // u16   num_bytes_b16,
-                            mosi_in_buf_s32,    // s32[] mosi_in_buf_s32,                            
-                            miso_out_buf_s32,   // s32[] miso_out_buf_s32,                           
-                            MAX_DEPTH_FIFO_32B, // s32  MAX_DEPTH_FIFO_32B = 256,                    
-                                                // //
-                            slot,               // u32  enable_CS_bits_16b = 0x00001FFF,             
-                            spi_sel,            // u32  enable_CS_group_16b = 0x0007,                
+                            num_bytes__mosi_in_buf_s32,              // u16   num_bytes_b16,
+                            mosi_in_buf_s32,                         // s32[] mosi_in_buf_s32,                            
+                            miso_out_buf_s32,                        // s32[] miso_out_buf_s32,                           
+                            MAX_DEPTH_FIFO_32B,                      // s32  MAX_DEPTH_FIFO_32B = 256,                    
+                                                                     // //
+                            slot,                                    // u32  enable_CS_bits_16b = 0x00001FFF,             
+                            spi_sel,                                 // u32  enable_CS_group_16b = 0x0007,                
                             (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, // u32     adrs_MSPI_CON_WI = 0x17,                  
                             (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, // u32     adrs_MSPI_FLAG_WO = 0x24,                 
                             (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, // u32     adrs_MSPI_TI = 0x42,                      
@@ -614,14 +615,15 @@ namespace TopInstrument{
                 }
                 // send mosi and read miso 
                 //ret = (long)SPI_EMUL__send_frame_fifo(ref mosi_in_buf_s32, ref miso_out_buf_s32, MAX_DEPTH_FIFO_32B);
+                u16 num_bytes__mosi_in_buf_s32 = (u16)(mosi_in_buf_s32.Length*sizeof(s32));
                 ret = _test__send_spi_frame_fifo(                       
-                            num_bytes_b16,      // u16   num_bytes_b16,
-                            mosi_in_buf_s32,    // s32[] mosi_in_buf_s32,                            
-                            miso_out_buf_s32,   // s32[] miso_out_buf_s32,                           
-                            MAX_DEPTH_FIFO_32B, // s32  MAX_DEPTH_FIFO_32B = 256,                    
-                                                // //
-                            slot,               // u32  enable_CS_bits_16b = 0x00001FFF,             
-                            spi_sel,            // u32  enable_CS_group_16b = 0x0007,                
+                            num_bytes__mosi_in_buf_s32,              // u16   num_bytes_b16,
+                            mosi_in_buf_s32,                         // s32[] mosi_in_buf_s32,                            
+                            miso_out_buf_s32,                        // s32[] miso_out_buf_s32,                           
+                            MAX_DEPTH_FIFO_32B,                      // s32  MAX_DEPTH_FIFO_32B = 256,                    
+                                                                     // //
+                            slot,                                    // u32  enable_CS_bits_16b = 0x00001FFF,             
+                            spi_sel,                                 // u32  enable_CS_group_16b = 0x0007,                
                             (u32)__enum_SPI_CADD.FPGA_SPI_MOSI_ADRS, // u32     adrs_MSPI_CON_WI = 0x17,                  
                             (u32)__enum_SPI_CADD.FPGA_SPI_MISO_ADRS, // u32     adrs_MSPI_FLAG_WO = 0x24,                 
                             (u32)__enum_SPI_CADD.FPGA_SPI_TRIG_ADRS, // u32     adrs_MSPI_TI = 0x42,                      
@@ -689,6 +691,7 @@ namespace TopInstrument{
         }
         public u32 _send_spi_frame_32b_mask_check_(u32 slot, u32 spi_sel, u32 adrs, u32 data, u32 mask)
         {
+            //$$ low-side first  vs  high-side first
             u32 data_C_rd = (u32)__enum_SPI_CBIT.SPI_MODE_READ;		// read
             u32 data_C_wr = (u32)__enum_SPI_CBIT.SPI_MODE_WRITE;		// write
             u32 data_A_lo = (adrs << 2);

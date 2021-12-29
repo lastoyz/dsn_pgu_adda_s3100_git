@@ -192,8 +192,9 @@ namespace __test__
                 0x40
             );
             // test write on 0x40
-            Console.WriteLine("> Send 0x{0,8:X8} at 0x{1,2:X2} ", 0x1234ABCD, 0x40);
-            dev_itfc_eeprom.eeprom_write_data_u32 (slot_code__SMU, spi_ch_code__SMU, 0x40, 0x1234ABCD);
+            u32 test_dat_u32 = 0x1234ABCD; // 0x56784321; // 
+            Console.WriteLine("> Send 0x{0,8:X8} at 0x{1,2:X2} ", test_dat_u32, 0x40);
+            dev_itfc_eeprom.eeprom_write_data_u32 (slot_code__SMU, spi_ch_code__SMU, 0x40, test_dat_u32);
             Console.WriteLine("> Read 0x{0,8:X8} at 0x{1,2:X2} ", 
                 dev_itfc_eeprom.eeprom__read__data_u32(slot_code__SMU, spi_ch_code__SMU, 0x40), 
                 0x40
