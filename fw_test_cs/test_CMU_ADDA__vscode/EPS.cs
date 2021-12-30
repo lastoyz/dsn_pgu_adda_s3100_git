@@ -266,7 +266,7 @@ namespace TopInstrument
         private string cmd_str__EPS_WMO  = ":EPS:WMO";
         private string cmd_str__EPS_TAC  = ":EPS:TAC";
         private string cmd_str__EPS_TMO  = ":EPS:TMO";
-        private string cmd_str__EPS_TWO  = ":EPS:TWO";
+        //private string cmd_str__EPS_TWO  = ":EPS:TWO"; // reserved
         private string cmd_str__EPS_PI   = ":EPS:PI";
         private string cmd_str__EPS_PO   = ":EPS:PO";
 

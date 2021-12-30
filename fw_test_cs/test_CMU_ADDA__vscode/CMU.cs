@@ -48,9 +48,9 @@ namespace TopInstrument{
 
     }
     interface I_spio {}
-    interface I_adc {}
-    interface I_dac {}
     interface I_clkd {}
+    interface I_dac {}
+    interface I_adc {}
     interface I_dft {}
     interface I_dacz {} //?
 
@@ -58,8 +58,8 @@ namespace TopInstrument{
 
     //// some common class or enum or struct
 
-    public partial class __CMU_ADDA {}
-    public partial class __CMU_SUB {}
+    //public partial class __CMU_ADDA {}
+    //public partial class __CMU_SUB {}
     public partial class __CMU 
     {
 
@@ -149,7 +149,6 @@ namespace TopInstrument{
             //// S3100-GNDU
 
             // S3100-GNDU // shared with others // note spi channels may be different.
-            // S3100-ADDA
             // EP_ADRS__HRADC_CON_WI       = 0x08, // 0x020
             // EP_ADRS__HRADC_FLAG_WO      = 0x28, // 0x0A0
             // EP_ADRS__HRADC_TRIG_TI      = 0x48, // 0x120
@@ -488,5 +487,15 @@ namespace TopInstrument{
 
     }
 
-    
+
+    public partial class CMU : I_spio
+    {
+        //
+    }
+    public partial class CMU : I_clkd {}
+    public partial class CMU : I_dac {}
+    public partial class CMU : I_adc {}
+    public partial class CMU : I_dft {}
+
+
 }

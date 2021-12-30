@@ -27,6 +27,8 @@ namespace __test__
     //using I_DUT = TopInstrument.I_SMU;
     using DUT = TopInstrument.CMU;
     using I_DUT = TopInstrument.I_CMU;
+    //using DUT = TopInstrument.PGU;
+    //using I_DUT = TopInstrument.I_PGU;
 
     public class Program
     {
@@ -222,8 +224,12 @@ namespace __test__
                 dev_itfc_eeprom.eeprom__read__data_float(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x44), 
                 0x44
             );
+
+           // test cmu functions :
+           //   test spio, clkd, dac, adc, dft
            
-           // test smu functions 
+           
+           // test smu functions :
            /*
             Console.WriteLine(">>>>>> test: more from interface I_SMU");
             //s32 smu_ch = 2; // ch = 2, slot = 3
