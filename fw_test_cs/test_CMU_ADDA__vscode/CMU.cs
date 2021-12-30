@@ -40,7 +40,7 @@ namespace TopInstrument{
         u32 _SPI_SEL_CH_PGU();
         u32 _SPI_SEL_CH_CMU();
 
-        // adda sub-devices
+        // adda functions:
         void adda_pwr_on(u32 slot, u32 spi_sel);
         void adda_pwr_off(u32 slot, u32 spi_sel);
         void adda_init(
@@ -56,9 +56,14 @@ namespace TopInstrument{
             int Sink_sel_1                      = 0          , 
             int Sink_sel_2                      = 0          
         );
+        // adda_setup_pgu_waveform()
+        // adda_trigger_pgu_output()
+        // adda_wait_for_adc_done()
+        // adda_trigger_pgu_off()
+        // adda_read_adc_buf()
 
-        // cmu sub-devices
-        //...
+        // cmu functions:
+        //... io control
 
     }
     interface I_spio {}
