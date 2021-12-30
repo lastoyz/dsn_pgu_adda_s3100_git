@@ -939,6 +939,7 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1129; // S3100-ADDA // rev ADC ready control 
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1201; // S3100-CMU-ADDA // new pinmap
 parameter FPGA_IMAGE_ID = 32'h_A6_21_1214; // S3100-CMU-ADDA // dac output retiming // DAC1 pin map revision
+// parameter FPGA_IMAGE_ID = 32'h_A6_21_1231; // S3100-CMU-ADDA // MSPI fifo frame trigger added // in revision
 
 //}
 

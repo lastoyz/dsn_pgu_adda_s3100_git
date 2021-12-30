@@ -48,8 +48,12 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
+        //public static string test_host_ip = "192.168.100.51"; // S3100-CMU_BD1
+        //public static string test_host_ip = "192.168.100.52"; // S3100-CMU_BD2
+        public static string test_host_ip = "192.168.100.53"; // S3100-CMU_BD3
+
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        public static string test_host_ip = "192.168.100.143"; // test dummy ip
+        //public static string test_host_ip = "192.168.100.143"; // test dummy ip
 
         //// S3100 frame test slot selection:
         // loc_slot bit 0  = slot location 0
@@ -169,12 +173,17 @@ namespace __test__
 
             
             Console.WriteLine(">>>>>> test: eeprom ");
+
             // eeprom test on slot 3  = _SPI_SEL_SLOT(2), HVSMU
             // eeprom test on slot 0  = _SPI_SEL_SLOT(-1), HVSMU
             // eeprom test on slot 12 = _SPI_SEL_SLOT(11), CMU-ADDA
-            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(11);
+            //u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(11);
+            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT_EMUL();
+
             //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_SMU();
-            u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_CMU();
+            //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_CMU();
+            u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_EMUL();
+
             // init eeprom
             Console.WriteLine("> Read Status : 0x{0,8:X8}", 
                 dev_itfc_eeprom.eeprom_read_status(slot_code__dut_eeprom, spi_ch_code__dut_eeprom)
@@ -227,8 +236,20 @@ namespace __test__
 
            // test cmu functions :
            //   test spio, clkd, dac, adc, dft
+            u32 slot_code__adda   = dev._SPI_SEL_SLOT(11);
+            u32 spi_ch_code__adda = dev._SPI_SEL_CH_CMU();
            
-           
+           // adc-dac ready
+           dev_itfc_dut.adda_pwr_on(slot_code__adda, spi_ch_code__adda);
+
+           // adc-dac trigger
+
+           // adc buffer read
+
+           // done
+           dev_itfc_dut.adda_pwr_off(slot_code__adda, spi_ch_code__adda);
+
+
            // test smu functions :
            /*
             Console.WriteLine(">>>>>> test: more from interface I_SMU");

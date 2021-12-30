@@ -254,6 +254,10 @@ namespace TopInstrument{
         {
             return (u32)(0x1<<(a+1));
         }
+        public u32 _SPI_SEL_SLOT_EMUL() // in S3100 EMUL
+        {
+            return (u32)__slot_cs_code__.SLOT_CS_EMUL;
+        }
 
         public u32 _SPI_SEL_CH_SMU() 
         {
@@ -270,6 +274,10 @@ namespace TopInstrument{
         public u32 _SPI_SEL_CH_CMU() 
         {
             return (u32)__enum_SPI_CBIT.SPI_SEL_M2;
+        }
+        public u32 _SPI_SEL_CH_EMUL() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_EMUL;
         }
 
         // smu sub-devices

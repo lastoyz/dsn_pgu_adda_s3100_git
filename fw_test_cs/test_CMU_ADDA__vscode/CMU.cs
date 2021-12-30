@@ -41,7 +41,21 @@ namespace TopInstrument{
         u32 _SPI_SEL_CH_CMU();
 
         // adda sub-devices
-        //...
+        void adda_pwr_on(u32 slot, u32 spi_sel);
+        void adda_pwr_off(u32 slot, u32 spi_sel);
+        void adda_init(
+            u32 slot, u32 spi_sel,
+            s32 len_adc_data = 600, u32 adc_sampling_period_count = 21,
+            double time_ns__dac_update = 5,
+            double DAC_full_scale_current__mA_1 = 25.47      , 
+            double DAC_full_scale_current__mA_2 = 25.47      , 
+            float DAC_offset_current__mA_1      = (float)0.61, 
+            float DAC_offset_current__mA_2      = (float)0.61, 
+            int N_pol_sel_1                     = 0          , 
+            int N_pol_sel_2                     = 0          , 
+            int Sink_sel_1                      = 0          , 
+            int Sink_sel_2                      = 0          
+        );
 
         // cmu sub-devices
         //...
@@ -356,7 +370,7 @@ namespace TopInstrument{
 
     public partial class CMU : I_CMU
     {
-        // slot functions
+        // slot functions :
         /*
         public new void scan_frame_slot() // scan slot
         {
@@ -485,12 +499,207 @@ namespace TopInstrument{
         }
         */
 
+        //// adda functions :
+        public void adda_pwr_on(u32 slot, u32 spi_sel) {
+            
+            // spio init for power control : adc power on, dac power on, output relay on
+
+            u32 val;
+
+            // powers on
+            val = sp1_ext_init(slot, spi_sel, 1,1,1,1,0,0); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
+            Console.WriteLine(string.Format("{0} = 0x{1,4:X4} ", "sp1_ext_init", val));
+
+            // delay 
+            Delay_ms(1); // 1ms
+
+            // output relay on
+            val = sp1_ext_init(slot, spi_sel, 1,1,1,1,1,1); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
+            Console.WriteLine(string.Format("{0} = 0x{1,4:X4} ", "sp1_ext_init", val));
+
+            // delay 
+            Delay_ms(5); // 5ms
+
+        }
+
+        public void adda_pwr_off(u32 slot, u32 spi_sel) {
+
+            // relay off
+            sp1_ext_init(slot, spi_sel, 1,1,1,1,0,0); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
+
+            // delay 
+            Delay_ms(5); // 5ms
+
+            // powers off
+            sp1_ext_init(slot, spi_sel, 0,0,0,0,0,0); // (u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0)
+
+        }
+
+
+        public void adda_init(
+            u32 slot, u32 spi_sel,
+            s32 len_adc_data = 600, u32 adc_sampling_period_count = 21,
+            double time_ns__dac_update = 5,
+            double DAC_full_scale_current__mA_1 = 25.47      , 
+            double DAC_full_scale_current__mA_2 = 25.47      , 
+            float DAC_offset_current__mA_1      = (float)0.61, 
+            float DAC_offset_current__mA_2      = (float)0.61, 
+            int N_pol_sel_1                     = 0          , 
+            int N_pol_sel_2                     = 0          , 
+            int Sink_sel_1                      = 0          , 
+            int Sink_sel_2                      = 0          
+        ) {
+            /* to come ...
+            // adc setup
+            //s32 len_adc_data = 600; // adc samples
+            //u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps
+            adc_enable(); // 210MHz base freq
+            adc_init(len_adc_data, adc_sampling_period_count); // init with setup parameters
+            adc_reset_fifo(); // clear fifo for new data
+
+            // dac setup
+            //double time_ns__dac_update = 5; // 200MHz dac update
+            ////double time_ns__dac_update = 10; // 100MHz dac update
+            //double DAC_full_scale_current__mA_1 = 25.50;       // for BD2
+            //double DAC_full_scale_current__mA_2 = 25.45;       // for BD2
+            //float DAC_offset_current__mA_1      = (float)0.44; // for BD2
+            //float DAC_offset_current__mA_2      = (float)0.79; // for BD2
+            //int N_pol_sel_1                     = 0;           // for BD2
+            //int N_pol_sel_2                     = 0;           // for BD2
+            //int Sink_sel_1                      = 0;           // for BD2
+            //int Sink_sel_2                      = 0;           // for BD2
+            //
+            dac_init(time_ns__dac_update,
+                DAC_full_scale_current__mA_1,
+                DAC_full_scale_current__mA_2,
+                DAC_offset_current__mA_1    ,
+                DAC_offset_current__mA_2    ,
+                N_pol_sel_1                 ,
+                N_pol_sel_2                 ,
+                Sink_sel_1                  ,
+                Sink_sel_2
+            ); 
+            */
+        }
+
+
     }
 
 
     public partial class CMU : I_spio
     {
         //
+        public u32 sp1_ext_init(u32 slot, u32  spi_sel, u32 led, u32 pwr_dac, u32 pwr_adc, u32 pwr_amp, u32 sw_relay_k1=0, u32 sw_relay_k2=0) {
+            //...
+            u32 dir_read;
+            u32 lat_read;
+            u32 inp_read;
+
+            // SP1 pin map:
+            //  SP1_GPB7 = AUX_CS_B           // o
+            //  SP1_GPB6 = AUX_SCLK           // o    
+            //  SP1_GPB5 = AUX_MOSI           // o    
+            //  SP1_GPB4 = AUX_MISO           // i    
+            //  SP1_GPB3 = USER_LED           // o    
+            //  SP1_GPB2 = PWR_ANAL_DAC_ON    // o           
+            //  SP1_GPB1 = PWR_ANAL_ON (ADC)  // o             
+            //  SP1_GPB0 = PWR_AMP_ON         // o  // reserved // with pwr_amp
+            //
+            //  SP1_GPA7 = SLOT_ID3_BUF       // i        
+            //  SP1_GPA6 = SLOT_ID2_BUF       // i        
+            //  SP1_GPA5 = SLOT_ID1_BUF       // i        
+            //  SP1_GPA4 = SLOT_ID0_BUF       // i        
+            //  SP1_GPA3 = NA                 // i
+            //  SP1_GPA2 = PWR_AMP_DAC_ON     // i  // 5/-5V dac amp power enable // shared with pwr_amp
+            //  SP1_GPA1 = SW_RL_K2           // o    
+            //  SP1_GPA0 = SW_RL_K1           // o    
+
+            //
+            //# read IO direction 
+            //# check IO direction : (SPA,SPB)
+            dir_read = sp1_reg_read_b16(slot, spi_sel, 0x00); // 0 for out, 1 for in.
+
+            //# read output Latch
+            lat_read = sp1_reg_read_b16(slot, spi_sel, 0x14);
+            
+            //# set IO direction for SP1 PA[2:0] - output // PA[1:0] --> PA[2:0]
+            //# set IO direction for SP1 PB[7:5] - output
+            //# set IO direction for SP1 PB[3:0] - output
+            //sp1_reg_write_b16(0x00, dir_read & 0xFC10);
+            sp1_reg_write_b16(slot, spi_sel, 0x00, dir_read & 0xF810);
+            
+            //# set IO for SP1 PB[3:0]
+            //u32 val = (lat_read & 0xFFF0) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            //u32 val = (lat_read & 0xFCF0) | ( (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+            u32 val = (lat_read & 0xFCF0) | ( (pwr_amp<<10) + (sw_relay_k2<<9) + (sw_relay_k1<<8) ) | 
+                                            ( (led<<3) + (pwr_dac<<2) + (pwr_adc<<1) + (pwr_amp<<0));
+
+            sp1_reg_write_b16(slot, spi_sel, 0x12,val);
+
+            // power stability delay 
+            Delay_ms(10); // 10ms
+
+            // read IO 
+            inp_read = sp1_reg_read_b16(slot, spi_sel, 0x12);
+            return inp_read & 0xFFFF;
+        }
+    
+        private u32 sp1_reg_read_b16(u32 slot, u32  spi_sel, u32 reg_adrs_b8) {
+            u32 val_b16    = 0;
+            //
+            u32 CS_id      = 1;
+            u32 pin_adrs_A = 0; 
+            u32 R_W_bar    = 1; // read
+            u32 reg_adrs_A = reg_adrs_b8;
+            //#
+            u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+            //#
+            return spio_send_spi_frame(slot, spi_sel, framedata);
+        }
+        private u32 sp1_reg_write_b16(u32 slot, u32  spi_sel, u32 reg_adrs_b8, u32 val_b16) {
+            //
+            u32 CS_id      = 1;
+            u32 pin_adrs_A = 0; 
+            u32 R_W_bar    = 0; // write
+            u32 reg_adrs_A = reg_adrs_b8;
+            //#
+            u32 framedata = (CS_id<<28) + (pin_adrs_A<<25) + (R_W_bar<<24) + (reg_adrs_A<<16) + val_b16;
+            //#
+            return spio_send_spi_frame(slot, spi_sel, framedata);
+        }
+
+        private u32 spio_send_spi_frame(u32 slot, u32  spi_sel, u32 frame_data) {
+            //# write control 
+            SetWireInValue(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__SPIO_WI, frame_data);  //# (ep,val,mask)
+
+            //# trig spi frame
+            //#   wire w_trig_SPIO_SPI_frame = w_SPIO_TI[1];
+            ActivateTriggerIn(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__SPIO_TI, 1); //# (ep,bit) 
+            
+            //# check spi frame done
+            //#   assign w_SPIO_WO[25] = w_done_SPIO_SPI_frame;
+            u32 cnt_done = 0    ;
+            //u32 MAX_CNT  = 20000;
+            s32 bit_loc  = 25   ;
+            u32 flag;
+            u32 flag_done;
+            while (true) {
+            	flag = GetWireOutValue(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__SPIO_WO);
+            	flag_done = (flag>>bit_loc) & 0x00000001;
+            	if (flag_done==1)
+            		break;
+            	cnt_done += 1;
+            	if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+            		break;
+            }
+
+            //# read received data 
+            //#   assign w_SPIO_WO[15:8] = w_SPIO_rd_DA;
+            //#   assign w_SPIO_WO[ 7:0] = w_SPIO_rd_DB;
+            u32 val_recv = flag & 0x0000FFFF;
+            return val_recv;
+        }        
+
     }
     public partial class CMU : I_clkd {}
     public partial class CMU : I_dac {}

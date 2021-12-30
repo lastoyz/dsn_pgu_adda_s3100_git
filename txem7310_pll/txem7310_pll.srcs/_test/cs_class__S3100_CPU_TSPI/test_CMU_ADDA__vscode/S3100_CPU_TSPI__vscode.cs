@@ -1292,7 +1292,7 @@ namespace TopInstrument
         //$$ trigger signals for next data are synchrinized with 4n+0 addresses.
         //$$ write seq : 4n+2 adrs --> 4n+0 adrs.
         //$$ read  seq : 4n+2 adrs --> 4n+0 adrs.
-        public long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray, uint dummy_leading_read_pulse = 0, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256) {
+        public long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray, uint dummy_leading_read_pulse = 0, int use_fifo = 0, s32 MAX_DEPTH_FIFO_32B = 256) {
             long ret = 0;
             if (use_fifo == 0) {
                 u32 data_C_rd = 0x10; // read
@@ -1368,7 +1368,7 @@ namespace TopInstrument
             return ret;
         }
 
-        public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256) {
+        public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray, int use_fifo = 0, s32 MAX_DEPTH_FIFO_32B = 256) {
             long ret = 0;
             if (use_fifo == 0) {
                 //$$ send frame without fifo
@@ -1519,13 +1519,13 @@ namespace TopInstrument
                 (byte)0xFF, (byte)0x80, (byte)0xCA, (byte)0x92,
                 (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x03
                 };
-            Console.WriteLine(dev_spi_emul.WriteToPipeIn(0x8A, ref datain_bytearray, 1)); // with fifo
-            //Console.WriteLine(dev_spi_emul.WriteToPipeIn(0x8A, ref datain_bytearray, 0)); // with no fifo
+            //Console.WriteLine(dev_spi_emul.WriteToPipeIn(0x8A, ref datain_bytearray, 1)); // with fifo
+            Console.WriteLine(dev_spi_emul.WriteToPipeIn(0x8A, ref datain_bytearray, 0)); // with no fifo
             //
             byte[] dataout_bytearray = new byte[16];
             // dummy_leading_read_pulse = 1 for fifo standardi reading mode
-            Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray, 1, 1)); // with fifo
-            //Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray, 1, 0)); // with no fifo
+            //Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray, 1, 1)); // with fifo
+            Console.WriteLine(dev_spi_emul.ReadFromPipeOut(0xAA, ref dataout_bytearray, 1, 0)); // with no fifo
             // compare
             Console.WriteLine(BitConverter.ToString(datain_bytearray));
             Console.WriteLine(BitConverter.ToString(dataout_bytearray));

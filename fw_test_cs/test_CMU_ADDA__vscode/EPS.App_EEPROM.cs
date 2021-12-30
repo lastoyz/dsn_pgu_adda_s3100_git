@@ -225,8 +225,8 @@ namespace TopInstrument{
                 buf_datain_32b[idx*4+3] = 0;
             }
             //WriteToPipeIn(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__MEM_PI, num_bytes_DAT_b16_extend, buf_datain_32b); // without fifo
-            WriteToPipeIn(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__MEM_PI, num_bytes_DAT_b16_extend, buf_datain_32b, 1, 256); // with fifo
-            //WriteToPipeIn(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__MEM_PI, num_bytes_DAT_b16_extend, buf_datain_32b, 0); // without fifo
+            //WriteToPipeIn(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__MEM_PI, num_bytes_DAT_b16_extend, buf_datain_32b, 1, 256); // with fifo
+            WriteToPipeIn(slot, spi_sel, (u32)__enum_EPA.EP_ADRS__MEM_PI, num_bytes_DAT_b16_extend, buf_datain_32b, 0); // without fifo
             buf_datain_32b = null; //$$ free
             return 0;
         }
@@ -237,8 +237,8 @@ namespace TopInstrument{
             u32 adrs = (u32)__enum_EPA.EP_ADRS__MEM_PO;
             u16 num_bytes_DAT_b16_extend = (u16)(num_bytes_DAT_b16 * 4);
             //ret = (u16)ReadFromPipeOut(slot, spi_sel, adrs, num_bytes_DAT_b16_extend, buf_dataout, 0); // without fifo
-            ret = (u16)ReadFromPipeOut(slot, spi_sel, adrs, num_bytes_DAT_b16_extend, buf_dataout, 0, 1, 256); // with fifo
-            //ret = (u16)ReadFromPipeOut(slot, spi_sel, adrs, num_bytes_DAT_b16_extend, buf_dataout, 0, 0); // without fifo
+            //ret = (u16)ReadFromPipeOut(slot, spi_sel, adrs, num_bytes_DAT_b16_extend, buf_dataout, 0, 1, 256); // with fifo
+            ret = (u16)ReadFromPipeOut(slot, spi_sel, adrs, num_bytes_DAT_b16_extend, buf_dataout, 0, 0); // without fifo
             return ret;
         }
         public void eeprom_write_enable(u32 slot, u32 spi_sel)

@@ -17,8 +17,8 @@ namespace __test__
         //$$ note: IP ... setup for own LAN port test //{
         
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
-        //public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
-        //public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
+        public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
+        public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
 
         //}
 
@@ -32,10 +32,10 @@ namespace __test__
 
         //public static string test_host_ip = "192.168.100.51"; // S3100-CMU-ADDA_BD1
         //public static string test_host_ip = "192.168.100.52"; // S3100-CMU-ADDA_BD2
-        //public static string test_host_ip = "192.168.100.53"; // S3100-CMU-ADDA_BD3
+        public static string test_host_ip = "192.168.100.53"; // S3100-CMU-ADDA_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        public static string test_host_ip = "192.168.100.143"; // test dummy ip for S3100-CPU-BASE
+        //public static string test_host_ip = "192.168.100.143"; // test dummy ip for S3100-CPU-BASE
 
         //// S3100 frame slot selection:
         // loc_slot bit 0  = slot location 0`
@@ -49,7 +49,7 @@ namespace __test__
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0200; // slot location 9
         //public static uint test_loc_slot = 0x0400; // slot location 10
-        public static uint test_loc_slot = 0x1000; // slot location 12
+        //public static uint test_loc_slot = 0x1000; // slot location 12
         
         //// frame spi channel selection:
         // loc_spi_group bit 0 = mother board spi M0
@@ -57,7 +57,7 @@ namespace __test__
         // loc_spi_group bit 2 = mother board spi M2
         //public static uint test_loc_spi_group = 0x0001; // spi M0 // for GNDU
         //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
-        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
+        //public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
 
 
         ////// test conditions:
