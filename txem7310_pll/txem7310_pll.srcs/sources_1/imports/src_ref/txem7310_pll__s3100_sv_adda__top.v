@@ -3477,7 +3477,7 @@ wire        w_hsadc_init              = w_ADCH_WI[1] | w_ADCH_TI[1];
 wire        w_hsadc_update            = w_update_ready & (w_ADCH_WI[2] | w_ADCH_TI[2] | w_dac_pttn_trig_out); // linked with PGU pattern
 wire        w_hsadc_test              = w_ADCH_WI[3] | w_ADCH_TI[3];
 
-wire        w_hsadc_fifo_rst          = w_update_ready & w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst;
+wire        w_hsadc_fifo_rst          = w_update_ready & w_ADCH_TI[4];  assign w_ADCH_TO[4] = w_hsadc_fifo_rst; //$$ w_ADCH_TI[4] vs w_hsadc_fifo_rst
 
 wire        w_hsadc_init_done         ;  assign w_ADCH_WO[1] = w_hsadc_init_done  ;
 wire        w_hsadc_update_done       ;  assign w_ADCH_WO[2] = w_hsadc_update_done; assign w_update_ready = w_hsadc_update_done;

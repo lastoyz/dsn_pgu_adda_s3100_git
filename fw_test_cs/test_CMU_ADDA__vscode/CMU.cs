@@ -47,6 +47,13 @@ namespace TopInstrument{
         //...
 
     }
+    interface I_spio {}
+    interface I_adc {}
+    interface I_dac {}
+    interface I_clkd {}
+    interface I_dft {}
+    interface I_dacz {} //?
+
 
 
     //// some common class or enum or struct
@@ -60,14 +67,11 @@ namespace TopInstrument{
 
         public enum __enum_EPA 
         {
+            //// common
             EP_ADRS__SSPI_TEST_WO     = 0xE0, // 0x380
             EP_ADRS__SSPI_CON_WI      = 0x02, // 0x008
             EP_ADRS__FPGA_IMAGE_ID_WO = 0x20, // common
             EP_ADRS__XADC_TEMP_WO     = 0x3A, // common
-
-            //LED
-            EP_ADRS__TEST_LED_WI      = 0x10, //$$ HVSMU // 0x040
-            EP_ADRS__TEST_LED_TI      = 0x50, //$$ HVSMU // 0x140
 
             // MEM
             EP_ADRS__MEM_FDAT_WI        = 0x12,
@@ -77,9 +81,75 @@ namespace TopInstrument{
             EP_ADRS__MEM_PI             = 0x93,
             EP_ADRS__MEM_PO             = 0xB3,
 
+
+            //// S3100-CMU
+
+            EP_ADRS__CMU_WI         = 0x14,
+            EP_ADRS__CMU_WO         = 0x34,
+
+            // S3100-CMU-ANL
+            EP_ADRS__RRIV_WI        = 0x15,
+            EP_ADRS__DET_WI         = 0x16,
+            EP_ADRS__AMP_WI         = 0x17,
+            EP_ADRS__STAT_WO        = 0x37,
+            EP_ADRS__DACQ_WI        = 0x0A,
+            EP_ADRS__DACQ_WO        = 0x2A,
+            EP_ADRS__DACQ_TI        = 0x4A,
+            EP_ADRS__DACQ_TO        = 0x6A,
+            EP_ADRS__DACQ_DIN21_WI  = 0x0B,
+            EP_ADRS__DACQ_DIN43_WI  = 0x0C,
+            EP_ADRS__DACQ_RDB21_WO  = 0x2B,
+            EP_ADRS__DACQ_RDB43_WO  = 0x2C,
+
+
+            // S3100-CMU-SIG
+            EP_ADRS__DACP_WI        = 0x19,
+            EP_ADRS__EXT_WI         = 0x1A,
+            EP_ADRS__FILT_WI        = 0x1B,
+
+
+            // S3100-CMU-ADDA
+            EP_ADRS__TEST_MON_WO      = 0x23, // status of FPGA pll for DAC
+
+            EP_ADRS__DACX_WI            = 0x05,
+            EP_ADRS__DACX_WO            = 0x25,
+            EP_ADRS__DACX_TI            = 0x45,
+            EP_ADRS__DACZ_DAT_WI        = 0x08,
+            EP_ADRS__DACZ_DAT_WO        = 0x28,
+            EP_ADRS__DACZ_DAT_TI        = 0x48,
+            EP_ADRS__DAC0_DAT_INC_PI    = 0x86,
+            EP_ADRS__DAC0_DUR_PI        = 0x87,
+            EP_ADRS__DAC1_DAT_INC_PI    = 0x88,
+            EP_ADRS__DAC1_DUR_PI        = 0x89,
+            EP_ADRS__CLKD_WI            = 0x06,
+            EP_ADRS__CLKD_WO            = 0x26,
+            EP_ADRS__CLKD_TI            = 0x46,
+            EP_ADRS__SPIO_WI            = 0x07,
+            EP_ADRS__SPIO_WO            = 0x27,
+            EP_ADRS__SPIO_TI            = 0x47,
+            EP_ADRS__ADCH_WI            = 0x18,
+            EP_ADRS__ADCH_UPD_SM_WI     = 0x1D,
+            EP_ADRS__ADCH_SMP_PR_WI     = 0x1E,
+            EP_ADRS__ADCH_DLY_TP_WI     = 0x1F,
+            EP_ADRS__ADCH_WO            = 0x38,
+            EP_ADRS__ADCH_B_FRQ_WO      = 0x39,
+            EP_ADRS__ADCH_TI            = 0x58,
+            EP_ADRS__ADCH_TO            = 0x78,
+            EP_ADRS__ADCH_DOUT0_PO      = 0xBC,
+            EP_ADRS__ADCH_DOUT1_PO      = 0xBD,
+
+
+            //// S3100-PGU
+
+            // S3100-HVPGU
+            // EP_ADRS__HVPGU_WI       = 0x11,
+            // EP_ADRS__HVPGU_WO       = 0x31,
+
+
+            //// S3100-GNDU
+
             // S3100-GNDU // shared with others // note spi channels may be different.
             // S3100-ADDA
-            // S3100-HVSMU
             // EP_ADRS__HRADC_CON_WI       = 0x08, // 0x020
             // EP_ADRS__HRADC_FLAG_WO      = 0x28, // 0x0A0
             // EP_ADRS__HRADC_TRIG_TI      = 0x48, // 0x120
@@ -90,35 +160,28 @@ namespace TopInstrument{
             //private u32   EP_ADRS__DIAG_RELAY_WI      = 0x04; // 0x010
             //private u32   EP_ADRS__DIAG_RELAY_TI      = 0x44; // 0x110
 
-            // S3100-HVSMU
-            // EP_ADRS__I_RANGE_CON_WI      = 0x04, // 0x010
-            // EP_ADRS__I_RANGE_CON_TI      = 0x44, // 0x110
-
             // S3100-GNDU
-            // S3100-HVSMU
             // EP_ADRS__OUTP_RELAY_WI      = 0x05, // 0x014
             // EP_ADRS__OUTP_RELAY_TI      = 0x45, // 0x114
 
             // S3100-GNDU
-            // S3100-HVSMU
             // EP_ADRS__VM_RANGE_WI        = 0x06, // 0x018
             // EP_ADRS__VM_RANGE_TI        = 0x46, // 0x118
 
-            // S3100-HVSMU
-            // EP_ADRS__VS_RANGE_WI        = 0x01, // 0x004
-            // EP_ADRS__VS_RANGE_TI        = 0x41, // 0x104
-            // EP_ADRS__ERR_AMP_TR_WI      = 0x09, // 0x024
-            // EP_ADRS__ERR_AMP_TR_TI      = 0x49, // 0x124
-            // EP_ADRS__ADC_IN_SEL_WI      = 0x07, // 0x01C
-            // EP_ADRS__ADC_IN_SEL_TI      = 0x47, // 0x11C
+            // S3100-GNDU
+            //private u32   EP_ADRS__VDAC_VAL_WI        = 0x09; // 0x024
+            //private u32   EP_ADRS__VDAC_CON_TI        = 0x49; // 0x124
+
 
             //// S3100-HVSMU
-            // SSPI
-            //EP_ADRS__HVSMU_SSPI_TEST_WO           = 0xE0,             // 0x380
-            //EP_ADRS__HVSMU_SSPI_CON_WI            = 0x02,             // 0x008
-            // TEST
-            //EP_ADRS__HVSMU_FPGA_IMAGE_ID_WO       = 0x20,             // 0x080
-            //EP_ADRS__HVSMU_XADC_TEMP_WO           = 0x3A,             // 0x0E8
+
+            // S3100-SMU : board control, read ID // shared with CMU
+            // EP_ADRS__SMU_WI         = 0x14,
+            // EP_ADRS__SMU_WO         = 0x34,
+
+            //LED
+            EP_ADRS__HVSMU_TEST_LED_WI            = 0x10, //$$ HVSMU // 0x040
+            EP_ADRS__HVSMU_TEST_LED_TI            = 0x50, //$$ HVSMU // 0x140
 
             // HRADC
             EP_ADRS__HVSMU_HRADC_CON_WI           = 0x08,             // 0x020
@@ -128,13 +191,12 @@ namespace TopInstrument{
             EP_ADRS__HVSMU_HRADC_DAT_WO           = 0x29,             // 0x0A4
 
             // LED
-            //EP_ADRS__HVSMU_LED_CON_WI             = 0x10,             // 0x040
-            //EP_ADRS__HVSMU_LED_CON_TI             = 0x50,             // 0x140
+            EP_ADRS__HVSMU_LED_CON_WI             = 0x10,             // 0x040
+            EP_ADRS__HVSMU_LED_CON_TI             = 0x50,             // 0x140
 
             // I_RANGE_CON
             EP_ADRS__HVSMU_IRANGE_CON_WI          = 0x04,             // 0x010
             EP_ADRS__HVSMU_IRANGE_CON_TI          = 0x44,             // 0x110
-
 
             // O_RLY
             EP_ADRS__HVSMU_OUTP_RELAY_WI          = 0x05,             // 0x014
@@ -171,34 +233,18 @@ namespace TopInstrument{
             // I_MODE
             EP_ADRS__HVSMU_IMODE_WO               = 0x25              // 0x094
 
-            // S3100-GNDU
-            //private u32   EP_ADRS__VDAC_VAL_WI        = 0x09; // 0x024
-            //private u32   EP_ADRS__VDAC_CON_TI        = 0x49; // 0x124
 
-            // S3100-HVSMU
-            // EP_ADRS__HRDAC_VDAC_WI     = 0x0C, // 0x030
-            // EP_ADRS__HRDAC_VDAC_WO     = 0x26, // 0x098
-            // EP_ADRS__HRDAC_VDAC_TI     = 0x4B, // 0x12C
-            // EP_ADRS__HRDAC_VDAC_TO     = 0x69, // 0x1A4
-            // EP_ADRS__HRDAC_IDAC_WI     = 0x0F, // 0x03C
-            // EP_ADRS__HRDAC_IDAC_WO     = 0x27, // 0x09C
-            // EP_ADRS__HRDAC_IDAC_TI     = 0x4C, // 0x130
-            // EP_ADRS__HRDAC_IDAC_TO     = 0x6A, // 0x1A8
-
-            // S3100-CMU-SIG
-            // EP_ADRS__DACP_WI        = 0x19,
-            // EP_ADRS__EXT_WI         = 0x1A,
-            // EP_ADRS__FILT_WI        = 0x1B,
-
-            // S3100-HVPGU
-            // EP_ADRS__HVPGU_WI       = 0x11,
-            // EP_ADRS__HVPGU_WO       = 0x31,
-
-            // S3100-SMU : board control, read ID // shared with CMU
-            // EP_ADRS__SMU_WI         = 0x14,
-            // EP_ADRS__SMU_WO         = 0x34,
-        
         }
+
+        public enum __enum_CMU
+        {
+            //
+            MAX_CNT = 200 // 2000000 // max counter when checking done trig_out.
+                // LAN trans time 1ms ... 200  ... 200ms
+                // SPI frame time 7us ... 2000 ... 14ms
+                // Soft CPU time 14ns ... 2000000 ... 28ms
+        }
+
 
         //// for SMU compatible
         public enum __enum_SMU 
