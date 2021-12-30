@@ -177,12 +177,12 @@ namespace __test__
             // eeprom test on slot 3  = _SPI_SEL_SLOT(2), HVSMU
             // eeprom test on slot 0  = _SPI_SEL_SLOT(-1), HVSMU
             // eeprom test on slot 12 = _SPI_SEL_SLOT(11), CMU-ADDA
-            //u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(11);
-            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT_EMUL();
+            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(11);
+            //u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT_EMUL();
 
             //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_SMU();
-            //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_CMU();
-            u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_EMUL();
+            u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_CMU();
+            //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_EMUL();
 
             // init eeprom
             Console.WriteLine("> Read Status : 0x{0,8:X8}", 
