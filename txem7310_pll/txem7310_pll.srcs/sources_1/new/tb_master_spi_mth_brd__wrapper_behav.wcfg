@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_master_spi_mth_brd__wrapper_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_master_spi_mth_brd__wrapper" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="10081318804fs"></ZoomStartTime>
+      <ZoomEndTime time="28895186627fs"></ZoomEndTime>
+      <Cursor1Time time="18217512000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="256"></NameColumnWidth>
+      <ValueColumnWidth column_width="97"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="76" />
+   <wave_markers>
+      <marker label="" time="34478168000" />
+      <marker label="" time="34917904000" />
+      <marker label="" time="35084560000" />
+      <marker label="" time="12717160000" />
+   </wave_markers>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/reset_n">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/spi_base_clk">
+      <obj_property name="ElementShortName">spi_base_clk</obj_property>
+      <obj_property name="ObjectShortName">spi_base_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/mcs_clk">
+      <obj_property name="ElementShortName">mcs_clk</obj_property>
+      <obj_property name="ObjectShortName">mcs_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/test_init">
+      <obj_property name="ElementShortName">test_init</obj_property>
+      <obj_property name="ObjectShortName">test_init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/test_frame">
+      <obj_property name="ElementShortName">test_frame</obj_property>
+      <obj_property name="ObjectShortName">test_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider48" type="divider">
+      <obj_property name="label">master spi emulation</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_trig_init">
+      <obj_property name="ElementShortName">w_trig_init</obj_property>
+      <obj_property name="ObjectShortName">w_trig_init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_done_init">
+      <obj_property name="ElementShortName">w_done_init</obj_property>
+      <obj_property name="ObjectShortName">w_done_init</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_trig_frame">
+      <obj_property name="ElementShortName">w_trig_frame</obj_property>
+      <obj_property name="ObjectShortName">w_trig_frame</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_done_frame">
+      <obj_property name="ElementShortName">w_done_frame</obj_property>
+      <obj_property name="ObjectShortName">w_done_frame</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_C">
+      <obj_property name="ElementShortName">w_frame_data_C[5:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_C[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_A">
+      <obj_property name="ElementShortName">w_frame_data_A[9:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_A[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_D">
+      <obj_property name="ElementShortName">w_frame_data_D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_D[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_B">
+      <obj_property name="ElementShortName">w_frame_data_B[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_B[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_E">
+      <obj_property name="ElementShortName">w_frame_data_E[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_E[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_SS_B">
+      <obj_property name="ElementShortName">w_SS_B</obj_property>
+      <obj_property name="ObjectShortName">w_SS_B</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_MCLK">
+      <obj_property name="ElementShortName">w_MCLK</obj_property>
+      <obj_property name="ObjectShortName">w_MCLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_SCLK">
+      <obj_property name="ElementShortName">w_SCLK</obj_property>
+      <obj_property name="ObjectShortName">w_SCLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_MOSI">
+      <obj_property name="ElementShortName">w_MOSI</obj_property>
+      <obj_property name="ObjectShortName">w_MOSI</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_MISO">
+      <obj_property name="ElementShortName">w_MISO</obj_property>
+      <obj_property name="ObjectShortName">w_MISO</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_MISO_EN">
+      <obj_property name="ElementShortName">w_MISO_EN</obj_property>
+      <obj_property name="ObjectShortName">w_MISO_EN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_reset_fifo">
+      <obj_property name="ElementShortName">w_reset_fifo</obj_property>
+      <obj_property name="ObjectShortName">w_reset_fifo</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/i_trig_reset_fifo">
+      <obj_property name="ElementShortName">i_trig_reset_fifo</obj_property>
+      <obj_property name="ObjectShortName">i_trig_reset_fifo</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/o_busy_reset_fifo">
+      <obj_property name="ElementShortName">o_busy_reset_fifo</obj_property>
+      <obj_property name="ObjectShortName">o_busy_reset_fifo</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/o_done_reset_fifo">
+      <obj_property name="ElementShortName">o_done_reset_fifo</obj_property>
+      <obj_property name="ObjectShortName">o_done_reset_fifo</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/i_trig_frame_fifo">
+      <obj_property name="ElementShortName">i_trig_frame_fifo</obj_property>
+      <obj_property name="ObjectShortName">i_trig_frame_fifo</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/o_done_frame_fifo">
+      <obj_property name="ElementShortName">o_done_frame_fifo</obj_property>
+      <obj_property name="ObjectShortName">o_done_frame_fifo</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/o_trig_frame_int">
+      <obj_property name="ElementShortName">o_trig_frame_int</obj_property>
+      <obj_property name="ObjectShortName">o_trig_frame_int</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/i_done_frame_int">
+      <obj_property name="ElementShortName">i_done_frame_int</obj_property>
+      <obj_property name="ObjectShortName">i_done_frame_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/i_empty__mosi_fifo">
+      <obj_property name="ElementShortName">i_empty__mosi_fifo</obj_property>
+      <obj_property name="ObjectShortName">i_empty__mosi_fifo</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/r_cnt_clear_busy_frame_int">
+      <obj_property name="ElementShortName">r_cnt_clear_busy_frame_int[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r_cnt_clear_busy_frame_int[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_busy_frame_fifo">
+      <obj_property name="ElementShortName">w_busy_frame_fifo</obj_property>
+      <obj_property name="ObjectShortName">w_busy_frame_fifo</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/r_busy_frame_fifo">
+      <obj_property name="ElementShortName">r_busy_frame_fifo</obj_property>
+      <obj_property name="ObjectShortName">r_busy_frame_fifo</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/r_busy_frame_int">
+      <obj_property name="ElementShortName">r_busy_frame_int</obj_property>
+      <obj_property name="ObjectShortName">r_busy_frame_int</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group71">
+      <obj_property name="label">mosi fifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/rst">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/wr_clk">
+         <obj_property name="ElementShortName">wr_clk</obj_property>
+         <obj_property name="ObjectShortName">wr_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/rd_clk">
+         <obj_property name="ElementShortName">rd_clk</obj_property>
+         <obj_property name="ObjectShortName">rd_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/din">
+         <obj_property name="ElementShortName">din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">din[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/wr_en">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/rd_en">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/dout">
+         <obj_property name="ElementShortName">dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/full">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/wr_ack">
+         <obj_property name="ElementShortName">wr_ack</obj_property>
+         <obj_property name="ObjectShortName">wr_ack</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/empty">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+         <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_mosi_fifo__inst/valid">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group83">
+      <obj_property name="label">miso fifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/rst">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/wr_clk">
+         <obj_property name="ElementShortName">wr_clk</obj_property>
+         <obj_property name="ObjectShortName">wr_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/rd_clk">
+         <obj_property name="ElementShortName">rd_clk</obj_property>
+         <obj_property name="ObjectShortName">rd_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/din">
+         <obj_property name="ElementShortName">din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">din[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/wr_en">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/rd_en">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/dout">
+         <obj_property name="ElementShortName">dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dout[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/full">
+         <obj_property name="ElementShortName">full</obj_property>
+         <obj_property name="ObjectShortName">full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/wr_ack">
+         <obj_property name="ElementShortName">wr_ack</obj_property>
+         <obj_property name="ObjectShortName">wr_ack</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/empty">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/mspi_miso_fifo__inst/valid">
+         <obj_property name="ElementShortName">valid</obj_property>
+         <obj_property name="ObjectShortName">valid</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_frame_data_C">
+      <obj_property name="ElementShortName">w_frame_data_C[5:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_C[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_frame_data_A">
+      <obj_property name="ElementShortName">w_frame_data_A[9:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_A[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_frame_data_D">
+      <obj_property name="ElementShortName">w_frame_data_D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_D[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_frame_data_B">
+      <obj_property name="ElementShortName">w_frame_data_B[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_B[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_frame_data_E">
+      <obj_property name="ElementShortName">w_frame_data_E[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_E[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/w_busy_frame_fifo">
+      <obj_property name="ElementShortName">w_busy_frame_fifo</obj_property>
+      <obj_property name="ObjectShortName">w_busy_frame_fifo</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/o_trig_frame_int">
+      <obj_property name="ElementShortName">o_trig_frame_int</obj_property>
+      <obj_property name="ObjectShortName">o_trig_frame_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/i_done_frame_int">
+      <obj_property name="ElementShortName">i_done_frame_int</obj_property>
+      <obj_property name="ObjectShortName">i_done_frame_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/control_mspi_fifo__inst/r_busy_frame_int">
+      <obj_property name="ElementShortName">r_busy_frame_int</obj_property>
+      <obj_property name="ObjectShortName">r_busy_frame_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/master_spi_mth_brd__inst/i_trig_frame">
+      <obj_property name="ElementShortName">i_trig_frame</obj_property>
+      <obj_property name="ObjectShortName">i_trig_frame</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/master_spi_mth_brd__wrapper__inst/master_spi_mth_brd__inst/o_done_frame_pulse">
+      <obj_property name="ElementShortName">o_done_frame_pulse</obj_property>
+      <obj_property name="ObjectShortName">o_done_frame_pulse</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider102" type="divider">
+      <obj_property name="label">test port</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_port_wo_sadrs_h080">
+      <obj_property name="ElementShortName">w_port_wo_sadrs_h080[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wo_sadrs_h080[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_port_wo_sadrs_h088">
+      <obj_property name="ElementShortName">w_port_wo_sadrs_h088[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wo_sadrs_h088[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_port_wo_sadrs_h380">
+      <obj_property name="ElementShortName">w_port_wo_sadrs_h380[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_wo_sadrs_h380[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_port_ti_sadrs_h104">
+      <obj_property name="ElementShortName">w_port_ti_sadrs_h104[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_ti_sadrs_h104[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_port_to_sadrs_h194">
+      <obj_property name="ElementShortName">w_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_port_to_sadrs_h194_ck">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194_ck[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194_ck[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_port_to_sadrs_h194_mon">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194_mon[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194_mon[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_port_to_sadrs_h194_mon_smp">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194_mon_smp[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194_mon_smp[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_port_to_sadrs_h194">
+      <obj_property name="ElementShortName">r_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_to_sadrs_h194[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_port_to_sadrs_h19C">
+      <obj_property name="ElementShortName">w_port_to_sadrs_h19C[31:0]</obj_property>
+      <obj_property name="ObjectShortName">w_port_to_sadrs_h19C[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_loopback_en">
+      <obj_property name="ElementShortName">w_loopback_en</obj_property>
+      <obj_property name="ObjectShortName">w_loopback_en</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/w_MISO_one_bit_ahead_en">
+      <obj_property name="ElementShortName">w_MISO_one_bit_ahead_en</obj_property>
+      <obj_property name="ObjectShortName">w_MISO_one_bit_ahead_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider73" type="divider">
+      <obj_property name="label">pipe test</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_C">
+      <obj_property name="ElementShortName">w_frame_data_C[5:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_C[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_A">
+      <obj_property name="ElementShortName">w_frame_data_A[9:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_A[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_D">
+      <obj_property name="ElementShortName">w_frame_data_D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_D[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/w_frame_data_B">
+      <obj_property name="ElementShortName">w_frame_data_B[15:0]</obj_property>
+      <obj_property name="ObjectShortName">w_frame_data_B[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/o_port_pi_sadrs_h24C">
+      <obj_property name="ElementShortName">o_port_pi_sadrs_h24C[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_port_pi_sadrs_h24C[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/o_wr__sadrs_h24C">
+      <obj_property name="ElementShortName">o_wr__sadrs_h24C</obj_property>
+      <obj_property name="ObjectShortName">o_wr__sadrs_h24C</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_port_pi_sadrs_h24C">
+      <obj_property name="ElementShortName">r_port_pi_sadrs_h24C[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_port_pi_sadrs_h24C[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_wr__sadrs_h24C">
+      <obj_property name="ElementShortName">r_wr__sadrs_h24C</obj_property>
+      <obj_property name="ObjectShortName">r_wr__sadrs_h24C</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_frame_index">
+      <obj_property name="ElementShortName">r_frame_index[5:0]</obj_property>
+      <obj_property name="ObjectShortName">r_frame_index[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_frame_mosi_trig">
+      <obj_property name="ElementShortName">r_frame_mosi_trig</obj_property>
+      <obj_property name="ObjectShortName">r_frame_mosi_trig</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/i_port_po_sadrs_h280">
+      <obj_property name="ElementShortName">i_port_po_sadrs_h280[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_port_po_sadrs_h280[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/o_rd__sadrs_h280">
+      <obj_property name="ElementShortName">o_rd__sadrs_h280</obj_property>
+      <obj_property name="ObjectShortName">o_rd__sadrs_h280</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_rd__sadrs_h280">
+      <obj_property name="ElementShortName">r_rd__sadrs_h280</obj_property>
+      <obj_property name="ObjectShortName">r_rd__sadrs_h280</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_frame_miso">
+      <obj_property name="ElementShortName">r_frame_miso[15:0]</obj_property>
+      <obj_property name="ObjectShortName">r_frame_miso[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_master_spi_mth_brd__wrapper/slave_spi_mth_brd__inst/r_frame_miso_trig">
+      <obj_property name="ElementShortName">r_frame_miso_trig</obj_property>
+      <obj_property name="ObjectShortName">r_frame_miso_trig</obj_property>
+   </wvobject>
+</wave_config>

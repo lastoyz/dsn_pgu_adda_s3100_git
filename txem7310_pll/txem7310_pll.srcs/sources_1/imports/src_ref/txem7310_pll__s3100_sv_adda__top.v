@@ -276,11 +276,11 @@
 // | TEST  | TEST_OUT_WO   | TBD        | wireout_21 | Return test values.        | bit[15:8]=count2[7:0]          |
 // |       |               |            |            |                            | bit[ 7:0]=count1[7:0]          |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | TEST  | TEST_TI       | TBD        | wireout_40 | Trigger test functions.    | bit[0]=trigger_count2_reset    |
+// | TEST  | TEST_TI       | TBD        | trig_in_40 | Trigger test functions.    | bit[0]=trigger_count2_reset    |
 // |       |               |            |            |                            | bit[1]=trigger_count2_up       |
 // |       |               |            |            |                            | bit[2]=trigger_count2_down     |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-// | TEST  | TEST_TO       | TBD        | wireout_60 | Check if trigger is done.  | bit[ 0]=done_count1eq00        |
+// | TEST  | TEST_TO       | TBD        | trigout_60 | Check if trigger is done.  | bit[ 0]=done_count1eq00        |
 // |       |               |            |            |                            | bit[ 1]=done_count1eq80        |
 // |       |               |            |            |                            | bit[16]=done_count2eqFF        |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
@@ -305,6 +305,9 @@
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MSPI  | MSPI_EN_CS_WI | TBD        | wire_in_16 | Control MSPI CS enable.    | bit[12: 0]=MSPI_EN_CS[12: 0]   |
+// |       |               |            |            |                            | bit[16]   =M0 group enable     |
+// |       |               |            |            |                            | bit[17]   =M1 group enable     |
+// |       |               |            |            |                            | bit[18]   =M2 group enable     |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MSPI  | MSPI_CON_WI   | TBD        | wire_in_17 | Control MSPI MOSI frame.   | bit[31:26]=frame_data_C[ 5:0]  |
 // |       |               |            |            |                            | bit[25:16]=frame_data_A[ 9:0]  |
@@ -316,10 +319,18 @@
 // | MSPI  | MSPI_TI       | TBD        | trig_in_42 | Trigger functions.         | bit[0]=trigger_reset           |
 // |       |               |            |            |                            | bit[1]=trigger_init            |
 // |       |               |            |            |                            | bit[2]=trigger_frame           |
+// |       |               |            |            |                            | bit[3]=trigger_reset_fifo      |
+// |       |               |            |            |                            | bit[4]=trigger_frame_fifo      |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MSPI  | MSPI_TO       | TBD        | trigout_62 | Check if trigger is done.  | bit[0]=done_reset              |
 // |       |               |            |            |                            | bit[1]=done_init               |
 // |       |               |            |            |                            | bit[2]=done_frame              |
+// |       |               |            |            |                            | bit[3]=done_reset_fifo         |
+// |       |               |            |            |                            | bit[4]=done_frame_fifo         |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_PI       | TBD__      | pipe_in_92 | Send mosi data into pipe.  | bit[31:0]=frame_mosi[31:0]     |
+// +-------+---------------+------------+------------+----------------------------+--------------------------------+
+// | MSPI  | MSPI_PO       | TBD__      | pipeout_B2 | Read miso data from pipe.  | bit[31:0]=frame_miso[31:0]     |
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // +-------+---------------+------------+------------+----------------------------+--------------------------------+
 // | MEM   | MEM_WI        | TBD__      | wire_in_13 | Control EEPROM interface.  | bit[  15]=disable_SBP_packet   | 
@@ -911,7 +922,7 @@ module txem7310_pll__s3100_sv_adda__top (
 
 /*parameter common */  //{
 	
-// TODO: FPGA_IMAGE_ID = h_A6_21_1214   //{
+// TODO: FPGA_IMAGE_ID = h_A6_21_1231   //{
 //parameter FPGA_IMAGE_ID = 32'h_BD_21_0310; // PGU-CPU-F5500 // dac pattern gen : dsp maacro test // with XEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0521; // S3100-PGU // pin map io buf convert from PGU-CPU-F5500 with TXEM7310
 //parameter FPGA_IMAGE_ID = 32'h_A4_21_0607; // S3100-PGU // update ENDPOINT map
@@ -938,8 +949,8 @@ module txem7310_pll__s3100_sv_adda__top (
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1127; // S3100-ADDA // rev hsadc reset and enable to hole parameter setting.
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1129; // S3100-ADDA // rev ADC ready control 
 //parameter FPGA_IMAGE_ID = 32'h_A6_21_1201; // S3100-CMU-ADDA // new pinmap
-parameter FPGA_IMAGE_ID = 32'h_A6_21_1214; // S3100-CMU-ADDA // dac output retiming // DAC1 pin map revision
-// parameter FPGA_IMAGE_ID = 32'h_A6_21_1231; // S3100-CMU-ADDA // MSPI fifo frame trigger added // in revision
+//parameter FPGA_IMAGE_ID = 32'h_A6_21_1214; // S3100-CMU-ADDA // dac output retiming // DAC1 pin map revision
+parameter FPGA_IMAGE_ID = 32'h_A6_21_1231; // S3100-CMU-ADDA // MSPI fifo frame trigger added // in revision
 
 //}
 
@@ -2206,6 +2217,7 @@ wire w_wr_87_1; wire [31:0] w_port_pi_87_1; // DAC0_DUR_PI
 wire w_wr_88_1; wire [31:0] w_port_pi_88_1; // DAC1_DAT_PI   
 wire w_wr_89_1; wire [31:0] w_port_pi_89_1; // DAC1_DUR_PI   
 wire w_wr_8A_1; wire [31:0] w_port_pi_8A_1; //$$ TEST_PI       
+wire w_wr_92_1; wire [31:0] w_port_pi_92_1; // [MSPI] MSPI_PI
 wire w_wr_93_1; wire [31:0] w_port_pi_93_1; //$$ MEM_PI        
 wire w_wr_9C_1; wire [31:0] w_port_pi_9C_1; //$$ [DFT] DFT_COEF_RE_PI // COEF_FLT32_RE_PI
 wire w_wr_9D_1; wire [31:0] w_port_pi_9D_1; //$$ [DFT] DFT_COEF_IM_PI // COEF_FLT32_IM_PI
@@ -2213,6 +2225,7 @@ wire w_wr_9D_1; wire [31:0] w_port_pi_9D_1; //$$ [DFT] DFT_COEF_IM_PI // COEF_FL
 
 // pipe out //{
 wire w_rd_AA_1; wire [31:0] w_port_po_AA_1; //$$ TEST_PO        
+wire w_rd_B2_1; wire [31:0] w_port_po_B2_1; // [MSPI] MSPI_PO
 wire w_rd_B3_1; wire [31:0] w_port_po_B3_1; //$$ MEM_PO        
 wire w_rd_BC_1; wire [31:0] w_port_po_BC_1; //$$ [ADCH] ADCH_DOUT0_PO
 wire w_rd_BD_1; wire [31:0] w_port_po_BD_1; //$$ [ADCH] ADCH_DOUT1_PO
@@ -2461,7 +2474,7 @@ lan_endpoint_wrapper #(
 	.ep8Fwr (),          .ep8Fpipe (), // output wire, output wire [31:0],
 	.ep90wr (),          .ep90pipe (), // output wire, output wire [31:0],
 	.ep91wr (),          .ep91pipe (), // output wire, output wire [31:0],
-	.ep92wr (),          .ep92pipe (), // output wire, output wire [31:0],
+	.ep92wr (w_wr_92_1), .ep92pipe (w_port_pi_92_1), // output wire, output wire [31:0],
 	.ep93wr (w_wr_93_1), .ep93pipe (w_port_pi_93_1), // output wire, output wire [31:0],
 	.ep94wr (),          .ep94pipe (), // output wire, output wire [31:0],
 	.ep95wr (),          .ep95pipe (), // output wire, output wire [31:0],
@@ -2496,7 +2509,7 @@ lan_endpoint_wrapper #(
 	.epAFrd (),          .epAFpipe (32'b0), // output wire, input wire [31:0],
 	.epB0rd (),          .epB0pipe (32'b0), // output wire, input wire [31:0],
 	.epB1rd (),          .epB1pipe (32'b0), // output wire, input wire [31:0],
-	.epB2rd (),          .epB2pipe (32'b0), // output wire, input wire [31:0],
+	.epB2rd (w_rd_B2_1), .epB2pipe (w_port_po_B2_1), // output wire, input wire [31:0],
 	.epB3rd (w_rd_B3_1), .epB3pipe (w_port_po_B3_1), // output wire, input wire [31:0],
 	.epB4rd (),          .epB4pipe (32'b0), // output wire, input wire [31:0],
 	.epB5rd (),          .epB5pipe (32'b0), // output wire, input wire [31:0],
@@ -2691,6 +2704,16 @@ wire [31:0] w_MSPI_TI   = w_port_ti_42_1;
 //$$ w_SSPI_TEST_TO --> w_MSPI_TO 
 wire [31:0] w_MSPI_TO;
 assign w_port_to_62_1 = w_MSPI_TO;
+
+// new pipe interface :
+// | MSPI  | MSPI_PI       | TBD__      | pipe_in_92 | Send mosi data into pipe.  | bit[31:0]=frame_mosi[31:0]     |
+// | MSPI  | MSPI_PO       | TBD__      | pipeout_B2 | Read miso data from pipe.  | bit[31:0]=frame_miso[31:0]     |
+
+wire [31:0] w_MSPI_PI      = w_port_pi_92_1;
+wire [31:0] w_MSPI_PO; 
+assign  w_port_po_B2_1     = w_MSPI_PO; 
+wire w_MSPI_PI_wr          =                         w_wr_92_1; 
+wire w_MSPI_PO_rd          =                         w_rd_B2_1; 
 
 
 //
@@ -3859,11 +3882,15 @@ fifo_generator_4 TEST_fifo_inst (
 //   bit[0] = reset_trig 
 //   bit[1] = init_trig
 //   bit[2] = frame_trig
+//   bit[3] = reset_fifo_trig 
+//   bit[4] = frame_fifo_trig
 //
 // MSPI_TO : ep62trig
 //   bit[0] = reset_done
 //   bit[1] = init_done
 //   bit[2] = frame_done
+//   bit[3] = reset_fifo_done
+//   bit[4] = frame_fifo_done
 //
 // MSPI_CON_WI : ep17wire
 //  bit[31:26] = data_C // control[5:0]
@@ -3902,7 +3929,16 @@ wire  w_SSPI_TEST_trig_frame = w_MSPI_TI[2];
 wire  w_SSPI_TEST_done_frame;
 assign w_MSPI_TO[2]   = w_SSPI_TEST_done_frame;
 //
-assign w_MSPI_TO[31:3] = 29'b0;
+wire w_SSPI_TEST_trig_reset_fifo = w_MSPI_TI[3];
+wire w_SSPI_TEST_done_reset_fifo; 
+assign w_MSPI_TO[3]   = w_SSPI_TEST_done_reset_fifo;
+//
+wire w_SSPI_TEST_trig_frame_fifo = w_MSPI_TI[4];
+wire w_SSPI_TEST_done_frame_fifo;
+assign w_MSPI_TO[4]   = w_SSPI_TEST_done_frame_fifo;
+//
+assign w_MSPI_TO[31:5] = 27'b0;
+
 
 //
 wire  [ 5:0] w_SSPI_frame_data_C = w_MSPI_CON_WI[31:26]; // w_SSPI_TEST_WI --> w_MSPI_CON_WI
@@ -3915,12 +3951,19 @@ wire  [15:0] w_SSPI_frame_data_E;
 assign w_MSPI_FLAG_WO[31:16] = w_SSPI_frame_data_E[15:0];
 assign w_MSPI_FLAG_WO[15: 0] = w_SSPI_frame_data_B[15:0]; //$$ w_SSPI_TEST_WO --> w_MSPI_FLAG_WO
 
-wire  w_SSPI_TEST_SS_B   ;
-wire  w_SSPI_TEST_MCLK   ;
-wire  w_SSPI_TEST_SCLK   ;
-wire  w_SSPI_TEST_MOSI   ;
-wire  w_SSPI_TEST_MISO   ;
-wire  w_SSPI_TEST_MISO_EN;
+// FIFO interface 
+wire         w_SSPI_TEST__mosi__wr_en = w_MSPI_PI_wr;
+wire  [31:0] w_SSPI_TEST__mosi__din   = w_MSPI_PI   ;
+wire         w_SSPI_TEST__miso__rd_en = w_MSPI_PO_rd;
+wire  [31:0] w_SSPI_TEST__miso__dout  ;  assign w_MSPI_PO = w_SSPI_TEST__miso__dout;
+
+// IO
+(* keep = "true" *) wire  w_SSPI_TEST_SS_B   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MCLK   ;
+(* keep = "true" *) wire  w_SSPI_TEST_SCLK   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MOSI   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MISO   ;
+(* keep = "true" *) wire  w_SSPI_TEST_MISO_EN;
 
 
 //  //$$ S3100: mapping SSPI_TEST to M0_SPI
@@ -3947,16 +3990,23 @@ assign  w_SSPI_TEST_MISO_EN = w_SSPI_TEST_mode_en ;
 //  //$$assign  w_SSPI_TEST_SCLK    = M0_SPI_RX_CLK       ; //$$ must come from SSPI in test.
 //  //$$assign  w_SSPI_TEST_MISO    = M0_SPI_MISO         ; //$$ must come from SSPI in test.
 
+//$$ master_spi_mth_brd --> master_spi_mth_brd__wrapper // for fifo interface to come
+master_spi_mth_brd__wrapper  master_spi_mth_brd__inst(
 
-master_spi_mth_brd  master_spi_mth_brd__inst(
 	.clk     (base_sspi_clk), // 104MHz
 	.reset_n (reset_n & (~w_SSPI_TEST_trig_reset)),
 	
 	// control 
 	.i_trig_init    (w_SSPI_TEST_trig_init ), // 
 	.o_done_init    (w_SSPI_TEST_done_init ), // to be used for monitoring test mode 
-	.i_trig_frame   (w_SSPI_TEST_trig_frame), // 
-	.o_done_frame   (w_SSPI_TEST_done_frame), // 
+	.i_trig_frame       (w_SSPI_TEST_trig_frame), // edge-detection inside
+	//.o_done_frame       (), // level output inside
+	.o_done_frame_pulse (w_SSPI_TEST_done_frame), // one-pulse output inside
+	
+	.i_trig_reset_fifo  (w_SSPI_TEST_trig_reset_fifo), // reset fifo // 3 clock long
+	.i_trig_frame_fifo  (w_SSPI_TEST_trig_frame_fifo), // trigger spi frame with fifo data
+	.o_done_reset_fifo  (w_SSPI_TEST_done_reset_fifo), // one pulse
+	.o_done_frame_fifo  (w_SSPI_TEST_done_frame_fifo), // one pulse
 
 	// frame data 
 	.i_frame_data_C (w_SSPI_frame_data_C), // [ 5:0] // control  data on MOSI
@@ -3965,6 +4015,14 @@ master_spi_mth_brd  master_spi_mth_brd__inst(
 	//
 	.o_frame_data_B (w_SSPI_frame_data_B), // [15:0] // readback data on MISO, low  16 bits
 	.o_frame_data_E (w_SSPI_frame_data_E), // [15:0] // readback data on MISO, high 16 bits
+	
+	// fifo interface
+	.i_mosi__wr_clk     (mcs_clk                  ), //        // 72MHz lan endpoints
+	.i_mosi__wr_en      (w_SSPI_TEST__mosi__wr_en ), //       
+	.i_mosi__din        (w_SSPI_TEST__mosi__din   ), // [31:0]
+	.i_miso__rd_clk     (mcs_clk                  ), //        // 72MHz lan endpoints
+	.i_miso__rd_en      (w_SSPI_TEST__miso__rd_en ), //       
+	.o_miso__dout       (w_SSPI_TEST__miso__dout  ), // [31:0]
 	
 	// IO 
 	.o_SS_B    (w_SSPI_TEST_SS_B   ),
