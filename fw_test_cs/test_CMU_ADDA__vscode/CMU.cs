@@ -61,6 +61,7 @@ namespace TopInstrument{
         // adda_wait_for_adc_done()
         // adda_trigger_pgu_off()
         // adda_read_adc_buf()
+        // adda_compute_dft() //$$ new
 
         // cmu functions:
         //... io control
