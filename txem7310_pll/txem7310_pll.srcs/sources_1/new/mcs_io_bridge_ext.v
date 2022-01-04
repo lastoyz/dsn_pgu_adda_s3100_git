@@ -1338,42 +1338,42 @@ assign  o_lan_pi_81 = (i_IO_addr_strobe & i_IO_write_strobe & (i_IO_address ==  
 //}
 
 // o_port_rd_X //{
-assign o_port_rd_A0 = (i_IO_address == ADRS_PORT_PO_A0)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A1 = (i_IO_address == ADRS_PORT_PO_A1)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A2 = (i_IO_address == ADRS_PORT_PO_A2)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A3 = (i_IO_address == ADRS_PORT_PO_A3)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A4 = (i_IO_address == ADRS_PORT_PO_A4)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A5 = (i_IO_address == ADRS_PORT_PO_A5)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A6 = (i_IO_address == ADRS_PORT_PO_A6)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A7 = (i_IO_address == ADRS_PORT_PO_A7)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A8 = (i_IO_address == ADRS_PORT_PO_A8)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_A9 = (i_IO_address == ADRS_PORT_PO_A9)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_AA = (i_IO_address == ADRS_PORT_PO_AA)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_AB = (i_IO_address == ADRS_PORT_PO_AB)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_AC = (i_IO_address == ADRS_PORT_PO_AC)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_AD = (i_IO_address == ADRS_PORT_PO_AD)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_AE = (i_IO_address == ADRS_PORT_PO_AE)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_AF = (i_IO_address == ADRS_PORT_PO_AF)? i_IO_read_strobe : 1'b0;
-//
-assign o_port_rd_B0 = (i_IO_address == ADRS_PORT_PO_B0)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B1 = (i_IO_address == ADRS_PORT_PO_B1)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B2 = (i_IO_address == ADRS_PORT_PO_B2)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B3 = (i_IO_address == ADRS_PORT_PO_B3)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B4 = (i_IO_address == ADRS_PORT_PO_B4)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B5 = (i_IO_address == ADRS_PORT_PO_B5)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B6 = (i_IO_address == ADRS_PORT_PO_B6)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B7 = (i_IO_address == ADRS_PORT_PO_B7)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B8 = (i_IO_address == ADRS_PORT_PO_B8)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_B9 = (i_IO_address == ADRS_PORT_PO_B9)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_BA = (i_IO_address == ADRS_PORT_PO_BA)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_BB = (i_IO_address == ADRS_PORT_PO_BB)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_BC = (i_IO_address == ADRS_PORT_PO_BC)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_BD = (i_IO_address == ADRS_PORT_PO_BD)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_BE = (i_IO_address == ADRS_PORT_PO_BE)? i_IO_read_strobe : 1'b0;
-assign o_port_rd_BF = (i_IO_address == ADRS_PORT_PO_BF)? i_IO_read_strobe : 1'b0;
-//
-assign  o_lan_rd_A0 = (i_IO_address ==  ADRS_LAN_PO_A0)? i_IO_read_strobe : 1'b0;
-assign  o_lan_rd_A1 = (i_IO_address ==  ADRS_LAN_PO_A1)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A0; assign o_port_rd_A0 = w_port_rd_A0; assign w_port_rd_A0 = (i_IO_address == ADRS_PORT_PO_A0)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A1; assign o_port_rd_A1 = w_port_rd_A1; assign w_port_rd_A1 = (i_IO_address == ADRS_PORT_PO_A1)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A2; assign o_port_rd_A2 = w_port_rd_A2; assign w_port_rd_A2 = (i_IO_address == ADRS_PORT_PO_A2)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A3; assign o_port_rd_A3 = w_port_rd_A3; assign w_port_rd_A3 = (i_IO_address == ADRS_PORT_PO_A3)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A4; assign o_port_rd_A4 = w_port_rd_A4; assign w_port_rd_A4 = (i_IO_address == ADRS_PORT_PO_A4)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A5; assign o_port_rd_A5 = w_port_rd_A5; assign w_port_rd_A5 = (i_IO_address == ADRS_PORT_PO_A5)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A6; assign o_port_rd_A6 = w_port_rd_A6; assign w_port_rd_A6 = (i_IO_address == ADRS_PORT_PO_A6)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A7; assign o_port_rd_A7 = w_port_rd_A7; assign w_port_rd_A7 = (i_IO_address == ADRS_PORT_PO_A7)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A8; assign o_port_rd_A8 = w_port_rd_A8; assign w_port_rd_A8 = (i_IO_address == ADRS_PORT_PO_A8)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_A9; assign o_port_rd_A9 = w_port_rd_A9; assign w_port_rd_A9 = (i_IO_address == ADRS_PORT_PO_A9)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_AA; assign o_port_rd_AA = w_port_rd_AA; assign w_port_rd_AA = (i_IO_address == ADRS_PORT_PO_AA)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_AB; assign o_port_rd_AB = w_port_rd_AB; assign w_port_rd_AB = (i_IO_address == ADRS_PORT_PO_AB)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_AC; assign o_port_rd_AC = w_port_rd_AC; assign w_port_rd_AC = (i_IO_address == ADRS_PORT_PO_AC)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_AD; assign o_port_rd_AD = w_port_rd_AD; assign w_port_rd_AD = (i_IO_address == ADRS_PORT_PO_AD)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_AE; assign o_port_rd_AE = w_port_rd_AE; assign w_port_rd_AE = (i_IO_address == ADRS_PORT_PO_AE)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_AF; assign o_port_rd_AF = w_port_rd_AF; assign w_port_rd_AF = (i_IO_address == ADRS_PORT_PO_AF)? i_IO_read_strobe : 1'b0;
+
+wire w_port_rd_B0; assign o_port_rd_B0 = w_port_rd_B0; assign w_port_rd_B0 = (i_IO_address == ADRS_PORT_PO_B0)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B1; assign o_port_rd_B1 = w_port_rd_B1; assign w_port_rd_B1 = (i_IO_address == ADRS_PORT_PO_B1)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B2; assign o_port_rd_B2 = w_port_rd_B2; assign w_port_rd_B2 = (i_IO_address == ADRS_PORT_PO_B2)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B3; assign o_port_rd_B3 = w_port_rd_B3; assign w_port_rd_B3 = (i_IO_address == ADRS_PORT_PO_B3)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B4; assign o_port_rd_B4 = w_port_rd_B4; assign w_port_rd_B4 = (i_IO_address == ADRS_PORT_PO_B4)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B5; assign o_port_rd_B5 = w_port_rd_B5; assign w_port_rd_B5 = (i_IO_address == ADRS_PORT_PO_B5)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B6; assign o_port_rd_B6 = w_port_rd_B6; assign w_port_rd_B6 = (i_IO_address == ADRS_PORT_PO_B6)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B7; assign o_port_rd_B7 = w_port_rd_B7; assign w_port_rd_B7 = (i_IO_address == ADRS_PORT_PO_B7)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B8; assign o_port_rd_B8 = w_port_rd_B8; assign w_port_rd_B8 = (i_IO_address == ADRS_PORT_PO_B8)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_B9; assign o_port_rd_B9 = w_port_rd_B9; assign w_port_rd_B9 = (i_IO_address == ADRS_PORT_PO_B9)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_BA; assign o_port_rd_BA = w_port_rd_BA; assign w_port_rd_BA = (i_IO_address == ADRS_PORT_PO_BA)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_BB; assign o_port_rd_BB = w_port_rd_BB; assign w_port_rd_BB = (i_IO_address == ADRS_PORT_PO_BB)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_BC; assign o_port_rd_BC = w_port_rd_BC; assign w_port_rd_BC = (i_IO_address == ADRS_PORT_PO_BC)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_BD; assign o_port_rd_BD = w_port_rd_BD; assign w_port_rd_BD = (i_IO_address == ADRS_PORT_PO_BD)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_BE; assign o_port_rd_BE = w_port_rd_BE; assign w_port_rd_BE = (i_IO_address == ADRS_PORT_PO_BE)? i_IO_read_strobe : 1'b0;
+wire w_port_rd_BF; assign o_port_rd_BF = w_port_rd_BF; assign w_port_rd_BF = (i_IO_address == ADRS_PORT_PO_BF)? i_IO_read_strobe : 1'b0;
+
+wire w_lan_rd_A0 ; assign o_lan_rd_A0  = w_lan_rd_A0 ; assign w_lan_rd_A0  = (i_IO_address ==  ADRS_LAN_PO_A0)? i_IO_read_strobe : 1'b0;
+wire w_lan_rd_A1 ; assign o_lan_rd_A1  = w_lan_rd_A1 ; assign w_lan_rd_A1  = (i_IO_address ==  ADRS_LAN_PO_A1)? i_IO_read_strobe : 1'b0;
 //}
 
 // w_match_IO_adrs //{
@@ -1626,44 +1626,161 @@ always @(posedge clk, negedge reset_n)
 //}
 	
 //// o_IO_read_data including PO //{
+
+parameter PORT_PO_DATA_LATENCY_EN = 0; // 1 for one clock latency (backward compatible); 0 for no latency (new method)
+parameter  LAN_PO_DATA_LATENCY_EN = 1; // 1 for one clock latency (backward compatible); 0 for no latency (new method)
+
+// registers for no latency
+reg [31:0] r_port_po_A0; wire [31:0] w_port_po_A0  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A0 : r_port_po_A0 ;
+reg [31:0] r_port_po_A1; wire [31:0] w_port_po_A1  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A1 : r_port_po_A1 ;
+reg [31:0] r_port_po_A2; wire [31:0] w_port_po_A2  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A2 : r_port_po_A2 ;
+reg [31:0] r_port_po_A3; wire [31:0] w_port_po_A3  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A3 : r_port_po_A3 ;
+reg [31:0] r_port_po_A4; wire [31:0] w_port_po_A4  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A4 : r_port_po_A4 ;
+reg [31:0] r_port_po_A5; wire [31:0] w_port_po_A5  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A5 : r_port_po_A5 ;
+reg [31:0] r_port_po_A6; wire [31:0] w_port_po_A6  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A6 : r_port_po_A6 ;
+reg [31:0] r_port_po_A7; wire [31:0] w_port_po_A7  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A7 : r_port_po_A7 ;
+reg [31:0] r_port_po_A8; wire [31:0] w_port_po_A8  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A8 : r_port_po_A8 ;
+reg [31:0] r_port_po_A9; wire [31:0] w_port_po_A9  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_A9 : r_port_po_A9 ;
+reg [31:0] r_port_po_AA; wire [31:0] w_port_po_AA  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_AA : r_port_po_AA ;
+reg [31:0] r_port_po_AB; wire [31:0] w_port_po_AB  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_AB : r_port_po_AB ;
+reg [31:0] r_port_po_AC; wire [31:0] w_port_po_AC  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_AC : r_port_po_AC ;
+reg [31:0] r_port_po_AD; wire [31:0] w_port_po_AD  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_AD : r_port_po_AD ;
+reg [31:0] r_port_po_AE; wire [31:0] w_port_po_AE  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_AE : r_port_po_AE ;
+reg [31:0] r_port_po_AF; wire [31:0] w_port_po_AF  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_AF : r_port_po_AF ;
+
+reg [31:0] r_port_po_B0; wire [31:0] w_port_po_B0  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B0 : r_port_po_B0 ;
+reg [31:0] r_port_po_B1; wire [31:0] w_port_po_B1  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B1 : r_port_po_B1 ;
+reg [31:0] r_port_po_B2; wire [31:0] w_port_po_B2  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B2 : r_port_po_B2 ;
+reg [31:0] r_port_po_B3; wire [31:0] w_port_po_B3  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B3 : r_port_po_B3 ;
+reg [31:0] r_port_po_B4; wire [31:0] w_port_po_B4  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B4 : r_port_po_B4 ;
+reg [31:0] r_port_po_B5; wire [31:0] w_port_po_B5  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B5 : r_port_po_B5 ;
+reg [31:0] r_port_po_B6; wire [31:0] w_port_po_B6  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B6 : r_port_po_B6 ;
+reg [31:0] r_port_po_B7; wire [31:0] w_port_po_B7  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B7 : r_port_po_B7 ;
+reg [31:0] r_port_po_B8; wire [31:0] w_port_po_B8  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B8 : r_port_po_B8 ;
+reg [31:0] r_port_po_B9; wire [31:0] w_port_po_B9  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_B9 : r_port_po_B9 ;
+reg [31:0] r_port_po_BA; wire [31:0] w_port_po_BA  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_BA : r_port_po_BA ;
+reg [31:0] r_port_po_BB; wire [31:0] w_port_po_BB  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_BB : r_port_po_BB ;
+reg [31:0] r_port_po_BC; wire [31:0] w_port_po_BC  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_BC : r_port_po_BC ;
+reg [31:0] r_port_po_BD; wire [31:0] w_port_po_BD  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_BD : r_port_po_BD ;
+reg [31:0] r_port_po_BE; wire [31:0] w_port_po_BE  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_BE : r_port_po_BE ;
+reg [31:0] r_port_po_BF; wire [31:0] w_port_po_BF  = (PORT_PO_DATA_LATENCY_EN==1)? i_port_po_BF : r_port_po_BF ;
+
+reg [31:0] r_lan_po_A0 ; wire [31:0] w_lan_po_A0   = (LAN_PO_DATA_LATENCY_EN==1)? i_lan_po_A0  : r_lan_po_A0  ;
+reg [31:0] r_lan_po_A1 ; wire [31:0] w_lan_po_A1   = (LAN_PO_DATA_LATENCY_EN==1)? i_lan_po_A1  : r_lan_po_A1  ;
+
+always @(posedge clk, negedge reset_n)
+	if (!reset_n) begin
+		r_port_po_A0 <= 32'b0;
+		r_port_po_A1 <= 32'b0;
+		r_port_po_A2 <= 32'b0;
+		r_port_po_A3 <= 32'b0;
+		r_port_po_A4 <= 32'b0;
+		r_port_po_A5 <= 32'b0;
+		r_port_po_A6 <= 32'b0;
+		r_port_po_A7 <= 32'b0;
+		r_port_po_A8 <= 32'b0;
+		r_port_po_A9 <= 32'b0;
+		r_port_po_AA <= 32'b0;
+		r_port_po_AB <= 32'b0;
+		r_port_po_AC <= 32'b0;
+		r_port_po_AD <= 32'b0;
+		r_port_po_AE <= 32'b0;
+		r_port_po_AF <= 32'b0;
+		r_port_po_B0 <= 32'b0;
+		r_port_po_B1 <= 32'b0;
+		r_port_po_B2 <= 32'b0;
+		r_port_po_B3 <= 32'b0;
+		r_port_po_B4 <= 32'b0;
+		r_port_po_B5 <= 32'b0;
+		r_port_po_B6 <= 32'b0;
+		r_port_po_B7 <= 32'b0;
+		r_port_po_B8 <= 32'b0;
+		r_port_po_B9 <= 32'b0;
+		r_port_po_BA <= 32'b0;
+		r_port_po_BB <= 32'b0;
+		r_port_po_BC <= 32'b0;
+		r_port_po_BD <= 32'b0;
+		r_port_po_BE <= 32'b0;
+		r_port_po_BF <= 32'b0;
+		r_lan_po_A0  <= 32'b0;
+		r_lan_po_A1  <= 32'b0;
+	end
+	else begin 
+		if (w_port_rd_A0)  r_port_po_A0 <= i_port_po_A0;
+		if (w_port_rd_A1)  r_port_po_A1 <= i_port_po_A1;
+		if (w_port_rd_A2)  r_port_po_A2 <= i_port_po_A2;
+		if (w_port_rd_A3)  r_port_po_A3 <= i_port_po_A3;
+		if (w_port_rd_A4)  r_port_po_A4 <= i_port_po_A4;
+		if (w_port_rd_A5)  r_port_po_A5 <= i_port_po_A5;
+		if (w_port_rd_A6)  r_port_po_A6 <= i_port_po_A6;
+		if (w_port_rd_A7)  r_port_po_A7 <= i_port_po_A7;
+		if (w_port_rd_A8)  r_port_po_A8 <= i_port_po_A8;
+		if (w_port_rd_A9)  r_port_po_A9 <= i_port_po_A9;
+		if (w_port_rd_AA)  r_port_po_AA <= i_port_po_AA;
+		if (w_port_rd_AB)  r_port_po_AB <= i_port_po_AB;
+		if (w_port_rd_AC)  r_port_po_AC <= i_port_po_AC;
+		if (w_port_rd_AD)  r_port_po_AD <= i_port_po_AD;
+		if (w_port_rd_AE)  r_port_po_AE <= i_port_po_AE;
+		if (w_port_rd_AF)  r_port_po_AF <= i_port_po_AF;
+		if (w_port_rd_B0)  r_port_po_B0 <= i_port_po_B0;
+		if (w_port_rd_B1)  r_port_po_B1 <= i_port_po_B1;
+		if (w_port_rd_B2)  r_port_po_B2 <= i_port_po_B2;
+		if (w_port_rd_B3)  r_port_po_B3 <= i_port_po_B3;
+		if (w_port_rd_B4)  r_port_po_B4 <= i_port_po_B4;
+		if (w_port_rd_B5)  r_port_po_B5 <= i_port_po_B5;
+		if (w_port_rd_B6)  r_port_po_B6 <= i_port_po_B6;
+		if (w_port_rd_B7)  r_port_po_B7 <= i_port_po_B7;
+		if (w_port_rd_B8)  r_port_po_B8 <= i_port_po_B8;
+		if (w_port_rd_B9)  r_port_po_B9 <= i_port_po_B9;
+		if (w_port_rd_BA)  r_port_po_BA <= i_port_po_BA;
+		if (w_port_rd_BB)  r_port_po_BB <= i_port_po_BB;
+		if (w_port_rd_BC)  r_port_po_BC <= i_port_po_BC;
+		if (w_port_rd_BD)  r_port_po_BD <= i_port_po_BD;
+		if (w_port_rd_BE)  r_port_po_BE <= i_port_po_BE;
+		if (w_port_rd_BF)  r_port_po_BF <= i_port_po_BF;
+		if (w_lan_rd_A0 )  r_lan_po_A0  <= i_lan_po_A0 ;
+		if (w_lan_rd_A1 )  r_lan_po_A1  <= i_lan_po_A1 ;
+	end
+
+
 assign o_IO_read_data = 
 	// check pipe out first //{
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A0))? i_port_po_A0 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A1))? i_port_po_A1 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A2))? i_port_po_A2 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A3))? i_port_po_A3 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A4))? i_port_po_A4 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A5))? i_port_po_A5 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A6))? i_port_po_A6 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A7))? i_port_po_A7 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A8))? i_port_po_A8 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A9))? i_port_po_A9 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AA))? i_port_po_AA :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AB))? i_port_po_AB :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AC))? i_port_po_AC :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AD))? i_port_po_AD :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AE))? i_port_po_AE :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AF))? i_port_po_AF :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A0))? w_port_po_A0 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A1))? w_port_po_A1 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A2))? w_port_po_A2 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A3))? w_port_po_A3 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A4))? w_port_po_A4 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A5))? w_port_po_A5 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A6))? w_port_po_A6 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A7))? w_port_po_A7 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A8))? w_port_po_A8 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_A9))? w_port_po_A9 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AA))? w_port_po_AA :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AB))? w_port_po_AB :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AC))? w_port_po_AC :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AD))? w_port_po_AD :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AE))? w_port_po_AE :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_AF))? w_port_po_AF :
 	//
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B0))? i_port_po_B0 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B1))? i_port_po_B1 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B2))? i_port_po_B2 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B3))? i_port_po_B3 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B4))? i_port_po_B4 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B5))? i_port_po_B5 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B6))? i_port_po_B6 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B7))? i_port_po_B7 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B8))? i_port_po_B8 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B9))? i_port_po_B9 :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BA))? i_port_po_BA :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BB))? i_port_po_BB :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BC))? i_port_po_BC :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BD))? i_port_po_BD :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BE))? i_port_po_BE :
-	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BF))? i_port_po_BF :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B0))? w_port_po_B0 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B1))? w_port_po_B1 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B2))? w_port_po_B2 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B3))? w_port_po_B3 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B4))? w_port_po_B4 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B5))? w_port_po_B5 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B6))? w_port_po_B6 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B7))? w_port_po_B7 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B8))? w_port_po_B8 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_B9))? w_port_po_B9 :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BA))? w_port_po_BA :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BB))? w_port_po_BB :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BC))? w_port_po_BC :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BD))? w_port_po_BD :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BE))? w_port_po_BE :
+	(r_IO_ready_rd & (r_IO_address == ADRS_PORT_PO_BF))? w_port_po_BF :
 	//
-	(r_IO_ready_rd & (r_IO_address ==  ADRS_LAN_PO_A0))?  i_lan_po_A0 :
-	(r_IO_ready_rd & (r_IO_address ==  ADRS_LAN_PO_A1))?  i_lan_po_A1 :
+	(r_IO_ready_rd & (r_IO_address ==  ADRS_LAN_PO_A0))? w_lan_po_A0 :
+	(r_IO_ready_rd & (r_IO_address ==  ADRS_LAN_PO_A1))? w_lan_po_A1 :
 	//}
 	
 	// otherwise, connect wi, wo, ti, to. //{
