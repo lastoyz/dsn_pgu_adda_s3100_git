@@ -2,7 +2,7 @@
 TestModelName=PGU_Control
 2LevelPeriod=10
 2LevelTimeUnit=us
-CycleCount=50
+CycleCount=5
 Bias_Enable=False
 [Graph]
 Y_Log=0
@@ -21,14 +21,14 @@ PulseMode=2LevelPulse
 StepPulseTimeUnit=ms
 [PGU1_2LevelPulseInfo]
 Base=0
-Peak=40
+Peak=10
 Delay=1
 Width=5
 Leading=3
 Trailing=3
 [PGU2_2LevelPulseInfo]
 Base=0
-Peak=40
+Peak=10
 Delay=1
 Width=4.9
 Leading=0.1
