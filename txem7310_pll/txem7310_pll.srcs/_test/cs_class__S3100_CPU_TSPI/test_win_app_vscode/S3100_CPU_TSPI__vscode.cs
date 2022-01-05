@@ -5781,9 +5781,9 @@ namespace TopInstrument
                 // setup repeat
                 num_repeat_pulses
             );
-            string buf_dac_time_str = String.Join(", ", time_volt_dual_list.Item1);;
-            string buf_dac0_str     = String.Join(", ", time_volt_dual_list.Item2);;
-            string buf_dac1_str     = String.Join(", ", time_volt_dual_list.Item3);;
+            string buf_dac_time_str = String.Join(", ", time_volt_dual_list.Item1);
+            string buf_dac0_str     = String.Join(", ", time_volt_dual_list.Item2);
+            string buf_dac1_str     = String.Join(", ", time_volt_dual_list.Item3);
             // seq 3 : ...
             // seq 4 : trigger PGU output
             dev.SPI_EMUL__set__loc_slot (__test__.Program.test_loc_slot__ADDA);      // for slot location bits

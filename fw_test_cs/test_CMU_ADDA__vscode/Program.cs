@@ -293,7 +293,9 @@ namespace __test__
             u32 slot_code__adda   = dev._SPI_SEL_SLOT(11);
             u32 spi_ch_code__adda = dev._SPI_SEL_CH_CMU();
            
-            // adc-dac ready
+            //// adc-dac ready
+
+            // adc-dac power on
             dev_itfc_dut.adda_pwr_on(slot_code__adda, spi_ch_code__adda);
 
             // adc setup
@@ -324,19 +326,68 @@ namespace __test__
                 Sink_sel_2                  
                 );
 
+            // cmu io control may come
 
-           // adc-dac trigger
+            
+            //// adc-dac trigger
 
-           // adc buffer read
+            // adda_setup_pgu_waveform()
+            Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
+            int    time_ns__code_duration          = 5;
+            double load_impedance_ohm              = 1e6;
+            double output_impedance_ohm            = 50;
+            double scale_voltage_10V_mode          = 0.765;
+            double gain_voltage_10V_to_40V_mode    = 4;
+            double out_scale                       = 1.0;
+            double out_offset                      = 0.0;
+            //
+            time_volt_dual_list = dev_itfc_dut.adda_setup_pgu_waveform(slot_code__adda, spi_ch_code__adda, 
+                StepTime_ns, StepLevel_V,
+                // setup dac output
+                output_range                ,
+                time_ns__code_duration      ,
+                load_impedance_ohm          ,
+                output_impedance_ohm        ,
+                scale_voltage_10V_mode      ,
+                gain_voltage_10V_to_40V_mode,
+                out_scale                   ,
+                out_offset                  ,
+                // setup repeat
+                num_repeat_pulses
+            );
+            string buf_dac_time_str = String.Join(", ", time_volt_dual_list.Item1);
+            string buf_dac0_str     = String.Join(", ", time_volt_dual_list.Item2);
+            string buf_dac1_str     = String.Join(", ", time_volt_dual_list.Item3);
 
-           // calcutate dft
-
-           // done
-           dev_itfc_dut.adda_pwr_off(slot_code__adda, spi_ch_code__adda);
+            // adda_trigger_pgu_output()
+            dev_itfc_dut.adda_trigger_pgu_output(slot_code__adda, spi_ch_code__adda);
 
 
-           // test smu functions :
-           /*
+            //// adc buffer read
+
+            // adda_wait_for_adc_done()
+            dev_itfc_dut.adda_wait_for_adc_done(slot_code__adda, spi_ch_code__adda);
+
+            // adda_trigger_pgu_off()
+            dev_itfc_dut.adda_trigger_pgu_off(slot_code__adda, spi_ch_code__adda);
+
+            // adda_read_adc_buf()
+            dev_itfc_dut.adda_read_adc_buf(slot_code__adda, spi_ch_code__adda, 
+                len_adc_data); //(len_adc_data, buf_dac_time_str, buf_dac0_str, buf_dac1_str);
+            
+
+            //// calculate dft
+
+            // adda_compute_dft() //$$ new
+            dev_itfc_dut.adda_compute_dft();
+
+
+            //// finish test 
+            dev_itfc_dut.adda_pwr_off(slot_code__adda, spi_ch_code__adda);
+
+
+            // test smu functions :
+            /*
             Console.WriteLine(">>>>>> test: more from interface I_SMU");
             //s32 smu_ch = 2; // ch = 2, slot = 3
             //s32 smu_ch = 2; // ch = -1, slot = 0 // NG

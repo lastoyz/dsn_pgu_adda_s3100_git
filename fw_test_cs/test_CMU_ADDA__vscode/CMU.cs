@@ -43,8 +43,9 @@ namespace TopInstrument{
         // adda functions:
         void adda_pwr_on(u32 slot, u32 spi_sel);
         void adda_pwr_off(u32 slot, u32 spi_sel);
+        // adda_init()
         void adda_init(
-            u32 slot, u32 spi_sel,
+            u32 slot, u32 spi_sel, //$$ for FW
             s32 len_adc_data = 600, u32 adc_sampling_period_count = 21,
             double time_ns__dac_update = 5,
             double DAC_full_scale_current__mA_1 = 25.47      , 
@@ -57,11 +58,35 @@ namespace TopInstrument{
             int Sink_sel_2                      = 0          
         );
         // adda_setup_pgu_waveform()
+        Tuple<long[], double[], double[]>  adda_setup_pgu_waveform(
+            u32 slot, u32 spi_sel, //$$ for FW
+            long[] StepTime_ns, double[] StepLevel_V, 
+            int    output_range                    = 10,
+            int    time_ns__code_duration          = 5,
+            double load_impedance_ohm              = 1e6,                       
+            double output_impedance_ohm            = 50,                        
+            double scale_voltage_10V_mode          = 0.765, //8.5/10, // 7.650/10        
+            double gain_voltage_10V_to_40V_mode    = 4, //3.64, // 4/7.650*6.95~=3.64
+            double out_scale                       = 1.0,
+            double out_offset                      = 0.0,
+            int num_repeat_pulses                  = 4   // repeat pulse
+        );
+
         // adda_trigger_pgu_output()
+        void adda_trigger_pgu_output(u32 slot, u32 spi_sel);
+
         // adda_wait_for_adc_done()
+        void adda_wait_for_adc_done(u32 slot, u32 spi_sel);
+
         // adda_trigger_pgu_off()
+        void adda_trigger_pgu_off(u32 slot, u32 spi_sel);
+
         // adda_read_adc_buf()
+        void adda_read_adc_buf(u32 slot, u32 spi_sel,
+            s32 len_adc_data = 600, string buf_time_str = "", string buf_dac0_str = "", string buf_dac1_str ="");
+
         // adda_compute_dft() //$$ new
+        void adda_compute_dft();
 
         // cmu functions:
         //... io control
@@ -541,7 +566,7 @@ namespace TopInstrument{
 
         }
 
-
+        // adda_init()
         public void adda_init(
             u32 slot, u32 spi_sel,
             s32 len_adc_data = 600, u32 adc_sampling_period_count = 21,
@@ -588,6 +613,106 @@ namespace TopInstrument{
             */
         }
 
+        // adda_setup_pgu_waveform()
+        public Tuple<long[], double[], double[]>  adda_setup_pgu_waveform(
+            u32 slot, u32 spi_sel, //$$ for FW
+            long[] StepTime_ns, double[] StepLevel_V, 
+            int    output_range                    = 10,
+            int    time_ns__code_duration          = 5,
+            double load_impedance_ohm              = 1e6,                       
+            double output_impedance_ohm            = 50,                        
+            double scale_voltage_10V_mode          = 0.765, //8.5/10, // 7.650/10        
+            double gain_voltage_10V_to_40V_mode    = 4, //3.64, // 4/7.650*6.95~=3.64
+            double out_scale                       = 1.0,
+            double out_offset                      = 0.0,
+            int num_repeat_pulses                  = 4   // repeat pulse
+        ) {
+            //
+            return Tuple.Create(StepTime_ns, StepLevel_V, StepLevel_V); // for test
+
+            /*
+            // DAC waveform command generation : time, dac0, dac1
+            Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
+            time_volt_dual_list = dac_gen_pulse_cmd(StepTime_ns, StepLevel_V);
+
+            // DAC0 FIFO data generation
+            var ret__dac0_fifo_dat = dac_gen_fifo_dat(
+                time_volt_dual_list.Item1, time_volt_dual_list.Item2,
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm,
+                scale_voltage_10V_mode, output_range, gain_voltage_10V_to_40V_mode, 
+                out_scale, out_offset
+            );  
+
+            // DAC1 FIFO data generation
+            var ret__dac1_fifo_dat = dac_gen_fifo_dat(
+                time_volt_dual_list.Item1, time_volt_dual_list.Item3,
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm,
+                scale_voltage_10V_mode, output_range, gain_voltage_10V_to_40V_mode, 
+                out_scale, out_offset
+            ); 
+
+            s32[] dac0_code_inc_value__s32_buf = ret__dac0_fifo_dat.Item1;
+            u32[] dac0_code_duration__u32_buf  = ret__dac0_fifo_dat.Item2;
+            s32[] dac1_code_inc_value__s32_buf = ret__dac1_fifo_dat.Item1;
+            u32[] dac1_code_duration__u32_buf  = ret__dac1_fifo_dat.Item2;
+
+            ////
+            // DAC pulse download
+            Console.WriteLine(">>>>>> DAC0 download");
+            dac_set_fifo_dat(
+                1, num_repeat_pulses,
+                dac0_code_inc_value__s32_buf, dac0_code_duration__u32_buf);
+            Console.WriteLine(">>>>>> DAC1 download");
+            dac_set_fifo_dat(
+                2, num_repeat_pulses,
+                dac1_code_inc_value__s32_buf, dac1_code_duration__u32_buf);
+            Console.WriteLine(">>>>>> download done!");
+
+            return time_volt_dual_list; // for log data
+            */
+        }
+
+        // adda_trigger_pgu_output()
+        public void adda_trigger_pgu_output(u32 slot, u32 spi_sel) {
+            //// trigger linked DAC wave and adc update 
+            //dac_set_trig(true, true, true); // (bool Ch1, bool Ch2, bool force_adc_trig = false) 
+        }
+
+        // adda_wait_for_adc_done()
+        public void adda_wait_for_adc_done(u32 slot, u32 spi_sel) {
+            //adc_update_check(); // check done without triggering // vs. adc_update() with triggering
+            //Console.WriteLine(">>>>>> ADC update done");
+
+        }
+
+        // adda_trigger_pgu_off()
+        public void adda_trigger_pgu_off(u32 slot, u32 spi_sel) {
+            //// clear DAC wave
+            //dac_reset_trig();
+            //Console.WriteLine(">>>>>> PGU trigger off");
+        }
+
+        // adda_read_adc_buf()
+        public void adda_read_adc_buf(u32 slot, u32 spi_sel, 
+            s32 len_adc_data = 600, string buf_time_str = "", string buf_dac0_str = "", string buf_dac1_str ="") {            
+            //// fifo data read 
+            //s32[] adc0_s32_buf = new s32[len_adc_data];
+            //s32[] adc1_s32_buf = new s32[len_adc_data];
+            //Console.WriteLine(">>>>>> ADC0 FIFO read");
+            //adc_get_fifo(0, len_adc_data, adc0_s32_buf); // (u32 ch, s32 num_data, s32[] buf_s32);
+            //Console.WriteLine(">>>>>> ADC1 FIFO read");
+            //adc_get_fifo(1, len_adc_data, adc1_s32_buf); // (u32 ch, s32 num_data, s32[] buf_s32);
+            //// log fifo data into a file
+            //Console.WriteLine(">>>>>> write ADC log file");
+            //adc_log("log__adc_buf__dac.py".ToCharArray(), 
+            //    len_adc_data, adc0_s32_buf, adc1_s32_buf,
+            //    buf_time_str, buf_dac0_str, buf_dac1_str); 
+        }
+
+        // adda_compute_dft() //$$ new
+        public void adda_compute_dft() {}
 
     }
 
