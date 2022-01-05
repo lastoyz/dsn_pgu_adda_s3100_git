@@ -81,13 +81,15 @@ namespace __test__
         //public static double[] StepLevel_V  = new double[] {  0.000,  0.000,  16.000, 16.000,  0.000,  0.000 }; // V
 
         //// case 10us : pr 10000ns, tr 1000ns, repeat 5, ADC 100ns 600 samples.
-        //public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-
-        //// case 100us : pr 100000ns, tr 10000ns, repeat 5, ADC 100ns 6000 samples.
-        public static long[]   StepTime_ns = new long[]   {   0, 10000, 20000, 30000, 40000, 50000, 70000, 80000, 100000 }; // ns
+        public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
         public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
+
+
+        //// case 100us : pr 100000ns, tr 10000ns, repeat 5, ADC 100ns 6000 samples.
+        //public static long[]   StepTime_ns = new long[]   {   0, 10000, 20000, 30000, 40000, 50000, 70000, 80000, 100000 }; // ns
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
 
         //// case 1000us : pr 1000000 ns, tr 100000ns, repeat 5, ADC 1us 6000 samples.
         //public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns

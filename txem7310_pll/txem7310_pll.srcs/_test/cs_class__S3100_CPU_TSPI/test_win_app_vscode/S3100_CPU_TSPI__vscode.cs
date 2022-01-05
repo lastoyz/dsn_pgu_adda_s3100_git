@@ -3488,16 +3488,18 @@ namespace TopInstrument
             double Devide_V = 1;
             if (output_range == 40)
             {
-                Devide_V = gain_voltage_10V_to_40V_mode;
+                Devide_V = gain_voltage_10V_to_40V_mode; //$$ must be 4
             }
 
             // apply load_impedance_ohm
-            scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
+            //$$scale_voltage_10V_mode = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
+            double scale_voltage_10V = scale_voltage_10V_mode * ((output_impedance_ohm + load_impedance_ohm) / load_impedance_ohm);
 
             // apply calibration to voltages
             for (int i = 0; i < level_volt_list.Length; i++) 
             {
-                level_volt_list[i]     = (level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V_mode / Devide_V; 
+                //$$level_volt_list[i]     = (level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V_mode / Devide_V; 
+                level_volt_list[i]     = (level_volt_list[i]* out_scale + out_offset) * scale_voltage_10V / Devide_V;
             }
 
             long[] num_steps_list = new long[time_ns_list.Length - 1]; //$$ <<<

@@ -74,13 +74,10 @@ namespace TopInstrument{
         bool IsTriggered(u32 slot, u32 spi_sel, u32 adrs, u32 mask = 0xFFFF_FFFF);
         u32  GetTriggerOutVector(u32 slot, u32 spi_sel, u32 adrs, u32 mask = 0xFFFF_FFFF);
 
-        u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray); // u8* --> u8[]
-        //public long WriteToPipeIn(uint adrs, ref byte[] data_bytearray, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
+        //u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray); // u8* --> u8[]
         u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
 
-        u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse); // u8* --> u8[]
-
-        //long ReadFromPipeOut(uint adrs, ref byte[] data_bytearray, uint dummy_leading_read_pulse = 0, int use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
+        //u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse); // u8* --> u8[]
         u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse = 0, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256); // for fifo trigger
 
    }
@@ -370,7 +367,7 @@ namespace TopInstrument{
         {
             return _read_spi_frame_32b_mask_check_(slot, spi_sel, adrs, mask);
         }
-        public u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray) // u8* --> u8[]
+        public u32  WriteToPipeIn__no_fifo (u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray) // u8* --> u8[]
         {
             // u32 data_B = 0;
             // u16 idx;
@@ -391,7 +388,6 @@ namespace TopInstrument{
                 _send_spi_frame_32b_mask_check_(slot, spi_sel, adrs, data_B, 0xFFFFFFFF);		// FIFO in
             }
             return num_bytes_b16;
-
         }
         public u32  WriteToPipeIn(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, s32 use_fifo = 1, s32 MAX_DEPTH_FIFO_32B = 256) // for fifo trigger
         {
@@ -488,7 +484,7 @@ namespace TopInstrument{
             }
             return ret;
         }
-        public u32  ReadFromPipeOut(u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse) // u8* --> u8[]
+        public u32  ReadFromPipeOut__no_fifo (u32 slot, u32 spi_sel, u32 adrs, u16 num_bytes_b16, u8[] data_bytearray, u8 dummy_leading_read_pulse) // u8* --> u8[]
         {
             // u32 data_B    = 0;
             // if (dummy_leading_read_pulse !=0 )
