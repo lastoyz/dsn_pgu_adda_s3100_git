@@ -329,11 +329,92 @@ namespace __test__
             
             //// cmu sub board control for [S3100-CMU-SIG]
             // to come
+            // CMU-SIG init
+            dev_itfc_dut.cmu_init_sig(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig); 
+            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
 
+            // test DACP_WI
+            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0xF35,1,1,1,1); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
+            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x3CA,1,0,1,0); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
+            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0xC35,0,1,0,1); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
+            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
+
+            // test EXT_WI
+            dev_itfc_dut.cmu_set_sig_extc(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  1); //(u32 val = 0)
+            dev_itfc_dut.cmu_set_sig_extc(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0); //(u32 val = 0)
+
+            // test FILT_WI
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x00,0x00,0xF); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x01,0x01,0xE); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x02,0x02,0xD); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x04,0x04,0xB); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x08,0x08,0x7); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x10,0x10,0xF); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x20,0x20,0xF); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
+            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
 
             //// cmu sub board control for [S3100-CMU-ANL]
-            // to come
-            
+            // CMU-ANL init
+            dev_itfc_dut.cmu_init_anl(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); 
+            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
+
+            // test RRIV_WI
+            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x0,0x0,0x0,0x0) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
+            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x0,0x0,0x1,0x8) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
+            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x0,0x1,0x2,0x4) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
+            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x1,0x2,0x4,0x2) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
+            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x2,0x0,0x8,0x1) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
+            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
+
+            // test DET_WI
+            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x0,0x0); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
+            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x0,0x1); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
+            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x1,0x2); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
+            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x2,0x1); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
+            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x0,0x2); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
+            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
+
+            // test AMP_WI
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x0,0x0,0x0); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x1,0x1,0x1); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x1,0x1,0x2); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x2,0x0,0x4); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x2,0x0,0x1); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x4,0x2,0x2); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x4,0x2,0x4); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ; //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
+
+            // test STAT_WO
+            Console.WriteLine(string.Format("CMU_ANL UNBAL   = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu_get_anl_stat__unbal(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)   ));
+            Console.WriteLine(string.Format("CMU_ANL DCBA_D  = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu_get_anl_stat__dcba_d(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)  ));
+            Console.WriteLine(string.Format("CMU_ANL DCBA_R  = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu_get_anl_stat__dcba_r(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)  ));
+
+            // test DACQ
+            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0)
+
+            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0,1,-1,0);
+            Console.WriteLine(string.Format("CMU_ANL DACQ_1  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  1) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_2  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  2) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_3  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  3) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_4  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  4) ));
+
+            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  5,10,-10,-5);
+            Console.WriteLine(string.Format("CMU_ANL DACQ_1  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  1) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_2  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  2) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_3  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  3) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_4  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  4) ));
+
+            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0)
+            Console.WriteLine(string.Format("CMU_ANL DACQ_1  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  1) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_2  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  2) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_3  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  3) ));
+            Console.WriteLine(string.Format("CMU_ANL DACQ_4  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  4) ));
+
             
             //// adc-dac ready
 

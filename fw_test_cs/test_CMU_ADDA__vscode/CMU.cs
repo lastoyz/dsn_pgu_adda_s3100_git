@@ -29,7 +29,9 @@ namespace TopInstrument{
 
 
     //// interface
-    interface I_CMU
+    interface I_CMU_proc {} // interface for GUI SW // to come
+    interface I_CMU_algo {} // interface for GMU algorithm // to come
+    interface I_CMU // CMU low-level functions // CMU-ADDA, CMU-SUB
     {
         //// for slot functions
         void scan_frame_slot(); // scan slot
@@ -96,16 +98,39 @@ namespace TopInstrument{
         u32 cmu__dev_is_SIG_board(u32 slot, u32 spi_sel);
         public u32 cmu__dev_is_ANL_board(u32 slot, u32 spi_sel);
         //
+        u32 cmu_init_sig(u32 slot, u32 spi_sel);
+        void cmu_set_sig_dacp(u32 slot, u32 spi_sel, 
+            u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0);
+        void cmu_set_sig_extc(u32 slot, u32 spi_sel,  u32 val = 0);
+        void cmu_set_sig_filt(u32 slot, u32 spi_sel, 
+            u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF);
+        //
+        u32 cmu_init_anl(u32 slot, u32 spi_sel);
+        void cmu_set_anl_rr_iv(u32 slot, u32 spi_sel, 
+            u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0);
+        void cmu_set_anl_det_mod(u32 slot, u32 spi_sel, 
+            u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0);
+        void cmu_set_anl_amp_gain(u32 slot, u32 spi_sel,
+            u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0);
+        u32 cmu_get_anl_stat__unbal(u32 slot, u32 spi_sel);
+        u32 cmu_get_anl_stat__dcba_d(u32 slot, u32 spi_sel);
+        u32 cmu_get_anl_stat__dcba_r(u32 slot, u32 spi_sel);
+        void cmu_set_anl_dacq(u32 slot, u32 spi_sel, 
+            float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0);
+        float cmu_get_anl_dacq(u32 slot, u32 spi_sel,
+            u32 ch_sel = 1);
+        //
     }
-    interface I_spio {}
-    interface I_clkd {}
+    interface I_spio {} // SPIO IC control
+    interface I_clkd {} // clock IC control
     interface I_dac {} // DAC IC control
-    interface I_adc {}
-    interface I_dft {}
+    interface I_adc {} // ADC IC control
+    interface I_dft {} // DFT calculation
     interface I_dacz {} // DAC pattern generation
-    interface I_printf {}
+    interface I_printf {} // for FW style printf
 
-
+    interface I_CMU_SIG {} // CMU-SIG board control
+    interface I_CMU_ANL {} // CMU-ANL board control
 
     //// some common class or enum or struct
 
@@ -758,7 +783,252 @@ namespace TopInstrument{
             }
             return ret;
         }
+        //
+        private void cmu__dev_set_cntl(u32 slot, u32 spi_sel,  u32 val) {
+            // | CMU   | CMU_WI        | 0x050      | wire_in_14 | Control for CMU-SUB.       | bit[0]=force_io_path_ANL       |
+            // |       |               |            |            |                            | bit[1]=force_io_path_SIG       |
+            // |       |               |            |            |                            | bit[2]=auto_sel_io_path        |
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__CMU_WI, val);
+        }
+        //
+        public u32 cmu_init_sig(u32 slot, u32 spi_sel)
+        {
+            u32 ret;
+            // set IO path 
+            cmu__dev_set_cntl(slot, spi_sel,  0x4); // for auto selection
+            // get status
+            ret = cmu__dev_get_stat(slot, spi_sel);
+            return ret;
+        }
+        public void cmu_set_sig_dacp(u32 slot, u32 spi_sel, 
+            u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0) 
+        {
+            // | DACP  | DACP_WI       | 0x064      | wire_in_19 | Control parallel DACP.     | bit[ 0]=o_DAC_D0               |
+            // |       |               |            |            |                            | bit[ 1]=o_DAC_D1               |
+            // |       |               |            |            |                            | bit[ 2]=o_DAC_D2               |
+            // |       |               |            |            |                            | bit[ 3]=o_DAC_D3               |
+            // |       |               |            |            |                            | bit[ 4]=o_DAC_D4               |
+            // |       |               |            |            |                            | bit[ 5]=o_DAC_D5               |
+            // |       |               |            |            |                            | bit[ 6]=o_DAC_D6               |
+            // |       |               |            |            |                            | bit[ 7]=o_DAC_D7               |
+            // |       |               |            |            |                            | bit[ 8]=o_DAC_D8               |
+            // |       |               |            |            |                            | bit[ 9]=o_DAC_D9               |
+            // |       |               |            |            |                            | bit[10]=o_DAC_D10              |
+            // |       |               |            |            |                            | bit[11]=o_DAC_D11              |
+            // |       |               |            |            |                            | bit[12]=o_DAC_MODE1            |
+            // |       |               |            |            |                            | bit[13]=o_DAC_MODE2            |
+            // |       |               |            |            |                            | bit[14]=o_DAC_POL              |
+            // |       |               |            |            |                            | bit[15]=o_DAC_SPDUP            |
 
+            u32 val = (spdup<<15) | (pol<<14) | (mode2<<13) | (mode1<<12) | (val_DACP_b12);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACP_WI, val);
+        }
+        public void cmu_set_sig_extc(u32 slot, u32 spi_sel,  u32 val = 0) {
+            // | EXT   | EXT_WI        | 0x068      | wire_in_1A | Control external IO.       | bit[ 0]=o_EXT_BIAS_ON          |
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__EXT_WI, val);
+        }
+        public void cmu_set_sig_filt(u32 slot, u32 spi_sel, 
+            u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF) 
+        {
+            // | FILT  | FILT_WI       | 0x06C      | wire_in_1B | Control Filter.            | bit[ 0]=o_T_0_1                |
+            // |       |               |            |            |                            | bit[ 1]=o_T_0_2                |
+            // |       |               |            |            |                            | bit[ 2]=o_T_0_4                |
+            // |       |               |            |            |                            | bit[ 3]=o_T_0_8                |
+            // |       |               |            |            |                            | bit[ 4]=o_T_0_16               |
+            // |       |               |            |            |                            | bit[ 5]=o_T_0_32               |
+            // |       |               |            |            |                            | bit[ 6]=NA                     |
+            // |       |               |            |            |                            | bit[ 7]=NA                     |
+            // |       |               |            |            |                            | bit[ 8]=o_T_90_1               |
+            // |       |               |            |            |                            | bit[ 9]=o_T_90_2               |
+            // |       |               |            |            |                            | bit[10]=o_T_90_4               |
+            // |       |               |            |            |                            | bit[11]=o_T_90_8               |
+            // |       |               |            |            |                            | bit[12]=o_T_90_16              |
+            // |       |               |            |            |                            | bit[13]=o_T_90_32              |
+            // |       |               |            |            |                            | bit[14]=NA                     |
+            // |       |               |            |            |                            | bit[15]=NA                     |
+            // |       |               |            |            |                            | bit[16]=o_6K_B                 |
+            // |       |               |            |            |                            | bit[17]=o_60K_B                |
+            // |       |               |            |            |                            | bit[18]=o_600K_B               |
+            // |       |               |            |            |                            | bit[19]=o_LPF_B                |
+            // |       |               |            |            |                            | bit[31:20]=NA                  |
+            u32 val = (val_FILT_b4<<16) | (val_T_90_b6<<8) | (val_T_0_b6);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__FILT_WI, val);
+        }
+        //
+        public u32 cmu_init_anl(u32 slot, u32 spi_sel) {
+            u32 ret;
+            //// set IO path 
+            cmu__dev_set_cntl(slot, spi_sel,  0x4); // for auto selection
+            // get status
+            ret = cmu__dev_get_stat(slot, spi_sel);
+            //// initialize DACQ
+            cmu__dacq_init(slot, spi_sel);
+            return ret;
+        }
+        public void cmu_set_anl_rr_iv(u32 slot, u32 spi_sel, 
+            u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) {
+            // | RRIV  | RRIV_WI       | 0x054      | wire_in_15 | Control RR and IV.         | bit[ 0]=o_F_R_1                |
+            // |       |               |            |            |                            | bit[ 1]=o_F_R_2                |
+            // |       |               |            |            |                            | bit[ 2]=o_A1_R_1               |          
+            // |       |               |            |            |                            | bit[ 3]=o_A1_R_2               |
+            // |       |               |            |            |                            | bit[ 4]=o_F_D_1                |
+            // |       |               |            |            |                            | bit[ 5]=o_F_D_2                | 
+            // |       |               |            |            |                            | bit[ 6]=NA                     |
+            // |       |               |            |            |                            | bit[ 7]=NA                     |
+            // |       |               |            |            |                            | bit[ 8]=o_R100                 |
+            // |       |               |            |            |                            | bit[ 9]=o_R1K                  |
+            // |       |               |            |            |                            | bit[10]=o_R10K                 |
+            // |       |               |            |            |                            | bit[11]=o_R100K                |
+            // |       |               |            |            |                            | bit[12]=o_R_0                  |
+            // |       |               |            |            |                            | bit[13]=o_R_1                  |
+            // |       |               |            |            |                            | bit[14]=o_R_2                  |
+            // |       |               |            |            |                            | bit[15]=o_R_3                  |
+            u32 val = (val_R_N_b4<<12) | (val_R_M_b4<<8) | (val_F_D_b2<<4) | (val_A1_R_b2<<2) | (val_F_R_b2);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__RRIV_WI, val);
+        }
+        public void cmu_set_anl_det_mod(u32 slot, u32 spi_sel, 
+            u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0) {
+            // | DET   | DET_WI        | 0x058      | wire_in_16 | Control PH det and MOD.    | bit[ 0]=o_A3_D1                |
+            // |       |               |            |            |                            | bit[ 1]=o_A3_D2                |
+            // |       |               |            |            |                            | bit[ 2]=o_A3_R1                |
+            // |       |               |            |            |                            | bit[ 3]=o_A3_R2                |
+            // |       |               |            |            |                            | bit[ 4]=o_PS_0_0_RLY           |
+            // |       |               |            |            |                            | bit[ 5]=o_PS90_0_RLY           |
+            u32 val = (val_PS_RLY_b2<<4) | (val_A3_R_b2<<2) | (val_A3_D_b2);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DET_WI, val);
+        }
+        public void cmu_set_anl_amp_gain(u32 slot, u32 spi_sel,
+            u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0) {
+            // | AMP   | AMP_WI        | 0x05C      | wire_in_17 | Control AMP gain.          | bit[ 0]=o_AF1_D                |
+            // |       |               |            |            |                            | bit[ 1]=o_AF2_D                |  
+            // |       |               |            |            |                            | bit[ 2]=o_AF4_D                |
+            // |       |               |            |            |                            | bit[ 3]=o_AM__1_D              |
+            // |       |               |            |            |                            | bit[ 4]=o_AM100_D              |
+            // |       |               |            |            |                            | bit[ 5]=NA                     |
+            // |       |               |            |            |                            | bit[ 6]=NA                     |
+            // |       |               |            |            |                            | bit[ 7]=NA                     |
+            // |       |               |            |            |                            | bit[ 8]=o_AF1_R                |
+            // |       |               |            |            |                            | bit[ 9]=o_AF2_R                |
+            // |       |               |            |            |                            | bit[10]=o_AF4_R                |
+            // |       |               |            |            |                            | bit[11]=o_AM__1_R              |
+            // |       |               |            |            |                            | bit[12]=o_AM100_R              |
+
+            u32 val = (val_AM_R_b2<<11) | (val_AF_R_b3<<8) | (val_AM_D_b2<<3) | (val_AF_D_b3);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__AMP_WI, val);
+        }
+        public u32 cmu_get_anl_stat__unbal(u32 slot, u32 spi_sel) {
+            return (cmu_get_anl_stat(slot, spi_sel) & 0x0001);
+        }
+        public u32 cmu_get_anl_stat__dcba_d(u32 slot, u32 spi_sel) {
+            return (cmu_get_anl_stat(slot, spi_sel)>>8) & 0x000F;
+        }
+        public u32 cmu_get_anl_stat__dcba_r(u32 slot, u32 spi_sel) {
+            return (cmu_get_anl_stat(slot, spi_sel)>>12) & 0x000F;
+        }
+        private s32 cmu__daq_conv_flt_s32(float val_flt) {
+            //// convert float to int (16-bits)
+            // note: range -10V ~ +10V in float 
+            s32 val_s32;
+            float val_flt_MAX = 10;
+            float val_flt_MIN = -10;
+
+            // limit
+            if (val_flt > val_flt_MAX) val_flt = val_flt_MAX;
+            if (val_flt < val_flt_MIN) val_flt = val_flt_MIN;
+
+            // pos scale = 10V / (2^15-1)
+            // neg scale = -10V / 2^15
+            float scale;
+            if (val_flt > 0) scale = (float)( (Math.Pow(2,15)-1)/10.0 );
+            else             scale = (float)(  Math.Pow(2,15)   /10.0 );
+
+            val_s32 = (s32)(val_flt * scale);
+            return val_s32;
+        }
+        private float cmu__daq_conv_s32_flt(s32 val_s32) {
+            //// convert int (16-bits) to float
+            // note: range -10V ~ +10V in float 
+            float val_flt;
+
+            // limit
+            s32 val_s32_MAX = (s32)(Math.Pow(2,15)-1);
+            s32 val_s32_MIN = (s32)(-Math.Pow(2,15));
+            if (val_s32 > val_s32_MAX) val_flt = val_s32_MAX;
+            if (val_s32 < val_s32_MIN) val_flt = val_s32_MIN;
+
+            // pos scale = 10V / (2^15-1)
+            // neg scale = -10V / 2^15
+            float scale;
+            if (val_s32 > 0) scale = (float)(10.0 / (Math.Pow(2,15)-1) );
+            else             scale = (float)(10.0 /  Math.Pow(2,15)    );
+
+            val_flt = (float)(val_s32 * scale);
+            return val_flt;
+        }
+        public void cmu_set_anl_dacq(u32 slot, u32 spi_sel, 
+            float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0) {
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_DIN21_WI | 0x02C      | wire_in_0B | Set DACQ_21 data.          | bit[31:16]=DAC2[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC1[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_DIN43_WI | 0x030      | wire_in_0C | Set DACQ_43 data.          | bit[31:16]=DAC4[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC3[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            
+            //// convert float to int (16-bits)
+            // note: range -10V ~ +10V in float // scale = 10V / (2^15-1)
+            s32 val_dac1_s32 = cmu__daq_conv_flt_s32(val_dac1_flt);
+            s32 val_dac2_s32 = cmu__daq_conv_flt_s32(val_dac2_flt);
+            s32 val_dac3_s32 = cmu__daq_conv_flt_s32(val_dac3_flt);
+            s32 val_dac4_s32 = cmu__daq_conv_flt_s32(val_dac4_flt);
+            // set dac integer values
+            u32 val_dac21 =  (u32)( ((val_dac2_s32&0xFFFF)<<16) | (val_dac1_s32&0xFFFF) );
+            u32 val_dac43 =  (u32)( ((val_dac4_s32&0xFFFF)<<16) | (val_dac3_s32&0xFFFF) );
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_DIN21_WI, val_dac21);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_DIN43_WI, val_dac43);
+
+            // trigger dac update
+            cmu__dacq_update(slot, spi_sel);
+        }
+        public float cmu_get_anl_dacq(u32 slot, u32 spi_sel,
+            u32 ch_sel = 1) {
+            // ch_sel : 1, 2, 3, 4
+
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_RDB21_WO | 0x0AC      | wireout_2B | Get DACQ_21 readback.      | bit[31:16]=DAC2[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC1[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_RDB43_WO | 0x0B0      | wireout_2C | Get DACQ_43 readback.      | bit[31:16]=DAC4[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC3[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+
+            float val_flt;
+            u32 ret_val_21 = GetWireOutValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_RDB21_WO);
+            u32 ret_val_43 = GetWireOutValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_RDB43_WO);
+            s16 ret_val_s16;
+            s32 ret_val_s32;
+            if      (ch_sel == 1) ret_val_s16 = (s16)((ret_val_21>> 0)&0xFFFF);
+            else if (ch_sel == 2) ret_val_s16 = (s16)((ret_val_21>>16)&0xFFFF);
+            else if (ch_sel == 3) ret_val_s16 = (s16)((ret_val_43>> 0)&0xFFFF);
+            else if (ch_sel == 4) ret_val_s16 = (s16)((ret_val_43>>16)&0xFFFF);
+            else                  ret_val_s16 = 0;
+            //
+            ret_val_s32 = (s32)ret_val_s16;
+            val_flt = cmu__daq_conv_s32_flt(ret_val_s32);
+            return val_flt;
+        }
+        //
     }
 
 
@@ -884,6 +1154,7 @@ namespace TopInstrument{
         }        
 
     }
+
     public partial class CMU : I_dac 
     {
         //
@@ -1346,6 +1617,7 @@ namespace TopInstrument{
         }
         //
     }
+
     public partial class CMU : I_clkd 
     {
         //
@@ -2304,5 +2576,87 @@ namespace TopInstrument{
         }
         //
     }
+
+    public partial class CMU : I_CMU_SIG {}
+
+    public partial class CMU : I_CMU_ANL 
+    {
+        private u32 cmu__dacq_init(u32 slot, u32 spi_sel) {
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_WI       | 0x028      | wire_in_0A | Control DACQ.              | bit[ 0]=enable                 | 
+            // |       |               |            |            |                            | bit[31:16]=confuration         |
+            // |       |               |            |            |                            | conf=0xFF0B for +/-10V scale   |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_WO       | 0x0A8      | wireout_2A | Return DACQ status.        | bit[ 0]=ready                  | 
+            // |       |               |            |            |                            | bit[ 1]=done_init              |  
+            // |       |               |            |            |                            | bit[ 2]=done_update            |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_TI       | 0x128      | trig_in_4A | Trigger DACQ.              | bit[ 0]=trig_reset             | 
+            // |       |               |            |            |                            | bit[ 1]=trig_init              |  
+            // |       |               |            |            |                            | bit[ 2]=trig_update            |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_TO       | 0x1A8      | trigout_6A | Check DACQ done.           | bit[ 0]=done_reset             | 
+            // |       |               |            |            |                            | bit[ 1]=done_init              |  
+            // |       |               |            |            |                            | bit[ 2]=done_update            |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            SetWireInValue(slot, spi_sel, 
+                (u32)__enum_EPA.EP_ADRS__DACQ_WI,0xFF0B0001);
+            return cmu__dacq_trig_check(slot, spi_sel,  1);
+        }
+        private u32 cmu__dacq_trig_check(u32 slot, u32 spi_sel, 
+            s32 bit_loc) 
+        {
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_TI       | 0x128      | trig_in_4A | Trigger DACQ.              | bit[ 0]=trig_reset             | 
+            // |       |               |            |            |                            | bit[ 1]=trig_init              |  
+            // |       |               |            |            |                            | bit[ 2]=trig_update            |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_TO       | 0x1A8      | trigout_6A | Check DACQ done.           | bit[ 0]=done_reset             | 
+            // |       |               |            |            |                            | bit[ 1]=done_init              |  
+            // |       |               |            |            |                            | bit[ 2]=done_update            |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_WO       | 0x0A8      | wireout_2A | Return DACQ status.        | bit[ 0]=ready                  | 
+            // |       |               |            |            |                            | bit[ 1]=done_init              |  
+            // |       |               |            |            |                            | bit[ 2]=done_update            |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            ActivateTriggerIn(slot, spi_sel, 
+                (u32)__enum_EPA.EP_ADRS__DACQ_TI, bit_loc); // (u32 adrs, s32 loc_bit)
+            //# check done
+            u32 cnt_done = 0    ;
+            //u32 MAX_CNT  = 20000; 
+            bool flag_done;
+            while (true) {
+                flag_done = IsTriggered(slot, spi_sel, 
+                    (u32)__enum_EPA.EP_ADRS__DACQ_TO, (u32)(0x1<<bit_loc));
+                if (flag_done==true)
+                    break;
+                cnt_done += 1;
+                if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+                    break;
+            }
+            u32 ret = GetWireOutValue(slot, spi_sel, 
+                (u32)__enum_EPA.EP_ADRS__DACQ_WO);
+            return ret;
+        }        
+        private u32 cmu_get_anl_stat(u32 slot, u32 spi_sel) {
+            // | STAT  | STAT_WO       | 0x0DC      | wireout_37 | Return status.             | bit[ 0]=i_UNBAL                |
+            // |       |               |            |            |                            | bit[7:2]=NA                    |
+            // |       |               |            |            |                            | bit[ 8]=i_A_D                  |
+            // |       |               |            |            |                            | bit[ 9]=i_B_D                  |
+            // |       |               |            |            |                            | bit[10]=i_C_D                  |
+            // |       |               |            |            |                            | bit[11]=i_D_D                  |
+            // |       |               |            |            |                            | bit[12]=i_A_R                  |
+            // |       |               |            |            |                            | bit[13]=i_B_R                  |
+            // |       |               |            |            |                            | bit[14]=i_C_R                  |
+            // |       |               |            |            |                            | bit[15]=i_D_R                  |
+            return GetWireOutValue(slot, spi_sel, 
+                (u32)__enum_EPA.EP_ADRS__STAT_WO);
+        }
+        private u32 cmu__dacq_update(u32 slot, u32 spi_sel) {
+            return cmu__dacq_trig_check(slot, spi_sel,  2);
+        }
+        //
+    }
+
 
 }
