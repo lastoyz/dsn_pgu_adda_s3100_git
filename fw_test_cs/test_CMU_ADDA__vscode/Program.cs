@@ -50,10 +50,10 @@ namespace __test__
 
         //public static string test_host_ip = "192.168.100.51"; // S3100-CMU_BD1
         //public static string test_host_ip = "192.168.100.52"; // S3100-CMU_BD2
-        public static string test_host_ip = "192.168.100.53"; // S3100-CMU_BD3
+        //public static string test_host_ip = "192.168.100.53"; // S3100-CMU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        //public static string test_host_ip = "192.168.100.143"; // test dummy ip
+        public static string test_host_ip = "192.168.100.143"; // S3100-CPU-BASE test port
 
         //// S3100 frame test slot selection:
         // loc_slot bit 0  = slot location 0
@@ -63,7 +63,7 @@ namespace __test__
 
         //public static uint test_loc_slot = 0x0004; // slot location 2
         //public static uint test_loc_slot = 0x0008; // slot location 3
-        public static uint test_loc_slot = 0x0010; // slot location 4
+        //public static uint test_loc_slot = 0x0010; // slot location 4
         //public static uint test_loc_slot = 0x0040; // slot location 6
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0200; // slot location 9
@@ -74,7 +74,7 @@ namespace __test__
         // loc_spi_group bit 0 = mother board spi M0
         // loc_spi_group bit 1 = mother board spi M1
         // loc_spi_group bit 2 = mother board spi M2
-        public static uint test_loc_spi_group = 0x0001; // spi M0 // for GNDU, SMU
+        //public static uint test_loc_spi_group = 0x0001; // spi M0 // for GNDU, SMU
         //public static uint test_loc_spi_group = 0x0002; // spi M1 // reserved or test
         //public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU, ADDA
         
@@ -90,11 +90,11 @@ namespace __test__
         
         //// HVSMU
         //public static uint test_loc_slot__HVSMU = (0x1<< 2); // slot location 2
-        public static uint test_loc_slot__HVSMU = (0x1<< 3); // slot location 3
+        //public static uint test_loc_slot__HVSMU = (0x1<< 3); // slot location 3
         //public static uint test_loc_slot__HVSMU = (0x1<< 4); // slot location 4
         //public static uint test_loc_slot__HVSMU = (0x1<< 6); // slot location 6
         //public static uint test_loc_slot__HVSMU = (0x1<< 9); // slot location 9
-        public static uint test_loc_spi_group__HVSMU = 0x0001; // spi M0 // for GNDU, SMU
+        //public static uint test_loc_spi_group__HVSMU = 0x0001; // spi M0 // for GNDU, SMU
 
         //// GNDU
         //public static uint test_loc_slot__GNDU = (0x1<< 12); // slot location 12
@@ -232,12 +232,14 @@ namespace __test__
 
             // eeprom test on slot 3  = _SPI_SEL_SLOT(2), HVSMU
             // eeprom test on slot 0  = _SPI_SEL_SLOT(-1), HVSMU
+            // eeprom test on slot 4  = _SPI_SEL_SLOT(3), CMU-SUB
+            // eeprom test on slot 5  = _SPI_SEL_SLOT(4), CMU-SUB
             // eeprom test on slot 12 = _SPI_SEL_SLOT(11), CMU-ADDA
-            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(11);
+            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(4);
             //u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT_EMUL();
 
-            //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_SMU();
-            u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_CMU();
+            //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_SMU(); // M0
+            u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_CMU(); // M2
             //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_EMUL();
 
             // init eeprom
@@ -292,13 +294,51 @@ namespace __test__
 
             // test cmu functions :
             //   test spio, clkd, dac, adc, dft
-            u32 slot_code__adda   = dev._SPI_SEL_SLOT(11);
-            u32 spi_ch_code__adda = dev._SPI_SEL_CH_CMU();
-           
+            u32 slot_sel_code__cmu_anl = dev._SPI_SEL_SLOT(3); // slot 4
+            u32 spi_chnl_code__cmu_anl = dev._SPI_SEL_CH_CMU();
+            u32 slot_sel_code__cmu_sig = dev._SPI_SEL_SLOT(4); // slot 5
+            u32 spi_chnl_code__cmu_sig = dev._SPI_SEL_CH_CMU();
+            u32 slot_sel_code__adda = dev._SPI_SEL_SLOT(11); // slot 12
+            u32 spi_chnl_code__adda = dev._SPI_SEL_CH_CMU();
+
+            //// cmu sub board ID check
+            // note : board class ID[3:0]
+            //  [S3100-CMU-SIG] = 0x8
+            //  [S3100-CMU-ANL] = 0x9
+            Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu__dev_get_fid   (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
+            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
+                dev_itfc_dut.cmu__dev_get_temp_C(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
+            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
+            if (dev_itfc_dut.cmu__dev_is_SIG_board(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig)==1)
+                Console.WriteLine("S3100-CMU-SIG is found.");
+            else 
+                Console.WriteLine("S3100-CMU-SIG is missing.");
+            //
+            Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu__dev_get_fid   (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
+            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
+                dev_itfc_dut.cmu__dev_get_temp_C(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
+            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
+                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
+            if (dev_itfc_dut.cmu__dev_is_ANL_board(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)==1)
+                Console.WriteLine("S3100-CMU-ANL is found.");
+            else 
+                Console.WriteLine("S3100-CMU-ANL is missing.");
+            
+            //// cmu sub board control for [S3100-CMU-SIG]
+            // to come
+
+
+            //// cmu sub board control for [S3100-CMU-ANL]
+            // to come
+            
+            
             //// adc-dac ready
 
             // adc-dac power on
-            dev_itfc_dut.adda_pwr_on(slot_code__adda, spi_ch_code__adda);
+            dev_itfc_dut.adda_pwr_on(slot_sel_code__adda, spi_chnl_code__adda);
 
             // adc setup
             s32 len_adc_data              = __test__.Program.len_adc_data;
@@ -315,7 +355,7 @@ namespace __test__
             int    Sink_sel_1                    = 0;           // for BD2
             int    Sink_sel_2                    = 0;           // for BD2
             //
-            dev_itfc_dut.adda_init(slot_code__adda, spi_ch_code__adda, 
+            dev_itfc_dut.adda_init(slot_sel_code__adda, spi_chnl_code__adda, 
                 len_adc_data, adc_sampling_period_count,
                 time_ns__dac_update         ,
                 DAC_full_scale_current__mA_1,
@@ -343,7 +383,7 @@ namespace __test__
             double out_scale                       = 1.0;
             double out_offset                      = 0.0;
             //
-            time_volt_dual_list = dev_itfc_dut.adda_setup_pgu_waveform(slot_code__adda, spi_ch_code__adda, 
+            time_volt_dual_list = dev_itfc_dut.adda_setup_pgu_waveform(slot_sel_code__adda, spi_chnl_code__adda, 
                 StepTime_ns, StepLevel_V,
                 // setup dac output
                 output_range                ,
@@ -362,19 +402,19 @@ namespace __test__
             string buf_dac1_str     = String.Join(", ", time_volt_dual_list.Item3);
 
             // adda_trigger_pgu_output()
-            dev_itfc_dut.adda_trigger_pgu_output(slot_code__adda, spi_ch_code__adda);
+            dev_itfc_dut.adda_trigger_pgu_output(slot_sel_code__adda, spi_chnl_code__adda);
 
 
             //// adc buffer read
 
             // adda_wait_for_adc_done()
-            dev_itfc_dut.adda_wait_for_adc_done(slot_code__adda, spi_ch_code__adda);
+            dev_itfc_dut.adda_wait_for_adc_done(slot_sel_code__adda, spi_chnl_code__adda);
 
             // adda_trigger_pgu_off()
-            dev_itfc_dut.adda_trigger_pgu_off(slot_code__adda, spi_ch_code__adda);
+            dev_itfc_dut.adda_trigger_pgu_off(slot_sel_code__adda, spi_chnl_code__adda);
 
             // adda_read_adc_buf()
-            dev_itfc_dut.adda_read_adc_buf(slot_code__adda, spi_ch_code__adda, 
+            dev_itfc_dut.adda_read_adc_buf(slot_sel_code__adda, spi_chnl_code__adda, 
                 len_adc_data); //(len_adc_data, buf_dac_time_str, buf_dac0_str, buf_dac1_str);
             
 
@@ -385,7 +425,7 @@ namespace __test__
 
 
             //// finish test 
-            dev_itfc_dut.adda_pwr_off(slot_code__adda, spi_ch_code__adda);
+            dev_itfc_dut.adda_pwr_off(slot_sel_code__adda, spi_chnl_code__adda);
 
 
             // test smu functions :
