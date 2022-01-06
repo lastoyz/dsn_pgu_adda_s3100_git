@@ -17,8 +17,8 @@ namespace __test__
         //$$ note: IP ... setup for own LAN port test //{
         
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
-        public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
-        public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
+        //public static uint test_loc_slot = 0x0000; // slot dummy // for self LAN port test
+        //public static uint test_loc_spi_group = 0x0000; // spi dummy outside  // for self LAN port test
 
         //}
 
@@ -32,10 +32,10 @@ namespace __test__
 
         //public static string test_host_ip = "192.168.100.51"; // S3100-CMU-ADDA_BD1
         //public static string test_host_ip = "192.168.100.52"; // S3100-CMU-ADDA_BD2
-        public static string test_host_ip = "192.168.100.53"; // S3100-CMU-ADDA_BD3
+        //public static string test_host_ip = "192.168.100.53"; // S3100-CMU-ADDA_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        //public static string test_host_ip = "192.168.100.143"; // test dummy ip for S3100-CPU-BASE
+        public static string test_host_ip = "192.168.100.143"; // test dummy ip for S3100-CPU-BASE
 
         //// S3100 frame slot selection:
         // loc_slot bit 0  = slot location 0`
@@ -49,7 +49,7 @@ namespace __test__
         //public static uint test_loc_slot = 0x0100; // slot location 8
         //public static uint test_loc_slot = 0x0200; // slot location 9
         //public static uint test_loc_slot = 0x0400; // slot location 10
-        //public static uint test_loc_slot = 0x1000; // slot location 12
+        public static uint test_loc_slot = 0x1000; // slot location 12
         
         //// frame spi channel selection:
         // loc_spi_group bit 0 = mother board spi M0
@@ -57,7 +57,7 @@ namespace __test__
         // loc_spi_group bit 2 = mother board spi M2
         //public static uint test_loc_spi_group = 0x0001; // spi M0 // for GNDU
         //public static uint test_loc_spi_group = 0x0002; // spi M1 // for SMU
-        //public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
+        public static uint test_loc_spi_group = 0x0004; // spi M2 // for PGU CMU
 
 
         ////// test conditions:
@@ -192,14 +192,18 @@ namespace __test__
         //public static double amplitude  = 4.0; // no distortion
         public static double amplitude  = 1.0; // test 1V amp
         //
-        public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
-        public static u32 adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
-        public static s32 len_adc_data         = 1200;
-        public static double time_ns__dac_update    = 5; // 200MHz dac update
-        public static s32    time_ns__code_duration = 5; // 5ns = 200MHz
-        public static double load_impedance_ohm              = 1e6; // 1e6 vs 50
+        //public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
+        public static u32    adc_base_freq_MHz         = 210      ; // MHz // 210MHz vs 189MHz
+        //public static u32 adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
+        //public static u32 adc_sampling_period_count = 21  ; // 189MHz/21  =  9 Msps 
+        public static u32 adc_sampling_period_count = 21  ; // 210MHz/21  =  10 Msps 
+        //public static u32 adc_sampling_period_count = 421  ;// 210MHz/421  = 498.812352 ksps //$$  1.18764846kHz image with 0.5MHz wave
+        public static s32 len_adc_data         = 1800; // 600 or 1200 or 1800
+        public static double time_ns__dac_update    = 10; // 5, 200MHz dac update // or 10
+        public static s32    time_ns__code_duration = 10; // 5ns = 200MHz // or 10
+        public static double load_impedance_ohm     = 1e6; // 1e6 vs 50
         public static s32    output_range      = 10; // 10 or 40  
-        public static s32    num_repeat_pulses = 1000;
+        public static s32    num_repeat_pulses = 1500; // 5 or 1000 or 1500
 
         //// case 5MHz undersampling : 5ns dac update, 5ns code duration, range 10V, repeat 1000, adc 189MHz/38 1200 samples.
         // 189MHz/38   =  4.973684 Msps //$$ 26.315789kHz image with 5MHz wave
@@ -224,17 +228,18 @@ namespace __test__
         //public static double[] StepLevel_V  = new double[] {  0.000,  0.000,  16.000, 16.000,  0.000,  0.000 }; // V
 
         //// case 10us : pr 10000ns, tr 1000ns, repeat 5, ADC 100ns 600 samples.
-        //public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+        public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
 
         //// case 100us : pr 100000ns, tr 10000ns, repeat 5, ADC 100ns 6000 samples.
         //public static long[]   StepTime_ns = new long[]   {   0, 10000, 20000, 30000, 40000, 50000, 70000, 80000, 100000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
 
         //// case 1000us : pr 1000000 ns, tr 100000ns, repeat 5, ADC 1us 6000 samples.
-        public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
+        //public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 2.0, 2.0, 4.0, 4.0, -4.0, -4.0,   0.0 }; // V
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 3.0, 3.0, 6.0, 6.0, -6.0, -6.0,   0.0 }; // V
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 5.0, 5.0, 10.0, 10.0, -10.0, -10.0,   0.0 }; // V
         //
@@ -308,11 +313,16 @@ namespace __test__
         //int    num_repeat_block_coef     =   2    ;
         //int    idx_offset_adc_data       = 100;
 
-        public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
-        //public statuc int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
-        public static int    len_dft_coef              = 378    ; // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
-        public static int    num_repeat_block_coef     =   2    ;
-        public static int    idx_offset_adc_data       = 100;
+        //public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+        public static int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
+        //public static int    len_dft_coef              = 378    ; // (189MHz/379)/(500kHz-189MHz/379)=378  // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
+        //public static int    len_dft_coef              = 420    ; // (210MHz/421)/(500kHz-210MHz/421) = 420
+        //public static int    len_dft_coef              = 18    ; // 20*3    ; //$$ (1 / (500 kHz)) * (9 MHz) = 18
+        public static int    len_dft_coef              = 20    ; // 20*3    ; //$$ (1 / (500 kHz)) * (10 MHz) = 20
+        //public static int    num_repeat_block_coef     =   2    ;
+        public static int    num_repeat_block_coef     =   3    ;
+        //public static int    idx_offset_adc_data       = 100;
+        public static int    idx_offset_adc_data       = 5;
 
 
 

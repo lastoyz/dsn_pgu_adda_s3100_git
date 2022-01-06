@@ -114,7 +114,7 @@ namespace __test__
         public static s32 len_adc_data        = 600  ; // adc samples
 
         public static int num_repeat_pulses = 5;
-        public static int    output_range   = 40; // 10 or 40  
+        public static int    output_range   = 10; // 10 or 40  
             
 
         //// case 1us : pr 1000ns, tr 100ns, repeat 50, ADC 100ns 600 samples.
@@ -124,7 +124,8 @@ namespace __test__
         //// case 10us : pr 10000ns, tr 1000ns, repeat 5, ADC 100ns 600 samples.
         public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
         //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 1.7, 1.7, 3.4, 3.4, -3.4, -3.4,   0.0 }; // V
 
         //// case 100us : pr 100000ns, tr 10000ns, repeat 5, ADC 100ns 6000 samples.
         //public static long[]   StepTime_ns = new long[]   {   0, 10000, 20000, 30000, 40000, 50000, 70000, 80000, 100000 }; // ns
@@ -427,8 +428,8 @@ namespace __test__
             // dac setup
             //double time_ns__dac_update         = 5; // 200MHz dac update
             double time_ns__dac_update           = 10; // 100MHz dac update
-            double DAC_full_scale_current__mA_1  = 25.5; //25.55; // 25.50;       // for BD2
-            double DAC_full_scale_current__mA_2  = 25.3; //25.36; // 25.45;       // for BD2
+            double DAC_full_scale_current__mA_1  = 25.5; //25.5; // 25.50;       // for BD2
+            double DAC_full_scale_current__mA_2  = 25.5; //25.3; // 25.45;       // for BD2
             float  DAC_offset_current__mA_2      = (float)0.00; // (float)0.79; // for BD2 // 0~2mA
             float  DAC_offset_current__mA_1      = (float)0.00; // (float)0.44; // for BD2 // 0~2mA
             int    N_pol_sel_1                   = 0;           // 0;           // for BD2
@@ -456,10 +457,10 @@ namespace __test__
 
             // adda_setup_pgu_waveform()
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
-            int    time_ns__code_duration          = 5;
+            int    time_ns__code_duration          = 10; // 5 or 10
             double load_impedance_ohm              = 1e6;
             double output_impedance_ohm            = 50;
-            double scale_voltage_10V_mode          = 0.765;
+            double scale_voltage_10V_mode          = 0.85; // 0.765
             double gain_voltage_10V_to_40V_mode    = 4;
             double out_scale                       = 1.0;
             double out_offset                      = 0.0;
