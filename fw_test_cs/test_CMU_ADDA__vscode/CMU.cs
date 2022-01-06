@@ -1547,8 +1547,11 @@ namespace TopInstrument{
             double R_FS__ohm = 10e3; // from schematic
             int DAC_gain = Convert.ToInt32((I_FS__mA / 1000 * R_FS__ohm - 86.6) / 0.220 + 0.5);
             // ((25.5 / 1000 * 10e3 - 86.6) / 0.220 + 0.5) = 765.954545455 ~ 0x2FD
+            if (DAC_gain > 0x3FF) {
+                DAC_gain = 0x3FF; // max
+            }
             //// for firmware
-            u32 val       = (u32)DAC_gain;
+            u32 val       = (u32)((DAC_gain<<16) + DAC_gain);
             u32 val1_high;
             u32 val1_low;
             u32 val0_high;
@@ -1591,7 +1594,7 @@ namespace TopInstrument{
             // compose
             int DAC_offset = (N_pol_sel << 15) + (Sink_sel << 14) + DAC_offset_current__code;
             //// for firmware
-            u32 val       = (u32)DAC_offset;
+            u32 val       = (u32)((DAC_offset<<16) + DAC_offset);
             u32 val1_high;
             u32 val1_low;
             u32 val0_high;

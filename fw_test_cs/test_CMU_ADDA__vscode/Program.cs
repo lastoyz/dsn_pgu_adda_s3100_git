@@ -427,14 +427,14 @@ namespace __test__
             // dac setup
             //double time_ns__dac_update         = 5; // 200MHz dac update
             double time_ns__dac_update           = 10; // 100MHz dac update
-            double DAC_full_scale_current__mA_1  = 25.50;       // for BD2
-            double DAC_full_scale_current__mA_2  = 25.45;       // for BD2
-            float  DAC_offset_current__mA_1      = (float)0.44; // for BD2
-            float  DAC_offset_current__mA_2      = (float)0.79; // for BD2
-            int    N_pol_sel_1                   = 0;           // for BD2
-            int    N_pol_sel_2                   = 0;           // for BD2
-            int    Sink_sel_1                    = 0;           // for BD2
-            int    Sink_sel_2                    = 0;           // for BD2
+            double DAC_full_scale_current__mA_1  = 25.5; //25.55; // 25.50;       // for BD2
+            double DAC_full_scale_current__mA_2  = 25.3; //25.36; // 25.45;       // for BD2
+            float  DAC_offset_current__mA_2      = (float)0.00; // (float)0.79; // for BD2 // 0~2mA
+            float  DAC_offset_current__mA_1      = (float)0.00; // (float)0.44; // for BD2 // 0~2mA
+            int    N_pol_sel_1                   = 0;           // 0;           // for BD2
+            int    N_pol_sel_2                   = 0;           // 0;           // for BD2
+            int    Sink_sel_1                    = 0;           // 0;           // for BD2
+            int    Sink_sel_2                    = 0;           // 0;           // for BD2
             //
             dev_itfc_dut.adda_init(slot_sel_code__adda, spi_chnl_code__adda, 
                 len_adc_data, adc_sampling_period_count,
