@@ -23,15 +23,244 @@ namespace __test__
     using BOOL = System.Boolean;  
 
     //// assign DUT
-    //using DUT = TopInstrument.SMU;
-    //using I_DUT = TopInstrument.I_SMU;
+    
     using DUT = TopInstrument.CMU;
     using I_DUT = TopInstrument.I_CMU;
+    
     //using DUT = TopInstrument.PGU;
     //using I_DUT = TopInstrument.I_PGU;
 
-    public class Program
+    //using c_test_condition = c_test_case__pgu; // case 1. pgu pulse 
+    using c_test_condition = c_test_case__cmu_normal_sample; // case 2. cmu 500kHz normal sampling
+    //using c_test_condition = c_test_case__cmu_under_sample; // case 3. cmu 500kHz undersampling
+
+
+    //// test condition
+
+    public enum __enum_TEST_CASE {
+        __PGU = 1000,
+        __CMU_NORMAL_SAMPLE = 2000,
+        __CMU_UNDER_SAMPLE  = 3000,
+        TEST_CASE__Unknown = -1
+    }
+
+
+    public class c_test_case__pgu {
+        // test control parameters
+        public static int _test_case__ID  = (int)__enum_TEST_CASE.__PGU;
+        //
+        // DAC setup
+        public static double time_ns__dac_update            = 10; // 5ns, 200MHz dac update // or 10ns
+        public static int    time_ns__code_duration         = 10; // 5 or 10
+        public static double load_impedance_ohm             = 1e6;
+        public static double output_impedance_ohm           = 50;
+        public static double scale_voltage_10V_mode         = 0.85; // 0.765
+        public static double gain_voltage_10V_to_40V_mode   = 4;
+        public static double out_scale                      = 1.0;
+        public static double out_offset_V                   = 0.0;
+        public static int    output_range_V                 = 10; // 10 or 40  
+        // DAC ic setup
+        public static double DAC_full_scale_current__mA_1   = 25.50;       // 
+        public static double DAC_full_scale_current__mA_2   = 25.50;       // 
+        public static float DAC_offset_current__mA_1        = (float)0.00; // 0~2mA
+        public static float DAC_offset_current__mA_2        = (float)0.00; // 0~2mA
+        public static s32   N_pol_sel_1                     = 0;           // 
+        public static s32   N_pol_sel_2                     = 0;           // 
+        public static s32   Sink_sel_1                      = 0;           // 
+        public static s32   Sink_sel_2                      = 0;           // 
+        // repeat pattern
+        public static int num_repeat_pulses = 1500; // for undersampling
+
+
+        //// for pgu wave info
+
+        // case 10us : pr 10000ns, tr 1000ns, repeat 5, ADC 100ns 600 samples.
+        public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 1.7, 1.7, 3.4, 3.4, -3.4, -3.4,   0.0 }; // V
+
+
+        //// for cmu wave info
+        public static double test_freq_kHz           = 500;
+        public static int    len_dac_command_points  = 200;
+        public static double amplitude               = 1.0;
+        //public static double phase_diff = Math.PI/2;  //$$ emulate inductor load in IV balanced circuit (adc0 = voltage, adc1 = -currrent)
+        //public static double phase_diff = Math.PI;    //$$ emulate resistor load in IV balanced circuit
+        public static double phase_diff = -Math.PI/2;   //$$ emulate capacitor   load in IV balanced circuit
+        //public static double phase_diff = 0;          //$$ emulate neg resistor  load in IV balanced circuit
+
+        // ADC setup
+        public static u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps // 100ns
+        //public static u32 adc_sampling_period_count = 210   ; // 210MHz/210   =  1000 ksps // 1us
+        //public static u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
+        //public static u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps // 10ms
+        //public static u32 adc_sampling_period_count = 421   ; // (210MHz/421)/(500kHz-210MHz/421) = 420 // for undersampling 
+        
+        public static s32 len_adc_data        = 1800  ; // adc samples
+        
+        public static u32    adc_base_freq_MHz         = 210      ; // MHz // 210MHz vs 189MHz
+        //public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
+        
+        //// for DFT computation
+
+        //public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+        public static int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
+
+        //public static int    len_dft_coef              = 420    ; // (210MHz/421)/(500kHz-210MHz/421) = 420 // for undersampling 
+        public static int    len_dft_coef              = 20    ; // (1 / (500 kHz)) * (10 MHz) = 20 // for normal sampling
+
+        public static int    num_repeat_block_coef     =   3    ;
+
+        //public static int    idx_offset_adc_data       = 100;
+        public static int    idx_offset_adc_data       = 5;
+    }
+    public class c_test_case__cmu_normal_sample {
+        // test control parameters
+        public static int _test_case__ID  = (int)__enum_TEST_CASE.__CMU_NORMAL_SAMPLE;
+        //
+        // DAC setup
+        public static double time_ns__dac_update            = 10; // 5ns, 200MHz dac update // or 10ns
+        public static int    time_ns__code_duration         = 10; // 5 or 10
+        public static double load_impedance_ohm             = 1e6;
+        public static double output_impedance_ohm           = 50;
+        public static double scale_voltage_10V_mode         = 0.85; // 0.765
+        public static double gain_voltage_10V_to_40V_mode   = 4;
+        public static double out_scale                      = 1.0;
+        public static double out_offset_V                   = 0.0;
+        public static int    output_range_V                 = 10; // 10 or 40  
+        // DAC ic setup
+        public static double DAC_full_scale_current__mA_1   = 25.50;       // 
+        public static double DAC_full_scale_current__mA_2   = 25.50;       // 
+        public static float DAC_offset_current__mA_1        = (float)0.00; // 0~2mA
+        public static float DAC_offset_current__mA_2        = (float)0.00; // 0~2mA
+        public static s32   N_pol_sel_1                     = 0;           // 
+        public static s32   N_pol_sel_2                     = 0;           // 
+        public static s32   Sink_sel_1                      = 0;           // 
+        public static s32   Sink_sel_2                      = 0;           // 
+        // repeat pattern
+        public static int num_repeat_pulses = 1500; // for undersampling
+
+
+        //// for pgu wave info
+
+        // case 10us : pr 10000ns, tr 1000ns, repeat 5, ADC 100ns 600 samples.
+        public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 1.7, 1.7, 3.4, 3.4, -3.4, -3.4,   0.0 }; // V
+
+
+        //// for cmu wave info
+        public static double test_freq_kHz           = 500;
+        public static int    len_dac_command_points  = 200;
+        public static double amplitude               = 1.0;
+        //public static double phase_diff = Math.PI/2;  //$$ emulate inductor load in IV balanced circuit (adc0 = voltage, adc1 = -currrent)
+        //public static double phase_diff = Math.PI;    //$$ emulate resistor load in IV balanced circuit
+        public static double phase_diff = -Math.PI/2;   //$$ emulate capacitor   load in IV balanced circuit
+        //public static double phase_diff = 0;          //$$ emulate neg resistor  load in IV balanced circuit
+
+        // ADC setup
+        public static u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps // 100ns
+        //public static u32 adc_sampling_period_count = 210   ; // 210MHz/210   =  1000 ksps // 1us
+        //public static u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
+        //public static u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps // 10ms
+        //public static u32 adc_sampling_period_count = 421   ; // (210MHz/421)/(500kHz-210MHz/421) = 420 // for undersampling 
+        
+        public static s32 len_adc_data        = 1800  ; // adc samples
+        
+        public static u32    adc_base_freq_MHz         = 210      ; // MHz // 210MHz vs 189MHz
+        //public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
+        
+        //// for DFT computation
+
+        //public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+        public static int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
+
+        //public static int    len_dft_coef              = 420    ; // (210MHz/421)/(500kHz-210MHz/421) = 420 // for undersampling 
+        public static int    len_dft_coef              = 20    ; // (1 / (500 kHz)) * (10 MHz) = 20 // for normal sampling
+
+        public static int    num_repeat_block_coef     =   3    ;
+
+        //public static int    idx_offset_adc_data       = 100;
+        public static int    idx_offset_adc_data       = 5;
+    }
+    public class c_test_case__cmu_under_sample {
+        // test control parameters
+        public static int _test_case__ID  = (int)__enum_TEST_CASE.__CMU_UNDER_SAMPLE;
+
+        ////// test conditions for adda
+
+        // DAC setup
+        public static double time_ns__dac_update            = 10; // 5ns, 200MHz dac update // or 10ns
+        public static int    time_ns__code_duration         = 10; // 5 or 10
+        public static double load_impedance_ohm             = 1e6;
+        public static double output_impedance_ohm           = 50;
+        public static double scale_voltage_10V_mode         = 0.85; // 0.765
+        public static double gain_voltage_10V_to_40V_mode   = 4;
+        public static double out_scale                      = 1.0;
+        public static double out_offset_V                   = 0.0;
+        public static int    output_range_V                 = 10; // 10 or 40  
+        // DAC ic setup
+        public static double DAC_full_scale_current__mA_1   = 25.50;       // 
+        public static double DAC_full_scale_current__mA_2   = 25.50;       // 
+        public static float DAC_offset_current__mA_1        = (float)0.00; // 0~2mA
+        public static float DAC_offset_current__mA_2        = (float)0.00; // 0~2mA
+        public static s32   N_pol_sel_1                     = 0;           // 
+        public static s32   N_pol_sel_2                     = 0;           // 
+        public static s32   Sink_sel_1                      = 0;           // 
+        public static s32   Sink_sel_2                      = 0;           // 
+        // repeat pattern
+        public static int num_repeat_pulses = 1500; // for undersampling
+
+
+        //// for pgu wave info
+
+        // case 10us : pr 10000ns, tr 1000ns, repeat 5, ADC 100ns 600 samples.
+        public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
+        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
+        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 1.7, 1.7, 3.4, 3.4, -3.4, -3.4,   0.0 }; // V
+
+
+        //// for cmu wave info
+        public static double test_freq_kHz           = 500;
+        public static int    len_dac_command_points  = 200;
+        public static double amplitude               = 1.0;
+        //public static double phase_diff = Math.PI/2;  //$$ emulate inductor load in IV balanced circuit (adc0 = voltage, adc1 = -currrent)
+        //public static double phase_diff = Math.PI;    //$$ emulate resistor load in IV balanced circuit
+        public static double phase_diff = -Math.PI/2;   //$$ emulate capacitor   load in IV balanced circuit
+        //public static double phase_diff = 0;          //$$ emulate neg resistor  load in IV balanced circuit
+
+        // ADC setup
+        //public static u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps // 100ns
+        //public static u32 adc_sampling_period_count = 210   ; // 210MHz/210   =  1000 ksps // 1us
+        //public static u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
+        //public static u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps // 10ms
+        public static u32 adc_sampling_period_count = 421   ; // (210MHz/421)/(500kHz-210MHz/421) = 420 // for undersampling 
+        
+        public static s32 len_adc_data        = 1800  ; // adc samples
+        
+        public static u32    adc_base_freq_MHz         = 210      ; // MHz // 210MHz vs 189MHz
+        //public static u32    adc_base_freq_MHz         = 189      ; // MHz // 210MHz vs 189MHz
+        
+        //// for DFT computation
+
+        public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+        //public static int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
+
+        public static int    len_dft_coef              = 420    ; // (210MHz/421)/(500kHz-210MHz/421) = 420 // for undersampling 
+        //public static int    len_dft_coef              = 20    ; // (1 / (500 kHz)) * (10 MHz) = 20 // for normal sampling
+
+        public static int    num_repeat_block_coef     =   3    ;
+
+        //public static int    idx_offset_adc_data       = 100;
+        public static int    idx_offset_adc_data       = 5;
+    }
+
+    public class Program : c_test_condition
     {
+
         //$$ note: IP ... setup for own LAN port test //{
         
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip 
@@ -87,76 +316,6 @@ namespace __test__
         //public static uint test_loc_spi_group__ADDA = 0x0004; // spi M2 // for PGU CMU, ADDA
         //public static uint test_loc_slot__HVPGU = (0x1<< 6); // slot location 6
         //public static uint test_loc_spi_group__HVPGU = 0x0004; // spi M2 // for PGU CMU, ADDA
-        
-        //// HVSMU
-        //public static uint test_loc_slot__HVSMU = (0x1<< 2); // slot location 2
-        //public static uint test_loc_slot__HVSMU = (0x1<< 3); // slot location 3
-        //public static uint test_loc_slot__HVSMU = (0x1<< 4); // slot location 4
-        //public static uint test_loc_slot__HVSMU = (0x1<< 6); // slot location 6
-        //public static uint test_loc_slot__HVSMU = (0x1<< 9); // slot location 9
-        //public static uint test_loc_spi_group__HVSMU = 0x0001; // spi M0 // for GNDU, SMU
-
-        //// GNDU
-        //public static uint test_loc_slot__GNDU = (0x1<< 12); // slot location 12
-        //public static uint test_loc_spi_group__GNDU = 0x0001; // spi M0 // for GNDU, SMU
-        
-
-        ////// test conditions for adda
-
-        public static u32 adc_sampling_period_count = 21   ; // 210MHz/21   =  10 Msps // 100ns
-        //public static u32 adc_sampling_period_count = 210   ; // 210MHz/210   =  1000 ksps // 1us
-        //public static u32 adc_sampling_period_count = 2100   ; // 210MHz/2100   =  100 ksps // 10us
-        //public static u32 adc_sampling_period_count = 21000  ; // 210MHz/21000   =   10 ksps // 100us
-        //public static u32 adc_sampling_period_count = 210000   ; // 210MHz/210000   =  1 ksps // 1ms
-        //public static u32 adc_sampling_period_count = 1050000   ; // 210MHz/1050000   =  200 sps // 5ms 
-        //public static u32 adc_sampling_period_count = 2100000   ; // 210MHz/2100000   =  100 sps // 10ms
-        //public static s32 len_adc_data        = 6000  ; // adc samples
-        public static s32 len_adc_data        = 600  ; // adc samples
-
-        public static int num_repeat_pulses = 5;
-        public static int    output_range   = 10; // 10 or 40  
-            
-
-        //// case 1us : pr 1000ns, tr 100ns, repeat 50, ADC 100ns 600 samples.
-        //public static long[]   StepTime_ns  = new long[]   {      0,     50,     150,    450,    550,   1000 }; // ns
-        //public static double[] StepLevel_V  = new double[] {  0.000,  0.000,  16.000, 16.000,  0.000,  0.000 }; // V
-
-        //// case 10us : pr 10000ns, tr 1000ns, repeat 5, ADC 100ns 600 samples.
-        public static long[]   StepTime_ns = new long[]   {   0, 1000, 2000, 3000, 4000, 5000, 7000, 8000, 10000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 8.0, 8.0, 16.0, 16.0, -16.0, -16.0,   0.0 }; // V
-        public static double[] StepLevel_V = new double[] { 0.0,  0.0, 1.7, 1.7, 3.4, 3.4, -3.4, -3.4,   0.0 }; // V
-
-        //// case 100us : pr 100000ns, tr 10000ns, repeat 5, ADC 100ns 6000 samples.
-        //public static long[]   StepTime_ns = new long[]   {   0, 10000, 20000, 30000, 40000, 50000, 70000, 80000, 100000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-
-        //// case 1000us : pr 1000000 ns, tr 100000ns, repeat 5, ADC 1us 6000 samples.
-        //public static long[]   StepTime_ns = new long[]   {   0, 100000, 200000, 300000, 400000, 500000, 700000, 800000, 1000000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-
-        //// case 100ms : pr 100000000 ns, tr 10000000 ns, repeat 5, ADC 100us 6000 samples.
-        //public static long[]   StepTime_ns = new long[]   {   0, 10000000, 20000000, 30000000, 40000000, 50000000, 70000000, 80000000, 100000000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.0,  0.0, 16.0, 16.0, 32.0, 32.0, -32.0, -32.0,   0.0 }; // V
-        // Tdata_usr = [     0, 10000000, 15000000, 60000000, 65000000, 100000000, ]
-        // Vdata_usr = [ 0.000,    0.000,   20.000,   20.000,    0.000,     0.000, ] 
-        //public static long[]   StepTime_ns = new long[]   {     0, 10000000, 15000000, 60000000, 65000000, 100000000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.000,    0.000,   20.000,   20.000,    0.000,     0.000 }; // V
-
-        //// case 1000ms : 1000ms long pulse, tr 50m, repeat 5, ADC 1ms 6000 samples.
-        // Tdata_usr = [     0, 100000000, 150 000 000, 600000000, 650000000, 1000000000, ]
-        // Vdata_usr = [ 0.000,     0.000,    20.000,    20.000,     0.000,      0.000, ] 
-        //public static long[]   StepTime_ns = new long[]   {     0, 100000000, 150000000, 600000000, 650000000, 1000000000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.000,     0.000,    20.000,    20.000,     0.000,      0.000 }; // V
-        
-        // case 10s : 10s long pulse, tr 500m, repeat 5, ADC 10ms 6000 samples.
-        // Tdata_usr = [     0, 1 000 000 000, 1 500 000 000, 6 000 000 000, 6 500 000 000, 10 000 000 000, ]
-        // Vdata_usr = [ 0.000,     0.000,    20.000,    20.000,     0.000,      0.000, ] 
-        //public static long[]   StepTime_ns = new long[]   {     0, 1000000000, 1500000000,6000000000, 6500000000, 10000000000 }; // ns
-        //public static double[] StepLevel_V = new double[] { 0.000,      0.000,     20.000,     20.000,      0.000,       0.000 }; // V
-
-
-
 
         public static void Main(string[] args)
         {
@@ -433,23 +592,11 @@ namespace __test__
             // adc-dac power on
             dev_itfc_dut.adda_pwr_on(slot_sel_code__adda, spi_chnl_code__adda);
 
-            // adc setup
-            s32 len_adc_data              = __test__.Program.len_adc_data;
-            u32 adc_sampling_period_count = __test__.Program.adc_sampling_period_count;
             // dac setup
-            //double time_ns__dac_update         = 5; // 200MHz dac update
-            double time_ns__dac_update           = 10; // 100MHz dac update
-            double DAC_full_scale_current__mA_1  = 25.5; //25.5; // 25.50;       // for BD2
-            double DAC_full_scale_current__mA_2  = 25.5; //25.3; // 25.45;       // for BD2
-            float  DAC_offset_current__mA_2      = (float)0.00; // (float)0.79; // for BD2 // 0~2mA
-            float  DAC_offset_current__mA_1      = (float)0.00; // (float)0.44; // for BD2 // 0~2mA
-            int    N_pol_sel_1                   = 0;           // 0;           // for BD2
-            int    N_pol_sel_2                   = 0;           // 0;           // for BD2
-            int    Sink_sel_1                    = 0;           // 0;           // for BD2
-            int    Sink_sel_2                    = 0;           // 0;           // for BD2
-            //
             dev_itfc_dut.adda_init(slot_sel_code__adda, spi_chnl_code__adda, 
-                len_adc_data, adc_sampling_period_count,
+                len_adc_data                , 
+                adc_sampling_period_count   ,
+                adc_base_freq_MHz           ,
                 time_ns__dac_update         ,
                 DAC_full_scale_current__mA_1,
                 DAC_full_scale_current__mA_2,
@@ -468,77 +615,62 @@ namespace __test__
 
             // pgu waveform style vs cmu waveform style
 
-            // wave setup
+            // wave data
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
 
-            // DAC setup
-            int    time_ns__code_duration          = 10; // 5 or 10
-            double load_impedance_ohm              = 1e6;
-            double output_impedance_ohm            = 50;
-            double scale_voltage_10V_mode          = 0.85; // 0.765
-            double gain_voltage_10V_to_40V_mode    = 4;
-            double out_scale                       = 1.0;
-            double out_offset                      = 0.0;
-
-            // for CMU wave info
-            double test_freq_kHz           = 500;
-            int    len_dac_command_points  = 200;
-            double amplitude               = 1.0;
-            double phase_diff              = Math.PI/2;
-            //double phase_diff = Math.PI/2;  //$$ inductor load in IV balanced circuit (adc0 = voltage, adc1 = -currrent)
-            //double phase_diff = Math.PI;    //$$ resistor load in IV balanced circuit
-            //double phase_diff = -Math.PI/2;   //$$ capacitor   load in IV balanced circuit
-            //double phase_diff = 0;          //$$ neg resistor  load in IV balanced circuit
-
-            // adda_setup_pgu_waveform()
-            time_volt_dual_list = dev_itfc_dut.adda_setup_pgu_waveform(
-                slot_sel_code__adda, spi_chnl_code__adda, 
-                // PGU wave info
-                StepTime_ns, StepLevel_V,
-                // setup dac output
-                output_range                ,
-                time_ns__code_duration      ,
-                load_impedance_ohm          ,
-                output_impedance_ohm        ,
-                scale_voltage_10V_mode      ,
-                gain_voltage_10V_to_40V_mode,
-                out_scale                   ,
-                out_offset                  ,
-                // setup repeat
-                num_repeat_pulses
-            );
-
-            time_volt_dual_list = dev_itfc_dut.adda_setup_cmu_waveform(
-                slot_sel_code__adda, spi_chnl_code__adda, 
-                // CMU wave info
-                test_freq_kHz           ,
-                len_dac_command_points  ,
-                amplitude               ,
-                phase_diff              ,
-                // setup dac output
-                output_range                ,
-                time_ns__code_duration      ,
-                load_impedance_ohm          ,
-                output_impedance_ohm        ,
-                scale_voltage_10V_mode      ,
-                gain_voltage_10V_to_40V_mode,
-                out_scale                   ,
-                out_offset                  ,
-                // setup repeat
-                num_repeat_pulses
-            );
-
-            //string buf_dac_time_str = String.Join(", ", time_volt_dual_list.Item1);
-            //string buf_dac0_str     = String.Join(", ", time_volt_dual_list.Item2);
-            //string buf_dac1_str     = String.Join(", ", time_volt_dual_list.Item3);
-
-
+            if (_test_case__ID  == (int)__enum_TEST_CASE.__PGU) 
+            {
+                // adda_setup_pgu_waveform()
+                time_volt_dual_list = dev_itfc_dut.adda_setup_pgu_waveform(
+                    slot_sel_code__adda, spi_chnl_code__adda, 
+                    // PGU wave info
+                    StepTime_ns, StepLevel_V,
+                    // setup dac output
+                    output_range_V                ,
+                    time_ns__code_duration      ,
+                    load_impedance_ohm          ,
+                    output_impedance_ohm        ,
+                    scale_voltage_10V_mode      ,
+                    gain_voltage_10V_to_40V_mode,
+                    out_scale                   ,
+                    out_offset_V                  ,
+                    // setup repeat
+                    num_repeat_pulses
+                );
+            }
+            else if (_test_case__ID  == (int)__enum_TEST_CASE.__CMU_NORMAL_SAMPLE || 
+                     _test_case__ID  == (int)__enum_TEST_CASE.__CMU_UNDER_SAMPLE ) 
+            {
+                // adda_setup_cmu_waveform()
+                time_volt_dual_list = dev_itfc_dut.adda_setup_cmu_waveform(
+                    slot_sel_code__adda, spi_chnl_code__adda, 
+                    // CMU wave info
+                    test_freq_kHz           ,
+                    len_dac_command_points  ,
+                    amplitude               ,
+                    phase_diff              ,
+                    // setup dac output
+                    output_range_V                ,
+                    time_ns__code_duration      ,
+                    load_impedance_ohm          ,
+                    output_impedance_ohm        ,
+                    scale_voltage_10V_mode      ,
+                    gain_voltage_10V_to_40V_mode,
+                    out_scale                   ,
+                    out_offset_V                  ,
+                    // setup repeat
+                    num_repeat_pulses
+                );
+            }
+            else {
+                return;// unknown case
+            }
 
             // adda_trigger_pgu_output()
             dev_itfc_dut.adda_trigger_pgu_output(slot_sel_code__adda, spi_chnl_code__adda);
 
 
-            //// adc buffer read
+            //// adc buffer read and write log file
 
             // adda_wait_for_adc_done()
             dev_itfc_dut.adda_wait_for_adc_done(slot_sel_code__adda, spi_chnl_code__adda);
@@ -547,49 +679,47 @@ namespace __test__
             dev_itfc_dut.adda_trigger_pgu_off(slot_sel_code__adda, spi_chnl_code__adda);
 
             // adda_read_adc_buf()
+            s32[] adc0_s32_buf = new s32[len_adc_data];
+            s32[] adc1_s32_buf = new s32[len_adc_data];
+            string buf_time_str = String.Join(", ", time_volt_dual_list.Item1);
+            string buf_dac0_str = String.Join(", ", time_volt_dual_list.Item2);
+            string buf_dac1_str = String.Join(", ", time_volt_dual_list.Item3);
+            //Console.WriteLine("> buf_time_str =" + buf_time_str);
+            //Console.WriteLine("> buf_dac0_str =" + buf_dac0_str);
+            //Console.WriteLine("> buf_dac1_str =" + buf_dac1_str);
+            //
             dev_itfc_dut.adda_read_adc_buf(slot_sel_code__adda, spi_chnl_code__adda, 
-                len_adc_data); //(len_adc_data, buf_dac_time_str, buf_dac0_str, buf_dac1_str);
+                len_adc_data,
+                adc0_s32_buf,
+                adc1_s32_buf,
+                buf_time_str,
+                buf_dac0_str,
+                buf_dac1_str);
             
-
-            //// calculate dft
-
-            // adda_compute_dft() //$$ new
-            dev_itfc_dut.adda_compute_dft();
+            //// calculate dft and write log file
+            if (_test_case__ID  == (int)__enum_TEST_CASE.__CMU_UNDER_SAMPLE ||
+                _test_case__ID  == (int)__enum_TEST_CASE.__CMU_NORMAL_SAMPLE
+                ) 
+            {
+                // adda_compute_dft()
+                var ret__dft_compute = dev_itfc_dut.adda_compute_dft(
+                    test_freq_kHz            , // dft parameters
+                    adc_base_freq_MHz        , //
+                    adc_sampling_period_count, //
+                    mode_undersampling       , //
+                    len_dft_coef             , //
+                    num_repeat_block_coef    , // adc data inputs
+                    idx_offset_adc_data      , //
+                    len_adc_data             , //
+                    adc0_s32_buf             , //
+                    adc1_s32_buf               //
+                );
+            }
 
 
             //// finish test 
             dev_itfc_dut.adda_pwr_off(slot_sel_code__adda, spi_chnl_code__adda);
 
-
-            // test smu functions :
-            /*
-            Console.WriteLine(">>>>>> test: more from interface I_SMU");
-            //s32 smu_ch = 2; // ch = 2, slot = 3
-            //s32 smu_ch = 2; // ch = -1, slot = 0 // NG
-            s32 smu_ch = 0; // ch = 0, slot = 1
-
-            char smu_state = dev_itfc_dut.read_smu_state(smu_ch);
-            Console.WriteLine("> {0} : {1} = {2} ", "read_smu_state()", "smu_state", smu_state);
-
-            dev_itfc_dut.smu_adc_mux_v_sel(smu_ch);
-            Console.WriteLine("> {0} : {1} ", "smu_adc_mux_v_sel()", "done");
-
-            dev_itfc_dut.smu_adc_mux_no_sel(smu_ch);
-            Console.WriteLine("> {0} : {1} ", "smu_adc_mux_no_sel()", "done");
-
-            dev_itfc_dut.smu_adc_mux_v_sel_all();
-            Console.WriteLine("> {0} : {1} ", "smu_adc_mux_v_sel_all()", "done");
-
-            dev_itfc_dut.smu_adc_mux_i_sel(smu_ch);
-            Console.WriteLine("> {0} : {1} ", "smu_adc_mux_i_sel()", "done");
-
-            dev_itfc_dut.smu_adc_mux_i_sel_all();
-            Console.WriteLine("> {0} : {1} ", "smu_adc_mux_i_sel_all()", "done");
-
-            dev_itfc_dut.write_smu_vctrl(smu_ch, 0x0001);
-            UINT16 val_uint16 = (UINT16)dev.smu_ctrl_reg[smu_ch].vctrl;
-            Console.WriteLine("> {0} : {1} = {2} ", "write_smu_vctrl()", "vctrl", val_uint16);
-            */
 
             // test finish
             dev._test__reset_spi_emul();

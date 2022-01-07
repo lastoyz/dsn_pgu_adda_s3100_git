@@ -89,8 +89,8 @@ def plot_test():
     t_list = range(len(dft_coef_i_buf_list_flt))
 
     ## https://matplotlib.org/stable/gallery/color/named_colors.html
-    plt.plot(t_list, dft_coef_i_buf_list_flt, 'mo-', markersize=10, alpha=0.2)
-    plt.plot(t_list, dft_coef_q_buf_list_flt, 'cs-', markersize=10, alpha=0.2)
+    plt.plot(t_list, dft_coef_i_buf_list_flt, 'mo-', markersize=10, alpha=0.5)
+    plt.plot(t_list, dft_coef_q_buf_list_flt, 'cs-', markersize=10, alpha=0.5)
 
     plt.title(title_str)
     plt.ylabel('DFT coef')

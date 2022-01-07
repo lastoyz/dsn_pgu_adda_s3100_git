@@ -196,11 +196,12 @@ namespace __test__
         public static u32    adc_base_freq_MHz         = 210      ; // MHz // 210MHz vs 189MHz
         //public static u32 adc_sampling_period_count = 379  ; // 189MHz/379  =  0.498680739 Msps //$$  1.31926121kHz image with 0.5MHz wave
         //public static u32 adc_sampling_period_count = 21  ; // 189MHz/21  =  9 Msps 
-        public static u32 adc_sampling_period_count = 21  ; // 210MHz/21  =  10 Msps 
-        //public static u32 adc_sampling_period_count = 421  ;// 210MHz/421  = 498.812352 ksps //$$  1.18764846kHz image with 0.5MHz wave
+        //public static u32 adc_sampling_period_count = 21  ; // 210MHz/21  =  10 Msps 
+        public static u32 adc_sampling_period_count = 421  ;// 210MHz/421  = 498.812352 ksps //$$  1.18764846kHz image with 0.5MHz wave
         public static s32 len_adc_data         = 1800; // 600 or 1200 or 1800
-        public static double time_ns__dac_update    = 10; // 5, 200MHz dac update // or 10
-        public static s32    time_ns__code_duration = 10; // 5ns = 200MHz // or 10
+        //
+        public static double time_ns__dac_update    = 10; // 5ns, 200MHz dac update // or 10ns
+        public static s32    time_ns__code_duration = 10; // 5ns = 200MHz // or 10ns
         public static double load_impedance_ohm     = 1e6; // 1e6 vs 50
         public static s32    output_range      = 10; // 10 or 40  
         public static s32    num_repeat_pulses = 1500; // 5 or 1000 or 1500
@@ -313,12 +314,12 @@ namespace __test__
         //int    num_repeat_block_coef     =   2    ;
         //int    idx_offset_adc_data       = 100;
 
-        //public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
-        public static int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
+        public static int    mode_undersampling        = 1        ; // 0 for normal sampling, 1 for undersampling
+        //public static int    mode_undersampling        = 0        ; // 0 for normal sampling, 1 for undersampling
         //public static int    len_dft_coef              = 378    ; // (189MHz/379)/(500kHz-189MHz/379)=378  // 378*3    ; //$$ must check integer // if failed to try multiple cycle // samples_per_cycle ratio
-        //public static int    len_dft_coef              = 420    ; // (210MHz/421)/(500kHz-210MHz/421) = 420
+        public static int    len_dft_coef              = 420    ; // (210MHz/421)/(500kHz-210MHz/421) = 420
         //public static int    len_dft_coef              = 18    ; // 20*3    ; //$$ (1 / (500 kHz)) * (9 MHz) = 18
-        public static int    len_dft_coef              = 20    ; // 20*3    ; //$$ (1 / (500 kHz)) * (10 MHz) = 20
+        //public static int    len_dft_coef              = 20    ; // 20*3    ; //$$ (1 / (500 kHz)) * (10 MHz) = 20
         //public static int    num_repeat_block_coef     =   2    ;
         public static int    num_repeat_block_coef     =   3    ;
         //public static int    idx_offset_adc_data       = 100;
