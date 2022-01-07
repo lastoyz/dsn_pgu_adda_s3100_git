@@ -68,8 +68,27 @@ namespace TopInstrument{
             int    time_ns__code_duration          = 5,
             double load_impedance_ohm              = 1e6,                       
             double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 0.765, //8.5/10, // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 4, //3.64, // 4/7.650*6.95~=3.64
+            double scale_voltage_10V_mode          = 8.5/10, // 7.650/10        
+            double gain_voltage_10V_to_40V_mode    = 4,
+            double out_scale                       = 1.0,
+            double out_offset                      = 0.0,
+            int num_repeat_pulses                  = 4   // repeat pulse
+        );
+        // adda_setup_cmu_waveform()
+        Tuple<long[], double[], double[]>  adda_setup_cmu_waveform(
+            u32 slot, u32 spi_sel, //$$ for FW
+            // for CMU wave info
+            double test_freq_kHz           = 500,
+            int    len_dac_command_points  = 200,
+            double amplitude               = 1.0,
+            double phase_diff              = Math.PI/2,
+            //
+            int    output_range                    = 10,
+            int    time_ns__code_duration          = 5,
+            double load_impedance_ohm              = 1e6,                       
+            double output_impedance_ohm            = 50,                        
+            double scale_voltage_10V_mode          = 8.5/10, // 7.650/10        
+            double gain_voltage_10V_to_40V_mode    = 4,
             double out_scale                       = 1.0,
             double out_offset                      = 0.0,
             int num_repeat_pulses                  = 4   // repeat pulse
@@ -641,13 +660,15 @@ namespace TopInstrument{
         // adda_setup_pgu_waveform()
         public Tuple<long[], double[], double[]>  adda_setup_pgu_waveform(
             u32 slot, u32 spi_sel, //$$ for FW
+            // for PGU wave info
             long[] StepTime_ns, double[] StepLevel_V, 
+            //
             int    output_range                    = 10,
-            int    time_ns__code_duration          = 5,
+            int    time_ns__code_duration          = 10,
             double load_impedance_ohm              = 1e6,                       
             double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 0.765, //8.5/10, // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 4, //3.64, // 4/7.650*6.95~=3.64
+            double scale_voltage_10V_mode          = 8.5/10, 
+            double gain_voltage_10V_to_40V_mode    = 4, 
             double out_scale                       = 1.0,
             double out_offset                      = 0.0,
             int num_repeat_pulses                  = 4   // repeat pulse
@@ -655,6 +676,68 @@ namespace TopInstrument{
             // DAC waveform command generation : time, dac0, dac1
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
             time_volt_dual_list = dac_gen_pulse_cmd(StepTime_ns, StepLevel_V);
+            // DAC0 FIFO data generation
+            var ret__dac0_fifo_dat = dac_gen_fifo_dat(
+                time_volt_dual_list.Item1, time_volt_dual_list.Item2,
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm,
+                scale_voltage_10V_mode, output_range, gain_voltage_10V_to_40V_mode, 
+                out_scale, out_offset
+            );  
+            // DAC1 FIFO data generation
+            var ret__dac1_fifo_dat = dac_gen_fifo_dat(
+                time_volt_dual_list.Item1, time_volt_dual_list.Item3,
+                time_ns__code_duration, 
+                load_impedance_ohm, output_impedance_ohm,
+                scale_voltage_10V_mode, output_range, gain_voltage_10V_to_40V_mode, 
+                out_scale, out_offset
+            ); 
+            //
+            s32[] dac0_code_inc_value__s32_buf = ret__dac0_fifo_dat.Item1;
+            u32[] dac0_code_duration__u32_buf  = ret__dac0_fifo_dat.Item2;
+            s32[] dac1_code_inc_value__s32_buf = ret__dac1_fifo_dat.Item1;
+            u32[] dac1_code_duration__u32_buf  = ret__dac1_fifo_dat.Item2;
+            ////
+            // DAC pulse download
+            Console.WriteLine(">>>>>> DAC0 download");
+            dac_set_fifo_dat(slot, spi_sel, 
+                1, num_repeat_pulses,
+                dac0_code_inc_value__s32_buf, dac0_code_duration__u32_buf);
+            Console.WriteLine(">>>>>> DAC1 download");
+            dac_set_fifo_dat(slot, spi_sel, 
+                2, num_repeat_pulses,
+                dac1_code_inc_value__s32_buf, dac1_code_duration__u32_buf);
+            Console.WriteLine(">>>>>> download done!");
+            //
+            return time_volt_dual_list; // for log data
+        }
+
+        // adda_setup_cmu_waveform()
+        public Tuple<long[], double[], double[]>  adda_setup_cmu_waveform(
+            u32 slot, u32 spi_sel, //$$ for FW
+            // for CMU wave info
+            double test_freq_kHz           = 500,
+            int    len_dac_command_points  = 200,
+            double amplitude               = 1.0,
+            double phase_diff              = Math.PI/2,
+            // 
+            int    output_range                    = 10,
+            int    time_ns__code_duration          = 10,
+            double load_impedance_ohm              = 1e6,
+            double output_impedance_ohm            = 50,
+            double scale_voltage_10V_mode          = 8.5/10, 
+            double gain_voltage_10V_to_40V_mode    = 4, 
+            double out_scale                       = 1.0,
+            double out_offset                      = 0.0,
+            int    num_repeat_pulses               = 4   // repeat pulse
+        ) {
+            // DAC waveform command generation : time, dac0, dac1
+            Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
+            time_volt_dual_list = dac_gen_wave_cmd(
+                    test_freq_kHz, 
+                    len_dac_command_points, 
+                    amplitude, 
+                    phase_diff);
             // DAC0 FIFO data generation
             var ret__dac0_fifo_dat = dac_gen_fifo_dat(
                 time_volt_dual_list.Item1, time_volt_dual_list.Item2,
@@ -2124,7 +2207,9 @@ namespace TopInstrument{
     
     public partial class CMU : I_dacz 
     {
-        public Tuple<long[], double[], double[]> dac_gen_pulse_cmd(long[] StepTime, double[] StepLevel) 
+        public Tuple<long[], double[], double[]> dac_gen_pulse_cmd(
+            long[] StepTime, 
+            double[] StepLevel) 
         {
             // generate dac command dual list from single time-voltage list
             int len_dac_command_points = StepTime.Length;
@@ -2138,6 +2223,29 @@ namespace TopInstrument{
             Array.Copy(StepLevel, buf_dac0, len_dac_command_points);
             Array.Copy(StepLevel, buf_dac1, len_dac_command_points);
 
+            return Tuple.Create(buf_time, buf_dac0, buf_dac1);
+        }
+        //
+        private Tuple<long[], double[], double[]> dac_gen_wave_cmd(
+            double test_freq_kHz        = 500,
+            int len_dac_command_points  = 200,
+            double amplitude            = 1.0,
+            double phase_diff           = Math.PI/2) 
+        {
+            //// case for sine wave
+            long   test_period_ns   = (long)(1.0/test_freq_kHz*1000000);
+            long   sample_period_ns = test_period_ns/len_dac_command_points; // DAC command point space
+            double sample_rate_kSPS = (double)1.0/sample_period_ns*1000000;
+            //double phase_diff = Math.PI/2; // pi/2 = 90 degree
+            long[]   buf_time = new long  [len_dac_command_points+1];
+            double[] buf_dac0 = new double[len_dac_command_points+1];
+            double[] buf_dac1 = new double[len_dac_command_points+1];
+            for (int n = 0; n < buf_time.Length; n++)
+            {
+                buf_time[n] = sample_period_ns*n;
+                buf_dac0[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + 0         ));
+                buf_dac1[n] = (amplitude * Math.Sin((2 * Math.PI * n * test_freq_kHz) / sample_rate_kSPS + phase_diff));
+            }
             return Tuple.Create(buf_time, buf_dac0, buf_dac1);
         }
         //

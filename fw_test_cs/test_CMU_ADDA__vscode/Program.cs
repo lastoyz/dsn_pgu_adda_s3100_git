@@ -227,16 +227,27 @@ namespace __test__
             // test scan slot
             Console.WriteLine(">>>>>> test: scan slot ");
             dev_itfc_dut.scan_frame_slot();
-
+            //$$ example display on console:
+            //$$ ----------------------------------------------------------
+            //$$ # <Not Detect Board on Slot 0>
+            //$$ # <Not Detect Board on Slot 1>
+            //$$ # <Detect Board on Slot 2: S3100-HVSMU, Ver 0xA8211123>
+            //$$ # <Not Detect Board on Slot 3>
+            //$$ # <Detect Board on Slot 4: S3100-PGU-ADDA, Ver 0xA4211207>
+            //$$ # <Not Detect Board on Slot 5>
+            //$$ # <Detect Board on Slot 6: S3100-PGU-SUB, Ver 0xAE2110A8>
+            //$$ # <Not Detect Board on Slot 7>
+            //$$ # <Detect Board on Slot 8: S3100-GNDU, Ver 0xA2210728>
+            //$$ # <Detect Board on Slot 9: S3100-CMU-ADDA, Ver 0xA6211231>
+            //$$ # <Not Detect Board on Slot 10>
+            //$$ # <Detect Board on Slot 11: S3100-CMU-SUB, Ver 0xAB211102>
+            //$$ # <Detect Board on Slot 12: S3100-CMU-SUB, Ver 0xAB211102>
+            
             
             Console.WriteLine(">>>>>> test: eeprom ");
 
-            // eeprom test on slot 3  = _SPI_SEL_SLOT(2), HVSMU
-            // eeprom test on slot 0  = _SPI_SEL_SLOT(-1), HVSMU
-            // eeprom test on slot 4  = _SPI_SEL_SLOT(3), CMU-SUB
-            // eeprom test on slot 5  = _SPI_SEL_SLOT(4), CMU-SUB
-            // eeprom test on slot 12 = _SPI_SEL_SLOT(11), CMU-ADDA
-            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(4);
+            // eeprom test on slot 11 = _SPI_SEL_SLOT(10), S3100-CMU-SUB
+            u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT(10);
             //u32 slot_code__dut_eeprom   = dev._SPI_SEL_SLOT_EMUL();
 
             //u32 spi_ch_code__dut_eeprom = dev._SPI_SEL_CH_SMU(); // M0
@@ -295,12 +306,12 @@ namespace __test__
 
             // test cmu functions :
             //   test spio, clkd, dac, adc, dft
-            u32 slot_sel_code__cmu_anl = dev._SPI_SEL_SLOT(3); // slot 4
-            u32 spi_chnl_code__cmu_anl = dev._SPI_SEL_CH_CMU();
-            u32 slot_sel_code__cmu_sig = dev._SPI_SEL_SLOT(4); // slot 5
+            u32 slot_sel_code__adda    = dev._SPI_SEL_SLOT(8); // slot 9
+            u32 spi_chnl_code__adda    = dev._SPI_SEL_CH_CMU();
+            u32 slot_sel_code__cmu_sig = dev._SPI_SEL_SLOT(10); // slot 11
             u32 spi_chnl_code__cmu_sig = dev._SPI_SEL_CH_CMU();
-            u32 slot_sel_code__adda = dev._SPI_SEL_SLOT(11); // slot 12
-            u32 spi_chnl_code__adda = dev._SPI_SEL_CH_CMU();
+            u32 slot_sel_code__cmu_anl = dev._SPI_SEL_SLOT(11); // slot 12
+            u32 spi_chnl_code__cmu_anl = dev._SPI_SEL_CH_CMU();
 
             //// cmu sub board ID check
             // note : board class ID[3:0]
@@ -455,8 +466,12 @@ namespace __test__
             
             //// adc-dac trigger
 
-            // adda_setup_pgu_waveform()
+            // pgu waveform style vs cmu waveform style
+
+            // wave setup
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
+
+            // DAC setup
             int    time_ns__code_duration          = 10; // 5 or 10
             double load_impedance_ohm              = 1e6;
             double output_impedance_ohm            = 50;
@@ -464,8 +479,21 @@ namespace __test__
             double gain_voltage_10V_to_40V_mode    = 4;
             double out_scale                       = 1.0;
             double out_offset                      = 0.0;
-            //
-            time_volt_dual_list = dev_itfc_dut.adda_setup_pgu_waveform(slot_sel_code__adda, spi_chnl_code__adda, 
+
+            // for CMU wave info
+            double test_freq_kHz           = 500;
+            int    len_dac_command_points  = 200;
+            double amplitude               = 1.0;
+            double phase_diff              = Math.PI/2;
+            //double phase_diff = Math.PI/2;  //$$ inductor load in IV balanced circuit (adc0 = voltage, adc1 = -currrent)
+            //double phase_diff = Math.PI;    //$$ resistor load in IV balanced circuit
+            //double phase_diff = -Math.PI/2;   //$$ capacitor   load in IV balanced circuit
+            //double phase_diff = 0;          //$$ neg resistor  load in IV balanced circuit
+
+            // adda_setup_pgu_waveform()
+            time_volt_dual_list = dev_itfc_dut.adda_setup_pgu_waveform(
+                slot_sel_code__adda, spi_chnl_code__adda, 
+                // PGU wave info
                 StepTime_ns, StepLevel_V,
                 // setup dac output
                 output_range                ,
@@ -479,9 +507,32 @@ namespace __test__
                 // setup repeat
                 num_repeat_pulses
             );
-            string buf_dac_time_str = String.Join(", ", time_volt_dual_list.Item1);
-            string buf_dac0_str     = String.Join(", ", time_volt_dual_list.Item2);
-            string buf_dac1_str     = String.Join(", ", time_volt_dual_list.Item3);
+
+            time_volt_dual_list = dev_itfc_dut.adda_setup_cmu_waveform(
+                slot_sel_code__adda, spi_chnl_code__adda, 
+                // CMU wave info
+                test_freq_kHz           ,
+                len_dac_command_points  ,
+                amplitude               ,
+                phase_diff              ,
+                // setup dac output
+                output_range                ,
+                time_ns__code_duration      ,
+                load_impedance_ohm          ,
+                output_impedance_ohm        ,
+                scale_voltage_10V_mode      ,
+                gain_voltage_10V_to_40V_mode,
+                out_scale                   ,
+                out_offset                  ,
+                // setup repeat
+                num_repeat_pulses
+            );
+
+            //string buf_dac_time_str = String.Join(", ", time_volt_dual_list.Item1);
+            //string buf_dac0_str     = String.Join(", ", time_volt_dual_list.Item2);
+            //string buf_dac1_str     = String.Join(", ", time_volt_dual_list.Item3);
+
+
 
             // adda_trigger_pgu_output()
             dev_itfc_dut.adda_trigger_pgu_output(slot_sel_code__adda, spi_chnl_code__adda);
