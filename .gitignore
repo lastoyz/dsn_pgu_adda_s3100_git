@@ -98,3 +98,7 @@ txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_CPU_TSPI/test_win_app_vscod
 txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_CPU_TSPI/test_win_app_vscode/obj/
 txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_CPU_TSPI/test_HVPGU__vscode/bin/
 
+txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_CPU_TSPI/test_CMU_ADDA__vscode/obj/
+fw_test_cs/test_CMU_ADDA__vscode/obj/
+fw_test_cs/test_CMU_ADDA__vscode/bin/
+txem7310_pll/txem7310_pll.srcs/_test/cs_class__S3100_CPU_TSPI/test_CMU_ADDA__vscode/bin/
