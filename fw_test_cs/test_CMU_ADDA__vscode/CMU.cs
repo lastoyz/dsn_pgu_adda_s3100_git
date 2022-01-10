@@ -23,26 +23,45 @@ namespace TopInstrument{
     //
     using BOOL   = System.Boolean; // for converting firmware
 
-    // for SMU compatible
-    using TSmuCtrlReg = __struct_TSmuCtrlReg;
-    using TSmuCtrl    = __struct_TSmuCtrl;
-
 
     //// interface
     interface I_CMU_proc {} // interface for GUI SW // to come
     //interface I_CMU_algo {} // interface for GMU algorithm // to come
-    interface I_CMU // CMU low-level functions // CMU-ADDA, CMU-SUB
+    interface I_CMU : I_ADDA, I_slot, I_dev_common // CMU low-level functions // CMU-ADDA, CMU-SUB
     {
-        //// for slot functions
-        void scan_frame_slot(); // scan slot
-        bool search_board_init(s8 slot, u32 fid); //(s8 slot, u32 slot_cs_code, u32 slot_ch_code, u32 fid);
-        u32 _SPI_SEL_SLOT(s32 ch); // in S3100 slot 1~12 // ch = 0  => slot = 1
-        u32 _SPI_SEL_SLOT_GNDU(); // in S3100-GNDU slot 0 fixed
-        u32 _SPI_SEL_CH_SMU();
-        u32 _SPI_SEL_CH_GNDU();
-        u32 _SPI_SEL_CH_PGU();
-        u32 _SPI_SEL_CH_CMU();
+        //// cmu sub device functions:
+        u32 cmu__dev_get_stat(u32 slot, u32 spi_sel);
+        u32 cmu__dev_is_SIG_board(u32 slot, u32 spi_sel);
+        public u32 cmu__dev_is_ANL_board(u32 slot, u32 spi_sel);
+        //
+        u32 cmu_init_sig(u32 slot, u32 spi_sel);
+        void cmu_set_sig_dacp(u32 slot, u32 spi_sel, 
+            u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0);
+        void cmu_set_sig_extc(u32 slot, u32 spi_sel,  u32 val = 0);
+        void cmu_set_sig_filt(u32 slot, u32 spi_sel, 
+            u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF);
+        //
+        u32 cmu_init_anl(u32 slot, u32 spi_sel);
+        void cmu_set_anl_rr_iv(u32 slot, u32 spi_sel, 
+            u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0);
+        void cmu_set_anl_det_mod(u32 slot, u32 spi_sel, 
+            u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0);
+        void cmu_set_anl_amp_gain(u32 slot, u32 spi_sel,
+            u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0);
+        u32 cmu_get_anl_stat__unbal(u32 slot, u32 spi_sel);
+        u32 cmu_get_anl_stat__dcba_d(u32 slot, u32 spi_sel);
+        u32 cmu_get_anl_stat__dcba_r(u32 slot, u32 spi_sel);
+        void cmu_set_anl_dacq(u32 slot, u32 spi_sel, 
+            float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0);
+        float cmu_get_anl_dacq(u32 slot, u32 spi_sel,
+            u32 ch_sel = 1);
+        //
+    }
+    
 
+    interface I_ADDA 
+    {
+        //
         //// adda functions:
         void adda_pwr_on(u32 slot, u32 spi_sel);
         void adda_pwr_off(u32 slot, u32 spi_sel);
@@ -125,37 +144,9 @@ namespace TopInstrument{
             s32[]  adc0_s32_buf              = null     , //
             s32[]  adc1_s32_buf              = null       //
         );
-
-        //// cmu sub device functions:
-        u32 cmu__dev_get_stat(u32 slot, u32 spi_sel);
-        u32 cmu__dev_get_fid(u32 slot, u32 spi_sel);
-        float cmu__dev_get_temp_C(u32 slot, u32 spi_sel);
-        u32 cmu__dev_is_SIG_board(u32 slot, u32 spi_sel);
-        public u32 cmu__dev_is_ANL_board(u32 slot, u32 spi_sel);
-        //
-        u32 cmu_init_sig(u32 slot, u32 spi_sel);
-        void cmu_set_sig_dacp(u32 slot, u32 spi_sel, 
-            u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0);
-        void cmu_set_sig_extc(u32 slot, u32 spi_sel,  u32 val = 0);
-        void cmu_set_sig_filt(u32 slot, u32 spi_sel, 
-            u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF);
-        //
-        u32 cmu_init_anl(u32 slot, u32 spi_sel);
-        void cmu_set_anl_rr_iv(u32 slot, u32 spi_sel, 
-            u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0);
-        void cmu_set_anl_det_mod(u32 slot, u32 spi_sel, 
-            u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0);
-        void cmu_set_anl_amp_gain(u32 slot, u32 spi_sel,
-            u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0);
-        u32 cmu_get_anl_stat__unbal(u32 slot, u32 spi_sel);
-        u32 cmu_get_anl_stat__dcba_d(u32 slot, u32 spi_sel);
-        u32 cmu_get_anl_stat__dcba_r(u32 slot, u32 spi_sel);
-        void cmu_set_anl_dacq(u32 slot, u32 spi_sel, 
-            float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0);
-        float cmu_get_anl_dacq(u32 slot, u32 spi_sel,
-            u32 ch_sel = 1);
         //
     }
+
     interface I_spio {} // SPIO IC control
     interface I_clkd {} // clock IC control
     interface I_dac {} // DAC IC control
@@ -348,7 +339,7 @@ namespace TopInstrument{
 
         }
 
-        public enum __enum_CMU
+        public enum __enum_CONST
         {
             //
             CMU_brd_cls_id__SIG = 0x8,
@@ -362,120 +353,12 @@ namespace TopInstrument{
         }
 
 
-        //// for SMU compatible
-        public enum __enum_SMU 
-        {
-            //
-            NO_OF_SMU               = 12,
-            //
-            NO_OF_AUX_INPUTBD       = 1,
-            NO_OF_IO_INPUT	        = 1,
-            //
-            SMU_MODE_COM            = 0,
-            SMU_MODE_V              = 1,
-            SMU_MODE_I              = 2,
-            CALIB_MODE_I	        = 1,
-            CALIB_MODE_V	        = 2,
-            SMU_ICTRL_XORMASK	    = 0x0000003D,
-            SMU_VCTRL_XORMASK	    = 0xFFFF,
-            SMU_COMP_CTRL_XORMASK	= 0x01, // 5M_COMP is Active High!
-            //
-            NO_OF_VRANGE            = 5,
-            // sbcho@20211217 HVSMU
-            SMU_2V_RANGE            = 0,
-            SMU_5V_RANGE            = 1,
-            SMU_20V_RANGE           = 2,
-            SMU_40V_RANGE           = 3,
-            SMU_200V_RANGE          = 4,
-            //
-            SMU_VCTRL_SRC_MASK      = 0x00FF,
-            SMU_VCTRL_MSR_MASK      = 0xFF00,
-            //
-            // sbcho@20211108 HVSMU
-            SMU_2V_CTRL	            = 0x0000,              // Close loop
-            SMU_5V_CTRL	            = 0x0101,
-            SMU_20V_CTRL            = 0x0202,
-            SMU_40V_CTRL            = 0x0404,
-            SMU_200V_CTRL           = 0x0808,
-            //
-            SMU_IX10_COMP           = 0x01,
-            SMU_5M_COMP             = 0x02,
-            //
-            NO_OF_IRANGE            = 12,
-            SMU_10pA_RANGE	        = 0, 	// HVSMU used
-            SMU_100pA_RANGE	        = 1,   // HVSMU used
-            SMU_1nA_RANGE	        = 2,   // 0.000000001  1E-9   10G 
-            SMU_10nA_RANGE	        = 3,   // 0.00000001   1E-8   1G  
-            SMU_100nA_RANGE         = 4,   // 0.0000001    1E-7   100M
-            SMU_1uA_RANGE	        = 5,   // 0.000001     1E-6   10M 
-            SMU_10uA_RANGE	        = 6,   // 0.00001      1E-5   1M  
-            SMU_100uA_RANGE         = 7,   // 0.0001       1E-4   100K
-            SMU_1mA_RANGE	        = 8,   // 0.001        1E-3   10K
-            SMU_10mA_RANGE	        = 9,   // 0.01         1E-2   1K
-            SMU_100mA_RANGE         = 10,  // 0.1          1E-1   100
-            SMU_1A_RANGE	        = 11,  // not used
-            //
-            SMU_UPPER_LEAK_IRANGE   = SMU_10nA_RANGE,
-
-            // sbcho@20211217 HVSMU
-            SMU_ICTRL_MASK          = 0x00F7FF,
-            SMU_ICTRL_IX10_MASK     = 0x000003,
-            SMU_ICTRL_RAMP_MASK     = 0x0000FC,
-
-            // sbcho@20211217 HVSMU
-            SMU_ICTRL_RELAY_MASK    = 0x00F000,
-            SMU_ICTRL_MJFET_MASK    = 0x000700,
-            //
-            SMU_ICTRL_IX10	        = 0x000002,
-            SMU_ICTRL_IX10_BAR      = 0x000002,
-            //
-            SMU_ICTRL_INIT          = 0x000000,
-
-            //sbcho@20211217 HVSMU
-            SMU_100mA_CTRL          = 0x00F1FF,
-            SMU_10mA_CTRL           = 0x00F2F8,
-            SMU_1mA_CTRL            = 0x00F2FA,
-            SMU_100uA_CTRL          = 0x00F4F1,
-            SMU_10uA_CTRL           = 0x00F4F2,
-            SMU_1uA_CTRL            = 0x00E4E0,
-            SMU_100nA_CTRL          = 0x00E4E3,
-            SMU_10nA_CTRL           = 0x00C4C0,
-            SMU_1nA_CTRL            = 0x00C4C3,
-            SMU_100pA_CTRL          = 0x008483,
-            SMU_10pA_CTRL           = 0x000403,
-            //
-            SMU_ICTRL_5G_RAMP       = 0x000080,
-            SMU_ICTRL_500M_RAMP     = 0x000040,
-            SMU_ICTRL_5M_RAMP       = 0x000020,
-            SMU_ICTRL_50K_RAMP      = 0x000010,
-            SMU_ICTRL_500_RAMP      = 0x000008,
-            SMU_ICTRL_5_RAMP        = 0x000004,
-
-            // relay
-            SMU_GUARD_REL	        = 0x0001,
-            SMU_FOCE_REL	        = 0x0002,
-            SMU_DIAG_REL		    = 0x0004,
-            SMU_GRD_RLY	        = 0x0001, // alt name
-            SMU_FRC_RLY	        = 0x0002, // alt name
-            SMU_DIG_RLY		    = 0x0004, // alt name
-
-            //
-            SMU_STATE_VMODE	       = 0x03,
-            SMU_STATE_MASK	       = 0x03
-        }
-
-        public INT32[]  smu_vadc_values    = new INT32[(int)__enum_SMU.NO_OF_SMU];  
-        public INT32[]  smu_iadc_values    = new INT32[(int)__enum_SMU.NO_OF_SMU];
-        public TSmuCtrlReg[]  smu_ctrl_reg = new TSmuCtrlReg[(int)__enum_SMU.NO_OF_SMU]; // TSmuCtrlReg smu_ctrl_reg[NO_OF_SMU];
-        
-
     }
 
-    public partial class CMU : I_CMU
+    public partial class CMU : I_slot 
     {
-        // slot functions :
-        /*
-        public new void scan_frame_slot() // scan slot
+        // slot functions
+        public void scan_frame_slot() // scan slot
         {
             TRACE("----------------------------------------------------------\r\n");            
 
@@ -500,7 +383,7 @@ namespace TopInstrument{
                 TRACE("# <Not Detect Board on Slot %d>\r\n", i + 1);
             }
         }
-        public new bool search_board_init(s8 slot, u32 fid) // (s8 slot, u32 slot_cs_code, u32 slot_ch_code, u32 fid)
+        public bool search_board_init(s8 slot, u32 fid) // (s8 slot, u32 slot_cs_code, u32 slot_ch_code, u32 fid)
         {
             bool rtn = true;
             u8 boardID = (u8)(fid >> 24);
@@ -533,10 +416,10 @@ namespace TopInstrument{
                     TRACE("# <Detect Board on Slot %d: S3100-HVSMU, Ver 0x%X>\r\n", slot + 1, fid);
                     //Console.WriteLine("# <Slot {0,2:d}: Detected: S3100-HVSMU, Ver 0x{1,8:X8}, SPI_cs_code {2,8:X8}, SPI_ch_code {3,8:X8}>", 
                     //    slot + 1, fid, slot_cs_code, slot_ch_code); 
-                    hvsmu_V_DAC_init((u8)slot);
-                    hvsmu_I_DAC_init((u8)slot);
+                    //hvsmu_V_DAC_init((u8)slot);
+                    //hvsmu_I_DAC_init((u8)slot);
                     //
-                    hvsmu_HRADC_enable((u8)slot);
+                    //hvsmu_HRADC_enable((u8)slot);
                     break;
                 case (u8)__board_class_id__.S3100_PGU_SUB   :  // alias S3100_HVPGU
                     TRACE("# <Detect Board on Slot %d: S3100-PGU-SUB, Ver 0x%X>\r\n", slot + 1, fid);
@@ -563,45 +446,362 @@ namespace TopInstrument{
 
             return rtn;
         } 
-        public new u32 _SPI_SEL_SLOT(s32 a) // in S3100 slot 1~12
+
+        public u32 _SPI_SEL_SLOT(s32 a) // in S3100 slot 1~12
         {
             return (u32)(0x1<<(a+1));
         }
-        public new u32 _SPI_SEL_SLOT_GNDU() // in S3100-GNDU slot 0
+        public u32 _SPI_SEL_SLOT_GNDU() // in S3100-GNDU slot 0
         {
             //
             return (u32)__slot_cs_code__.SLOT_CS0;
         }
-        public new u32 _SPI_SEL_SLOT_SMU(s32 a) // in S3100 slot 1~12
+        public u32 _SPI_SEL_SLOT_SMU(s32 a) // in S3100 slot 1~12
         {
             return (u32)(0x1<<(a+1));
         }
-        public new u32 _SPI_SEL_SLOT_CMU(s32 a) // in S3100 slot 1~12
+        public u32 _SPI_SEL_SLOT_CMU(s32 a) // in S3100 slot 1~12
         {
             return (u32)(0x1<<(a+1));
         }
-        public new u32 _SPI_SEL_SLOT_PGU(s32 a) // in S3100 slot 1~12
+        public u32 _SPI_SEL_SLOT_PGU(s32 a) // in S3100 slot 1~12
         {
             return (u32)(0x1<<(a+1));
         }
-        public new u32 _SPI_SEL_CH_SMU() 
+        public u32 _SPI_SEL_SLOT_EMUL() // in S3100 EMUL
         {
-            return (u32)__enum_SPI_CBIT.SPI_SEL_M0;
+            return (u32)__slot_cs_code__.SLOT_CS_EMUL;
         }
-        public new u32 _SPI_SEL_CH_GNDU() 
-        {
-            return (u32)__enum_SPI_CBIT.SPI_SEL_M0;
-        }
-        public new u32 _SPI_SEL_CH_PGU() 
-        {
-            return (u32)__enum_SPI_CBIT.SPI_SEL_M2;
-        }
-        public new u32 _SPI_SEL_CH_CMU() 
-        {
-            return (u32)__enum_SPI_CBIT.SPI_SEL_M2;
-        }
-        */
 
+        public u32 _SPI_SEL_CH_SMU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M0;
+        }
+        public u32 _SPI_SEL_CH_GNDU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M0;
+        }
+        public u32 _SPI_SEL_CH_PGU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M2;
+        }
+        public u32 _SPI_SEL_CH_CMU() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_M2;
+        }
+        public u32 _SPI_SEL_CH_EMUL() 
+        {
+            return (u32)__enum_SPI_CBIT.SPI_SEL_EMUL;
+        }
+    }
+
+    public partial class CMU : I_dev_common
+    {
+        //
+        public u32 common__dev_get_fid(u32 slot, u32 spi_sel) {
+            return GetWireOutValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__FPGA_IMAGE_ID_WO);
+        }
+        //
+        public float common__dev_get_temp_C(u32 slot, u32 spi_sel) {
+            return (float)GetWireOutValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__XADC_TEMP_WO)/1000;
+        }
+    }
+
+
+    public partial class CMU : I_CMU
+    {
+        //// cmu sub boards:
+        public u32 cmu__dev_get_stat(u32 slot, u32 spi_sel) 
+        {
+            // | CMU   | CMU_WO        | 0x0D0      | wireout_34 | Return CMU-SUB status.     | bit[0]=selection_io_path_ANL   |
+            // |       |               |            |            |                            | bit[1]=selection_io_path_SIG   |
+            // |       |               |            |            |                            | bit[7:2]=NA                    |
+            // |       |               |            |            |                            | bit[11:8]=board class ID[3:0]  |
+            // |       |               |            |            |                            | bit[19:16]=MTH SLOT ID[3:0]    |
+            //
+            // note : board class ID[3:0]
+            //  [S3100-CMU-ANL] = 0x9
+            //  [S3100-CMU-SIG] = 0x8
+            return GetWireOutValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__CMU_WO);
+        }
+
+        public u32 cmu__dev_is_SIG_board(u32 slot, u32 spi_sel) 
+        {
+            //
+            u32 ret = 0;
+            u32 val = cmu__dev_get_stat(slot, spi_sel);
+            val = (val>>8)&0xF;
+            if (val==(u32)__enum_CONST.CMU_brd_cls_id__SIG) {
+                ret = 1;
+            }
+            return ret;
+        }
+
+        public u32 cmu__dev_is_ANL_board(u32 slot, u32 spi_sel) 
+        {
+            //
+            u32 ret = 0;
+            u32 val = cmu__dev_get_stat(slot, spi_sel);
+            val = (val>>8)&0xF;
+            if (val==(u32)__enum_CONST.CMU_brd_cls_id__ANL) {
+                ret = 1;
+            }
+            return ret;
+        }
+        //
+        private void cmu__dev_set_cntl(u32 slot, u32 spi_sel,  u32 val) {
+            // | CMU   | CMU_WI        | 0x050      | wire_in_14 | Control for CMU-SUB.       | bit[0]=force_io_path_ANL       |
+            // |       |               |            |            |                            | bit[1]=force_io_path_SIG       |
+            // |       |               |            |            |                            | bit[2]=auto_sel_io_path        |
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__CMU_WI, val);
+        }
+        //
+        public u32 cmu_init_sig(u32 slot, u32 spi_sel)
+        {
+            u32 ret;
+            // set IO path 
+            cmu__dev_set_cntl(slot, spi_sel,  0x4); // for auto selection
+            // get status
+            ret = cmu__dev_get_stat(slot, spi_sel);
+            return ret;
+        }
+        public void cmu_set_sig_dacp(u32 slot, u32 spi_sel, 
+            u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0) 
+        {
+            // | DACP  | DACP_WI       | 0x064      | wire_in_19 | Control parallel DACP.     | bit[ 0]=o_DAC_D0               |
+            // |       |               |            |            |                            | bit[ 1]=o_DAC_D1               |
+            // |       |               |            |            |                            | bit[ 2]=o_DAC_D2               |
+            // |       |               |            |            |                            | bit[ 3]=o_DAC_D3               |
+            // |       |               |            |            |                            | bit[ 4]=o_DAC_D4               |
+            // |       |               |            |            |                            | bit[ 5]=o_DAC_D5               |
+            // |       |               |            |            |                            | bit[ 6]=o_DAC_D6               |
+            // |       |               |            |            |                            | bit[ 7]=o_DAC_D7               |
+            // |       |               |            |            |                            | bit[ 8]=o_DAC_D8               |
+            // |       |               |            |            |                            | bit[ 9]=o_DAC_D9               |
+            // |       |               |            |            |                            | bit[10]=o_DAC_D10              |
+            // |       |               |            |            |                            | bit[11]=o_DAC_D11              |
+            // |       |               |            |            |                            | bit[12]=o_DAC_MODE1            |
+            // |       |               |            |            |                            | bit[13]=o_DAC_MODE2            |
+            // |       |               |            |            |                            | bit[14]=o_DAC_POL              |
+            // |       |               |            |            |                            | bit[15]=o_DAC_SPDUP            |
+
+            u32 val = (spdup<<15) | (pol<<14) | (mode2<<13) | (mode1<<12) | (val_DACP_b12);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACP_WI, val);
+        }
+        public void cmu_set_sig_extc(u32 slot, u32 spi_sel,  u32 val = 0) {
+            // | EXT   | EXT_WI        | 0x068      | wire_in_1A | Control external IO.       | bit[ 0]=o_EXT_BIAS_ON          |
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__EXT_WI, val);
+        }
+        public void cmu_set_sig_filt(u32 slot, u32 spi_sel, 
+            u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF) 
+        {
+            // | FILT  | FILT_WI       | 0x06C      | wire_in_1B | Control Filter.            | bit[ 0]=o_T_0_1                |
+            // |       |               |            |            |                            | bit[ 1]=o_T_0_2                |
+            // |       |               |            |            |                            | bit[ 2]=o_T_0_4                |
+            // |       |               |            |            |                            | bit[ 3]=o_T_0_8                |
+            // |       |               |            |            |                            | bit[ 4]=o_T_0_16               |
+            // |       |               |            |            |                            | bit[ 5]=o_T_0_32               |
+            // |       |               |            |            |                            | bit[ 6]=NA                     |
+            // |       |               |            |            |                            | bit[ 7]=NA                     |
+            // |       |               |            |            |                            | bit[ 8]=o_T_90_1               |
+            // |       |               |            |            |                            | bit[ 9]=o_T_90_2               |
+            // |       |               |            |            |                            | bit[10]=o_T_90_4               |
+            // |       |               |            |            |                            | bit[11]=o_T_90_8               |
+            // |       |               |            |            |                            | bit[12]=o_T_90_16              |
+            // |       |               |            |            |                            | bit[13]=o_T_90_32              |
+            // |       |               |            |            |                            | bit[14]=NA                     |
+            // |       |               |            |            |                            | bit[15]=NA                     |
+            // |       |               |            |            |                            | bit[16]=o_6K_B                 |
+            // |       |               |            |            |                            | bit[17]=o_60K_B                |
+            // |       |               |            |            |                            | bit[18]=o_600K_B               |
+            // |       |               |            |            |                            | bit[19]=o_LPF_B                |
+            // |       |               |            |            |                            | bit[31:20]=NA                  |
+            u32 val = (val_FILT_b4<<16) | (val_T_90_b6<<8) | (val_T_0_b6);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__FILT_WI, val);
+        }
+        //
+        public u32 cmu_init_anl(u32 slot, u32 spi_sel) {
+            u32 ret;
+            //// set IO path 
+            cmu__dev_set_cntl(slot, spi_sel,  0x4); // for auto selection
+            // get status
+            ret = cmu__dev_get_stat(slot, spi_sel);
+            //// initialize DACQ
+            cmu__dacq_init(slot, spi_sel);
+            return ret;
+        }
+        public void cmu_set_anl_rr_iv(u32 slot, u32 spi_sel, 
+            u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) {
+            // | RRIV  | RRIV_WI       | 0x054      | wire_in_15 | Control RR and IV.         | bit[ 0]=o_F_R_1                |
+            // |       |               |            |            |                            | bit[ 1]=o_F_R_2                |
+            // |       |               |            |            |                            | bit[ 2]=o_A1_R_1               |          
+            // |       |               |            |            |                            | bit[ 3]=o_A1_R_2               |
+            // |       |               |            |            |                            | bit[ 4]=o_F_D_1                |
+            // |       |               |            |            |                            | bit[ 5]=o_F_D_2                | 
+            // |       |               |            |            |                            | bit[ 6]=NA                     |
+            // |       |               |            |            |                            | bit[ 7]=NA                     |
+            // |       |               |            |            |                            | bit[ 8]=o_R100                 |
+            // |       |               |            |            |                            | bit[ 9]=o_R1K                  |
+            // |       |               |            |            |                            | bit[10]=o_R10K                 |
+            // |       |               |            |            |                            | bit[11]=o_R100K                |
+            // |       |               |            |            |                            | bit[12]=o_R_0                  |
+            // |       |               |            |            |                            | bit[13]=o_R_1                  |
+            // |       |               |            |            |                            | bit[14]=o_R_2                  |
+            // |       |               |            |            |                            | bit[15]=o_R_3                  |
+            u32 val = (val_R_N_b4<<12) | (val_R_M_b4<<8) | (val_F_D_b2<<4) | (val_A1_R_b2<<2) | (val_F_R_b2);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__RRIV_WI, val);
+        }
+        public void cmu_set_anl_det_mod(u32 slot, u32 spi_sel, 
+            u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0) {
+            // | DET   | DET_WI        | 0x058      | wire_in_16 | Control PH det and MOD.    | bit[ 0]=o_A3_D1                |
+            // |       |               |            |            |                            | bit[ 1]=o_A3_D2                |
+            // |       |               |            |            |                            | bit[ 2]=o_A3_R1                |
+            // |       |               |            |            |                            | bit[ 3]=o_A3_R2                |
+            // |       |               |            |            |                            | bit[ 4]=o_PS_0_0_RLY           |
+            // |       |               |            |            |                            | bit[ 5]=o_PS90_0_RLY           |
+            u32 val = (val_PS_RLY_b2<<4) | (val_A3_R_b2<<2) | (val_A3_D_b2);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DET_WI, val);
+        }
+        public void cmu_set_anl_amp_gain(u32 slot, u32 spi_sel,
+            u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0) {
+            // | AMP   | AMP_WI        | 0x05C      | wire_in_17 | Control AMP gain.          | bit[ 0]=o_AF1_D                |
+            // |       |               |            |            |                            | bit[ 1]=o_AF2_D                |  
+            // |       |               |            |            |                            | bit[ 2]=o_AF4_D                |
+            // |       |               |            |            |                            | bit[ 3]=o_AM__1_D              |
+            // |       |               |            |            |                            | bit[ 4]=o_AM100_D              |
+            // |       |               |            |            |                            | bit[ 5]=NA                     |
+            // |       |               |            |            |                            | bit[ 6]=NA                     |
+            // |       |               |            |            |                            | bit[ 7]=NA                     |
+            // |       |               |            |            |                            | bit[ 8]=o_AF1_R                |
+            // |       |               |            |            |                            | bit[ 9]=o_AF2_R                |
+            // |       |               |            |            |                            | bit[10]=o_AF4_R                |
+            // |       |               |            |            |                            | bit[11]=o_AM__1_R              |
+            // |       |               |            |            |                            | bit[12]=o_AM100_R              |
+
+            u32 val = (val_AM_R_b2<<11) | (val_AF_R_b3<<8) | (val_AM_D_b2<<3) | (val_AF_D_b3);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__AMP_WI, val);
+        }
+        public u32 cmu_get_anl_stat__unbal(u32 slot, u32 spi_sel) {
+            return (cmu_get_anl_stat(slot, spi_sel) & 0x0001);
+        }
+        public u32 cmu_get_anl_stat__dcba_d(u32 slot, u32 spi_sel) {
+            return (cmu_get_anl_stat(slot, spi_sel)>>8) & 0x000F;
+        }
+        public u32 cmu_get_anl_stat__dcba_r(u32 slot, u32 spi_sel) {
+            return (cmu_get_anl_stat(slot, spi_sel)>>12) & 0x000F;
+        }
+        private s32 cmu__daq_conv_flt_s32(float val_flt) {
+            //// convert float to int (16-bits)
+            // note: range -10V ~ +10V in float 
+            s32 val_s32;
+            float val_flt_MAX = 10;
+            float val_flt_MIN = -10;
+
+            // limit
+            if (val_flt > val_flt_MAX) val_flt = val_flt_MAX;
+            if (val_flt < val_flt_MIN) val_flt = val_flt_MIN;
+
+            // pos scale = 10V / (2^15-1)
+            // neg scale = -10V / 2^15
+            float scale;
+            if (val_flt > 0) scale = (float)( (Math.Pow(2,15)-1)/10.0 );
+            else             scale = (float)(  Math.Pow(2,15)   /10.0 );
+
+            val_s32 = (s32)(val_flt * scale);
+            return val_s32;
+        }
+        private float cmu__daq_conv_s32_flt(s32 val_s32) {
+            //// convert int (16-bits) to float
+            // note: range -10V ~ +10V in float 
+            float val_flt;
+
+            // limit
+            s32 val_s32_MAX = (s32)(Math.Pow(2,15)-1);
+            s32 val_s32_MIN = (s32)(-Math.Pow(2,15));
+            if (val_s32 > val_s32_MAX) val_flt = val_s32_MAX;
+            if (val_s32 < val_s32_MIN) val_flt = val_s32_MIN;
+
+            // pos scale = 10V / (2^15-1)
+            // neg scale = -10V / 2^15
+            float scale;
+            if (val_s32 > 0) scale = (float)(10.0 / (Math.Pow(2,15)-1) );
+            else             scale = (float)(10.0 /  Math.Pow(2,15)    );
+
+            val_flt = (float)(val_s32 * scale);
+            return val_flt;
+        }
+        public void cmu_set_anl_dacq(u32 slot, u32 spi_sel, 
+            float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0) {
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_DIN21_WI | 0x02C      | wire_in_0B | Set DACQ_21 data.          | bit[31:16]=DAC2[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC1[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_DIN43_WI | 0x030      | wire_in_0C | Set DACQ_43 data.          | bit[31:16]=DAC4[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC3[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            
+            //// convert float to int (16-bits)
+            // note: range -10V ~ +10V in float // scale = 10V / (2^15-1)
+            s32 val_dac1_s32 = cmu__daq_conv_flt_s32(val_dac1_flt);
+            s32 val_dac2_s32 = cmu__daq_conv_flt_s32(val_dac2_flt);
+            s32 val_dac3_s32 = cmu__daq_conv_flt_s32(val_dac3_flt);
+            s32 val_dac4_s32 = cmu__daq_conv_flt_s32(val_dac4_flt);
+            // set dac integer values
+            u32 val_dac21 =  (u32)( ((val_dac2_s32&0xFFFF)<<16) | (val_dac1_s32&0xFFFF) );
+            u32 val_dac43 =  (u32)( ((val_dac4_s32&0xFFFF)<<16) | (val_dac3_s32&0xFFFF) );
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_DIN21_WI, val_dac21);
+            SetWireInValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_DIN43_WI, val_dac43);
+
+            // trigger dac update
+            cmu__dacq_update(slot, spi_sel);
+        }
+        public float cmu_get_anl_dacq(u32 slot, u32 spi_sel,
+            u32 ch_sel = 1) {
+            // ch_sel : 1, 2, 3, 4
+
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_RDB21_WO | 0x0AC      | wireout_2B | Get DACQ_21 readback.      | bit[31:16]=DAC2[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC1[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+            // | DACQ  | DACQ_RDB43_WO | 0x0B0      | wireout_2C | Get DACQ_43 readback.      | bit[31:16]=DAC4[15:0]          |
+            // |       |               |            |            |                            | bit[15: 0]=DAC3[15:0]          |
+            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
+
+            float val_flt;
+            u32 ret_val_21 = GetWireOutValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_RDB21_WO);
+            u32 ret_val_43 = GetWireOutValue(slot, spi_sel,
+                (u32)__enum_EPA.EP_ADRS__DACQ_RDB43_WO);
+            s16 ret_val_s16;
+            s32 ret_val_s32;
+            if      (ch_sel == 1) ret_val_s16 = (s16)((ret_val_21>> 0)&0xFFFF);
+            else if (ch_sel == 2) ret_val_s16 = (s16)((ret_val_21>>16)&0xFFFF);
+            else if (ch_sel == 3) ret_val_s16 = (s16)((ret_val_43>> 0)&0xFFFF);
+            else if (ch_sel == 4) ret_val_s16 = (s16)((ret_val_43>>16)&0xFFFF);
+            else                  ret_val_s16 = 0;
+            //
+            ret_val_s32 = (s32)ret_val_s16;
+            val_flt = cmu__daq_conv_s32_flt(ret_val_s32);
+            return val_flt;
+        }
+        //
+    }
+
+
+    public partial class CMU : I_ADDA
+    {
         //// adda functions :
         public void adda_pwr_on(u32 slot, u32 spi_sel) {
             
@@ -898,301 +1098,6 @@ namespace TopInstrument{
             return Tuple.Create(dft_coef_i_buf, dft_coef_q_buf, iq_info, cmp_ratio_info);
         }
 
-
-        //// cmu sub boards:
-        public u32 cmu__dev_get_stat(u32 slot, u32 spi_sel) 
-        {
-            // | CMU   | CMU_WO        | 0x0D0      | wireout_34 | Return CMU-SUB status.     | bit[0]=selection_io_path_ANL   |
-            // |       |               |            |            |                            | bit[1]=selection_io_path_SIG   |
-            // |       |               |            |            |                            | bit[7:2]=NA                    |
-            // |       |               |            |            |                            | bit[11:8]=board class ID[3:0]  |
-            // |       |               |            |            |                            | bit[19:16]=MTH SLOT ID[3:0]    |
-            //
-            // note : board class ID[3:0]
-            //  [S3100-CMU-ANL] = 0x9
-            //  [S3100-CMU-SIG] = 0x8
-            return GetWireOutValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__CMU_WO);
-        }
-
-        public u32 cmu__dev_get_fid(u32 slot, u32 spi_sel) {
-            return GetWireOutValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__FPGA_IMAGE_ID_WO);
-        }
-
-        public float cmu__dev_get_temp_C(u32 slot, u32 spi_sel) {
-            return (float)GetWireOutValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__XADC_TEMP_WO)/1000;
-        }
-
-        public u32 cmu__dev_is_SIG_board(u32 slot, u32 spi_sel) 
-        {
-            //
-            u32 ret = 0;
-            u32 val = cmu__dev_get_stat(slot, spi_sel);
-            val = (val>>8)&0xF;
-            if (val==(u32)__enum_CMU.CMU_brd_cls_id__SIG) {
-                ret = 1;
-            }
-            return ret;
-        }
-
-        public u32 cmu__dev_is_ANL_board(u32 slot, u32 spi_sel) 
-        {
-            //
-            u32 ret = 0;
-            u32 val = cmu__dev_get_stat(slot, spi_sel);
-            val = (val>>8)&0xF;
-            if (val==(u32)__enum_CMU.CMU_brd_cls_id__ANL) {
-                ret = 1;
-            }
-            return ret;
-        }
-        //
-        private void cmu__dev_set_cntl(u32 slot, u32 spi_sel,  u32 val) {
-            // | CMU   | CMU_WI        | 0x050      | wire_in_14 | Control for CMU-SUB.       | bit[0]=force_io_path_ANL       |
-            // |       |               |            |            |                            | bit[1]=force_io_path_SIG       |
-            // |       |               |            |            |                            | bit[2]=auto_sel_io_path        |
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__CMU_WI, val);
-        }
-        //
-        public u32 cmu_init_sig(u32 slot, u32 spi_sel)
-        {
-            u32 ret;
-            // set IO path 
-            cmu__dev_set_cntl(slot, spi_sel,  0x4); // for auto selection
-            // get status
-            ret = cmu__dev_get_stat(slot, spi_sel);
-            return ret;
-        }
-        public void cmu_set_sig_dacp(u32 slot, u32 spi_sel, 
-            u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0) 
-        {
-            // | DACP  | DACP_WI       | 0x064      | wire_in_19 | Control parallel DACP.     | bit[ 0]=o_DAC_D0               |
-            // |       |               |            |            |                            | bit[ 1]=o_DAC_D1               |
-            // |       |               |            |            |                            | bit[ 2]=o_DAC_D2               |
-            // |       |               |            |            |                            | bit[ 3]=o_DAC_D3               |
-            // |       |               |            |            |                            | bit[ 4]=o_DAC_D4               |
-            // |       |               |            |            |                            | bit[ 5]=o_DAC_D5               |
-            // |       |               |            |            |                            | bit[ 6]=o_DAC_D6               |
-            // |       |               |            |            |                            | bit[ 7]=o_DAC_D7               |
-            // |       |               |            |            |                            | bit[ 8]=o_DAC_D8               |
-            // |       |               |            |            |                            | bit[ 9]=o_DAC_D9               |
-            // |       |               |            |            |                            | bit[10]=o_DAC_D10              |
-            // |       |               |            |            |                            | bit[11]=o_DAC_D11              |
-            // |       |               |            |            |                            | bit[12]=o_DAC_MODE1            |
-            // |       |               |            |            |                            | bit[13]=o_DAC_MODE2            |
-            // |       |               |            |            |                            | bit[14]=o_DAC_POL              |
-            // |       |               |            |            |                            | bit[15]=o_DAC_SPDUP            |
-
-            u32 val = (spdup<<15) | (pol<<14) | (mode2<<13) | (mode1<<12) | (val_DACP_b12);
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__DACP_WI, val);
-        }
-        public void cmu_set_sig_extc(u32 slot, u32 spi_sel,  u32 val = 0) {
-            // | EXT   | EXT_WI        | 0x068      | wire_in_1A | Control external IO.       | bit[ 0]=o_EXT_BIAS_ON          |
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__EXT_WI, val);
-        }
-        public void cmu_set_sig_filt(u32 slot, u32 spi_sel, 
-            u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF) 
-        {
-            // | FILT  | FILT_WI       | 0x06C      | wire_in_1B | Control Filter.            | bit[ 0]=o_T_0_1                |
-            // |       |               |            |            |                            | bit[ 1]=o_T_0_2                |
-            // |       |               |            |            |                            | bit[ 2]=o_T_0_4                |
-            // |       |               |            |            |                            | bit[ 3]=o_T_0_8                |
-            // |       |               |            |            |                            | bit[ 4]=o_T_0_16               |
-            // |       |               |            |            |                            | bit[ 5]=o_T_0_32               |
-            // |       |               |            |            |                            | bit[ 6]=NA                     |
-            // |       |               |            |            |                            | bit[ 7]=NA                     |
-            // |       |               |            |            |                            | bit[ 8]=o_T_90_1               |
-            // |       |               |            |            |                            | bit[ 9]=o_T_90_2               |
-            // |       |               |            |            |                            | bit[10]=o_T_90_4               |
-            // |       |               |            |            |                            | bit[11]=o_T_90_8               |
-            // |       |               |            |            |                            | bit[12]=o_T_90_16              |
-            // |       |               |            |            |                            | bit[13]=o_T_90_32              |
-            // |       |               |            |            |                            | bit[14]=NA                     |
-            // |       |               |            |            |                            | bit[15]=NA                     |
-            // |       |               |            |            |                            | bit[16]=o_6K_B                 |
-            // |       |               |            |            |                            | bit[17]=o_60K_B                |
-            // |       |               |            |            |                            | bit[18]=o_600K_B               |
-            // |       |               |            |            |                            | bit[19]=o_LPF_B                |
-            // |       |               |            |            |                            | bit[31:20]=NA                  |
-            u32 val = (val_FILT_b4<<16) | (val_T_90_b6<<8) | (val_T_0_b6);
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__FILT_WI, val);
-        }
-        //
-        public u32 cmu_init_anl(u32 slot, u32 spi_sel) {
-            u32 ret;
-            //// set IO path 
-            cmu__dev_set_cntl(slot, spi_sel,  0x4); // for auto selection
-            // get status
-            ret = cmu__dev_get_stat(slot, spi_sel);
-            //// initialize DACQ
-            cmu__dacq_init(slot, spi_sel);
-            return ret;
-        }
-        public void cmu_set_anl_rr_iv(u32 slot, u32 spi_sel, 
-            u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) {
-            // | RRIV  | RRIV_WI       | 0x054      | wire_in_15 | Control RR and IV.         | bit[ 0]=o_F_R_1                |
-            // |       |               |            |            |                            | bit[ 1]=o_F_R_2                |
-            // |       |               |            |            |                            | bit[ 2]=o_A1_R_1               |          
-            // |       |               |            |            |                            | bit[ 3]=o_A1_R_2               |
-            // |       |               |            |            |                            | bit[ 4]=o_F_D_1                |
-            // |       |               |            |            |                            | bit[ 5]=o_F_D_2                | 
-            // |       |               |            |            |                            | bit[ 6]=NA                     |
-            // |       |               |            |            |                            | bit[ 7]=NA                     |
-            // |       |               |            |            |                            | bit[ 8]=o_R100                 |
-            // |       |               |            |            |                            | bit[ 9]=o_R1K                  |
-            // |       |               |            |            |                            | bit[10]=o_R10K                 |
-            // |       |               |            |            |                            | bit[11]=o_R100K                |
-            // |       |               |            |            |                            | bit[12]=o_R_0                  |
-            // |       |               |            |            |                            | bit[13]=o_R_1                  |
-            // |       |               |            |            |                            | bit[14]=o_R_2                  |
-            // |       |               |            |            |                            | bit[15]=o_R_3                  |
-            u32 val = (val_R_N_b4<<12) | (val_R_M_b4<<8) | (val_F_D_b2<<4) | (val_A1_R_b2<<2) | (val_F_R_b2);
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__RRIV_WI, val);
-        }
-        public void cmu_set_anl_det_mod(u32 slot, u32 spi_sel, 
-            u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0) {
-            // | DET   | DET_WI        | 0x058      | wire_in_16 | Control PH det and MOD.    | bit[ 0]=o_A3_D1                |
-            // |       |               |            |            |                            | bit[ 1]=o_A3_D2                |
-            // |       |               |            |            |                            | bit[ 2]=o_A3_R1                |
-            // |       |               |            |            |                            | bit[ 3]=o_A3_R2                |
-            // |       |               |            |            |                            | bit[ 4]=o_PS_0_0_RLY           |
-            // |       |               |            |            |                            | bit[ 5]=o_PS90_0_RLY           |
-            u32 val = (val_PS_RLY_b2<<4) | (val_A3_R_b2<<2) | (val_A3_D_b2);
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__DET_WI, val);
-        }
-        public void cmu_set_anl_amp_gain(u32 slot, u32 spi_sel,
-            u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0) {
-            // | AMP   | AMP_WI        | 0x05C      | wire_in_17 | Control AMP gain.          | bit[ 0]=o_AF1_D                |
-            // |       |               |            |            |                            | bit[ 1]=o_AF2_D                |  
-            // |       |               |            |            |                            | bit[ 2]=o_AF4_D                |
-            // |       |               |            |            |                            | bit[ 3]=o_AM__1_D              |
-            // |       |               |            |            |                            | bit[ 4]=o_AM100_D              |
-            // |       |               |            |            |                            | bit[ 5]=NA                     |
-            // |       |               |            |            |                            | bit[ 6]=NA                     |
-            // |       |               |            |            |                            | bit[ 7]=NA                     |
-            // |       |               |            |            |                            | bit[ 8]=o_AF1_R                |
-            // |       |               |            |            |                            | bit[ 9]=o_AF2_R                |
-            // |       |               |            |            |                            | bit[10]=o_AF4_R                |
-            // |       |               |            |            |                            | bit[11]=o_AM__1_R              |
-            // |       |               |            |            |                            | bit[12]=o_AM100_R              |
-
-            u32 val = (val_AM_R_b2<<11) | (val_AF_R_b3<<8) | (val_AM_D_b2<<3) | (val_AF_D_b3);
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__AMP_WI, val);
-        }
-        public u32 cmu_get_anl_stat__unbal(u32 slot, u32 spi_sel) {
-            return (cmu_get_anl_stat(slot, spi_sel) & 0x0001);
-        }
-        public u32 cmu_get_anl_stat__dcba_d(u32 slot, u32 spi_sel) {
-            return (cmu_get_anl_stat(slot, spi_sel)>>8) & 0x000F;
-        }
-        public u32 cmu_get_anl_stat__dcba_r(u32 slot, u32 spi_sel) {
-            return (cmu_get_anl_stat(slot, spi_sel)>>12) & 0x000F;
-        }
-        private s32 cmu__daq_conv_flt_s32(float val_flt) {
-            //// convert float to int (16-bits)
-            // note: range -10V ~ +10V in float 
-            s32 val_s32;
-            float val_flt_MAX = 10;
-            float val_flt_MIN = -10;
-
-            // limit
-            if (val_flt > val_flt_MAX) val_flt = val_flt_MAX;
-            if (val_flt < val_flt_MIN) val_flt = val_flt_MIN;
-
-            // pos scale = 10V / (2^15-1)
-            // neg scale = -10V / 2^15
-            float scale;
-            if (val_flt > 0) scale = (float)( (Math.Pow(2,15)-1)/10.0 );
-            else             scale = (float)(  Math.Pow(2,15)   /10.0 );
-
-            val_s32 = (s32)(val_flt * scale);
-            return val_s32;
-        }
-        private float cmu__daq_conv_s32_flt(s32 val_s32) {
-            //// convert int (16-bits) to float
-            // note: range -10V ~ +10V in float 
-            float val_flt;
-
-            // limit
-            s32 val_s32_MAX = (s32)(Math.Pow(2,15)-1);
-            s32 val_s32_MIN = (s32)(-Math.Pow(2,15));
-            if (val_s32 > val_s32_MAX) val_flt = val_s32_MAX;
-            if (val_s32 < val_s32_MIN) val_flt = val_s32_MIN;
-
-            // pos scale = 10V / (2^15-1)
-            // neg scale = -10V / 2^15
-            float scale;
-            if (val_s32 > 0) scale = (float)(10.0 / (Math.Pow(2,15)-1) );
-            else             scale = (float)(10.0 /  Math.Pow(2,15)    );
-
-            val_flt = (float)(val_s32 * scale);
-            return val_flt;
-        }
-        public void cmu_set_anl_dacq(u32 slot, u32 spi_sel, 
-            float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0) {
-            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-            // | DACQ  | DACQ_DIN21_WI | 0x02C      | wire_in_0B | Set DACQ_21 data.          | bit[31:16]=DAC2[15:0]          |
-            // |       |               |            |            |                            | bit[15: 0]=DAC1[15:0]          |
-            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-            // | DACQ  | DACQ_DIN43_WI | 0x030      | wire_in_0C | Set DACQ_43 data.          | bit[31:16]=DAC4[15:0]          |
-            // |       |               |            |            |                            | bit[15: 0]=DAC3[15:0]          |
-            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-            
-            //// convert float to int (16-bits)
-            // note: range -10V ~ +10V in float // scale = 10V / (2^15-1)
-            s32 val_dac1_s32 = cmu__daq_conv_flt_s32(val_dac1_flt);
-            s32 val_dac2_s32 = cmu__daq_conv_flt_s32(val_dac2_flt);
-            s32 val_dac3_s32 = cmu__daq_conv_flt_s32(val_dac3_flt);
-            s32 val_dac4_s32 = cmu__daq_conv_flt_s32(val_dac4_flt);
-            // set dac integer values
-            u32 val_dac21 =  (u32)( ((val_dac2_s32&0xFFFF)<<16) | (val_dac1_s32&0xFFFF) );
-            u32 val_dac43 =  (u32)( ((val_dac4_s32&0xFFFF)<<16) | (val_dac3_s32&0xFFFF) );
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__DACQ_DIN21_WI, val_dac21);
-            SetWireInValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__DACQ_DIN43_WI, val_dac43);
-
-            // trigger dac update
-            cmu__dacq_update(slot, spi_sel);
-        }
-        public float cmu_get_anl_dacq(u32 slot, u32 spi_sel,
-            u32 ch_sel = 1) {
-            // ch_sel : 1, 2, 3, 4
-
-            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-            // | DACQ  | DACQ_RDB21_WO | 0x0AC      | wireout_2B | Get DACQ_21 readback.      | bit[31:16]=DAC2[15:0]          |
-            // |       |               |            |            |                            | bit[15: 0]=DAC1[15:0]          |
-            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-            // | DACQ  | DACQ_RDB43_WO | 0x0B0      | wireout_2C | Get DACQ_43 readback.      | bit[31:16]=DAC4[15:0]          |
-            // |       |               |            |            |                            | bit[15: 0]=DAC3[15:0]          |
-            // +-------+---------------+------------+------------+----------------------------+--------------------------------+
-
-            float val_flt;
-            u32 ret_val_21 = GetWireOutValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__DACQ_RDB21_WO);
-            u32 ret_val_43 = GetWireOutValue(slot, spi_sel,
-                (u32)__enum_EPA.EP_ADRS__DACQ_RDB43_WO);
-            s16 ret_val_s16;
-            s32 ret_val_s32;
-            if      (ch_sel == 1) ret_val_s16 = (s16)((ret_val_21>> 0)&0xFFFF);
-            else if (ch_sel == 2) ret_val_s16 = (s16)((ret_val_21>>16)&0xFFFF);
-            else if (ch_sel == 3) ret_val_s16 = (s16)((ret_val_43>> 0)&0xFFFF);
-            else if (ch_sel == 4) ret_val_s16 = (s16)((ret_val_43>>16)&0xFFFF);
-            else                  ret_val_s16 = 0;
-            //
-            ret_val_s32 = (s32)ret_val_s16;
-            val_flt = cmu__daq_conv_s32_flt(ret_val_s32);
-            return val_flt;
-        }
         //
     }
 
@@ -1307,7 +1212,7 @@ namespace TopInstrument{
             	if (flag_done==1)
             		break;
             	cnt_done += 1;
-            	if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+            	if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
             		break;
             }
 
@@ -1431,7 +1336,7 @@ namespace TopInstrument{
             	if (flag_done==1)
             		break;
             	cnt_done += 1;
-            	if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+            	if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
             		break;
             }
             //
@@ -1681,7 +1586,7 @@ namespace TopInstrument{
                 if (flag_done==1)
                     break;
                 cnt_done += 1;
-                if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+                if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
                     break;
             }
             u32 val_recv = flag & 0x000000FF;
@@ -1806,7 +1711,7 @@ namespace TopInstrument{
             	if (flag_done==1)
             		break;
             	cnt_done += 1;
-            	if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+            	if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
             		break;
             }
             //
@@ -2036,7 +1941,7 @@ namespace TopInstrument{
             	if (flag_done==1)
             		break;
             	cnt_done += 1;
-            	if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+            	if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
             		break;
             }
             // copy received data
@@ -2150,7 +2055,7 @@ namespace TopInstrument{
                 if (flag_done==true)
                     break;
                 cnt_done += 1;
-                if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+                if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
                     break;
             }
             u32 ret = GetWireOutValue(slot, spi_sel, 
@@ -2187,7 +2092,7 @@ namespace TopInstrument{
                 if (flag_done==true)
                     break;
                 cnt_done += 1;
-                if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+                if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
                     break;
             }
             //
@@ -3054,7 +2959,7 @@ namespace TopInstrument{
                 if (flag_done==true)
                     break;
                 cnt_done += 1;
-                if (cnt_done>=(u32)__enum_CMU.MAX_CNT)
+                if (cnt_done>=(u32)__enum_CONST.MAX_CNT)
                     break;
             }
             u32 ret = GetWireOutValue(slot, spi_sel, 

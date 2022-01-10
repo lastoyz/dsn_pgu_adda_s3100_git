@@ -131,6 +131,25 @@ namespace TopInstrument
 
     }
 
+    interface I_slot 
+    {
+        //// for slot functions
+        void scan_frame_slot(); // scan slot
+        bool search_board_init(s8 slot, u32 fid); //(s8 slot, u32 slot_cs_code, u32 slot_ch_code, u32 fid);
+        u32 _SPI_SEL_SLOT(s32 ch); // in S3100 slot 1~12 // ch = 0  => slot = 1
+        u32 _SPI_SEL_SLOT_GNDU(); // in S3100-GNDU slot 0 fixed
+        u32 _SPI_SEL_CH_SMU();
+        u32 _SPI_SEL_CH_GNDU();
+        u32 _SPI_SEL_CH_PGU();
+        u32 _SPI_SEL_CH_CMU();
+    }
+
+    interface I_dev_common 
+    {
+        //// for device common
+        u32 common__dev_get_fid(u32 slot, u32 spi_sel);
+        float common__dev_get_temp_C(u32 slot, u32 spi_sel);
+    }
 
 
     //// some common class or enum or struct

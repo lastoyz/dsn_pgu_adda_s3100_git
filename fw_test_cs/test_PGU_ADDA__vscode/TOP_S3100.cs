@@ -27,9 +27,7 @@ namespace TopInstrument{
 
 
     //// some common class or enum or struct
-    using TSmuCtrlReg = __struct_TSmuCtrlReg;
-    using TSmuCtrl    = __struct_TSmuCtrl;
-
+    
 
     //// inheritance control for SMU
     // //public partial class __S3100_CPU_BASE : __HVSMU {} // note: __HVSMU has END-POINT ADDRESS for HVSMU // __enum_EPA
@@ -44,10 +42,10 @@ namespace TopInstrument{
     
 
     //// inheritance control for CMU
-    public partial class __CMU : __S3100_SPI_EMUL {} // for __enum_EPA
-    public partial class EPS : __CMU {}
-    public partial class SMU : EPS {}  // for SMU compatible
-    public partial class CMU : SMU {}
+    //public partial class __CMU : __S3100_SPI_EMUL {} // for __enum_EPA
+    //public partial class EPS : __CMU {}
+    //public partial class SMU : EPS {}  // for SMU compatible
+    //public partial class CMU : SMU {}
     
 
 
@@ -55,6 +53,9 @@ namespace TopInstrument{
     // public partial class __S3100_SPI_EMUL : __PGU {} // for __enum_EPA
     // public partial class EPS : __S3100_SPI_EMUL {} 
     // public partial class PGU : EPS {}
+    public partial class __PGU : __S3100_SPI_EMUL {} // for __enum_EPA
+    public partial class EPS : __PGU {}
+    public partial class PGU : EPS {}
 
 
     

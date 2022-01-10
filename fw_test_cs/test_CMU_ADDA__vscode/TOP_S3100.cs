@@ -27,8 +27,6 @@ namespace TopInstrument{
 
 
     //// some common class or enum or struct
-    using TSmuCtrlReg = __struct_TSmuCtrlReg;
-    using TSmuCtrl    = __struct_TSmuCtrl;
 
 
     //// inheritance control for SMU
@@ -44,11 +42,14 @@ namespace TopInstrument{
     
 
     //// inheritance control for CMU
+    //public partial class __CMU : __S3100_SPI_EMUL {} // for __enum_EPA
+    //public partial class EPS : __CMU {}
+    //public partial class SMU : EPS {}  // for SMU compatible
+    //public partial class CMU : SMU {}
+    
     public partial class __CMU : __S3100_SPI_EMUL {} // for __enum_EPA
     public partial class EPS : __CMU {}
-    public partial class SMU : EPS {}  // for SMU compatible
-    public partial class CMU : SMU {}
-    
+    public partial class CMU : EPS {}  
 
 
     //// inheritance control for PGU

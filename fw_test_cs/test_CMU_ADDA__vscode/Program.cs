@@ -477,9 +477,9 @@ namespace __test__
             //  [S3100-CMU-SIG] = 0x8
             //  [S3100-CMU-ANL] = 0x9
             Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_fid   (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
+                dev_itfc_dut.common__dev_get_fid   (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
             Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
-                dev_itfc_dut.cmu__dev_get_temp_C(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
+                dev_itfc_dut.common__dev_get_temp_C(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
             Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
                 dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
             if (dev_itfc_dut.cmu__dev_is_SIG_board(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig)==1)
@@ -488,9 +488,9 @@ namespace __test__
                 Console.WriteLine("S3100-CMU-SIG is missing.");
             //
             Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_fid   (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
+                dev_itfc_dut.common__dev_get_fid   (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
             Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
-                dev_itfc_dut.cmu__dev_get_temp_C(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
+                dev_itfc_dut.common__dev_get_temp_C(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
             Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
                 dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
             if (dev_itfc_dut.cmu__dev_is_ANL_board(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)==1)

@@ -24,14 +24,14 @@ namespace __test__
 
     //// assign DUT
     
-    using DUT = TopInstrument.CMU;
-    using I_DUT = TopInstrument.I_CMU;
+    //using DUT = TopInstrument.CMU;
+    //using I_DUT = TopInstrument.I_CMU;
     
-    //using DUT = TopInstrument.PGU;
-    //using I_DUT = TopInstrument.I_PGU;
+    using DUT = TopInstrument.PGU;
+    using I_DUT = TopInstrument.I_PGU;
 
-    //using c_test_condition = c_test_case__pgu; // case 1. pgu pulse 
-    using c_test_condition = c_test_case__cmu_normal_sample; // case 2. cmu 500kHz normal sampling
+    using c_test_condition = c_test_case__pgu; // case 1. pgu pulse 
+    //using c_test_condition = c_test_case__cmu_normal_sample; // case 2. cmu 500kHz normal sampling
     //using c_test_condition = c_test_case__cmu_under_sample; // case 3. cmu 500kHz undersampling
 
 
@@ -402,7 +402,7 @@ namespace __test__
             //$$ # <Detect Board on Slot 11: S3100-CMU-SUB, Ver 0xAB211102>
             //$$ # <Detect Board on Slot 12: S3100-CMU-SUB, Ver 0xAB211102>
             
-            
+            /*
             Console.WriteLine(">>>>>> test: eeprom ");
 
             // eeprom test on slot 11 = _SPI_SEL_SLOT(10), S3100-CMU-SUB
@@ -462,6 +462,34 @@ namespace __test__
                 dev_itfc_eeprom.eeprom__read__data_float(slot_code__dut_eeprom, spi_ch_code__dut_eeprom, 0x44), 
                 0x44
             );
+            */
+
+            Console.WriteLine(">>>>>> test: hvpgu io ");
+
+            // test hvpgu functions :
+            u32 slot_sel_code__hvpgu    = dev._SPI_SEL_SLOT(5); // slot 6
+            u32 spi_chnl_code__hvpgu    = dev._SPI_SEL_CH_PGU();
+
+            Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",
+                dev_itfc_dut.common__dev_get_fid   (slot_sel_code__hvpgu, spi_chnl_code__hvpgu) )); 
+            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
+                dev_itfc_dut.common__dev_get_temp_C(slot_sel_code__hvpgu, spi_chnl_code__hvpgu) )); 
+
+            // seq 0 : initialize HVPGU IO 
+            Console.WriteLine(">>> initialize HVPGU IO");
+            dev_itfc_dut.hvpgu_init(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+            dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+
+            // seq 3 : set HVPGU IO for trigger; read HVPGU status
+            Console.WriteLine(">>> get ready for HVPGU IO; read HVPGU status");
+            dev_itfc_dut.hvpgu_ready__40V(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+            dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+
+            // seq 6 : reset HVPGU IO; read HVPGU status
+            Console.WriteLine(">>> reset HVPGU IO; read HVPGU status");
+            dev_itfc_dut.hvpgu_standby(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+            dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+
 
             // test cmu functions :
             /*
