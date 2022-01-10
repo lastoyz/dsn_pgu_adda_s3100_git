@@ -475,145 +475,28 @@ namespace __test__
             Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
                 dev_itfc_dut.common__dev_get_temp_C(slot_sel_code__hvpgu, spi_chnl_code__hvpgu) )); 
 
-            // seq 0 : initialize HVPGU IO 
+            // seq  : initialize HVPGU IO 
             Console.WriteLine(">>> initialize HVPGU IO");
             dev_itfc_dut.hvpgu_init(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
             dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
 
-            // seq 3 : set HVPGU IO for trigger; read HVPGU status
-            Console.WriteLine(">>> get ready for HVPGU IO; read HVPGU status");
-            dev_itfc_dut.hvpgu_ready__40V(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
-            dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+            // seq  : set HVPGU IO for trigger; read HVPGU status
+            //Console.WriteLine(">>> get ready for HVPGU IO; read HVPGU status");
+            //dev_itfc_dut.hvpgu_ready__40V(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+            //dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
 
-            // seq 6 : reset HVPGU IO; read HVPGU status
-            Console.WriteLine(">>> reset HVPGU IO; read HVPGU status");
-            dev_itfc_dut.hvpgu_standby(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
-            dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+            // seq  : reset HVPGU IO; read HVPGU status
+            //Console.WriteLine(">>> reset HVPGU IO; read HVPGU status");
+            //dev_itfc_dut.hvpgu_standby(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
+            //dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
 
 
-            // test cmu functions :
-            /*
+            // test adda functions :
             //   test spio, clkd, dac, adc, dft
-            u32 slot_sel_code__adda    = dev._SPI_SEL_SLOT(8); // slot 9
-            u32 spi_chnl_code__adda    = dev._SPI_SEL_CH_CMU();
-            u32 slot_sel_code__cmu_sig = dev._SPI_SEL_SLOT(10); // slot 11
-            u32 spi_chnl_code__cmu_sig = dev._SPI_SEL_CH_CMU();
-            u32 slot_sel_code__cmu_anl = dev._SPI_SEL_SLOT(11); // slot 12
-            u32 spi_chnl_code__cmu_anl = dev._SPI_SEL_CH_CMU();
-
-            //// cmu sub board ID check
-            // note : board class ID[3:0]
-            //  [S3100-CMU-SIG] = 0x8
-            //  [S3100-CMU-ANL] = 0x9
-            Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_fid   (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
-            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
-                dev_itfc_dut.cmu__dev_get_temp_C(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
-            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
-            if (dev_itfc_dut.cmu__dev_is_SIG_board(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig)==1)
-                Console.WriteLine("S3100-CMU-SIG is found.");
-            else 
-                Console.WriteLine("S3100-CMU-SIG is missing.");
-            //
-            Console.WriteLine(string.Format("FID           = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_fid   (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
-            Console.WriteLine(string.Format("FPGA temp [C] = {0,6:f3}   ",
-                dev_itfc_dut.cmu__dev_get_temp_C(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
-            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
-            if (dev_itfc_dut.cmu__dev_is_ANL_board(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)==1)
-                Console.WriteLine("S3100-CMU-ANL is found.");
-            else 
-                Console.WriteLine("S3100-CMU-ANL is missing.");
-            
-            //// cmu sub board control for [S3100-CMU-SIG]
-            // to come
-            // CMU-SIG init
-            dev_itfc_dut.cmu_init_sig(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig); 
-            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig) ));
-
-            // test DACP_WI
-            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0xF35,1,1,1,1); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
-            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x3CA,1,0,1,0); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
-            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0xC35,0,1,0,1); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
-            dev_itfc_dut.cmu_set_sig_dacp(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig); //(u32 val_DACP_b12 = 0, u32 mode1 = 0, u32 mode2 = 0, u32 pol = 0, u32 spdup = 0)
-
-            // test EXT_WI
-            dev_itfc_dut.cmu_set_sig_extc(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  1); //(u32 val = 0)
-            dev_itfc_dut.cmu_set_sig_extc(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0); //(u32 val = 0)
-
-            // test FILT_WI
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x00,0x00,0xF); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x01,0x01,0xE); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x02,0x02,0xD); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x04,0x04,0xB); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x08,0x08,0x7); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x10,0x10,0xF); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig,  0x20,0x20,0xF); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-            dev_itfc_dut.cmu_set_sig_filt(slot_sel_code__cmu_sig, spi_chnl_code__cmu_sig); //(u32 val_T_0_b6 = 0, u32 val_T_90_b6 = 0, u32 val_FILT_b4 = 0xF)
-
-            //// cmu sub board control for [S3100-CMU-ANL]
-            // CMU-ANL init
-            dev_itfc_dut.cmu_init_anl(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); 
-            Console.WriteLine(string.Format("CMU_BRD INFO  = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu__dev_get_stat  (slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ));
-
-            // test RRIV_WI
-            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x0,0x0,0x0,0x0) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
-            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x0,0x0,0x1,0x8) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
-            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x0,0x1,0x2,0x4) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
-            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x1,0x2,0x4,0x2) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
-            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x2,0x0,0x8,0x1) ; //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
-            dev_itfc_dut.cmu_set_anl_rr_iv(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(u32 val_F_R_b2 = 0, u32  val_A1_R_b2 = 0, u32 val_F_D_b2 = 0, u32 val_R_M_b4 = 0, u32 val_R_N_b4 = 0) 
-
-            // test DET_WI
-            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x0,0x0); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
-            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x0,0x1); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
-            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x1,0x2); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
-            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x2,0x1); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
-            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x0,0x2); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
-            dev_itfc_dut.cmu_set_anl_det_mod(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(u32 val_PS_RLY_b2 = 0, u32 val_A3_R_b2 = 0, u32 val_A3_D_b2 = 0)
-
-            // test AMP_WI
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x0,0x0,0x0); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x1,0x1,0x1); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x1,0x1,0x2); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x1,0x2,0x0,0x4); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x2,0x0,0x1); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x2,0x4,0x2,0x2); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0x0,0x4,0x2,0x4); //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-            dev_itfc_dut.cmu_set_anl_amp_gain(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl) ; //(u32 val_AM_R_b2 = 0, u32 val_AF_R_b3 = 0, u32 val_AM_D_b2 = 0, u32 val_AF_D_b3 = 0)
-
-            // test STAT_WO
-            Console.WriteLine(string.Format("CMU_ANL UNBAL   = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu_get_anl_stat__unbal(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)   ));
-            Console.WriteLine(string.Format("CMU_ANL DCBA_D  = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu_get_anl_stat__dcba_d(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)  ));
-            Console.WriteLine(string.Format("CMU_ANL DCBA_R  = 0x{0,8:X8} ",
-                dev_itfc_dut.cmu_get_anl_stat__dcba_r(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl)  ));
-
-            // test DACQ
-            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0)
-
-            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  0,1,-1,0);
-            Console.WriteLine(string.Format("CMU_ANL DACQ_1  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  1) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_2  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  2) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_3  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  3) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_4  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  4) ));
-
-            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  5,10,-10,-5);
-            Console.WriteLine(string.Format("CMU_ANL DACQ_1  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  1) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_2  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  2) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_3  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  3) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_4  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  4) ));
-
-            dev_itfc_dut.cmu_set_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl); //(float val_dac1_flt = 0, float val_dac2_flt = 0, float val_dac3_flt = 0, float val_dac4_flt = 0)
-            Console.WriteLine(string.Format("CMU_ANL DACQ_1  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  1) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_2  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  2) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_3  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  3) ));
-            Console.WriteLine(string.Format("CMU_ANL DACQ_4  = {0} ", dev_itfc_dut.cmu_get_anl_dacq(slot_sel_code__cmu_anl, spi_chnl_code__cmu_anl,  4) ));
+            u32 slot_sel_code__adda    = dev._SPI_SEL_SLOT(3); // slot 4
+            u32 spi_chnl_code__adda    = dev._SPI_SEL_CH_PGU();
+            //u32 slot_sel_code__adda    = dev._SPI_SEL_SLOT(8); // slot 9
+            //u32 spi_chnl_code__adda    = dev._SPI_SEL_CH_CMU();
 
             
             //// adc-dac ready
@@ -637,7 +520,6 @@ namespace __test__
                 Sink_sel_2                  
                 );
 
-            // cmu io control may come
 
             
             //// adc-dac trigger
@@ -748,7 +630,6 @@ namespace __test__
 
             //// finish test 
             dev_itfc_dut.adda_pwr_off(slot_sel_code__adda, spi_chnl_code__adda);
-            */
 
 
             // test finish
