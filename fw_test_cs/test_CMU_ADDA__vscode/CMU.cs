@@ -176,6 +176,8 @@ namespace TopInstrument{
 
         public string EP_ADRS__GROUP_STR         = "_S3100_CMU_"; // reserved
 
+        public string LOG_DIR_NAME               =  "test_CMU_ADDA__vscode";
+
         public enum __enum_EPA 
         {
             //// common
@@ -2226,7 +2228,6 @@ namespace TopInstrument{
                                 string buf_time_str="", string buf_dac0_str="", string buf_dac1_str="") 
         {
             // open or create a file
-            string LOG_DIR_NAME  =  "test_CMU_ADDA__vscode";
             string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), LOG_DIR_NAME, "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
             try {
@@ -2887,7 +2888,6 @@ namespace TopInstrument{
             ) 
             {
             // open or create a file
-            string LOG_DIR_NAME  =  "test_CMU_ADDA__vscode";
             string LogFilePath = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), LOG_DIR_NAME, "log"); //$$ TODO: logfile location in vs code
             string LogFileName = Path.Combine(LogFilePath, new string(log_filename));
             try {
