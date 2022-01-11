@@ -1,6 +1,6 @@
 using System;
-//using System.Collections.Generic;
-//using System.Linq;
+using System.Collections.Generic;
+using System.Linq;
 //using System.Text.RegularExpressions;
 
 
@@ -60,10 +60,10 @@ namespace __test__
         public static double out_offset_V                   = 0.0;
         public static int    output_range_V                 = 10; // 10 or 40  
         // DAC ic setup
-        public static double DAC_full_scale_current__mA_1   = 25.50;       // 
-        public static double DAC_full_scale_current__mA_2   = 25.50;       // 
-        public static float DAC_offset_current__mA_1        = (float)0.00; // 0~2mA
-        public static float DAC_offset_current__mA_2        = (float)0.00; // 0~2mA
+        public static double DAC_full_scale_current__mA_1   = 25.1054002495;       //$$ 25.1054002495 with 24.5 and 25.5 trials
+        public static double DAC_full_scale_current__mA_2   = 25.087883648 ;       //$$ 25.087883648 with 24.5 and 25.5 trials
+        public static float DAC_offset_current__mA_1        = (float)0.4477666496; // 0~2mA //$$ 0.4477666496 with 0 and 1 trials
+        public static float DAC_offset_current__mA_2        = (float)0.80689406068; // 0~2mA //$$ 0.80689406068 with 0 and 1 trials
         public static s32   N_pol_sel_1                     = 0;           // 
         public static s32   N_pol_sel_2                     = 0;           // 
         public static s32   Sink_sel_1                      = 0;           // 
@@ -606,6 +606,52 @@ namespace __test__
                 buf_time_str,
                 buf_dac0_str,
                 buf_dac1_str);
+
+            //// print out some adc data
+            // conditions
+            //DAC_full_scale_current__mA_1    = 25.50;       // 
+            //DAC_full_scale_current__mA_2    = 25.50;       // 
+            //DAC_offset_current__mA_1        = (float)0.70; // 0~2mA
+            //DAC_offset_current__mA_2        = (float)0.70; // 0~2mA
+            string tmp = "";
+            tmp += string.Format(" {0} = {1,-11:G5} | ", "DAC_full_scale_current__mA_1", DAC_full_scale_current__mA_1 );
+            tmp += string.Format(" {0} = {1,-11:G5} |\r\n", "DAC_full_scale_current__mA_2", DAC_full_scale_current__mA_2 );
+            tmp += string.Format(" {0} = {1,-11:G5} | ", "DAC_offset_current__mA_1    ", DAC_offset_current__mA_1     );
+            tmp += string.Format(" {0} = {1,-11:G5} | ", "DAC_offset_current__mA_2    ", DAC_offset_current__mA_2     );
+            Console.WriteLine(tmp); 
+            Console.WriteLine("StepTime_ns = [" + string.Join(",", StepTime_ns) + "]");
+            Console.WriteLine("StepLevel_V = [" + string.Join(",", StepLevel_V) + "]");
+            Console.WriteLine("note adc input ratio : 2.4/(2.4+24) = 1/11");
+
+            // adc data
+            // moving average
+            s32 mv__adc0_s32_buf = 0;
+            s32 mv__adc1_s32_buf = 0;
+            s32 mv_length = 5;
+            for (s32 ii=0; ii<100; ii++) {
+                // update mv values
+                mv__adc0_s32_buf += adc0_s32_buf[ii];
+                mv__adc1_s32_buf += adc1_s32_buf[ii];
+                if (ii>=mv_length) {
+                    mv__adc0_s32_buf -= adc0_s32_buf[ii-mv_length];
+                    mv__adc1_s32_buf -= adc1_s32_buf[ii-mv_length];
+                }
+                //
+                tmp = "";
+                tmp += string.Format(" {0}[{1,2}] = {2,-11:G5} | ", 
+                    "ADC0", ii,  dev_itfc_dut.adc_data_conv_s32_to_float(adc0_s32_buf[ii]));
+                tmp += string.Format(" {0}[{1,2}] = {2,-11:G5} | ", 
+                    "ADC1", ii,  dev_itfc_dut.adc_data_conv_s32_to_float(adc1_s32_buf[ii])); 
+                tmp += string.Format(" {0}[{1,2}] = {2,-11:G5} | ", 
+                    "MV_ADC0", ii,  dev_itfc_dut.adc_data_conv_s32_to_float(mv__adc0_s32_buf/mv_length));
+                tmp += string.Format(" {0}[{1,2}] = {2,-11:G5} | ", 
+                    "MV_ADC1", ii,  dev_itfc_dut.adc_data_conv_s32_to_float(mv__adc1_s32_buf/mv_length));
+
+                // print selectively
+                if ( ii==6 || ii==46 || ii==76 )
+                Console.WriteLine(tmp); 
+            }
+
             
             //// calculate dft and write log file
             if (_test_case__ID  == (int)__enum_TEST_CASE.__CMU_UNDER_SAMPLE ||

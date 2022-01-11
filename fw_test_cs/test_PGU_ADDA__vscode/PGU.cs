@@ -1,4 +1,4 @@
-//// CMU.cs
+//// PGU.cs
 
 using System;
 using System.Collections.Generic;
@@ -25,8 +25,8 @@ namespace TopInstrument{
 
 
     //// interface
-    interface I_PGU_proc {} // interface for GUI SW // to come
-    interface I_PGU_algo {} // interface for algorithm // to come
+    //interface I_PGU_proc {} // interface for GUI SW // to come
+    //interface I_PGU_algo {} // interface for algorithm // to come
     interface I_PGU : I_ADDA, I_HVPGU, I_slot, I_dev_common {} // device low-level functions 
 
     interface I_HVPGU
@@ -39,7 +39,7 @@ namespace TopInstrument{
         //
     }
 
-    interface I_ADDA 
+    interface I_ADDA : I_adc 
     {
         //
         //// adda functions:
@@ -130,7 +130,10 @@ namespace TopInstrument{
     interface I_spio {} // SPIO IC control
     interface I_clkd {} // clock IC control
     interface I_dac {} // DAC IC control
-    interface I_adc {} // ADC IC control
+    interface I_adc  // ADC IC control
+    {
+        float adc_data_conv_s32_to_float(s32 val_s32);
+    }
     interface I_dft {} // DFT calculation
     interface I_dacz {} // DAC pattern generation
     interface I_printf {} // for FW style printf
@@ -2032,8 +2035,6 @@ namespace TopInstrument{
                 ws.WriteLine("# pylint: disable=C0326 ## disable-exactly-one-space");
                 ws.WriteLine("## log start"); //$$ add python comment header
             }
-            // note adc full scale : +/-4.096V with 2^31-1 ~ -2^31
-            float adc_scale = (float)4.096 / ((float)Math.Pow(2,31)-(float)1.0);
             //
             string buf0_s32_str = "";
             string buf1_s32_str = "";
@@ -2048,8 +2049,8 @@ namespace TopInstrument{
                 buf1_s32_str     = buf1_s32_str + string.Format("{0,11:D}, ",buf1_s32[i]);
                 buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X8}', ",buf0_s32[i]);
                 buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X8}', ",buf1_s32[i]);
-                buf0_flt_str     = buf0_flt_str + string.Format("{0,11:F8}, ",(float)buf0_s32[i]*adc_scale);
-                buf1_flt_str     = buf1_flt_str + string.Format("{0,11:F8}, ",(float)buf1_s32[i]*adc_scale);
+                buf0_flt_str     = buf0_flt_str + string.Format("{0,11:F8}, ",adc_data_conv_s32_to_float(buf0_s32[i]));
+                buf1_flt_str     = buf1_flt_str + string.Format("{0,11:F8}, ",adc_data_conv_s32_to_float(buf1_s32[i]));
             }
             // write data string on the file
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
@@ -2068,6 +2069,14 @@ namespace TopInstrument{
             }
         }
         //
+        public float adc_data_conv_s32_to_float(s32 val_s32)
+        {
+            //
+            // note adc full scale : +/-4.096V with 2^31-1 ~ -2^31
+            float FS_VAL = (float)4.096;
+            float val_scale = FS_VAL / ((float)Math.Pow(2,31)-(float)1.0);
+            return (float)val_s32*val_scale;
+        }
     }
     
     public partial class PGU : I_dacz 
