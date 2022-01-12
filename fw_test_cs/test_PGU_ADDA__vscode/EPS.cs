@@ -162,7 +162,13 @@ namespace TopInstrument
         //// for I_System_Converter
         public u16	SYS_HexToHWord(u8[] pData) // u8* --> u8[]
         {
-            return 0;
+            // bitCtrl16_t data;
+            // data.u16Data = hWord;
+            // pData[0] = data.u8Data[0];
+            // pData[1] = data.u8Data[1];
+
+            //$$ C# implement // C# safe style
+            return BitConverter.ToUInt16(pData);
         }
         public u32	SYS_HexToWord(u8[] pData) // u8* --> u8[]
         {
@@ -186,7 +192,15 @@ namespace TopInstrument
         }
         public void SYS_HWordToHex(u16 hWord, u8[] pData) // u8* --> u8[]
         {
-            //
+            // bitCtrl16_t data;
+            // data.u16Data = hWord;
+            // pData[0] = data.u8Data[0];
+            // pData[1] = data.u8Data[1];
+            
+            //$$ C# implement // C# safe style
+            var buf_byte = BitConverter.GetBytes(hWord);
+            pData[0] = buf_byte[0];
+            pData[1] = buf_byte[1];
         }
         public void SYS_WordToHex(u32 word, u8[] pData) // u8* --> u8[]
         {

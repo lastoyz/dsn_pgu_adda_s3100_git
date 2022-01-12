@@ -27,7 +27,7 @@ namespace TopInstrument{
     //// interface
     //interface I_PGU_proc {} // interface for GUI SW // to come
     //interface I_PGU_algo {} // interface for algorithm // to come
-    interface I_PGU : I_ADDA, I_HVPGU, I_slot, I_dev_common {} // device low-level functions 
+    interface I_PGU : I_PGU_proc, I_PGU_algo, I_ADDA, I_HVPGU, I_slot, I_dev_common {} // device low-level functions 
 
     interface I_HVPGU
     {
@@ -51,11 +51,11 @@ namespace TopInstrument{
             s32 len_adc_data = 600, 
             u32 adc_sampling_period_count = 21,
             u32 adc_base_freq_MHz = 210,
-            double time_ns__dac_update = 5,
-            double DAC_full_scale_current__mA_1 = 25.47      , 
-            double DAC_full_scale_current__mA_2 = 25.47      , 
-            float DAC_offset_current__mA_1      = (float)0.61, 
-            float DAC_offset_current__mA_2      = (float)0.61, 
+            float time_ns__dac_update = 5,
+            float DAC_full_scale_current__mA_1  = (float)25.5, 
+            float DAC_full_scale_current__mA_2  = (float)25.5, 
+            float DAC_offset_current__mA_1      = (float)0.60, 
+            float DAC_offset_current__mA_2      = (float)0.60, 
             int N_pol_sel_1                     = 0          , 
             int N_pol_sel_2                     = 0          , 
             int Sink_sel_1                      = 0          , 
@@ -67,13 +67,13 @@ namespace TopInstrument{
             long[] StepTime_ns, double[] StepLevel_V, 
             int    output_range                    = 10,
             int    time_ns__code_duration          = 5,
-            double load_impedance_ohm              = 1e6,                       
-            double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 8.5/10, // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 4,
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
-            int num_repeat_pulses                  = 4   // repeat pulse
+            float  load_impedance_ohm              = (float)1e6,                       
+            float  output_impedance_ohm            = (float)50,                        
+            float  scale_voltage_10V_mode          = (float)8.5/10, // 7.650/10        
+            float  gain_voltage_10V_to_40V_mode    = (float)4,
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
+            int    num_repeat_pulses               = 4   // repeat pulse
         );
         // adda_setup_cmu_waveform()
         Tuple<long[], double[], double[]>  adda_setup_cmu_waveform(
@@ -86,13 +86,13 @@ namespace TopInstrument{
             //
             int    output_range                    = 10,
             int    time_ns__code_duration          = 5,
-            double load_impedance_ohm              = 1e6,                       
-            double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 8.5/10, // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 4,
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
-            int num_repeat_pulses                  = 4   // repeat pulse
+            float  load_impedance_ohm              = (float)1e6,                       
+            float  output_impedance_ohm            = (float)50,                        
+            float  scale_voltage_10V_mode          = (float)8.5/10, // 7.650/10        
+            float  gain_voltage_10V_to_40V_mode    = (float)4,
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
+            int    num_repeat_pulses               = 4   // repeat pulse
         );
 
         // adda_trigger_pgu_output()
@@ -729,9 +729,9 @@ namespace TopInstrument{
             s32 len_adc_data = 600, 
             u32 adc_sampling_period_count = 21,
             u32 adc_base_freq_MHz = 210,
-            double time_ns__dac_update = 5,
-            double DAC_full_scale_current__mA_1 = 25.47      , 
-            double DAC_full_scale_current__mA_2 = 25.47      , 
+            float time_ns__dac_update = 5,
+            float DAC_full_scale_current__mA_1  = (float)25.47      , 
+            float DAC_full_scale_current__mA_2  = (float)25.47      , 
             float DAC_offset_current__mA_1      = (float)0.61, 
             float DAC_offset_current__mA_2      = (float)0.61, 
             int N_pol_sel_1                     = 0          , 
@@ -767,13 +767,13 @@ namespace TopInstrument{
             //
             int    output_range                    = 10,
             int    time_ns__code_duration          = 10,
-            double load_impedance_ohm              = 1e6,                       
-            double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 8.5/10, 
-            double gain_voltage_10V_to_40V_mode    = 4, 
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
-            int num_repeat_pulses                  = 4   // repeat pulse
+            float  load_impedance_ohm              = (float)1e6,                       
+            float  output_impedance_ohm            = (float)50,                        
+            float  scale_voltage_10V_mode          = (float)8.5/10, 
+            float  gain_voltage_10V_to_40V_mode    = (float)4, 
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
+            int    num_repeat_pulses               = 4   // repeat pulse
         ) {
             // DAC waveform command generation : time, dac0, dac1
             Tuple<long[], double[], double[]> time_volt_dual_list; // time, dac0, dac1
@@ -825,12 +825,12 @@ namespace TopInstrument{
             // 
             int    output_range                    = 10,
             int    time_ns__code_duration          = 10,
-            double load_impedance_ohm              = 1e6,
-            double output_impedance_ohm            = 50,
-            double scale_voltage_10V_mode          = 8.5/10, 
-            double gain_voltage_10V_to_40V_mode    = 4, 
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
+            float  load_impedance_ohm              = (float)1e6,
+            float  output_impedance_ohm            = (float)50,
+            float  scale_voltage_10V_mode          = (float)8.5/10, 
+            float  gain_voltage_10V_to_40V_mode    = (float)4, 
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
             int    num_repeat_pulses               = 4   // repeat pulse
         ) {
             // DAC waveform command generation : time, dac0, dac1

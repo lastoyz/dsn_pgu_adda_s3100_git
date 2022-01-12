@@ -50,18 +50,18 @@ namespace __test__
         public static int _test_case__ID  = (int)__enum_TEST_CASE.__PGU;
         //
         // DAC setup
-        public static double time_ns__dac_update            = 10; // 5ns, 200MHz dac update // or 10ns
+        public static float  time_ns__dac_update            = (float)10; // 5ns, 200MHz dac update // or 10ns
         public static int    time_ns__code_duration         = 10; // 5 or 10
-        public static double load_impedance_ohm             = 1e6;
-        public static double output_impedance_ohm           = 50;
-        public static double scale_voltage_10V_mode         = 0.85; // 0.765
-        public static double gain_voltage_10V_to_40V_mode   = 4;
-        public static double out_scale                      = 1.0;
-        public static double out_offset_V                   = 0.0;
+        public static float  load_impedance_ohm             = (float)1e6;
+        public static float  output_impedance_ohm           = 50;
+        public static float  scale_voltage_10V_mode         = (float)0.85; // 0.765
+        public static float  gain_voltage_10V_to_40V_mode   = 4;
+        public static float  out_scale                      = (float)1.0;
+        public static float  out_offset_V                   = (float)0.0;
         public static int    output_range_V                 = 10; // 10 or 40  
         // DAC ic setup
-        public static double DAC_full_scale_current__mA_1   = 25.1054002495;       //$$ 25.1054002495 with 24.5 and 25.5 trials
-        public static double DAC_full_scale_current__mA_2   = 25.087883648 ;       //$$ 25.087883648 with 24.5 and 25.5 trials
+        public static float DAC_full_scale_current__mA_1   = (float)25.1054002495;       //$$ 25.1054002495 with 24.5 and 25.5 trials
+        public static float DAC_full_scale_current__mA_2   = (float)25.087883648 ;       //$$ 25.087883648 with 24.5 and 25.5 trials
         public static float DAC_offset_current__mA_1        = (float)0.4477666496; // 0~2mA //$$ 0.4477666496 with 0 and 1 trials
         public static float DAC_offset_current__mA_2        = (float)0.80689406068; // 0~2mA //$$ 0.80689406068 with 0 and 1 trials
         public static s32   N_pol_sel_1                     = 0;           // 
@@ -463,6 +463,17 @@ namespace __test__
                 0x44
             );
             */
+
+            // test hex converter
+            //SYS_HWordToHex(u16 hWord, u8[] pData)
+            Console.WriteLine(">>>>>> test: SYS_HWordToHex ... ");
+            u16 hWord = 4;
+            u8[] pData = new u8[2];
+            dev.SYS_HWordToHex(hWord, pData);
+            Console.WriteLine("> hWord    = " + hWord.ToString());
+            Console.WriteLine("> pData[0] = 0x" + pData[0].ToString("X2"));
+            Console.WriteLine("> pData[1] = 0x" + pData[1].ToString("X2"));
+
 
             Console.WriteLine(">>>>>> test: hvpgu io ");
 
