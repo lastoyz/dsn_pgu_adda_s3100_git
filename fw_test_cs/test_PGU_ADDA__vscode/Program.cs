@@ -269,7 +269,7 @@ namespace __test__
 
         //}
 
-        //public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
+        public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
@@ -282,7 +282,7 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.53"; // S3100-CMU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        public static string test_host_ip = "192.168.100.143"; // S3100-CPU-BASE test port
+        //public static string test_host_ip = "192.168.100.143"; // S3100-CPU-BASE test port
 
         //// S3100 frame test slot selection:
         // loc_slot bit 0  = slot location 0
