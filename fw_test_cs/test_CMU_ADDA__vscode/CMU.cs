@@ -58,8 +58,7 @@ namespace TopInstrument{
         //
     }
     
-
-    interface I_ADDA 
+    interface I_ADDA : I_adc 
     {
         //
         //// adda functions:
@@ -71,11 +70,11 @@ namespace TopInstrument{
             s32 len_adc_data = 600, 
             u32 adc_sampling_period_count = 21,
             u32 adc_base_freq_MHz = 210,
-            double time_ns__dac_update = 5,
-            double DAC_full_scale_current__mA_1 = 25.47      , 
-            double DAC_full_scale_current__mA_2 = 25.47      , 
-            float DAC_offset_current__mA_1      = (float)0.61, 
-            float DAC_offset_current__mA_2      = (float)0.61, 
+            float time_ns__dac_update = 5,
+            float DAC_full_scale_current__mA_1  = (float)25.5, 
+            float DAC_full_scale_current__mA_2  = (float)25.5, 
+            float DAC_offset_current__mA_1      = (float)0.60, 
+            float DAC_offset_current__mA_2      = (float)0.60, 
             int N_pol_sel_1                     = 0          , 
             int N_pol_sel_2                     = 0          , 
             int Sink_sel_1                      = 0          , 
@@ -87,12 +86,12 @@ namespace TopInstrument{
             long[] StepTime_ns, double[] StepLevel_V, 
             int    output_range                    = 10,
             int    time_ns__code_duration          = 5,
-            double load_impedance_ohm              = 1e6,                       
-            double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 8.5/10, // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 4,
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
+            float  load_impedance_ohm              = (float)1e6,                       
+            float  output_impedance_ohm            = (float)50,                        
+            float  scale_voltage_10V_mode          = (float)8.5/10, // 7.650/10        
+            float  gain_voltage_10V_to_40V_mode    = (float)4,
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
             int num_repeat_pulses                  = 4   // repeat pulse
         );
         // adda_setup_cmu_waveform()
@@ -106,12 +105,12 @@ namespace TopInstrument{
             //
             int    output_range                    = 10,
             int    time_ns__code_duration          = 5,
-            double load_impedance_ohm              = 1e6,                       
-            double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 8.5/10, // 7.650/10        
-            double gain_voltage_10V_to_40V_mode    = 4,
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
+            float  load_impedance_ohm              = (float)1e6,                       
+            float  output_impedance_ohm            = (float)50,                        
+            float  scale_voltage_10V_mode          = (float)8.5/10, // 7.650/10        
+            float  gain_voltage_10V_to_40V_mode    = (float)4,
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
             int num_repeat_pulses                  = 4   // repeat pulse
         );
 
@@ -150,7 +149,10 @@ namespace TopInstrument{
     interface I_spio {} // SPIO IC control
     interface I_clkd {} // clock IC control
     interface I_dac {} // DAC IC control
-    interface I_adc {} // ADC IC control
+    interface I_adc  // ADC IC control
+    {
+        float adc_data_conv_s32_to_float(s32 val_s32);
+    }
     interface I_dft {} // DFT calculation
     interface I_dacz {} // DAC pattern generation
     interface I_printf {} // for FW style printf
@@ -847,9 +849,9 @@ namespace TopInstrument{
             s32 len_adc_data = 600, 
             u32 adc_sampling_period_count = 21,
             u32 adc_base_freq_MHz = 210,
-            double time_ns__dac_update = 5,
-            double DAC_full_scale_current__mA_1 = 25.47      , 
-            double DAC_full_scale_current__mA_2 = 25.47      , 
+            float time_ns__dac_update = 5,
+            float DAC_full_scale_current__mA_1  = (float)25.47      , 
+            float DAC_full_scale_current__mA_2  = (float)25.47      , 
             float DAC_offset_current__mA_1      = (float)0.61, 
             float DAC_offset_current__mA_2      = (float)0.61, 
             int N_pol_sel_1                     = 0          , 
@@ -885,12 +887,12 @@ namespace TopInstrument{
             //
             int    output_range                    = 10,
             int    time_ns__code_duration          = 10,
-            double load_impedance_ohm              = 1e6,                       
-            double output_impedance_ohm            = 50,                        
-            double scale_voltage_10V_mode          = 8.5/10, 
-            double gain_voltage_10V_to_40V_mode    = 4, 
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
+            float  load_impedance_ohm              = (float)1e6,                       
+            float  output_impedance_ohm            = (float)50,                        
+            float  scale_voltage_10V_mode          = (float)8.5/10, 
+            float  gain_voltage_10V_to_40V_mode    = (float)4, 
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
             int num_repeat_pulses                  = 4   // repeat pulse
         ) {
             // DAC waveform command generation : time, dac0, dac1
@@ -943,12 +945,12 @@ namespace TopInstrument{
             // 
             int    output_range                    = 10,
             int    time_ns__code_duration          = 10,
-            double load_impedance_ohm              = 1e6,
-            double output_impedance_ohm            = 50,
-            double scale_voltage_10V_mode          = 8.5/10, 
-            double gain_voltage_10V_to_40V_mode    = 4, 
-            double out_scale                       = 1.0,
-            double out_offset                      = 0.0,
+            float  load_impedance_ohm              = (float)1e6,
+            float  output_impedance_ohm            = (float)50,
+            float  scale_voltage_10V_mode          = (float)8.5/10, 
+            float  gain_voltage_10V_to_40V_mode    = (float)4, 
+            float  out_scale                       = (float)1.0,
+            float  out_offset                      = (float)0.0,
             int    num_repeat_pulses               = 4   // repeat pulse
         ) {
             // DAC waveform command generation : time, dac0, dac1
@@ -2170,8 +2172,8 @@ namespace TopInstrument{
                 buf1_s32_str     = buf1_s32_str + string.Format("{0,11:D}, ",buf1_s32[i]);
                 buf0_s32_hex_str = buf0_s32_hex_str + string.Format(" '{0,8:X8}', ",buf0_s32[i]);
                 buf1_s32_hex_str = buf1_s32_hex_str + string.Format(" '{0,8:X8}', ",buf1_s32[i]);
-                buf0_flt_str     = buf0_flt_str + string.Format("{0,11:F8}, ",(float)buf0_s32[i]*adc_scale);
-                buf1_flt_str     = buf1_flt_str + string.Format("{0,11:F8}, ",(float)buf1_s32[i]*adc_scale);
+                buf0_flt_str     = buf0_flt_str + string.Format("{0,11:F8}, ",adc_data_conv_s32_to_float(buf0_s32[i]));
+                buf1_flt_str     = buf1_flt_str + string.Format("{0,11:F8}, ",adc_data_conv_s32_to_float(buf1_s32[i]));
             }
             // write data string on the file
             using (StreamWriter ws = new StreamWriter(LogFileName, true)) { //$$ true for append
@@ -2190,6 +2192,14 @@ namespace TopInstrument{
             }
         }
         //
+        public float adc_data_conv_s32_to_float(s32 val_s32)
+        {
+            //
+            // note adc full scale : +/-4.096V with 2^31-1 ~ -2^31
+            float FS_VAL = (float)4.096;
+            float val_scale = FS_VAL / ((float)Math.Pow(2,31)-(float)1.0);
+            return (float)val_s32*val_scale;
+        }
     }
     
     public partial class CMU : I_dacz 

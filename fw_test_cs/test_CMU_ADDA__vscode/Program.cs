@@ -1,6 +1,6 @@
 using System;
-//using System.Collections.Generic;
-//using System.Linq;
+using System.Collections.Generic;
+using System.Linq;
 //using System.Text.RegularExpressions;
 
 
@@ -50,20 +50,20 @@ namespace __test__
         public static int _test_case__ID  = (int)__enum_TEST_CASE.__PGU;
         //
         // DAC setup
-        public static double time_ns__dac_update            = 10; // 5ns, 200MHz dac update // or 10ns
+        public static float  time_ns__dac_update            = (float)10; // 5ns, 200MHz dac update // or 10ns
         public static int    time_ns__code_duration         = 10; // 5 or 10
-        public static double load_impedance_ohm             = 1e6;
-        public static double output_impedance_ohm           = 50;
-        public static double scale_voltage_10V_mode         = 0.85; // 0.765
-        public static double gain_voltage_10V_to_40V_mode   = 4;
-        public static double out_scale                      = 1.0;
-        public static double out_offset_V                   = 0.0;
+        public static float  load_impedance_ohm             = (float)1e6;
+        public static float  output_impedance_ohm           = 50;
+        public static float  scale_voltage_10V_mode         = (float)0.85; // 0.765
+        public static float  gain_voltage_10V_to_40V_mode   = 4;
+        public static float  out_scale                      = (float)1.0;
+        public static float  out_offset_V                   = (float)0.0;
         public static int    output_range_V                 = 10; // 10 or 40  
         // DAC ic setup
-        public static double DAC_full_scale_current__mA_1   = 25.50;       // 
-        public static double DAC_full_scale_current__mA_2   = 25.50;       // 
-        public static float DAC_offset_current__mA_1        = (float)0.00; // 0~2mA
-        public static float DAC_offset_current__mA_2        = (float)0.00; // 0~2mA
+        public static float DAC_full_scale_current__mA_1   = (float)25.1054002495;       //$$ 25.1054002495 with 24.5 and 25.5 trials
+        public static float DAC_full_scale_current__mA_2   = (float)25.087883648 ;       //$$ 25.087883648 with 24.5 and 25.5 trials
+        public static float DAC_offset_current__mA_1        = (float)0.4477666496; // 0~2mA //$$ 0.4477666496 with 0 and 1 trials
+        public static float DAC_offset_current__mA_2        = (float)0.80689406068; // 0~2mA //$$ 0.80689406068 with 0 and 1 trials
         public static s32   N_pol_sel_1                     = 0;           // 
         public static s32   N_pol_sel_2                     = 0;           // 
         public static s32   Sink_sel_1                      = 0;           // 
@@ -120,18 +120,18 @@ namespace __test__
         public static int _test_case__ID  = (int)__enum_TEST_CASE.__CMU_NORMAL_SAMPLE;
         //
         // DAC setup
-        public static double time_ns__dac_update            = 10; // 5ns, 200MHz dac update // or 10ns
-        public static int    time_ns__code_duration         = 10; // 5 or 10
-        public static double load_impedance_ohm             = 1e6;
-        public static double output_impedance_ohm           = 50;
-        public static double scale_voltage_10V_mode         = 0.85; // 0.765
-        public static double gain_voltage_10V_to_40V_mode   = 4;
-        public static double out_scale                      = 1.0;
-        public static double out_offset_V                   = 0.0;
+        public static float time_ns__dac_update            = (float)10; // 5ns, 200MHz dac update // or 10ns
+        public static int   time_ns__code_duration         = 10; // 5 or 10
+        public static float load_impedance_ohm             = (float)1e6;
+        public static float output_impedance_ohm           = (float)50;
+        public static float scale_voltage_10V_mode         = (float)0.85; // 0.765
+        public static float gain_voltage_10V_to_40V_mode   = (float)4;
+        public static float out_scale                      = (float)1.0;
+        public static float out_offset_V                   = (float)0.0;
         public static int    output_range_V                 = 10; // 10 or 40  
         // DAC ic setup
-        public static double DAC_full_scale_current__mA_1   = 25.50;       // 
-        public static double DAC_full_scale_current__mA_2   = 25.50;       // 
+        public static float DAC_full_scale_current__mA_1   = (float)25.50;       // 
+        public static float DAC_full_scale_current__mA_2   = (float)25.50;       // 
         public static float DAC_offset_current__mA_1        = (float)0.00; // 0~2mA
         public static float DAC_offset_current__mA_2        = (float)0.00; // 0~2mA
         public static s32   N_pol_sel_1                     = 0;           // 
@@ -192,18 +192,18 @@ namespace __test__
         ////// test conditions for adda
 
         // DAC setup
-        public static double time_ns__dac_update            = 10; // 5ns, 200MHz dac update // or 10ns
+        public static float time_ns__dac_update            = (float)10; // 5ns, 200MHz dac update // or 10ns
         public static int    time_ns__code_duration         = 10; // 5 or 10
-        public static double load_impedance_ohm             = 1e6;
-        public static double output_impedance_ohm           = 50;
-        public static double scale_voltage_10V_mode         = 0.85; // 0.765
-        public static double gain_voltage_10V_to_40V_mode   = 4;
-        public static double out_scale                      = 1.0;
-        public static double out_offset_V                   = 0.0;
+        public static float load_impedance_ohm             = (float)1e6;
+        public static float output_impedance_ohm           = (float)50;
+        public static float scale_voltage_10V_mode         = (float)0.85; // 0.765
+        public static float gain_voltage_10V_to_40V_mode   = (float)4;
+        public static float out_scale                      = (float)1.0;
+        public static float out_offset_V                   = (float)0.0;
         public static int    output_range_V                 = 10; // 10 or 40  
         // DAC ic setup
-        public static double DAC_full_scale_current__mA_1   = 25.50;       // 
-        public static double DAC_full_scale_current__mA_2   = 25.50;       // 
+        public static float DAC_full_scale_current__mA_1   = (float)25.50;       // 
+        public static float DAC_full_scale_current__mA_2   = (float)25.50;       // 
         public static float DAC_offset_current__mA_1        = (float)0.00; // 0~2mA
         public static float DAC_offset_current__mA_2        = (float)0.00; // 0~2mA
         public static s32   N_pol_sel_1                     = 0;           // 
@@ -269,7 +269,7 @@ namespace __test__
 
         //}
 
-        //public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
+        public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
@@ -282,7 +282,7 @@ namespace __test__
         //public static string test_host_ip = "192.168.100.53"; // S3100-CMU_BD3
 
         //public static string test_host_ip = "192.168.168.143"; // test dummy ip
-        public static string test_host_ip = "192.168.100.143"; // S3100-CPU-BASE test port
+        //public static string test_host_ip = "192.168.100.143"; // S3100-CPU-BASE test port
 
         //// S3100 frame test slot selection:
         // loc_slot bit 0  = slot location 0
