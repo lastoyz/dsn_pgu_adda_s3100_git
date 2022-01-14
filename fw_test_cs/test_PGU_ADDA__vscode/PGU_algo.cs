@@ -47,6 +47,7 @@ namespace TopInstrument{
         // flags      ... internal signals
 
         //// parameters for PGU : from PC, but fixed.
+        // dac parameters
         public float  __gui_time_ns__dac_update             = 10; // 2.5, 5, 10
         public int    __gui_time_ns__code_duration          = 10; // 10 100 
         public float  __gui_scale_voltage_10V_mode          = (float)0.85;
@@ -72,15 +73,30 @@ namespace TopInstrument{
 
 
         //// variables for PGU : from GUI
-        // pulse info
-        public float    __gui_cmd_ch1_load_impedance_ohm = (float)1e6; // 1e6, 50 or others
-        public float    __gui_cmd_ch2_load_impedance_ohm = (float)1e6; // 1e6, 50 or others
-        public int      __gui_cmd_ch1_cycle_count        = 1; // 0 for inf
-        public int      __gui_cmd_ch2_cycle_count        = 1; // 0 for inf
-        public long[]   __gui_cmd_ch1_StepTime_ns  = new long[__CONST__.LEN_DAC_DATA_FIFO];
-        public long[]   __gui_cmd_ch2_StepTime_ns  = new long[__CONST__.LEN_DAC_DATA_FIFO]; 
-        public double[] __gui_cmd_ch1_StepLevel_V  = new double[__CONST__.LEN_DAC_DATA_FIFO]; 
-        public double[] __gui_cmd_ch2_StepLevel_V  = new double[__CONST__.LEN_DAC_DATA_FIFO]; 
+        // pulse info for dac
+        public float    __gui_cmd_pulse_ch1_load_impedance_ohm = (float)1e6; // 1e6, 50 or others
+        public float    __gui_cmd_pulse_ch2_load_impedance_ohm = (float)1e6; // 1e6, 50 or others
+        public int      __gui_cmd_pulse_ch1_cycle_count        = 1; // 0 for inf
+        public int      __gui_cmd_pulse_ch2_cycle_count        = 1; // 0 for inf
+        public long[]   __gui_cmd_pulse_ch1_StepTime_ns  = new long[__CONST__.LEN_DAC_DATA_FIFO];
+        public long[]   __gui_cmd_pulse_ch2_StepTime_ns  = new long[__CONST__.LEN_DAC_DATA_FIFO]; 
+        public double[] __gui_cmd_pulse_ch1_StepLevel_V  = new double[__CONST__.LEN_DAC_DATA_FIFO]; 
+        public double[] __gui_cmd_pulse_ch2_StepLevel_V  = new double[__CONST__.LEN_DAC_DATA_FIFO]; 
+        // wave info for dac
+        public double   __gui_cmd_wave_freq_kHz           = 500;
+        public int      __gui_cmd_wave_len_dac_points     = 200;
+        public double   __gui_cmd_wave_amplitude          = 1.0;
+        public double   __gui_cmd_wave_phase_diff         = -Math.PI/2;   //$$ emulate capacitor   load in IV balanced circuit
+        public int      __gui_cmd_wave_num_repeat_cycle   = 1500; 
+        // info for adc
+        public uint     __gui_adc_base_freq_MHz           = 210  ; // MHz // 210MHz vs 189MHz
+        public uint     __gui_adc_sampling_period_count   = 21   ; // 210MHz/21   =  10 Msps // 100ns
+        // info for dft
+        public int      __gui_dft_mode_undersampling        =  0 ; // 0 for normal sampling, 1 for undersampling
+        public int      __gui_dft_len_block_coef            = 20 ; // (1 / (500 kHz)) * (10 MHz) = 20 // for normal sampling
+        public int      __gui_dft_num_repeat_block_coef     =  3 ; //
+        public int      __gui_dft_num_remove_first_adc_data =  5 ; //
+
 
         // cal_data from EEPROM
         public int   __gui_use_caldata    = 1; // 1 to use calibration data.

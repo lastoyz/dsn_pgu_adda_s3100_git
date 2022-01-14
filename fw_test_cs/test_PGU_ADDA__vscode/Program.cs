@@ -269,11 +269,11 @@ namespace __test__
 
         //}
 
-        public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
+        //public static string test_host_ip = "192.168.100.77"; // S3100-CPU_BD1
         //public static string test_host_ip = "192.168.100.78"; // S3100-CPU_BD2
         //public static string test_host_ip = "192.168.100.79"; // S3100-CPU_BD3
 
-        //public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
+        public static string test_host_ip = "192.168.100.61"; // S3100-PGU_BD1
         //public static string test_host_ip = "192.168.100.62"; // S3100-PGU_BD2
         //public static string test_host_ip = "192.168.100.63"; // S3100-PGU_BD3
 
@@ -474,7 +474,7 @@ namespace __test__
             Console.WriteLine("> pData[0] = 0x" + pData[0].ToString("X2"));
             Console.WriteLine("> pData[1] = 0x" + pData[1].ToString("X2"));
 
-
+            /*
             Console.WriteLine(">>>>>> test: hvpgu io ");
 
             // test hvpgu functions :
@@ -500,7 +500,7 @@ namespace __test__
             //Console.WriteLine(">>> reset HVPGU IO; read HVPGU status");
             //dev_itfc_dut.hvpgu_standby(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
             //dev_itfc_dut.hvpgu_read_inp__printout(slot_sel_code__hvpgu, spi_chnl_code__hvpgu);
-
+            */
 
             // test adda functions :
             //   test spio, clkd, dac, adc, dft
